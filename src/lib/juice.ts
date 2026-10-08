@@ -4,8 +4,15 @@ import confetti from "canvas-confetti";
 
 const COLOURS = ["#4f8ef7", "#e9559a", "#25b47e", "#ff9636", "#f5b301", "#8b5cf6"];
 
+// The store says whether the active child asked for calm motion. Injected, like the sound check,
+// so this module never imports the store.
+let calmOn: () => boolean = () => false;
+export function setCalmCheck(check: () => boolean) {
+  calmOn = check;
+}
+
 export function prefersReducedMotion(): boolean {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return typeof window !== "undefined" && (calmOn() || window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 }
 
 function centreOf(el: Element): { x: number; y: number } {
@@ -15,7 +22,7 @@ function centreOf(el: Element): { x: number; y: number } {
 
 /** Stars burst out of an element (a correct answer, a coin, a filled basket). */
 export function burstFrom(el: Element | null, count = 26) {
-  if (!el) return;
+  if (!el || prefersReducedMotion()) return;
   const { x, y } = centreOf(el);
   confetti({
     colors: COLOURS,
@@ -59,6 +66,7 @@ export function replay(el: Element | null, className: string) {
 
 /** A big two-sided celebration for finishing a unit. Pass emoji for a themed style. */
 export function celebrate(emoji: string[] = []) {
+  if (prefersReducedMotion()) return;
   const shapes = emoji.length ? emoji.map((text) => confetti.shapeFromText({ text, scalar: 2 })) : undefined;
   const base = { colors: COLOURS, disableForReducedMotion: true, zIndex: 60, ticks: 240, ...(shapes ? { shapes, scalar: 2 } : {}) };
   confetti({ ...base, particleCount: shapes ? 40 : 90, spread: 70, angle: 60, origin: { x: 0, y: 0.75 }, startVelocity: 58 });

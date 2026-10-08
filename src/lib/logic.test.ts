@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { allUnitRefs, loadGrade } from "@/content";
+import { makePlan } from "@/components/play/plans";
 import { pickNext } from "./adaptive";
 import { derive, xpForLevel } from "./derive";
-import { dayKey, type AppEvent } from "./model";
+import { dayKey, defaultChildSettings, type AppEvent } from "./model";
 import { unitLevel } from "./proficiency";
 import { dailyQuests } from "./quests";
 import { newlyEarned, TROPHIES } from "./trophies";
@@ -141,5 +142,20 @@ describe("quests", () => {
     const a = dailyQuests("p1", day, "middle").map((q) => q.id);
     expect(dailyQuests("p1", day, "middle").map((q) => q.id)).toEqual(a);
     expect(a).toHaveLength(3);
+  });
+});
+
+describe("calm and focus options", () => {
+  it("are all off by default", () => {
+    const s = defaultChildSettings("p", false);
+    for (const key of ["calmMotion", "quietSounds", "hideTimers", "quietToasts", "shortSessions"] as const) expect(Boolean(s[key])).toBe(false);
+  });
+
+  it("shorter sessions use five questions in Review and a five-question checkpoint in Adventure", () => {
+    const base = { scope: "mix", grade: "2" as const, band: "middle" as const, profileId: "p", subjects: ["math" as const], derived: derive([]), allowed: () => true };
+    expect(makePlan({ ...base, mode: "review" })?.total).toBe(10);
+    expect(makePlan({ ...base, mode: "review", short: true })?.total).toBe(5);
+    expect(makePlan({ ...base, mode: "adventure" })?.checkpoint).toBe(10);
+    expect(makePlan({ ...base, mode: "adventure", short: true })?.checkpoint).toBe(5);
   });
 });

@@ -19,7 +19,8 @@ import {
 import { TRIAL_DAYS } from "./plan";
 import { dailyQuests } from "./quests";
 import { getItem, STARTER } from "./shop";
-import { setSoundCheck } from "./sound";
+import { setCalmCheck } from "./juice";
+import { setQuietCheck, setSoundCheck } from "./sound";
 import { getTrophy, newlyEarned, TIER_STYLE } from "./trophies";
 
 export interface Toast {
@@ -382,8 +383,17 @@ export function useTrophyName(id: string): string {
   return getTrophy(id)?.name ?? id;
 }
 
-setSoundCheck(() => {
+function activeSettings(): ChildSettings | undefined {
   const s = useStore.getState();
-  const child = s.activeId ? s.settings[s.activeId] : undefined;
-  return !child || child.sound;
-});
+  return s.activeId ? s.settings[s.activeId] : undefined;
+}
+setSoundCheck(() => activeSettings()?.sound ?? true);
+setQuietCheck(() => Boolean(activeSettings()?.quietSounds));
+setCalmCheck(() => Boolean(activeSettings()?.calmMotion));
+
+// A "calm" class on the page stops CSS animations too (see globals.css).
+if (typeof document !== "undefined") {
+  const apply = () => document.documentElement.classList.toggle("calm", Boolean(activeSettings()?.calmMotion));
+  useStore.subscribe(apply);
+  apply();
+}

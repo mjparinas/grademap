@@ -211,8 +211,14 @@ async function deepChecks(device, browser, descriptor, page) {
   const freePlay = page.getByRole("switch", { name: /Free play/ }).first();
   await freePlay.click();
   await page.waitForFunction((el) => el?.getAttribute("aria-checked") === "true", await freePlay.elementHandle());
-  await page.waitForTimeout(600); // let the setting reach IndexedDB before leaving the page
+  await page.getByRole("switch", { name: /Calm motion/ }).click();
+  await page.getByRole("switch", { name: /Hide timers/ }).click();
+  await page.waitForTimeout(600); // let the settings reach IndexedDB before leaving the page
   await page.goto(`${BASE}/play/#/arcade/ninja`);
+  const calmClass = await page
+    .waitForFunction(() => document.documentElement.classList.contains("calm"), undefined, { timeout: 5000 })
+    .then(() => true, () => false);
+  record(device, "calm motion: page gets the calm class", calmClass);
   await page.getByRole("button", { name: /Play!/ }).click();
   const board = page.getByTestId("game-board");
   await board.waitFor();

@@ -85,6 +85,7 @@ export function Session({ mode, scope }: { mode: Mode; scope: string }) {
       subjects: settings?.enabledSubjects ?? ["math", "language", "science", "social"],
       derived: derivedNow,
       allowed,
+      short: settings?.shortSessions,
     }),
   );
   if (!plan) {
@@ -146,7 +147,7 @@ function Runner({ plan }: { plan: Plan }) {
   useEffect(() => {
     if (remaining === undefined || done) return;
     const whole = Math.ceil(remaining);
-    if (whole <= 5 && whole > 0 && whole !== lastTick.current) {
+    if (whole <= 5 && whole > 0 && whole !== lastTick.current && !settings?.hideTimers) {
       lastTick.current = whole;
       sounds.tick();
     }
@@ -332,8 +333,9 @@ function Runner({ plan }: { plan: Plan }) {
 
   const progressValue = plan.total ? index + (answered ? 1 : 0) : plan.checkpoint ? (index % plan.checkpoint) + (answered ? 1 : 0) : 0;
   const progressMax = plan.total ?? plan.checkpoint ?? 1;
-  const timerText = remaining !== undefined ? formatTime(remaining) : settings?.showTimer ? formatTime(elapsed) : null;
-  const urgent = remaining !== undefined && remaining <= 10;
+  const hideTimers = Boolean(settings?.hideTimers);
+  const timerText = hideTimers ? null : remaining !== undefined ? formatTime(remaining) : settings?.showTimer ? formatTime(elapsed) : null;
+  const urgent = !hideTimers && remaining !== undefined && remaining <= 10;
 
   return (
     <Page className={flash === "good" ? "animate-flash-good" : flash === "bad" ? "animate-flash-bad" : ""}>
@@ -348,7 +350,10 @@ function Runner({ plan }: { plan: Plan }) {
         ) : (
           <ProgressBar value={progressValue} max={progressMax} className="flex-1" />
         )}
-        {run >= 2 && (
+        {hideTimers && plan.timeLimit && remaining !== undefined && (
+          <ProgressBar value={Math.max(0, remaining)} max={plan.timeLimit} className="w-16 shrink-0 sm:w-28" />
+        )}
+        {run >= 2 && !hideTimers && (
           <span className="flex h-14 min-w-14 items-center justify-center rounded-2xl bg-nudge-soft px-2 text-xl font-bold text-nudge-dark" aria-label={`${run} in a row`}>
             🔥{run}
           </span>

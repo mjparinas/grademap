@@ -57,6 +57,8 @@ export interface PlanInput {
   subjects: SubjectId[];
   derived: Derived;
   allowed: (ref: UnitRef) => boolean;
+  /** Five questions at a time in Adventure and Review. */
+  short?: boolean;
 }
 
 export function makePlan(input: PlanInput): Plan | null {
@@ -150,10 +152,10 @@ export function makePlan(input: PlanInput): Plan | null {
     scope: "mix",
     title: review ? "Review" : "Adventure",
     icon: review ? "🔍" : "🗺️",
-    total: review ? 10 : undefined,
+    total: review ? (input.short ? 5 : 10) : undefined,
     retries: true,
     feedback: "bar",
-    checkpoint: review ? undefined : 10,
+    checkpoint: review ? undefined : input.short ? 5 : 10,
     next: ({ recent, derived: d }) => {
       const p = pickNext(pickOpts(review ? "review" : "adventure", recent, d));
       if (!p) return undefined;

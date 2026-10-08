@@ -36,6 +36,17 @@ export interface ChildSettings {
   /** Games are always unlocked (no learning needed). */
   freePlay: boolean;
   showTimer: boolean;
+  /** Focus options for children who find lots of motion, noise or pressure hard. All default to off. */
+  /** Turn off bursts, confetti, floating text and screen shakes, whatever the device setting is. */
+  calmMotion?: boolean;
+  /** Keep only gentle sounds: no fanfares, chimes or countdown ticks. */
+  quietSounds?: boolean;
+  /** Hide clocks and countdown numbers; timed modes show a quiet bar instead. */
+  hideTimers?: boolean;
+  /** Hold trophy and level pop-ups until the lesson is over. */
+  quietToasts?: boolean;
+  /** Five questions at a time (Adventure checkpoints and Review). */
+  shortSessions?: boolean;
   autoRead: boolean;
   sound: boolean;
   enabledSubjects: SubjectId[];

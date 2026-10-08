@@ -169,6 +169,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Children: up to 4; a birth year suggests a grade; a curriculum can be picked per child.
   - Settings per child.
   - Account & sync, Subscription, and Privacy (JSON export, erase device, delete account).
+- **Calm and focus options** (per child, all off by default, in Settings): calm motion, quiet sounds, hide timers, hold trophy pop-ups until after the lesson, and shorter sessions (5 questions). They change presentation only; scoring is unchanged. They exist for children who find motion, noise or time pressure hard, including many with ADHD. Never make health claims about them.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 
 ### Privacy

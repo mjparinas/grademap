@@ -278,6 +278,7 @@
   animation: float-up 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
 }
 
+/* The same rules apply when a parent turns on calm motion for a child. */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -287,4 +288,13 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+html.calm *,
+html.calm ::before,
+html.calm ::after {
+  animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }
