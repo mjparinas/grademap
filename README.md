@@ -146,6 +146,10 @@ src/
 
 The installable web app already works offline. For Google Play, wrap it as a Trusted Web Activity ([Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap)) pointing at `/play/`, or use [Capacitor](https://capacitorjs.com/) for native features. Before submitting, check the Play Families policy and the Apple Kids Category requirements.
 
+## Research
+
+The market research behind the product decisions (market size, competitors, monetization and what parents want) is in [`docs/research/`](docs/research/), starting with the [summary report](docs/research/market-report.md).
+
 ## Content notes
 
 - The content was written to the BC curriculum's learning standards and Big Ideas for each grade. **Have BC teachers review it before launch.**

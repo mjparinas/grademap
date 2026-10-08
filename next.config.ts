@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   serverExternalPackages: ["@libsql/client", "libsql"],
   turbopack: {
-    // This app lives in a subfolder of the repo, next to another app's lockfile.
+    // Pin the project root so Turbopack never picks up a lockfile from a parent folder.
     root: path.join(__dirname),
     rules: {
       "*.css": {
