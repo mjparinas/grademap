@@ -296,6 +296,3 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
   - Several Big Ideas statements were written from memory; check them against curriculum.gov.bc.ca.
   - Check history dates in the Grade 4–5 social studies units.
 - **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices) need a run with WebKit installed, plus a check on a real iPhone or iPad. The device tests here ran iOS profiles in Chromium.
-- **Visuals:**
-  - The `pictograph` visual always shows "each picture = 1". Content works around it with tables.
-  - The `passage` visual has no stanza breaks; poems use a blank paragraph instead.

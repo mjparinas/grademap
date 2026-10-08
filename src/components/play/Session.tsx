@@ -33,7 +33,7 @@ const NUDGE = ["Almost! Try again.", "So close! Have another go.", "Good try! Lo
 export function readAloudText(q: Question): string {
   const parts: string[] = [];
   if (q.visual?.type === "story") parts.push(q.visual.lines.join(" "));
-  if (q.visual?.type === "passage") parts.push([q.visual.title, ...q.visual.paragraphs].filter(Boolean).join(". "));
+  if (q.visual?.type === "passage") parts.push([q.visual.title, ...q.visual.paragraphs].filter(Boolean).join(". ").replace(/\n/g, " "));
   parts.push(q.speak ?? q.prompt);
   if (q.kind === "choice") {
     const said = q.choices.map((c) => c.speak ?? c.label).filter((s) => s !== "");

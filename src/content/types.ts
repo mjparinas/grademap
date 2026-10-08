@@ -42,7 +42,14 @@ export type Visual =
   /** Coins and bills, in cents (5, 10, 25, 100, 200, 500, 1000, 2000, 5000). */
   | { type: "coins"; coins: number[] }
   | { type: "ruler"; length: number; emoji: string }
-  | { type: "pictograph"; title: string; rows: { label: string; emoji: string; count: number }[] }
+  | {
+      type: "pictograph";
+      title: string;
+      /** `count` is the number of pictures drawn. */
+      rows: { label: string; emoji: string; count: number }[];
+      /** How many each picture stands for. Defaults to 1. */
+      each?: number;
+    }
   | { type: "bars"; title: string; bars: { label: string; value: number; emoji?: string }[] }
   | { type: "table"; title?: string; headers: string[]; rows: (string | number)[][] }
   | { type: "shape"; shape: ShapeName }
@@ -50,7 +57,10 @@ export type Visual =
   | { type: "towers"; heights: number[]; showBlank?: boolean }
   /** A short story, one line per sentence. */
   | { type: "story"; lines: string[] }
-  /** A longer reading passage with an optional title. */
+  /**
+   * A longer reading passage with an optional title. In a poem, put a line break (`\n`) between lines of a
+   * stanza and use an empty string between stanzas.
+   */
   | { type: "passage"; title?: string; paragraphs: string[] }
   | { type: "tenFrame"; filled: number; extra?: number }
   /** An analog clock. */

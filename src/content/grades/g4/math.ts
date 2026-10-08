@@ -3059,13 +3059,13 @@ function pictographCount(): Question {
   );
 }
 
-/** A pictograph where each picture stands for `key` votes, drawn as a table. */
+/** A pictograph where each picture stands for `key` votes. */
 function keyedPictograph(g: { title: string; rows: DataRow[] }, key: number): Visual {
   return {
-    type: "table",
-    title: `${g.title} (each picture = ${key} votes)`,
-    headers: ["Choice", "Votes"],
-    rows: g.rows.map((r) => [r.label, r.emoji.repeat(r.value / key)]),
+    type: "pictograph",
+    title: g.title,
+    each: key,
+    rows: g.rows.map((r) => ({ label: r.label, emoji: r.emoji, count: r.value / key })),
   };
 }
 

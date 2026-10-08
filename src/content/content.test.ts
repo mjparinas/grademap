@@ -67,8 +67,12 @@ function checkVisual(v: Visual) {
       }
       break;
     case "bars":
+      expect(v.bars.length).toBeGreaterThanOrEqual(2);
+      break;
     case "pictograph":
-      expect(("bars" in v ? v.bars : v.rows).length).toBeGreaterThanOrEqual(2);
+      expect(v.rows.length).toBeGreaterThanOrEqual(2);
+      if (v.each !== undefined) expect(Number.isInteger(v.each) && v.each >= 1).toBe(true);
+      for (const r of v.rows) expect(r.count).toBeLessThanOrEqual(20);
       break;
     case "angle":
       expect(v.degrees).toBeGreaterThan(0);
