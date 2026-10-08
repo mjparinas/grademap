@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { COIN_NAMES } from "@/lib/content/math";
+import { COIN_NAMES, formatMoney } from "@/content/money";
 import { replay } from "@/lib/juice";
 import { sounds } from "@/lib/sound";
-import type { CoinsQuestion as Q } from "@/lib/types";
+import type { CoinsQuestion as Q } from "@/content/types";
 import { Coin } from "../visuals";
 import { isLocked, type QuestionProps } from "./types";
 
@@ -67,7 +67,7 @@ export function CoinsQuestion({ q, status, onAttempt }: QuestionProps<Q>) {
         <p className="text-2xl font-semibold text-ink-soft">
           You have{" "}
           <span key={total} className="inline-block animate-pop-in text-4xl font-bold text-ink">
-            {total}¢
+            {formatMoney(total)}
           </span>
           {shown.length > 0 && !locked && <span className="ml-2 text-base">(tap a coin to take it out)</span>}
         </p>

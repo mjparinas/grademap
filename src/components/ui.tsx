@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import type { Subject } from "@/lib/types";
-import { Mascot } from "./Mascot";
+import type { SubjectMeta } from "@/content/subjects";
+import { Critter } from "./Critter";
 
-export function subjectVars(subject: Pick<Subject, "colour" | "colourDark" | "colourSoft">): CSSProperties {
+export function subjectVars(subject: Pick<SubjectMeta, "colour" | "colourDark" | "colourSoft">): CSSProperties {
   return {
     "--c": subject.colour,
     "--c-dark": subject.colourDark,
@@ -119,7 +119,7 @@ export function BackgroundDecor() {
 export function LoadingScreen() {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-4">
-      <Mascot mood="happy" size={140} />
+      <Critter id="ollie" mood="happy" size={140} />
       <p className="text-xl font-semibold text-ink-soft">Getting ready…</p>
     </main>
   );

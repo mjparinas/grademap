@@ -1,10 +1,36 @@
-// Offline support: pages are network-first (fresh when online, cached when not);
-// Next.js build files have hashed names, so they're safe to serve from cache first.
-const CACHE = "grademap-v1";
+// Offline support.
+// - The kids' app (/play/) and parent area (/parents/) are precached on install,
+//   along with the scripts and styles they load, so they open with no internet.
+// - Pages are network-first: fresh when online, from the cache when not.
+// - Next.js build files have hashed names, so they're served cache-first.
+// - /api/ is never cached: progress is saved in IndexedDB and synced by the app.
+const CACHE = "grademap-v2";
+const SHELLS = ["/play/", "/parents/", "/"];
+const EXTRAS = ["/manifest.webmanifest", "/icon.svg", "/icon-192.png", "/icon-512.png"];
+
+/** Cache a page and every /_next/static file its HTML references. */
+async function precachePage(cache, path) {
+  const res = await fetch(path, { cache: "no-cache" });
+  if (!res.ok) return;
+  const html = await res.clone().text();
+  await cache.put(path, res);
+  const assets = new Set();
+  for (const m of html.matchAll(/(?:src|href)="(\/_next\/static\/[^"]+)"/g)) assets.add(m[1]);
+  await Promise.all(
+    [...assets].map((url) =>
+      caches.match(url).then((hit) => hit || fetch(url).then((r) => (r.ok ? cache.put(url, r) : undefined))).catch(() => undefined),
+    ),
+  );
+}
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(["/"])));
+  event.waitUntil(
+    caches.open(CACHE).then(async (cache) => {
+      for (const path of SHELLS) await precachePage(cache, path).catch(() => undefined);
+      await Promise.all(EXTRAS.map((u) => cache.add(u).catch(() => undefined)));
+    }),
+  );
 });
 
 self.addEventListener("activate", (event) => {
@@ -17,19 +43,29 @@ self.addEventListener("activate", (event) => {
 });
 
 function store(request, response) {
-  if (response.ok) {
+  if (response.ok && response.type === "basic") {
     const copy = response.clone();
     caches.open(CACHE).then((cache) => cache.put(request, copy));
   }
   return response;
 }
 
+function shellFor(pathname) {
+  if (pathname.startsWith("/parents")) return "/parents/";
+  if (pathname.startsWith("/play")) return "/play/";
+  return "/";
+}
+
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/api/")) return;
+  // Client-side navigation data. If it fails offline, Next falls back to a full
+  // page load, which the navigation branch below serves from the cache.
+  if (request.headers.get("RSC") || url.searchParams.has("_rsc")) return;
 
-  if (url.pathname.startsWith("/_next/static/")) {
+  if (url.pathname.startsWith("/_next/static/") || /\.(png|svg|ico|webmanifest|woff2?)$/.test(url.pathname)) {
     event.respondWith(caches.match(request).then((hit) => hit || fetch(request).then((res) => store(request, res))));
     return;
   }
@@ -37,6 +73,11 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(request)
       .then((res) => store(request, res))
-      .catch(() => caches.match(request).then((hit) => hit || caches.match("/"))),
+      .catch(() =>
+        caches
+          .match(request, { ignoreSearch: request.mode === "navigate" })
+          .then((hit) => hit || (request.mode === "navigate" ? caches.match(shellFor(url.pathname)) : undefined))
+          .then((hit) => hit || Response.error()),
+      ),
   );
 });

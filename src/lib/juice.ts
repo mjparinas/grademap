@@ -57,12 +57,19 @@ export function replay(el: Element | null, className: string) {
   el.addEventListener("animationend", () => el.classList.remove(className), { once: true });
 }
 
-/** A big two-sided celebration for finishing a unit. */
-export function celebrate() {
-  const base = { colors: COLOURS, disableForReducedMotion: true, zIndex: 60, ticks: 240 };
-  confetti({ ...base, particleCount: 90, spread: 70, angle: 60, origin: { x: 0, y: 0.75 }, startVelocity: 58 });
-  confetti({ ...base, particleCount: 90, spread: 70, angle: 120, origin: { x: 1, y: 0.75 }, startVelocity: 58 });
+/** A big two-sided celebration for finishing a unit. Pass emoji for a themed style. */
+export function celebrate(emoji: string[] = []) {
+  const shapes = emoji.length ? emoji.map((text) => confetti.shapeFromText({ text, scalar: 2 })) : undefined;
+  const base = { colors: COLOURS, disableForReducedMotion: true, zIndex: 60, ticks: 240, ...(shapes ? { shapes, scalar: 2 } : {}) };
+  confetti({ ...base, particleCount: shapes ? 40 : 90, spread: 70, angle: 60, origin: { x: 0, y: 0.75 }, startVelocity: 58 });
+  confetti({ ...base, particleCount: shapes ? 40 : 90, spread: 70, angle: 120, origin: { x: 1, y: 0.75 }, startVelocity: 58 });
   setTimeout(() => {
-    confetti({ ...base, particleCount: 140, spread: 130, origin: { x: 0.5, y: 0.3 }, scalar: 1.15, shapes: ["star", "square", "circle"] });
+    confetti({
+      ...base,
+      particleCount: shapes ? 50 : 140,
+      spread: 130,
+      origin: { x: 0.5, y: 0.3 },
+      ...(shapes ? {} : { scalar: 1.15, shapes: ["star", "square", "circle"] as confetti.Shape[] }),
+    });
   }, 380);
 }

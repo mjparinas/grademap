@@ -37,6 +37,10 @@
   --animate-drift: drift 18s ease-in-out infinite;
   --animate-shine: shine 2.8s ease-in-out infinite;
   --animate-drop-in: drop-in 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  --animate-toast-in: toast-in 0.45s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+  --animate-toast-out: toast-out 0.35s ease-in both;
+  --animate-flash-good: flash-good 0.5s ease-out;
+  --animate-flash-bad: flash-bad 0.5s ease-out;
   --animate-wave: wave 1.4s ease-in-out infinite;
 
   @keyframes float {
@@ -129,6 +133,22 @@
     0% { transform: translateY(-60px) scale(0.6); opacity: 0; }
     60% { transform: translateY(4px) scale(1.08, 0.92); opacity: 1; }
     100% { transform: translateY(0) scale(1); }
+  }
+  @keyframes toast-in {
+    0% { transform: translateY(-140%) scale(0.9); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  @keyframes toast-out {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-140%); opacity: 0; }
+  }
+  @keyframes flash-good {
+    0% { box-shadow: inset 0 0 0 9999px rgba(34, 181, 115, 0.25); }
+    100% { box-shadow: inset 0 0 0 9999px rgba(34, 181, 115, 0); }
+  }
+  @keyframes flash-bad {
+    0% { box-shadow: inset 0 0 0 9999px rgba(255, 159, 67, 0.25); }
+    100% { box-shadow: inset 0 0 0 9999px rgba(255, 159, 67, 0); }
   }
   @keyframes float-up {
     0% { transform: translate(-50%, 0) scale(0.6); opacity: 0; }

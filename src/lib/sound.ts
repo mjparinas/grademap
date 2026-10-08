@@ -1,15 +1,19 @@
 "use client";
 
-import { useStore } from "./store";
-
 // Small synthesized sounds, so there are no audio files to download.
 // Pitches vary a little each time so repeated taps never sound robotic.
 
 let ctx: AudioContext | null = null;
 
+// The store says whether the active child has sound on. It's injected rather than
+// imported so public pages (which only need button clicks) don't load all the content.
+let soundOn: () => boolean = () => true;
+export function setSoundCheck(check: () => boolean) {
+  soundOn = check;
+}
+
 function audio(): AudioContext | null {
-  if (typeof window === "undefined") return null;
-  if (!useStore.getState().settings.sound) return null;
+  if (typeof window === "undefined" || !soundOn()) return null;
   try {
     ctx ??= new AudioContext();
     if (ctx.state === "suspended") void ctx.resume();
@@ -32,7 +36,7 @@ function tone(
   slideTo?: number,
 ) {
   const ac = audio();
-  if (!ac) return;
+  if (!ac || !Number.isFinite(freq)) return;
   const t = ac.currentTime + start;
   const osc = ac.createOscillator();
   const gain = ac.createGain();
@@ -71,13 +75,33 @@ export const sounds = {
   /** A block snapping into place. */
   clack: () => tone(vary(300, 0.1), 0, 0.09, "square", 0.05, 180),
   /** Rising pop: pass an index to climb the scale, e.g. while filling slots. */
-  pop: (step = 0) => tone(SCALE[Math.min(step, SCALE.length - 1)], 0, 0.14, "sine", 0.13, SCALE[Math.min(step, SCALE.length - 1)] * 1.25),
+  pop: (step = 0) => {
+    const f = SCALE[Math.max(0, Math.min(Math.floor(step), SCALE.length - 1))];
+    tone(f, 0, 0.14, "sine", 0.13, f * 1.25);
+  },
   whoosh: () => tone(vary(240, 0.1), 0, 0.22, "sine", 0.06, 900),
   /** One per star on the finish screen: pitch climbs with each. */
   starLand: (i: number) => {
     tone(SCALE[2 + i * 2], 0, 0.25, "triangle", 0.15);
     tone(110, 0, 0.12, "sine", 0.2, 60);
   },
+  /** A console-style trophy chime; bigger for gold and platinum. */
+  trophy: (big = false) => {
+    tone(1319, 0, 0.12, "sine", 0.12);
+    tone(1760, 0.09, 0.35, "sine", 0.14);
+    if (big) {
+      tone(2093, 0.22, 0.4, "triangle", 0.1);
+      tone(2637, 0.34, 0.5, "sine", 0.08);
+    }
+  },
+  levelUp: () => {
+    [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.07, 0.18, "square", 0.05));
+    tone(1568, 0.3, 0.45, "sine", 0.14);
+  },
+  /** A soft tick for countdowns. */
+  tick: () => tone(1200, 0, 0.04, "square", 0.025),
+  /** Wrong in a fast game: a quick, low boop. */
+  boop: () => tone(220, 0, 0.12, "triangle", 0.1, 150),
   complete: () => {
     [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, i * 0.1, 0.35, "sine", 0.15));
   },

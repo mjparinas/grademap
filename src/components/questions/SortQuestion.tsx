@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { burstFrom, replay } from "@/lib/juice";
 import { sounds } from "@/lib/sound";
-import type { SortQuestion as Q } from "@/lib/types";
+import type { SortQuestion as Q } from "@/content/types";
 import { isLocked, type QuestionProps } from "./types";
 
 export function SortQuestion({ q, status, onAttempt, onSlip }: QuestionProps<Q>) {

@@ -1,100 +1,153 @@
-# GradeMap: Grade 2 (BC Curriculum)
+# GradeMap
 
-A kid-friendly practice website for Grade 2, matched to the BC curriculum. It's built for the web and ready for tablets: big touch targets, read-aloud, saved progress, and it can be installed on a home screen. "GradeMap" is a working name; change it in `src/lib/brand.ts`.
+Curriculum-matched practice, learning games and parent reports for **Kindergarten to Grade 7**. It launches with the BC Curriculum, and other provinces and US states can be added. "GradeMap" is a working name; change it in `src/lib/brand.ts`.
+
+It's a web app first: it runs in any browser, installs to a tablet or phone home screen, and **works offline**. Progress, scores and trophies sync to the family account when the device is back online.
 
 ## What's inside
 
-- **22 units across 4 subjects**, each one mapped to a BC Grade 2 learning standard:
-  - **Math (10):** tens & ones, comparing, facts to 20, adding to 100, patterns, Canadian coins, measuring, shapes, picture graphs, likelihood
-  - **Reading & Writing (5):** rhymes and word families, sounds (sh/ch/ee/ai…), capitals and punctuation, story elements, compound words, opposites and plurals
-  - **Science (4):** life cycles (including BC salmon), solids & liquids, push & pull, the water cycle
-  - **Our World (3):** needs & wants, communities in Canada, rights & responsibilities
-- **Five kinds of interaction:** multiple choice, build-a-number with tens rods and ones cubes, make-an-amount with coins, put-in-order, and sort-into-baskets.
-- **Kind feedback:** a wrong answer gets a hint and another try. After a second miss, the app shows the answer with an explanation. Stars count first-try answers and never go down.
-- **Juice** (in the spirit of "Juice it or lose it"):
-  - Buttons squash and stretch.
-  - Sounds are synthesized, and pitches vary so they don't repeat exactly.
-  - Correct answers burst stars and show a floating "+1 ⭐".
-  - Streaks show a 🔥 counter.
-  - Ollie the Otter's eyes follow your finger, and he cheers or wiggles.
-  - Coins clink and blocks clack.
-  - On the finish screen, stars thump down one by one with a small screen bump, followed by confetti.
-  - Everything respects the device's "reduce motion" setting.
-- **Profiles** for up to 4 kids, a sticker book, and a "Try next" suggestion.
-- **Grown-ups area** behind a times-table gate:
-  - progress per lesson, with each lesson's BC learning standard
-  - the Grade 2 Big Ideas
-  - a plain-language guide to BC's proficiency scale
-  - settings for sound and auto read-aloud
-  - reset and remove options
-- **Privacy:** progress is saved in the browser on this device (`localStorage`). There's no account, no ads and no server.
+### For kids (`/play/`)
+
+- **Age-adapted UI.** Kindergarten and Grade 1 get bigger buttons, shorter text, spoken prompts and simpler menus, and words like "Letters & Words" and "My World". Grades 2–4 and 5–7 get progressively more independence ("Language Arts", "Social Studies").
+- **Modes:**
+  - **Adventure:** one tap, endless and adaptive. It mixes subjects and favours units that are weak, untried or due for review.
+  - **Practice:** pick a subject and unit.
+  - **Review:** only the tricky spots.
+  - **Speed Run:** as many as you can in 60 or 90 seconds.
+  - **Daily Challenge:** the same 10 questions for everyone today.
+  - **Challenge:** a timed mastery check with no retries, which unlocks the "Extending" level.
+- **Built-in timers:** a daily-goal timer, session timers in the timed modes, and a **learn-to-play** timer. By default every 20 minutes of learning unlocks 5 minutes of arcade games; parents set the ratio, a daily cap, or free play.
+- **Arcade:** Number Munchers (math), Word Ninja (a swipe-to-slice sight-word game), Critter Catch (science), Bubble Pop (phonics) and Memory Match. Content adapts to the child's grade.
+- **Gamification:**
+  - About 55 trophies (bronze, silver, gold and a platinum "Grade Champion") with console-style toast pop-ups.
+  - XP and levels, coins, daily quests and streaks.
+  - A shop of critter companions, titles and confetti styles.
+- **Mascots:** Ollie the Otter guides, with a guide for each subject (Hoot the owl for math, Ruby the fox for reading, Bolt the beaver for science, Juniper the bear for social studies) plus seven critters to unlock. They're all drawn as SVG, change mood, and their eyes follow your finger.
+- **Juice:** squash-and-stretch buttons, synthesized sounds, bursts, floating "+XP" text and confetti. All of it respects "reduce motion".
+- **Question types:** multiple choice, build-a-number with base-ten blocks, make-an-amount with coins and bills, put in order, sort into baskets, and typed answers on an on-screen keypad (whole numbers, decimals, fractions, integers).
+
+### For parents (`/parents/`, behind a PIN)
+
+- **Overview:** each child's week at a glance.
+- **Reports:**
+  - Time, accuracy and trends over 7, 14, 30 or 90 days.
+  - Subject breakdowns, strengths and next steps.
+  - A unit-by-unit table and trophies.
+  - Printable.
+- **Report cards:** every unit on the report-card scale (BC: Emerging, Developing, Proficient, Extending) with a plain-language explainer.
+- **Children:** add up to 4, edit names, birth year (a grade is suggested from age), grade, curriculum and avatar; reset or remove.
+- **Settings per child:** daily goal, timer visibility, learn-to-play ratio and cap, games on/off, subjects, sound, read-aloud.
+- **Account & sync, Subscription** (Stripe), **Privacy** (JSON export, erase device, delete account).
+
+### For search engines (public pages)
+
+- `/`: landing page with FAQ and structured data.
+- `/curriculum/bc/grade-3/math/multiplication/`: a page for every curriculum, grade, subject and unit. Each has Big Ideas, the learning standard, sample questions with answers, and `LearningResource`/`AlignmentObject` JSON-LD.
+- `/report-cards/bc/`: the report card guide with `FAQPage` JSON-LD.
+- `sitemap.xml`, `robots.txt` (keeps `/play/`, `/parents/` and `/api/` out of search), canonical URLs and an Open Graph image.
 
 ## Run it
 
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm test         # checks every unit's generated questions (300 runs each)
+npm test         # content checks for every unit + game-logic tests
 npm run lint
-npm run build    # static site in ./out
+npm run build && npm start
 ```
 
-`npm run build` produces a fully static site in `out/` (`output: "export"`). You can host it on any static host (Netlify, Cloudflare Pages, S3, GitHub Pages, Vercel) or preview it locally with `npx http-server out`.
+`scripts/e2e.mjs` is a Playwright playthrough of the whole app: every mode, the arcade, the parent area, sign-up, sync to a second device, and offline play with upload on reconnect. Instructions are at the top of the file.
 
-## How it's built
+With no configuration it uses a local SQLite file (`./data/grademap.db`) and **simulated billing**, so you can try sign-up, sync and subscriptions end to end.
 
-- **Next.js 16** (App Router, static export) + **React 19** + **TypeScript**
-- **Tailwind CSS 4**: the theme, colours and animations live in `src/app/globals.css`
-- **zustand**: saved progress (`src/lib/store.ts`)
-- **canvas-confetti**: confetti and star bursts (`src/lib/juice.ts`)
-- **Web Audio**: sounds with no audio files (`src/lib/sound.ts`)
-- **Web Speech API**: read-aloud (`src/lib/speech.ts`)
-- **Fonts:** Fredoka for headings and buttons; Andika (designed for beginning readers) for questions and stories
-- **PWA:** `src/app/manifest.ts` + `public/sw.js` (works offline after the first visit)
+### Environment variables
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Public address for canonical links and the sitemap (default `https://grademap.ca`). |
+| `DATABASE_URL` | libsql URL. Default `file:./data/grademap.db`; use a [Turso](https://turso.tech) URL in production. |
+| `DATABASE_AUTH_TOKEN` | Turso auth token. |
+| `STRIPE_SECRET_KEY` | Stripe secret key. Billing is simulated until this and both price IDs are set. |
+| `STRIPE_PRICE_MONTHLY`, `STRIPE_PRICE_YEARLY` | Price IDs for the family plan (C$14.99/month, C$119.99/year). |
+| `STRIPE_WEBHOOK_SECRET` | Signing secret for `/api/billing/webhook`. |
+| `ALLOW_DEV_BILLING` | Set to `1` to allow simulated billing in a production build (staging only). |
+
+### Stripe setup
+
+1. Create a product "Family plan" with two recurring prices in CAD (monthly and yearly).
+2. Add a webhook endpoint at `https://<your-site>/api/billing/webhook/` (with the trailing slash: Stripe doesn't follow redirects) for `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated` and `customer.subscription.deleted`.
+3. Turn on the customer portal (Settings → Billing → Customer portal) so parents can manage or cancel.
+
+### Deploying
+
+It needs a Node server for the API routes (Vercel, Render, Fly.io or any Node host). With Turso as the database there's nothing to manage on the server. The public curriculum pages are statically generated at build time.
+
+## How it works
+
+### Offline-first data and sync
+
+- Everything a child does is an **event** (an answer, a finished session, a game played, a purchase, a quest claimed or a trophy earned). Each event has a unique id, and events go into IndexedDB first (`src/lib/localdb.ts`).
+- XP, levels, coins, trophies, mastery and streaks are **never stored**. They are recomputed from the events (`src/lib/derive.ts`). Merging events from several devices is therefore order-independent and duplicate-safe: nothing is lost if two tablets were used offline.
+- Profiles, settings and the family plan sync with last-write-wins on `updatedAt`.
+- `src/lib/sync.ts` pushes unsynced events and pulls new ones by cursor (`POST /api/sync`). It runs when the device comes online, when the app becomes visible, every 2 minutes, and shortly after any change.
+- `public/sw.js` precaches the kids' app and parent area, serves pages network-first and build files cache-first, and never caches `/api/`.
+
+### Scoring
+
+- Each framework defines its own scale in `src/content/frameworks.ts`. For BC that's the Provincial Proficiency Scale, with official descriptions, a kid-friendly name (🌱 Seedling, 🌿 Sprout, 🌳 Tree, ⭐ Star) and plain-language "at home" notes.
+- A unit's level comes from first-try accuracy and amount of practice (`src/lib/proficiency.ts`). **Extending** also requires passing a Challenge.
+
+### Content
+
+```
+src/content/
+  types.ts            question, visual, unit and course types
+  frameworks.ts       curricula: grades, report-card scale and guide
+  subjects.ts         subject names per age band, grades, slugs
+  random.ts           seeded randomness (never Math.random in content)
+  grades/k … g7/      math.ts, language.ts, science.ts, social.ts
+  content.test.ts     generates every unit many times and checks it's fair
+```
+
+- Every unit has a `generate()` that returns 6–10 fresh questions at difficulty 1, 2 or 3, plus a parent note and a learning standard per framework. See `docs/CONTENT_GUIDE.md` for the authoring rules.
+- `npm test` checks every unit:
+  - the answer is among the choices and no two choices look the same
+  - the math in equations is correct
+  - the text length suits young readers
+  - keypad answers can be typed
+  - visuals stay within bounds
+
+### Adding a province or state
+
+1. Add a `Framework` to `src/content/frameworks.ts`: slug, grades, report-card scale and guide.
+2. Add that framework's learning standard to each unit's `standards`, and its Big Ideas (or equivalent) to each course.
+3. Units without a standard for a framework are hidden from that framework's public pages. The kids' app, reports and SEO pages pick everything else up automatically.
+
+### Code map
 
 ```
 src/
-  app/                      routes: /, /learn/[subject]/, /learn/[subject]/[unit]/, /grown-ups/
+  app/
+    page.tsx, curriculum/, report-cards/   public, statically generated pages
+    play/, parents/                        the two offline single-page apps (hash routes)
+    api/                                   auth, sync, billing, account
   components/
-    Home.tsx                welcome, profiles, subject map, sticker book
-    UnitList.tsx            lessons in a subject
-    Player.tsx              lesson flow, feedback bar, finish screen
-    questions/              the 5 interaction types
-    visuals.tsx             coins, blocks, ten frames, ruler, shapes, graphs, spinner
-    Mascot.tsx              Ollie the Otter (SVG, moods, eye tracking)
-    GrownUps.tsx            parent dashboard
-  lib/
-    content/                all curriculum content (math is generated; others are question banks)
-    curriculum.ts           subject/unit registry
-    store.ts                profiles, progress, settings
+    play/        hub, modes, session runner, trophies, shop, arcade + games/
+    parents/     PIN gate, overview, reports + charts, children, settings, account, subscription
+    questions/   the 6 interaction types
+    site/        public page chrome, curriculum helpers, sample questions
+    Critter.tsx  the mascot cast
+    visuals.tsx  blocks, coins, clocks, number lines, fractions, graphs, grids…
+  lib/           event model, derive, proficiency, trophies, quests, shop, adaptive, plan, store, sync
+  server/        libsql database, auth (scrypt + session cookies), Stripe
 ```
 
-### Adding a unit
+## Toward the app stores
 
-1. Write a `generate()` function that returns 6–10 `Question`s (see `src/lib/types.ts`). For hand-written questions, use the helpers in `src/lib/content/bank.ts`.
-2. Add the unit to its subject's `units` array with a title, emoji, BC learning standard and parent note.
-3. Run `npm test`. It checks every unit for fair questions: the answer is one of the options, no two buttons look the same, and the maths adds up.
-
-Pages are generated automatically from the curriculum registry.
-
-### Adding another province or grade
-
-Content is keyed by subject and unit, and the grade and province labels live in `src/lib/curriculum.ts`. The natural next step is to make the curriculum registry selectable by grade and province, and to swap the report-card explainer for that province's grading scale (for example, Ontario's Levels 1–4).
-
-## Next steps toward the app stores
-
-The static export is ready for [Capacitor](https://capacitorjs.com/):
-
-```bash
-npm i @capacitor/core @capacitor/cli @capacitor/android @capacitor/ios
-npx cap init GradeMap ca.grademap.app --web-dir=out
-npm run build && npx cap add android && npx cap sync
-```
-
-Before submitting, add features that store reviewers expect from an app rather than a website in a box: offline lesson packs, native notifications, and Play Families / Apple Kids Category compliance.
+The installable web app already works offline. For Google Play, wrap it as a Trusted Web Activity ([Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap)) pointing at `/play/`, or use [Capacitor](https://capacitorjs.com/) for native features. Before submitting, check the Play Families policy and the Apple Kids Category requirements.
 
 ## Content notes
 
-- Questions were written to the BC Grade 2 curricular content and Big Ideas. Have a BC teacher review them before launch.
-- Indigenous perspectives are referenced lightly and factually (salmon, First Peoples as the first peoples of this land). Deeper First Peoples content should be developed with partners such as FNESC.
-- The proficiency scale descriptions come from BC's K–12 Student Reporting Policy. Check them against the current Ministry wording before launch.
+- The content was written to the BC curriculum's learning standards and Big Ideas for each grade. **Have BC teachers review it before launch.**
+- Indigenous perspectives are written in the present tense, avoid treating all Nations as one, and leave out sacred or ceremonial details. Deeper First Peoples content should be developed with partners such as FNESC.
+- The proficiency scale wording comes from BC's K–12 Student Reporting Policy. Check it against the current Ministry wording before launch.

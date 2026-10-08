@@ -1,0 +1,289 @@
+import { getUnitRef } from "@/content";
+import type { SubjectId } from "@/content/types";
+import { dayKey, type AppEvent, type Mode } from "./model";
+import { TIER_COINS, TIER_POINTS, trophyTier } from "./trophies";
+
+// Everything a child has achieved is computed from their event log. Because
+// events are append-only and have unique ids, logs from several devices can
+// be merged in any order and every device computes the same result.
+
+export interface UnitStat {
+  key: string;
+  attempts: number;
+  firstTry: number;
+  /** First-try results, most recent last (up to 20). */
+  recent: boolean[];
+  /** Smoothed first-try accuracy, 0–1. */
+  mastery: number;
+  lastT: number;
+  sessions: number;
+  challengePassed: boolean;
+  ms: number;
+}
+
+export interface DayStat {
+  day: string;
+  learnSeconds: number;
+  answers: number;
+  correct: number;
+  sessions: number;
+  playSeconds: number;
+  bestRun: number;
+  /** Per-subject answers that day. */
+  subjects: Partial<Record<SubjectId, number>>;
+  modes: Partial<Record<Mode, number>>;
+}
+
+export interface Derived {
+  xp: number;
+  level: number;
+  levelXp: number;
+  levelNeed: number;
+  coins: number;
+  trophyPoints: number;
+  trophies: Record<string, number>;
+  units: Record<string, UnitStat>;
+  days: Record<string, DayStat>;
+  streak: { current: number; best: number; activeToday: boolean };
+  totals: {
+    answers: number;
+    correct: number;
+    sessions: number;
+    perfectSessions: number;
+    learnSeconds: number;
+    playSeconds: number;
+    bestRun: number;
+    currentRun: number;
+    comebacks: number;
+  };
+  subjects: Partial<Record<SubjectId, { answers: number; correct: number }>>;
+  modes: Partial<Record<Mode, number>>;
+  /** Answers given in each mode. */
+  modeAnswers: Partial<Record<Mode, number>>;
+  /** All coins ever earned (before spending). */
+  coinsEarned: number;
+  /** Days of the week with a finished session, for hidden trophies. */
+  earlySessions: number;
+  /** Best timed-mode score per scope. */
+  speedBest: Record<string, number>;
+  gameBest: Record<string, number>;
+  gamesPlayed: Record<string, number>;
+  owned: string[];
+  questsClaimed: Record<string, string[]>;
+  dailyDone: string[];
+}
+
+/** XP needed to go from `level` to `level + 1`. */
+export function xpForLevel(level: number): number {
+  return 80 + 40 * (level - 1);
+}
+
+/** Learning time counted for one answer, so a child who walks away doesn't rack up minutes. */
+export function learnSecondsFor(ms: number): number {
+  return Math.min(ms, 60_000) / 1000;
+}
+
+function emptyDay(day: string): DayStat {
+  return { day, learnSeconds: 0, answers: 0, correct: 0, sessions: 0, playSeconds: 0, bestRun: 0, subjects: {}, modes: {} };
+}
+
+export function derive(events: AppEvent[], now = Date.now()): Derived {
+  const sorted = [...events].sort((a, b) => a.t - b.t || (a.id < b.id ? -1 : 1));
+  const d: Derived = {
+    xp: 0,
+    level: 1,
+    levelXp: 0,
+    levelNeed: xpForLevel(1),
+    coins: 0,
+    trophyPoints: 0,
+    trophies: {},
+    units: {},
+    days: {},
+    streak: { current: 0, best: 0, activeToday: false },
+    totals: {
+      answers: 0,
+      correct: 0,
+      sessions: 0,
+      perfectSessions: 0,
+      learnSeconds: 0,
+      playSeconds: 0,
+      bestRun: 0,
+      currentRun: 0,
+      comebacks: 0,
+    },
+    subjects: {},
+    modes: {},
+    modeAnswers: {},
+    coinsEarned: 0,
+    earlySessions: 0,
+    speedBest: {},
+    gameBest: {},
+    gamesPlayed: {},
+    owned: [],
+    questsClaimed: {},
+    dailyDone: [],
+  };
+  const seen = new Set<string>();
+  let run = 0;
+  let spent = 0;
+
+  for (const e of sorted) {
+    if (seen.has(e.id)) continue;
+    seen.add(e.id);
+    const day = (d.days[dayKey(e.t)] ??= emptyDay(dayKey(e.t)));
+
+    switch (e.type) {
+      case "answer": {
+        const u = (d.units[e.unit] ??= {
+          key: e.unit,
+          attempts: 0,
+          firstTry: 0,
+          recent: [],
+          mastery: 0,
+          lastT: 0,
+          sessions: 0,
+          challengePassed: false,
+          ms: 0,
+        });
+        u.attempts++;
+        if (e.correct) u.firstTry++;
+        u.recent.push(e.correct);
+        if (u.recent.length > 20) u.recent.shift();
+        // Early answers move mastery quickly; later ones refine it.
+        const alpha = Math.max(0.15, 1 / u.attempts);
+        u.mastery = u.mastery + alpha * ((e.correct ? 1 : 0) - u.mastery);
+        u.lastT = e.t;
+        u.ms += e.ms;
+
+        const secs = learnSecondsFor(e.ms);
+        day.learnSeconds += secs;
+        day.answers++;
+        d.totals.learnSeconds += secs;
+        d.totals.answers++;
+        d.modeAnswers[e.mode] = (d.modeAnswers[e.mode] ?? 0) + 1;
+        const subject = getUnitRef(e.unit)?.course.subject;
+        if (subject) {
+          day.subjects[subject] = (day.subjects[subject] ?? 0) + 1;
+          const s = (d.subjects[subject] ??= { answers: 0, correct: 0 });
+          s.answers++;
+          if (e.correct) s.correct++;
+        }
+
+        if (e.correct) {
+          run++;
+          day.correct++;
+          d.totals.correct++;
+          d.xp += 10 + 2 * Math.min(run - 1, 5);
+          d.coins += 1;
+        } else {
+          run = 0;
+          if (!e.revealed) {
+            d.xp += 4;
+            d.totals.comebacks++;
+          } else d.xp += 1;
+        }
+        d.totals.bestRun = Math.max(d.totals.bestRun, run);
+        day.bestRun = Math.max(day.bestRun, run);
+        break;
+      }
+      case "session": {
+        d.totals.sessions++;
+        day.sessions++;
+        d.modes[e.mode] = (d.modes[e.mode] ?? 0) + 1;
+        day.modes[e.mode] = (day.modes[e.mode] ?? 0) + 1;
+        if (new Date(e.t).getHours() < 8) d.earlySessions++;
+        const ratio = e.total ? e.correct / e.total : 0;
+        d.xp += 15;
+        d.coins += 5;
+        if (e.total >= 5 && e.correct === e.total) {
+          d.totals.perfectSessions++;
+          d.xp += 25;
+          d.coins += 10;
+        }
+        const u = d.units[e.scope];
+        if (u) {
+          u.sessions++;
+          if (e.mode === "challenge" && ratio >= 0.8) u.challengePassed = true;
+        }
+        if (e.mode === "speed") d.speedBest[e.scope] = Math.max(d.speedBest[e.scope] ?? 0, e.correct);
+        if (e.mode === "daily" && !d.dailyDone.includes(day.day)) {
+          d.dailyDone.push(day.day);
+          d.xp += 40;
+        }
+        if (e.mode === "challenge" && ratio >= 0.8) d.xp += 30;
+        break;
+      }
+      case "play":
+        day.playSeconds += e.seconds;
+        d.totals.playSeconds += e.seconds;
+        break;
+      case "game":
+        d.gamesPlayed[e.game] = (d.gamesPlayed[e.game] ?? 0) + 1;
+        d.gameBest[e.game] = Math.max(d.gameBest[e.game] ?? 0, e.score);
+        d.xp += 5;
+        d.coins += 2;
+        break;
+      case "trophy": {
+        if (d.trophies[e.trophy]) break;
+        d.trophies[e.trophy] = e.t;
+        const tier = trophyTier(e.trophy);
+        if (tier) {
+          d.trophyPoints += TIER_POINTS[tier];
+          d.xp += TIER_POINTS[tier];
+          d.coins += TIER_COINS[tier];
+        }
+        break;
+      }
+      case "buy":
+        if (!d.owned.includes(e.item)) {
+          d.owned.push(e.item);
+          d.coins -= e.cost;
+          spent += e.cost;
+        }
+        break;
+      case "quest": {
+        const claimed = (d.questsClaimed[e.day] ??= []);
+        if (!claimed.includes(e.quest)) {
+          claimed.push(e.quest);
+          d.coins += e.reward;
+          d.xp += 25;
+        }
+        break;
+      }
+    }
+  }
+  d.totals.currentRun = run;
+  d.coinsEarned = d.coins + spent;
+
+  // Level from total XP.
+  let xp = d.xp;
+  let level = 1;
+  while (xp >= xpForLevel(level)) {
+    xp -= xpForLevel(level);
+    level++;
+  }
+  d.level = level;
+  d.levelXp = xp;
+  d.levelNeed = xpForLevel(level);
+
+  // Streak: days with real practice (a finished session or 5+ answers).
+  const active = (s: DayStat | undefined) => !!s && (s.sessions > 0 || s.answers >= 5);
+  const days = Object.keys(d.days).sort();
+  let best = 0;
+  let cur = 0;
+  let prev: string | null = null;
+  for (const k of days) {
+    if (!active(d.days[k])) continue;
+    cur = prev && dayKey(new Date(`${prev}T12:00:00`).getTime() + 86_400_000) === k ? cur + 1 : 1;
+    best = Math.max(best, cur);
+    prev = k;
+  }
+  const today = dayKey(now);
+  const yesterday = dayKey(now - 86_400_000);
+  d.streak = {
+    current: prev === today || prev === yesterday ? cur : 0,
+    best,
+    activeToday: active(d.days[today]),
+  };
+  return d;
+}

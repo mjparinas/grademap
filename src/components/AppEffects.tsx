@@ -3,14 +3,9 @@
 import { useEffect } from "react";
 import { replay } from "@/lib/juice";
 import { sounds } from "@/lib/sound";
-import { useStore } from "@/lib/store";
 
-/** Loads saved progress, registers the offline service worker, and makes every button juicy. */
+/** Registers the offline service worker and makes every button juicy. */
 export function AppEffects() {
-  useEffect(() => {
-    void useStore.persist.rehydrate();
-  }, []);
-
   useEffect(() => {
     if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
     navigator.serviceWorker.register("/sw.js").catch(() => {

@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { shuffle } from "@/lib/random";
+import { shuffle } from "@/content/random";
 import { replay } from "@/lib/juice";
 import { sounds } from "@/lib/sound";
-import type { OrderQuestion as Q } from "@/lib/types";
+import type { OrderQuestion as Q } from "@/content/types";
 import { isLocked, type QuestionProps } from "./types";
 
 export function OrderQuestion({ q, status, onAttempt }: QuestionProps<Q>) {

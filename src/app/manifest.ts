@@ -5,10 +5,12 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${APP_NAME} · Grade 2 BC`,
+    name: APP_NAME,
     short_name: APP_NAME,
-    description: "Friendly Grade 2 practice matched to the BC curriculum.",
-    start_url: "/",
+    description: "Curriculum practice, learning games and trophies for Kindergarten to Grade 7.",
+    id: "/play/",
+    start_url: "/play/",
+    scope: "/",
     display: "standalone",
     orientation: "any",
     background_color: "#fffaf1",

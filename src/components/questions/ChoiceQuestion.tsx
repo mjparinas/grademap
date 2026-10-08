@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import type { Choice, ChoiceQuestion as Q } from "@/lib/types";
+import type { Choice, ChoiceQuestion as Q } from "@/content/types";
 import { Coin, Shape } from "../visuals";
 import { isLocked, type QuestionProps } from "./types";
 

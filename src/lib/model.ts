@@ -1,0 +1,119 @@
+import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
+
+// Shared shapes for the device database, the sync API and the server.
+
+export type Mode = "practice" | "adventure" | "review" | "speed" | "daily" | "challenge";
+
+export interface Profile {
+  id: string;
+  name: string;
+  /** Mascot/critter id used as the avatar. */
+  avatar: string;
+  colour: string;
+  grade: GradeId;
+  framework: FrameworkId;
+  birthYear?: number;
+  /** Equipped cosmetics. */
+  companion?: string;
+  title?: string;
+  confetti?: string;
+  /** Progress before this time is ignored (a parent reset it). */
+  resetAt?: number;
+  createdAt: number;
+  updatedAt: number;
+  deleted?: boolean;
+}
+
+export interface ChildSettings {
+  profileId: string;
+  dailyGoalMinutes: number;
+  /** Minutes of learning that earn a game break. */
+  learnMinutesPerReward: number;
+  /** Minutes of games each reward unlocks. */
+  rewardGameMinutes: number;
+  maxGameMinutesPerDay: number;
+  gamesEnabled: boolean;
+  /** Games are always unlocked (no learning needed). */
+  freePlay: boolean;
+  showTimer: boolean;
+  autoRead: boolean;
+  sound: boolean;
+  enabledSubjects: SubjectId[];
+  updatedAt: number;
+}
+
+export interface FamilyInfo {
+  /** Server-side account, when a parent has signed in on this device. */
+  account?: { email: string; familyId: string };
+  plan: "trial" | "free" | "premium";
+  trialEndsAt: number;
+  subscription?: { status: string; interval?: "month" | "year"; currentPeriodEnd?: number };
+  updatedAt: number;
+}
+
+interface EventBase {
+  /** Unique id (random), so events can be merged from many devices safely. */
+  id: string;
+  profileId: string;
+  /** When it happened (ms since epoch). */
+  t: number;
+}
+
+export type AppEvent = EventBase &
+  (
+    | {
+        type: "answer";
+        unit: string;
+        /** Right on the first try. */
+        correct: boolean;
+        attempts: number;
+        revealed: boolean;
+        ms: number;
+        mode: Mode;
+        difficulty?: number;
+      }
+    | {
+        type: "session";
+        mode: Mode;
+        /** A unit key, a subject id, or "mix". */
+        scope: string;
+        total: number;
+        correct: number;
+        ms: number;
+      }
+    | { type: "play"; game: string; seconds: number }
+    | { type: "game"; game: string; score: number; level: number }
+    | { type: "trophy"; trophy: string }
+    | { type: "buy"; item: string; cost: number }
+    | { type: "quest"; quest: string; day: string; reward: number }
+  );
+
+export type EventOf<T extends AppEvent["type"]> = Extract<AppEvent, { type: T }>;
+
+export function newId(): string {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+/** Local calendar day, e.g. "2026-10-08". */
+export function dayKey(t: number): string {
+  const d = new Date(t);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+export function defaultChildSettings(profileId: string, little: boolean): ChildSettings {
+  return {
+    profileId,
+    dailyGoalMinutes: little ? 10 : 15,
+    learnMinutesPerReward: 20,
+    rewardGameMinutes: 5,
+    maxGameMinutesPerDay: 20,
+    gamesEnabled: true,
+    freePlay: false,
+    showTimer: !little,
+    autoRead: little,
+    sound: true,
+    enabledSubjects: ["math", "language", "science", "social"],
+    updatedAt: Date.now(),
+  };
+}
