@@ -96,3 +96,45 @@ export async function newChild(page, name, grade) {
   await page.getByRole("button", { name: "Start!" }).click({ force: true });
   await page.waitForTimeout(600);
 }
+
+/** Real voice names as Microsoft Edge on Windows reports them. */
+export const EDGE_VOICES = [
+  { name: "Microsoft David - English (United States)", lang: "en-US", localService: true, default: true },
+  { name: "Microsoft Linda - English (Canada)", lang: "en-CA", localService: true, default: false },
+  { name: "Microsoft Aria Online (Natural) - English (United States)", lang: "en-US", localService: false, default: false },
+  { name: "Microsoft Clara Online (Natural) - English (Canada)", lang: "en-CA", localService: false, default: false },
+  { name: "Microsoft Denise Online (Natural) - French (France)", lang: "fr-FR", localService: false, default: false },
+];
+
+/**
+ * Headless browsers have no voices, so this swaps in a fake speech engine with real
+ * voice names that records what it says and with which voice (read with `spoken`).
+ */
+export async function installFakeVoices(context, voices = EDGE_VOICES) {
+  await context.addInitScript((list) => {
+    const all = list.map((v) => ({ ...v, voiceURI: v.name }));
+    window.__spoken = [];
+    const synth = {
+      getVoices: () => all,
+      speak: (u) => window.__spoken.push({ text: u.text, voice: u.voice ? u.voice.name : null }),
+      cancel: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      speaking: false,
+      pending: false,
+      paused: false,
+    };
+    Object.defineProperty(window, "speechSynthesis", { value: synth, configurable: true });
+    window.SpeechSynthesisUtterance = class {
+      constructor(text) {
+        this.text = text;
+        this.voice = null;
+      }
+    };
+  }, voices);
+}
+
+/** Everything the fake speech engine has said so far: [{ text, voice }]. */
+export function spoken(page) {
+  return page.evaluate(() => window.__spoken ?? []);
+}

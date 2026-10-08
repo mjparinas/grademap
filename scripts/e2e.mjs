@@ -9,7 +9,7 @@
 //   node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline [--speed]
 import fs from "node:fs";
 import { chromium } from "playwright";
-import { enterPin, newChild, step, vis } from "./helpers.mjs";
+import { EDGE_VOICES, enterPin, installFakeVoices, newChild, spoken, step, vis } from "./helpers.mjs";
 const BASE = process.argv[2] || "http://localhost:3100";
 const OUT = process.argv[3] || "e2e-shots";
 const OFFLINE = process.argv.includes("--offline");
@@ -101,6 +101,7 @@ async function eventsWaiting(page) {
 (async () => {
   const browser = await chromium.launch();
   const ipad = await browser.newContext({ viewport: { width: 1180, height: 820 }, hasTouch: true, reducedMotion: "reduce" });
+  await installFakeVoices(ipad);
   const page = await ipad.newPage();
   watch(page, "ipad");
 
@@ -187,7 +188,28 @@ async function eventsWaiting(page) {
   await page.goto(`${BASE}/parents/#/settings`);
   await page.waitForTimeout(500);
   await page.getByRole("switch", { name: /Free play/ }).first().click();
+
+  // Read-aloud voice: the most natural voice comes first, and a parent's choice is used everywhere.
+  const voice = page.getByRole("combobox", { name: "Voice" });
+  const options = await voice.locator("option").allTextContents();
+  log("voices offered:", options.slice(1).join(" | "));
+  if (!options[1]?.startsWith("Clara · Canadian · Sounds natural")) errors.push(`voice ranking: first voice is "${options[1]}"`);
+  if (options.some((o) => /French|Denise/.test(o))) errors.push("voice ranking: a French voice was offered");
+  const aria = EDGE_VOICES[2].name;
+  await voice.selectOption(aria);
+  await page.getByRole("button", { name: /Preview/ }).click();
+  if ((await spoken(page)).at(-1)?.voice !== aria) errors.push("voice preview didn't use the chosen voice");
   await shot(page, "21-parent-settings", true);
+  await page.goto(`${BASE}/play/#/`);
+  await page.getByRole("button", { name: /Adventure/ }).click({ force: true });
+  await page.getByRole("button", { name: "Read it to me" }).click();
+  const read = (await spoken(page)).at(-1);
+  log("🔊 read with:", read?.voice);
+  if (read?.voice !== aria) errors.push(`read-aloud used "${read?.voice}" instead of the chosen voice`);
+  await page.getByRole("button", { name: "Stop", exact: true }).first().click({ force: true });
+  await page.getByRole("dialog").getByRole("button", { name: "Stop", exact: true }).click({ force: true });
+  await page.goto(`${BASE}/parents/`);
+  await enterPin(page, false);
   for (const p of ["reports", "report-cards", "children", "subscription", "privacy"]) {
     await page.goto(`${BASE}/parents/#/${p}`);
     await page.waitForTimeout(700);

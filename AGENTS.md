@@ -202,6 +202,17 @@ Tests are duplicated across screen sizes only where layout can break:
   - Ollie the Otter is the guide.
   - Each subject has its own guide: Hoot the owl (math), Ruby the fox (reading), Bolt the beaver (science) and Juniper the bear (social studies).
   - Seven more critters can be unlocked in the shop.
+- **Read-aloud uses the device's own voices** (Web Speech API, `src/lib/speech.ts`), so it's free and works offline.
+  - Installed voices are ranked by quality, and locale only breaks ties between similar voices:
+    - first, "Natural", "Neural" and "Premium" voices;
+    - then "Enhanced" and Google voices;
+    - then standard voices;
+    - last, old Windows desktop voices and Apple's Eloquence voices.
+  - Apple's novelty voices are never offered.
+  - Cloud voices (Edge's Natural voices, Google voices) are skipped when offline, with a retry on an on-device voice if one fails.
+  - Parents can pick a voice with a preview in Settings. The choice is saved per device in `localStorage`, not synced, because every device has different voices.
+  - Pitch stays at 1; raising it makes good voices sound processed.
+  - A cloud neural voice (Azure, Google or OpenAI, with a shared audio cache) is the option if device voices aren't good enough. It's not built; ask the owner before adding one, because it has a running cost.
 - **"Juice it or lose it":**
   - Squash-and-stretch buttons and synthesized sounds with slight pitch variation (no audio files).
   - Bursts, floating "+XP" text, screen thumps and confetti.

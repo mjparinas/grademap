@@ -6,6 +6,7 @@ import type { SubjectId } from "@/content/types";
 import { defaultChildSettings, type ChildSettings } from "@/lib/model";
 import { useStore } from "@/lib/store";
 import { ChildTabs, NoChildren, PageTitle, Panel, useChild } from "./common";
+import { VoicePicker } from "./VoicePicker";
 
 function Slider({ label, value, min, max, step = 1, unit, onChange, help }: { label: string; value: number; min: number; max: number; step?: number; unit: string; onChange: (v: number) => void; help?: string }) {
   return (
@@ -99,9 +100,11 @@ export function SettingsPage({ childId }: { childId?: string }) {
         <Panel title="🔊 Sound & reading">
           <div className="flex flex-col gap-3">
             <Switch label="Sounds" value={s.sound} onChange={(v) => set({ sound: v })} help="Clicks, chimes and celebrations." />
-            <Switch label="Read questions out loud" value={s.autoRead} onChange={(v) => set({ autoRead: v })} help="On by default for Kindergarten and Grade 1. Uses the device's own voice and works offline on most devices." />
+            <Switch label="Read questions out loud" value={s.autoRead} onChange={(v) => set({ autoRead: v })} help="On by default for Kindergarten and Grade 1. Kids can always tap 🔊 to hear a question." />
           </div>
         </Panel>
+
+        <VoicePicker />
 
         <Panel title="🔒 Parent PIN">
           <div className="flex flex-wrap items-end gap-2">
