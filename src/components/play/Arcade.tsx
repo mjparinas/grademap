@@ -210,6 +210,7 @@ export function GameScreen({ id }: { id: string }) {
                 setShownScore(0);
                 setRound((r) => r + 1);
                 setPhase("playing");
+                window.scrollTo({ top: 0 });
               }}
             >
               {phase === "over" ? "Play again" : "Play!"} <span className="text-base">({mmss(left)} left)</span>

@@ -42,9 +42,9 @@ export function FirstRun() {
   const [step, setStep] = useState(0);
   if (step === 0) {
     return (
-      <Page className="items-center justify-center gap-6 text-center">
-        <Logo />
-        <div className="flex items-end justify-center gap-1 sm:gap-3">
+      <Page className="items-center justify-center gap-6 text-center short:gap-3">
+        <Logo size="text-5xl sm:text-6xl short:text-4xl" />
+        <div className="flex items-end justify-center gap-1 sm:gap-3 short:hidden">
           {["hoot", "ruby", "ollie", "bolt", "juniper"].map((id, i) => (
             <div key={id} className="animate-drop-in" style={{ animationDelay: `${300 + i * 120}ms` }}>
               <Critter id={id} mood={id === "ollie" ? "wave" : "happy"} size={id === "ollie" ? 150 : 92} />
@@ -52,9 +52,9 @@ export function FirstRun() {
           ))}
         </div>
         <SpeechBubble className="max-w-md animate-pop-in text-left">
-          <p className="font-read text-2xl font-bold leading-snug">Hi! I&apos;m Ollie the Otter. My friends and I can&apos;t wait to learn and play with you!</p>
+          <p className="font-read text-2xl font-bold leading-snug short:text-lg">Hi! I&apos;m Ollie the Otter. My friends and I can&apos;t wait to learn and play with you!</p>
         </SpeechBubble>
-        <button type="button" className="btn btn-good min-h-20 w-full max-w-sm animate-pulse-soft text-3xl" onClick={() => setStep(1)}>
+        <button type="button" className="btn btn-good min-h-20 w-full max-w-sm animate-pulse-soft text-3xl short:min-h-14 short:text-2xl" onClick={() => setStep(1)}>
           Let&apos;s go! →
         </button>
         <GrownUpsLink />

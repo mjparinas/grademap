@@ -20,10 +20,40 @@ npm test                    # content checks for every unit + logic tests (~20 s
 npm run lint
 npx tsc --noEmit            # run `npx next typegen` first in a fresh checkout (PageProps/LayoutProps)
 npm run build && npm start  # offline/service worker only works in a production build
-node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline   # full Playwright playthrough
+node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline   # full playthrough + sync
+node scripts/e2e-devices.mjs http://localhost:3000                # layout on 14 phones/tablets
+node scripts/e2e-offline.mjs                                      # real offline (starts its own server)
 ```
 
-Before you push, run tests, lint and typecheck, and for UI or flow changes also the e2e script.
+Before you push, run tests, lint and typecheck. For UI or flow changes, also run the e2e scripts.
+
+- **Playwright:** the scripts need `playwright` (`npm i --no-save playwright && npx playwright install chromium webkit`).
+- **Stale styles:** if a change to `globals.css` (`@theme`, `@custom-variant`) doesn't show up in a build, delete `.next` and rebuild.
+
+### What the e2e scripts cover
+Tests are duplicated across screen sizes only where layout can break:
+
+- **`e2e-devices.mjs`, on every device:** the cheap layout checks.
+  - The 14 devices:
+    - Galaxy S9+, Galaxy S24 and Pixel 7;
+    - iPhone SE, iPhone 15 and iPhone 15 Pro Max;
+    - iPhone 15 and Pixel 7 in landscape;
+    - iPad Mini and iPad Pro 11, portrait and landscape;
+    - Galaxy Tab S4, portrait and landscape;
+    - a 1366×768 Chromebook.
+  - The checks:
+    - no sideways scroll;
+    - the main button above the fold;
+    - touch targets at least 48 px for kids and 44 px elsewhere;
+    - the feedback bar's button fully on screen;
+    - parent reports not overflowing.
+- **`e2e-devices.mjs`, one device per class** (smallest phone, phone landscape, tablet portrait, tablet landscape): the riskier flows.
+  - Kindergarten sizing.
+  - An arcade game's play area fitting the screen.
+  - Toasts not blocking taps.
+- **`e2e.mjs`:** the full playthrough on an iPad-sized screen plus a phone. It covers every mode and game, the parent area, sign-up, two-device sync, and offline progress uploading on reconnect.
+- **`e2e-offline.mjs`:** stops the server so only the service worker can answer. Playwright's `setOffline()` doesn't cut off service worker requests, so it can't prove the cache works.
+- **WebKit:** iPhone and iPad profiles run in WebKit when it's installed, otherwise in Chromium at the same size, pixel ratio and touch settings.
 
 ## Product decisions
 
@@ -155,7 +185,15 @@ Before you push, run tests, lint and typecheck, and for UI or flow changes also 
 
 ### Look and feel
 - **Kid-friendly but not noisy:** lots of colour without distraction, large touch targets, and tablet-first layouts that also work on phones.
-  - There must be no horizontal scroll at 390 px.
+  - There must be no horizontal scroll from 320 px wide.
+  - The main button on each screen (Let's go, Adventure / Let's Play) must be visible without scrolling.
+- **Small screens:**
+  - Two Tailwind variants in `globals.css` handle the tightest screens.
+    - `short:` is for phones held sideways (height 500 px or less).
+    - `narrow:` is for 320 px phones.
+    - Use them to drop decoration (extra mascots, the greeting critter) before shrinking anything a child taps.
+  - Game boards shrink to fit short screens; the games measure their board size.
+  - Every screen change scrolls to the top (`src/lib/router.ts`).
 - **Fonts:** Fredoka for headings and buttons; Andika, designed for beginning readers, for questions and stories.
   - Theme tokens and animations live in `src/app/globals.css`.
 - **Subject colours:** math blue `#4f8ef7`, language pink `#e9559a`, science green `#25b47e`, social orange `#ff9636`.
@@ -186,8 +224,17 @@ Before you push, run tests, lint and typecheck, and for UI or flow changes also 
   - runs when the device comes online, when the app becomes visible, every 2 minutes, and a few seconds after any change.
 - **Service worker** (`public/sw.js`):
   - precaches `/play/` and `/parents/` along with their build files;
+  - keeps grade files loaded on demand: the app posts the files it has loaded (`cache-urls`), including those fetched before the worker took control on a first visit;
   - serves pages network-first and hashed build files cache-first;
   - never caches `/api/` or client-navigation data.
+- **Each grade's lessons are a separate download.** The client registry `src/content/index.ts` loads a grade with `loadGrade` (a dynamic `import()`).
+  - The kids' app waits for the active child's grade, and the parent area for its children's grades (`ContentGate`, `useGradeContent`).
+  - After that, the other profiles' grades and the grades either side are prefetched when the browser is idle, so switching players or moving up a grade works offline.
+  - If a grade was never downloaded and the device is offline, kids see a friendly "connect once" screen with Try again.
+  - First load of `/play/` is about 230 KB of gzipped JS plus 17–100 KB for one grade. Before this split, it was 775 KB for everything.
+  - **Never import `src/content/all.ts` (every grade) from client code.** It's for statically generated pages and tests, and ESLint blocks it elsewhere.
+  - **Scoring must not depend on which grades have loaded.** Code that runs over events (`derive`, reports) reads the subject from the unit key (`parseUnitKey`) instead of looking up content.
+  - Trophies that count "every unit in your grade" use a target of at least 1, so an unloaded grade can never award them.
 - **The kids' app and parent area are single-page apps with hash routes** (`src/lib/router.ts`), so every screen works offline from one cached page.
 - **Server:** libsql, a local SQLite file in dev and Turso in production.
   - Auth hashes passwords with scrypt. Sessions are random tokens stored hashed, in an HttpOnly cookie, with a same-origin check.
@@ -237,7 +284,7 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **Before launch, BC teachers need to review all content.**
   - Several Big Ideas statements were written from memory; check them against curriculum.gov.bc.ca.
   - Check history dates in the Grade 4–5 social studies units.
-- **The kids' app loads every grade's content up front** (about 775 KB gzipped, then cached for offline). Loading content per grade is the next performance step.
+- **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices) need a run with WebKit installed, plus a check on a real iPhone or iPad. The device tests here ran iOS profiles in Chromium.
 - **Visuals:**
   - The `pictograph` visual always shows "each picture = 1". Content works around it with tables.
   - The `passage` visual has no stanza breaks; poems use a blank paragraph instead.

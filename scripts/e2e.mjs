@@ -1,12 +1,15 @@
 // End-to-end playthrough of the kids' app, parent area, two-device sync and offline mode.
 // Plays every mode like a child would (including wrong answers), opens every arcade game
 // and parent page, signs up, syncs to a second device, then goes offline and back.
+// --offline checks that progress made offline uploads on reconnect. setOffline() doesn't
+// cut off the service worker, so the cache itself is tested by scripts/e2e-offline.mjs.
 //
 //   npm run build && npm start            # in one terminal (offline needs a production build)
 //   npm i --no-save playwright && npx playwright install chromium
 //   node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline [--speed]
 import fs from "node:fs";
 import { chromium } from "playwright";
+import { enterPin, newChild, step, vis } from "./helpers.mjs";
 const BASE = process.argv[2] || "http://localhost:3100";
 const OUT = process.argv[3] || "e2e-shots";
 const OFFLINE = process.argv.includes("--offline");
@@ -15,14 +18,6 @@ fs.mkdirSync(OUT, { recursive: true });
 
 const errors = [];
 const log = (...a) => console.log(...a);
-
-async function vis(loc) {
-  try {
-    return (await loc.count()) > 0 && (await loc.first().isVisible());
-  } catch {
-    return false;
-  }
-}
 
 function watch(page, name) {
   page.on("pageerror", (e) => errors.push(`${name} pageerror: ${e.message}`));
@@ -37,73 +32,6 @@ function watch(page, name) {
 async function shot(page, name, full = false) {
   await page.waitForTimeout(250);
   await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: full });
-}
-
-/** Answer one thing on screen; a click that lands mid-animation just tries again. */
-async function step(page) {
-  try {
-    return await stepOnce(page);
-  } catch {
-    await page.waitForTimeout(200);
-    return "wait";
-  }
-}
-
-/** Answer one thing on screen (randomly, so we see right, retry and revealed paths). */
-async function stepOnce(page) {
-  const next = page.getByRole("button", { name: /^(Next →|Finish 🎉)$/ });
-  if (await vis(next)) return next.click({ force: true }).then(() => "next");
-  const ok = page.locator("[role=status]").getByRole("button", { name: "OK", exact: true });
-  if (await vis(ok)) return ok.click({ force: true }).then(() => "ok");
-  if (await vis(page.getByRole("button", { name: /Keep going/ }))) return "checkpoint";
-  if (await vis(page.getByRole("button", { name: /Play again/ }))) return "summary";
-
-  const choices = page.locator('[data-testid="choice"]:not([disabled])');
-  if (await vis(choices)) {
-    const n = await choices.count();
-    await choices.nth(Math.floor(Math.random() * n)).click({ force: true });
-    return "choice";
-  }
-  if (await vis(page.getByTestId("pool-item"))) {
-    for (let i = 0; i < 12 && (await vis(page.getByTestId("pool-item"))); i++) await page.getByTestId("pool-item").first().click({ force: true });
-    await page.getByRole("button", { name: /Check/ }).click({ force: true });
-    await page.waitForTimeout(600);
-    return "order";
-  }
-  if (await vis(page.getByTestId("bin"))) {
-    const before = await page.getByTestId("sort-item").count();
-    const bins = page.getByTestId("bin");
-    for (let b = 0; b < (await bins.count()); b++) {
-      await bins.nth(b).click({ force: true });
-      await page.waitForTimeout(120);
-      if ((await page.getByTestId("sort-item").count()) < before) break;
-      // Wrong basket: dismiss the "try another" bar, then try the next basket.
-      const ok = page.locator("[role=status]").getByRole("button", { name: "OK", exact: true });
-      if (await vis(ok)) {
-        await ok.click({ force: true });
-        await page.waitForTimeout(80);
-      }
-    }
-    return "sort";
-  }
-  if (await vis(page.getByRole("button", { name: "+ Ten" }))) {
-    await page.getByRole("button", { name: "+ Ten" }).click({ force: true });
-    await page.getByRole("button", { name: "+ One" }).click({ force: true });
-    await page.getByRole("button", { name: /Check/ }).click({ force: true });
-    return "build";
-  }
-  const coin = page.getByRole("button", { name: /^(?!Take out).*(nickel|dime|quarter|loonie|toonie|bill)/i });
-  if (await vis(coin)) {
-    await coin.first().click({ force: true });
-    await page.getByRole("button", { name: /Check/ }).click({ force: true });
-    return "coins";
-  }
-  if (await vis(page.getByRole("button", { name: "Delete", exact: true }))) {
-    for (const k of ["1", "2"]) await page.getByRole("button", { name: k, exact: true }).click({ force: true });
-    await page.getByRole("button", { name: /Check/ }).click({ force: true });
-    return "input";
-  }
-  return "wait";
 }
 
 /** Play until the summary (or a checkpoint), up to `max` steps. */
@@ -148,29 +76,11 @@ async function tile(page, name) {
   await page.waitForTimeout(400);
 }
 
-async function enterPin(page, create) {
-  await page.waitForTimeout(400);
-  const type = async () => {
-    for (const d of "2468") await page.getByRole("button", { name: d, exact: true }).click();
-    await page.getByRole("button", { name: "OK", exact: true }).click();
-  };
-  await type();
-  if (create) await type();
-  await page.waitForTimeout(500);
-}
-
 /** Open a parent page, entering the PIN if the gate shows (it locks on every full load). */
 async function parents(page, hash = "") {
   await page.goto(`${BASE}/parents/#/${hash}`);
   await page.waitForTimeout(700);
   if (await vis(page.getByRole("heading", { name: "Parents only" }))) await enterPin(page, false);
-}
-
-async function newChild(page, name, grade) {
-  await page.getByLabel("Name").fill(name);
-  await page.getByRole("button", { name: grade, exact: true }).click();
-  await page.getByRole("button", { name: "Start!" }).click({ force: true });
-  await page.waitForTimeout(600);
 }
 
 async function eventsWaiting(page) {

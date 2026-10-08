@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Phones held sideways (very little height) and the narrowest phones (320 px). */
+@custom-variant short (@media (max-height: 500px));
+@custom-variant narrow (@media (max-width: 359px));
+
 @theme {
   --font-display: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
   --font-read: var(--font-andika), var(--font-fredoka), system-ui, sans-serif;

@@ -113,7 +113,7 @@ export function Bubbles({ grade, band, onScore, onLevel, onOver }: GameProps) {
           <span className="opacity-30">{"🤍".repeat(Math.max(0, 3 - lives))}</span>
         </p>
       </div>
-      <div ref={arena} className="relative h-[58vh] min-h-[360px] w-full max-w-3xl touch-none overflow-hidden rounded-3xl bg-gradient-to-b from-[#0b3a63] to-[#1fa2c9] select-none">
+      <div ref={arena} data-testid="game-board" className="relative h-[58vh] min-h-[360px] short:h-[calc(100dvh-11rem)] short:min-h-[150px] w-full max-w-3xl touch-none overflow-hidden rounded-3xl bg-gradient-to-b from-[#0b3a63] to-[#1fa2c9] select-none">
         {bubbles.map((b) => (
           <button
             key={b.id}

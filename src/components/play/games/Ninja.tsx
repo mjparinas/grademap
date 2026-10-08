@@ -150,7 +150,8 @@ export function Ninja({ grade, band, onScore, onLevel, onOver }: GameProps) {
       </div>
       <div
         ref={arena}
-        className="relative h-[58vh] min-h-[360px] w-full max-w-3xl touch-none overflow-hidden rounded-3xl bg-gradient-to-b from-[#2a1f4f] via-[#3b2a6b] to-[#ff7eb3]/60 select-none"
+        data-testid="game-board"
+        className="relative h-[58vh] min-h-[360px] short:h-[calc(100dvh-11rem)] short:min-h-[150px] w-full max-w-3xl touch-none overflow-hidden rounded-3xl bg-gradient-to-b from-[#2a1f4f] via-[#3b2a6b] to-[#ff7eb3]/60 select-none"
         onPointerDown={(e) => {
           slicing.current = true;
           point(e);

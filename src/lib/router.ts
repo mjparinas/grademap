@@ -15,6 +15,9 @@ function read(): string {
   return typeof window === "undefined" ? "" : window.location.hash.replace(/^#/, "") || "/";
 }
 
+// Every screen change starts at the top, whether it came from go(), a link or a tile.
+if (typeof window !== "undefined") window.addEventListener("hashchange", () => window.scrollTo({ top: 0 }));
+
 function subscribe(cb: () => void) {
   window.addEventListener("hashchange", cb);
   return () => window.removeEventListener("hashchange", cb);
@@ -41,7 +44,6 @@ export function go(path: string, query?: Record<string, string | number | undefi
   const target = href(path, query);
   if (replace) window.location.replace(target);
   else window.location.hash = target;
-  window.scrollTo({ top: 0 });
 }
 
 export function back(fallback = "/") {

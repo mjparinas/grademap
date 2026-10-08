@@ -114,13 +114,15 @@ export function Hub() {
   };
 
   return (
-    <Page className="gap-5">
+    <Page className="gap-5 short:gap-3">
       <Hud />
 
       <div className="flex items-center gap-3">
-        <Critter id={profile.companion} mood="wave" size={little ? 130 : 104} />
+        {/* Smaller on the narrowest phones, hidden on phones held sideways, so the big button stays in view. */}
+        <Critter id={profile.companion} mood="wave" size={little ? 130 : 104} className="narrow:hidden short:hidden" />
+        <Critter id={profile.companion} mood="wave" size={72} className="hidden narrow:block short:hidden" />
         <SpeechBubble className="flex-1">
-          <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"}`}>{message}</p>
+          <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>
           <div className="mt-2 flex items-center gap-2">
             <ProgressBar value={minutes} max={goal} className="flex-1" />
             <span className="text-sm font-semibold whitespace-nowrap text-ink-soft">
@@ -134,19 +136,19 @@ export function Hub() {
       <button
         type="button"
         onClick={() => open({ href: "#/session?mode=adventure&scope=mix", feature: "adventure" })}
-        className="btn min-h-28 animate-rise-in justify-between gap-4 px-6 text-left"
+        className="btn min-h-28 animate-rise-in justify-between gap-4 px-6 text-left narrow:gap-3 narrow:px-4 short:min-h-20"
         style={{ "--btn-bg": "linear-gradient(135deg,#7b6fd6,#4f8ef7)", "--btn-fg": "#fff", "--btn-edge": "#3a4fb8", background: "linear-gradient(135deg,#8a6ff0,#4f8ef7)" } as CSSProperties}
       >
         <span className="flex items-center gap-4">
-          <span className="animate-float text-6xl">🗺️</span>
+          <span className="animate-float text-6xl narrow:text-4xl short:text-5xl">🗺️</span>
           <span>
-            <span className="block text-3xl font-bold sm:text-4xl">{little ? "Let's Play!" : "Adventure"}</span>
-            <span className="block text-base font-semibold opacity-90 sm:text-lg">
+            <span className="block text-3xl font-bold sm:text-4xl narrow:text-2xl">{little ? "Let's Play!" : "Adventure"}</span>
+            <span className="block text-base font-semibold opacity-90 sm:text-lg narrow:text-sm">
               {little ? "Fun questions from everything!" : "Endless questions picked just for you"}
             </span>
           </span>
         </span>
-        <span className="text-4xl">▶</span>
+        <span className="text-4xl narrow:hidden">▶</span>
       </button>
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">

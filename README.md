@@ -56,7 +56,11 @@ npm run lint
 npm run build && npm start
 ```
 
-`scripts/e2e.mjs` is a Playwright playthrough of the whole app: every mode, the arcade, the parent area, sign-up, sync to a second device, and offline play with upload on reconnect. Instructions are at the top of the file.
+Browser tests (Playwright; instructions at the top of each file):
+
+- `scripts/e2e.mjs`: a playthrough of the whole app. It covers every mode, the arcade, the parent area, sign-up, sync to a second device, and offline play with upload on reconnect.
+- `scripts/e2e-devices.mjs`: layout checks on 14 common Android, iPhone, iPad and tablet screens, in portrait and landscape. The riskier flows run once per class of device.
+- `scripts/e2e-offline.mjs`: real offline. It stops the server and checks the service worker serves the app and the lessons.
 
 With no configuration it uses a local SQLite file (`./data/grademap.db`) and **simulated billing**, so you can try sign-up, sync and subscriptions end to end.
 
@@ -89,8 +93,12 @@ It needs a Node server for the API routes (Vercel, Render, Fly.io or any Node ho
 - Everything a child does is an **event** (an answer, a finished session, a game played, a purchase, a quest claimed or a trophy earned). Each event has a unique id, and events go into IndexedDB first (`src/lib/localdb.ts`).
 - XP, levels, coins, trophies, mastery and streaks are **never stored**. They are recomputed from the events (`src/lib/derive.ts`). Merging events from several devices is therefore order-independent and duplicate-safe: nothing is lost if two tablets were used offline.
 - Profiles, settings and the family plan sync with last-write-wins on `updatedAt`.
-- `src/lib/sync.ts` pushes unsynced events and pulls new ones by cursor (`POST /api/sync`). It runs when the device comes online, when the app becomes visible, every 2 minutes, and shortly after any change.
+- `src/lib/sync.ts` pushes unsynced events and pulls new ones by cursor (`POST /api/sync/`). It runs when the device comes online, when the app becomes visible, every 2 minutes, and shortly after any change.
 - `public/sw.js` precaches the kids' app and parent area, serves pages network-first and build files cache-first, and never caches `/api/`.
+- **Each grade's lessons are a separate download** (`src/content/index.ts`).
+  - The kids' app loads only the active child's grade (about 230 KB of JavaScript plus 17–100 KB for the grade, instead of 775 KB for everything).
+  - It then prefetches siblings' grades and the grades either side for offline use.
+  - Server pages and tests use `src/content/all.ts`.
 
 ### Scoring
 

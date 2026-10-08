@@ -140,7 +140,8 @@ export function Catch({ grade, band, onScore, onLevel, onOver }: GameProps) {
       </div>
       <div
         ref={arena}
-        className="relative h-[58vh] min-h-[360px] w-full max-w-3xl touch-none overflow-hidden rounded-3xl bg-gradient-to-b from-[#bfe8ff] to-[#d9f7d6] select-none"
+        data-testid="game-board"
+        className="relative h-[58vh] min-h-[360px] short:h-[calc(100dvh-11rem)] short:min-h-[150px] w-full max-w-3xl touch-none overflow-hidden rounded-3xl bg-gradient-to-b from-[#bfe8ff] to-[#d9f7d6] select-none"
         onPointerDown={(e) => move(e.clientX)}
         onPointerMove={(e) => (e.buttons || e.pointerType !== "mouse" ? move(e.clientX) : move(e.clientX))}
       >
