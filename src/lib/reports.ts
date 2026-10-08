@@ -1,4 +1,4 @@
-import { allUnitRefs, getUnitRef, type UnitRef } from "@/content";
+import { allUnitRefs, parseUnitKey, type UnitRef } from "@/content";
 import type { GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
 import { learnSecondsFor } from "./derive";
@@ -95,7 +95,7 @@ export function buildReport(events: AppEvent[], derived: Derived, grade: GradeId
     totals.answers++;
     ms += Math.min(e.ms, 60_000);
     if (e.correct) totals.correct++;
-    const subject = getUnitRef(e.unit)?.course.subject;
+    const subject = parseUnitKey(e.unit)?.subject;
     if (subject) {
       const s = subjects.get(subject) ?? { subject, answers: 0, correct: 0, minutes: 0 };
       s.answers++;

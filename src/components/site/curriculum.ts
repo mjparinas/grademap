@@ -1,4 +1,5 @@
-import { COURSES, getCourse, unitKey } from "@/content";
+import { unitKey } from "@/content";
+import { COURSES, getCourse } from "@/content/all";
 import { FRAMEWORKS, getFramework, type Framework } from "@/content/frameworks";
 import { GRADE_LABEL, ageBandFor, getSubjectMeta, gradeFromSlug, gradeSlug } from "@/content/subjects";
 import type { Course, GradeId, SubjectId, Unit } from "@/content/types";

@@ -1,0 +1,20 @@
+import { courses as k } from "./grades/k";
+import { courses as g1 } from "./grades/g1";
+import { courses as g2 } from "./grades/g2";
+import { courses as g3 } from "./grades/g3";
+import { courses as g4 } from "./grades/g4";
+import { courses as g5 } from "./grades/g5";
+import { courses as g6 } from "./grades/g6";
+import { courses as g7 } from "./grades/g7";
+import type { Course, GradeId, SubjectId } from "./types";
+
+// Every grade at once, for the statically generated public pages and for tests.
+// Never import this from client code (the apps): it would put all content back
+// into the first download. ESLint enforces this; the apps use ./index.
+
+/** Every course with at least one unit. */
+export const COURSES: Course[] = [...k, ...g1, ...g2, ...g3, ...g4, ...g5, ...g6, ...g7].filter((c) => c.units.length > 0);
+
+export function getCourse(grade: GradeId, subject: SubjectId | string): Course | undefined {
+  return COURSES.find((c) => c.grade === grade && c.subject === subject);
+}

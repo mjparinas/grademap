@@ -1,11 +1,14 @@
-import { describe, expect, it } from "vitest";
-import { allUnitRefs } from "@/content";
+import { beforeAll, describe, expect, it } from "vitest";
+import { allUnitRefs, loadGrade } from "@/content";
 import { pickNext } from "./adaptive";
 import { derive, xpForLevel } from "./derive";
 import { dayKey, type AppEvent } from "./model";
 import { unitLevel } from "./proficiency";
 import { dailyQuests } from "./quests";
 import { newlyEarned, TROPHIES } from "./trophies";
+
+// The apps download a grade's lessons before using them; do the same here.
+beforeAll(() => loadGrade("2"));
 
 const DAY = 86_400_000;
 const UNIT = "2/math/tens-and-ones";

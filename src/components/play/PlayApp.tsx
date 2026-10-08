@@ -2,12 +2,14 @@
 
 import { useEffect } from "react";
 import { ageBandFor } from "@/content/subjects";
-import type { SubjectId } from "@/content/types";
+import type { GradeId, SubjectId } from "@/content/types";
 import type { Mode } from "@/lib/model";
 import { useRoute } from "@/lib/router";
 import { useActiveProfile, useProfiles, useReady, useStore } from "@/lib/store";
 import { startBackgroundSync } from "@/lib/sync";
+import { prefetchGrades } from "@/lib/useGradeContent";
 import { BandProvider } from "../band";
+import { ContentGate } from "../ContentGate";
 import { LoadingScreen } from "../ui";
 import { Arcade, GameScreen } from "./Arcade";
 import { Hub } from "./Hub";
@@ -65,11 +67,25 @@ export function PlayApp() {
 
   const band = ageBandFor(active.grade);
   return (
-    <BandProvider value={band}>
-      <div data-band={band} key={active.id}>
-        <Screen />
-      </div>
-      <Toasts />
-    </BandProvider>
+    <ContentGate grades={[active.grade]} onSwitch={profiles.length > 1 ? () => useStore.getState().setActive(null) : undefined}>
+      <Prefetch />
+      <BandProvider value={band}>
+        <div data-band={band} key={active.id}>
+          <Screen />
+        </div>
+        <Toasts />
+      </BandProvider>
+    </ContentGate>
   );
+}
+
+/** Once the active child's lessons are in, quietly download siblings' and nearby grades for offline use. */
+function Prefetch() {
+  const profiles = useProfiles();
+  const active = useActiveProfile();
+  const grades = [...new Set([active?.grade, ...profiles.map((p) => p.grade)])].filter(Boolean).join(",");
+  useEffect(() => {
+    if (grades) prefetchGrades(grades.split(",") as GradeId[]);
+  }, [grades]);
+  return null;
 }

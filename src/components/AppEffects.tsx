@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { replay } from "@/lib/juice";
+import { cacheLoadedScripts } from "@/lib/offline";
 import { sounds } from "@/lib/sound";
 
 /** Registers the offline service worker and makes every button juicy. */
@@ -11,6 +12,9 @@ export function AppEffects() {
     navigator.serviceWorker.register("/sw.js").catch(() => {
       // Offline support is a bonus; the site works without it.
     });
+    // On a first visit, lessons load before the worker takes control; hand them over once it does.
+    navigator.serviceWorker.addEventListener("controllerchange", cacheLoadedScripts);
+    cacheLoadedScripts();
   }, []);
 
   // Every .btn gets a little click sound on press and a jelly spring on release.

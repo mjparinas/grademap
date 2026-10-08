@@ -6,8 +6,9 @@ import { APP_NAME } from "@/lib/brand";
 import { refreshAccount, type BillingInfo } from "@/lib/account";
 import { isPremium, trialDaysLeft } from "@/lib/plan";
 import { useRoute } from "@/lib/router";
-import { useReady, useStore } from "@/lib/store";
+import { useProfiles, useReady, useStore } from "@/lib/store";
 import { startBackgroundSync, syncNow } from "@/lib/sync";
+import { ContentGate } from "../ContentGate";
 import { LoadingScreen } from "../ui";
 import { AccountPage } from "./Account";
 import { ChildrenPage } from "./Children";
@@ -106,6 +107,7 @@ export function ParentApp() {
   const [unlocked, setUnlocked] = useState(false);
   const [billing, setBilling] = useState<BillingInfo | null>(null);
   const { path } = useRoute();
+  const profiles = useProfiles();
 
   useEffect(() => {
     if (ready) return;
@@ -148,5 +150,10 @@ export function ParentApp() {
     default:
       page = <Overview />;
   }
-  return <Shell active={section}>{page}</Shell>;
+  // Reports need each child's lessons; settings and billing still work if a download fails.
+  return (
+    <ContentGate grades={profiles.map((p) => p.grade)} optional>
+      <Shell active={section}>{page}</Shell>
+    </ContentGate>
+  );
 }

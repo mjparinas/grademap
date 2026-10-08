@@ -1,4 +1,4 @@
-import { getUnitRef } from "@/content";
+import { parseUnitKey } from "@/content";
 import type { SubjectId } from "@/content/types";
 import { dayKey, type AppEvent, type Mode } from "./model";
 import { TIER_COINS, TIER_POINTS, trophyTier } from "./trophies";
@@ -161,7 +161,8 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
         d.totals.learnSeconds += secs;
         d.totals.answers++;
         d.modeAnswers[e.mode] = (d.modeAnswers[e.mode] ?? 0) + 1;
-        const subject = getUnitRef(e.unit)?.course.subject;
+        // From the key, not the content, so scoring never depends on which grades are downloaded.
+        const subject = parseUnitKey(e.unit)?.subject;
         if (subject) {
           day.subjects[subject] = (day.subjects[subject] ?? 0) + 1;
           const s = (d.subjects[subject] ??= { answers: 0, correct: 0 });

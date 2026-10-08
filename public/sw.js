@@ -3,8 +3,11 @@
 //   along with the scripts and styles they load, so they open with no internet.
 // - Pages are network-first: fresh when online, from the cache when not.
 // - Next.js build files have hashed names, so they're served cache-first.
+// - Each grade's lessons are a separate file loaded on demand. The app posts the
+//   files it has loaded ("cache-urls") so they're kept even if they arrived before
+//   this worker took control of the page.
 // - /api/ is never cached: progress is saved in IndexedDB and synced by the app.
-const CACHE = "grademap-v2";
+const CACHE = "grademap-v3";
 const SHELLS = ["/play/", "/parents/", "/"];
 const EXTRAS = ["/manifest.webmanifest", "/icon.svg", "/icon-192.png", "/icon-512.png"];
 
@@ -39,6 +42,17 @@ self.addEventListener("activate", (event) => {
       .keys()
       .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
+  );
+});
+
+self.addEventListener("message", (event) => {
+  const { data } = event;
+  if (data?.type !== "cache-urls" || !Array.isArray(data.urls)) return;
+  const urls = data.urls.filter((u) => typeof u === "string" && new URL(u).origin === self.location.origin && new URL(u).pathname.startsWith("/_next/static/"));
+  event.waitUntil(
+    caches.open(CACHE).then((cache) =>
+      Promise.all(urls.map((u) => cache.match(u).then((hit) => hit || cache.add(u).catch(() => undefined)))),
+    ),
   );
 });
 
