@@ -295,4 +295,5 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **Before launch, BC teachers need to review all content.**
   - Several Big Ideas statements were written from memory; check them against curriculum.gov.bc.ca.
   - Check history dates in the Grade 4–5 social studies units.
-- **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices) need a run with WebKit installed, plus a check on a real iPhone or iPad. The device tests here ran iOS profiles in Chromium.
+- **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices): the device layout tests now pass in real WebKit (Playwright's WebKit build, not Safari). A check on a real iPhone or iPad is still needed, especially for read-aloud voices.
+- **Deployment** is not done. Steps, env vars and the launch checklist are in `docs/DEPLOY.md`.

@@ -157,6 +157,8 @@ The installable web app already works offline. For Google Play, wrap it as a Tru
 
 ## Research
 
+Deployment steps (Vercel, Turso, Stripe) are in [`docs/DEPLOY.md`](docs/DEPLOY.md).
+
 The market research behind the product decisions (market size, competitors, monetization and what parents want) is in [`docs/research/`](docs/research/), starting with the [summary report](docs/research/market-report.md).
 
 ## Content notes

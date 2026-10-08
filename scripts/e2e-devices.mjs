@@ -208,7 +208,10 @@ async function deepChecks(device, browser, descriptor, page) {
   // An arcade game: turn on free play, then check the play area fits.
   await page.goto(`${BASE}/parents/#/settings`);
   await enterPin(page, false);
-  await page.getByRole("switch", { name: /Free play/ }).first().click();
+  const freePlay = page.getByRole("switch", { name: /Free play/ }).first();
+  await freePlay.click();
+  await page.waitForFunction((el) => el?.getAttribute("aria-checked") === "true", await freePlay.elementHandle());
+  await page.waitForTimeout(600); // let the setting reach IndexedDB before leaving the page
   await page.goto(`${BASE}/play/#/arcade/ninja`);
   await page.getByRole("button", { name: /Play!/ }).click();
   const board = page.getByTestId("game-board");
