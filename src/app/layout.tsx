@@ -1,0 +1,51 @@
+import type { Metadata, Viewport } from "next";
+import { Andika, Fredoka } from "next/font/google";
+import { AppEffects } from "@/components/AppEffects";
+import { APP_NAME } from "@/lib/brand";
+import "./globals.css";
+
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+// Andika is designed for beginning readers (simple a, g and clear letter shapes).
+const andika = Andika({
+  variable: "--font-andika",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: `${APP_NAME} · Grade 2 BC Curriculum`,
+    template: `%s · ${APP_NAME}`,
+  },
+  description:
+    "Friendly Grade 2 practice for kids, matched to the BC curriculum: math, reading and writing, science and social studies.",
+  applicationName: APP_NAME,
+  appleWebApp: { capable: true, title: APP_NAME, statusBarStyle: "default" },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#fffaf1",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html lang="en-CA" className={`${fredoka.variable} ${andika.variable} antialiased`}>
+      <body>
+        <AppEffects />
+        {children}
+      </body>
+    </html>
+  );
+}
