@@ -56,6 +56,19 @@ function AuthForm({ onDone }: { onDone: () => void }) {
         {mode === "signup" && <span className="text-sm text-ink-soft">At least 8 characters.</span>}
       </label>
       {error && <p className="font-semibold text-nudge-dark">{error}</p>}
+      {mode === "signup" && (
+        <p className="text-sm text-ink-soft">
+          By creating an account you confirm you are a parent or guardian and agree to the{" "}
+          <a href="/terms/" target="_blank" rel="noreferrer" className="underline">
+            terms
+          </a>{" "}
+          and{" "}
+          <a href="/privacy/" target="_blank" rel="noreferrer" className="underline">
+            privacy policy
+          </a>
+          .
+        </p>
+      )}
       <button type="submit" disabled={busy} className="rounded-xl bg-[#25b47e] px-4 py-3 text-lg font-bold text-white disabled:opacity-60">
         {busy ? "One moment…" : mode === "signup" ? "Create account & sync" : "Sign in & sync"}
       </button>

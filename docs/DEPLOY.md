@@ -55,6 +55,6 @@ Tables are created on first use (`CREATE TABLE IF NOT EXISTS` in `src/server/db.
 - [ ] `/play/`, `/parents/` and `/api/` stay `noindex`; public pages are indexed.
 - [ ] Submit the sitemap in Google Search Console.
 - [ ] Privacy: export and delete-account work against the production database.
-- [ ] Add a privacy policy and terms page before taking payments (not yet written).
+- [ ] `/privacy/` and `/terms/` are drafts. Set `LEGAL_NAME`, `CONTACT_EMAIL` and `LEGAL_UPDATED` in `src/lib/brand.ts`, then have a lawyer review both (governing law is set to British Columbia) before taking payments.
 - [ ] BC teacher content review, Big Ideas check and Grade 4–5 history dates (see `AGENTS.md`, Open items).
 - [ ] Check the service worker after a deploy: it precaches by build, so a second visit should pick up the new version.
