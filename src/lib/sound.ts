@@ -1,5 +1,7 @@
 "use client";
 
+import { buzz, vibrate } from "./haptics";
+
 // Small synthesized sounds, so there are no audio files to download.
 // Pitches vary a little each time so repeated taps never sound robotic.
 
@@ -67,8 +69,12 @@ function tone(
 const SCALE = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568];
 
 export const sounds = {
-  tap: () => tone(vary(620, 0.12), 0, 0.07, "triangle", 0.07, vary(820, 0.1)),
+  tap: () => {
+    vibrate(buzz.tap);
+    tone(vary(620, 0.12), 0, 0.07, "triangle", 0.07, vary(820, 0.1));
+  },
   correct: (streak = 0) => {
+    vibrate(buzz.correct);
     // Quiet mode keeps one soft note, so a right answer still gets a response.
     if (quietOn()) return tone(SCALE[2], 0, 0.14, "sine", 0.08);
     const base = Math.min(streak, 4);
@@ -78,6 +84,7 @@ export const sounds = {
   },
   // Soft and low: a nudge, not a buzzer.
   tryAgain: () => {
+    vibrate(buzz.tryAgain);
     tone(392, 0, 0.16, "triangle", 0.11);
     tone(330, 0.12, 0.22, "triangle", 0.09);
   },
@@ -90,6 +97,7 @@ export const sounds = {
   clack: () => tone(vary(300, 0.1), 0, 0.09, "square", 0.05, 180),
   /** Rising pop: pass an index to climb the scale, e.g. while filling slots. */
   pop: (step = 0) => {
+    vibrate(buzz.pop);
     const f = SCALE[Math.max(0, Math.min(Math.floor(step), SCALE.length - 1))];
     tone(f, 0, 0.14, "sine", 0.13, f * 1.25);
   },
@@ -115,7 +123,10 @@ export const sounds = {
   /** A soft tick for countdowns. */
   tick: loud(() => tone(1200, 0, 0.04, "square", 0.025)),
   /** Wrong in a fast game: a quick, low boop. */
-  boop: () => tone(220, 0, 0.12, "triangle", 0.1, 150),
+  boop: () => {
+    vibrate(buzz.tryAgain);
+    tone(220, 0, 0.12, "triangle", 0.1, 150);
+  },
   complete: loud(() => {
     [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, i * 0.1, 0.35, "sine", 0.15));
   }),
