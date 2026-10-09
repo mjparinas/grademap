@@ -67,7 +67,7 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which is correct?", right: "Ravi's dog is friendly.", wrong: ["Ravis dog is friendly.", "Ravi dog's is friendly."], hint: "The apostrophe goes right after the owner's name, before the s." },
   { prompt: "Which sentence shows the exact words someone said?", right: "“I am hungry,” said Ravi.", wrong: ["Ravi said he was hungry.", "I am hungry said Ravi."], hint: "Quotation marks go around the words a person says out loud." },
   { prompt: "Which uses quotation marks correctly?", right: "Mom said, “Time for dinner.”", wrong: ["“Mom said, Time for dinner.”", "Mom said Time for “dinner.”"], hint: "Put quotation marks around only the spoken words." },
-  { prompt: "Which sentence needs a capital letter? we saw a moose.", right: "we saw a moose.", wrong: ["We saw a Moose.", "We saw a moose."], hint: "Every sentence starts with a capital letter." },
+  { prompt: "Which sentence is written correctly?", right: "We saw a moose.", wrong: ["we saw a moose.", "We saw a Moose."], hint: "Every sentence starts with a capital letter." },
   { prompt: "Which day of the week is written correctly?", right: "Wednesday", wrong: ["wednesday", "wednesDay"], hint: "Days of the week start with a capital letter." },
 ];
 
@@ -180,7 +180,7 @@ function textFeatures(opts?: GenerateOptions): Question[] {
     return { kind: "order", prompt: "Tap the steps in the order they happen.", hint: "Think about what has to happen first.", items: items.map((label, i) => ({ id: `t${i}`, label })) };
   };
   const chartRead = (): Question => {
-    const rows = [["Mon", range(2, 9)], ["Tue", range(2, 9)], ["Wed", range(2, 9)]].map(([day]) => ({ day: day as string, books: randInt(2, 9) }));
+    const rows = ["Mon", "Tue", "Wed"].map((day) => ({ day, books: randInt(2, 9) }));
     const r = pick(rows);
     return textChoice(`How many books were read on ${r.day}?`, String(r.books), sample(range(1, 11).filter((n) => n !== r.books).map(String), 2), "Find the day, then read across to the number.", { type: "table", title: "Books we read", headers: ["Day", "Books"], rows: rows.map((x) => [x.day, x.books]) });
   };
