@@ -99,9 +99,9 @@ export const ONTARIO: Framework = {
   standardLabel: "Expectation",
   sourceName: "Ontario Ministry of Education, Curriculum and Resources",
   sourceUrl: "https://www.dcp.edu.gov.on.ca/en/curriculum",
-  grades: ["k", "1", "2", "3", "4", "5", "6", "7"],
-  subjects: ["math", "language"],
-  scoringFor: (grade: GradeId) => (grade === "k" ? K_SCHEME : grade === "7" ? PERCENT_SCHEME : LETTER_SCHEME),
+  grades: ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+  subjects: ["math", "language", "immersion", "core-french"],
+  scoringFor: (grade: GradeId) => (grade === "k" ? K_SCHEME : grade === "7" || grade === "8" || grade === "9" ? PERCENT_SCHEME : LETTER_SCHEME),
   reportCard: {
     title: "Understanding Ontario report cards",
     intro:
@@ -112,8 +112,8 @@ export const ONTARIO: Framework = {
         body: "Level 1 is much below the provincial standard, Level 2 approaches it, Level 3 meets it and Level 4 surpasses it. Level 4 doesn't mean your child went beyond the expectations for the grade.",
       },
       {
-        title: "Letter grades in Grades 1 to 6, percentages in Grades 7 and 8",
-        body: "In Grades 1 to 6 the levels are reported as letter grades (Level 3 is a B). In Grades 7 and 8 they are reported as percentage marks (Level 3 is 70 to 79 per cent). Kindergarten doesn't use grades or marks.",
+        title: "Letter grades in Grades 1 to 6, percentages in Grades 7 to 9",
+        body: "In Grades 1 to 6 the levels are reported as letter grades (Level 3 is a B). In Grades 7 to 9 they are reported as percentage marks (Level 3 is 70 to 79 per cent). Kindergarten doesn't use grades or marks.",
       },
       {
         title: "Three reports a year",
@@ -135,7 +135,7 @@ export const ONTARIO: Framework = {
       },
       {
         q: "Is Level 3 an average grade?",
-        a: "Level 3 is the provincial standard, which is the goal for every student. It is a B in Grades 1 to 6 and 70 to 79 per cent in Grades 7 and 8, and it means your child is on track.",
+        a: "Level 3 is the provincial standard, which is the goal for every student. It is a B in Grades 1 to 6 and 70 to 79 per cent in Grades 7 to 9, and it means your child is on track.",
       },
       {
         q: "What is the difference between Level 3 and Level 4?",

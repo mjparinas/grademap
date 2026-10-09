@@ -3,6 +3,7 @@ import { G6_LANGUAGE, G6_MATH } from "./overall";
 import { units as languageUnits } from "./g6-language";
 import { units as mathUnits } from "./g6-math";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
 
 // Ontario Grade 6. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -41,4 +42,5 @@ export const courses: Course[] = [
       "ca-on": ["roots-analogies", "grammar-6", "sentences-6", "commas-clauses", "punctuation-6", "close-reading", "point-of-view", "figurative-language", "connotation-tone", "sources-bias", "text-forms-6"],
     },
   },
+  ...frenchCourses("6"),
 ];

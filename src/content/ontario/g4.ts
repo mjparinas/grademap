@@ -3,6 +3,8 @@ import { G4_LANGUAGE, G4_MATH } from "./overall";
 import { units as languageUnits } from "./g4-language";
 import { units as mathUnits } from "./g4-math";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
+import { course as coreFrench4 } from "./g4-core-french";
 
 // Ontario Grade 4. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -41,4 +43,6 @@ export const courses: Course[] = [
       "ca-on": ["word-builders", "grammar-4", "sentences-4", "punctuation-4", "reading-detectives", "text-features", "text-features-4", "point-of-view", "figurative-language"],
     },
   },
+  coreFrench4,
+  ...frenchCourses("4"),
 ];

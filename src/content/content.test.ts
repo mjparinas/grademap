@@ -250,11 +250,11 @@ describe("curriculum content", () => {
     expect(offenders).toEqual([]);
   });
 
-  it("offers French Immersion from Kindergarten and Core French from Grade 5", () => {
-    const has = (grade: string, subject: string) => COURSES.some((c) => c.grade === grade && c.subject === subject);
-    for (const g of ["k", "1", "2", "3", "4", "5", "6", "7"]) expect(has(g, "immersion"), `immersion ${g}`).toBe(true);
+  it("offers BC French Immersion from Kindergarten and Core French from Grade 5, through Grade 9", () => {
+    const has = (grade: string, subject: string) => COURSES.some((c) => c.grade === grade && c.subject === subject && c.units.some((u) => u.standards["ca-bc"]));
+    for (const g of ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"]) expect(has(g, "immersion"), `immersion ${g}`).toBe(true);
     for (const g of ["k", "1", "2", "3", "4"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(false);
-    for (const g of ["5", "6", "7"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(true);
+    for (const g of ["5", "6", "7", "8", "9"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(true);
   });
 
   it("marks every French Immersion question as French so read-aloud uses a French voice", () => {

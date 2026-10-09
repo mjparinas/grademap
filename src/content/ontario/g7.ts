@@ -3,6 +3,7 @@ import { G7_LANGUAGE, G7_MATH } from "./overall";
 import { units as languageUnits } from "./g7-language";
 import { units as mathUnits } from "./g7-math";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
 
 // Ontario Grade 7. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -49,4 +50,5 @@ export const courses: Course[] = [
       "ca-on": ["clauses-sentences", "grammar-7", "modifiers-parallelism", "punctuation-7", "semicolons-colons-dashes", "close-reading", "point-of-view-7", "literary-devices", "tone-mood", "text-patterns-7", "persuasion", "source-check", "poetry-lab"],
     },
   },
+  ...frenchCourses("7"),
 ];

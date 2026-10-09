@@ -3,6 +3,7 @@ import { G3_LANGUAGE, G3_MATH } from "./overall";
 import { units as languageUnits } from "./g3-language";
 import { units as mathUnits } from "./g3-math";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
 
 // Ontario Grade 3. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -43,4 +44,5 @@ export const courses: Course[] = [
       "ca-on": ["spelling-patterns", "prefixes-suffixes", "word-pairs", "grammar-3", "sentences-3", "punctuation-3", "devices-3", "story-elements", "read-and-think", "text-patterns"],
     },
   },
+  ...frenchCourses("3"),
 ];

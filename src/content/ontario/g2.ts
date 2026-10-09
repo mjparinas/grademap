@@ -3,6 +3,7 @@ import { G2_LANGUAGE, G2_MATH } from "./overall";
 import { units as languageUnits } from "./g2-language";
 import { units as mathUnits } from "./g2-math";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
 
 // Ontario Grade 2. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -39,4 +40,5 @@ export const courses: Course[] = [
       "ca-on": ["rhyme-time", "sound-detectives", "word-power", "grammar-2", "super-sentences", "build-sentences", "punctuation-2", "word-pictures", "story-builders", "reading-detectives", "text-features"],
     },
   },
+  ...frenchCourses("2"),
 ];

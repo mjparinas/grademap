@@ -3,6 +3,7 @@ import { G5_LANGUAGE, G5_MATH } from "./overall";
 import { units as languageUnits } from "./g5-language";
 import { units as mathUnits } from "./g5-math";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
 
 // Ontario Grade 5. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -37,4 +38,5 @@ export const courses: Course[] = [
       "ca-on": ["word-roots", "context-clues", "grammar-5", "sentences-5", "punctuation-5", "reading-detectives", "plot-and-conflict", "figurative-language", "purpose-and-structure", "style-and-perspective"],
     },
   },
+  ...frenchCourses("5"),
 ];

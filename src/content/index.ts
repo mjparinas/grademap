@@ -35,6 +35,8 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "5": () => import("./ontario/g5"),
     "6": () => import("./ontario/g6"),
     "7": () => import("./ontario/g7"),
+    "8": () => import("./ontario/g8"),
+    "9": () => import("./ontario/g9"),
   },
 };
 

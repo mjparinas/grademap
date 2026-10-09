@@ -3,6 +3,7 @@ import { G1_LANGUAGE, G1_MATH } from "./overall";
 import { units as languageUnits } from "./g1-language";
 import { units as mathUnits } from "./g1-math";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
 
 // Ontario Grade 1. Units the BC course also has (counting and adding to 20, patterns, shapes
 // and so on) are shared; the rest are written for the Ontario expectations.
@@ -46,4 +47,5 @@ export const courses: Course[] = [
       "ca-on": ["blend-it", "short-vowels", "sh-ch-th", "word-families", "sight-words", "word-jobs", "more-than-one", "describing-words", "sentences", "sentence-types", "sound-play", "story-time", "think-it-through"],
     },
   },
+  ...frenchCourses("1"),
 ];
