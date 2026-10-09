@@ -188,4 +188,12 @@ export interface Course {
   /** Big Ideas (or equivalent) per framework, shown to parents. */
   bigIdeas: Partial<Record<FrameworkId, string[]>>;
   units: Unit[];
+  /**
+   * Units another framework's content already provides that this framework also uses as they
+   * are. The standards listed here are added to the unit, so progress carries over if a family
+   * switches between the two.
+   */
+  shares?: Record<string, { standards: Partial<Record<FrameworkId, string>> }>;
+  /** The order of unit ids a framework shows them in. Units it doesn't list come last. */
+  order?: Partial<Record<FrameworkId, string[]>>;
 }

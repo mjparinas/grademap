@@ -73,15 +73,38 @@ export function mergeCourses(lists: Course[][]): Course[] {
       continue;
     }
     const base = out[i];
-    out[i] = { ...base, bigIdeas: { ...base.bigIdeas, ...course.bigIdeas }, units: [...base.units, ...course.units] };
+    out[i] = {
+      ...base,
+      bigIdeas: { ...base.bigIdeas, ...course.bigIdeas },
+      units: [...base.units, ...course.units],
+      shares: { ...base.shares, ...course.shares },
+      order: { ...base.order, ...course.order },
+    };
   }
-  return out;
+  return out.map(applyShares);
+}
+
+function applyShares(course: Course): Course {
+  if (!course.shares) return course;
+  const shares = course.shares;
+  return {
+    ...course,
+    units: course.units.map((u) => (shares[u.id] ? { ...u, standards: { ...u.standards, ...shares[u.id].standards } } : u)),
+  };
 }
 
 /** A framework's view of courses: only the units it has standards for. */
 export function coursesInFramework(list: Course[], framework: FrameworkId): Course[] {
   return list
-    .map((c) => (c.units.every((u) => u.standards[framework]) ? c : { ...c, units: c.units.filter((u) => u.standards[framework]) }))
+    .map((c) => {
+      let units = c.units.every((u) => u.standards[framework]) ? c.units : c.units.filter((u) => u.standards[framework]);
+      const order = c.order?.[framework];
+      if (order) {
+        const rank = (u: Unit) => (order.includes(u.id) ? order.indexOf(u.id) : order.length);
+        units = [...units].sort((a, b) => rank(a) - rank(b));
+      }
+      return units === c.units ? c : { ...c, units };
+    })
     .filter((c) => c.units.length > 0);
 }
 
