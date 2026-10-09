@@ -89,6 +89,32 @@ const SCHEMA = [
     reason TEXT NOT NULL,
     created_at INTEGER NOT NULL
   )`,
+  // Classroom mode. A teacher is an ordinary account; a class never stores anything about a child
+  // beyond the link a parent chose to make with the join code.
+  `CREATE TABLE IF NOT EXISTS classes (
+    id TEXT PRIMARY KEY,
+    owner_parent_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    grade TEXT NOT NULL,
+    join_code TEXT NOT NULL UNIQUE,
+    created_at INTEGER NOT NULL,
+    closed_at INTEGER
+  )`,
+  `CREATE INDEX IF NOT EXISTS classes_owner ON classes (owner_parent_id)`,
+  `CREATE TABLE IF NOT EXISTS class_members (
+    class_id TEXT NOT NULL,
+    profile_id TEXT NOT NULL,
+    family_id TEXT NOT NULL,
+    joined_at INTEGER NOT NULL,
+    PRIMARY KEY (class_id, profile_id)
+  )`,
+  `CREATE INDEX IF NOT EXISTS class_members_family ON class_members (family_id)`,
+  `CREATE TABLE IF NOT EXISTS class_assignments (
+    class_id TEXT NOT NULL,
+    unit_key TEXT NOT NULL,
+    created_at INTEGER NOT NULL,
+    PRIMARY KEY (class_id, unit_key)
+  )`,
 ];
 
 /** Columns added after the first release. SQLite has no "ADD COLUMN IF NOT EXISTS". */
