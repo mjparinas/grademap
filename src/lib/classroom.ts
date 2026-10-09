@@ -24,6 +24,14 @@ export interface ClassLink {
   grade: string;
 }
 
+/** Units a teacher assigned to one child, as sent down by sync and kept on the device for offline use. */
+export interface Classwork {
+  profileId: string;
+  classId: string;
+  className: string;
+  unitKeys: string[];
+}
+
 export async function call<T>(url: string, method = "GET", body?: unknown): Promise<T> {
   let res: Response;
   try {
