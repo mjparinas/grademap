@@ -7,6 +7,7 @@ import { buildReport } from "@/lib/reports";
 import { eventsFor, useDerived, useStore } from "@/lib/store";
 import { getTrophy, TIER_STYLE } from "@/lib/trophies";
 import { ColumnChart, LevelStacks, LineChart, RowBars, StatTile } from "./charts";
+import { ShareReport } from "./ShareReport";
 import { ChildTabs, NoChildren, PageTitle, Panel, useChild } from "./common";
 
 const pct = (v: number) => `${Math.round(v * 100)}%`;
@@ -39,6 +40,7 @@ export function ReportsPage({ childId }: { childId?: string }) {
                 {p} days
               </button>
             ))}
+            <ShareReport profileId={child.id} name={child.name} days={period} />
             <button type="button" onClick={() => window.print()} className="rounded-xl border border-line bg-white px-3 py-2 text-sm font-semibold">
               🖨️ Print
             </button>

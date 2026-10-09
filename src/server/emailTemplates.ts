@@ -13,7 +13,10 @@ interface Parts {
   button?: { label: string; url: string };
   /** Small print under the button. */
   footnote?: string;
+  /** One-click endpoint for the List-Unsubscribe header. */
   unsubscribeUrl?: string;
+  /** Page the footer link opens. */
+  unsubscribePage?: string;
   origin: string;
 }
 
@@ -31,7 +34,7 @@ ${p.body.map((t) => `<p style="margin:0 0 12px">${esc(t)}</p>`).join("")}
 ${button}
 ${p.footnote ? `<p style="font-size:13px;color:#5b6478;margin:0">${esc(p.footnote)}</p>` : ""}
 </div>
-<p style="font-size:12px;color:#5b6478;margin:16px 4px 0">${esc(APP_NAME)} has no ads and never sells your information. <a href="${esc(p.origin)}/privacy/" style="color:#5b6478">Privacy</a> · Questions? ${esc(CONTACT_EMAIL)}${p.unsubscribeUrl ? ` · <a href="${esc(p.unsubscribeUrl)}" style="color:#5b6478">Unsubscribe</a>` : ""}</p>
+<p style="font-size:12px;color:#5b6478;margin:16px 4px 0">${esc(APP_NAME)} has no ads and never sells your information. <a href="${esc(p.origin)}/privacy/" style="color:#5b6478">Privacy</a> · Questions? ${esc(CONTACT_EMAIL)}${p.unsubscribePage ? ` · <a href="${esc(p.unsubscribePage)}" style="color:#5b6478">Unsubscribe</a>` : ""}</p>
 </div></body></html>`;
   const text = [
     p.heading,
@@ -41,7 +44,7 @@ ${p.footnote ? `<p style="font-size:13px;color:#5b6478;margin:0">${esc(p.footnot
     ...(p.footnote ? ["", p.footnote] : []),
     "",
     `${APP_NAME} has no ads and never sells your information. Privacy: ${p.origin}/privacy/`,
-    ...(p.unsubscribeUrl ? [`Unsubscribe: ${p.unsubscribeUrl}`] : []),
+    ...(p.unsubscribePage ? [`Unsubscribe: ${p.unsubscribePage}`] : []),
   ].join("\n");
   return { to: p.to, subject: p.subject, html, text, unsubscribeUrl: p.unsubscribeUrl };
 }
@@ -70,11 +73,10 @@ export function resetEmail(to: string, origin: string, token: string): Email {
   });
 }
 
-export function trialEndingEmail(to: string, origin: string, daysLeft: number, unsubscribeUrl: string): Email {
+export function trialEndingEmail(to: string, origin: string, daysLeft: number): Email {
   return layout({
     to,
     origin,
-    unsubscribeUrl,
     subject: `Your ${APP_NAME} free trial ends in ${daysLeft} ${daysLeft === 1 ? "day" : "days"}`,
     heading: `Your free trial ends in ${daysLeft} ${daysLeft === 1 ? "day" : "days"}`,
     body: [
@@ -94,7 +96,7 @@ export interface WeeklyChild {
   next?: string;
 }
 
-export function weeklyEmail(to: string, origin: string, children: WeeklyChild[], unsubscribeUrl: string): Email {
+export function weeklyEmail(to: string, origin: string, children: WeeklyChild[], unsubToken: string): Email {
   const lines = children.flatMap((c) => [
     c.answers
       ? `${c.name}: ${c.minutes} min of practice, ${c.answers} questions${c.accuracy === null ? "" : `, ${c.accuracy}% right on the first try`}.`
@@ -105,7 +107,8 @@ export function weeklyEmail(to: string, origin: string, children: WeeklyChild[],
   return layout({
     to,
     origin,
-    unsubscribeUrl,
+    unsubscribeUrl: `${origin}/api/email/unsubscribe/?token=${encodeURIComponent(unsubToken)}`,
+    unsubscribePage: `${origin}/account/unsubscribe/?token=${encodeURIComponent(unsubToken)}`,
     subject: `${APP_NAME}: your week in learning`,
     heading: "Your week in learning",
     body: [...lines, "This reflects practice in the app. It isn't a report-card mark; your child's teacher decides proficiency."],

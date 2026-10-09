@@ -162,3 +162,12 @@ export function json(data: unknown, init: ResponseInit & { cookie?: string } = {
 export function error(status: number, message: string): Response {
   return json({ error: message }, { status });
 }
+
+/** A long-lived secret that lets an email's unsubscribe link work without signing in. */
+export async function unsubscribeToken(parentId: string): Promise<string> {
+  const rows = await query<{ unsub_token: string | null }>("SELECT unsub_token FROM parents WHERE id = ?", [parentId]);
+  if (rows[0]?.unsub_token) return rows[0].unsub_token;
+  const token = randomBytes(24).toString("base64url");
+  await run("UPDATE parents SET unsub_token = ? WHERE id = ? AND unsub_token IS NULL", [token, parentId]);
+  return (await query<{ unsub_token: string }>("SELECT unsub_token FROM parents WHERE id = ?", [parentId]))[0].unsub_token;
+}

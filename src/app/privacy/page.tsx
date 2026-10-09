@@ -62,6 +62,9 @@ export default function PrivacyPage() {
           <li>To manage your subscription and send you important account messages (for example a password reset or a billing notice).</li>
           <li>To keep the service secure and fix problems.</li>
         </ul>
+        <p>
+          If you choose, we also send a short weekly progress email, and you can create a read-only link to a child’s report. Anyone with that link can see that child’s name, grade and the practice totals in the report, until it expires after 30 days or you stop sharing it. Weekly emails can be switched off in the Parent area or with the link in each email.
+        </p>
         <p>We don’t use children’s information for advertising or to build profiles for any other purpose.</p>
       </Section>
 

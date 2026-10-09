@@ -96,6 +96,44 @@ function AuthForm({ onDone }: { onDone: () => void }) {
   );
 }
 
+function WeeklyReportToggle({ verified }: { verified: boolean }) {
+  const [on, setOn] = useState<boolean | null>(null);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    void fetch("/api/account/prefs/", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { weeklyReport?: boolean } | null) => setOn(d?.weeklyReport ?? null))
+      .catch(() => setOn(null));
+  }, []);
+  if (on === null) return null;
+  async function toggle() {
+    setError("");
+    const res = await fetch("/api/account/prefs/", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ weeklyReport: !on }),
+    }).catch(() => null);
+    const data = (await res?.json().catch(() => ({}))) as { weeklyReport?: boolean; error?: string } | undefined;
+    if (res?.ok) setOn(Boolean(data?.weeklyReport));
+    else setError(data?.error ?? "You’re offline. Try again when connected.");
+  }
+  return (
+    <div className="mt-3">
+      <button type="button" role="switch" aria-checked={on} onClick={() => void toggle()} className="flex w-full items-center justify-between gap-4 rounded-xl bg-paper px-4 py-3 text-left">
+        <span>
+          <span className="block font-semibold">Weekly progress email</span>
+          <span className="block text-sm text-ink-soft">{verified ? "A short summary every Sunday. Unsubscribe any time." : "Confirm your email first to turn this on."}</span>
+        </span>
+        <span className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${on ? "bg-good" : "bg-ink/20"}`} aria-hidden="true">
+          <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-all ${on ? "left-7" : "left-1"}`} />
+        </span>
+      </button>
+      {error && <p className="mt-1 text-sm text-nudge-dark">{error}</p>}
+    </div>
+  );
+}
+
 function VerifyNotice() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -155,6 +193,7 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
               <dd className="font-semibold">{pending ?? "…"} events</dd>
             </dl>
             {account.verified === false && <VerifyNotice />}
+            <WeeklyReportToggle verified={account.verified !== false} />
             {sync.error && <p className="mt-2 text-sm text-nudge-dark">{sync.error}</p>}
             <div className="mt-4 flex flex-wrap gap-2">
               <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2 font-bold text-white" onClick={() => void syncNow()}>
