@@ -59,6 +59,14 @@ Or add Turso from the Vercel Marketplace and skip the CLI. Tables are created on
 2. **Sentry:** create a project (platform: Next.js), copy the DSN into both `SENTRY_DSN` and `NEXT_PUBLIC_SENTRY_DSN`. Source maps aren't uploaded, so stack traces show built file names; add `@sentry/nextjs`'s `withSentryConfig` and an auth token later if you want readable ones. A test error: temporarily throw in an API route on a preview deployment and check it appears with no email or request body.
 3. **Email sending limits:** the app sends one confirmation at sign-up, resets and confirmations on request (rate limited), one trial notice, and the weekly report to parents who turned it on. Weekly mail goes out on Sundays (UTC) from the daily job.
 
+
+## Uptime monitoring
+
+`GET /api/health/` returns 200 when the app and database answer (one `SELECT 1`) and 503 otherwise. It is public, uncached and reveals nothing beyond pass/fail.
+
+- **Built in:** `.github/workflows/uptime.yml` pings it every 15 minutes (with 3 tries), opens a single "Site is down" issue labelled `uptime` on failure and closes it when the site recovers. It does nothing until you set the repository variable `UPTIME_URL` (Settings > Secrets and variables > Actions > Variables) to the site origin, e.g. `https://grademap.example`. GitHub can delay scheduled runs, so it is a safety net, not a precise monitor.
+- **Free external alternatives** (not set up): UptimeRobot (5-minute checks), Better Stack, or Vercel's own monitoring. Point any of them at `https://<your domain>/api/health/`; they can email or text you faster than GitHub issues do.
+
 ## 6. Launch checklist
 
 - [ ] `NEXT_PUBLIC_SITE_URL` is the real domain; `/sitemap.xml` and `/robots.txt` show it.
