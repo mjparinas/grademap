@@ -4,11 +4,12 @@ import { getFamilyRow, toFamilyInfo } from "@/server/family";
 
 export async function POST(req: Request) {
   if (!sameOrigin(req)) return error(403, "Bad origin");
-  if (rateLimited(`login:${clientIp(req)}`, 10)) return error(429, "Too many attempts. Try again in a few minutes.");
+  if (await rateLimited(`login:${clientIp(req)}`, 10)) return error(429, "Too many attempts. Try again in a few minutes.");
   const body = (await req.json().catch(() => null)) as { email?: string; password?: string } | null;
   const email = body?.email?.trim().toLowerCase() ?? "";
-  const rows = await query<{ id: string; family_id: string; password_hash: string }>(
-    "SELECT id, family_id, password_hash FROM parents WHERE email = ?",
+  if (email && (await rateLimited(`login-email:${email}`, 10))) return error(429, "Too many attempts. Try again in a few minutes.");
+  const rows = await query<{ id: string; family_id: string; password_hash: string; email_verified_at: number | null }>(
+    "SELECT id, family_id, password_hash, email_verified_at FROM parents WHERE email = ?",
     [email],
   );
   const parent = rows[0];
@@ -16,6 +17,6 @@ export async function POST(req: Request) {
     return error(401, "That email and password don't match.");
   }
   const { token, maxAge } = await createSession(parent.id, parent.family_id);
-  const family = toFamilyInfo((await getFamilyRow(parent.family_id))!, email);
+  const family = toFamilyInfo((await getFamilyRow(parent.family_id))!, email, Boolean(parent.email_verified_at));
   return json({ family }, { cookie: sessionCookie(token, maxAge) });
 }

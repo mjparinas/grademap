@@ -17,9 +17,9 @@ export async function getFamilyRow(id: string): Promise<FamilyRow | undefined> {
   return (await query<FamilyRow>("SELECT * FROM families WHERE id = ?", [id]))[0];
 }
 
-export function toFamilyInfo(row: FamilyRow, email: string): FamilyInfo {
+export function toFamilyInfo(row: FamilyRow, email: string, verified = true): FamilyInfo {
   return {
-    account: { email, familyId: row.id },
+    account: { email, familyId: row.id, verified },
     plan: row.plan as FamilyInfo["plan"],
     trialEndsAt: Number(row.trial_ends_at),
     subscription: row.subscription_status

@@ -1,11 +1,13 @@
-import { clientIp, createSession, error, hashPassword, json, newId, rateLimited, sameOrigin, sessionCookie } from "@/server/auth";
+import { appOrigin, clientIp, createAuthToken, createSession, error, hashPassword, json, newId, rateLimited, sameOrigin, sessionCookie } from "@/server/auth";
 import { query, run } from "@/server/db";
+import { sendEmail } from "@/server/email";
+import { verifyEmail } from "@/server/emailTemplates";
 import { getFamilyRow, toFamilyInfo } from "@/server/family";
 import { TRIAL_DAYS } from "@/lib/plan";
 
 export async function POST(req: Request) {
   if (!sameOrigin(req)) return error(403, "Bad origin");
-  if (rateLimited(`signup:${clientIp(req)}`, 5)) return error(429, "Too many attempts. Try again in a few minutes.");
+  if (await rateLimited(`signup:${clientIp(req)}`, 5)) return error(429, "Too many attempts. Try again in a few minutes.");
   const body = (await req.json().catch(() => null)) as { email?: string; password?: string; trialEndsAt?: number } | null;
   const email = body?.email?.trim().toLowerCase() ?? "";
   const password = body?.password ?? "";
@@ -35,6 +37,8 @@ export async function POST(req: Request) {
     now,
   ]);
   const { token, maxAge } = await createSession(parentId, familyId);
-  const family = toFamilyInfo((await getFamilyRow(familyId))!, email);
+  const family = toFamilyInfo((await getFamilyRow(familyId))!, email, false);
+  // A failed email never blocks signup; the parent can ask for another from the Account page.
+  await sendEmail(verifyEmail(email, appOrigin(req), await createAuthToken(parentId, "verify", 3 * 86_400_000)));
   return json({ family }, { cookie: sessionCookie(token, maxAge) });
 }

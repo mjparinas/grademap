@@ -47,6 +47,15 @@ export async function signIn(email: string, password: string) {
   await syncNow();
 }
 
+export async function forgotPassword(email: string): Promise<string> {
+  const { message } = await post<{ message: string }>("/api/auth/forgot/", { email });
+  return message;
+}
+
+export async function resendVerification() {
+  await post("/api/auth/resend-verification/");
+}
+
 export async function signOut() {
   await syncNow().catch(() => {});
   await post("/api/auth/logout/").catch(() => {});

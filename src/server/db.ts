@@ -55,7 +55,57 @@ const SCHEMA = [
   )`,
   `CREATE INDEX IF NOT EXISTS events_family_seq ON events (family_id, seq)`,
   `CREATE INDEX IF NOT EXISTS events_profile ON events (profile_id, t)`,
+  // One-time tokens for password reset and email confirmation. Only a hash is stored.
+  `CREATE TABLE IF NOT EXISTS auth_tokens (
+    token_hash TEXT PRIMARY KEY,
+    parent_id TEXT NOT NULL,
+    kind TEXT NOT NULL,
+    expires_at INTEGER NOT NULL,
+    used_at INTEGER
+  )`,
+  `CREATE INDEX IF NOT EXISTS auth_tokens_parent ON auth_tokens (parent_id)`,
+  // Shared across serverless instances, unlike an in-memory counter.
+  `CREATE TABLE IF NOT EXISTS rate_limits (
+    key TEXT PRIMARY KEY,
+    count INTEGER NOT NULL,
+    reset_at INTEGER NOT NULL
+  )`,
+  // Read-only report links a parent can share and revoke.
+  `CREATE TABLE IF NOT EXISTS report_shares (
+    token_hash TEXT PRIMARY KEY,
+    family_id TEXT NOT NULL,
+    profile_id TEXT NOT NULL,
+    days INTEGER NOT NULL,
+    created_at INTEGER NOT NULL,
+    expires_at INTEGER NOT NULL
+  )`,
+  `CREATE INDEX IF NOT EXISTS report_shares_family ON report_shares (family_id)`,
+  // "Report a problem" on a question: fixed reasons only, no free text from children.
+  `CREATE TABLE IF NOT EXISTS question_reports (
+    id TEXT PRIMARY KEY,
+    family_id TEXT,
+    unit_key TEXT NOT NULL,
+    prompt TEXT NOT NULL,
+    reason TEXT NOT NULL,
+    created_at INTEGER NOT NULL
+  )`,
 ];
+
+/** Columns added after the first release. SQLite has no "ADD COLUMN IF NOT EXISTS". */
+const PARENT_COLUMNS: [string, string][] = [
+  ["email_verified_at", "INTEGER"],
+  ["weekly_report", "INTEGER NOT NULL DEFAULT 0"],
+  ["unsub_token", "TEXT"],
+  ["last_weekly_at", "INTEGER"],
+  ["trial_notice_at", "INTEGER"],
+];
+
+async function migrate(c: Client) {
+  const have = new Set((await c.execute("PRAGMA table_info(parents)")).rows.map((r) => String(r.name)));
+  for (const [name, type] of PARENT_COLUMNS) {
+    if (!have.has(name)) await c.execute(`ALTER TABLE parents ADD COLUMN ${name} ${type}`);
+  }
+}
 
 let client: Client | null = null;
 let ready: Promise<void> | null = null;
@@ -71,6 +121,7 @@ export async function db(): Promise<Client> {
     client = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN });
     ready = (async () => {
       for (const sql of SCHEMA) await client!.execute(sql);
+      await migrate(client!);
     })();
   }
   await ready;

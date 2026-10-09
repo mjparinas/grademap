@@ -55,7 +55,7 @@ export interface ChildSettings {
 
 export interface FamilyInfo {
   /** Server-side account, when a parent has signed in on this device. */
-  account?: { email: string; familyId: string };
+  account?: { email: string; familyId: string; /** Has the parent confirmed their email address? */ verified?: boolean };
   plan: "trial" | "free" | "premium";
   trialEndsAt: number;
   subscription?: { status: string; interval?: "month" | "year"; currentPeriodEnd?: number };
