@@ -299,7 +299,7 @@ const ELEMENTS: Element[] = [
   { name: "calcium", symbol: "Ca", level: 2, wrongSymbols: ["C", "Cl", "Cm"], wrongNames: ["carbon", "chlorine", "copper"] },
   { name: "magnesium", symbol: "Mg", level: 2, wrongSymbols: ["Mn", "Ma", "M"], wrongNames: ["manganese", "mercury", "sodium"] },
   { name: "aluminum", symbol: "Al", level: 2, wrongSymbols: ["A", "Am", "Au"], wrongNames: ["argon", "silver", "lead"] },
-  { name: "sulfur", symbol: "S", level: 2, wrongSymbols: ["Su", "Sf", "Sl"], wrongNames: ["sodium", "silicon", "silver"] },
+  { name: "sulphur", symbol: "S", level: 2, wrongSymbols: ["Su", "Sf", "Sl"], wrongNames: ["sodium", "silicon", "silver"] },
   { name: "copper", symbol: "Cu", level: 2, wrongSymbols: ["Co", "Cp", "Cr"], wrongNames: ["carbon", "calcium", "chlorine"] },
   { name: "iron", symbol: "Fe", level: 3, wrongSymbols: ["I", "Ir", "In"], wrongNames: ["fluorine", "iodine", "lead"] },
   { name: "gold", symbol: "Au", level: 3, wrongSymbols: ["Go", "Gd", "Ag"], wrongNames: ["silver", "aluminum", "argon"] },
@@ -307,7 +307,7 @@ const ELEMENTS: Element[] = [
   { name: "potassium", symbol: "K", level: 3, wrongSymbols: ["P", "Po", "Pt"], wrongNames: ["phosphorus", "krypton", "calcium"] },
   { name: "lead", symbol: "Pb", level: 3, wrongSymbols: ["L", "Le", "Ld"], wrongNames: ["phosphorus", "platinum", "potassium"] },
   { name: "mercury", symbol: "Hg", level: 3, wrongSymbols: ["Me", "Mr", "Hy"], wrongNames: ["hydrogen", "helium", "magnesium"] },
-  { name: "tin", symbol: "Sn", level: 3, wrongSymbols: ["Ti", "T", "Tn"], wrongNames: ["sodium", "silicon", "sulfur"] },
+  { name: "tin", symbol: "Sn", level: 3, wrongSymbols: ["Ti", "T", "Tn"], wrongNames: ["sodium", "silicon", "sulphur"] },
 ];
 
 const SYMBOL_HINT =
@@ -433,11 +433,11 @@ const CHEM_BANK: Item[] = [
   {
     prompt: "Which of these elements is a metal?",
     right: "copper",
-    wrong: ["sulfur", "oxygen", "carbon"],
+    wrong: ["sulphur", "oxygen", "carbon"],
     hint: "Metals are usually shiny, bendable and good conductors. Copper is used in electrical wires.",
   },
   {
-    prompt: "Which property is typical of a solid non-metal, such as sulfur?",
+    prompt: "Which property is typical of a solid non-metal, such as sulphur?",
     right: "dull and brittle",
     wrong: ["shiny and bendable", "a good conductor of electricity", "easy to hammer into thin sheets"],
     hint: "Non-metals are usually poor conductors, and as solids they tend to be dull and break easily.",
