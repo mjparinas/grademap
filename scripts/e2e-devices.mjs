@@ -111,7 +111,7 @@ async function shot(page, device, name) {
 async function answerUntilFeedback(page) {
   const bar = page.locator("[role=status]").filter({ has: page.getByRole("button") });
   for (let i = 0; i < 40; i++) {
-    if (await vis(bar)) return bar.getByRole("button").first();
+    if (await vis(bar)) return bar.getByRole("button", { name: /^(Next →|Finish 🎉|OK)$/ });
     await step(page);
     await page.waitForTimeout(150);
   }
@@ -171,6 +171,26 @@ async function everyDevice(device, page) {
     record(device, "question: feedback button fully on screen", pos.ok, pos.detail);
     await checkTargets(device, "question: feedback button", next, KID_TARGET);
     await shot(page, device, "4-feedback");
+
+    // "Report a problem" is hidden on short landscape screens; elsewhere it must be reachable
+    // and must not sit on top of the Next button.
+    const flag = page.getByRole("button", { name: /Report a problem/ });
+    if (await vis(flag)) {
+      const fp = await onScreen(page, flag);
+      record(device, "question: report flag on screen", fp.ok, fp.detail);
+      await checkTargets(device, "question: report flag", flag, KID_TARGET);
+      const [fb, nb] = [await flag.boundingBox(), await next.boundingBox()];
+      const overlaps = fb && nb && fb.x < nb.x + nb.width && fb.x + fb.width > nb.x && fb.y < nb.y + nb.height && fb.y + fb.height > nb.y;
+      record(device, "question: report flag doesn't cover Next", !overlaps);
+      await flag.click();
+      await page.getByRole("dialog").getByRole("button", { name: /answer looks wrong/ }).click();
+      const thanked = await page
+        .getByRole("heading", { name: /Thank you/ })
+        .waitFor({ timeout: 5000 })
+        .then(() => true, () => false);
+      record(device, "question: report is sent", thanked);
+      await page.getByRole("dialog").getByRole("button", { name: /Back to the question/ }).click();
+    }
   }
 
   // Parent reports
@@ -277,7 +297,9 @@ for (const d of DEVICES) {
   const { defaultBrowserType, ...options } = descriptor;
   const browser = await browserFor(defaultBrowserType ?? "chromium");
   console.log(`${d.name} (${options.viewport.width}×${options.viewport.height}, ${d.cls}${d.deep ? ", deep checks" : ""})`);
-  const ctx = await browser.newContext({ ...options, reducedMotion: "reduce" });
+  // A fresh "client address" per device and run, so the server's rate limits (20 reports an hour) never trip.
+  const fakeIp = `10.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 250)}`;
+  const ctx = await browser.newContext({ ...options, reducedMotion: "reduce", extraHTTPHeaders: { "x-forwarded-for": fakeIp } });
   const page = await ctx.newPage();
   page.on("pageerror", (e) => record(d.name, "no page errors", false, e.message));
   try {
