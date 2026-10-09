@@ -101,14 +101,24 @@ let done = false;
 let sawRetry = false;
 // Click the choices in order on each multiple-choice question until one question has been played
 // through a miss and then the right answer, so both feedback states and both button looks exist.
-for (let i = 0; i < 200 && !done; i++) {
+const deadline = Date.now() + 120_000;
+for (let i = 0; Date.now() < deadline && !done; i++) {
+  // The adaptive mode pauses every 10 questions; `step` leaves that to the caller.
+  const keepGoing = page.getByRole("button", { name: /Keep going/ });
+  if (await vis(keepGoing)) {
+    await keepGoing.click({ force: true });
+    continue;
+  }
   if (!(await vis(choices.locator(":scope:not([disabled])")))) {
     await step(page);
+    await page.waitForTimeout(100);
     continue;
   }
   sawChoice = true;
-  for (let k = 0; k < (await choices.count()) && !done; k++) {
-    const pick = choices.nth(k);
+  // Start from a different choice each question, so a miss doesn't depend on where the answer sits.
+  const n = await choices.count();
+  for (let j = 0; j < n && !done; j++) {
+    const pick = choices.nth((i + j) % n);
     if (await pick.isDisabled()) continue;
     await pick.click({ force: true });
     await page.waitForTimeout(450);
@@ -138,7 +148,7 @@ for (let i = 0; i < 200 && !done; i++) {
     }
   }
 }
-check(sawChoice && sawRetry && done, "played a multiple-choice question through a miss and a right answer");
+check(sawChoice && sawRetry && done, `played a multiple-choice question through a miss and a right answer (saw a choice: ${sawChoice}, a miss: ${sawRetry}, then the right answer: ${done})`);
 await cdp.send("Emulation.setEmulatedVisionDeficiency", { type: "none" });
 
 console.log("Parent area");
