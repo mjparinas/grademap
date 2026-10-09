@@ -2,6 +2,9 @@ import { COIN_NAMES } from "../money";
 import { numberChoice, pick, randInt, sample, shuffle, textChoice } from "../random";
 import type { Course, Question } from "../types";
 import { K_LANGUAGE, K_MATH } from "./overall";
+import { K_SCIENCE, K_SOCIAL } from "./k-overall-ss";
+import { units as scienceUnits } from "./k-science";
+import { units as socialUnits } from "./k-social";
 import { buildSet, levelOf, on, THINGS, times } from "./kit";
 
 // Ontario Kindergarten (the Kindergarten Curriculum, 2026). Most of the maths and the
@@ -243,5 +246,34 @@ export const courses: Course[] = [
       "ca-on": ["letter-partners", "first-sounds", "rhyme-time", "clap-the-beat", "blend-a-word", "sight-words", "story-order", "picture-clues", "book-detectives"],
     },
   },
+  {
+    grade: "k",
+    subject: "science",
+    bigIdeas: { "ca-on": K_SCIENCE },
+    units: scienceUnits,
+    shares: {
+      "living-things-need": { standards: on("B13.2", "sorting and classifying living and non-living things") },
+      "animal-features": { standards: on("B13.1, B13.2", "describing animals and plants and sorting them by what we observe") },
+      materials: { standards: on("B12.3, B13.2", "describing and sorting materials and choosing them for a job") },
+      "push-and-pull": { standards: on("B12.2", "making predictions and observations while exploring how things move") },
+      "weather-and-seasons": { standards: on("B13.1, B13.3", "describing weather, seasons and day and night as natural occurrences and patterns") },
+    },
+    order: {
+      "ca-on": ["be-a-scientist", "safe-scientists", "living-things-need", "animal-features", "natural-and-built", "materials", "push-and-pull", "weather-and-seasons", "build-and-test", "follow-the-steps"],
+    },
+  },
+  {
+    grade: "k",
+    subject: "social",
+    bigIdeas: { "ca-on": K_SOCIAL },
+    units: socialUnits,
+    shares: {
+      "all-about-me": { standards: on("D19.3, D21.2", "sharing feelings and experiences, and acting with kindness") },
+      families: { standards: on("D20.1, D20.3", "belonging to families and groups, and respecting how others do things") },
+      "helpers-and-rules": { standards: on("D22.1, D22.2", "people and places in the community and what they do") },
+    },
+    order: {
+      "ca-on": ["i-am-me", "all-about-me", "families", "we-belong", "fair-and-kind", "helpers-and-rules", "places-near-me", "caring-for-nature"],
+    },
+  },
 ];
-

@@ -4,6 +4,9 @@ import { units as languageUnits } from "./g8-language";
 import { units as mathUnits } from "./g8-math";
 import { on } from "./kit";
 import { frenchCourses } from "./french";
+import { G8_SCIENCE, G8_SOCIAL } from "./g8-overall-ss";
+import { units as scienceUnits } from "./g8-science";
+import { units as socialUnits } from "./g8-social";
 
 // Ontario Grade 8. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -40,6 +43,27 @@ export const courses: Course[] = [
     },
     order: {
       "ca-on": ["close-reading", "strategies-8", "narrator-8", "literary-devices", "irony-satire-8", "forms-features-8", "argument-and-media", "digital-8", "grammar-and-style", "word-study", "writing-8"],
+    },
+  },
+  {
+    grade: "8",
+    subject: "science",
+    bigIdeas: { "ca-on": G8_SCIENCE },
+    units: scienceUnits,
+    shares: {
+      "cells-and-life": { standards: on("B2.1–B2.4, B2.6", "the cell theory, organelles, plant and animal cells, diffusion and osmosis, and cells, tissues, organs and systems") },
+    },
+    order: {
+      "ca-on": ["stem-skills-8", "cells-organisms-8", "cells-and-life", "viscosity-flow-8", "density-buoyancy-8", "pressure-pascal-8", "hydraulics-pneumatics-8", "fluids-society-8", "systems-8", "work-energy-8", "machines-8", "water-systems-8", "water-stewardship-8"],
+    },
+  },
+  {
+    grade: "8",
+    subject: "social",
+    bigIdeas: { "ca-on": G8_SOCIAL },
+    units: socialUnits,
+    order: {
+      "ca-on": ["historical-thinking-8", "confederation-8", "railway-west-8", "treaties-indian-act-8", "metis-resistance-8", "residential-schools-8", "black-communities-8", "newcomers-rights-8", "canada-1890-1914-8", "work-cities-reform-8", "settlement-patterns-8", "sustainable-settlement-8", "maps-graphs-8", "quality-of-life-8", "economies-8"],
     },
   },
   ...frenchCourses("8"),

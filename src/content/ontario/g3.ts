@@ -1,5 +1,8 @@
 import type { Course } from "../types";
 import { G3_LANGUAGE, G3_MATH } from "./overall";
+import { G3_SCIENCE, G3_SOCIAL } from "./g3-overall-ss";
+import { units as scienceUnits } from "./g3-science";
+import { units as socialUnits } from "./g3-social";
 import { units as languageUnits } from "./g3-language";
 import { units as mathUnits } from "./g3-math";
 import { on } from "./kit";
@@ -42,6 +45,30 @@ export const courses: Course[] = [
     },
     order: {
       "ca-on": ["spelling-patterns", "prefixes-suffixes", "word-pairs", "grammar-3", "sentences-3", "punctuation-3", "devices-3", "story-elements", "read-and-think", "text-patterns"],
+    },
+  },
+  {
+    grade: "3",
+    subject: "science",
+    bigIdeas: { "ca-on": G3_SCIENCE },
+    units: scienceUnits,
+    shares: {
+      "wind-water-ice": { standards: on("E2.4", "erosion by wind, water and ice, and how plants help protect soil") },
+    },
+    order: {
+      "ca-on": ["plant-parts", "plant-life", "plants-people", "forces-3", "structures-3", "strong-stable", "soil-3", "soil-care", "wind-water-ice", "skills-3"],
+    },
+  },
+  {
+    grade: "3",
+    subject: "social",
+    bigIdeas: { "ca-on": G3_SOCIAL },
+    units: socialUnits,
+    shares: {
+      "maps-and-globes": { standards: on("B3.2, B3.7", "using a legend, compass rose and directions to read maps") },
+    },
+    order: {
+      "ca-on": ["life-1780", "settlers-3", "challenges-3", "treaties-3", "regions-on", "land-use-3", "land-impact-3", "maps-on", "maps-and-globes"],
     },
   },
   ...frenchCourses("3"),
