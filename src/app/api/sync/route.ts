@@ -28,25 +28,38 @@ export async function POST(req: Request) {
   const family = session.familyId;
   const body = (await req.json().catch(() => null)) as SyncBody | null;
   if (!body) return error(400, "Bad request");
-  const incomingEvents = (body.events ?? []).slice(0, MAX_EVENTS);
-  const incomingProfiles = (body.profiles ?? []).slice(0, 20);
-  const incomingSettings = (body.settings ?? []).slice(0, 20);
+  const list = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
+  const incomingEvents = list<AppEvent>(body.events).slice(0, MAX_EVENTS);
+  const incomingProfiles = list<Profile>(body.profiles).slice(0, 20);
+  const incomingSettings = list<ChildSettings>(body.settings).slice(0, 20);
 
   // Which profiles belong to this family (and which belong to someone else).
-  const existing = await query<{ id: string; family_id: string; updated_at: number }>(
-    `SELECT id, family_id, updated_at FROM profiles WHERE family_id = ? OR id IN (${incomingProfiles.map(() => "?").join(",") || "''"})`,
-    [family, ...incomingProfiles.map((p) => p.id)],
+  const existing = await query<{ id: string; family_id: string; updated_at: number; data: string }>(
+    `SELECT id, family_id, updated_at, data FROM profiles WHERE family_id = ? OR id IN (${incomingProfiles.map(() => "?").join(",") || "''"})`,
+    [family, ...incomingProfiles.map((p) => p?.id ?? "")],
   );
   const owner = new Map(existing.map((r) => [r.id, r]));
   const writes: { sql: string; args: InValue[] }[] = [];
   const mine = new Set(existing.filter((r) => r.family_id === family).map((r) => r.id));
+  // Children who were deleted or reset: events they still hold from before must not come back.
+  const gone = new Map<string, { deleted: boolean; resetAt: number }>();
+  for (const r of existing) {
+    if (r.family_id !== family) continue;
+    try {
+      const old = JSON.parse(r.data) as Profile;
+      gone.set(r.id, { deleted: Boolean(old.deleted), resetAt: old.resetAt ?? 0 });
+    } catch {
+      /* unreadable record: treat as a normal child */
+    }
+  }
 
   for (const p of incomingProfiles) {
-    if (!isId(p?.id) || typeof p.updatedAt !== "number") continue;
+    if (!p || !isId(p.id) || typeof p.updatedAt !== "number") continue;
     const row = owner.get(p.id);
     if (row && row.family_id !== family) continue;
     mine.add(p.id);
     if (!row || p.updatedAt > Number(row.updated_at)) {
+      gone.set(p.id, { deleted: Boolean(p.deleted), resetAt: p.resetAt ?? 0 });
       const data = JSON.stringify(p).slice(0, 4000);
       writes.push({
         sql: `INSERT INTO profiles (id, family_id, data, updated_at) VALUES (?, ?, ?, ?)
@@ -80,6 +93,12 @@ export async function POST(req: Request) {
     if (typeof e.t !== "number" || e.t > Date.now() + 86_400_000) continue;
     const data = JSON.stringify(e);
     if (data.length > 2000) continue;
+    const state = gone.get(e.profileId);
+    if (state && (state.deleted || e.t <= state.resetAt)) {
+      // Acknowledge it so the device stops resending, but don't store it.
+      accepted.push(e.id);
+      continue;
+    }
     writes.push({
       sql: "INSERT OR IGNORE INTO events (id, family_id, profile_id, t, data) VALUES (?, ?, ?, ?, ?)",
       args: [e.id, family, e.profileId, e.t, data],

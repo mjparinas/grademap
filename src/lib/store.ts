@@ -187,6 +187,10 @@ export const useStore = create<State>()((set, get) => ({
 
   removeProfile: (id) => {
     get().updateProfile(id, { deleted: true });
+    // Forget their history on this device too, so it can never be uploaded again.
+    set({ events: get().events.filter((e) => e.profileId !== id) });
+    void localdb.deleteProfileEvents(id);
+    deriveCache.delete(id);
     if (get().activeId === id) get().setActive(null);
   },
 
