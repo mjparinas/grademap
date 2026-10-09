@@ -19,7 +19,7 @@ for (const [file, data] of Object.entries(summary)) {
   if (file === "total") continue;
   const parts = relative(src, file).split(sep);
   // Components get one row per folder; everything else one row per top-level folder.
-  add(parts[0] === "components" && parts.length > 2 ? `components/${parts[1]}` : parts[0] === "components" ? "components (shared)" : parts[0].replace(/\.(ts|tsx)$/, " (root files)"), data.lines);
+  add(parts[0] === "components" && parts.length > 2 ? `components/${parts[1]}` : parts[0] === "components" ? "components (shared)" : parts.length === 1 ? "root files" : parts[0], data.lines);
 }
 
 const pct = (c, t) => (t ? `${((100 * c) / t).toFixed(1)}%` : "n/a");
