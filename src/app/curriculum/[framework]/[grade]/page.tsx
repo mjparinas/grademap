@@ -42,7 +42,7 @@ export default async function GradePage({ params }: PageProps<"/curriculum/[fram
   const i = grades.indexOf(grade);
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">

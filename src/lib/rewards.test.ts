@@ -32,9 +32,29 @@ describe("per-grade mastery trophies", () => {
     expect(TROPHIES.some((t) => t.id === "grade-champion-2")).toBe(true);
     expect(TROPHIES.some((t) => t.id === "grade-champion-k")).toBe(true);
     const d = derive([]);
-    const shown = visibleTrophies(d, "2").filter((t) => t.grade);
+    const shown = visibleTrophies(d, { grade: "2", framework: "ca-bc" }).filter((t) => t.grade);
     expect(shown.every((t) => t.grade === "2")).toBe(true);
     expect(newlyEarned(d, { grade: "2", framework: "ca-bc" }).every((t) => !t.grade || t.grade === "2")).toBe(true);
+  });
+  it("hide trophies a grade and curriculum can't earn, such as Core French before Grade 4 or 5", async () => {
+    await Promise.all([loadGrade("k"), loadGrade("4"), loadGrade("5"), loadGrade("4", "ca-on")]);
+    const d = derive([]);
+    const ids = (grade: "k" | "4" | "5", framework: "ca-bc" | "ca-on") => visibleTrophies(d, { grade, framework }).map((t) => t.id);
+    expect(ids("k", "ca-bc")).not.toContain("master-core-french-k");
+    expect(ids("k", "ca-bc")).toContain("master-immersion-k");
+    expect(ids("4", "ca-bc")).not.toContain("master-core-french-4");
+    expect(ids("5", "ca-bc")).toContain("master-core-french-5");
+    // Ontario's Core French starts a year earlier.
+    expect(ids("4", "ca-on")).toContain("master-core-french-4");
+    expect(newlyEarned(d, { grade: "k", framework: "ca-bc" }).map((t) => t.id)).not.toContain("master-core-french-k");
+  });
+  it("has a ladder for every subject and for Practice mode", () => {
+    for (const s of ["math", "language", "science", "social"]) {
+      expect(TROPHIES.filter((t) => t.id.startsWith(`subject-${s}-`)).length, s).toBe(3);
+    }
+    expect(TROPHIES.some((t) => t.id === "subject-immersion-250")).toBe(true);
+    expect(TROPHIES.some((t) => t.id === "subject-core-french-250")).toBe(true);
+    expect(TROPHIES.some((t) => t.id === "practice-100")).toBe(true);
   });
   it("still count points for trophies earned before they went per-grade", () => {
     expect(trophyTier("grade-champion")).toBe("platinum");

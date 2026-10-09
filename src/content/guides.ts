@@ -290,7 +290,7 @@ const BC_GUIDES: FrameworkGuides = {
       { title: "When it starts", core: "Core French starts in Grade 5 in BC.", immersion: "Early French Immersion usually begins in Kindergarten or Grade 1. Some districts also offer late immersion, often in Grade 6." },
       { title: "Who it suits", core: "Every child can learn some French. No earlier French is needed.", immersion: "Families who want their child to become fluent. Programs and entry points differ by district, so check with yours." },
       { title: "Name in the curriculum", core: "BC Core French", immersion: "Français langue seconde – immersion" },
-      { title: "In GradeMap", core: "Grades 5 to 7. Prompts are in English, with French words and sentences to read, choose and build.", immersion: "Kindergarten to Grade 7. Prompts and stories are in French, with English hints for parents." },
+      { title: "In GradeMap", core: "Grades 5 to 9. Prompts are in English, with French words and sentences to read, choose and build.", immersion: "Kindergarten to Grade 9. Prompts and stories are in French, with English hints for parents." },
     ],
     sections: [
       { title: "What Core French children learn", body: "Core French builds everyday communication: greetings, numbers, family, school, food, weather, hobbies and describing people and places. In the upper grades children start to write short texts, use common verbs and ask and answer questions. The aim is confidence with simple, real conversations." },

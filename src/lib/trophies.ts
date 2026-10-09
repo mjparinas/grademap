@@ -1,4 +1,4 @@
-import { isCoreSubject } from "@/content/subjects";
+import { getSubjectMeta, isCoreSubject } from "@/content/subjects";
 import { allUnitRefs } from "@/content";
 import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
@@ -40,6 +40,11 @@ export interface Trophy {
   grade?: GradeId;
   /** Hidden trophies show "???" until unlocked. */
   hidden?: boolean;
+  /**
+   * False when the child's grade and curriculum have nothing to earn this with (for example, Core
+   * French in Kindergarten), so it is neither shown nor awarded. Left out means always possible.
+   */
+  applies?: (ctx: TrophyContext) => boolean;
   progress: (d: Derived, ctx: TrophyContext) => { value: number; target: number };
 }
 
@@ -74,6 +79,7 @@ const subjectMastery = (grade: GradeId, subject: SubjectId, name: string, icon: 
   icon,
   category,
   grade,
+  applies: (ctx) => unitsInGrade(grade, ctx.framework, subject) > 0,
   progress: (d, ctx) => ({ value: unitsAtLevel(d, grade, ctx.framework, 2, subject), target: Math.max(1, unitsInGrade(grade, ctx.framework, subject)) }),
 });
 
@@ -135,6 +141,30 @@ const FRENCH_TROPHIES: Trophy[] = [
   { id: "french-extending-1", name: "Étoile du français", description: "Reach Extending in any French unit.", tier: "silver", icon: "⭐", category: "French", progress: count(1, (d, ctx) => frenchUnits(d, ctx.grade, ctx.framework, 3)) },
 ];
 
+const subjectCorrect = (subject: SubjectId) => (d: Derived) => d.subjects[subject]?.correct ?? 0;
+
+/** Every subject has its own ladder, so a child who loves science or social studies earns for it too. */
+const SUBJECT_LADDERS: { subject: SubjectId; category: TrophyCategory; steps: [number, Tier, string, string][] }[] = [
+  { subject: "math", category: "Practice", steps: [[100, "bronze", "Number Cruncher", "🔢"], [500, "silver", "Math Whiz", "➗"], [2000, "gold", "Math Legend", "♾️"]] },
+  { subject: "language", category: "Practice", steps: [[100, "bronze", "Page Turner", "📖"], [500, "silver", "Wordsmith", "✍️"], [2000, "gold", "Language Legend", "📚"]] },
+  { subject: "science", category: "Practice", steps: [[100, "bronze", "Curious Mind", "🔬"], [500, "silver", "Lab Coat", "🥼"], [2000, "gold", "Science Legend", "🚀"]] },
+  { subject: "social", category: "Practice", steps: [[100, "bronze", "Map Reader", "🧭"], [500, "silver", "Globetrotter", "🌍"], [2000, "gold", "Social Studies Legend", "🏛️"]] },
+  { subject: "immersion", category: "French", steps: [[250, "silver", "Je parle français", "🗣️"]] },
+  { subject: "core-french", category: "French", steps: [[250, "silver", "Bon début", "🍁"]] },
+];
+
+const SUBJECT_TROPHIES: Trophy[] = SUBJECT_LADDERS.flatMap(({ subject, category, steps }) =>
+  steps.map(([n, tier, name, icon]): Trophy => ({
+    id: `subject-${subject}-${n}`,
+    name,
+    description: `Get ${n.toLocaleString("en-CA")} ${getSubjectMeta(subject).title.big} questions right.`,
+    tier,
+    icon,
+    category,
+    progress: count(n, subjectCorrect(subject)),
+  })),
+);
+
 export const TROPHIES: Trophy[] = [
   // Getting started
   { id: "first-answer", name: "First Steps", description: "Answer your first question.", tier: "bronze", icon: "👣", category: "Getting started", progress: count(1, (d) => d.totals.answers) },
@@ -179,6 +209,7 @@ export const TROPHIES: Trophy[] = [
   { id: "challenge-1", name: "Challenger", description: "Pass a Challenge (8 out of 10 or better).", tier: "bronze", icon: "🛡️", category: "Modes", progress: count(1, (d) => Object.values(d.units).filter((u) => u.challengePassed).length) },
   { id: "challenge-10", name: "Champion", description: "Pass Challenges in 10 different units.", tier: "gold", icon: "👑", category: "Modes", progress: count(10, (d) => Object.values(d.units).filter((u) => u.challengePassed).length) },
   { id: "adventure-100", name: "Adventurer", description: "Answer 100 questions in Adventure mode.", tier: "silver", icon: "🗺️", category: "Modes", progress: count(100, (d) => d.modeAnswers.adventure ?? 0) },
+  { id: "practice-100", name: "Practice Makes Progress", description: "Answer 100 questions in Practice mode.", tier: "bronze", icon: "📚", category: "Modes", progress: count(100, (d) => d.modeAnswers.practice ?? 0) },
   { id: "review-5", name: "Second Look", description: "Finish 5 Review sessions.", tier: "bronze", icon: "🔍", category: "Modes", progress: count(5, (d) => d.modes.review ?? 0) },
 
   // Arcade
@@ -199,6 +230,7 @@ export const TROPHIES: Trophy[] = [
   { id: "coins-1000", name: "Treasure Hunter", description: "Earn 1,000 coins in total.", tier: "silver", icon: "💰", category: "Collector", progress: count(1000, (d) => d.coinsEarned) },
 
   ...FRENCH_TROPHIES,
+  ...SUBJECT_TROPHIES,
 
   // Secret
   { id: "early-bird", name: "Early Bird", description: "Finish a session before 8 a.m.", tier: "bronze", icon: "🐦", category: "Secret", hidden: true, progress: count(1, (d) => d.earlySessions) },
@@ -266,12 +298,16 @@ export function newlyEarned(d: Derived, ctx: TrophyContext): Trophy[] {
     if (d.trophies[t.id]) return false;
     // Per-grade trophies are only earned in that grade.
     if (t.grade && t.grade !== ctx.grade) return false;
+    if (t.applies && !t.applies(ctx)) return false;
     const p = t.progress(d, ctx);
     return p.value >= p.target;
   });
 }
 
-/** The trophies a child sees: everything except other grades' mastery trophies (unless already earned). */
-export function visibleTrophies(d: Derived, grade: GradeId): Trophy[] {
-  return TROPHIES.filter((t) => !t.grade || t.grade === grade || d.trophies[t.id]);
+/**
+ * The trophies a child sees: everything except other grades' mastery trophies and trophies their
+ * grade and curriculum can't earn (unless already earned).
+ */
+export function visibleTrophies(d: Derived, ctx: TrophyContext): Trophy[] {
+  return TROPHIES.filter((t) => d.trophies[t.id] || ((!t.grade || t.grade === ctx.grade) && (!t.applies || t.applies(ctx))));
 }

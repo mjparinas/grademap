@@ -36,7 +36,7 @@ export async function CompetenciesView({ params }: { params: Params }) {
   const crumbs = [{ label: "Home", href: "/" }, { label: `${f.shortName} parent guides`, href: guidePath.hub(f) }, { label: g.label }];
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd data={[breadcrumbJsonLd(crumbs), faqJsonLd(g.faqs), articleJsonLd({ headline: g.title, description: g.intro, path: guidePath.competencies(f) })]} />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">{g.title}</h1>
@@ -118,7 +118,7 @@ export async function AssessmentView({ params }: { params: Params }) {
   const title = `The ${a.short} explained for ${f.shortName} parents`;
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd data={[breadcrumbJsonLd(crumbs), faqJsonLd(a.faqs), articleJsonLd({ headline: title, description: a.intro, path: guidePath.assessment(f) })]} />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">{title}</h1>

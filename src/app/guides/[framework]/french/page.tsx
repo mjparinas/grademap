@@ -38,7 +38,7 @@ export default async function FrenchGuidePage({ params }: Props) {
   const crumbs = [{ label: "Home", href: "/" }, { label: `${f.shortName} parent guides`, href: guidePath.hub(f) }, { label: "Core French and French Immersion" }];
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd data={[breadcrumbJsonLd(crumbs), faqJsonLd(g.faqs), articleJsonLd({ headline: g.title, description: g.intro, path: guidePath.french(f) })]} />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">{g.title}</h1>

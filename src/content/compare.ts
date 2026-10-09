@@ -41,12 +41,12 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "How progress is shown",
         them: "SmartScore rises as kids answer correctly in a row and falls on mistakes. Common Sense Media notes that some children find this stressful.",
-        us: "Wrong answers get a hint and another try. Only first-try answers count towards accuracy, and stars never go down. Progress is reported in the BC levels: Emerging, Developing, Proficient and Extending.",
+        us: "Wrong answers get a hint and another try. Only first-try answers count towards accuracy, and stars never go down. Progress is reported in your province's report-card levels (BC: Emerging, Developing, Proficient and Extending; Ontario: Levels 1 to 4).",
       },
       {
         topic: "Report card language",
         them: "Reports are organized around skills and scores.",
-        us: "Reports use the words on the BC report card, with a plain-language “at home” note for each level.",
+        us: "Reports use the words on your province's report card (BC or Ontario), with a plain-language “at home” note for each level.",
       },
       {
         topic: "Games and offline use",
@@ -56,7 +56,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["You want the widest range of skills and grades in one place.", "Your child likes working towards a score."],
     chooseUs: [
-      "You want practice that follows the BC curriculum and speaks the language of the BC report card.",
+      "You want practice that follows the BC or Ontario curriculum and speaks the language of your child's report card.",
       "You'd like a gentler feel, with hints, retries and no scores that go down.",
       "You have more than one child and want one price.",
     ],
@@ -67,12 +67,12 @@ export const COMPETITORS: Competitor[] = [
     ],
     faqs: [
       {
-        q: "Is GradeMap a good alternative to IXL for BC families?",
-        a: "It can be, depending on what you want. IXL has a much larger skill library. GradeMap is smaller and built around the BC curriculum, the BC report card levels, a gentler hint-and-retry style and one family price.",
+        q: "Is GradeMap a good alternative to IXL for BC and Ontario families?",
+        a: "It can be, depending on what you want. IXL has a much larger skill library. GradeMap is smaller and built around the BC and Ontario curricula, their report-card levels, a gentler hint-and-retry style and one family price.",
       },
       {
         q: "Does GradeMap have a SmartScore?",
-        a: "No. GradeMap shows each unit on the BC proficiency scale (Emerging, Developing, Proficient, Extending) based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.",
+        a: "No. GradeMap shows each unit on your province's report-card scale (BC: Emerging, Developing, Proficient, Extending; Ontario: Levels 1 to 4) based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.",
       },
     ],
   },
@@ -95,12 +95,12 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "Curriculum",
         them: "Course order follows US standards. A 2015 mapping linked some Grade 4 to 6 content to Ontario and BC, but it hasn't been updated for the current BC curriculum, as far as we could find.",
-        us: "Every unit is matched to a BC Curriculum learning standard, with the Big Ideas listed for parents.",
+        us: "Every unit is matched to a BC Curriculum learning standard or an Ontario Curriculum expectation, with the Big Ideas or strands listed for parents.",
       },
       {
         topic: "Parent guidance",
         them: "Learning is largely self-directed, with limited guidance for parents.",
-        us: "Reports for parents in the BC report card levels, strengths and next steps, and a guide to the BC report card.",
+        us: "Reports for parents in your province's report-card levels, strengths and next steps, and a guide to the BC and Ontario report cards.",
       },
       {
         topic: "Games",
@@ -110,8 +110,8 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["Budget is the main concern.", "Your child likes watching video lessons and working independently."],
     chooseUs: [
-      "You want practice that lines up with what your child's BC teacher is covering.",
-      "You want to see progress in the language of the BC report card.",
+      "You want practice that lines up with what your child's BC or Ontario teacher is covering.",
+      "You want to see progress in the language of your child's report card.",
       "You want a kids' app with learning games and parent controls.",
     ],
     sources: [
@@ -153,7 +153,7 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "Curriculum",
         them: "Canadian content follows the Ontario curriculum, with no BC alignment found.",
-        us: "Matched to the BC Curriculum.",
+        us: "Matched to the BC Curriculum and the Ontario Curriculum.",
       },
       {
         topic: "Subjects",
@@ -163,9 +163,9 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["Your child will only practise inside a big, story-driven game.", "You want a free math option to try."],
     chooseUs: [
-      "You want BC-matched practice in four subjects.",
+      "You want BC- or Ontario-matched practice in four subjects.",
       "You don't want your child to see ads or purchase offers.",
-      "You want clear reports in BC report card language.",
+      "You want clear reports in your province's report-card language.",
     ],
     sources: [
       { label: "Prodigy on the Canadian App Store", url: "https://apps.apple.com/ca/app/id950795722" },

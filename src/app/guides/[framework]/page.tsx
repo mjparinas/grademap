@@ -53,7 +53,7 @@ export default async function GuidesHub({
   const description = `Plain-language guides for parents following the ${f.curriculumName}, plus free printable practice sheets.`;
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd
         data={[
           breadcrumbJsonLd(crumbs),
