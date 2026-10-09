@@ -5,7 +5,7 @@
 export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
 export type SubjectId = "math" | "language" | "science" | "social";
 /** A curriculum framework: a province, state or national standard set. */
-export type FrameworkId = "ca-bc";
+export type FrameworkId = "ca-bc" | "ca-on";
 /** UI and wording adapt to the child's age band. */
 export type AgeBand = "little" | "middle" | "big";
 

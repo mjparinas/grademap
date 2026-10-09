@@ -19,7 +19,7 @@ export function ReportsPage({ childId }: { childId?: string }) {
   const settings = useChildSettings(child?.id);
   const [period, setPeriod] = useState(14);
   const report = useMemo(
-    () => (child ? buildReport(eventsFor(events, child), d, child.grade, period) : null),
+    () => (child ? buildReport(eventsFor(events, child), d, child.grade, child.framework, period) : null),
     [child, events, d, period],
   );
   if (!child || !report) return <NoChildren />;

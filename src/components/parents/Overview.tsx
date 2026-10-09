@@ -46,7 +46,7 @@ function ChildCard({ p }: { p: Profile }) {
         </div>
       </dl>
       <ul className="mt-4 flex flex-col gap-2">
-        {subjectSummaries(d, p.grade).map((s) => {
+        {subjectSummaries(d, p.grade, p.framework).map((s) => {
           const level = scheme.levels[s.level];
           return (
             <li key={s.subject} className="flex items-center justify-between gap-2 text-sm">

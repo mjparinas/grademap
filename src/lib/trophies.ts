@@ -1,5 +1,5 @@
 import { allUnitRefs } from "@/content";
-import type { GradeId, SubjectId } from "@/content/types";
+import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
 import type { Mode } from "./model";
 import { unitLevel } from "./proficiency";
@@ -24,6 +24,7 @@ export type TrophyCategory = "Getting started" | "Practice" | "Streaks" | "Maste
 
 export interface TrophyContext {
   grade: GradeId;
+  framework: FrameworkId;
 }
 
 export interface Trophy {
@@ -41,13 +42,13 @@ export interface Trophy {
 const count = (target: number, value: (d: Derived, ctx: TrophyContext) => number) =>
   (d: Derived, ctx: TrophyContext) => ({ value: Math.min(target, value(d, ctx)), target });
 
-function unitsAtLevel(d: Derived, grade: GradeId, min: number, subject?: SubjectId): number {
-  return allUnitRefs(grade).filter((r) => (!subject || r.course.subject === subject) && unitLevel(d.units[r.key]) >= min)
+function unitsAtLevel(d: Derived, grade: GradeId, framework: FrameworkId, min: number, subject?: SubjectId): number {
+  return allUnitRefs(grade, framework).filter((r) => (!subject || r.course.subject === subject) && unitLevel(d.units[r.key]) >= min)
     .length;
 }
 
-function unitsInGrade(grade: GradeId, subject?: SubjectId): number {
-  return allUnitRefs(grade).filter((r) => !subject || r.course.subject === subject).length;
+function unitsInGrade(grade: GradeId, framework: FrameworkId, subject?: SubjectId): number {
+  return allUnitRefs(grade, framework).filter((r) => !subject || r.course.subject === subject).length;
 }
 
 const ALL_MODES: Mode[] = ["practice", "adventure", "review", "speed", "daily", "challenge"];
@@ -60,7 +61,7 @@ const subjectMastery = (subject: SubjectId, name: string, icon: string, descript
   tier: "gold",
   icon,
   category: "Mastery",
-  progress: (d, ctx) => ({ value: unitsAtLevel(d, ctx.grade, 2, subject), target: Math.max(1, unitsInGrade(ctx.grade, subject)) }),
+  progress: (d, ctx) => ({ value: unitsAtLevel(d, ctx.grade, ctx.framework, 2, subject), target: Math.max(1, unitsInGrade(ctx.grade, ctx.framework, subject)) }),
 });
 
 export const TROPHIES: Trophy[] = [
@@ -96,10 +97,10 @@ export const TROPHIES: Trophy[] = [
   { id: "daily-30", name: "Dedicated", description: "Finish 30 Daily Challenges.", tier: "gold", icon: "🌞", category: "Streaks", progress: count(30, (d) => d.dailyDone.length) },
 
   // Mastery (proficiency)
-  { id: "proficient-1", name: "Growing Tree", description: "Reach Proficient in any unit.", tier: "bronze", icon: "🌳", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(1, unitsAtLevel(d, ctx.grade, 2)), target: 1 }) },
-  { id: "proficient-10", name: "Forest", description: "Reach Proficient in 10 units.", tier: "silver", icon: "🌲", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(10, unitsAtLevel(d, ctx.grade, 2)), target: 10 }) },
-  { id: "extending-1", name: "Shooting Star", description: "Reach Extending in any unit.", tier: "silver", icon: "🌠", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(1, unitsAtLevel(d, ctx.grade, 3)), target: 1 }) },
-  { id: "extending-5", name: "Constellation", description: "Reach Extending in 5 units.", tier: "gold", icon: "✨", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(5, unitsAtLevel(d, ctx.grade, 3)), target: 5 }) },
+  { id: "proficient-1", name: "Growing Tree", description: "Reach Proficient in any unit.", tier: "bronze", icon: "🌳", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(1, unitsAtLevel(d, ctx.grade, ctx.framework, 2)), target: 1 }) },
+  { id: "proficient-10", name: "Forest", description: "Reach Proficient in 10 units.", tier: "silver", icon: "🌲", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(10, unitsAtLevel(d, ctx.grade, ctx.framework, 2)), target: 10 }) },
+  { id: "extending-1", name: "Shooting Star", description: "Reach Extending in any unit.", tier: "silver", icon: "🌠", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(1, unitsAtLevel(d, ctx.grade, ctx.framework, 3)), target: 1 }) },
+  { id: "extending-5", name: "Constellation", description: "Reach Extending in 5 units.", tier: "gold", icon: "✨", category: "Mastery", progress: (d, ctx) => ({ value: Math.min(5, unitsAtLevel(d, ctx.grade, ctx.framework, 3)), target: 5 }) },
   subjectMastery("math", "Math Master", "🧮", "Reach Proficient in every Math unit in your grade."),
   subjectMastery("language", "Word Wizard", "🪄", "Reach Proficient in every Language unit in your grade."),
   subjectMastery("science", "Super Scientist", "🧪", "Reach Proficient in every Science unit in your grade."),
@@ -111,7 +112,7 @@ export const TROPHIES: Trophy[] = [
     tier: "platinum",
     icon: "🏆",
     category: "Mastery",
-    progress: (d, ctx) => ({ value: unitsAtLevel(d, ctx.grade, 2), target: Math.max(1, unitsInGrade(ctx.grade)) }),
+    progress: (d, ctx) => ({ value: unitsAtLevel(d, ctx.grade, ctx.framework, 2), target: Math.max(1, unitsInGrade(ctx.grade, ctx.framework)) }),
   },
 
   // Modes
@@ -142,7 +143,7 @@ export const TROPHIES: Trophy[] = [
 
   // Secret
   { id: "early-bird", name: "Early Bird", description: "Finish a session before 8 a.m.", tier: "bronze", icon: "🐦", category: "Secret", hidden: true, progress: count(1, (d) => d.earlySessions) },
-  { id: "polymath", name: "Polymath", description: "Reach Proficient in 3 units of every subject.", tier: "gold", icon: "🦉", category: "Secret", hidden: true, progress: (d, ctx) => ({ value: (["math", "language", "science", "social"] as SubjectId[]).filter((s) => unitsAtLevel(d, ctx.grade, 2, s) >= 3).length, target: 4 }) },
+  { id: "polymath", name: "Polymath", description: "Reach Proficient in 3 units of every subject.", tier: "gold", icon: "🦉", category: "Secret", hidden: true, progress: (d, ctx) => ({ value: (["math", "language", "science", "social"] as SubjectId[]).filter((s) => unitsAtLevel(d, ctx.grade, ctx.framework, 2, s) >= 3).length, target: 4 }) },
   { id: "marathon", name: "Marathon", description: "Answer 100 questions in one day.", tier: "silver", icon: "🏃", category: "Secret", hidden: true, progress: count(100, (d) => Math.max(0, ...Object.values(d.days).map((x) => x.answers))) },
 ];
 

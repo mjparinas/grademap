@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { COURSES } from "./all";
-import { allUnitRefs, AVAILABLE_GRADES, coursesForGrade, getUnitRef, isGradeLoaded, loadGrade, parseUnitKey, unitKey } from "./index";
+import { allUnitRefs, AVAILABLE_GRADES, coursesForGrade, coursesInFramework, getUnitRef, isGradeLoaded, loadGrade, parseUnitKey, unitKey } from "./index";
 import { ageBandFor } from "./subjects";
 import type { Course, Question, Visual } from "./types";
 
@@ -210,13 +210,16 @@ describe("curriculum content", () => {
 
   it("downloads each grade on demand, with the same courses as the full set", async () => {
     for (const grade of AVAILABLE_GRADES) {
-      const expected = COURSES.filter((c) => c.grade === grade);
+      const expected = coursesInFramework(
+        COURSES.filter((c) => c.grade === grade),
+        "ca-bc",
+      );
       expect(expected.length, `${grade} has content`).toBeGreaterThan(0);
-      expect(coursesForGrade(grade)).toEqual([]);
+      expect(coursesForGrade(grade, "ca-bc")).toEqual([]);
       await loadGrade(grade);
       expect(isGradeLoaded(grade)).toBe(true);
-      expect(coursesForGrade(grade).map((c) => c.subject)).toEqual(expected.map((c) => c.subject));
-      expect(allUnitRefs(grade).length).toBe(expected.reduce((n, c) => n + c.units.length, 0));
+      expect(coursesForGrade(grade, "ca-bc").map((c) => c.subject)).toEqual(expected.map((c) => c.subject));
+      expect(allUnitRefs(grade, "ca-bc").length).toBe(expected.reduce((n, c) => n + c.units.length, 0));
       const first = expected[0];
       const key = unitKey(grade, first.subject, first.units[0].id);
       expect(getUnitRef(key)?.unit.title).toBe(first.units[0].title);

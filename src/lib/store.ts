@@ -234,7 +234,7 @@ export const useStore = create<State>()((set, get) => ({
 
     // Trophies can unlock other trophies (e.g. levels), so check until nothing new.
     for (let round = 0; round < 3; round++) {
-      const earned = newlyEarned(after, { grade: profile.grade });
+      const earned = newlyEarned(after, { grade: profile.grade, framework: profile.framework });
       if (!earned.length) break;
       const trophyEvents = earned.map(
         (t, i) => ({ type: "trophy", trophy: t.id, id: newId(), t: now + 100 + round * 10 + i, profileId: profile.id }) as AppEvent,

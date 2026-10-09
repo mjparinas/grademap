@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
-import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectTitle } from "@/components/site/curriculum";
+import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectSeoTitle, subjectTitle } from "@/components/site/curriculum";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { GRADE_LABEL, getSubjectMeta } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/curriculum/[frame
   const f = r.framework;
   return {
     title: `${f.curriculumName} practice, Kindergarten to Grade 7`,
-    description: `Kid-friendly practice for the ${f.curriculumName} (${f.name}): math, English language arts, science and social studies from Kindergarten to Grade 7, with sample questions for every unit.`,
+    description: `Kid-friendly practice for the ${f.curriculumName} (${f.name}): ${f.subjects.map((s) => subjectSeoTitle(s).toLowerCase()).join(", ")} from Kindergarten to Grade 7, with sample questions for every unit.`,
     alternates: { canonical: curriculumPath.framework(f) },
   };
 }

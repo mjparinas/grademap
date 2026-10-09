@@ -41,7 +41,7 @@ export function SubjectPicker() {
   const settings = useChildSettings();
   const d = useDerived();
   const band = useBand();
-  const courses = coursesForGrade(profile.grade).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
+  const courses = coursesForGrade(profile.grade, profile.framework).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
   return (
     <Page className="gap-6">
       <header className="flex items-center gap-3">
@@ -93,7 +93,7 @@ export function UnitList({ subject }: { subject: SubjectId }) {
   const band = useBand();
   const family = useStore((s) => s.family);
   const allowed = useAllowed();
-  const course = coursesForGrade(profile.grade).find((c) => c.subject === subject);
+  const course = coursesForGrade(profile.grade, profile.framework).find((c) => c.subject === subject);
   const meta = getSubjectMeta(subject);
   const [selected, setSelected] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
@@ -204,7 +204,7 @@ export function SpeedPicker() {
   const settings = useChildSettings();
   const d = useDerived();
   const band = useBand();
-  const courses = coursesForGrade(profile.grade).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
+  const courses = coursesForGrade(profile.grade, profile.framework).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
   const options = [{ scope: "mix", title: "Mix it up", icon: "🎲", colour: "#7c4fe0", dark: "#5d34c4" }].concat(
     courses.map((c) => {
       const m = getSubjectMeta(c.subject);

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { AVAILABLE_GRADES } from "@/content";
-import { FRAMEWORKS } from "@/content/frameworks";
-import { GRADE_LABEL, gradeForAge } from "@/content/subjects";
+import { FRAMEWORKS, getFramework, type Framework } from "@/content/frameworks";
+import { getSubjectMeta, GRADE_LABEL, gradeForAge } from "@/content/subjects";
 import type { FrameworkId, GradeId } from "@/content/types";
 import type { Profile } from "@/lib/model";
 import { MAX_CHILDREN } from "@/lib/plan";
@@ -24,7 +24,13 @@ interface Draft {
 
 const thisYear = new Date().getFullYear();
 
+function listSubjects(f: Framework): string {
+  const names = f.subjects.map((s) => getSubjectMeta(s).title.big.toLowerCase());
+  return names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names[0];
+}
+
 function ChildForm({ draft, onChange }: { draft: Draft; onChange: (d: Draft) => void }) {
+  const chosen = getFramework(draft.framework);
   const age = draft.birthYear ? thisYear - draft.birthYear : undefined;
   return (
     <div className="flex flex-col gap-4 text-left">
@@ -65,7 +71,7 @@ function ChildForm({ draft, onChange }: { draft: Draft; onChange: (d: Draft) => 
         </label>
       </div>
       <label className="flex flex-col gap-1">
-        <span className="font-semibold">Curriculum</span>
+        <span className="font-semibold">Province or state</span>
         <select value={draft.framework} onChange={(e) => onChange({ ...draft, framework: e.target.value as FrameworkId })} className="rounded-xl border-2 border-line px-3 py-2 text-lg">
           {FRAMEWORKS.map((f) => (
             <option key={f.id} value={f.id}>
@@ -73,7 +79,10 @@ function ChildForm({ draft, onChange }: { draft: Draft; onChange: (d: Draft) => 
             </option>
           ))}
         </select>
-        <span className="text-sm text-ink-soft">More provinces and states are coming.</span>
+        <span className="text-sm text-ink-soft">
+          Lessons and reports follow the {chosen.curriculumName}
+          {chosen.subjects.length < 4 ? `, which has ${listSubjects(chosen)} so far` : ""}. Progress in the other curriculum is kept if you switch back. More provinces and states are coming.
+        </span>
       </label>
       <div>
         <p className="mb-2 font-semibold">Avatar</p>
@@ -149,7 +158,7 @@ export function ChildrenPage() {
               <div className="flex-1">
                 <p className="text-xl font-bold">{p.name}</p>
                 <p className="text-sm text-ink-soft">
-                  {GRADE_LABEL[p.grade]}
+                  {GRADE_LABEL[p.grade]} · {getFramework(p.framework).name}
                   {p.birthYear ? ` · about ${thisYear - p.birthYear} years old` : ""}
                 </p>
               </div>

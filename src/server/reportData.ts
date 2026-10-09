@@ -32,8 +32,8 @@ export async function loadChildReport(familyId: string, profileId: string, days:
   const events = eventRows
     .map((r) => JSON.parse(r.data) as AppEvent)
     .filter((e) => e.t > (profile.resetAt ?? 0) && wellFormed(e));
-  await loadGrade(profile.grade);
-  const report = buildReport(events, derive(events, now), profile.grade, days, now);
+  await loadGrade(profile.grade, profile.framework);
+  const report = buildReport(events, derive(events, now), profile.grade, profile.framework, days, now);
   return { profile, report };
 }
 

@@ -1,5 +1,5 @@
 import { allUnitRefs, parseUnitKey, type UnitRef } from "@/content";
-import type { GradeId, SubjectId } from "@/content/types";
+import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
 import { learnSecondsFor } from "./derive";
 import { dayKey, type AppEvent } from "./model";
@@ -60,7 +60,7 @@ function startOfDay(t: number): number {
 
 const shortDate = (t: number) => new Date(t).toLocaleDateString("en-CA", { month: "short", day: "numeric" });
 
-export function buildReport(events: AppEvent[], derived: Derived, grade: GradeId, periodDays: number, now = Date.now()): Report {
+export function buildReport(events: AppEvent[], derived: Derived, grade: GradeId, framework: FrameworkId, periodDays: number, now = Date.now()): Report {
   const end = startOfDay(now) + DAY;
   const start = end - periodDays * DAY;
   const prevStart = start - periodDays * DAY;
@@ -129,7 +129,7 @@ export function buildReport(events: AppEvent[], derived: Derived, grade: GradeId
     weeks.push({ start: dayKey(ws), label: shortDate(ws), answers, accuracy: answers >= 5 ? correct / answers : null });
   }
 
-  const units: UnitRow[] = allUnitRefs(grade).map((ref) => {
+  const units: UnitRow[] = allUnitRefs(grade, framework).map((ref) => {
     const s = derived.units[ref.key];
     return { ref, level: unitLevel(s), attempts: s?.attempts ?? 0, accuracy: s ? recentAccuracy(s) : 0, lastT: s?.lastT ?? 0 };
   });
