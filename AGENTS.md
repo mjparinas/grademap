@@ -23,7 +23,7 @@ npm run build && npm start  # offline/service worker only works in a production 
 node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline   # full playthrough + sync
 node scripts/e2e-devices.mjs http://localhost:3000                # layout on 14 phones/tablets
 node scripts/e2e-offline.mjs                                      # real offline (starts its own server)
-node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA on public, kids' and parent screens
+node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA, plus colour-blind checks (screenshots in e2e-shots/a11y)
 ```
 
 Before you push, run tests, lint and typecheck. For UI or flow changes, also run the e2e scripts.
@@ -306,5 +306,5 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices): the device layout tests now pass in real WebKit (Playwright's WebKit build, not Safari). A check on a real iPhone or iPad is still needed, especially for read-aloud voices.
 - **Deployment** is not done. Steps, env vars and the launch checklist are in `docs/DEPLOY.md`.
 - **Legal and content:** `/privacy/` and `/terms/` are drafts needing legal review; `LEGAL_NAME` and `CONTACT_EMAIL` in `src/lib/brand.ts` are placeholders.
-- **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI hasn't had a colour-blind simulation pass.
+- **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI has only had a simulated colour-blind pass (`scripts/colour-blind.mjs`, run by `e2e-a11y.mjs`), not testing with colour-blind children.
 - **Security headers:** the CSP allows inline scripts and styles (`'unsafe-inline'`) so pages stay static and cacheable offline. A nonce-based policy would need dynamic rendering for every page.
