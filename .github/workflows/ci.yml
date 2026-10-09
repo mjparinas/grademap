@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
       - run: npx next typegen
       - run: npx tsc --noEmit
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
       - run: npm run lint
 
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
       - run: npm test
 
@@ -53,10 +53,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
       # Next's incremental build cache, so unchanged files aren't compiled again.
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: .next/cache
           key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**', 'next.config.ts') }}
@@ -65,7 +65,7 @@ jobs:
       - run: npm run build
       # One tar file keeps the folder layout exactly as built.
       - run: tar -cf next-build.tar --exclude=.next/cache .next
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: next-build
           path: next-build.tar
@@ -91,12 +91,12 @@ jobs:
           - { name: "devices 2/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 2/4" }
           - { name: "devices 3/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 3/4" }
           - { name: "devices 4/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 4/4" }
-          - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000" }
+          - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000 e2e-shots/a11y" }
           - { name: "playthrough and sync", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline" }
           # Starts and stops its own server, so only the service worker can answer.
           - { name: "offline", serve: false, run: "node scripts/e2e-offline.mjs" }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
         with:
           flavor: playwright
@@ -111,7 +111,7 @@ jobs:
           else
             ${{ matrix.run }}
           fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: screenshots-${{ strategy.job-index }}
@@ -123,7 +123,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # Reads the lockfile only, so there is no install and it finishes in seconds.
       # Production dependencies are what ship to families, so they gate the build.
       - run: npm audit --omit=dev --audit-level=high

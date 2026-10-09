@@ -14,7 +14,7 @@ runs:
     # Restoring node_modules is much faster than npm ci. The cache is only saved on a miss,
     # and a miss falls through to a clean npm ci.
     - id: modules
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: node_modules
         key: node-modules-${{ runner.os }}-${{ inputs.flavor }}-${{ hashFiles('package-lock.json') }}

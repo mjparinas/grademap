@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { APP_NAME } from "@/lib/brand";
 
-export const alt = `${APP_NAME}: curriculum practice and learning games for Kindergarten to Grade 7`;
+export const alt = `${APP_NAME}: curriculum practice and learning games for Kindergarten to Grade 9`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const dynamic = "force-static";
@@ -22,7 +22,7 @@ export default function OpenGraphImage() {
           <span style={{ color: "#e9559a" }}>Map</span>
         </div>
         <div style={{ fontSize: 50, fontWeight: 700, marginTop: 12 }}>Practice that feels like play.</div>
-        <div style={{ fontSize: 36, color: "#5b6680", marginTop: 18 }}>Math · Reading · Science · Social Studies · Kindergarten to Grade 7</div>
+        <div style={{ fontSize: 36, color: "#5b6680", marginTop: 18 }}>Math · Reading · Science · Social Studies · Kindergarten to Grade 9</div>
       </div>
     ),
     size,

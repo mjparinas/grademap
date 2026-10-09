@@ -17,9 +17,10 @@ import {
   type Profile,
 } from "./model";
 import { TRIAL_DAYS } from "./plan";
+import { celebrate, setCalmCheck } from "./juice";
+import { setHapticsCheck } from "./haptics";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "./quests";
 import { getItem, isUnlocked, STARTER } from "./shop";
-import { celebrate, setCalmCheck } from "./juice";
 import { setQuietCheck, setSoundCheck } from "./sound";
 import { getTrophy, newlyEarned, TIER_STYLE } from "./trophies";
 
@@ -187,6 +188,10 @@ export const useStore = create<State>()((set, get) => ({
 
   removeProfile: (id) => {
     get().updateProfile(id, { deleted: true });
+    // Forget their history on this device too, so it can never be uploaded again.
+    set({ events: get().events.filter((e) => e.profileId !== id) });
+    void localdb.deleteProfileEvents(id);
+    deriveCache.delete(id);
     if (get().activeId === id) get().setActive(null);
   },
 
@@ -404,6 +409,7 @@ function activeSettings(): ChildSettings | undefined {
 setSoundCheck(() => activeSettings()?.sound ?? true);
 setQuietCheck(() => Boolean(activeSettings()?.quietSounds));
 setCalmCheck(() => Boolean(activeSettings()?.calmMotion));
+setHapticsCheck(() => activeSettings()?.haptics !== false && !activeSettings()?.calmMotion);
 
 // A "calm" class on the page stops CSS animations too (see globals.css).
 if (typeof document !== "undefined") {

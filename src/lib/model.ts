@@ -56,6 +56,8 @@ export interface ChildSettings {
   highContrast?: boolean;
   autoRead: boolean;
   sound: boolean;
+  /** Light vibration on taps and answers, on devices that support it. On unless set to false. */
+  haptics?: boolean;
   enabledSubjects: SubjectId[];
   updatedAt: number;
 }
