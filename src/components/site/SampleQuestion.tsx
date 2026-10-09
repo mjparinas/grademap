@@ -6,7 +6,7 @@ import { Blocks, Coin, QuestionVisual, Shape, WithBlanks } from "../visuals";
 // A static, read-only preview of a question for the public curriculum pages,
 // with the answer tucked into a <details>. The real, interactive version lives in /play/.
 
-function answerText(q: Question): string {
+export function answerText(q: Question): string {
   switch (q.kind) {
     case "choice": {
       const c = q.choices.find((x) => x.id === q.answer);
@@ -80,22 +80,24 @@ function Body({ q, seed }: { q: Question; seed: number }) {
     case "input":
       return (
         <p className="flex items-center gap-2 font-read text-lg text-ink-soft">
-          <span className="inline-block h-11 w-24 rounded-xl border-2 border-dashed border-line bg-white" aria-label="answer box" />
+          <span className="inline-block h-11 w-24 rounded-xl border-2 border-dashed border-line bg-white">
+            <span className="sr-only">answer box</span>
+          </span>
           {q.suffix}
         </p>
       );
   }
 }
 
-export function SampleQuestion({ q, n, seedText }: { q: Question; n: number; seedText: string }) {
+export function SampleQuestion({ q, n, seedText, className = "" }: { q: Question; n: number; seedText: string; className?: string }) {
   return (
-    <li className="card flex flex-col gap-3 p-4 sm:p-5">
+    <li className={`card flex flex-col gap-3 p-4 sm:p-5 ${className}`}>
       <p className="text-sm font-bold text-ink-soft">Question {n}</p>
       <p className="font-read text-xl font-bold">
         <WithBlanks text={q.prompt} />
       </p>
       {q.visual && (
-        <div className="flex justify-center overflow-x-auto rounded-2xl bg-paper p-3">
+        <div className="flex justify-center overflow-x-auto rounded-2xl bg-paper p-3" tabIndex={0}>
           <QuestionVisual visual={q.visual} />
         </div>
       )}

@@ -5,7 +5,7 @@ import { APP_NAME } from "@/lib/brand";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur">
+    <header className="print:hidden sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
         <Link href="/" className="text-2xl font-bold tracking-tight">
           <span className="text-[#4f8ef7]">Grade</span>
@@ -32,7 +32,7 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="mt-16 border-t border-line bg-white">
+    <footer className="print:hidden mt-16 border-t border-line bg-white">
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-3">
         <div>
           <p className="text-xl font-bold">{APP_NAME}</p>
@@ -51,6 +51,16 @@ export function SiteFooter() {
             <li>
               <Link className="text-ink-soft hover:underline" href={`/report-cards/${FRAMEWORKS[0].slug}/`}>
                 Report card guide
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href={`/guides/${FRAMEWORKS[0].slug}/`}>
+                Parent guides
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href="/compare/">
+                Compare apps
               </Link>
             </li>
           </ul>
