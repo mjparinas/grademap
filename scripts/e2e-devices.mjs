@@ -244,14 +244,18 @@ async function deepChecks(device, browser, descriptor, page) {
     await page.waitForTimeout(100);
   }
   if (await vis(toast)) {
+    // The header is briefly absent while one question swaps for the next, and a toast can appear
+    // in that gap on a slow machine, so wait for the Stop button rather than assuming it's there.
+    await page.locator('button[aria-label="Stop"]').waitFor({ timeout: 5000 }).catch(() => {});
     const stopHit = await page.evaluate(() => {
       // Answering can scroll a long question on a small screen; the header is at the top.
       window.scrollTo({ top: 0 });
       const stop = document.querySelector('button[aria-label="Stop"]');
+      if (!stop) return `no Stop button on screen (${location.hash}): ${document.body.innerText.slice(0, 160).replace(/\s+/g, " ")}`;
       const r = stop.getBoundingClientRect();
       return document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)?.closest('button[aria-label="Stop"]') === stop;
     });
-    record(device, "toast: Stop button still tappable under a toast", stopHit);
+    record(device, "toast: Stop button still tappable under a toast", stopHit === true, typeof stopHit === "string" ? stopHit : undefined);
     await shot(page, device, "6-toast");
   } else record(device, "toast: a trophy toast appeared", false, "no toast seen");
 
