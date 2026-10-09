@@ -46,7 +46,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-      - run: npm test
+      # Same tests as `npm test`, plus line coverage written to the run's summary page. It has no
+      # threshold yet; e2e scripts are not counted.
+      - run: npm run test:coverage
 
   build:
     name: Build

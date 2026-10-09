@@ -13,5 +13,13 @@ export default defineConfig({
     include: ["src/**/*.test.{ts,tsx}"],
     // Component tests opt in to jsdom with `// @vitest-environment jsdom`; everything else stays in node.
     setupFiles: ["./src/test/setup.ts"],
+    // Only measured with `npm run test:coverage`; plain `npm test` stays fast.
+    coverage: {
+      provider: "v8",
+      include: ["src/**"],
+      exclude: ["**/*.test.{ts,tsx}", "src/test/**"],
+      reporter: ["text-summary", "json-summary"],
+      reportsDirectory: "coverage",
+    },
   },
 });
