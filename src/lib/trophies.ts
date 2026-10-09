@@ -143,6 +143,7 @@ export const TROPHIES: Trophy[] = [
   // Secret
   { id: "early-bird", name: "Early Bird", description: "Finish a session before 8 a.m.", tier: "bronze", icon: "🐦", category: "Secret", hidden: true, progress: count(1, (d) => d.earlySessions) },
   { id: "polymath", name: "Polymath", description: "Reach Proficient in 3 units of every subject.", tier: "gold", icon: "🦉", category: "Secret", hidden: true, progress: (d, ctx) => ({ value: (["math", "language", "science", "social"] as SubjectId[]).filter((s) => unitsAtLevel(d, ctx.grade, 2, s) >= 3).length, target: 4 }) },
+  { id: "konami", name: "Old School", description: "Up, up, down, down, left, right, left, right, B, A.", tier: "silver", icon: "🎮", category: "Secret", hidden: true, progress: count(1, (d) => (d.secrets.includes("konami") ? 1 : 0)) },
   { id: "marathon", name: "Marathon", description: "Answer 100 questions in one day.", tier: "silver", icon: "🏃", category: "Secret", hidden: true, progress: count(100, (d) => Math.max(0, ...Object.values(d.days).map((x) => x.answers))) },
 ];
 

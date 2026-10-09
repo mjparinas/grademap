@@ -73,6 +73,8 @@ export interface Derived {
   owned: string[];
   questsClaimed: Record<string, string[]>;
   dailyDone: string[];
+  /** Easter eggs found, by code. */
+  secrets: string[];
 }
 
 /** XP needed to go from `level` to `level + 1`. */
@@ -125,6 +127,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
     owned: [],
     questsClaimed: {},
     dailyDone: [],
+    secrets: [],
   };
   const seen = new Set<string>();
   let run = 0;
@@ -240,6 +243,9 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
         }
         break;
       }
+      case "secret":
+        if (!d.secrets.includes(e.code)) d.secrets.push(e.code);
+        break;
       case "buy":
         if (!d.owned.includes(e.item)) {
           d.owned.push(e.item);

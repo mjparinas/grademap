@@ -19,6 +19,7 @@ import { PlacementTest } from "./PlacementTest";
 import { Session } from "./Session";
 import { Shop } from "./Shop";
 import { FirstRun, Picker } from "./Start";
+import { KonamiListener } from "./KonamiListener";
 import { Toasts } from "./Toasts";
 import { TrophyRoom } from "./Trophies";
 
@@ -79,6 +80,7 @@ export function PlayApp() {
           <Screen />
         </div>
         <Toasts />
+        <KonamiListener />
       </BandProvider>
     </ContentGate>
   );

@@ -10,7 +10,7 @@ import { getFamilyRow, toFamilyInfo } from "@/server/family";
 
 const MAX_EVENTS = 1000;
 const PAGE = 2000;
-const EVENT_TYPES = new Set(["answer", "session", "play", "game", "trophy", "buy", "quest", "placement"]);
+const EVENT_TYPES = new Set(["answer", "session", "play", "game", "trophy", "secret", "buy", "quest", "placement"]);
 
 interface SyncBody {
   cursor?: number;

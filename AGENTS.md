@@ -144,7 +144,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Session bonuses: +15 per session, +25 when perfect, +40 for the Daily Challenge, +30 for passing a Challenge.
   - Level *n* needs `80 + 40(n−1)` XP.
 - **Coins** come from correct answers, sessions, games, trophies and quests. They're spent in a pretend shop on critter companions, titles and confetti styles.
-- **Trophies:** 57 of them (`src/lib/trophies.ts`) in Xbox/PlayStation-style tiers.
+- **Trophies:** 58 of them (`src/lib/trophies.ts`) in Xbox/PlayStation-style tiers.
 
   | Tier | Points | Coins |
   | --- | --- | --- |
@@ -153,7 +153,7 @@ Tests are duplicated across screen sizes only where layout can break:
   | Gold | 90 | 60 |
   | Platinum ("Grade Champion") | 300 | 250 |
 
-  - A few trophies are secret.
+  - A few trophies are secret, including "Old School" (Konami code: arrow keys then B, A; on touch, eight swipes then two taps; `src/lib/konami.ts`).
   - Trophies pop up as **console-style toasts** that never take taps. A toast must never block the buttons underneath it.
 - **Daily quests:** 3 per day, seeded and claimed automatically.
 - **Streaks:** a day counts if the child finishes a session or gives at least 5 answers.
