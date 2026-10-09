@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage, Section } from "@/components/site/Legal";
-import { APP_NAME, CONTACT_EMAIL, LEGAL_NAME } from "@/lib/brand";
+import { APP_NAME, CONTACT_EMAIL, LEGAL_NAME, MAILING_ADDRESS } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
@@ -26,7 +26,10 @@ export default function PrivacyPage() {
 
       <Section title="Who this applies to">
         <p>
-          {APP_NAME} is used by children, but it is set up and paid for by a parent or guardian. By creating an account or adding a child, you confirm that you are that child’s parent or legal guardian (or have their permission) and agree to this policy on their behalf. Children are never asked to create accounts, enter an email address or buy anything.
+          {APP_NAME} is used by children, but it is set up and paid for by a parent or guardian. By creating an account or adding a child, you confirm that you are that child’s parent or legal guardian (or have their permission) and agree to this policy on their behalf. Children are never asked to create accounts, enter an email address or buy anything. Your agreement is our consent to collect a child’s information, and you can withdraw it at any time by deleting the child’s profile or your account.
+        </p>
+        <p>
+          {APP_NAME} is built for families. Where a school or teacher uses {APP_NAME} with a class, that use is covered by a separate agreement with us, and the school stays responsible for its own duties, including those of public schools in British Columbia under the Freedom of Information and Protection of Privacy Act (FIPPA). Teachers should not enrol students through a family account.
         </p>
       </Section>
 
@@ -47,10 +50,13 @@ export default function PrivacyPage() {
           <li>Settings you choose, such as daily goal, timers, game time, sound, read-aloud and calm options.</li>
         </ul>
         <p>
+          <strong>If you report a problem with a question:</strong> we keep the question, the reason you picked from a fixed list and the date, linked to your family so we can follow up.
+        </p>
+        <p>
           <strong>On your device:</strong> the app saves progress on the device first, so it works offline, using the browser’s local storage and IndexedDB. Your Parent area PIN is stored there too, salted and hashed, and your read-aloud voice choice is kept per device. If you never sign in, this information stays on that device and is not sent to us.
         </p>
         <p>
-          <strong>Automatically:</strong> our servers keep ordinary technical logs (such as IP address, browser type and the time of a request) for security and to keep the service running. On our public pages only (not the kids’ app, the parent area or shared reports) we count anonymous page views; see “Who we share it with” below. We use no advertising trackers.
+          <strong>Automatically:</strong> our servers keep ordinary technical logs (such as IP address, browser type and the time of a request) for security and to keep the service running. To block repeated guessing of passwords, we also keep a short-lived counter of sign-in, sign-up and reset attempts for each IP address. On our public pages only (not the kids’ app, the parent area or shared reports) we count anonymous page views; see “Who we share it with” below. We use no advertising trackers.
         </p>
       </Section>
 
@@ -63,7 +69,7 @@ export default function PrivacyPage() {
           <li>To keep the service secure and fix problems.</li>
         </ul>
         <p>
-          If you choose, we also send a short weekly progress email, and you can create a read-only link to a child’s report. Anyone with that link can see that child’s name, grade and the practice totals in the report, until it expires after 30 days or you stop sharing it. Weekly emails can be switched off in the Parent area or with the link in each email.
+          If you choose, we also send a short weekly progress email (it includes each child’s first name and practice totals, and nothing else about them), and you can create a read-only link to a child’s report. Anyone with that link can see that child’s name, grade and the practice totals in the report, until it expires after 30 days or you stop sharing it. You opt in to the weekly email yourself, after confirming your email address, and you can stop it at any time in the Parent area or with the unsubscribe link in each email. Account and billing messages are not marketing and are sent as long as you have an account.
         </p>
         <p>We don’t use children’s information for advertising or to build profiles for any other purpose.</p>
       </Section>
@@ -75,7 +81,7 @@ export default function PrivacyPage() {
             <strong>Stripe</strong>, to take payments and manage subscriptions. Stripe receives your email and payment details under its own privacy policy.
           </li>
           <li>
-            <strong>Resend</strong>, to deliver the emails we send you (such as password resets). It receives your email address and the message.
+            <strong>Resend</strong>, to deliver the emails we send you (such as email confirmation, password resets and the weekly report). It receives your email address and the message, which can include a child’s first name and practice totals.
           </li>
           <li>
             <strong>Sentry</strong>, to tell us when the app crashes. Error reports are stripped of names, email addresses, cookies and what was typed or tapped before they leave your device or our server, and are not used for anything else.
@@ -114,25 +120,25 @@ export default function PrivacyPage() {
           </li>
         </ul>
         <p>
-          You can also ask to see, correct or delete your information by emailing <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Depending on where you live, you may have further rights under privacy laws such as Canada’s PIPEDA, British Columbia’s PIPA, or US state laws; we will honour them. If you’re unhappy with how we’ve handled a request, you can contact your local privacy regulator.
+          You can also ask to see, correct or delete your information, or withdraw your consent, by emailing <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. We will answer within 30 days. Depending on where you live, you may have further rights under privacy laws such as Canada’s PIPEDA, British Columbia’s PIPA, or US state laws; we will honour them. If you’re unhappy with how we’ve handled a request, you can complain to us first, and you can contact the Office of the Privacy Commissioner of Canada (priv.gc.ca) or the Office of the Information and Privacy Commissioner for British Columbia (oipc.bc.ca).
         </p>
       </Section>
 
       <Section title="How long we keep it">
         <p>
-          We keep account and progress data while your account is open. When you delete your account, we delete your family’s data from our live systems straight away. Copies in backups are removed on a regular cycle, and billing records may be kept for as long as tax and accounting law requires.
+          We keep account and progress data while your account is open, and we don’t keep a child’s information once it is no longer needed for that purpose. When you delete your account, we delete your family’s data from our live systems straight away. Attempt counters for sign-in expire within minutes, and error reports are kept by Sentry for a short period under its own settings. Stripe keeps its payment records under its own policy, and deleting your account here does not cancel a paid subscription, so cancel it first under Subscription. Copies in backups are removed on a regular cycle, and billing records may be kept for as long as tax and accounting law requires.
         </p>
       </Section>
 
       <Section title="Security">
         <p>
-          Data is encrypted in transit (HTTPS). Passwords are hashed with scrypt, sign-in sessions are stored hashed, and the Parent area is behind a PIN on the device. No system is perfectly secure, but we limit what we collect so there is less to protect. If a breach affects your information, we will tell you as the law requires.
+          Data is encrypted in transit (HTTPS). Passwords are hashed with scrypt, sign-in sessions are stored hashed, and the Parent area is behind a PIN on the device. No system is perfectly secure, but we limit what we collect so there is less to protect. If a breach puts your information at real risk of significant harm, we will tell you and the Office of the Privacy Commissioner of Canada as the law requires, and we keep a record of every breach.
         </p>
       </Section>
 
       <Section title="Where your information is stored">
         <p>
-          Our providers may store and process data in Canada, the United States or other countries, where privacy laws can differ. We choose providers that protect data to a high standard and we only send them what’s needed.
+          Our providers may store and process data in Canada, the United States or other countries, where privacy laws can differ, and courts or authorities there may be able to ask for access to it. We choose providers that protect data to a high standard and we only send them what’s needed.
         </p>
       </Section>
 
@@ -144,7 +150,8 @@ export default function PrivacyPage() {
 
       <Section title="Contact us">
         <p>
-          Questions or requests: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. See also our <Link href="/terms/">terms of use</Link>.
+          {LEGAL_NAME} is responsible for the personal information it holds. Questions, requests or complaints go to our privacy contact at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          {MAILING_ADDRESS ? ` or ${MAILING_ADDRESS}` : ""}. See also our <Link href="/terms/">terms of use</Link>.
         </p>
       </Section>
     </LegalPage>

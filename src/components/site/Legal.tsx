@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { LEGAL_UPDATED } from "@/lib/brand";
+import { LEGAL_AI_REVIEWED, LEGAL_UPDATED } from "@/lib/brand";
 import { Crumbs, SitePage } from "./SiteChrome";
 
 export function LegalPage({ title, intro, children }: { title: string; intro: string; children: ReactNode }) {
@@ -9,6 +9,7 @@ export function LegalPage({ title, intro, children }: { title: string; intro: st
       <article className="mx-auto max-w-3xl">
         <h1 className="text-4xl font-bold">{title}</h1>
         <p className="mt-1 text-sm text-ink-soft">Last updated {LEGAL_UPDATED}</p>
+        <p className="mt-1 text-sm text-ink-soft">Reviewed by an AI assistant on {LEGAL_AI_REVIEWED}. This is not legal advice and has not been reviewed by a lawyer.</p>
         <p className="mt-4 font-read text-lg">{intro}</p>
         <div className="mt-6 flex flex-col gap-6">{children}</div>
       </article>
