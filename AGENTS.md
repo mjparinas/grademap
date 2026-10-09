@@ -258,6 +258,12 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Server:** libsql, a local SQLite file in dev and Turso in production.
   - Auth hashes passwords with scrypt. Sessions are random tokens stored hashed, in an HttpOnly cookie, with a same-origin check.
 - **`trailingSlash: true` means every API URL ends in `/`.** Call `/api/sync/`, not `/api/sync`. Stripe's webhook endpoint must be `/api/billing/webhook/`, because Stripe doesn't follow redirects.
+- **Content Security Policy has no `'unsafe-inline'` in production, and pages stay static** (`src/lib/csp.mjs`). Nonces would need dynamic rendering for every page, and Next's experimental SRI doesn't cover inline scripts.
+  - `npm run build` is `next build && node scripts/csp-postbuild.mjs`. The script hashes every inline script, `<style>` and `style=""` value in each prerendered page and writes that page's policy into a `<meta http-equiv>` tag right after the charset. Run `next build` alone and the pages have no script policy, so don't change the `build` script.
+  - The header from `next.config.ts` carries only what a `<meta>` tag can't set (`frame-ancestors`, plus `base-uri`, `form-action` and `object-src`). It must **not** gain `default-src`, `script-src` or `style-src`: browsers combine the header and the tag, so those would block the hashed scripts.
+  - `/shared/{token}/` is rendered on every request, so `src/proxy.ts` gives it a per-request nonce instead. `next dev` uses a permissive policy because hot reloading needs it.
+  - Inline `style` props set from client code are fine (they go through the CSSOM). `setAttribute("style", …)` and `<style>` elements added at runtime are blocked.
+  - Playwright's playthrough fails on any console error, which includes CSP violations, so a regression shows up in CI.
 - **Public pages must stay light.** They must not import the store or the content bundle on the client.
   - For example, `sound.ts` gets the "sound on?" check injected by the store instead of importing it.
   - Check the size of the JavaScript a public page loads after changing shared client modules.
@@ -307,4 +313,4 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **Deployment** is not done. Steps, env vars and the launch checklist are in `docs/DEPLOY.md`.
 - **Legal and content:** `/privacy/` and `/terms/` are drafts needing legal review; `LEGAL_NAME` and `CONTACT_EMAIL` in `src/lib/brand.ts` are placeholders.
 - **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI hasn't had a colour-blind simulation pass.
-- **Security headers:** the CSP allows inline scripts and styles (`'unsafe-inline'`) so pages stay static and cacheable offline. A nonce-based policy would need dynamic rendering for every page.
+- **CSP on a real host:** production has no `'unsafe-inline'`, but the page-level policy lives in a `<meta>` tag that `scripts/csp-postbuild.mjs` writes into `.next/server/**/*.html` after the build. It is tested with `next start`, not yet on Vercel. After the first deploy, check that a prerendered page (e.g. `/play/`) still has the tag and loads with no console errors.
