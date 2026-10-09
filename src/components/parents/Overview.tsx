@@ -6,6 +6,7 @@ import { dayKey, type Profile } from "@/lib/model";
 import { subjectSummaries } from "@/lib/proficiency";
 import { useDerived, useProfiles, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
+import { InstallNudge } from "./InstallNudge";
 import { Milestones } from "./Milestones";
 import { Avatar, NoChildren, PageTitle, Panel } from "./common";
 
@@ -78,6 +79,7 @@ export function Overview() {
   return (
     <>
       <PageTitle title="Overview" sub="How everyone is doing this week." />
+      <InstallNudge />
       {!account && (
         <Panel className="mb-5 border-[#4f8ef7]/40 bg-[#eef4ff]">
           <p className="font-read">
