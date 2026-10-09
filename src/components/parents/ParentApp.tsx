@@ -14,6 +14,7 @@ import { AccountPage } from "./Account";
 import { ChildrenPage } from "./Children";
 import { Gate } from "./Gate";
 import { Overview } from "./Overview";
+import { PlacementPage } from "./Placement";
 import { PrivacyPage } from "./Privacy";
 import { ReportCardsPage } from "./ReportCards";
 import { ReportsPage } from "./Reports";
@@ -23,6 +24,7 @@ import { SubscriptionPage } from "./Subscription";
 const NAV = [
   { path: "", label: "Overview", icon: "🏠" },
   { path: "reports", label: "Reports", icon: "📈" },
+  { path: "placement", label: "Placement", icon: "🧭" },
   { path: "children", label: "Children", icon: "🧒" },
   { path: "settings", label: "Settings", icon: "⚙️" },
   { path: "subscription", label: "Subscription", icon: "⭐" },
@@ -128,6 +130,9 @@ export function ParentApp() {
   switch (section) {
     case "reports":
       page = <ReportsPage childId={path[1]} />;
+      break;
+    case "placement":
+      page = <PlacementPage childId={path[1]} />;
       break;
     case "children":
       page = <ChildrenPage />;

@@ -244,20 +244,18 @@ async function deepChecks(device, browser, descriptor, page) {
     await page.waitForTimeout(100);
   }
   if (await vis(toast)) {
-    // The toast can land on a question, where Stop is the button to reach, or on the every-10-
-    // questions checkpoint (which has no Stop), where Keep going is. Whichever is on screen has
-    // to stay tappable. The header is also briefly absent between questions, so wait a moment.
-    await page.locator('button[aria-label="Stop"], button:has-text("Keep going")').first().waitFor({ timeout: 5000 }).catch(() => {});
+    // A level-up can land together with the 10-question checkpoint, which has no Stop button.
+    const keepGoing = page.getByRole("button", { name: /Keep going/ });
+    if (await vis(keepGoing)) await keepGoing.click({ force: true });
+    await page.getByRole("button", { name: "Stop", exact: true }).waitFor();
     const stopHit = await page.evaluate(() => {
       // Answering can scroll a long question on a small screen; the header is at the top.
       window.scrollTo({ top: 0 });
-      const button = document.querySelector('button[aria-label="Stop"]') ?? [...document.querySelectorAll("button")].find((b) => /Keep going/.test(b.textContent ?? ""));
-      if (!button) return `no Stop or Keep going button on screen (${location.hash}): ${document.body.innerText.slice(0, 160).replace(/\s+/g, " ")}`;
-      button.scrollIntoView({ block: "nearest" });
-      const r = button.getBoundingClientRect();
-      return document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)?.closest("button") === button;
+      const stop = document.querySelector('button[aria-label="Stop"]');
+      const r = stop.getBoundingClientRect();
+      return document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)?.closest('button[aria-label="Stop"]') === stop;
     });
-    record(device, "toast: Stop (or Keep going) still tappable under a toast", stopHit === true, typeof stopHit === "string" ? stopHit : undefined);
+    record(device, "toast: Stop button still tappable under a toast", stopHit);
     await shot(page, device, "6-toast");
   } else record(device, "toast: a trophy toast appeared", false, "no toast seen");
 

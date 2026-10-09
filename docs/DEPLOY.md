@@ -59,6 +59,14 @@ Or add Turso from the Vercel Marketplace and skip the CLI. Tables are created on
 2. **Sentry:** create a project (platform: Next.js), copy the DSN into both `SENTRY_DSN` and `NEXT_PUBLIC_SENTRY_DSN`. Source maps aren't uploaded, so stack traces show built file names; add `@sentry/nextjs`'s `withSentryConfig` and an auth token later if you want readable ones. A test error: temporarily throw in an API route on a preview deployment and check it appears with no email or request body.
 3. **Email sending limits:** the app sends one confirmation at sign-up, resets and confirmations on request (rate limited), one trial notice, and the weekly report to parents who turned it on. Weekly mail goes out on Sundays (UTC) from the daily job.
 
+
+## Uptime monitoring
+
+`GET /api/health/` returns 200 when the app and database answer (one `SELECT 1`) and 503 otherwise. It is public, uncached and reveals nothing beyond pass/fail.
+
+- **Built in:** `.github/workflows/uptime.yml` pings it every 15 minutes (with 3 tries), opens a single "Site is down" issue labelled `uptime` on failure and closes it when the site recovers. It does nothing until you set the repository variable `UPTIME_URL` (Settings > Secrets and variables > Actions > Variables) to the site origin, e.g. `https://grademap.example`. GitHub can delay scheduled runs, so it is a safety net, not a precise monitor.
+- **Free external alternatives** (not set up): UptimeRobot (5-minute checks), Better Stack, or Vercel's own monitoring. Point any of them at `https://<your domain>/api/health/`; they can email or text you faster than GitHub issues do.
+
 ## 6. Launch checklist
 
 - [ ] `NEXT_PUBLIC_SITE_URL` is the real domain; `/sitemap.xml` and `/robots.txt` show it.
@@ -74,6 +82,6 @@ Or add Turso from the Vercel Marketplace and skip the CLI. Tables are created on
 - [ ] `/play/`, `/parents/` and `/api/` stay `noindex`; public pages are indexed.
 - [ ] Submit the sitemap in Google Search Console.
 - [ ] Privacy: export and delete-account work against the production database.
-- [ ] `/privacy/` and `/terms/` are drafts. Set `LEGAL_NAME`, `CONTACT_EMAIL` and `LEGAL_UPDATED` in `src/lib/brand.ts`, then have a lawyer review both (governing law is set to British Columbia) before taking payments.
+- [ ] `/privacy/` and `/terms/` had an AI review on 2026-10-09 (not a lawyer's review; the pages say so). Set `LEGAL_NAME`, `CONTACT_EMAIL` and `MAILING_ADDRESS` in `src/lib/brand.ts` (the address is required in CASL email), bump `LEGAL_UPDATED`, and still have a lawyer review both (governing law is set to British Columbia) before taking payments. Known gap: deleting an account does not cancel the Stripe subscription (`src/app/api/account/route.ts`).
 - [ ] BC teacher content review, Big Ideas check and Grade 4–5 history dates (see `AGENTS.md`, Open items).
 - [ ] Check the service worker after a deploy: it precaches by build, so a second visit should pick up the new version.

@@ -1,25 +1,12 @@
 import path from "node:path";
 import type { NextConfig } from "next";
+import { DEV_POLICY, HEADER_POLICY } from "./src/lib/csp.mjs";
 
 const isDev = process.env.NODE_ENV === "development";
 
-// A fixed policy (no per-request nonce) so pages stay statically generated and cacheable offline.
-// Error reports go to Sentry's ingest hosts only when a DSN is configured.
-const csp = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
-  "font-src 'self' data:",
-  "media-src 'self' blob: data:",
-  "connect-src 'self' https://*.ingest.sentry.io https://*.ingest.us.sentry.io https://*.ingest.de.sentry.io",
-  "worker-src 'self' blob:",
-  "manifest-src 'self'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-].join("; ");
+// Production has no 'unsafe-inline': each page's own policy is written into it after the build
+// (scripts/csp-postbuild.mjs), and the header carries what a <meta> tag can't. See src/lib/csp.mjs.
+const csp = isDev ? DEV_POLICY : HEADER_POLICY;
 
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
@@ -34,7 +21,14 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      // Unhashed static files: a day in the browser, a week stale-while-revalidate. Not sw.js, which must stay fresh.
+      {
+        source: "/:file(icon-192\\.png|icon-512\\.png|icon-maskable-512\\.png|apple-touch-icon\\.png|icon\\.svg)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
+    ];
   },
   // Runs as a normal Next.js server (pages are still pre-rendered where possible)
   // so the sync, account and billing APIs can live alongside the site.

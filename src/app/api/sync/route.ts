@@ -10,7 +10,7 @@ import { getFamilyRow, toFamilyInfo } from "@/server/family";
 
 const MAX_EVENTS = 1000;
 const PAGE = 2000;
-const EVENT_TYPES = new Set(["answer", "session", "play", "game", "trophy", "buy", "quest"]);
+const EVENT_TYPES = new Set(["answer", "session", "play", "game", "trophy", "buy", "quest", "placement"]);
 
 interface SyncBody {
   cursor?: number;
@@ -54,7 +54,10 @@ export async function POST(req: Request) {
         args: [p.id, family, data, p.updatedAt],
       });
       // Deleting a child removes their history from the server too.
-      if (p.deleted) writes.push({ sql: "DELETE FROM events WHERE profile_id = ? AND family_id = ?", args: [p.id, family] });
+      if (p.deleted) {
+        writes.push({ sql: "DELETE FROM events WHERE profile_id = ? AND family_id = ?", args: [p.id, family] });
+        writes.push({ sql: "DELETE FROM class_members WHERE profile_id = ? AND family_id = ?", args: [p.id, family] });
+      }
       else if (p.resetAt) {
         writes.push({ sql: "DELETE FROM events WHERE profile_id = ? AND family_id = ? AND t <= ?", args: [p.id, family, p.resetAt] });
       }
