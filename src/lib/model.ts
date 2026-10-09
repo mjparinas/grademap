@@ -1,3 +1,4 @@
+import type { PlacementResult } from "./placement";
 import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 
 // Shared shapes for the device database, the sync API and the server.
@@ -105,6 +106,8 @@ export type AppEvent = EventBase &
     | { type: "trophy"; trophy: string }
     | { type: "buy"; item: string; cost: number }
     | { type: "quest"; quest: string; day: string; reward: number }
+    /** A finished placement test. Not practice: it never counts toward XP, stars or proficiency. */
+    | ({ type: "placement" } & PlacementResult)
   );
 
 export type EventOf<T extends AppEvent["type"]> = Extract<AppEvent, { type: T }>;

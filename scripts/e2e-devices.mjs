@@ -244,6 +244,10 @@ async function deepChecks(device, browser, descriptor, page) {
     await page.waitForTimeout(100);
   }
   if (await vis(toast)) {
+    // A level-up can land together with the 10-question checkpoint, which has no Stop button.
+    const keepGoing = page.getByRole("button", { name: /Keep going/ });
+    if (await vis(keepGoing)) await keepGoing.click({ force: true });
+    await page.getByRole("button", { name: "Stop", exact: true }).waitFor();
     const stopHit = await page.evaluate(() => {
       // Answering can scroll a long question on a small screen; the header is at the top.
       window.scrollTo({ top: 0 });

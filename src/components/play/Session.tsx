@@ -43,7 +43,7 @@ export function readAloudText(q: Question): string {
   return parts.join(". ");
 }
 
-function QuestionBody(props: QuestionProps<Question>) {
+export function QuestionBody(props: QuestionProps<Question>) {
   const { q } = props;
   switch (q.kind) {
     case "choice":

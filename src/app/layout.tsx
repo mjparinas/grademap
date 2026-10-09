@@ -9,7 +9,6 @@ import "./globals.css";
 const fredoka = Fredoka({
   variable: "--font-fredoka",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
 // Andika is designed for beginning readers (simple a, g and clear letter shapes).
@@ -22,11 +21,11 @@ const andika = Andika({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${APP_NAME} · Curriculum practice and games for Kindergarten to Grade 7`,
+    default: `${APP_NAME} · Curriculum practice and games for Kindergarten to Grade 9`,
     template: `%s · ${APP_NAME}`,
   },
   description:
-    "Friendly, ad-free practice for Kindergarten to Grade 7, matched to the curriculum: math, reading and writing, science and social studies. Learning games, trophies, offline play and clear progress reports for parents.",
+    "Friendly, ad-free practice for Kindergarten to Grade 9, matched to the curriculum: math, reading and writing, science and social studies. Learning games, trophies, offline play and clear progress reports for parents.",
   applicationName: APP_NAME,
   appleWebApp: { capable: true, title: APP_NAME, statusBarStyle: "default" },
   openGraph: { type: "website", siteName: APP_NAME, locale: "en_CA" },

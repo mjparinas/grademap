@@ -20,10 +20,12 @@ const LOADERS: Record<GradeId, Loader> = {
   "5": () => import("./grades/g5"),
   "6": () => import("./grades/g6"),
   "7": () => import("./grades/g7"),
+  "8": () => import("./grades/g8"),
+  "9": () => import("./grades/g9"),
 };
 
 /** Extra lessons for frameworks other than the default. Each is its own download per grade. */
-const EXTRA_LOADERS: Partial<Record<FrameworkId, Record<GradeId, Loader>>> = {
+const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>>>> = {
   "ca-on": {
     k: () => import("./ontario/k"),
     "1": () => import("./ontario/g1"),

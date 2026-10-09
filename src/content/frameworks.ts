@@ -119,7 +119,7 @@ export const FRAMEWORKS: Framework[] = [
     standardLabel: "Learning standard",
     sourceName: "BC Ministry of Education and Child Care",
     sourceUrl: "https://curriculum.gov.bc.ca/",
-    grades: ["k", "1", "2", "3", "4", "5", "6", "7"],
+    grades: ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
     subjects: ["math", "language", "science", "social"],
     scoringFor: () => BC_PROFICIENCY,
     reportCard: {
@@ -145,7 +145,7 @@ export const FRAMEWORKS: Framework[] = [
         },
         {
           title: "FSA is separate",
-          body: "The Foundation Skills Assessment in Grades 4 and 7 is a separate provincial check of reading, writing and numeracy. It isn't part of the report card.",
+          body: "The Foundation Skills Assessment in Grades 4 and 7 is a separate provincial check of literacy and numeracy. It isn't part of the report card.",
         },
       ],
       faqs: [

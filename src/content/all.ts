@@ -15,6 +15,8 @@ import { courses as on5 } from "./ontario/g5";
 import { courses as on6 } from "./ontario/g6";
 import { courses as on7 } from "./ontario/g7";
 import { mergeCourses } from "./index";
+import { courses as g8 } from "./grades/g8";
+import { courses as g9 } from "./grades/g9";
 import type { Course, GradeId, SubjectId } from "./types";
 
 // Every grade at once, for the statically generated public pages and for tests.
@@ -22,7 +24,7 @@ import type { Course, GradeId, SubjectId } from "./types";
 // into the first download. ESLint enforces this; the apps use ./index.
 
 /** Every course with at least one unit. */
-export const COURSES: Course[] = mergeCourses([k, g1, g2, g3, g4, g5, g6, g7, onK, on1, on2, on3, on4, on5, on6, on7]).filter(
+export const COURSES: Course[] = mergeCourses([k, g1, g2, g3, g4, g5, g6, g7, g8, g9, onK, on1, on2, on3, on4, on5, on6, on7]).filter(
   (c) => c.units.length > 0,
 );
 

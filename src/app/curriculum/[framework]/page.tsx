@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectSeoTitle, subjectTitle } from "@/components/site/curriculum";
 import { FRAMEWORKS } from "@/content/frameworks";
+import { GUIDES } from "@/content/guides";
 import { GRADE_LABEL, getSubjectMeta } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 
@@ -18,8 +19,8 @@ export async function generateMetadata({ params }: PageProps<"/curriculum/[frame
   if (!r) return {};
   const f = r.framework;
   return {
-    title: `${f.curriculumName} practice, Kindergarten to Grade 7`,
-    description: `Kid-friendly practice for the ${f.curriculumName} (${f.name}): ${f.subjects.map((s) => subjectSeoTitle(s).toLowerCase()).join(", ")} from Kindergarten to Grade 7, with sample questions for every unit.`,
+    title: `${f.curriculumName} practice, Kindergarten to ${GRADE_LABEL[f.grades[f.grades.length - 1]]}`,
+    description: `Kid-friendly practice for the ${f.curriculumName} (${f.name}): ${f.subjects.map((s) => subjectSeoTitle(s).toLowerCase()).join(", ")} from Kindergarten to ${GRADE_LABEL[f.grades[f.grades.length - 1]]}, with sample questions for every unit.`,
     alternates: { canonical: curriculumPath.framework(f) },
   };
 }
@@ -31,7 +32,7 @@ export default async function FrameworkPage({ params }: PageProps<"/curriculum/[
   return (
     <SitePage>
       <Crumbs items={[{ label: "Home", href: "/" }, { label: "Curriculum", href: curriculumPath.index() }, { label: f.curriculumName }]} />
-      <h1 className="text-4xl font-bold">{f.curriculumName}: Kindergarten to Grade 7</h1>
+      <h1 className="text-4xl font-bold">{f.curriculumName}: Kindergarten to {GRADE_LABEL[f.grades[f.grades.length - 1]]}</h1>
       <p className="mt-2 max-w-3xl font-read text-lg text-ink-soft">
         Every {APP_NAME} unit is matched to a learning standard in the {f.curriculumName}. Choose a grade to see the units and try sample questions.
       </p>
@@ -63,6 +64,16 @@ export default async function FrameworkPage({ params }: PageProps<"/curriculum/[
           Read our {f.shortName} report card guide
         </Link>
         .
+        {GUIDES[f.id] && (
+          <>
+            {" "}
+            New to the {f.shortName} curriculum? Start with our{" "}
+            <Link href={`/guides/${f.slug}/`} className="font-semibold text-[#2f6fd6] underline">
+              parent guides and free practice sheets
+            </Link>
+            .
+          </>
+        )}
       </p>
     </SitePage>
   );

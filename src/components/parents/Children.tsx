@@ -12,6 +12,7 @@ import { CritterSvg, CRITTERS } from "../Critter";
 import { AVATAR_COLOURS } from "../play/Start";
 import { Dialog } from "../ui";
 import { Avatar, PageTitle, Panel } from "./common";
+import { JoinClass } from "./JoinClass";
 
 interface Draft {
   name: string;
@@ -180,6 +181,8 @@ export function ChildrenPage() {
           </Panel>
         ))}
       </div>
+
+      <JoinClass />
 
       <Dialog open={!!editing && !!draft} title={editing === "new" ? "Add a child" : "Edit child"} onClose={() => setEditing(null)}>
         {draft && (

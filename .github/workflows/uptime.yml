@@ -1,0 +1,63 @@
+name: Uptime
+
+# Pings the production health endpoint every 15 minutes and keeps one open issue while it is down.
+# Set the repository variable UPTIME_URL (Settings > Secrets and variables > Actions > Variables)
+# to the site's origin, e.g. https://grademap.example. While it is unset, this workflow does nothing.
+# GitHub may delay scheduled runs and pauses them after 60 days without repository activity.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: ${{ vars.UPTIME_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      UPTIME_URL: ${{ vars.UPTIME_URL }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Ping /api/health/
+        id: ping
+        run: |
+          url="${UPTIME_URL%/}/api/health/"
+          code=000
+          for attempt in 1 2 3; do
+            code=$(curl -sS -o body.json -w '%{http_code}' --max-time 20 "$url" || echo 000)
+            [ "$code" = 200 ] && break
+            sleep 15
+          done
+          echo "$url -> $code"
+          cat body.json 2>/dev/null || true
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the downtime issue
+        if: steps.ping.outputs.code != '200'
+        run: |
+          n=$(gh issue list --repo "$GITHUB_REPOSITORY" --label uptime --state open --json number --jq '.[0].number // empty')
+          msg="Health check failed: ${{ steps.ping.outputs.url }} returned ${{ steps.ping.outputs.code }} (000 = no answer). Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          if [ -n "$n" ]; then
+            gh issue comment "$n" --repo "$GITHUB_REPOSITORY" --body "$msg"
+          else
+            gh label create uptime --repo "$GITHUB_REPOSITORY" --color d93f0b --description "Site down" 2>/dev/null || true
+            gh issue create --repo "$GITHUB_REPOSITORY" --label uptime --title "Site is down" --body "$msg"
+          fi
+          exit 1
+
+      - name: Close the downtime issue once the site is back
+        if: steps.ping.outputs.code == '200'
+        run: |
+          for n in $(gh issue list --repo "$GITHUB_REPOSITORY" --label uptime --state open --json number --jq '.[].number'); do
+            gh issue close "$n" --repo "$GITHUB_REPOSITORY" --comment "Health check passing again."
+          done

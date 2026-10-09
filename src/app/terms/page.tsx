@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage, Section } from "@/components/site/Legal";
-import { APP_NAME, CONTACT_EMAIL, LEGAL_NAME } from "@/lib/brand";
+import { APP_NAME, CONTACT_EMAIL, LEGAL_NAME, MAILING_ADDRESS } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function TermsPage() {
     >
       <Section title="Who can use it">
         <p>
-          {APP_NAME} is for children in Kindergarten to Grade 7, used with a parent or guardian. You must be at least 18, or the age of majority where you live, to create an account. You confirm that you are the parent or legal guardian of any child you add, or have their parent’s permission. How we handle information is described in our <Link href="/privacy/">privacy policy</Link>.
+          {APP_NAME} is for children in Kindergarten to Grade 9, used with a parent or guardian. You must be at least 18, or the age of majority where you live, to create an account. You confirm that you are the parent or legal guardian of any child you add, or have their parent’s permission. How we handle information is described in our <Link href="/privacy/">privacy policy</Link>.
         </p>
       </Section>
 
@@ -37,15 +37,17 @@ export default function TermsPage() {
           <li>
             The family plan unlocks everything for up to {MAX_CHILDREN} children and costs {PRICES.month.label} or {PRICES.year.label} ({PRICES.month.currency}). Taxes may be added where required.
           </li>
-          <li>Features and prices can change. We’ll give you notice before a price change affects your subscription.</li>
+          <li>When the trial ends we don’t charge you. You keep the free units unless you choose to subscribe.</li>
+          <li>Features and prices can change. We’ll tell you by email before a price change affects your subscription, and you can cancel before it takes effect.</li>
         </ul>
       </Section>
 
       <Section title="Billing, renewal and cancelling">
         <ul>
-          <li>Payments are processed by Stripe. Your subscription renews automatically each month or year until you cancel.</li>
-          <li>You can cancel at any time in the Parent area under Subscription. You keep access until the end of the period you’ve paid for, and you won’t be charged again.</li>
-          <li>Except where the law says otherwise, payments already made are not refundable. If something went wrong with a charge, email us at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and we’ll make it right where we reasonably can.</li>
+          <li>Payments are processed by Stripe. Your subscription renews automatically each month or year at the price shown when you subscribe, and your card is charged at the start of each period, until you cancel.</li>
+          <li>You can cancel at any time in the Parent area under Subscription. You keep access until the end of the period you’ve paid for, and you won’t be charged again. Cancelling is as easy as subscribing: no call or email is needed.</li>
+          <li>Deleting your account does not cancel a paid subscription, so cancel under Subscription first.</li>
+          <li>Except where the law says otherwise, payments already made are not refundable. If something went wrong with a charge, email us at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and we’ll make it right where we reasonably can. Consumer protection laws, including British Columbia’s Business Practices and Consumer Protection Act, may give you cancellation or refund rights that these terms don’t take away.</li>
           <li>Children can’t buy anything. Coins and rewards are earned only by learning and have no cash value.</li>
         </ul>
       </Section>
@@ -92,7 +94,7 @@ export default function TermsPage() {
 
       <Section title="Changes to these terms">
         <p>
-          We may update these terms. If a change matters, we’ll tell account holders by email or in the app before it takes effect. Using {APP_NAME} after that means you accept the new terms.
+          We may update these terms. If a change matters, we’ll tell account holders by email or in the app before it takes effect. If you don’t accept the new terms, you can cancel and delete your account before they take effect. Using {APP_NAME} after that means you accept them.
         </p>
       </Section>
 
@@ -102,7 +104,8 @@ export default function TermsPage() {
 
       <Section title="Contact us">
         <p>
-          Questions about these terms: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+          Questions about these terms: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          {MAILING_ADDRESS ? ` or ${MAILING_ADDRESS}` : ""}.
         </p>
       </Section>
     </LegalPage>

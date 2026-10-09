@@ -236,7 +236,7 @@ describe("curriculum content", () => {
       expect(getUnitRef(key)?.unit.title).toBe(first.units[0].title);
       expect(parseUnitKey(key)).toEqual({ grade, subject: first.subject, unitId: first.units[0].id });
     }
-    expect(parseUnitKey("9/math/x")).toBeUndefined();
+    expect(parseUnitKey("10/math/x")).toBeUndefined();
     expect(parseUnitKey("nonsense")).toBeUndefined();
   });
 

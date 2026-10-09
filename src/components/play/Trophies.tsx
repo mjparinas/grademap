@@ -66,7 +66,9 @@ export function TrophyRoom() {
                 <span className="flex h-11 w-11 items-center justify-center rounded-full text-xl" style={{ background: `radial-gradient(circle at 35% 30%, ${TIER_STYLE[tier].glow}, ${TIER_STYLE[tier].colour})` }}>
                   🏆
                 </span>
-                <span className="mt-1 text-lg font-bold">{earned.filter((t) => t.tier === tier).length}</span>
+                <span className="mt-1 text-lg font-bold leading-none">{earned.filter((t) => t.tier === tier).length}</span>
+                {/* The medal colours alone don't tell the tiers apart for everyone, so name them. */}
+                <span className="text-xs font-bold opacity-80">{TIER_STYLE[tier].label}</span>
               </div>
             ))}
           </div>

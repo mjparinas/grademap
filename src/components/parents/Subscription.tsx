@@ -8,7 +8,7 @@ import { useStore } from "@/lib/store";
 import { PageTitle, Panel } from "./common";
 
 const INCLUDED = [
-  "Every unit in every subject, Kindergarten to Grade 7",
+  "Every unit in every subject, Kindergarten to Grade 9",
   "Adventure, Review, Speed Run and Challenge modes",
   "The arcade games, with your learn-to-play timer",
   "Full progress reports over time",
