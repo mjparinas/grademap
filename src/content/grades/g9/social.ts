@@ -1142,7 +1142,7 @@ function headTaxQ(d: Level): Question {
   const kind = d === 1 ? 0 : randInt(0, 1);
   if (kind === 0) {
     return numInput(
-      `The Chinese head tax was $${tax} per person from ${year} until the next change. How much did a family of ${n} pay in total to enter Canada?`,
+      `In ${year}, the Chinese head tax was $${tax} per person. How much would a family of ${n} have had to pay in total to enter Canada?`,
       tax * n,
       `Multiply the tax by the number of people: ${n} × $${tax}. The tax was a heavy burden on families who earned very little.`,
       "$",
