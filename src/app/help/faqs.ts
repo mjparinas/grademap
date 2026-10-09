@@ -130,6 +130,38 @@ export const HELP: HelpSection[] = [
         a: "In Parent area → Subscription, open the billing portal and cancel. You keep access until the end of the period you’ve paid for and won’t be charged again.",
       },
       {
+        q: "What changes after the trial or if I cancel?",
+        a: `You go back to the free plan. The first ${FREE_UNITS_PER_COURSE} units of every course stay open. Adventure, Review, Speed Run, Challenge, the arcade games and later units need the family plan. Nothing is deleted: your children’s progress, trophies and coins are kept, and everything is there again if you subscribe.`,
+      },
+      {
+        q: "Does the plan renew automatically?",
+        a: "Yes. A paid plan renews each month or year at the price you signed up at, until you cancel. We’ll email you before a price change affects your plan.",
+      },
+      {
+        q: "What if I subscribe during the free trial?",
+        a: "You’re charged straight away, and the days left in the trial don’t carry over. If you’d like to try everything first, wait until the trial is nearly over.",
+      },
+      {
+        q: "Can I switch between monthly and yearly?",
+        a: "Yes. Open Parent area → Subscription, then the billing portal, where you can change plans or cancel.",
+      },
+      {
+        q: "What if a payment fails?",
+        a: "Your access continues while Stripe retries the card. Update your card in the billing portal. If the payment still can’t be taken, the plan ends and you return to the free plan.",
+      },
+      {
+        q: "Can I get a refund?",
+        a: "Payments already made are generally not refundable, except where the law says otherwise. If something went wrong with a charge, contact us and we’ll make it right where we reasonably can. The full wording is in the terms.",
+      },
+      {
+        q: "Does the plan cover all my children?",
+        a: `Yes. One family plan covers up to ${MAX_CHILDREN} children. Without a plan, the free units are open to every child on the account.`,
+      },
+      {
+        q: "How are taxes shown?",
+        a: "Prices are in Canadian dollars. Where tax applies, the total is shown at checkout before you pay.",
+      },
+      {
         q: "Why do I need to confirm my email before subscribing?",
         a: "So that receipts, renewals and password resets reach you. Use Parent area → Account & sync to resend the confirmation email.",
       },
