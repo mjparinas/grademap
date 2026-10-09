@@ -36,7 +36,7 @@ export default async function GuidesHub({ params }: PageProps<"/guides/[framewor
   const description = `Plain-language guides for parents following the ${f.curriculumName}, plus free printable practice sheets.`;
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd data={[breadcrumbJsonLd(crumbs), articleJsonLd({ headline: title, description, path: guidePath.hub(f) })]} />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">{f.shortName} parent guides and free practice sheets</h1>

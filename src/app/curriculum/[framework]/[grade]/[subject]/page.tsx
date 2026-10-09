@@ -47,7 +47,7 @@ export default async function SubjectPage({ params }: PageProps<"/curriculum/[fr
   ];
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd
         data={[
           breadcrumbJsonLd(crumbs),

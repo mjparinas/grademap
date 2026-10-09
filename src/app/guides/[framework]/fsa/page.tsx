@@ -38,7 +38,7 @@ export default async function AssessmentPage({ params }: Props) {
   const title = `The ${a.short} explained for ${f.shortName} parents`;
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd data={[breadcrumbJsonLd(crumbs), faqJsonLd(a.faqs), articleJsonLd({ headline: title, description: a.intro, path: guidePath.assessment(f) })]} />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">{title}</h1>

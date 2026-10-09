@@ -9,14 +9,14 @@ import { JsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `${APP_NAME} compared with IXL, Khan Academy and Prodigy`,
-  description: `A fair, plain comparison of ${APP_NAME} with other learning apps for BC families: price, curriculum match, how progress is shown and what kids see.`,
+  description: `A fair, plain comparison of ${APP_NAME} with other learning apps for BC and Ontario families: price, curriculum match, how progress is shown and what kids see.`,
   alternates: { canonical: guidePath.compareIndex() },
 };
 
 export default function CompareIndex() {
   const crumbs = [{ label: "Home", href: "/" }, { label: "Compare" }];
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">{APP_NAME} compared with other learning apps</h1>

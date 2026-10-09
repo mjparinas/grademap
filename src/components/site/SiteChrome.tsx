@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { FRAMEWORKS } from "@/content/frameworks";
+import { GUIDE_FRAMEWORKS } from "@/content/guides";
 import { APP_NAME } from "@/lib/brand";
+import { TRIAL_DAYS } from "@/lib/plan";
 
 export function SiteHeader() {
   return (
@@ -15,7 +17,7 @@ export function SiteHeader() {
           <Link href="/curriculum/" className="rounded-lg px-2 py-1 hover:bg-black/5">
             Curriculum
           </Link>
-          <Link href={`/report-cards/${FRAMEWORKS[0].slug}/`} className="hidden rounded-lg px-2 py-1 hover:bg-black/5 sm:inline">
+          <Link href="/report-cards/" className="hidden rounded-lg px-2 py-1 hover:bg-black/5 sm:inline">
             Report cards
           </Link>
           <Link href="/parents/" className="hidden rounded-lg px-2 py-1 hover:bg-black/5 sm:inline">
@@ -48,16 +50,20 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link className="text-ink-soft hover:underline" href={`/report-cards/${FRAMEWORKS[0].slug}/`}>
-                Report card guide
-              </Link>
-            </li>
-            <li>
-              <Link className="text-ink-soft hover:underline" href={`/guides/${FRAMEWORKS[0].slug}/`}>
-                Parent guides
-              </Link>
-            </li>
+            {FRAMEWORKS.map((f) => (
+              <li key={`rc-${f.id}`}>
+                <Link className="text-ink-soft hover:underline" href={`/report-cards/${f.slug}/`}>
+                  {f.region} report card guide
+                </Link>
+              </li>
+            ))}
+            {GUIDE_FRAMEWORKS.map((f) => (
+              <li key={`pg-${f.id}`}>
+                <Link className="text-ink-soft hover:underline" href={`/guides/${f.slug}/`}>
+                  {f.region} parent guides
+                </Link>
+              </li>
+            ))}
             <li>
               <Link className="text-ink-soft hover:underline" href="/compare/">
                 Compare apps
@@ -113,11 +119,41 @@ export function SiteFooter() {
   );
 }
 
-export function SitePage({ children }: { children: ReactNode }) {
+/**
+ * The closing call to action for public pages that bring in search visitors. Every page that
+ * explains the curriculum or a guide ends with it (`<SitePage cta>`), so a parent who has read
+ * enough always has a button to start practising.
+ */
+export function PageCta() {
+  const provinces = FRAMEWORKS.map((f) => f.region).join(" and ");
+  return (
+    <section aria-labelledby="page-cta" className="card mt-10 flex flex-col gap-3 p-6">
+      <h2 id="page-cta" className="text-2xl font-bold">
+        Ready to try {APP_NAME}?
+      </h2>
+      <p className="font-read text-ink-soft">
+        Curriculum-matched practice for Kindergarten to Grade 9 in {provinces}, with kind hints, learning games and no ads. Free for {TRIAL_DAYS} days, no card needed.
+      </p>
+      <div className="flex flex-wrap gap-3">
+        <Link href="/play/" className="btn btn-good min-h-14 px-8 text-xl">
+          Try it free
+        </Link>
+        <Link href="/pricing/" className="btn min-h-14 px-6 text-lg">
+          See pricing
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export function SitePage({ children, cta = false }: { children: ReactNode; /** Ends the page with the call to action. */ cta?: boolean }) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+      <main className="mx-auto max-w-6xl px-4 py-8">
+        {children}
+        {cta && <PageCta />}
+      </main>
       <SiteFooter />
     </>
   );
