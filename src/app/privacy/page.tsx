@@ -50,7 +50,7 @@ export default function PrivacyPage() {
           <strong>On your device:</strong> the app saves progress on the device first, so it works offline, using the browser’s local storage and IndexedDB. Your Parent area PIN is stored there too, salted and hashed, and your read-aloud voice choice is kept per device. If you never sign in, this information stays on that device and is not sent to us.
         </p>
         <p>
-          <strong>Automatically:</strong> our servers keep ordinary technical logs (such as IP address, browser type and the time of a request) for security and to keep the service running. We don’t use analytics or advertising trackers.
+          <strong>Automatically:</strong> our servers keep ordinary technical logs (such as IP address, browser type and the time of a request) for security and to keep the service running. On our public pages only (not the kids’ app, the parent area or shared reports) we count anonymous page views; see “Who we share it with” below. We use no advertising trackers.
         </p>
       </Section>
 
@@ -81,6 +81,9 @@ export default function PrivacyPage() {
             <strong>Sentry</strong>, to tell us when the app crashes. Error reports are stripped of names, email addresses, cookies and what was typed or tapped before they leave your device or our server, and are not used for anything else.
           </li>
           <li>
+            <strong>Vercel Web Analytics</strong>, to count anonymous page views on our public website, such as which pages are visited and from which country. It sets no cookies and builds no profile of a visitor. It is switched off in the kids’ app, the parent area, shared reports and account pages, so nothing a child does is measured.
+          </li>
+          <li>
             <strong>Our hosting and database providers</strong>, which store the account and progress data described above on our behalf.
           </li>
         </ul>
@@ -91,7 +94,7 @@ export default function PrivacyPage() {
 
       <Section title="Cookies and similar storage">
         <p>
-          We use one essential, HttpOnly cookie to keep you signed in to your parent account. We also use your browser’s local storage and a service worker to save progress, settings and app files so {APP_NAME} works offline. We don’t use advertising or analytics cookies, so there is no cookie banner to dismiss.
+          We use one essential, HttpOnly cookie to keep you signed in to your parent account. We also use your browser’s local storage and a service worker to save progress, settings and app files so {APP_NAME} works offline. We don’t use advertising or analytics cookies (our page-view counts are cookieless), so there is no cookie banner to dismiss.
         </p>
       </Section>
 
