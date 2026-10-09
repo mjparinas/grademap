@@ -167,10 +167,10 @@ export const course: Course = {
   subject: "social",
   bigIdeas: {
     "ca-bc": [
-      "Human and environmental factors shape the emergence of civilizations and empires.",
-      "The exchange of ideas, goods and people between societies leads to cultural change, and often to conflict.",
-      "Changing ideas about knowledge, religion and government shaped societies from the Middle Ages onward.",
-      "Contact between peoples has consequences that differ for different groups.",
+      "Contacts and conflicts between peoples stimulated significant cultural, social, and political change.",
+      "Human and environmental factors shape changes in population and living standards.",
+      "Exploration, expansion, and colonization had varying consequences for different groups.",
+      "Changing ideas about the world created tension between people wanting to adopt new ideas and those wanting to preserve established traditions.",
     ],
   },
   units: [

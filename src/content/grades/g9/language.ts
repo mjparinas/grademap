@@ -211,6 +211,46 @@ const VOICES: Item[] = [
   q(3, "When you quote someone, what is the most respectful way to use their words?", "Quote them accurately, in context, and credit them.", ["Change the words to suit your point.", "Use the words without a source.", "Quote only part to change the meaning."], "Accuracy, context and credit respect the speaker and your readers."),
 ];
 
+// ---------- Language & Style ----------
+
+const STYLE: Item[] = [
+  q(1, "What is the denotation of a word?", "Its dictionary meaning", ["The feeling it suggests", "Its sound", "Its length"], "Denotation is the literal meaning. Connotation is the feeling or idea attached to it."),
+  q(1, "What is the connotation of a word?", "The feelings or ideas it suggests beyond its dictionary meaning", ["Its spelling", "Its part of speech", "Its pronunciation"], "“Home” and “house” both name a building, but “home” suggests warmth and belonging."),
+  q(1, "Which word has the most positive connotation?", "determined", ["stubborn", "pigheaded", "bullheaded"], "All describe someone who doesn't give up, but “determined” sounds admirable."),
+  q(1, "Which word has the most negative connotation?", "cheap", ["thrifty", "economical", "frugal"], "“Cheap” can suggest poor quality or stinginess. The others sound careful and positive."),
+  q(2, "Why do English words change over time?", "People borrow words, invent new ones and use old ones differently.", ["Dictionaries forbid change.", "Words never change.", "Only teachers change them."], "Language change is natural. For example, “awful” once meant “full of awe.”"),
+  q(2, "“Selfie” and “emoji” are examples of…", "new words that entered English recently", ["words that no longer exist", "words from Old English", "words with no meaning"], "New technology and culture create new words."),
+  q(2, "Many English words, like “moccasin” and “moose,” came from…", "Indigenous languages of North America", ["Latin only", "Chinese only", "French only"], "English has borrowed words from languages all over the world, including Indigenous languages of Canada."),
+  q(2, "A writer repeats the opening words of several sentences: “We shall not give up. We shall not give in. We shall not turn back.” This rhetorical device is called…", "anaphora", ["alliteration", "a pun", "hyperbole"], "Anaphora repeats words at the start of lines for emphasis."),
+  q(2, "“Do we really want our children to inherit a polluted planet?” What is this?", "A rhetorical question", ["A fact", "A statistic", "A thesis"], "A rhetorical question is asked for effect, not for an answer."),
+  q(2, "Which sentence uses a formal register?", "We would like to request your assistance with this matter.", ["Hey, can you help out?", "We need you to chip in, ok?", "Gimme a hand here."], "Formal writing uses complete, polite wording without slang."),
+  q(2, "Which sentence has a more concise style?", "We left because it rained.", ["We made the decision to leave on account of the fact that it was raining.", "It was raining so we left in order to do so.", "The reason we left was due to the rain."], "Concise writing says the same thing in fewer words."),
+  q(2, "Which sentence shows varied sentence length for rhythm?", "The storm broke. Rain hammered the roof, rattled the windows and swept across the empty street in grey sheets.", ["The storm broke. Rain fell. Wind blew. Leaves moved.", "The storm broke and rain hammered the roof and rattled the windows and swept across the street.", "The storm broke, it rained, it blew."], "Mixing short and long sentences creates rhythm and emphasis."),
+  q(3, "A writer calls a rival’s plan a “reckless gamble” and her own a “bold step.” What technique is this?", "Loaded language that colours the reader's view", ["A neutral comparison", "A statistic", "A definition"], "Words with strong connotations can sway readers."),
+  q(3, "Which is the best revision for clarity? “The thing was done by them in a quick way.”", "They finished quickly.", ["The thing was done by them quickly.", "They did the thing in a quick way.", "Quickly by them was done."], "Active voice and precise words make writing clearer."),
+  q(3, "A speaker says “I came, I saw, I conquered.” The pattern of three parallel parts is called…", "a triad (rule of three)", ["a simile", "a footnote", "onomatopoeia"], "Groups of three create rhythm and make ideas memorable."),
+  q(3, "Why might a writer choose the word “slender” instead of “skinny”?", "“Slender” has a more positive connotation.", ["They mean something totally different.", "“Slender” is slang.", "There is no difference at all."], "Connotation changes how readers feel about the person described."),
+];
+
+const REGISTER: SortSet = {
+  prompt: "Formal or informal language? Sort each phrase.",
+  hint: "Formal language is polite and complete, used in essays, letters and presentations. Informal language is casual, used with friends.",
+  bins: [
+    { id: "formal", label: "Formal", emoji: "👔" },
+    { id: "informal", label: "Informal", emoji: "🧢" },
+  ],
+  items: [
+    { label: "I am writing to request an extension.", emoji: "✉️", bin: "formal" },
+    { label: "Thank you for your consideration.", emoji: "🤝", bin: "formal" },
+    { label: "The results indicate a significant increase.", emoji: "📊", bin: "formal" },
+    { label: "We regret to inform you that the event is cancelled.", emoji: "📣", bin: "formal" },
+    { label: "Hey, what's up?", emoji: "👋", bin: "informal" },
+    { label: "That test was super hard, no cap.", emoji: "😅", bin: "informal" },
+    { label: "Gonna grab some food, brb.", emoji: "🍔", bin: "informal" },
+    { label: "Totally! See ya later!", emoji: "✌️", bin: "informal" },
+  ],
+};
+
 // ---------- Unit builders ----------
 
 function literaryElements(opts?: GenerateOptions): Question[] {
@@ -221,6 +261,7 @@ function literaryElements(opts?: GenerateOptions): Question[] {
 const rhetoric = (opts?: GenerateOptions): Question[] => fromParts({ items: RHETORIC, sorts: [APPEALS] }, opts);
 const grammar = (opts?: GenerateOptions): Question[] => fromParts({ items: GRAMMAR, sorts: [PUNCTUATION_SORT] }, opts);
 const voices = (opts?: GenerateOptions): Question[] => fromParts({ items: VOICES }, opts);
+const style = (opts?: GenerateOptions): Question[] => fromParts({ items: STYLE, sorts: [REGISTER] }, opts);
 
 // ---------- Course ----------
 
@@ -229,11 +270,11 @@ export const course: Course = {
   subject: "language",
   bigIdeas: {
     "ca-bc": [
+      "Language and story can be a source of creativity and joy.",
       "Exploring stories and other texts helps us understand ourselves and make connections to others and to the world.",
+      "People understand text differently depending on their worldviews and perspectives.",
+      "Texts are socially, culturally, and historically constructed.",
       "Questioning what we hear, read, and view contributes to our ability to be educated and engaged citizens.",
-      "Language shapes ideas and influences others.",
-      "Texts are shaped by the perspectives, time and place of those who create them.",
-      "Using language in creative and playful ways helps us understand how language works.",
     ],
   },
   units: [
@@ -276,6 +317,16 @@ export const course: Course = {
       parentNote:
         "Semicolons, colons, dashes, commas and apostrophes, subject-verb agreement, pronoun case, misplaced modifiers, run-ons and fragments, and choosing a formal or informal register.",
       generate: grammar,
+    },
+    {
+      id: "language-and-style",
+      title: "Language & Style",
+      emoji: "🖋️",
+      blurb: "Connotation, register and rhetorical devices",
+      standards: { "ca-bc": "Language change, connotation and denotation, elements of style, register and rhetorical devices" },
+      parentNote:
+        "How word choice shapes feeling (connotation and denotation), how English changes and borrows words, formal and informal register, concise and varied sentences, and devices such as anaphora and rhetorical questions.",
+      generate: style,
     },
     {
       id: "voices-and-perspectives",

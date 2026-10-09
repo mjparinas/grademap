@@ -3,8 +3,8 @@ import { pick, randInt, sample, shuffle } from "../../random";
 import type { Course, GenerateOptions, Question } from "../../types";
 import { ask, choose, fromParts, levelOf, numQ, orderOf, q, typed, type Item } from "../kit";
 
-// Grade 9 science: cells and cell division, atoms and electrons, bonding and reactions,
-// electric current, and ecosystems and sustainability (with BC examples).
+// Grade 9 science: cells and cell division, reproduction, atoms and electrons, compounds,
+// electric current, and cycles and sustainability (with BC examples).
 
 type Parts = Parameters<typeof fromParts>[0];
 const unit = (parts: Parts) => (opts?: GenerateOptions): Question[] => fromParts(parts, opts);
@@ -41,6 +41,44 @@ const MITOSIS_ORDER = orderOf(
     { id: "telo", label: "Telophase: two new nuclei form", emoji: "⚪" },
   ],
 );
+
+// ---------- Reproduction ----------
+
+const REPRO: Item[] = [
+  q(1, "What is asexual reproduction?", "Making offspring from one parent", ["Making offspring from two parents", "Making offspring from eggs only", "Making offspring without cells"], "Asexual reproduction needs only one parent, and the offspring are genetically identical."),
+  q(1, "Which is an example of asexual reproduction?", "A strawberry plant growing a runner", ["A bird laying eggs after mating", "A human baby being born", "A frog laying eggs that are fertilized"], "Runners grow new plants from the parent without seeds or a second parent."),
+  q(1, "Offspring from asexual reproduction are…", "genetically identical to the parent", ["completely different from the parent", "a mix of two parents' genes", "always female"], "One parent's cells copy themselves, so the genes are the same."),
+  q(1, "What is a gamete?", "A sex cell, such as an egg or sperm", ["A body cell", "A kind of bacteria", "A plant leaf"], "Gametes are the reproductive cells that join in sexual reproduction."),
+  q(2, "What is fertilization?", "When a sperm cell and an egg cell join", ["When a cell divides in two", "When a seed is planted", "When a plant makes sugar"], "Fertilization combines genetic material from two parents into a new cell."),
+  q(2, "Why does sexual reproduction increase variety within a species?", "Offspring get a new mix of genes from two parents.", ["Offspring are copies of one parent.", "Mutations never happen.", "Parents choose which genes to pass on."], "Variation helps a species survive when conditions change."),
+  q(2, "Budding in yeast and hydra is a type of…", "asexual reproduction", ["sexual reproduction", "fertilization", "photosynthesis"], "A bud grows off the parent and breaks off as a new organism."),
+  q(2, "Which is a way flowering plants reproduce sexually?", "Pollen from one flower fertilizes another flower's ovule", ["A leaf grows into a new plant", "A tuber sprouts", "A branch is cut and planted"], "Pollination moves pollen to the female part of a flower so seeds can form."),
+  q(2, "In plants, what are the male parts of a flower called (together)?", "stamens", ["pistils", "petals", "sepals"], "Stamens (anther + filament) make pollen. The pistil is the female part."),
+  q(2, "What is the role of the ovary in a flower?", "It holds the ovules, which may become seeds.", ["It makes pollen.", "It attracts pollinators.", "It holds the flower up."], "After fertilization, the ovary can become a fruit that protects the seeds."),
+  q(3, "A farmer wants every apple tree to produce the exact same apples. Which method is best?", "Grafting a cutting from the parent tree", ["Planting seeds from the parent's apples", "Crossing two different trees", "Letting bees pollinate freely"], "Apple seeds carry a mix of genes, so seeds give different apples. A graft is a clone."),
+  q(3, "Which is an advantage of asexual reproduction?", "Organisms can reproduce quickly without finding a mate.", ["It creates lots of genetic variety.", "It prevents all diseases.", "It requires two parents."], "Asexual reproduction is fast and needs only one parent."),
+  q(3, "Which is a disadvantage of asexual reproduction?", "Little genetic variety, so one disease can harm the whole population.", ["It needs two parents.", "It is slow.", "Offspring are always different."], "Identical organisms share the same weaknesses."),
+  q(3, "Meiosis is the type of cell division that produces…", "gametes with half the usual number of chromosomes", ["identical body cells", "two identical nuclei", "new organelles"], "Gametes have half the chromosomes so that fertilization restores the full number."),
+];
+
+const REPRO_SORT: SortSet = {
+  prompt: "Asexual or sexual reproduction? Sort each example.",
+  hint: "Asexual reproduction involves one parent and produces identical copies. Sexual reproduction joins sex cells from two parents.",
+  bins: [
+    { id: "asexual", label: "Asexual", emoji: "1️⃣" },
+    { id: "sexual", label: "Sexual", emoji: "2️⃣" },
+  ],
+  items: [
+    { label: "a potato eye grows into a new plant", emoji: "🥔", bin: "asexual" },
+    { label: "bacteria split in two", emoji: "🦠", bin: "asexual" },
+    { label: "a hydra grows a bud", emoji: "🪸", bin: "asexual" },
+    { label: "a spider plant sends out a plantlet", emoji: "🪴", bin: "asexual" },
+    { label: "a salmon's egg is fertilized by a sperm", emoji: "🐟", bin: "sexual" },
+    { label: "a bee carries pollen to an apple flower", emoji: "🐝", bin: "sexual" },
+    { label: "a bird lays fertilized eggs", emoji: "🐦", bin: "sexual" },
+    { label: "a seed grows from a pollinated flower", emoji: "🌻", bin: "sexual" },
+  ],
+};
 
 // ---------- Atoms & Electrons ----------
 
@@ -153,26 +191,27 @@ function atomsAndElectrons(opts?: GenerateOptions): Question[] {
   return shuffle([...choose(ATOMS, level, 5).map(ask), ...elementQuestions(3)]);
 }
 
-// ---------- Bonding & Reactions ----------
+// ---------- Electron Arrangement & Compounds ----------
 
 const BONDING: Item[] = [
   q(1, "What is a chemical bond?", "An attraction that holds atoms together", ["A kind of mixture", "A type of heat", "A way to separate atoms"], "Atoms bond by sharing or transferring electrons."),
-  q(1, "Which type of bond forms when electrons are transferred from a metal to a non-metal?", "ionic", ["covalent", "metallic only", "physical"], "In ionic compounds, positive and negative ions attract each other."),
+  q(1, "Which type of bond forms when electrons are transferred from a metal to a non-metal?", "ionic", ["covalent", "nuclear", "physical"], "In ionic compounds, positive and negative ions attract each other."),
   q(1, "Which type of bond forms when atoms share electrons?", "covalent", ["ionic", "nuclear", "magnetic"], "Non-metal atoms often share electrons, forming molecules."),
   q(1, "Table salt (NaCl) is made of…", "sodium and chlorine joined by ionic bonds", ["two gases sharing electrons", "carbon and hydrogen", "metals only"], "Sodium gives an electron to chlorine, and the ions attract."),
+  q(1, "A compound is…", "two or more different elements chemically joined", ["a mix of two liquids", "any metal", "a single kind of atom"], "Water (H₂O) joins hydrogen and oxygen in a fixed ratio."),
   q(2, "What is the chemical formula of water?", "H₂O", ["HO₂", "H₂O₂", "H₂"], "Water has 2 hydrogen atoms and 1 oxygen atom."),
   q(2, "What does the formula CO₂ tell you?", "One carbon atom and two oxygen atoms are in each molecule.", ["Two carbon atoms and one oxygen atom", "Carbon is an oxygen ion", "Carbon dioxide is an element"], "The small number (subscript) after a symbol says how many atoms."),
-  q(2, "In a chemical equation, the substances on the left of the arrow are the…", "reactants", ["products", "catalysts", "isotopes"], "Reactants change into products: reactants → products."),
-  q(2, "The law of conservation of mass says that in a chemical reaction…", "the total mass of reactants equals the total mass of products", ["mass is created", "mass disappears", "products weigh more"], "Atoms are rearranged, not created or destroyed."),
-  q(2, "Which equation for hydrogen burning in oxygen is balanced?", "2H₂ + O₂ → 2H₂O", ["H₂ + O₂ → H₂O", "H₂ + O₂ → 2H₂O", "2H₂ + 2O₂ → 2H₂O"], "Count the atoms on each side: 4 H and 2 O on the left, 4 H and 2 O on the right."),
-  q(2, "Which equation for methane burning in oxygen is balanced?", "CH₄ + 2O₂ → CO₂ + 2H₂O", ["CH₄ + O₂ → CO₂ + H₂O", "CH₄ + 2O₂ → CO₂ + H₂O", "2CH₄ + 2O₂ → CO₂ + 2H₂O"], "Left: 1 C, 4 H, 4 O. Right: 1 C, 4 H, 2 + 2 = 4 O."),
-  q(2, "In 2H₂O, what does the large 2 in front mean?", "There are two molecules of water.", ["Each molecule has two oxygen atoms.", "Each molecule has two hydrogens only.", "Water is doubled in mass."], "A coefficient in front multiplies the whole formula."),
-  q(2, "What is an acid?", "A substance that releases hydrogen ions (H⁺) in water and has a pH below 7", ["A substance with pH above 7", "A pure metal", "A neutral liquid"], "Acids have a pH from 0 to less than 7."),
-  q(2, "Which pH value is the most basic?", "13", ["2", "7", "5"], "A pH above 7 is basic. The higher the number, the stronger the base."),
-  q(3, "Which is evidence that a chemical reaction has occurred?", "A gas forms and the temperature changes", ["Ice melts", "A solid is cut in half", "Salt dissolves in water"], "Gas, colour change, light, heat and a new substance are signs of a chemical change."),
-  q(3, "In the reaction of a metal with oxygen to form a metal oxide (like rusting), what is the oxygen?", "a reactant", ["a product", "a catalyst", "an isotope"], "The metal and oxygen react to form the oxide."),
-  q(3, "5 g of baking soda reacts with 10 g of vinegar in an open container, and the mass reading drops. What explains it?", "A gas formed and escaped into the air.", ["Mass was destroyed.", "The container shrank.", "Vinegar is lighter than air."], "In a closed container the mass would stay the same. Here a gas escaped."),
-  q(3, "A neutralization reaction between an acid and a base produces…", "a salt and water", ["only a gas", "a new element", "a metal"], "For example, hydrochloric acid + sodium hydroxide → sodium chloride + water."),
+  q(2, "Why does sodium (1 valence electron) form a positive ion?", "It loses its one outer electron to reach a stable, full outer shell.", ["It gains seven electrons.", "It loses its protons.", "It shares its electrons equally."], "Losing one electron leaves sodium with a full second shell and a charge of +1."),
+  q(2, "Why does chlorine (7 valence electrons) form a negative ion?", "It gains one electron to fill its outer shell.", ["It loses seven electrons.", "It loses a proton.", "It never bonds."], "Gaining one electron gives chlorine 8 outer electrons and a charge of −1."),
+  q(2, "Magnesium has 2 valence electrons and chlorine needs 1 more. What is the formula of magnesium chloride?", "MgCl₂", ["MgCl", "Mg₂Cl", "Mg₂Cl₂"], "Each magnesium atom gives up 2 electrons, and each chlorine takes 1, so one Mg needs two Cl."),
+  q(2, "What charge does an ion of a Group 2 element (like calcium) usually have?", "+2", ["+1", "−2", "0"], "Group 2 elements lose their 2 valence electrons."),
+  q(2, "Why is oxygen's formula in water H₂O, with two hydrogens?", "Oxygen needs two more electrons, and each hydrogen shares one.", ["Oxygen has two protons.", "Hydrogen is a noble gas.", "Water has no bonds."], "Oxygen has 6 valence electrons and needs 2 more, so it shares with two hydrogen atoms."),
+  q(2, "Which pair would most likely form an ionic compound?", "sodium and chlorine", ["carbon and oxygen", "hydrogen and hydrogen", "nitrogen and hydrogen"], "A metal and a non-metal usually form an ionic compound."),
+  q(2, "Which pair would most likely form a covalent compound?", "carbon and oxygen", ["sodium and chlorine", "potassium and bromine", "calcium and oxygen"], "Two non-metals usually share electrons."),
+  q(3, "Why do noble gases like neon rarely form compounds?", "Their outer shells are already full, so they have little reason to gain, lose or share electrons.", ["They have no electrons.", "They are all liquids.", "They are all radioactive."], "A full outer shell is stable."),
+  q(3, "A salt crystal such as NaCl conducts electricity when dissolved in water because…", "the ions are free to move and carry charge", ["the atoms melt", "the electrons are destroyed", "the water turns into metal"], "Free-moving ions can carry current in solution."),
+  q(3, "Ionic compounds usually have high melting points because…", "the attraction between ions is strong", ["they have no bonds", "they are very light", "they are always gases"], "A lot of energy is needed to pull the ions apart."),
+  q(3, "A water molecule has both ionic and covalent bonds. True or false?", "False: it has covalent bonds only", ["True: both", "False: it has ionic bonds only", "True: neither"], "Hydrogen and oxygen are both non-metals, so they share electrons."),
 ];
 
 const BOND_SORT: SortSet = {
@@ -256,10 +295,14 @@ const ECOSYSTEMS: Item[] = [
   q(2, "How do burning fossil fuels affect the carbon cycle?", "They add carbon dioxide to the atmosphere faster than it can be removed.", ["They remove carbon dioxide.", "They have no effect.", "They make oxygen."], "Carbon locked underground for millions of years is released quickly."),
   q(2, "Warmer winters in BC have helped the mountain pine beetle survive. What has been the result?", "Large areas of pine forest have died.", ["Pine forests have grown larger.", "The beetle has gone extinct.", "Pine forests are unaffected."], "Fewer very cold days means fewer beetles die in winter."),
   q(2, "Which is an example of sustainable resource use?", "Harvesting trees at a rate that lets the forest regrow", ["Cutting all trees in an area", "Dumping waste in rivers", "Overfishing a population"], "Sustainability means meeting needs now without harming the future."),
+  q(2, "How does the Sun's energy reach and warm Earth's surface?", "as radiation that passes through the atmosphere and is absorbed by land and oceans", ["by conduction through space", "as sound waves", "through the ocean currents only"], "Solar radiation drives weather, ocean currents and photosynthesis."),
+  q(2, "What would happen to Earth without the greenhouse effect?", "It would be much colder, because less heat would be held near the surface.", ["It would be hotter.", "Nothing would change.", "There would be no Sun."], "Greenhouse gases hold in some heat and make Earth liveable. Too much of them raises global temperatures."),
+  q(2, "In the water cycle, what process turns liquid water into water vapour?", "evaporation", ["condensation", "precipitation", "runoff"], "The Sun's heat powers evaporation."),
+  q(2, "In the nitrogen cycle, what do bacteria in the soil do?", "Change nitrogen into forms that plants can use", ["Make oxygen from nitrogen", "Remove all nitrogen", "Turn nitrogen into carbon"], "Nitrogen-fixing bacteria help plants get nitrogen they need to build proteins."),
   q(3, "What is bioaccumulation?", "A build-up of a substance, such as a toxin, in an organism over time", ["The growth of a plant", "The movement of animals", "The breakdown of rocks"], "Toxins can build up in tissues and become more concentrated in higher levels of a food web (biomagnification)."),
   q(3, "Why can removing one keystone species (like sea otters in kelp forests) have large effects?", "Many other species depend on it, directly or indirectly.", ["Keystone species are the most numerous.", "Nothing depends on them.", "They only live in labs."], "Sea otters eat urchins, which would otherwise destroy kelp that shelters fish."),
   q(3, "Which action would most help protect biodiversity in a local watershed?", "Restoring wetlands and protecting stream banks", ["Paving over wetlands", "Introducing new species at random", "Draining streams"], "Healthy habitats support many species."),
-  q(3, "Indigenous peoples have cared for ecosystems in BC for thousands of years. What can this knowledge help with today?", "Managing land and waters sustainably", ["Nothing, because it is old", "Only art projects", "Only museums"], "Traditional ecological knowledge can guide modern stewardship, and many nations lead conservation work today."),
+  q(3, "Many First Peoples teach that people, land, water and living things are all connected, and that people have responsibilities to care for them. How can this idea help us think about sustainability?", "It encourages us to consider the long-term effects of our choices on the whole system.", ["It says that nothing needs protecting.", "It means ecosystems cannot change.", "It only applies to the past."], "First Peoples knowledge of interconnectedness and stewardship is part of the BC science curriculum, and many nations lead conservation work today."),
   q(3, "A population graph shows deer numbers rising and then falling as wolves are reintroduced. What does this show?", "Predators can limit prey populations.", ["Deer cannot reproduce.", "Wolves are producers.", "Populations never change."], "Predator-prey relationships help balance populations."),
 ];
 
@@ -290,8 +333,8 @@ export const course: Course = {
     "ca-bc": [
       "Cells are derived from cells.",
       "The electron arrangement of atoms impacts their chemical nature.",
-      "Electric current is the flow of charged particles.",
-      "Disruptions to ecosystems affect the sustainability of local and global environments.",
+      "Electric current is the flow of electric charge.",
+      "The biosphere, geosphere, hydrosphere, and atmosphere are interconnected, as matter cycles and energy flows through them.",
     ],
   },
   units: [
@@ -306,6 +349,16 @@ export const course: Course = {
       generate: unit({ items: CELL_DIVISION, orders: [MITOSIS_ORDER] }),
     },
     {
+      id: "reproduction",
+      title: "Reproduction",
+      emoji: "🌱",
+      blurb: "Asexual and sexual reproduction",
+      standards: { "ca-bc": "Asexual and sexual reproduction in plants and animals; fertilization and genetic variety" },
+      parentNote:
+        "How organisms reproduce with one parent or two, why sexual reproduction creates variety, the parts of a flower, and the strengths and weaknesses of each approach.",
+      generate: unit({ items: REPRO, sorts: [REPRO_SORT] }),
+    },
+    {
       id: "atoms-and-electrons",
       title: "Atoms & Electrons",
       emoji: "⚛️",
@@ -317,12 +370,12 @@ export const course: Course = {
     },
     {
       id: "bonding-and-reactions",
-      title: "Bonding & Reactions",
+      title: "Electrons & Compounds",
       emoji: "🧪",
-      blurb: "Ionic, covalent and balanced equations",
-      standards: { "ca-bc": "Chemical bonding and chemical reactions: ionic and covalent compounds, conservation of mass, acids and bases" },
+      blurb: "Why atoms bond and what they make",
+      standards: { "ca-bc": "The arrangement of electrons determines the compounds formed by elements: ionic and covalent bonding" },
       parentNote:
-        "Ionic and covalent bonds, reading chemical formulas, balancing equations, the law of conservation of mass, evidence of chemical change, and acids and bases.",
+        "How valence electrons decide whether atoms gain, lose or share electrons, ionic and covalent compounds, and reading simple chemical formulas.",
       generate: unit({ items: BONDING, sorts: [BOND_SORT] }),
     },
     {
@@ -337,12 +390,12 @@ export const course: Course = {
     },
     {
       id: "ecosystems",
-      title: "Ecosystems & Sustainability",
+      title: "Cycles & Sustainability",
       emoji: "🌲",
-      blurb: "Food webs, cycles and human impact",
-      standards: { "ca-bc": "Ecosystems: energy flow, biodiversity, nutrient cycles, invasive species and human impacts on sustainability" },
+      blurb: "Solar energy, matter cycles and care for the land",
+      standards: { "ca-bc": "Effects of solar radiation; matter cycles; sustainability of systems; First Peoples knowledge of interconnectedness and sustainability" },
       parentNote:
-        "Energy and nutrient flow in ecosystems, the carbon cycle, biodiversity and keystone species, BC examples like salmon and the mountain pine beetle, and ways to keep ecosystems sustainable.",
+        "How the Sun's energy and cycles of matter (carbon, water, nitrogen) link living and non-living things, how ecosystems and food webs work, BC examples like salmon and the mountain pine beetle, and First Peoples ideas about interconnectedness and caring for the land.",
       generate: unit({ items: ECOSYSTEMS, sorts: [ROLE_SORT] }),
     },
   ],

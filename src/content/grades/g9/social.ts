@@ -157,6 +157,7 @@ const WWI: Item[] = [
   q(2, "What was the conscription crisis of 1917?", "A bitter dispute over forcing men to serve, which divided English and French Canada", ["A railway strike", "A choice of flags", "A tax increase"], "Many French Canadians opposed conscription, since they felt less connection to the British Empire."),
   q(2, "Many Indigenous men volunteered to fight in WWI. What often happened when they returned?", "They faced the same discrimination and restrictions as before.", ["They were given full rights and land", "They became prime ministers", "They were welcomed with no change"], "Despite their service, many veterans were denied the same benefits as other soldiers."),
   q(3, "How did WWI change women’s roles in Canada?", "Many worked in factories and offices, and some gained the vote in 1917–1918.", ["Women were banned from work", "Women lost rights", "Nothing changed"], "Wartime work helped win the right to vote in federal elections for most women in 1918."),
+  q(3, "During WWI, thousands of people were held in internment camps in Canada. Who were most of them?", "Ukrainian Canadians and other people from enemy countries, labelled “enemy aliens”", ["Soldiers who disobeyed orders", "Canadian-born British citizens", "Visitors from the United States"], "More than 8,500 people were interned between 1914 and 1920 under the War Measures Act, and many more had to report regularly to authorities. Canada has since recognized this injustice."),
   q(3, "What happened to the Komagata Maru in 1914?", "Canadian authorities refused entry to its passengers from India in Vancouver, and it was forced to leave.", ["It was welcomed with a parade", "It carried soldiers to Europe", "It sank in Halifax"], "Passengers were mostly Sikh men who were British subjects. Canada formally apologized in 2016."),
   q(3, "What was the Treaty of Versailles (1919)?", "The peace treaty that ended WWI and blamed Germany for the war", ["The treaty that began WWI", "A trade deal", "A treaty about Canada’s borders"], "Harsh terms on Germany contributed to later tensions."),
   q(3, "How did WWI affect Canada’s status in the world?", "Canada signed the Treaty of Versailles separately, showing growing independence.", ["Canada became a British colony again", "Canada joined the United States", "Canada stopped trading"], "Canada's sacrifices helped it earn a seat at the peace conference and its own signature."),
@@ -173,6 +174,80 @@ const WWI_ORDER = orderOf(
   ],
 );
 
+// ---------- Migration & Population ----------
+
+const MIGRATION: Item[] = [
+  q(1, "What is immigration?", "Moving into a new country to live there", ["Moving out of a country to live elsewhere", "Travelling for a holiday", "Moving within a city"], "Emigration is leaving a country. Immigration is arriving in one."),
+  q(1, "What is a “push factor” in migration?", "Something that makes people want to leave, like famine or war", ["Something that attracts people to a place", "A kind of boat", "A tax"], "Push factors drive people away from home. Pull factors attract them to a new place."),
+  q(1, "What is a “pull factor” in migration?", "Something that attracts people to a new place, like jobs or land", ["Something that forces people to leave", "A kind of wagon", "A holiday"], "Pull factors include work, safety, land, family and freedom."),
+  q(2, "Why did about a million people leave Ireland in the late 1840s?", "A potato blight caused a famine.", ["They wanted to build railways.", "A gold rush began.", "Ireland had no schools."], "Many Irish people emigrated to Canada, the United States and elsewhere to survive."),
+  q(2, "What drew thousands of people to the Fraser River and the Cariboo region in 1858?", "the gold rush", ["a new railway", "cheap farmland on the Prairies", "a shortage of workers in cities"], "Miners from California, China and elsewhere came to BC, which helped lead to the creation of the colony of British Columbia in 1858."),
+  q(2, "Between 1801 and 1901, the world's population grew from about 1 billion to about…", "1.6 billion", ["500 million", "3 billion", "6 billion"], "Better food, sanitation and medicine helped people live longer, and populations grew."),
+  q(2, "Why did cities grow so fast during the Industrial Revolution?", "People moved from the countryside to find factory work.", ["Farms became larger.", "Cities lowered their taxes.", "Railways were removed."], "Urbanization is the growth of towns and cities."),
+  q(2, "Around 1900, the Canadian government encouraged European farmers to settle on the Prairies. What attracted them?", "Cheap land to farm", ["Free housing in cities", "Gold mines", "Short winters"], "Clifford Sifton led a campaign to attract settlers to the West, though settlement meant the loss of land for Indigenous nations."),
+  q(2, "Which improvement helped the world's population grow in the 1800s?", "Better sanitation and medicine", ["Fewer farms", "Less trade", "Smaller cities"], "Cleaner water and the first vaccines saved many lives."),
+  q(2, "How did many Chinese migrants contribute to BC's early economy?", "They worked in gold fields, mines and on the railway.", ["They ruled the colony.", "They were never in BC.", "They built the legislature."], "They often faced discrimination, low pay and unfair laws such as the Head Tax."),
+  q(3, "Why does migration change the places people leave and the places they arrive?", "It changes populations, cultures, languages and economies in both places.", ["It changes nothing.", "It only changes weather.", "It stops trade."], "Migration moves people, skills and traditions."),
+  q(3, "Which is an example of forced migration?", "Enslaved Africans being taken to the Americas", ["A family moving for a job", "A student studying abroad", "A tourist visiting Canada"], "Forced migration happens when people have no choice."),
+  q(3, "What is a refugee?", "A person forced to leave their country to escape danger or persecution", ["A person who moves for a new job", "A tourist", "A person who travels for school"], "Refugees flee war, violence or persecution."),
+  q(3, "Why do historians use population data when studying the past?", "It shows how living standards, health and migration changed over time.", ["It tells exactly who was happy.", "It replaces stories.", "It is never reliable."], "Numbers and personal stories together give a fuller picture."),
+];
+
+const PUSH_PULL: SortSet = {
+  prompt: "Push factor or pull factor? Sort each reason for migrating.",
+  hint: "Push factors make people want to leave (famine, war, no work). Pull factors attract them to a new place (jobs, land, safety, freedom).",
+  bins: [
+    { id: "push", label: "Push factor", emoji: "👋" },
+    { id: "pull", label: "Pull factor", emoji: "🧲" },
+  ],
+  items: [
+    { label: "a crop failure causes famine", emoji: "🥔", bin: "push" },
+    { label: "war breaks out at home", emoji: "💥", bin: "push" },
+    { label: "no jobs in the village", emoji: "🏚️", bin: "push" },
+    { label: "persecution for religious beliefs", emoji: "🚪", bin: "push" },
+    { label: "gold is found in a river", emoji: "🪙", bin: "pull" },
+    { label: "cheap farmland is offered", emoji: "🌾", bin: "pull" },
+    { label: "factories are hiring workers", emoji: "🏭", bin: "pull" },
+    { label: "relatives already live there", emoji: "👨‍👩‍👧", bin: "pull" },
+  ],
+};
+
+// ---------- Canada's Landscapes ----------
+
+const LANDSCAPES: Item[] = [
+  q(1, "Which mountain range runs along Canada's west, through BC?", "the Western Cordillera (including the Rockies and Coast Mountains)", ["the Appalachians", "the Canadian Shield", "the Laurentians"], "The Cordillera is a long chain of young, high mountains."),
+  q(1, "Which region has flat land and fertile soil, ideal for growing wheat?", "the Interior Plains (the Prairies)", ["the Western Cordillera", "the Appalachians", "the Arctic"], "Glaciers and ancient seas left flat land and rich soil."),
+  q(1, "Which region covers about half of Canada and has some of the oldest rocks on Earth?", "the Canadian Shield", ["the Interior Plains", "the Western Cordillera", "the Great Lakes–St. Lawrence Lowlands"], "The Shield is made of ancient rock scraped bare by glaciers, with thousands of lakes."),
+  q(1, "Which region has the best farmland and the most people in Canada?", "the Great Lakes–St. Lawrence Lowlands", ["the Arctic", "the Canadian Shield", "the Appalachians"], "Fertile soil, a mild climate and water routes drew settlers and cities."),
+  q(2, "How did glaciers shape Canada's land?", "They carved valleys and lakes and left behind soil and rock.", ["They built all the mountains.", "They had no effect.", "They made deserts."], "The last ice age ended about 12,000 years ago, leaving a landscape of lakes, valleys and fertile plains."),
+  q(2, "Why is the Western Cordillera still shaped by earthquakes and volcanoes?", "It lies where the Pacific and North American plates meet, so the land is still active.", ["It is far from any plate.", "It is too cold.", "It is made of limestone."], "Plate tectonics built these mountains and continues to shape them."),
+  q(2, "Which region has old, worn-down mountains in Atlantic Canada?", "the Appalachians", ["the Rockies", "the Coast Mountains", "the Prairies"], "Millions of years of erosion have rounded the Appalachians, which are far older than the Rockies."),
+  q(2, "Why has mining been important in the Canadian Shield?", "The ancient rock contains minerals such as nickel, gold and copper.", ["The Shield is farmland.", "It has no rock.", "It is covered in cities."], "Resource towns grew around mines in places like Sudbury and Timmins."),
+  q(2, "How does the physical environment influence where people settle in Canada?", "People tend to settle where farmland, water, resources and transportation are available.", ["People choose the coldest places.", "Landscape has no effect.", "People avoid rivers."], "Rivers, lakes and fertile land have shaped settlement for thousands of years."),
+  q(2, "Why were rivers and lakes important to early transportation in Canada?", "They were natural highways for travel and trade by canoe and boat.", ["They were blocked by walls.", "They were not used.", "They were dry."], "Indigenous peoples and later fur traders travelled along waterways."),
+  q(3, "What process wears mountains down over millions of years?", "erosion by water, wind and ice", ["volcanic eruptions", "tidal waves", "magnetism"], "Erosion breaks rock and carries it away."),
+  q(3, "Why is the Pacific coast of BC at risk of tsunamis and earthquakes?", "It sits near the Cascadia subduction zone, where one plate slides beneath another.", ["It is too far south.", "It is surrounded by deserts.", "It has no faults."], "The Juan de Fuca plate is sliding beneath the North American plate."),
+  q(3, "Which is an example of the physical environment affecting the economy?", "BC's forests and ports supported the lumber and shipping industries.", ["BC has no resources.", "The weather has no effect.", "All industries are the same everywhere."], "Resources and coastlines shape what people can make, grow and trade."),
+];
+
+const REGION_SORT: SortSet = {
+  prompt: "Which landform region is it? Sort each description.",
+  hint: "The Western Cordillera has young, high mountains. The Interior Plains are flat farmland. The Canadian Shield is ancient rock with many lakes.",
+  bins: [
+    { id: "cordillera", label: "Western Cordillera", emoji: "🏔️" },
+    { id: "plains", label: "Interior Plains", emoji: "🌾" },
+    { id: "shield", label: "Canadian Shield", emoji: "🪨" },
+  ],
+  items: [
+    { label: "tall, young mountains with glaciers", emoji: "🏔️", bin: "cordillera" },
+    { label: "earthquakes and volcanoes occur", emoji: "🌋", bin: "cordillera" },
+    { label: "flat land with wheat and canola farms", emoji: "🌾", bin: "plains" },
+    { label: "rich soil and wide skies", emoji: "☀️", bin: "plains" },
+    { label: "ancient rock with thousands of lakes", emoji: "🪨", bin: "shield" },
+    { label: "nickel and gold mines", emoji: "⛏️", bin: "shield" },
+  ],
+};
+
 // ---------- Course ----------
 
 export const course: Course = {
@@ -181,9 +256,9 @@ export const course: Course = {
   bigIdeas: {
     "ca-bc": [
       "Emerging ideas and ideologies profoundly influence societies and events.",
-      "Political and economic decisions can lead to profound social change.",
-      "Imperialism and colonialism have had lasting effects on peoples and places, often affecting different groups very differently.",
-      "Collective identity is shaped by shared history, and by who is included and who is left out.",
+      "The physical environment influences the nature of political, social, and economic change.",
+      "Disparities in power alter the balance of relationships between individuals and between societies.",
+      "Collective identity is constructed and can change over time.",
     ],
   },
   units: [
@@ -236,6 +311,26 @@ export const course: Course = {
       parentNote:
         "Treaties and unceded land in BC, the Indian Act, residential schools and the potlatch ban, and the ongoing work of reconciliation. This unit describes hard history factually, without graphic detail; consider talking it through together.",
       generate: unit({ items: INDIGENOUS }),
+    },
+    {
+      id: "migration-and-population",
+      title: "Migration & Population",
+      emoji: "🧳",
+      blurb: "Why people move and populations grow",
+      standards: { "ca-bc": "Global demographic shifts, including patterns of migration and population growth" },
+      parentNote:
+        "Push and pull factors, famine, gold rushes and urbanization, why the world's population grew in the 1800s, and how migration to Canada and BC shaped communities.",
+      generate: unit({ items: MIGRATION, sorts: [PUSH_PULL] }),
+    },
+    {
+      id: "canadas-landscapes",
+      title: "Canada's Landscapes",
+      emoji: "🏔️",
+      blurb: "Mountains, plains, the Shield and the people who live there",
+      standards: { "ca-bc": "Physiographic features of Canada and geological processes; how the physical environment influences settlement and change" },
+      parentNote:
+        "Canada's main landform regions, how glaciers, erosion and plate tectonics shaped them, and how landscape and resources have influenced where and how people live.",
+      generate: unit({ items: LANDSCAPES, sorts: [REGION_SORT] }),
     },
     {
       id: "world-war-i",

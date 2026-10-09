@@ -2,8 +2,8 @@ import type { SortSet } from "../../bank";
 import type { Course, GenerateOptions, Question } from "../../types";
 import { fromParts, orderOf, q, type Item } from "../kit";
 
-// Grade 8 science: cells and life processes, reproduction, particles and matter,
-// energy, and plate tectonics (with a BC focus on the Cascadia region).
+// Grade 8 science: cells and life processes, microbes and the immune system, particles and
+// matter, light and radiation, and plate tectonics (with a BC focus on the Cascadia region).
 
 // ---------- Cells & Life Processes ----------
 
@@ -45,41 +45,44 @@ const CELL_SORT: SortSet = {
   ],
 };
 
-// ---------- Reproduction ----------
+// ---------- Microbes & the Immune System ----------
 
-const REPRO: Item[] = [
-  q(1, "What is asexual reproduction?", "Making offspring from one parent", ["Making offspring from two parents", "Making offspring from eggs only", "Making offspring without cells"], "Asexual reproduction needs only one parent, and the offspring are genetically identical."),
-  q(1, "Which is an example of asexual reproduction?", "A strawberry plant growing a runner", ["A bird laying eggs after mating", "A human baby being born", "A frog laying eggs that are fertilized"], "Runners grow new plants from the parent without seeds or a second parent."),
-  q(1, "Offspring from asexual reproduction are…", "genetically identical to the parent", ["completely different from the parent", "a mix of two parents' genes", "always female"], "One parent's cells copy themselves, so the genes are the same."),
-  q(1, "What is a gamete?", "A sex cell, such as an egg or sperm", ["A body cell", "A kind of bacteria", "A plant leaf"], "Gametes are the reproductive cells that join in sexual reproduction."),
-  q(2, "What is fertilization?", "When a sperm cell and an egg cell join", ["When a cell divides in two", "When a seed is planted", "When a plant makes sugar"], "Fertilization combines genetic material from two parents into a new cell."),
-  q(2, "Why does sexual reproduction increase variety within a species?", "Offspring get a new mix of genes from two parents.", ["Offspring are copies of one parent.", "Mutations never happen.", "Parents choose which genes to pass on."], "Variation helps a species survive when conditions change."),
-  q(2, "Budding in yeast and hydra is a type of…", "asexual reproduction", ["sexual reproduction", "fertilization", "photosynthesis"], "A bud grows off the parent and breaks off as a new organism."),
-  q(2, "Which is a way flowering plants reproduce sexually?", "Pollen from one flower fertilizes another flower's ovule", ["A leaf grows into a new plant", "A tuber sprouts", "A branch is cut and planted"], "Pollination moves pollen to the female part of a flower so seeds can form."),
-  q(2, "In plants, what are the male parts of a flower called (together)?", "stamens", ["pistils", "petals", "sepals"], "Stamens (anther + filament) make pollen. The pistil is the female part."),
-  q(2, "What is the role of the ovary in a flower?", "It holds the ovules, which may become seeds.", ["It makes pollen.", "It attracts pollinators.", "It holds the flower up."], "After fertilization, the ovary can become a fruit that protects the seeds."),
-  q(3, "A farmer wants every apple tree to produce the exact same apples. Which method is best?", "Grafting a cutting from the parent tree", ["Planting seeds from the parent's apples", "Crossing two different trees", "Letting bees pollinate freely"], "Apple seeds carry a mix of genes, so seeds give different apples. A graft is a clone."),
-  q(3, "Which is an advantage of asexual reproduction?", "Organisms can reproduce quickly without finding a mate.", ["It creates lots of genetic variety.", "It prevents all diseases.", "It requires two parents."], "Asexual reproduction is fast and needs only one parent."),
-  q(3, "Which is a disadvantage of asexual reproduction?", "Little genetic variety, so one disease can harm the whole population.", ["It needs two parents.", "It is slow.", "Offspring are always different."], "Identical organisms share the same weaknesses."),
-  q(3, "Meiosis is the type of cell division that produces…", "gametes with half the usual number of chromosomes", ["identical body cells", "two identical nuclei", "new organelles"], "Gametes have half the chromosomes so that fertilization restores the full number."),
+const MICROBES: Item[] = [
+  q(1, "Which of these is a characteristic of all living things?", "They grow and respond to their environment.", ["They are always green.", "They live in water.", "They never change."], "Living things are made of cells, use energy, grow, reproduce, respond to stimuli and get rid of wastes."),
+  q(1, "What are micro-organisms?", "Living things too small to see without a microscope", ["Tiny rocks", "Parts of a cell", "Dust"], "Bacteria, many fungi and protists are micro-organisms."),
+  q(1, "Are all bacteria harmful?", "No, many are helpful, like those that help digest food", ["Yes, all of them cause disease", "Yes, all bacteria are viruses", "No, none of them live in people"], "Many bacteria live in our gut and help us. Only some cause disease."),
+  q(1, "Why does washing your hands with soap help prevent illness?", "It removes and breaks up germs so they are not spread", ["It makes germs stronger", "It adds good bacteria", "It stops you from touching things"], "Soap lifts germs off skin so water can rinse them away."),
+  q(2, "Which is true about viruses?", "They need to infect a living cell to reproduce.", ["They are made of many cells.", "They can be treated with antibiotics.", "They make their own food."], "Viruses are not made of cells and can only copy themselves inside a host cell."),
+  q(2, "Which is true about bacteria?", "They are single-celled living organisms that can reproduce on their own.", ["They are always viruses.", "They can never be killed.", "They have no cell parts."], "Bacteria are cells, and antibiotics can treat many bacterial infections."),
+  q(2, "What is the body's first line of defence against germs?", "skin and mucus", ["antibodies", "vaccines", "fever"], "Barriers like skin, tears, stomach acid and mucus keep many germs out."),
+  q(2, "What do white blood cells do?", "Find and destroy germs", ["Carry oxygen", "Make sugar", "Break food apart"], "White blood cells are part of the immune system."),
+  q(2, "What are antibodies?", "Proteins made by the immune system that attach to specific germs", ["Medicines made from fungi", "Types of red blood cells", "Parts of the skin"], "Antibodies mark germs so white blood cells can destroy them."),
+  q(2, "How does a vaccine help protect you?", "It trains the immune system to recognize a germ before you are exposed to the real thing.", ["It kills all germs in the body immediately.", "It replaces your white blood cells.", "It removes the need for hand washing."], "A vaccine uses a safe piece or weakened form of a germ so the body can make memory cells."),
+  q(2, "What is herd immunity?", "When enough people in a community are immune that diseases spread poorly", ["When animals get sick", "When a vaccine is stored", "When only one person is immune"], "It helps protect people who can't be vaccinated, such as newborns."),
+  q(2, "Antibiotics are used to treat infections caused by…", "bacteria", ["viruses", "allergies", "dust"], "Antibiotics do not work on viruses such as those that cause colds and flu."),
+  q(3, "Why is it important to finish a prescribed course of antibiotics?", "Stopping early can leave the toughest bacteria alive, which can lead to resistance.", ["Antibiotics are tasty.", "They work only when taken for a day.", "They are vaccines."], "Antibiotic resistance happens when bacteria survive treatment and multiply."),
+  q(3, "What is the difference between an epidemic and a pandemic?", "An epidemic is widespread in a region; a pandemic spreads across many countries or the world.", ["There is no difference.", "A pandemic is only in one town.", "An epidemic is always harmless."], "COVID-19 was declared a pandemic in March 2020."),
+  q(3, "The Black Death in the 1300s and the 1918 influenza are examples of…", "pandemics that had huge impacts on societies", ["vaccines", "antibiotics", "plate tectonics"], "Pandemics can change population, economies and daily life."),
+  q(3, "Which public health action slows the spread of a contagious disease?", "Vaccination, hand washing and staying home when sick", ["Sharing drinks", "Ignoring symptoms", "Avoiding all doctors"], "These steps reduce the number of people who become infected."),
+  q(3, "A fever during an infection can be helpful because…", "a higher body temperature can slow some germs and boost the immune response", ["it kills the person's own cells", "it cures every illness", "it replaces antibodies"], "Fever is one of the body's defence responses, though very high fevers need medical care."),
 ];
 
-const REPRO_SORT: SortSet = {
-  prompt: "Asexual or sexual reproduction? Sort each example.",
-  hint: "Asexual reproduction involves one parent and produces identical copies. Sexual reproduction joins sex cells from two parents.",
+const LIFE_SORT: SortSet = {
+  prompt: "Living or non-living? Sort each item.",
+  hint: "Living things are made of cells, use energy, grow, reproduce and respond to their environment. Non-living things don't do these on their own, even if they move or change.",
   bins: [
-    { id: "asexual", label: "Asexual", emoji: "1️⃣" },
-    { id: "sexual", label: "Sexual", emoji: "2️⃣" },
+    { id: "living", label: "Living", emoji: "🌱" },
+    { id: "nonliving", label: "Non-living", emoji: "🪨" },
   ],
   items: [
-    { label: "a potato eye grows into a new plant", emoji: "🥔", bin: "asexual" },
-    { label: "bacteria split in two", emoji: "🦠", bin: "asexual" },
-    { label: "a hydra grows a bud", emoji: "🪸", bin: "asexual" },
-    { label: "a spider plant sends out a plantlet", emoji: "🪴", bin: "asexual" },
-    { label: "a salmon's egg is fertilized by a sperm", emoji: "🐟", bin: "sexual" },
-    { label: "a bee carries pollen to an apple flower", emoji: "🐝", bin: "sexual" },
-    { label: "a bird lays fertilized eggs", emoji: "🐦", bin: "sexual" },
-    { label: "a seed grows from a pollinated flower", emoji: "🌻", bin: "sexual" },
+    { label: "a cedar tree", emoji: "🌲", bin: "living" },
+    { label: "bread mould", emoji: "🍞", bin: "living" },
+    { label: "bacteria in yogurt", emoji: "🥛", bin: "living" },
+    { label: "a sea star", emoji: "⭐", bin: "living" },
+    { label: "a rock", emoji: "🪨", bin: "nonliving" },
+    { label: "a flame", emoji: "🔥", bin: "nonliving" },
+    { label: "a cloud", emoji: "☁️", bin: "nonliving" },
+    { label: "a river", emoji: "🌊", bin: "nonliving" },
   ],
 };
 
@@ -125,38 +128,60 @@ const MATTER_SORT: SortSet = {
   ],
 };
 
-// ---------- Energy ----------
+// ---------- Light & Radiation ----------
 
-const ENERGY: Item[] = [
-  q(1, "Energy can be…", "transformed from one form to another", ["created from nothing", "destroyed completely", "stored only in batteries"], "The law of conservation of energy: energy is never created or destroyed, only transformed."),
-  q(1, "What energy change happens in a toaster?", "electrical → thermal (heat)", ["thermal → electrical", "chemical → sound", "light → kinetic"], "The toaster's wires get hot as electrical energy becomes heat."),
-  q(1, "A moving bicycle has which form of energy?", "kinetic energy", ["gravitational potential energy only", "chemical energy only", "nuclear energy"], "Kinetic energy is the energy of motion."),
-  q(1, "A book sitting on a high shelf has…", "gravitational potential energy", ["kinetic energy", "sound energy", "no energy"], "Higher objects have more stored energy because of gravity."),
-  q(1, "Food stores energy in which form?", "chemical energy", ["electrical energy", "sound energy", "magnetic energy"], "Food holds chemical energy that our bodies release."),
-  q(2, "A solar panel changes…", "light energy into electrical energy", ["electrical energy into light", "heat into sound", "chemical energy into motion"], "Photovoltaic cells convert sunlight into electricity."),
-  q(2, "Which is a renewable energy source?", "wind", ["coal", "natural gas", "oil"], "Renewable sources like wind, solar and hydro are replaced naturally."),
-  q(2, "Most of the electricity in British Columbia comes from…", "hydroelectric dams", ["coal plants", "nuclear reactors", "diesel generators"], "BC Hydro generates most of its electricity from water flowing through dams."),
-  q(2, "Heat moves through a metal spoon in a hot soup mainly by…", "conduction", ["convection", "radiation", "evaporation"], "Conduction transfers heat through direct contact of particles in a solid."),
-  q(2, "Warm air rising and cool air sinking is an example of…", "convection", ["conduction", "radiation", "insulation"], "Convection is heat transfer by the movement of fluids (liquids and gases)."),
-  q(2, "How does the Sun's energy reach Earth through empty space?", "radiation", ["conduction", "convection", "evaporation"], "Radiation transfers energy as waves and does not need matter."),
-  q(2, "A light bulb is “inefficient” when…", "much of its energy becomes heat instead of light", ["it uses no electricity", "it lasts forever", "it only works outdoors"], "Efficiency is the useful energy output divided by the total input."),
-  q(3, "A roller coaster car is at the top of a hill. As it rolls down, its potential energy…", "decreases while its kinetic energy increases", ["increases while its kinetic energy increases", "stays the same while it stops", "decreases while its kinetic energy decreases"], "Gravitational potential energy changes into kinetic energy as the car speeds up."),
-  q(3, "A lamp is 20% efficient: it turns 100 J of electrical energy into 20 J of light. Where does the other 80 J go?", "It becomes heat, which spreads into the surroundings.", ["It disappears.", "It turns into mass.", "It stays in the bulb as electricity."], "Energy is conserved. The rest is transformed into unwanted thermal energy."),
-  q(3, "Which choice would reduce a home's energy use the most?", "Adding insulation to the walls and attic", ["Leaving lights on all day", "Opening windows in winter", "Using a bigger furnace"], "Insulation slows heat transfer so less energy is needed for heating."),
-  q(3, "Burning fossil fuels transforms…", "chemical energy into thermal energy and releases carbon dioxide", ["thermal energy into chemical energy", "gravitational energy into light", "electrical energy into food"], "Stored chemical energy is released as heat, with CO₂ as a by-product."),
+const LIGHT: Item[] = [
+  q(1, "Light is a form of…", "electromagnetic radiation", ["sound energy", "heat only", "matter"], "Light is part of the electromagnetic spectrum, which travels as waves."),
+  q(1, "Which travels fastest?", "light", ["sound", "a car", "a jet plane"], "Light travels about 300 000 km every second, far faster than sound."),
+  q(1, "A mirror shows your image because light…", "reflects off it", ["is absorbed", "bends through it", "disappears"], "Reflection is when light bounces off a surface."),
+  q(1, "When light bends as it passes from air into water, this is called…", "refraction", ["reflection", "absorption", "radiation"], "Refraction makes a straw look bent in a glass of water."),
+  q(1, "Which material lets light pass through easily so you can see clearly through it?", "transparent", ["opaque", "translucent", "reflective"], "Transparent materials like clear glass let almost all light through. Opaque ones block it."),
+  q(2, "Which has the longest wavelength?", "radio waves", ["visible light", "ultraviolet", "X-rays"], "In order from longest to shortest: radio, microwave, infrared, visible, ultraviolet, X-ray, gamma."),
+  q(2, "Which has the shortest wavelength?", "gamma rays", ["microwaves", "infrared", "visible light"], "Gamma rays have the shortest wavelength and the most energy."),
+  q(2, "Which part of the electromagnetic spectrum do we feel as heat?", "infrared", ["ultraviolet", "X-rays", "radio waves"], "Warm objects give off infrared radiation."),
+  q(2, "Which type of radiation causes sunburn?", "ultraviolet (UV)", ["infrared", "radio", "microwave"], "UV rays damage skin cells, so sunscreen, hats and shade are important."),
+  q(2, "Which type of radiation is used to take images of bones?", "X-rays", ["radio waves", "microwaves", "infrared"], "X-rays pass through soft tissue but are blocked by bone."),
+  q(2, "Which type of radiation is used to heat food in a microwave oven?", "microwaves", ["X-rays", "ultraviolet", "gamma rays"], "Microwaves make water molecules in food vibrate, producing heat."),
+  q(2, "A wave's wavelength is…", "the distance from one crest to the next", ["the height of the wave", "the number of waves in a second", "the speed of the wave"], "Frequency is the number of waves per second. Amplitude is the height."),
+  q(2, "As the frequency of a wave increases, its wavelength…", "decreases", ["increases", "stays the same", "disappears"], "For electromagnetic waves traveling at the same speed, higher frequency means shorter wavelength."),
+  q(2, "Why do we see white light split into colours in a prism?", "Different colours bend by different amounts when they refract.", ["The prism adds paint.", "The prism makes new light.", "Light changes into sound."], "Red bends least and violet bends most."),
+  q(3, "Why is a red shirt red?", "It reflects red light and absorbs most other colours.", ["It makes red light.", "It absorbs red light.", "It reflects all colours."], "We see the colour of light that an object reflects."),
+  q(3, "Light can act as both a wave and a stream of particles. What are the particles called?", "photons", ["protons", "electrons", "neutrons"], "Photons are packets of light energy. Light shows behaviour of both waves and particles."),
+  q(3, "Sound needs matter to travel. Light…", "can travel through empty space", ["cannot travel through space", "needs air", "needs water"], "That is how sunlight reaches Earth."),
+  q(3, "What is the safest choice when working with a laser pointer?", "Never aim it at anyone's eyes", ["Look into the beam", "Point it at windows", "Shine it at vehicles"], "Concentrated light can damage eyes."),
 ];
 
-const FORM_ORDER = orderOf(
-  "Order the energy changes in a hydroelectric dam, starting with the water high above the dam.",
-  "Water high up has gravitational potential energy. As it falls it gains kinetic energy, spins a turbine, and a generator changes that motion into electrical energy.",
+const SPECTRUM_ORDER = orderOf(
+  "Put these types of electromagnetic radiation in order from the longest wavelength to the shortest.",
+  "The order is radio waves, microwaves, infrared, visible light, ultraviolet, X-rays, gamma rays.",
   [
-    { id: "pot", label: "Gravitational potential energy of the water in the reservoir", emoji: "🏔️" },
-    { id: "kin", label: "Kinetic energy of the falling water", emoji: "🌊" },
-    { id: "turb", label: "Kinetic energy of the spinning turbine", emoji: "🌀" },
-    { id: "elec", label: "Electrical energy from the generator", emoji: "⚡" },
-    { id: "light", label: "Light energy in a home", emoji: "💡" },
+    { id: "radio", label: "Radio waves", emoji: "📻" },
+    { id: "micro", label: "Microwaves", emoji: "🍿" },
+    { id: "ir", label: "Infrared", emoji: "🌡️" },
+    { id: "vis", label: "Visible light", emoji: "🌈" },
+    { id: "uv", label: "Ultraviolet", emoji: "☀️" },
+    { id: "xray", label: "X-rays", emoji: "🩻" },
   ],
 );
+
+const WAVE_SORT: SortSet = {
+  prompt: "Longer or shorter wavelength than visible light? Sort each radiation.",
+  hint: "Radio waves, microwaves and infrared have longer wavelengths than visible light. Ultraviolet, X-rays and gamma rays have shorter wavelengths.",
+  bins: [
+    { id: "longer", label: "Longer than visible light", emoji: "〰️" },
+    { id: "shorter", label: "Shorter than visible light", emoji: "⚡" },
+  ],
+  items: [
+    { label: "radio waves", emoji: "📻", bin: "longer" },
+    { label: "microwaves", emoji: "🍿", bin: "longer" },
+    { label: "infrared", emoji: "🌡️", bin: "longer" },
+    { label: "Wi-Fi signals", emoji: "📶", bin: "longer" },
+    { label: "ultraviolet", emoji: "☀️", bin: "shorter" },
+    { label: "X-rays", emoji: "🩻", bin: "shorter" },
+    { label: "gamma rays", emoji: "☢️", bin: "shorter" },
+    { label: "UV from a tanning lamp", emoji: "🪫", bin: "shorter" },
+  ],
+};
 
 // ---------- Plate Tectonics ----------
 
@@ -212,7 +237,7 @@ export const course: Course = {
     "ca-bc": [
       "Life processes are performed at the cellular level.",
       "The behaviour of matter can be explained by the kinetic molecular theory and by the atomic theory.",
-      "Energy is conserved, and its transformation can affect living things and the environment.",
+      "Energy can be transferred as both a particle and a wave.",
       "The theory of plate tectonics is the unifying theory that explains Earth’s geological processes.",
     ],
   },
@@ -228,14 +253,14 @@ export const course: Course = {
       generate: unit(CELLS, [CELL_SORT]),
     },
     {
-      id: "reproduction",
-      title: "Reproduction",
-      emoji: "🌱",
-      blurb: "Asexual and sexual reproduction",
-      standards: { "ca-bc": "Asexual and sexual reproduction in plants and animals; fertilization and genetic variety" },
+      id: "microbes-and-immunity",
+      title: "Microbes & the Immune System",
+      emoji: "🦠",
+      blurb: "Germs, vaccines and pandemics",
+      standards: { "ca-bc": "Characteristics of life; micro-organisms; basic functions of the immune system; vaccination, antibiotics, epidemics and pandemics" },
       parentNote:
-        "How organisms reproduce with one parent or two, why sexual reproduction creates variety, the parts of a flower, and the strengths and weaknesses of each approach.",
-      generate: unit(REPRO, [REPRO_SORT]),
+        "What makes something alive, helpful and harmful micro-organisms, how the immune system defends the body, how vaccines and antibiotics work, and the impact of epidemics and pandemics.",
+      generate: unit(MICROBES, [LIFE_SORT]),
     },
     {
       id: "particles-and-matter",
@@ -248,14 +273,14 @@ export const course: Course = {
       generate: unit(MATTER, [MATTER_SORT]),
     },
     {
-      id: "energy",
-      title: "Energy & Its Changes",
-      emoji: "⚡",
-      blurb: "Forms, transfers and efficiency",
-      standards: { "ca-bc": "Energy forms, transformations and transfer; conservation of energy; efficiency and energy sources" },
+      id: "light-and-radiation",
+      title: "Light & Radiation",
+      emoji: "🌈",
+      blurb: "Waves, the spectrum and how light behaves",
+      standards: { "ca-bc": "Electromagnetic radiation: types and effects; light as a wave and a particle; reflection and refraction" },
       parentNote:
-        "Kinetic, potential, chemical, thermal and electrical energy, how energy changes form while being conserved, the three ways heat travels, efficiency, and renewable energy in BC.",
-      generate: unit(ENERGY, undefined, [FORM_ORDER]),
+        "Wavelength and frequency, the electromagnetic spectrum from radio waves to gamma rays and what each is used for, reflection, refraction and colour, and staying safe from UV radiation.",
+      generate: unit(LIGHT, [WAVE_SORT], [SPECTRUM_ORDER]),
     },
     {
       id: "plate-tectonics",

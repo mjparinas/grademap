@@ -1,4 +1,4 @@
-import { chance, pick, randInt, sample, textChoice } from "../../random";
+import { chance, pick, randInt, sample, shuffle, textChoice } from "../../random";
 import type { Course, GenerateOptions, Question, Visual } from "../../types";
 import { NAMES, ROUND_NOTE, conceptQ, fmt, frac, gcd, levelOf, mixed, numQ, piAnswer, roundTo, textQ, typed, type Concept } from "../kit";
 
@@ -259,14 +259,22 @@ function squaresAndRoots(opts?: GenerateOptions): Question[] {
     );
   }
   {
-    const n = randInt(3, max);
-    const m = randInt(2, 9);
+    const n = randInt(2, level === 1 ? 5 : 10);
+    if (chance(0.5)) {
+      qs.push(typed(`What is ${n}³?`, String(n ** 3), `${n}³ means ${n} × ${n} × ${n} = ${n * n} × ${n} = ${n ** 3}.`, "number"));
+    } else {
+      qs.push(typed(`What is the cube root of ${n ** 3}? (∛${n ** 3})`, String(n), `Which number multiplied by itself three times makes ${n ** 3}? ${n} × ${n} × ${n} = ${n ** 3}, so ∛${n ** 3} = ${n}.`, "number"));
+    }
+  }
+  {
+    const n = randInt(2, 9);
+    const near = [n ** 3 + 1, n ** 3 - 1, n * n + n, 3 * n * n].filter((x) => !Number.isInteger(Math.cbrt(x)) && x > 0);
     qs.push(
-      typed(
-        `What is √${n * n} × ${m}?`,
-        String(n * m),
-        `√${n * n} = ${n}, and ${n} × ${m} = ${n * m}.`,
-        "number",
+      textChoice(
+        "Which of these numbers is a perfect cube?",
+        String(n ** 3),
+        near.slice(0, 3).map(String),
+        `A perfect cube is a whole number multiplied by itself three times. ${n} × ${n} × ${n} = ${n ** 3}.`,
       ),
     );
   }
@@ -420,16 +428,149 @@ function ratiosAndRates(opts?: GenerateOptions): Question[] {
   return qs;
 }
 
-// ---------- 4. Linear Equations & Relations ----------
+// ---------- 4. Percents & Money ----------
+
+function percentsAndMoney(opts?: GenerateOptions): Question[] {
+  const level = levelOf(opts);
+  const qs: Question[] = [];
+  const dollars = (cents: number): string => (cents / 100).toFixed(2);
+
+  // A percent of a number.
+  {
+    const pct = pick([5, 10, 15, 20, 25, 30, 40, 60, 75]);
+    const base = pick([20, 40, 60, 80, 120, 200]);
+    const ans = (pct * base) / 100;
+    if (Number.isInteger(ans)) {
+      qs.push(typed(`What is ${pct}% of ${base}?`, String(ans), `${pct}% = ${pct}/100. ${pct}/100 × ${base} = ${ans}.`, "number"));
+    }
+  }
+
+  // A part as a percent.
+  {
+    const whole = pick([20, 25, 40, 50, 80, 200]);
+    const pct = pick([10, 20, 30, 40, 60, 75, 80]);
+    const part = (whole * pct) / 100;
+    if (Number.isInteger(part)) {
+      qs.push(typed(`${part} out of ${whole} students walk to school. What percent walk?`, String(pct), `Part ÷ whole = ${part} ÷ ${whole} = ${fmt(part / whole)}, which is ${pct}%.`, "number", { suffix: "%" }));
+    } else {
+      qs.push(typed(`What is 10% of ${whole * 10}?`, String(whole), `10% is one tenth: ${whole * 10} ÷ 10 = ${whole}.`, "number"));
+    }
+  }
+
+  // Percents beyond the usual range.
+  {
+    const k = pick([150, 200, 250]);
+    const base = pick([20, 40, 60, 80]);
+    if (chance(0.5)) {
+      qs.push(typed(`What is ${k}% of ${base}?`, String((k * base) / 100), `${k}% is more than the whole: ${k}/100 × ${base} = ${(k * base) / 100}.`, "number"));
+    } else {
+      const base2 = pick([1000, 2000, 4000, 5000]);
+      qs.push(typed(`What is 0.5% of ${base2}?`, String(base2 / 200), `0.5% is half of 1%. 1% of ${base2} is ${base2 / 100}, so 0.5% is ${base2 / 200}.`, "number"));
+    }
+  }
+
+  // Fraction, decimal and percent.
+  {
+    const pairs: [string, string, string][] = [["3/4", "0.75", "75%"], ["1/5", "0.2", "20%"], ["3/8", "0.375", "37.5%"], ["7/10", "0.7", "70%"], ["1/8", "0.125", "12.5%"], ["2/5", "0.4", "40%"]];
+    const [f, d, p] = pick(pairs);
+    const others = pairs.filter((x) => x[2] !== p).map((x) => x[2]);
+    qs.push(textQ(`Which percent is equal to ${f}?`, p, sample(others, 3), `${f} = ${d} as a decimal, and ${d} × 100 = ${p}.`));
+  }
+
+  // Discount.
+  {
+    const price = pick([20, 40, 60, 80, 120, 200]);
+    const off = pick([10, 20, 25, 50]);
+    const sale = price - (price * off) / 100;
+    qs.push(
+      typed(
+        `A jacket costs $${price}. It is on sale for ${off}% off. What is the sale price, in dollars?`,
+        fmt(sale),
+        `${off}% of ${price} is ${(price * off) / 100}. Subtract: ${price} − ${(price * off) / 100} = ${sale}.`,
+        "decimal",
+      ),
+    );
+  }
+
+  // Tax.
+  {
+    const price = pick([25, 50, 75, 100, 150, 200]);
+    const rate = 12;
+    const tax = (price * rate) / 100;
+    qs.push(
+      typed(
+        `A bike helmet costs $${price} before tax. The tax rate is ${rate}% (GST 5% plus PST 7%). How much is the total, in dollars?`,
+        fmt(price + tax),
+        `Tax = ${rate}% of ${price} = ${tax}. Total = ${price} + ${tax} = ${price + tax}.`,
+        "decimal",
+      ),
+    );
+  }
+
+  // Budget.
+  {
+    const income = pick([200, 250, 300, 400]);
+    const a = pick([40, 50, 60]);
+    const b = pick([30, 45, 55]);
+    const c = pick([20, 25, 35]);
+    qs.push(
+      typed(
+        `Ana earns $${income} a month. She budgets $${a} for transit, $${b} for food and $${c} for fun. How much is left to save, in dollars?`,
+        String(income - a - b - c),
+        `Add the spending: ${a} + ${b} + ${c} = ${a + b + c}. Savings = ${income} − ${a + b + c} = ${income - a - b - c}.`,
+        "number",
+      ),
+    );
+  }
+
+  // Transaction and change.
+  {
+    const n = randInt(2, 4);
+    const unit = randInt(2, 9) * 50 + (chance(0.5) ? 25 : 0);
+    const paid = 5000;
+    const total = n * unit;
+    qs.push(
+      typed(
+        `Leo buys ${n} notebooks at $${dollars(unit)} each and pays with a $50 bill. How much change does he get, in dollars?`,
+        dollars(paid - total),
+        `Cost = ${n} × $${dollars(unit)} = $${dollars(total)}. Change = $50.00 − $${dollars(total)} = $${dollars(paid - total)}.`,
+        "decimal",
+        { accept: [fmt((paid - total) / 100)] },
+      ),
+    );
+  }
+
+  // Which is more?
+  {
+    const pct = pick([30, 45, 60, 70]);
+    const fr: [number, number] = pick<[number, number]>([[1, 3], [2, 5], [3, 4], [5, 8], [1, 2]]);
+    const frPct = (fr[0] / fr[1]) * 100;
+    if (Math.abs(frPct - pct) > 1) {
+      const bigger = frPct > pct ? `${fr[0]}/${fr[1]}` : `${pct}%`;
+      qs.push(
+        textQ(
+          `Which is greater, ${fr[0]}/${fr[1]} or ${pct}%?`,
+          bigger,
+          [frPct > pct ? `${pct}%` : `${fr[0]}/${fr[1]}`, "They are equal"],
+          `Write ${fr[0]}/${fr[1]} as a percent: ${fr[0]} ÷ ${fr[1]} = ${fmt(Math.round(frPct * 10) / 10)}%. Compare it with ${pct}%.`,
+        ),
+      );
+    }
+  }
+  void level;
+  return qs;
+}
+
+// ---------- 5. Discrete Patterns & Two-Step Equations ----------
 
 function linearEquations(opts?: GenerateOptions): Question[] {
   const level = levelOf(opts);
   const qs: Question[] = [];
 
-  // ax + b = c
+  // ax + b = c, and ax − b = c.
   {
     const a = randInt(2, level === 1 ? 5 : 9);
-    const x = randInt(-9, 12) || 3;
+    const x = randInt(-6, 12) || 3;
     const b = randInt(1, 15);
     const sign = chance(0.5) ? 1 : -1;
     const c = a * x + sign * b;
@@ -443,49 +584,47 @@ function linearEquations(opts?: GenerateOptions): Question[] {
     );
   }
 
-  // Brackets.
-  {
-    const a = randInt(2, 6);
-    const x = randInt(1, 10);
-    const b = randInt(1, 8);
-    qs.push(
-      typed(
-        `Solve for x: ${a}(x + ${b}) = ${a * (x + b)}`,
-        String(x),
-        `Divide both sides by ${a}: x + ${b} = ${x + b}. Subtract ${b}: x = ${x}.`,
-        "integer",
-      ),
-    );
-  }
-
-  // Variable on both sides.
-  {
-    const x = randInt(2, 10);
-    const c = randInt(1, 4);
-    const a = c + randInt(1, 4);
-    const b = randInt(1, 12);
-    const d = b + (a - c) * x;
-    qs.push(
-      typed(
-        `Solve for x: ${a}x + ${b} = ${c}x + ${d}`,
-        String(x),
-        `Subtract ${c}x from both sides: ${a - c}x + ${b} = ${d}. Subtract ${b}: ${a - c}x = ${d - b}. Divide by ${a - c}: x = ${x}.`,
-        "integer",
-      ),
-    );
-  }
-
-  // Division.
+  // Division form.
   {
     const n = randInt(2, 6);
     const x = randInt(2, 9) * n;
     const b = randInt(1, 9);
+    qs.push(typed(`Solve for x: x ÷ ${n} + ${b} = ${x / n + b}`, String(x), `Subtract ${b}: x ÷ ${n} = ${x / n}. Multiply both sides by ${n}: x = ${x}.`, "integer"));
+  }
+
+  // Another two-step.
+  {
+    const a = randInt(2, 7);
+    const x = randInt(1, 10);
+    const c = randInt(2, 6) * a;
     qs.push(
       typed(
-        `Solve for x: x ÷ ${n} + ${b} = ${x / n + b}`,
+        `Solve for n: ${a * x + c} = ${a}n + ${c}`,
         String(x),
-        `Subtract ${b}: x ÷ ${n} = ${x / n}. Multiply both sides by ${n}: x = ${x}.`,
+        `Subtract ${c} from both sides: ${a * x} = ${a}n. Divide by ${a}: n = ${x}.`,
         "integer",
+      ),
+    );
+  }
+
+  // Evaluate an expression.
+  {
+    const m = randInt(2, 7);
+    const b = randInt(1, 9);
+    const n = randInt(2, 9);
+    qs.push(typed(`Evaluate ${m}n + ${b} when n = ${n}.`, String(m * n + b), `Replace n with ${n}: ${m} × ${n} + ${b} = ${m * n} + ${b} = ${m * n + b}.`, "number"));
+  }
+
+  // Write an expression.
+  {
+    const a = randInt(2, 6);
+    const b = randInt(2, 9);
+    qs.push(
+      textQ(
+        `Which expression means “${b} more than ${a} times a number n”?`,
+        `${a}n + ${b}`,
+        [`${a + b}n`, `${a}(n + ${b})`, `${b}n + ${a}`, `${a}n − ${b}`],
+        `“${a} times a number” is ${a}n. “${b} more than” that means add ${b}: ${a}n + ${b}.`,
       ),
     );
   }
@@ -506,32 +645,31 @@ function linearEquations(opts?: GenerateOptions): Question[] {
     );
   }
 
-  // Taxi fare: a continuous linear relation.
+  // A discrete relation: whole numbers of items.
   {
-    const start = randInt(2, 6);
-    const rate = randInt(1, 3);
-    const km = randInt(3, 15);
+    const fee = randInt(2, 6);
+    const each = randInt(3, 9);
+    const k = randInt(4, 12);
     qs.push(
       typed(
-        `A taxi charges $${start} to start plus $${rate} for every kilometre. What is the cost of a ${km} km trip, in dollars?`,
-        String(start + rate * km),
-        `Cost = ${start} + ${rate} × ${km} = ${start} + ${rate * km} = $${start + rate * km}.`,
+        `A school play charges a $${fee} booking fee plus $${each} per ticket. How much do ${k} tickets cost, in dollars?`,
+        String(fee + each * k),
+        `Cost = ${each} × ${k} + ${fee} = ${each * k} + ${fee} = ${fee + each * k}. (You can only buy whole tickets, so this is a discrete relation.)`,
         "number",
       ),
     );
   }
 
-  // Table and rule.
+  // Pattern table and rule.
   {
     const m = randInt(2, 5);
     const b = randInt(1, 6);
-    const xs = [0, 1, 2, 3];
-    const visual: Visual = { type: "table", headers: ["x", "y"], rows: xs.map((x) => [x, m * x + b]) };
+    const visual: Visual = { type: "table", headers: ["Figure number (n)", "Number of tiles"], rows: [1, 2, 3, 4].map((n) => [n, m * n + b]) };
     qs.push(
       typed(
-        `This table follows a linear rule. What is y when x = 10?`,
+        `A growing pattern of tiles follows the rule in the table. How many tiles are in figure 10?`,
         String(m * 10 + b),
-        `y goes up by ${m} each time x goes up by 1, and y = ${b} when x = 0. So y = ${m}x + ${b}. When x = 10, y = ${m * 10} + ${b} = ${m * 10 + b}.`,
+        `The tiles go up by ${m} each figure and figure 1 has ${m + b}. The rule is ${m}n + ${b}. For n = 10: ${m * 10} + ${b} = ${m * 10 + b}.`,
         "number",
         { visual },
       ),
@@ -554,10 +692,10 @@ function linearEquations(opts?: GenerateOptions): Question[] {
       ),
     );
   }
-  return qs;
+  return qs.slice(0, 10);
 }
 
-// ---------- 5. Pythagorean Theorem ----------
+// ---------- 6. Pythagorean Theorem ----------
 
 const TRIPLES: [number, number, number][] = [
   [3, 4, 5],
@@ -697,7 +835,7 @@ function pythagorean(opts?: GenerateOptions): Question[] {
   return qs;
 }
 
-// ---------- 6. Surface Area & Volume ----------
+// ---------- 7. Surface Area & Volume ----------
 
 const SOLIDS_CONCEPTS: Concept[] = [
   {
@@ -727,6 +865,27 @@ const SOLIDS_CONCEPTS: Concept[] = [
     right: "2 circles and 1 rectangle",
     wrong: ["1 circle and 2 rectangles", "3 circles", "2 circles and 2 rectangles"],
     hint: "Unroll a can: the label is a rectangle, and the top and bottom are circles.",
+  },
+  {
+    levels: [1, 2, 3],
+    prompt: "Looking straight down at the top of a cylinder, which shape do you see?",
+    right: "a circle",
+    wrong: ["a rectangle", "a triangle", "an oval with no edge"],
+    hint: "The top face of a cylinder is a circle. The side view is a rectangle.",
+  },
+  {
+    levels: [2, 3],
+    prompt: "Which 3D object has a net made of one square and four triangles?",
+    right: "a square pyramid",
+    wrong: ["a cube", "a triangular prism", "a cone"],
+    hint: "A square pyramid has a square base and four triangular faces that meet at the top.",
+  },
+  {
+    levels: [2, 3],
+    prompt: "A front view of a cone, seen from the side, is a…",
+    right: "triangle",
+    wrong: ["circle", "rectangle", "square"],
+    hint: "From the side, a cone looks like a triangle. From above, it looks like a circle.",
   },
   {
     levels: [2, 3],
@@ -834,7 +993,7 @@ function surfaceAreaVolume(opts?: GenerateOptions): Question[] {
   return qs;
 }
 
-// ---------- 7. Probability & Data ----------
+// ---------- 8. Probability & Data ----------
 
 function probabilityAndData(opts?: GenerateOptions): Question[] {
   const level = levelOf(opts);
@@ -955,6 +1114,14 @@ function probabilityAndData(opts?: GenerateOptions): Question[] {
     ),
   );
 
+  // Mode.
+  {
+    const m = randInt(3, 15);
+    const rest = sample([2, 4, 5, 6, 8, 9, 11, 12, 16, 18].filter((n) => n !== m), 4);
+    const set = shuffle([m, m, m, ...rest.slice(0, 3)]);
+    qs.push(typed(`What is the mode of ${set.join(", ")}?`, String(m), `The mode is the value that appears most often. ${m} appears 3 times.`, "number"));
+  }
+
   // Range.
   {
     const set = sample([4, 7, 9, 12, 15, 18, 21, 25, 30], 5);
@@ -970,11 +1137,11 @@ export const course: Course = {
   subject: "math",
   bigIdeas: {
     "ca-bc": [
+      "Number represents, describes, and compares the quantities of ratios, rates, and percents.",
       "Computational fluency and flexibility with numbers extend to operations with fractions.",
-      "Mathematical relationships can be represented by linear equations and visualized with tables and graphs.",
-      "Proportional reasoning connects ratios, rates and percents.",
-      "The Pythagorean theorem is used to describe, measure and compare spatial relationships.",
-      "Analyzing and interpreting experiments with uncertain outcomes allows us to make predictions.",
+      "Discrete linear relations can be represented in many connected ways and used to identify and make generalizations.",
+      "The Pythagorean theorem and the surface area and volume of 3D objects can be used to describe, measure, and compare spatial relationships.",
+      "Analyzing data by determining averages is one way to make sense of large data sets and enables us to compare and interpret.",
     ],
   },
   units: [
@@ -990,12 +1157,12 @@ export const course: Course = {
     },
     {
       id: "squares-and-roots",
-      title: "Squares & Square Roots",
+      title: "Squares, Cubes & Roots",
       emoji: "🟦",
-      blurb: "Perfect squares and estimating roots",
-      standards: { "ca-bc": "Perfect squares and their principal square roots; estimating square roots" },
+      blurb: "Perfect squares and cubes, and their roots",
+      standards: { "ca-bc": "Perfect squares and cubes; square and cube roots; estimating square roots" },
       parentNote:
-        "Knowing perfect squares up to about 25², finding square roots, estimating where a square root falls between whole numbers, and linking squares to the area of a square.",
+        "Knowing perfect squares and cubes, finding square roots and cube roots, estimating where a square root falls between whole numbers, and linking squares to the area of a square.",
       generate: squaresAndRoots,
     },
     {
@@ -1003,19 +1170,29 @@ export const course: Course = {
       title: "Ratios, Rates & Proportions",
       emoji: "⚖️",
       blurb: "Unit rates, best buys and scale",
-      standards: { "ca-bc": "Proportional reasoning: ratios, rates, percents and proportions" },
+      standards: { "ca-bc": "Numerical proportional reasoning: ratios, rates and proportions" },
       parentNote:
         "Simplifying ratios, finding missing terms in equivalent ratios, comparing unit prices, working with speed, scaling recipes and map distances, and turning a part of a whole into a percent.",
       generate: ratiosAndRates,
     },
     {
-      id: "linear-equations",
-      title: "Linear Equations",
-      emoji: "📈",
-      blurb: "Multi-step equations and rules",
-      standards: { "ca-bc": "Multi-step one-variable linear equations; continuous linear relations using tables and equations" },
+      id: "percents-and-money",
+      title: "Percents & Money",
+      emoji: "💯",
+      blurb: "Discounts, tax, budgets and change",
+      standards: { "ca-bc": "Percents (including greater than 100% and less than 1%); financial literacy: simple budgets and transactions" },
       parentNote:
-        "Solving equations with brackets and with variables on both sides, writing an equation from words, and using a rule like y = 2x + 3 for a table or a real situation such as a taxi fare.",
+        "Finding a percent of a number, moving between fractions, decimals and percents, sale prices and sales tax (BC's 12%), simple monthly budgets, and making change.",
+      generate: percentsAndMoney,
+    },
+    {
+      id: "linear-equations",
+      title: "Patterns & Two-Step Equations",
+      emoji: "📈",
+      blurb: "Expressions, patterns and solving for x",
+      standards: { "ca-bc": "Discrete linear relations; expressions; two-step equations" },
+      parentNote:
+        "Writing and evaluating expressions like 3n + 2, solving two-step equations, and finding the rule for a growing pattern or a cost made of whole items such as tickets.",
       generate: linearEquations,
     },
     {
@@ -1032,18 +1209,18 @@ export const course: Course = {
       id: "surface-area-volume",
       title: "Surface Area & Volume",
       emoji: "📦",
-      blurb: "Prisms and cylinders",
-      standards: { "ca-bc": "Surface area and volume of right prisms and cylinders" },
+      blurb: "Prisms, cylinders, nets and views",
+      standards: { "ca-bc": "Surface area and volume of right prisms and cylinders; nets and views of 3D objects" },
       parentNote:
-        "Finding surface area and volume of boxes, cubes, triangular prisms and cylinders, working backwards to a missing dimension, and linking cm³ to millilitres.",
+        "Finding surface area and volume of boxes, cubes, triangular prisms and cylinders, working backwards to a missing dimension, linking cm³ to millilitres, and recognizing nets and views of 3D objects.",
       generate: surfaceAreaVolume,
     },
     {
       id: "probability-and-data",
       title: "Probability & Data",
       emoji: "🎲",
-      blurb: "Chance, mean, median and range",
-      standards: { "ca-bc": "Theoretical and experimental probability; analyzing data using mean, median, mode and range" },
+      blurb: "Chance, mean, median and mode",
+      standards: { "ca-bc": "Theoretical probability; central tendency: mean, median and mode" },
       parentNote:
         "Counting outcomes, finding theoretical and experimental probabilities, predicting how often something will happen, and summarizing data with the mean, median and range.",
       generate: probabilityAndData,

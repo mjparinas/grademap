@@ -252,11 +252,11 @@ export const course: Course = {
   subject: "language",
   bigIdeas: {
     "ca-bc": [
+      "Language and story can be a source of creativity and joy.",
       "Exploring stories and other texts helps us understand ourselves and make connections to others and to the world.",
+      "People understand text differently depending on their worldviews and perspectives.",
+      "Texts are socially, culturally, and historically constructed.",
       "Questioning what we hear, read, and view contributes to our ability to be educated and engaged citizens.",
-      "Language shapes ideas and influences others.",
-      "Texts are shaped by the perspectives, time and place of those who create them.",
-      "Using language in creative and playful ways helps us understand how language works.",
     ],
   },
   units: [

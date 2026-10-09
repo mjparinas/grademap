@@ -1,6 +1,6 @@
 import { chance, pick, randInt, sample, textChoice } from "../../random";
 import type { Course, GenerateOptions, OrderQuestion, Question, Visual } from "../../types";
-import { NAMES, ROUND_NOTE, fmt, fracText, gcd, levelOf, lin, numQ, piAnswer, sup, textQ, typed, type Concept, type Level } from "../kit";
+import { NAMES, fmt, fracText, gcd, levelOf, lin, numQ, sup, textQ, typed, type Concept, type Level } from "../kit";
 
 // Grade 9 maths. Expressions are built from whole numbers and formatted by helpers, so
 // distractors are generated from the same numbers and can be checked against the answer.
@@ -183,7 +183,8 @@ function rationalNumbers(opts?: GenerateOptions): Question[] {
 
 const EXPONENT_CONCEPTS: Concept[] = [
   { levels: [1, 2, 3], prompt: "Any non-zero number to the power of 0 equals…", right: "1", wrong: ["0", "the number itself", "undefined"], hint: "a⁰ = 1 for any a ≠ 0, because a³ ÷ a³ = a⁰, and any number divided by itself is 1." },
-  { levels: [2, 3], prompt: "What does 4⁻² mean?", right: "1/4²", wrong: ["−4²", "4 × (−2)", "−8"], hint: "A negative exponent means the reciprocal: 4⁻² = 1/4² = 1/16." },
+  { levels: [2, 3], prompt: "What is the value of −3² (the negative of 3 squared)?", right: "−9", wrong: ["9", "−6", "6"], hint: "The exponent applies only to 3: 3² = 9, then the negative sign gives −9. Compare (−3)² = 9." },
+  { levels: [1, 2], prompt: "Any number to the power of 1 equals…", right: "the number itself", wrong: ["1", "0", "double the number"], hint: "a¹ = a. For example, 7¹ = 7." },
   { levels: [1, 2], prompt: "In 3⁵, the number 5 is called the…", right: "exponent", wrong: ["base", "product", "coefficient"], hint: "The base (3) is the number being multiplied. The exponent (5) says how many times." },
 ];
 
@@ -272,47 +273,64 @@ function exponentLaws(opts?: GenerateOptions): Question[] {
     );
   }
 
-  // Negative exponent.
+  // Power of a product.
   {
-    const b = pick([2, 3, 4, 5, 10]);
-    const e = pick([1, 2, 3]);
-    if (b === 10 && chance(0.5)) {
-      qs.push(typed(`Write 10${sup(-e)} as a decimal.`, fmt(10 ** -e), `10${sup(-e)} = 1/10${sup(e)} = 1/${10 ** e} = ${fmt(10 ** -e)}.`, "decimal"));
-    } else {
-      qs.push(
-        typed(
-          `Write ${b}${sup(-e)} as a fraction in lowest terms.`,
-          `1/${b ** e}`,
-          `A negative exponent means the reciprocal: ${b}${sup(-e)} = 1/${b}${sup(e)} = 1/${b ** e}.`,
-          "fraction",
-        ),
-      );
-    }
+    const a2 = randInt(2, 5);
+    const n = randInt(2, 3);
+    qs.push(
+      textQ(
+        `Which expression is equal to (${a2}x)${sup(n)}?`,
+        `${a2 ** n}x${sup(n)}`,
+        [`${a2}x${sup(n)}`, `${a2 * n}x${sup(n)}`, `${a2}${sup(n)}x`, `${a2 ** n}x`],
+        `Both the ${a2} and the x are raised to the power ${n}: (${a2}x)${sup(n)} = ${a2}${sup(n)} × x${sup(n)} = ${a2 ** n}x${sup(n)}.`,
+      ),
+    );
   }
 
-  // Scientific notation.
+  // Power of a fraction.
   {
-    const coeff = pick([1.2, 2.5, 3.6, 4.5, 6.4, 7.8, 9.1]);
-    const e = randInt(3, level === 1 ? 5 : 8);
-    if (chance(0.5)) {
-      const value = Math.round(coeff * 10 ** e);
-      const text = value.toLocaleString("en-CA").replace(/[,  ]/g, " ");
+    const n = pick([2, 3]);
+    const a2 = randInt(1, 3);
+    const b2 = a2 + randInt(1, 3);
+    qs.push(
+      typed(
+        `Write (${a2}/${b2})${sup(n)} as a fraction in lowest terms.`,
+        `${a2 ** n / gcd(a2 ** n, b2 ** n)}/${b2 ** n / gcd(a2 ** n, b2 ** n)}`,
+        `Raise the numerator and the denominator to the power ${n}: ${a2}${sup(n)}/${b2}${sup(n)} = ${a2 ** n}/${b2 ** n}, which is ${a2 ** n / gcd(a2 ** n, b2 ** n)}/${b2 ** n / gcd(a2 ** n, b2 ** n)} in lowest terms.`,
+        "fraction",
+        { accept: [`${a2 ** n}/${b2 ** n}`] },
+      ),
+    );
+  }
+
+  // Order of operations with exponents.
+  {
+    const a2 = randInt(2, 9);
+    const b2 = randInt(2, 5);
+    const c2 = randInt(2, 4);
+    qs.push(
+      typed(
+        `Evaluate ${a2} + ${b2} × ${c2}${sup(2)}.`,
+        String(a2 + b2 * c2 * c2),
+        `Exponents come before multiplication: ${c2}${sup(2)} = ${c2 * c2}, then ${b2} × ${c2 * c2} = ${b2 * c2 * c2}, then add ${a2}: ${a2 + b2 * c2 * c2}.`,
+        "number",
+      ),
+    );
+  }
+
+  // Compare powers.
+  {
+    const base = randInt(2, 4);
+    const e = randInt(3, 5);
+    const left = base ** e;
+    const right = e ** base;
+    if (left !== right) {
       qs.push(
         textQ(
-          `Write ${text} in scientific notation.`,
-          `${fmt(coeff)} × 10${sup(e)}`,
-          [`${fmt(coeff)} × 10${sup(e + 1)}`, `${fmt(coeff)} × 10${sup(e - 1)}`, `${fmt(coeff)} × 10${sup(-e)}`],
-          `Move the decimal point until one non-zero digit is left of it: ${fmt(coeff)}. You moved it ${e} places, so the power of 10 is ${e}.`,
-        ),
-      );
-    } else {
-      const e2 = randInt(3, 5);
-      qs.push(
-        typed(
-          `What number is ${fmt(coeff)} × 10${sup(e2)}?`,
-          String(Math.round(coeff * 10 ** e2)),
-          `Move the decimal point ${e2} places to the right: ${fmt(coeff)} × ${10 ** e2} = ${Math.round(coeff * 10 ** e2)}.`,
-          "number",
+          `Which is greater, ${base}${sup(e)} or ${e}${sup(base)}?`,
+          left > right ? `${base}${sup(e)}` : `${e}${sup(base)}`,
+          [left > right ? `${e}${sup(base)}` : `${base}${sup(e)}`, "They are equal"],
+          `${base}${sup(e)} = ${left} and ${e}${sup(base)} = ${right}.`,
         ),
       );
     }
@@ -375,7 +393,7 @@ function polynomials(opts?: GenerateOptions): Question[] {
 
   // Degree.
   {
-    const deg = randInt(1, 4);
+    const deg = randInt(1, 2);
     const cs = randPoly(deg, max);
     qs.push(typed(`What is the degree of ${poly(cs)}?`, String(deg), "The degree is the highest exponent on the variable.", "number"));
   }
@@ -759,6 +777,25 @@ function linearRelations(opts?: GenerateOptions): Question[] {
     );
   }
 
+  // Interpolation and extrapolation.
+  {
+    const m = randInt(2, 6);
+    const b = randInt(1, 10);
+    const xs = [2, 4, 6, 8];
+    const visual: Visual = { type: "table", headers: ["Hours (h)", "Cost ($)"], rows: xs.map((x) => [x, m * x + b]) };
+    const inside = chance(0.5);
+    const x = inside ? pick([3, 5, 7]) : pick([10, 12, 15]);
+    qs.push(
+      typed(
+        `The table shows a linear relation. Estimate the cost for ${x} hours. This is ${inside ? "interpolation (between known values)" : "extrapolation (beyond known values)"}.`,
+        String(m * x + b),
+        `The cost rises by ${m} per hour, with a start of ${b}: cost = ${m}h + ${b}. For h = ${x}: ${m * x + b}.`,
+        "number",
+        { visual },
+      ),
+    );
+  }
+
   // Parallel lines.
   {
     const m = randInt(2, 6) * (chance(0.4) ? -1 : 1);
@@ -912,127 +949,193 @@ function similarityAndScale(opts?: GenerateOptions): Question[] {
   return qs;
 }
 
-// ---------- 7. Solids ----------
+// ---------- 7. Statistics in Society ----------
 
-const SOLID_CONCEPTS: Concept[] = [
-  { levels: [1, 2, 3], prompt: "A cone and a cylinder have the same base and height. The cone's volume is…", right: "one third of the cylinder's", wrong: ["half of the cylinder's", "the same as the cylinder's", "double the cylinder's"], hint: "Three cones of water fill one cylinder with the same base and height." },
-  { levels: [1, 2, 3], prompt: "A pyramid and a prism have the same base and height. The pyramid's volume is…", right: "one third of the prism's", wrong: ["half of the prism's", "the same as the prism's", "a quarter of the prism's"], hint: "V(pyramid) = ⅓ × base area × height." },
-  { levels: [2, 3], prompt: "Which formula gives the surface area of a sphere?", right: "4πr²", wrong: ["(4/3)πr³", "2πr", "πr²"], hint: "(4/3)πr³ is the volume. Surface area is 4πr²." },
-  { levels: [2, 3], prompt: "The slant height of a pyramid is measured…", right: "along a triangular face, from the base edge to the top", wrong: ["straight down from the top", "around the base", "along a base edge"], hint: "Slant height runs up the face. The height runs straight up from the centre of the base." },
+const STATS_CONCEPTS: Concept[] = [
+  { levels: [1, 2, 3], prompt: "In statistics, the population is…", right: "the whole group you want to learn about", wrong: ["the people who answered", "the number of questions", "the average of the data"], hint: "A sample is a smaller part of the population that you actually survey." },
+  { levels: [1, 2, 3], prompt: "A sample is…", right: "a smaller group chosen to represent the population", wrong: ["the whole population", "a type of graph", "the mean"], hint: "Surveying everyone is often impossible, so we study a sample." },
+  { levels: [1, 2, 3], prompt: "Which sample is most likely to represent all students at a school?", right: "50 students chosen at random from the school list", wrong: ["the 50 students on the basketball team", "50 students at the lunch table nearest the gym", "50 students who volunteered online"], hint: "A random sample gives every student an equal chance to be chosen." },
+  { levels: [2, 3], prompt: "A survey about screen time asks, “Don't you agree that too much screen time is harmful?” What is the problem?", right: "The question is leading and may bias the answers.", wrong: ["The question is too short.", "Nobody uses screens.", "The sample is too random."], hint: "Fair questions use neutral wording that doesn't suggest the “right” answer." },
+  { levels: [2, 3], prompt: "A graph's vertical axis starts at 90 instead of 0, making a small change look huge. This is…", right: "a misleading graph", wrong: ["a reliable graph", "a random sample", "a larger sample"], hint: "A truncated axis exaggerates differences. Always check the scale." },
+  { levels: [2, 3], prompt: "Ice cream sales and sunburns both rise in summer. What can we conclude?", right: "They are related to the season, but one does not necessarily cause the other.", wrong: ["Ice cream causes sunburn.", "Sunburn causes ice cream sales.", "Nothing is related."], hint: "Correlation is not causation. A third factor, hot sunny weather, affects both." },
+  { levels: [2, 3], prompt: "A result is reliable if…", right: "repeating the study gives similar results", wrong: ["it was published online", "many people liked it", "it was fast"], hint: "Reliability is about consistency. Validity is about measuring what you intend to measure." },
+  { levels: [2, 3], prompt: "A poll is conducted by phoning only landlines on weekday mornings. Who might be missing?", right: "people who work during the day or only use cell phones", wrong: ["nobody", "only teachers", "people who answer the phone"], hint: "Who is left out of the sample can bias the result." },
+  { levels: [1, 2, 3], prompt: "Which is a primary source of data?", right: "a survey you conducted yourself", wrong: ["a newspaper article about a survey", "a textbook summary", "an online comment"], hint: "Primary data is collected by you. Secondary data comes from someone else." },
+  { levels: [3], prompt: "A news story says “Most teens prefer app X” based on 20 people at one mall. What is the best response?", right: "Ask how large and how random the sample was before trusting it.", wrong: ["Accept it, since it's in the news.", "Ignore every survey.", "Assume the sample is perfect."], hint: "Small, non-random samples may not represent all teens." },
 ];
 
-function solids(opts?: GenerateOptions): Question[] {
+function statisticsInSociety(opts?: GenerateOptions): Question[] {
   const level = levelOf(opts);
   const qs: Question[] = [];
 
-  // Pyramid volume.
+  // Sampling fraction.
   {
-    const b = randInt(3, level === 1 ? 8 : 12);
-    const h = 3 * randInt(1, 6);
+    const pop = pick([200, 400, 600, 800, 1000]);
+    const n = pop / pick([10, 20, 5, 4]);
     qs.push(
       typed(
-        `A square pyramid has a base of ${b} cm by ${b} cm and a height of ${h} cm. What is its volume?`,
-        String((b * b * h) / 3),
-        `V = ⅓ × base area × height = ⅓ × ${b * b} × ${h} = ${(b * b * h) / 3} cm³.`,
+        `A school has ${pop} students. A survey asks ${n} of them. What fraction of the students were surveyed? Type it in lowest terms.`,
+        `${n / gcd(n, pop)}/${pop / gcd(n, pop)}`,
+        `Fraction = ${n}/${pop}, which is ${n / gcd(n, pop)}/${pop / gcd(n, pop)} in lowest terms.`,
+        "fraction",
+        { accept: [`${n}/${pop}`] },
+      ),
+    );
+  }
+
+  // Predicting from a sample.
+  {
+    const pop = pick([400, 600, 800, 1200]);
+    const n = pick([20, 40, 50]);
+    const yes = pick([2, 3, 4, 5, 6]) * (n / 10);
+    qs.push(
+      typed(
+        `In a random sample of ${n} students, ${yes} said they walk to school. Based on this sample, about how many of ${pop} students walk?`,
+        String((yes * pop) / n),
+        `The sample proportion is ${yes}/${n}. Multiply by the population: ${yes}/${n} × ${pop} = ${(yes * pop) / n}.`,
         "number",
-        { suffix: "cm³", visual: { type: "shape", shape: "pyramid" } },
       ),
     );
   }
 
-  // Cone volume.
+  // Mean from a sample.
   {
-    const r = randInt(2, 8);
-    const h = 3 * randInt(1, 5);
-    const p = piAnswer((r * r * h) / 3);
-    qs.push(
-      typed(
-        `A cone has a radius of ${r} cm and a height of ${h} cm. What is its volume? ${ROUND_NOTE}`,
-        p.answer,
-        `V = ⅓ × π × r² × h ≈ ⅓ × 3.14 × ${r * r} × ${h} = 3.14 × ${(r * r * h) / 3} = ${fmt(p.exact)}. Rounded: ${p.answer} cm³.`,
-        "decimal",
-        { accept: p.accept, suffix: "cm³", visual: { type: "shape", shape: "cone" } },
-      ),
-    );
+    const set = [randInt(4, 9), randInt(4, 9), randInt(4, 9), randInt(4, 9), randInt(4, 9)];
+    const total = set.reduce((a, b) => a + b, 0);
+    const mean = total / set.length;
+    if (Number.isInteger(mean)) {
+      qs.push(typed(`Five students report hours of sleep: ${set.join(", ")}. What is the mean?`, String(mean), `Add them: ${total}. Divide by 5: ${mean}.`, "number"));
+    } else {
+      qs.push(typed(`Four students report hours of sleep: 7, 8, 9, 8. What is the mean?`, "8", "Add them: 32. Divide by 4: 8.", "number"));
+    }
   }
 
-  // Sphere volume with r a multiple of 3.
-  {
-    const r = pick([3, 6]);
-    const k = (4 * r ** 3) / 3;
-    const p = piAnswer(k);
-    qs.push(
-      typed(
-        `What is the volume of a sphere with radius ${r} cm? ${ROUND_NOTE}`,
-        p.answer,
-        `V = (4/3)πr³ ≈ (4/3) × 3.14 × ${r}³ = 3.14 × ${k} = ${fmt(p.exact)}. Rounded: ${p.answer} cm³.`,
-        "decimal",
-        { accept: p.accept, suffix: "cm³", visual: { type: "shape", shape: "sphere" } },
-      ),
-    );
-  }
+  qs.push(...conceptsQ(STATS_CONCEPTS, level, 6));
+  return qs.slice(0, 10);
+}
 
-  // Sphere surface area.
-  {
-    const r = randInt(2, 9);
-    const p = piAnswer(4 * r * r);
-    qs.push(
-      typed(
-        `What is the surface area of a sphere with radius ${r} cm? ${ROUND_NOTE}`,
-        p.answer,
-        `SA = 4πr² ≈ 4 × 3.14 × ${r * r} = 3.14 × ${4 * r * r} = ${fmt(p.exact)}. Rounded: ${p.answer} cm².`,
-        "decimal",
-        { accept: p.accept, suffix: "cm²", visual: { type: "shape", shape: "sphere" } },
-      ),
-    );
-  }
+// ---------- 8. Budgets & Transactions ----------
 
-  // Cone surface area using a Pythagorean triple.
-  {
-    const [r, h, l] = pick([[3, 4, 5], [6, 8, 10], [5, 12, 13], [9, 12, 15]]);
-    const p = piAnswer(r * r + r * l);
-    qs.push(
-      typed(
-        `A cone has a radius of ${r} cm and a height of ${h} cm. Its slant height is ${l} cm. What is its total surface area? ${ROUND_NOTE}`,
-        p.answer,
-        `SA = πr² + πrs = π(${r * r} + ${r * l}) ≈ 3.14 × ${r * r + r * l} = ${fmt(p.exact)}. Rounded: ${p.answer} cm².`,
-        "decimal",
-        { accept: p.accept, suffix: "cm²", visual: { type: "shape", shape: "cone" } },
-      ),
-    );
-  }
+function budgetsAndTransactions(opts?: GenerateOptions): Question[] {
+  const level = levelOf(opts);
+  const qs: Question[] = [];
+  const d = (cents: number): string => (cents / 100).toFixed(2);
+  const who = pick(NAMES);
 
-  // Square pyramid surface area.
+  // Monthly budget left over.
   {
-    const b = 2 * randInt(2, 8);
-    const s = randInt(b / 2 + 1, 15);
+    const income = pick([320, 400, 480, 560]);
+    const rent = pick([100, 120, 150]);
+    const food = pick([60, 80, 90]);
+    const fun = pick([25, 30, 40]);
     qs.push(
       typed(
-        `A square pyramid has a base edge of ${b} cm and a slant height of ${s} cm. What is its total surface area?`,
-        String(b * b + 2 * b * s),
-        `Base: ${b} × ${b} = ${b * b}. Four triangles: 4 × (½ × ${b} × ${s}) = ${2 * b * s}. Total = ${b * b + 2 * b * s} cm².`,
+        `${who} earns $${income} a month at a part-time job. Expenses: $${rent} for phone and transit, $${food} for food and $${fun} for fun. How much is left to save, in dollars?`,
+        String(income - rent - food - fun),
+        `Total spending = ${rent} + ${food} + ${fun} = ${rent + food + fun}. Left over = ${income} − ${rent + food + fun} = ${income - rent - food - fun}.`,
         "number",
-        { suffix: "cm²", visual: { type: "shape", shape: "pyramid" } },
       ),
     );
   }
 
-  // Missing height.
+  // Percent of income.
   {
-    const b = randInt(3, 9);
-    const h = 3 * randInt(1, 5);
+    const income = pick([400, 500, 600, 800]);
+    const pct = pick([10, 20, 25, 30]);
     qs.push(
       typed(
-        `A square pyramid has a base edge of ${b} cm and a volume of ${(b * b * h) / 3} cm³. How tall is it?`,
-        String(h),
-        `V = ⅓ × ${b * b} × h = ${(b * b * h) / 3}. Multiply by 3: ${b * b} × h = ${b * b * h}. So h = ${b * b * h} ÷ ${b * b} = ${h} cm.`,
+        `${who} saves ${pct}% of $${income} each month. How many dollars is that?`,
+        String((income * pct) / 100),
+        `${pct}% of ${income} = ${pct}/100 × ${income} = ${(income * pct) / 100}.`,
         "number",
-        { suffix: "cm", visual: { type: "shape", shape: "pyramid" } },
       ),
     );
   }
 
-  qs.push(...conceptsQ(SOLID_CONCEPTS, level, 1));
+  // Savings goal.
+  {
+    const perWeek = pick([15, 20, 25, 30]);
+    const weeks = randInt(4, 12);
+    qs.push(
+      typed(
+        `${who} wants to buy a $${perWeek * weeks} bike. ${who} saves $${perWeek} a week. How many weeks will it take?`,
+        String(weeks),
+        `Weeks = goal ÷ savings per week = ${perWeek * weeks} ÷ ${perWeek} = ${weeks}.`,
+        "number",
+      ),
+    );
+  }
+
+  // Transaction with tax.
+  {
+    const price = pick([20, 40, 60, 80, 100]);
+    const total = price * 1.12;
+    qs.push(
+      typed(
+        `A hoodie costs $${price}. Tax is 12% (GST 5% plus PST 7%). What is the total price, in dollars?`,
+        fmt(Math.round(total * 100) / 100),
+        `Tax = 12% of ${price} = ${fmt((price * 12) / 100)}. Total = ${price} + ${fmt((price * 12) / 100)} = ${fmt(Math.round(total * 100) / 100)}.`,
+        "decimal",
+      ),
+    );
+  }
+
+  // Change.
+  {
+    const unit = randInt(3, 12) * 25 + 50;
+    const n = randInt(2, 4);
+    const total = unit * n;
+    const bill = total <= 2000 ? 2000 : 5000;
+    qs.push(
+      typed(
+        `${who} buys ${n} snacks at $${d(unit)} each and pays with a $${bill / 100} bill. How much change should ${who} get, in dollars?`,
+        d(bill - total),
+        `Total = ${n} × $${d(unit)} = $${d(total)}. Change = $${d(bill)} − $${d(total)} = $${d(bill - total)}.`,
+        "decimal",
+        { accept: [fmt((bill - total) / 100)] },
+      ),
+    );
+  }
+
+  // Better phone plan.
+  {
+    const fee1 = pick([20, 25, 30]);
+    const per1 = pick([2, 3, 4]);
+    const fee2 = fee1 + pick([10, 15]);
+    const per2 = per1 - 1;
+    const gb = randInt(3, 10);
+    const c1 = fee1 + per1 * gb;
+    const c2 = fee2 + per2 * gb;
+    if (c1 !== c2) {
+      qs.push(
+        textQ(
+          `Plan A: $${fee1} plus $${per1} per GB. Plan B: $${fee2} plus $${per2} per GB. For ${gb} GB of data, which plan costs less?`,
+          c1 < c2 ? "Plan A" : "Plan B",
+          [c1 < c2 ? "Plan B" : "Plan A", "They cost the same"],
+          `Plan A costs ${fee1} + ${per1} × ${gb} = ${c1}. Plan B costs ${fee2} + ${per2} × ${gb} = ${c2}. The lower total is cheaper.`,
+        ),
+      );
+    }
+  }
+
+  // Needs vs wants.
+  qs.push(
+    textQ(
+      "In a budget, which is the best example of a “need”?",
+      "rent or food",
+      ["concert tickets", "a new game console", "designer shoes"],
+      "Needs are things you must have, like housing and food. Wants are nice to have.",
+    ),
+  );
+  qs.push(
+    textQ(
+      "Why is it useful to compare your actual spending with your budget each month?",
+      "To see where your plan and your spending differ, and adjust",
+      ["To spend more", "To avoid saving", "To ignore receipts"],
+      "Tracking spending shows whether your plan is working.",
+    ),
+  );
+  void level;
   return qs;
 }
 
@@ -1043,10 +1146,11 @@ export const course: Course = {
   subject: "math",
   bigIdeas: {
     "ca-bc": [
-      "The principles and processes underlying operations with numbers apply equally to algebra.",
-      "Computational fluency and flexibility with numbers extend to operations with rational numbers and exponents.",
-      "Algebraic reasoning, linear relations and polynomials describe patterns and change.",
-      "Proportional reasoning applies to similar figures, scale and the measurement of three-dimensional objects.",
+      "The principles and processes underlying operations with numbers apply equally to algebraic situations and can be described and analyzed.",
+      "Computational fluency and flexibility with numbers extend to operations with rational numbers.",
+      "Continuous linear relationships can be identified and represented in many connected ways to identify regularities and make generalizations.",
+      "Similar shapes have proportional relationships that can be described, measured, and compared.",
+      "Analyzing the validity, reliability, and representation of data enables us to compare and interpret.",
     ],
   },
   units: [
@@ -1065,9 +1169,9 @@ export const course: Course = {
       title: "Exponents & Powers",
       emoji: "🚀",
       blurb: "Exponent laws and scientific notation",
-      standards: { "ca-bc": "Exponents: integer exponents, exponent laws and scientific notation" },
+      standards: { "ca-bc": "Exponents and exponent laws with whole-number exponents" },
       parentNote:
-        "Evaluating powers, using the product, quotient and power laws, understanding zero and negative exponents, and writing very large or small numbers in scientific notation.",
+        "Evaluating powers, using the product, quotient and power laws, working with powers of products and fractions, and order of operations with exponents.",
       generate: exponentLaws,
     },
     {
@@ -1075,7 +1179,7 @@ export const course: Course = {
       title: "Polynomials",
       emoji: "🧩",
       blurb: "Add, subtract, expand and evaluate",
-      standards: { "ca-bc": "Polynomials: add and subtract; multiply and divide by a constant; evaluate" },
+      standards: { "ca-bc": "Operations with polynomials of degree 2 or less: add, subtract, multiply and divide by a constant" },
       parentNote:
         "Naming polynomials by terms and degree, combining like terms, subtracting polynomials, multiplying and dividing by a constant, and substituting values for x.",
       generate: polynomials,
@@ -1085,7 +1189,7 @@ export const course: Course = {
       title: "Multi-Step Equations",
       emoji: "⚖️",
       blurb: "Brackets, fractions and both sides",
-      standards: { "ca-bc": "Multi-step one-variable linear equations, including brackets, fractions and variables on both sides" },
+      standards: { "ca-bc": "One-variable linear equations (multi-step), including brackets, fractions and variables on both sides" },
       parentNote:
         "Solving linear equations with brackets, fractions and variables on both sides, checking solutions, and turning word problems into equations.",
       generate: multiStepEquations,
@@ -1095,7 +1199,7 @@ export const course: Course = {
       title: "Linear Relations",
       emoji: "📈",
       blurb: "Slope, intercepts and graphs",
-      standards: { "ca-bc": "Linear relations: slope, intercepts, equations of lines, discrete and continuous relations" },
+      standards: { "ca-bc": "Two-variable linear relations: graphing, slope, intercepts, interpolation and extrapolation" },
       parentNote:
         "Finding slope from points and graphs, reading y = mx + b, finding intercepts, deciding whether a point is on a line, spotting parallel lines, and using rates of change in stories.",
       generate: linearRelations,
@@ -1105,20 +1209,30 @@ export const course: Course = {
       title: "Similarity & Scale",
       emoji: "🔭",
       blurb: "Scale factors and similar figures",
-      standards: { "ca-bc": "Spatial proportional reasoning: similar figures, scale factors and scale drawings" },
+      standards: { "ca-bc": "Spatial proportional reasoning: similar shapes, scale factors and scale drawings" },
       parentNote:
         "Using scale factors to find missing sides, solving shadow and scale-drawing problems, and seeing how enlarging a shape changes its area and volume.",
       generate: similarityAndScale,
     },
     {
-      id: "solids",
-      title: "Pyramids, Cones & Spheres",
-      emoji: "🔺",
-      blurb: "Surface area and volume",
-      standards: { "ca-bc": "Surface area and volume of pyramids, cones and spheres" },
+      id: "statistics-in-society",
+      title: "Statistics in Society",
+      emoji: "📊",
+      blurb: "Samples, bias and misleading graphs",
+      standards: { "ca-bc": "Statistics in society: sampling, bias, validity and reliability of data, and how data is represented" },
       parentNote:
-        "Finding the volume and surface area of pyramids, cones and spheres, and linking each volume to the cylinder or prism with the same base and height.",
-      generate: solids,
+        "Telling a population from a sample, spotting bias in who is asked and how, predicting from a sample, noticing misleading graphs, and why correlation is not causation.",
+      generate: statisticsInSociety,
+    },
+    {
+      id: "budgets-and-transactions",
+      title: "Budgets & Transactions",
+      emoji: "💰",
+      blurb: "Plan, spend, save and compare",
+      standards: { "ca-bc": "Financial literacy: simple budgets and transactions" },
+      parentNote:
+        "Making and checking a simple monthly budget, working out savings goals and percent of income, adding BC's 12% tax, making change, and comparing two plans.",
+      generate: budgetsAndTransactions,
     },
   ],
 };
