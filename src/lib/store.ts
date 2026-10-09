@@ -20,6 +20,7 @@ import { TRIAL_DAYS } from "./plan";
 import { dailyQuests } from "./quests";
 import { getItem, STARTER } from "./shop";
 import { setCalmCheck } from "./juice";
+import { setHapticsCheck } from "./haptics";
 import { setQuietCheck, setSoundCheck } from "./sound";
 import { getTrophy, newlyEarned, TIER_STYLE } from "./trophies";
 
@@ -394,6 +395,7 @@ function activeSettings(): ChildSettings | undefined {
 setSoundCheck(() => activeSettings()?.sound ?? true);
 setQuietCheck(() => Boolean(activeSettings()?.quietSounds));
 setCalmCheck(() => Boolean(activeSettings()?.calmMotion));
+setHapticsCheck(() => activeSettings()?.haptics !== false && !activeSettings()?.calmMotion);
 
 // A "calm" class on the page stops CSS animations too (see globals.css).
 if (typeof document !== "undefined") {
