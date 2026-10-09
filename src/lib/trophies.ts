@@ -1,3 +1,4 @@
+import { isCoreSubject } from "@/content/subjects";
 import { allUnitRefs } from "@/content";
 import type { GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
@@ -21,7 +22,7 @@ export const TIER_STYLE: Record<Tier, { label: string; colour: string; dark: str
   platinum: { label: "Platinum", colour: "#8fd3f0", dark: "#3d93b8", glow: "#e0f6ff", text: "#1f6a8a" },
 };
 
-export type TrophyCategory = "Getting started" | "Practice" | "Streaks" | "Mastery" | "Modes" | "Arcade" | "Collector" | "Journey" | "Secret";
+export type TrophyCategory = "Getting started" | "Practice" | "Streaks" | "Mastery" | "Modes" | "Arcade" | "Collector" | "Journey" | "French" | "Secret";
 
 export interface TrophyContext {
   grade: GradeId;
@@ -47,30 +48,30 @@ const count = (target: number, value: (d: Derived, ctx: TrophyContext) => number
   (d: Derived, ctx: TrophyContext) => ({ value: Math.min(target, value(d, ctx)), target });
 
 function unitsAtLevel(d: Derived, grade: GradeId, min: number, subject?: SubjectId): number {
-  return allUnitRefs(grade).filter((r) => (!subject || r.course.subject === subject) && unitLevel(d.units[r.key]) >= min)
+  return allUnitRefs(grade).filter((r) => (subject ? r.course.subject === subject : isCoreSubject(r.course.subject)) && unitLevel(d.units[r.key]) >= min)
     .length;
 }
 
 function unitsInGrade(grade: GradeId, subject?: SubjectId): number {
-  return allUnitRefs(grade).filter((r) => !subject || r.course.subject === subject).length;
+  return allUnitRefs(grade).filter((r) => (subject ? r.course.subject === subject : isCoreSubject(r.course.subject))).length;
 }
 
 const ALL_MODES: Mode[] = ["practice", "adventure", "review", "speed", "daily", "challenge"];
 export const ARCADE_GAMES = ["munchers", "ninja", "catch", "bubbles", "memory"];
 
-const GRADES: GradeId[] = ["k", "1", "2", "3", "4", "5", "6", "7"];
+const GRADES: GradeId[] = ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const gradeName = (g: GradeId) => (g === "k" ? "Kindergarten" : `Grade ${g}`);
 
 /** Units at a level across every grade, read from the unit stats alone so it never depends on loaded content. */
 const unitsEverAt = (d: Derived, min: number) => Object.values(d.units).filter((u) => unitLevel(u) >= min).length;
 
-const subjectMastery = (grade: GradeId, subject: SubjectId, name: string, icon: string, description: string): Trophy => ({
+const subjectMastery = (grade: GradeId, subject: SubjectId, name: string, icon: string, description: string, category: TrophyCategory = "Mastery"): Trophy => ({
   id: `master-${subject}-${grade}`,
   name: `${name} · ${gradeName(grade)}`,
   description: `${description} (${gradeName(grade)})`,
   tier: "gold",
   icon,
-  category: "Mastery",
+  category,
   grade,
   progress: (d) => ({ value: unitsAtLevel(d, grade, 2, subject), target: Math.max(1, unitsInGrade(grade, subject)) }),
 });
@@ -81,6 +82,8 @@ const gradeTrophies = (grade: GradeId): Trophy[] => [
   subjectMastery(grade, "language", "Word Wizard", "🪄", "Reach Proficient in every Language unit"),
   subjectMastery(grade, "science", "Super Scientist", "🧪", "Reach Proficient in every Science unit"),
   subjectMastery(grade, "social", "World Explorer", "🗺️", "Reach Proficient in every Social Studies unit"),
+  subjectMastery(grade, "immersion", "Maître du français", "🎓", "Reach Proficient in every French Immersion unit", "French"),
+  subjectMastery(grade, "core-french", "Core French Champion", "🍁", "Reach Proficient in every Core French unit", "French"),
   {
     id: `grade-champion-${grade}`,
     name: `${gradeName(grade)} Champion`,
@@ -112,7 +115,24 @@ const LEGACY_TIERS: Record<string, Tier> = {
   "master-social": "gold",
   "grade-champion": "platinum",
   polymath: "gold",
+  "master-immersion": "gold",
+  "master-core-french": "gold",
 };
+
+// French (opt-in subjects). Kept in their own list so they are easy to maintain separately.
+const frenchAnswers = (d: Derived) => (d.subjects.immersion?.answers ?? 0) + (d.subjects["core-french"]?.answers ?? 0);
+const frenchCorrect = (d: Derived) => (d.subjects.immersion?.correct ?? 0) + (d.subjects["core-french"]?.correct ?? 0);
+const frenchUnits = (d: Derived, grade: GradeId, min: number) =>
+  unitsAtLevel(d, grade, min, "immersion") + unitsAtLevel(d, grade, min, "core-french");
+
+const FRENCH_TROPHIES: Trophy[] = [
+  { id: "french-first", name: "Bonjour!", description: "Answer your first French question.", tier: "bronze", icon: "👋", category: "French", progress: count(1, frenchAnswers) },
+  { id: "french-100", name: "Petit à petit", description: "Answer 100 French questions.", tier: "silver", icon: "🥐", category: "French", progress: count(100, frenchAnswers) },
+  { id: "french-500", name: "Très bien!", description: "Get 500 French questions right.", tier: "gold", icon: "🥖", category: "French", progress: count(500, frenchCorrect) },
+  { id: "french-proficient-1", name: "French Sprout", description: "Reach Proficient in any French unit.", tier: "bronze", icon: "🌿", category: "French", progress: count(1, (d, ctx) => frenchUnits(d, ctx.grade, 2)) },
+  { id: "french-proficient-5", name: "Parlez-vous?", description: "Reach Proficient in 5 French units.", tier: "silver", icon: "💬", category: "French", progress: count(5, (d, ctx) => frenchUnits(d, ctx.grade, 2)) },
+  { id: "french-extending-1", name: "Étoile du français", description: "Reach Extending in any French unit.", tier: "silver", icon: "⭐", category: "French", progress: count(1, (d, ctx) => frenchUnits(d, ctx.grade, 3)) },
+];
 
 export const TROPHIES: Trophy[] = [
   // Getting started
@@ -176,6 +196,8 @@ export const TROPHIES: Trophy[] = [
   { id: "buy-1", name: "Shopper", description: "Buy something in the shop.", tier: "bronze", icon: "🛍️", category: "Collector", progress: count(1, (d) => d.owned.length) },
   { id: "collect-6", name: "Collector", description: "Own 6 shop items.", tier: "silver", icon: "🧸", category: "Collector", progress: count(6, (d) => d.owned.length) },
   { id: "coins-1000", name: "Treasure Hunter", description: "Earn 1,000 coins in total.", tier: "silver", icon: "💰", category: "Collector", progress: count(1000, (d) => d.coinsEarned) },
+
+  ...FRENCH_TROPHIES,
 
   // Secret
   { id: "early-bird", name: "Early Bird", description: "Finish a session before 8 a.m.", tier: "bronze", icon: "🐦", category: "Secret", hidden: true, progress: count(1, (d) => d.earlySessions) },

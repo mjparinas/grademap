@@ -6,13 +6,14 @@ import { getSubjectMeta } from "@/content/subjects";
 import type { GradeId, SubjectId } from "@/content/types";
 import { buildStage, gradesWithSubject, nextGrade, STAGE_SIZE, summarize, toEvent, MAX_STAGES, type Stage, type StageQuestion } from "@/lib/placement";
 import { go } from "@/lib/router";
-import { speak, stopSpeaking } from "@/lib/speech";
+import { speakQuestion } from "@/lib/readaloud";
+import { stopSpeaking } from "@/lib/speech";
 import { useActiveProfile, useChildSettings, useStore } from "@/lib/store";
 import { useBand } from "../band";
 import { Critter, SpeechBubble } from "../Critter";
 import { Dialog, Page, ProgressBar } from "../ui";
 import { QuestionVisual } from "../visuals";
-import { QuestionBody, readAloudText } from "./Session";
+import { QuestionBody } from "./Session";
 
 // The kids' side of the placement test. It looks like a calm lesson but gives no
 // right/wrong feedback and no retries; the result goes to the parent area.
@@ -45,7 +46,7 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
   const q = stageQs[index]?.question;
 
   useEffect(() => {
-    if (phase === "asking" && q && settings?.autoRead) speak(readAloudText(q));
+    if (phase === "asking" && q && settings?.autoRead) speakQuestion(q);
     return stopSpeaking;
   }, [phase, q, settings?.autoRead]);
 
@@ -144,7 +145,7 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
           ✕
         </button>
         <ProgressBar value={index} max={STAGE_SIZE} className="flex-1" label={`Part ${part} of up to ${MAX_STAGES}`} />
-        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speak(readAloudText(q))}>
+        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speakQuestion(q)}>
           🔊
         </button>
       </header>

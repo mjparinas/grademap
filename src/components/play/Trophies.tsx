@@ -9,7 +9,7 @@ import { LevelBadge } from "./Hud";
 import { BackButton } from "./Practice";
 
 const TIERS: Tier[] = ["platinum", "gold", "silver", "bronze"];
-const CATEGORIES: TrophyCategory[] = ["Getting started", "Practice", "Streaks", "Mastery", "Modes", "Arcade", "Collector", "Journey", "Secret"];
+const CATEGORIES: TrophyCategory[] = ["Getting started", "Practice", "Streaks", "Mastery", "Modes", "Arcade", "Collector", "Journey", "French", "Secret"];
 
 export function TrophyIcon({ trophy, earned, size = 64 }: { trophy: Trophy; earned: boolean; size?: number }) {
   const s = TIER_STYLE[trophy.tier];
