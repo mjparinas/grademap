@@ -35,8 +35,8 @@ const FAQS = [
     a: "Kindergarten to Grade 7, in math, English language arts, science and social studies. The text, buttons and read-aloud adapt to the child's age: big pictures and spoken prompts for Kindergarten and Grade 1, more independence for older kids.",
   },
   {
-    q: "Is it matched to the BC curriculum?",
-    a: "Yes. Every unit is tagged with the BC curriculum learning standard it practises, and parent reports use the BC proficiency scale (Emerging, Developing, Proficient, Extending). More provinces are on the way.",
+    q: "Is it matched to our provincial curriculum?",
+    a: "Yes. Choose British Columbia or Ontario. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4). Ontario covers math and language for now. More provinces and states are on the way.",
   },
   {
     q: "Does it work without internet?",
