@@ -12,7 +12,7 @@ export function WithBlanks({ text }: { text: string }) {
       {parts.map((part, i) => (
         <Fragment key={i}>
           {part}
-          {i < parts.length - 1 && <span className="blank-box mx-1" aria-label="blank" />}
+          {i < parts.length - 1 && <span className="blank-box mx-1" role="img" aria-label="blank" />}
         </Fragment>
       ))}
     </>
