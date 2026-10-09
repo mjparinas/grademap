@@ -1,18 +1,24 @@
 # Deploying GradeMap
 
-GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This guide covers a Vercel + Turso + Stripe setup. Nothing here is done yet; each step needs an account or key only the owner can create.
+GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This guide covers a Vercel + Turso + Resend + Sentry + Stripe setup. Nothing here is done yet; each step needs an account or key only the owner can create.
+
+**Can it all live in Vercel?** Nearly. Vercel hosts the app, preview deployments, environment variables and the daily cron job. Its **Marketplace** adds **Turso** (database), **Resend** (email) and **Sentry** (errors) from the dashboard, fills in their environment variables and puts them on one bill. Two things stay outside: **Stripe** (keys and webhook) and your **domain registrar** (you can buy the domain in Vercel or point DNS to it). Use a **Pro** plan: Hobby doesn't allow commercial use.
 
 ## 1. Environment variables
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Public origin, no trailing slash (e.g. `https://grademap.ca`). Used for canonical URLs, the sitemap, Open Graph and JSON-LD. Read at **build time**, so set it before the first production build. Defaults to the placeholder `https://grademap.ca`. |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Public origin, no trailing slash (e.g. `https://grademap.ca`). Used for canonical URLs, the sitemap, Open Graph and JSON-LD, and for the links inside emails (so a forged `Host` header can't redirect a reset link). Read at **build time**, so set it before the first production build. Defaults to the placeholder `https://grademap.ca`. |
 | `DATABASE_URL` | Yes | Turso URL (`libsql://<db>-<org>.turso.io`). Without it the app falls back to a local SQLite file, which does not persist on serverless hosts. |
 | `DATABASE_AUTH_TOKEN` | Yes | Turso token for that database. |
 | `STRIPE_SECRET_KEY` | For billing | Live secret key (`sk_live_…`). |
 | `STRIPE_PRICE_MONTHLY` | For billing | Recurring Price id for C$14.99/month. |
 | `STRIPE_PRICE_YEARLY` | For billing | Recurring Price id for C$119.99/year. |
 | `STRIPE_WEBHOOK_SECRET` | For billing | Signing secret of the webhook endpoint (`whsec_…`). |
+| `RESEND_API_KEY` | For email | Resend API key. Without it no email is sent (password reset and confirmation links won't arrive), so treat it as required in production. |
+| `EMAIL_FROM` | For email | Sender, e.g. `GradeMap <hello@grademap.ca>`. The domain must be verified in Resend (add its SPF and DKIM DNS records). |
+| `CRON_SECRET` | For the daily job | Any long random string. Vercel sends it as `Authorization: Bearer …` to `/api/cron/weekly/`; the route refuses calls without it. |
+| `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` | Optional | Turns on error reports (server / browser). Off when unset. Reports are scrubbed of emails, cookies and request bodies before they leave (`src/lib/sentry-scrub.ts`). |
 | `ALLOW_DEV_BILLING` | Staging only | `1` lets a deployment without Stripe keys use the simulated billing. **Never set in production.** |
 
 Billing is live only when `STRIPE_SECRET_KEY`, `STRIPE_PRICE_MONTHLY` and `STRIPE_PRICE_YEARLY` are all set (`src/server/stripe.ts`). In production without them, the simulated billing is off unless `ALLOW_DEV_BILLING=1`.
@@ -20,19 +26,20 @@ Billing is live only when `STRIPE_SECRET_KEY`, `STRIPE_PRICE_MONTHLY` and `STRIP
 ## 2. Database (Turso)
 
 ```bash
-turso db create grademap --location yyz   # pick a region near your users (Toronto, or sea for Seattle)
+turso db create grademap --location aws-us-west-2   # Oregon: closest Turso region to BC. `vercel.json` runs functions in pdx1 (Portland) to match
 turso db show grademap --url              # -> DATABASE_URL
 turso db tokens create grademap           # -> DATABASE_AUTH_TOKEN
 ```
 
-Tables are created on first use (`CREATE TABLE IF NOT EXISTS` in `src/server/db.ts`), so there is no migration step. Create a separate database for staging.
+Or add Turso from the Vercel Marketplace and skip the CLI. Tables are created on first use (`CREATE TABLE IF NOT EXISTS` in `src/server/db.ts`), so there is no migration step. Create a separate database for staging.
 
 ## 3. Hosting (Vercel)
 
 1. Import `mjparinas/grademap`; the Next.js preset needs no changes (`npm run build`, `npm start`).
 2. Add the variables above to the Production environment. Use a separate set (test Stripe keys, a staging Turso database, `ALLOW_DEV_BILLING=1` if you want fake billing) for Preview.
 3. Add the domain, and set `NEXT_PUBLIC_SITE_URL` to match it. Redeploy so the build picks it up.
-4. Region: put functions near the Turso region.
+4. Region: `vercel.json` pins functions to `pdx1` (Portland), next to Turso's Oregon region. Change both together if your users are elsewhere.
+5. The daily email job is declared in `vercel.json` (`/api/cron/weekly/`, 15:00 UTC). Cron only runs on production deployments, and only once `CRON_SECRET` is set.
 
 `trailingSlash: true` is on, so every API URL ends in `/`. Don't add redirect or rewrite rules at the host that strip the slash.
 
@@ -46,10 +53,22 @@ Tables are created on first use (`CREATE TABLE IF NOT EXISTS` in `src/server/db.
 4. In Stripe's Billing Portal settings, enable cancel, update payment method and plan switching between the two prices.
 5. Test the whole flow in Stripe test mode first (card `4242 4242 4242 4242`). The 30-day free trial is handled by the app, not by Stripe, so no card is needed to start.
 
-## 5. Launch checklist
+## 5. Email (Resend) and error reports (Sentry)
+
+1. **Resend:** add and verify your sending domain (SPF, DKIM and a DMARC record at your DNS host), create an API key, and set `RESEND_API_KEY` and `EMAIL_FROM`. Sign up, ask for a password reset, and check the message lands in the inbox, not spam.
+2. **Sentry:** create a project (platform: Next.js), copy the DSN into both `SENTRY_DSN` and `NEXT_PUBLIC_SENTRY_DSN`. Source maps aren't uploaded, so stack traces show built file names; add `@sentry/nextjs`'s `withSentryConfig` and an auth token later if you want readable ones. A test error: temporarily throw in an API route on a preview deployment and check it appears with no email or request body.
+3. **Email sending limits:** the app sends one confirmation at sign-up, resets and confirmations on request (rate limited), one trial notice, and the weekly report to parents who turned it on. Weekly mail goes out on Sundays (UTC) from the daily job.
+
+## 6. Launch checklist
 
 - [ ] `NEXT_PUBLIC_SITE_URL` is the real domain; `/sitemap.xml` and `/robots.txt` show it.
-- [ ] Sign up, add a child, play, and check the events sync to a second browser.
+- [ ] Sign up, confirm the email link works, add a child, play, and check the events sync to a second browser.
+- [ ] Forgot password: the email arrives, the link works once, and other devices are signed out.
+- [ ] Run the daily job by hand: `curl -H "Authorization: Bearer $CRON_SECRET" https://<domain>/api/cron/weekly/` returns counts, not 401.
+- [ ] Share a report link, open it in a private window, then stop sharing and check it no longer works.
+- [ ] A test "Report a problem" reaches the contact address.
+- [ ] CI is green on the pull request (`.github/workflows/ci.yml` runs tests, lint, types, build, device layouts, accessibility and offline checks).
+- [ ] Turso backups: confirm point-in-time recovery is available on your plan and practise one restore.
 - [ ] Stripe test-mode checkout, portal and webhook round trip updates the Subscription screen.
 - [ ] Switch Stripe to live keys; run one real checkout and refund it.
 - [ ] `/play/`, `/parents/` and `/api/` stay `noindex`; public pages are indexed.

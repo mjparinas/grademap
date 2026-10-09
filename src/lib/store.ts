@@ -393,7 +393,13 @@ setCalmCheck(() => Boolean(activeSettings()?.calmMotion));
 
 // A "calm" class on the page stops CSS animations too (see globals.css).
 if (typeof document !== "undefined") {
-  const apply = () => document.documentElement.classList.toggle("calm", Boolean(activeSettings()?.calmMotion));
+  const apply = () => {
+    const s = activeSettings();
+    const root = document.documentElement.classList;
+    root.toggle("calm", Boolean(s?.calmMotion));
+    root.toggle("roomy", Boolean(s?.roomyText));
+    root.toggle("contrast", Boolean(s?.highContrast));
+  };
   useStore.subscribe(apply);
   apply();
 }

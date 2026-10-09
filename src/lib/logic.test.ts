@@ -148,7 +148,7 @@ describe("quests", () => {
 describe("calm and focus options", () => {
   it("are all off by default", () => {
     const s = defaultChildSettings("p", false);
-    for (const key of ["calmMotion", "quietSounds", "hideTimers", "quietToasts", "shortSessions"] as const) expect(Boolean(s[key])).toBe(false);
+    for (const key of ["calmMotion", "quietSounds", "hideTimers", "quietToasts", "shortSessions", "roomyText", "highContrast"] as const) expect(Boolean(s[key])).toBe(false);
   });
 
   it("shorter sessions use five questions in Review and a five-question checkpoint in Adventure", () => {
@@ -157,5 +157,16 @@ describe("calm and focus options", () => {
     expect(makePlan({ ...base, mode: "review", short: true })?.total).toBe(5);
     expect(makePlan({ ...base, mode: "adventure" })?.checkpoint).toBe(10);
     expect(makePlan({ ...base, mode: "adventure", short: true })?.checkpoint).toBe(5);
+  });
+});
+
+describe("text contrast helper", () => {
+  it("uses dark text on the bright subject colours and white on the dark ones", async () => {
+    const { contrast, onColour } = await import("./contrast");
+    for (const bg of ["#4f8ef7", "#e9559a", "#25b47e", "#ff9636", "#ffb020", "#06b6d4", "#22b573", "#ff9f43"]) {
+      expect(contrast(onColour(bg), bg), bg).toBeGreaterThanOrEqual(4.5);
+    }
+    expect(onColour("#2f6fd6")).toBe("#ffffff");
+    expect(onColour("#253047")).toBe("#ffffff");
   });
 });

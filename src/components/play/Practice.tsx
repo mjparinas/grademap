@@ -1,5 +1,6 @@
 "use client";
 
+import { onColour } from "@/lib/contrast";
 import { useState, type CSSProperties } from "react";
 import { coursesForGrade, unitKey } from "@/content";
 import { getSubjectMeta } from "@/content/subjects";
@@ -57,7 +58,7 @@ export function SubjectPicker() {
               <a
                 href={href(`/practice/${c.subject}`)}
                 className="btn w-full flex-col items-stretch gap-3 p-5 text-left"
-                style={{ ...subjectVars(meta), "--btn-bg": meta.colour, "--btn-edge": meta.colourDark, "--btn-fg": "#fff" } as CSSProperties}
+                style={{ ...subjectVars(meta), "--btn-bg": meta.colour, "--btn-edge": meta.colourDark, "--btn-fg": onColour(meta.colour) } as CSSProperties}
               >
                 <span className="flex items-center gap-4">
                   <span className="flex h-20 w-20 shrink-0 animate-float items-center justify-center rounded-3xl bg-white p-1.5 shadow-[0_4px_0_rgba(0,0,0,0.12)]" style={{ animationDelay: `${i * -0.8}s` }}>
@@ -65,12 +66,12 @@ export function SubjectPicker() {
                   </span>
                   <span>
                     <span className="block text-3xl font-bold">{meta.title[band]}</span>
-                    <span className="block text-lg opacity-90">{meta.tagline[band]}</span>
+                    <span className="block text-lg">{meta.tagline[band]}</span>
                   </span>
                 </span>
                 <span className="flex items-center gap-3">
                   <span className="flex-1 rounded-full bg-white/30 p-1" style={{ "--c": "#ffffff" } as CSSProperties}>
-                    <ProgressBar value={proficient} max={c.units.length} height={14} track="transparent" />
+                    <ProgressBar value={proficient} max={c.units.length} height={14} track="transparent" label={`${meta.title[band]} units mastered`} />
                   </span>
                   <span className="text-base font-semibold">
                     🌳 {proficient}/{c.units.length}
@@ -140,7 +141,7 @@ export function UnitList({ subject }: { subject: SubjectId }) {
                 style={isNext ? { borderColor: meta.colour, boxShadow: `0 6px 0 ${meta.colourDark}` } : undefined}
               >
                 {isNext && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-0.5 text-sm font-bold whitespace-nowrap text-white" style={{ background: meta.colour }}>
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-0.5 text-sm font-bold whitespace-nowrap" style={{ background: meta.colour, color: onColour(meta.colour) }}>
                     Up next!
                   </span>
                 )}
@@ -204,7 +205,7 @@ export function SpeedPicker() {
   const d = useDerived();
   const band = useBand();
   const courses = coursesForGrade(profile.grade).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
-  const options = [{ scope: "mix", title: "Mix it up", icon: "🎲", colour: "#8b5cf6", dark: "#6d3fd6" }].concat(
+  const options = [{ scope: "mix", title: "Mix it up", icon: "🎲", colour: "#7c4fe0", dark: "#5d34c4" }].concat(
     courses.map((c) => {
       const m = getSubjectMeta(c.subject);
       return { scope: c.subject, title: m.title[band], icon: m.emoji, colour: m.colour, dark: m.colourDark };
@@ -224,11 +225,11 @@ export function SpeedPicker() {
               type="button"
               onClick={() => go("/session", { mode: "speed", scope: o.scope })}
               className="btn min-h-36 w-full flex-col gap-1 p-4"
-              style={{ "--btn-bg": o.colour, "--btn-edge": o.dark, "--btn-fg": "#fff" } as CSSProperties}
+              style={{ "--btn-bg": o.colour, "--btn-edge": o.dark, "--btn-fg": onColour(o.colour) } as CSSProperties}
             >
               <span className="text-5xl">{o.icon}</span>
               <span className="text-2xl font-bold">{o.title}</span>
-              <span className="text-sm font-semibold opacity-90">Best: {d.speedBest[o.scope] ?? 0}</span>
+              <span className="text-sm font-semibold">Best: {d.speedBest[o.scope] ?? 0}</span>
             </button>
           </div>
         ))}

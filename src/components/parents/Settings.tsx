@@ -81,6 +81,13 @@ export function SettingsPage({ childId }: { childId?: string }) {
           </div>
         </Panel>
 
+        <Panel title="👓 Easier reading">
+          <div className="flex flex-col gap-4">
+            <Switch label="Roomy text" value={Boolean(s.roomyText)} onChange={(v) => set({ roomyText: v })} help="More space between letters, words and lines. Some children find this easier to read." />
+            <Switch label="High contrast" value={Boolean(s.highContrast)} onChange={(v) => set({ highContrast: v })} help="Darker text and firmer outlines, and a heavier ring around the button being tabbed to." />
+          </div>
+        </Panel>
+
         <Panel title="🎮 Learn-to-play timer">
           <div className="flex flex-col gap-4">
             <Switch label="Arcade games" value={s.gamesEnabled} onChange={(v) => set({ gamesEnabled: v })} help="Educational games for math, reading, science and memory." />

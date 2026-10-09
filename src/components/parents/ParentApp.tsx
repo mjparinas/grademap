@@ -60,7 +60,7 @@ function Shell({ children, active }: { children: ReactNode; active: string }) {
       <header className="sticky top-0 z-30 border-b border-line bg-white/90 backdrop-blur" style={{ paddingTop: "env(safe-area-inset-top)" }}>
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-3">
           <div className="flex items-center gap-3">
-            <Link href="/play/" className="rounded-xl bg-[#4f8ef7] px-3 py-2 text-sm font-bold text-white">
+            <Link href="/play/" className="rounded-xl bg-[#4f8ef7] px-3 py-2 text-sm font-bold text-[#0f172a]">
               ← Kids&apos; area
             </Link>
             <span className="text-lg font-bold">

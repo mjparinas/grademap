@@ -96,6 +96,10 @@ export const HELP: HelpSection[] = [
         a: "Yes. In Parent area → Settings there’s a “Calm and focus” section, set separately for each child. You can turn off confetti and other motion, keep only gentle sounds, hide timers (timed modes show a quiet bar instead), hold trophy pop-ups until after a lesson, and use five-question sessions.",
       },
       {
+        q: "Can I make the text easier to read?",
+        a: "Yes. Under “Easier reading” in the same settings page, “Roomy text” adds space between letters, words and lines, and “High contrast” uses darker text and firmer outlines.",
+      },
+      {
         q: "Does turning these on change my child’s results?",
         a: "No. These options change how things look and sound, not how answers are scored or how levels are worked out.",
       },

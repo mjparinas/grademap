@@ -78,7 +78,7 @@ function AuthForm({ onDone }: { onDone: () => void }) {
           .
         </p>
       )}
-      <button type="submit" disabled={busy} className="rounded-xl bg-[#25b47e] px-4 py-3 text-lg font-bold text-white disabled:opacity-60">
+      <button type="submit" disabled={busy} className="rounded-xl bg-[#25b47e] px-4 py-3 text-lg font-bold text-[#0f172a] disabled:opacity-60">
         {busy ? "One moment…" : mode === "signup" ? "Create account & sync" : mode === "forgot" ? "Email me a reset link" : "Sign in & sync"}
       </button>
       {mode === "signin" && (
@@ -196,7 +196,7 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
             <WeeklyReportToggle verified={account.verified !== false} />
             {sync.error && <p className="mt-2 text-sm text-nudge-dark">{sync.error}</p>}
             <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2 font-bold text-white" onClick={() => void syncNow()}>
+              <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2 font-bold text-[#0f172a]" onClick={() => void syncNow()}>
                 Sync now
               </button>
               <button type="button" className="rounded-xl border border-line px-4 py-2 font-semibold" onClick={() => void signOut()}>

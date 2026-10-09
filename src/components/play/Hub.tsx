@@ -1,5 +1,6 @@
 "use client";
 
+import { onColour } from "@/lib/contrast";
 import Link from "next/link";
 import { useState, type CSSProperties } from "react";
 import { getUnitRef } from "@/content";
@@ -103,7 +104,7 @@ export function Hub() {
             feature: "review" as Feature,
           },
         ]),
-    { id: "arcade", title: little ? "Games" : "Arcade", desc: gameDesc, icon: "🕹️", colour: "#8b5cf6", dark: "#6d3fd6", href: "#/arcade", feature: "arcade" },
+    { id: "arcade", title: little ? "Games" : "Arcade", desc: gameDesc, icon: "🕹️", colour: "#7c4fe0", dark: "#5d34c4", href: "#/arcade", feature: "arcade" },
     { id: "trophies", title: "Trophies", desc: `${Object.keys(d.trophies).length} earned · ${d.trophyPoints} pts`, icon: "🏆", colour: "#f0bd2a", dark: "#b88905", href: "#/trophies" },
     { id: "shop", title: "Shop", desc: `🪙 ${d.coins} to spend`, icon: "🛍️", colour: "#06b6d4", dark: "#0891b2", href: "#/shop" },
   ];
@@ -124,7 +125,7 @@ export function Hub() {
         <SpeechBubble className="flex-1">
           <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>
           <div className="mt-2 flex items-center gap-2">
-            <ProgressBar value={minutes} max={goal} className="flex-1" />
+            <ProgressBar value={minutes} max={goal} className="flex-1" label="Minutes learned today" />
             <span className="text-sm font-semibold whitespace-nowrap text-ink-soft">
               ⏱ {minutes}/{goal} min
             </span>
@@ -143,7 +144,7 @@ export function Hub() {
           <span className="animate-float text-6xl narrow:text-4xl short:text-5xl">🗺️</span>
           <span>
             <span className="block text-3xl font-bold sm:text-4xl narrow:text-2xl">{little ? "Let's Play!" : "Adventure"}</span>
-            <span className="block text-base font-semibold opacity-90 sm:text-lg narrow:text-sm">
+            <span className="block text-base font-semibold sm:text-lg narrow:text-sm">
               {little ? "Fun questions from everything!" : "Endless questions picked just for you"}
             </span>
           </span>
@@ -160,7 +161,7 @@ export function Hub() {
                 type="button"
                 onClick={() => open(t)}
                 className="btn relative h-full min-h-32 w-full flex-col items-start justify-between gap-2 p-4 text-left"
-                style={{ "--btn-bg": t.colour, "--btn-edge": t.dark, "--btn-fg": "#fff" } as CSSProperties}
+                style={{ "--btn-bg": t.colour, "--btn-edge": t.dark, "--btn-fg": onColour(t.colour) } as CSSProperties}
               >
                 <span className="flex w-full items-start justify-between">
                   <span className="text-5xl drop-shadow-sm">{t.icon}</span>
@@ -169,7 +170,7 @@ export function Hub() {
                 </span>
                 <span>
                   <span className="block text-2xl leading-tight font-bold">{t.title}</span>
-                  <span className="block text-sm font-semibold opacity-90">{t.desc}</span>
+                  <span className="block text-sm font-semibold">{t.desc}</span>
                 </span>
               </button>
             </div>
@@ -191,9 +192,9 @@ export function Hub() {
                 <span className="text-3xl">{got ? "✅" : q.icon}</span>
                 <div className="flex-1">
                   <p className="font-read text-lg font-bold">{q.title}</p>
-                  <ProgressBar value={value} max={q.target} height={12} />
+                  <ProgressBar value={value} max={q.target} height={12} label={q.title} />
                 </div>
-                <span className="rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#a07400]">🪙 {q.reward}</span>
+                <span className="rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#7a5700]">🪙 {q.reward}</span>
               </li>
             );
           })}

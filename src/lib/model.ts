@@ -47,6 +47,10 @@ export interface ChildSettings {
   quietToasts?: boolean;
   /** Five questions at a time (Adventure checkpoints and Review). */
   shortSessions?: boolean;
+  /** Reading comfort: extra space between letters, words and lines. */
+  roomyText?: boolean;
+  /** Stronger text colours and outlines. */
+  highContrast?: boolean;
   autoRead: boolean;
   sound: boolean;
   enabledSubjects: SubjectId[];

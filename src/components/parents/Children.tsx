@@ -135,7 +135,7 @@ export function ChildrenPage() {
         sub={`Up to ${MAX_CHILDREN} children per family.`}
         action={
           profiles.length < MAX_CHILDREN && (
-            <button type="button" className="rounded-xl bg-[#25b47e] px-4 py-2 font-bold text-white" onClick={() => startEdit("new")}>
+            <button type="button" className="rounded-xl bg-[#25b47e] px-4 py-2 font-bold text-[#0f172a]" onClick={() => startEdit("new")}>
               + Add a child
             </button>
           )

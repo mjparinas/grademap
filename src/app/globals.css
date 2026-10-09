@@ -13,10 +13,10 @@
   --color-paper: #fffaf1;
   --color-line: #e6e1d6;
   --color-good: #22b573;
-  --color-good-dark: #168a56;
+  --color-good-dark: #0f6b41;
   --color-good-soft: #e3f9ee;
   --color-nudge: #ff9f43;
-  --color-nudge-dark: #e07f1f;
+  --color-nudge-dark: #b45309;
   --color-nudge-soft: #fff1e0;
   --color-help: #4f8ef7;
   --color-help-soft: #e6f0ff;
@@ -226,24 +226,25 @@
   .btn:disabled {
     cursor: default;
   }
+  /* Bright fills get very dark text: white on these colours fails the contrast rules. */
   .btn-primary {
     --btn-bg: var(--c, #4f8ef7);
-    --btn-fg: #ffffff;
+    --btn-fg: #0f172a;
     --btn-edge: var(--c-dark, #2f6fd6);
   }
   .btn-good {
     --btn-bg: var(--color-good);
-    --btn-fg: #ffffff;
+    --btn-fg: #0f172a;
     --btn-edge: var(--color-good-dark);
   }
   .btn-nudge {
     --btn-bg: var(--color-nudge);
-    --btn-fg: #ffffff;
+    --btn-fg: #0f172a;
     --btn-edge: var(--color-nudge-dark);
   }
   .btn-soft {
     --btn-bg: var(--c-soft, #eef2fb);
-    --btn-fg: var(--c-dark, #2f6fd6);
+    --btn-fg: color-mix(in srgb, var(--c-dark, #2f6fd6) 80%, #000);
     --btn-edge: color-mix(in srgb, var(--c, #4f8ef7) 35%, white);
   }
 
@@ -297,4 +298,37 @@ html.calm ::after {
   animation-delay: 0s !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+}
+
+/* Easier reading: more space between letters, words and lines, and no italics. */
+html.roomy body {
+  letter-spacing: 0.04em;
+  word-spacing: 0.12em;
+  line-height: 1.65;
+}
+html.roomy .font-read,
+html.roomy .font-display {
+  letter-spacing: 0.05em;
+  word-spacing: 0.16em;
+  line-height: 1.7;
+}
+html.roomy em,
+html.roomy i {
+  font-style: normal;
+}
+
+/* Higher contrast: darker secondary text, firmer outlines and a heavier focus ring. */
+html.contrast {
+  --color-ink: #0f172a;
+  --color-ink-soft: #2b3447;
+  --color-line: #7c869a;
+}
+html.contrast .card,
+html.contrast .btn {
+  border-color: var(--color-ink);
+}
+html.contrast :focus-visible {
+  outline: 4px solid #0f172a;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 7px #ffffff;
 }

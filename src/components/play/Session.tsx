@@ -349,10 +349,10 @@ function Runner({ plan }: { plan: Plan }) {
             ⚡ <span key={firstTry} className="inline-block animate-pop-in">{firstTry}</span>
           </div>
         ) : (
-          <ProgressBar value={progressValue} max={progressMax} className="flex-1" />
+          <ProgressBar value={progressValue} max={progressMax} className="flex-1" label="Questions answered" />
         )}
         {hideTimers && plan.timeLimit && remaining !== undefined && (
-          <ProgressBar value={Math.max(0, remaining)} max={plan.timeLimit} className="w-16 shrink-0 sm:w-28" />
+          <ProgressBar value={Math.max(0, remaining)} max={plan.timeLimit} className="w-16 shrink-0 sm:w-28" label="Time left" />
         )}
         {run >= 2 && !hideTimers && (
           <span className="flex h-14 min-w-14 items-center justify-center rounded-2xl bg-nudge-soft px-2 text-xl font-bold text-nudge-dark" aria-label={`${run} in a row`}>
@@ -362,7 +362,7 @@ function Runner({ plan }: { plan: Plan }) {
         {timerText && (
           <span
             className={`flex h-14 min-w-20 items-center justify-center rounded-2xl px-3 text-xl font-bold tabular-nums ${
-              urgent ? "animate-pulse-soft bg-nudge text-white" : "bg-white text-ink shadow-[0_4px_0_var(--color-line)]"
+              urgent ? "animate-pulse-soft bg-nudge text-[#0f172a]" : "bg-white text-ink shadow-[0_4px_0_var(--color-line)]"
             }`}
             aria-label={remaining !== undefined ? `${Math.ceil(remaining)} seconds left` : "time"}
           >
@@ -464,7 +464,7 @@ function FeedbackBar({
       <div className="relative mx-auto flex max-w-5xl flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-center sm:px-6">
         {report && <ReportQuestion unitKey={report.unitKey} prompt={report.prompt} />}
         <div className="flex flex-1 items-start gap-3">
-          <span className={`flex h-14 w-14 shrink-0 animate-pop-in items-center justify-center rounded-full text-3xl text-white ${theme.iconBg}`}>{theme.icon}</span>
+          <span className={`flex h-14 w-14 shrink-0 animate-pop-in items-center justify-center rounded-full text-3xl text-[#0f172a] ${theme.iconBg}`}>{theme.icon}</span>
           <div>
             <p className={`text-2xl font-bold sm:text-3xl ${theme.text}`}>{message}</p>
             <p className="font-read text-lg leading-snug text-ink sm:text-xl">{hint}</p>
@@ -565,7 +565,7 @@ function Summary({ plan, results, startDerived }: { plan: Plan; results: Result[
             ✅ {correct}/{total} first try
           </span>
           <span className="rounded-full bg-[#ede9fe] px-4 py-2 text-lg font-bold text-[#6d3fd6]">+{xp} XP</span>
-          <span className="rounded-full bg-[#fff4cc] px-4 py-2 text-lg font-bold text-[#a07400]">🪙 +{coins}</span>
+          <span className="rounded-full bg-[#fff4cc] px-4 py-2 text-lg font-bold text-[#7a5700]">🪙 +{coins}</span>
         </div>
 
         {unit && info && (

@@ -19,7 +19,7 @@ export function PricingCards() {
         <p className="mt-2 font-read text-ink-soft">Up to {MAX_CHILDREN} children. Every grade, mode and game. Cancel anytime.</p>
       </div>
       <div className="card relative border-[#25b47e] p-6">
-        <span className="absolute -top-3 right-4 rounded-full bg-[#25b47e] px-3 py-1 text-sm font-bold text-white">{PRICES.year.note}</span>
+        <span className="absolute -top-3 right-4 rounded-full bg-[#25b47e] px-3 py-1 text-sm font-bold text-[#0f172a]">{PRICES.year.note}</span>
         <h3 className="text-xl font-bold">Family · yearly</h3>
         <p className="mt-2 text-4xl font-bold">
           ${PRICES.year.amount} <span className="text-base font-semibold text-ink-soft">CAD / year</span>

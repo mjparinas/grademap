@@ -94,12 +94,12 @@ export function TrophyRoom() {
                 const got = d.trophies[t.id];
                 const p = t.progress(d, ctx);
                 return (
-                  <div key={t.id} className={`card flex items-center gap-3 p-3 ${got ? "" : "opacity-90"}`}>
+                  <div key={t.id} className="card flex items-center gap-3 p-3">
                     <TrophyIcon trophy={t} earned={!!got} />
                     <div className="min-w-0 flex-1">
                       <p className="flex items-center gap-2 text-lg font-bold">
                         {t.hidden && !got ? "Secret trophy" : t.name}
-                        <span className="rounded-full px-2 py-0.5 text-xs font-bold" style={{ background: `${TIER_STYLE[t.tier].colour}33`, color: TIER_STYLE[t.tier].dark }}>
+                        <span className="rounded-full px-2 py-0.5 text-xs font-bold" style={{ background: `${TIER_STYLE[t.tier].colour}33`, color: TIER_STYLE[t.tier].text }}>
                           {TIER_STYLE[t.tier].label}
                         </span>
                       </p>
@@ -109,7 +109,7 @@ export function TrophyRoom() {
                       ) : (
                         !t.hidden && (
                           <div className="mt-1 flex items-center gap-2">
-                            <ProgressBar value={p.value} max={p.target} height={10} className="flex-1" />
+                            <ProgressBar value={p.value} max={p.target} height={10} className="flex-1" label={`Progress towards ${t.name}`} />
                             <span className="text-xs font-semibold text-ink-soft">
                               {p.value}/{p.target}
                             </span>

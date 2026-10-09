@@ -1,3 +1,4 @@
+import { onColour } from "@/lib/contrast";
 import { PricingCards } from "@/components/site/Pricing";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -147,7 +148,7 @@ export default function Home() {
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {GAMES.map((g) => (
-            <div key={g.id} className="rounded-3xl p-5 text-white" style={{ background: g.colour }}>
+            <div key={g.id} className="rounded-3xl p-5" style={{ background: g.colour, color: onColour(g.colour) }}>
               <p className="text-4xl" aria-hidden="true">
                 {g.icon}
               </p>
