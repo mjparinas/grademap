@@ -1,4 +1,4 @@
-import { shuffle } from "../random";
+import { shuffle, textChoice } from "../random";
 import type { GenerateOptions, InputQuestion, Question, Unit, Visual } from "../types";
 
 // Small helpers shared by the Ontario units. The expectation codes in `on()` are
@@ -89,3 +89,40 @@ export const THINGS: Thing[] = [
 
 /** "A" or "An" to start a sentence with this word. */
 export const capArticle = (word: string) => (/^[aeiou]/i.test(word) ? "An" : "A");
+
+/** 1st, 2nd, 3rd, 4th… */
+export function ordinal(n: number): string {
+  const v = n % 100;
+  if (v >= 11 && v <= 13) return `${n}th`;
+  return `${n}${["th", "st", "nd", "rd"][n % 10 < 4 ? n % 10 : 0]}`;
+}
+
+// ---------- Banks and passages for language units ----------
+
+export interface PassageQ {
+  prompt: string;
+  right: string;
+  wrong: string[];
+  hint: string;
+}
+
+export interface Passage {
+  title?: string;
+  /** Sentences or paragraphs, shown as the story or passage. */
+  text: string[];
+  questions: PassageQ[];
+}
+
+/** Reading questions: picks passages, then asks their questions in turn until there are `total`. */
+export function passageQuestions(passages: Passage[], visual: "story" | "passage", total = 8): Question[] {
+  const per = Math.ceil(total / 2);
+  const chosen = shuffle(passages).slice(0, Math.ceil(total / per));
+  const out: Question[] = [];
+  for (const p of chosen) {
+    const v: Visual = visual === "story" ? { type: "story", lines: p.text } : { type: "passage", title: p.title, paragraphs: p.text };
+    for (const q of shuffle(p.questions).slice(0, per)) {
+      out.push(textChoice(q.prompt, q.right, q.wrong, q.hint, v));
+    }
+  }
+  return out.slice(0, total);
+}
