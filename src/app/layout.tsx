@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Andika, Fredoka } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppEffects } from "@/components/AppEffects";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { APP_NAME } from "@/lib/brand";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -50,8 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <AppEffects />
         {children}
-        {/* The script is only served by Vercel, so skip it in local and CI builds. */}
-        {process.env.VERCEL ? <SpeedInsights /> : null}
+        <SiteAnalytics />
       </body>
     </html>
   );
