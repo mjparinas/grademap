@@ -97,44 +97,48 @@ await page.getByRole("button", { name: "Stop", exact: true }).waitFor();
 const choices = page.locator('[data-testid="choice"]');
 const bar = page.locator("[role=status]");
 let sawChoice = false;
-let sawWrongAndRight = false;
+let done = false;
 let sawRetry = false;
-for (let i = 0; i < 80 && !sawWrongAndRight; i++) {
+// Click the choices in order on each multiple-choice question until one question has been played
+// through a miss and then the right answer, so both feedback states and both button looks exist.
+for (let i = 0; i < 200 && !done; i++) {
   if (!(await vis(choices.locator(":scope:not([disabled])")))) {
     await step(page);
     continue;
   }
   sawChoice = true;
-  // Click choices in order: the first miss shows the "try again" state, the right one the tick.
-  for (let k = 0; k < (await choices.count()); k++) {
+  for (let k = 0; k < (await choices.count()) && !done; k++) {
     const pick = choices.nth(k);
     if (await pick.isDisabled()) continue;
     await pick.click({ force: true });
     await page.waitForTimeout(450);
     const text = await bar.innerText().catch(() => "");
-    if (/OK/.test(text)) {
+    if (text.includes("🤔")) {
+      // A miss: "try again" must be an icon and words, not just orange.
+      if (!sawRetry) {
+        check(/\w{3,}/.test(text.replace("OK", "")), "'try again' bar has an icon and words, not just orange");
+        await shootAll(page, cdp, SHOTS, "feedback-retry");
+      }
       sawRetry = true;
-      check(text.includes("🤔") && /\w{3,}/.test(text), "'try again' bar has an icon and words, not just orange");
-      await shootAll(page, cdp, SHOTS, "feedback-retry");
       await bar.getByRole("button", { name: "OK", exact: true }).click({ force: true });
-    } else if (/Next|Finish/.test(text)) {
+    } else if (text.includes("✓")) {
+      // The "correct" bar carries a tick as well as turning green (that is how we got here).
+      const missed = page.locator('[data-testid="choice"].animate-shake');
+      if (!(await missed.count())) break; // right first time: nothing to compare with, next question
       await shootAll(page, cdp, SHOTS, "feedback-correct");
       check(/✓/.test(await pick.innerText()), "the right answer has a tick as well as turning green");
-      check(text.includes("✓"), "'correct' bar has a tick as well as turning green");
-      const wrong = page.locator('[data-testid="choice"][disabled]').filter({ hasNot: page.locator("text=✓") });
-      if (await wrong.count()) {
-        const [good, bad] = await Promise.all([pick.evaluate(visibleColour), wrong.first().evaluate(visibleColour)]);
-        for (const type of DEFICIENCIES) {
-          const ratio = contrastAs(good, bad, type);
-          check(ratio >= 1.3, `right and missed answers differ in lightness as seen with ${type} (${ratio.toFixed(2)}:1)`);
-        }
-        sawWrongAndRight = true;
+      const [good, bad] = await Promise.all([pick.evaluate(visibleColour), missed.first().evaluate(visibleColour)]);
+      for (const type of DEFICIENCIES) {
+        const ratio = contrastAs(good, bad, type);
+        check(ratio >= 1.3, `right and missed answers differ in lightness as seen with ${type} (${ratio.toFixed(2)}:1)`);
       }
-      break;
+      done = true;
+    } else {
+      break; // the answer was revealed after two misses; move on
     }
   }
 }
-check(sawChoice && sawRetry && sawWrongAndRight, "played a multiple-choice question through a miss and a right answer");
+check(sawChoice && sawRetry && done, "played a multiple-choice question through a miss and a right answer");
 await cdp.send("Emulation.setEmulatedVisionDeficiency", { type: "none" });
 
 console.log("Parent area");
