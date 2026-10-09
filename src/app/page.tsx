@@ -7,14 +7,14 @@ import { SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent } from "@/components/site/curriculum";
 import { GAMES } from "@/components/play/games/types";
 import { DEFAULT_FRAMEWORK, getFramework } from "@/content/frameworks";
-import { GRADE_LABEL, SUBJECTS } from "@/content/subjects";
+import { GRADE_LABEL, SUBJECTS, isCoreSubject } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
 import { JsonLd, ORG_JSON_LD, SITE_URL, absolute } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: `${APP_NAME} · Curriculum practice and learning games for Kindergarten to Grade 7` },
-  description: `Ad-free practice for Kindergarten to Grade 7 that follows the curriculum. An adaptive Adventure mode, learning games earned with focused practice, trophies, offline play, and progress reports in the same language as the report card. Free for ${TRIAL_DAYS} days.`,
+  title: { absolute: `${APP_NAME} · Curriculum practice and learning games for Kindergarten to Grade 9` },
+  description: `Ad-free practice for Kindergarten to Grade 9 that follows the curriculum. An adaptive Adventure mode, learning games earned with focused practice, trophies, offline play, and progress reports in the same language as the report card. Free for ${TRIAL_DAYS} days.`,
   alternates: { canonical: "/" },
 };
 
@@ -32,7 +32,7 @@ const FEATURES = [
 const FAQS = [
   {
     q: `Which grades does ${APP_NAME} cover?`,
-    a: "Kindergarten to Grade 7, in math, English language arts, science and social studies. The text, buttons and read-aloud adapt to the child's age: big pictures and spoken prompts for Kindergarten and Grade 1, more independence for older kids.",
+    a: "Kindergarten to Grade 9, in math, English language arts, science and social studies. The text, buttons and read-aloud adapt to the child's age: big pictures and spoken prompts for Kindergarten and Grade 1, more independence for older kids.",
   },
   {
     q: "Is it matched to the BC curriculum?",
@@ -92,7 +92,7 @@ export default function Home() {
       {/* Hero */}
       <section className="grid items-center gap-8 py-6 md:grid-cols-[1.1fr_1fr] md:py-12">
         <div>
-          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">Kindergarten to Grade 7 · {framework.curriculumName}</p>
+          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">Kindergarten to Grade 9 · {framework.curriculumName}</p>
           <h1 className="text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
             Practice that feels like play. <span className="text-[#4f8ef7]">Progress you can read.</span>
           </h1>
@@ -174,7 +174,7 @@ export default function Home() {
               <span className="text-xl font-bold">{GRADE_LABEL[g]}</span>
               <span className="text-sm text-ink-soft">{coursesFor(framework, g).reduce((n, c) => n + c.units.length, 0)} units</span>
               <span className="text-lg" aria-hidden="true">
-                {SUBJECTS.map((s) => s.emoji).join(" ")}
+                {SUBJECTS.filter((s) => isCoreSubject(s.id)).map((s) => s.emoji).join(" ")}
               </span>
             </Link>
           ))}

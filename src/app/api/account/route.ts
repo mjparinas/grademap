@@ -1,5 +1,7 @@
 import { clearCookie, error, getSession, json, sameOrigin } from "@/server/auth";
 import { batch } from "@/server/db";
+import { getFamilyRow } from "@/server/family";
+import { cancelSubscriptions, stripeConfigured } from "@/server/stripe";
 
 /** Deletes the family's account and every piece of data stored on the server. */
 export async function DELETE(req: Request) {
@@ -7,6 +9,15 @@ export async function DELETE(req: Request) {
   const session = await getSession(req);
   if (!session) return error(401, "Not signed in");
   const f = session.familyId;
+  // Stop billing first. If Stripe can't be reached, keep the account so the parent can try again.
+  const family = await getFamilyRow(f);
+  if (family?.stripe_customer && stripeConfigured()) {
+    try {
+      await cancelSubscriptions(family.stripe_customer);
+    } catch {
+      return error(502, "We couldn't cancel your subscription just now, so your account was not deleted. Please try again in a moment.");
+    }
+  }
   await batch([
     { sql: "DELETE FROM auth_tokens WHERE parent_id IN (SELECT id FROM parents WHERE family_id = ?)", args: [f] },
     { sql: "DELETE FROM report_shares WHERE family_id = ?", args: [f] },

@@ -11,6 +11,7 @@ import { levelInfo, nextStep, unitLevel } from "@/lib/proficiency";
 import { go } from "@/lib/router";
 import { getItem } from "@/lib/shop";
 import { sounds } from "@/lib/sound";
+import { speakQuestion } from "@/lib/readaloud";
 import { speak, stopSpeaking } from "@/lib/speech";
 import { derivedFor, useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useBand } from "../band";
@@ -29,19 +30,6 @@ import { useAllowed } from "./useAllowed";
 
 const PRAISE = ["Great job!", "You got it!", "Super!", "Awesome!", "Way to go!", "Nailed it!", "Brilliant!"];
 const NUDGE = ["Almost! Try again.", "So close! Have another go.", "Good try! Look again."];
-
-/** What read-aloud says: honours `speak`, and never reads choices marked silent. */
-export function readAloudText(q: Question): string {
-  const parts: string[] = [];
-  if (q.visual?.type === "story") parts.push(q.visual.lines.join(" "));
-  if (q.visual?.type === "passage") parts.push([q.visual.title, ...q.visual.paragraphs].filter(Boolean).join(". ").replace(/\n/g, " "));
-  parts.push(q.speak ?? q.prompt);
-  if (q.kind === "choice") {
-    const said = q.choices.map((c) => c.speak ?? c.label).filter((s) => s !== "");
-    if (said.length === q.choices.length) parts.push(said.join(", or "));
-  }
-  return parts.join(". ");
-}
 
 export function QuestionBody(props: QuestionProps<Question>) {
   const { q } = props;
@@ -158,7 +146,7 @@ function Runner({ plan }: { plan: Plan }) {
 
   // Read each question aloud when the setting is on.
   useEffect(() => {
-    if (q && settings?.autoRead && !done && !checkpoint) speak(readAloudText(q));
+    if (q && settings?.autoRead && !done && !checkpoint) speakQuestion(q);
     return stopSpeaking;
   }, [q, settings?.autoRead, done, checkpoint]);
 
@@ -380,12 +368,12 @@ function Runner({ plan }: { plan: Plan }) {
             ⏱ {timerText}
           </span>
         )}
-        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speak(readAloudText(q))}>
+        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speakQuestion(q)}>
           🔊
         </button>
       </header>
 
-      <section ref={stage} key={index} className="flex flex-1 flex-col gap-5 py-5">
+      <section ref={stage} key={index} className={`flex flex-1 flex-col gap-5 py-5 ${run === 11 ? "animate-flip" : ""}`}>
         <div className="flex animate-rise-in items-start gap-2 sm:gap-4">
           <Critter id={guide && band !== "little" ? subjectGuide(guide, companion) : companion} mood={mood} size={band === "little" ? 110 : 88} className="sm:hidden" />
           <Critter id={guide && band !== "little" ? subjectGuide(guide, companion) : companion} mood={mood} size={band === "little" ? 140 : 116} className="hidden sm:block" />

@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # GradeMap: guide for agents
 
-GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 7. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
+GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 9. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
 
 ## Commands
 
@@ -23,7 +23,7 @@ npm run build && npm start  # offline/service worker only works in a production 
 node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline   # full playthrough + sync
 node scripts/e2e-devices.mjs http://localhost:3000                # layout on 14 phones/tablets
 node scripts/e2e-offline.mjs                                      # real offline (starts its own server)
-node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA on public, kids' and parent screens
+node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA, plus colour-blind checks (screenshots in e2e-shots/a11y)
 ```
 
 Before you push, run tests, lint and typecheck. For UI or flow changes, also run the e2e scripts.
@@ -60,7 +60,7 @@ Tests are duplicated across screen sizes only where layout can break:
 ## Product decisions
 
 ### Positioning
-- **Audience:** parents of children in Kindergarten to Grade 7. Kids use the app; parents choose it, configure it and pay.
+- **Audience:** parents of children in Kindergarten to Grade 9. Kids use the app; parents choose it, configure it and pay.
 - **We differentiate on clarity, kindness and usability, not price.** IXL is expensive and hard to use, and Khan Academy is free. We win by:
   - speaking the language of the report card;
   - giving kind, encouraging feedback;
@@ -103,8 +103,18 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Reports must say this reflects practice, not a report-card mark.** The teacher decides proficiency.
 - **The report card explainer appears in two places:** the parent area and the public `/report-cards/{slug}/` page. Both use `ReportCardGuide`.
 
+### French
+- **Two opt-in subjects, off by default** (a parent turns them on per child in Settings > Subjects): `immersion` (BC *Français langue seconde – immersion*, Kindergarten to Grade 7) and `core-french` (BC Core French, Grades 5 to 7, since Core French starts in Grade 5).
+- **They never count toward "every unit in your grade" goals or the Grade Champion trophy** (`isCoreSubject`), and reports only list French units once a child has started them.
+- **Immersion prompts are in French and set `lang: "fr"`**, so read-aloud uses a French voice (`speak(text, uri, "fr")`). Hints stay in English for parents. Core French prompts are in English with French answers.
+- **Big Ideas are copied word for word from the official BC PDFs** (Immersion K–7: `en_fral_k-9_elab.pdf`; Core French: `en_languages_5-10_core-french.pdf`). Competencies and content are still to be reviewed by a French teacher.
+- **French read-aloud** (`src/lib/readaloud.ts`) speaks each part of a question in its own language: Immersion prompts are French; Core French prompts are English with French marked in « » (`tagCoreFrench`), and `choicesLang`/`visualLang` mark French choices and stories. Parents pick a separate French voice in Settings (`grademap.voice.fr`, per device). Hints are always read in the English voice.
+- **French trophies** (8, category "French") live in their own `FRENCH_TROPHIES` list in `src/lib/trophies.ts`; French still doesn't count toward Grade Champion.
+- **Parent guide:** `/guides/bc/french/` compares Core French and French Immersion.
+- **Verify French against curriculum.gov.bc.ca** (`/curriculum/fral/{grade}/core` and `/curriculum/core-french/{grade}`) and have a French teacher review the wording before launch.
+
 ### Ages
-- **Three age bands** (`ageBandFor`): little (K–1), middle (2–4) and big (5–7). The band changes copy, size and features:
+- **Three age bands** (`ageBandFor`): little (K–1), middle (2–4) and big (5–9). The band changes copy, size and features:
   - **Subject names:**
     - Language: "Letters & Words" (little), "Reading & Writing" (middle), "Language Arts" (big).
     - Social studies: "My World" (little), "Our World" (middle), "Social Studies" (big).
@@ -144,19 +154,24 @@ Tests are duplicated across screen sizes only where layout can break:
   - Session bonuses: +15 per session, +25 when perfect, +40 for the Daily Challenge, +30 for passing a Challenge.
   - Level *n* needs `80 + 40(n−1)` XP.
 - **Coins** come from correct answers, sessions, games, trophies and quests. They're spent in a pretend shop on critter companions, titles and confetti styles.
-- **Trophies:** 57 of them (`src/lib/trophies.ts`) in Xbox/PlayStation-style tiers.
+- **Trophies:** about 110 of them, 8 of them French (a "French" group kept in its own list) (`src/lib/trophies.ts`) in Xbox/PlayStation-style tiers.
 
   | Tier | Points | Coins |
   | --- | --- | --- |
   | Bronze | 15 | 10 |
   | Silver | 30 | 25 |
   | Gold | 90 | 60 |
-  | Platinum ("Grade Champion") | 300 | 250 |
+  | Platinum (one per grade: "Grade Champion"; plus 365 days practised, a 365-day streak, level 100) | 300 | 250 |
 
-  - A few trophies are secret.
+  - A few trophies are secret, including "Old School" (Konami code: arrow keys then B, A; on touch, eight swipes then two taps; `src/lib/konami.ts`).
   - Trophies pop up as **console-style toasts** that never take taps. A toast must never block the buttons underneath it.
-- **Daily quests:** 3 per day, seeded and claimed automatically.
-- **Streaks:** a day counts if the child finishes a session or gives at least 5 answers.
+- **Mastery trophies are per grade** (`grade-champion-4`, `master-math-4`, ...): only the child's current grade is shown and earned, so moving up gives new long goals. Old un-suffixed ids still count for points. Growth trophies (Emerging to Proficient, still Proficient after 30+ days away) and "days practised" (Journey) trophies are read from unit stats and day counts, never from loaded content.
+- **Daily quests:** 3 per day from a pool of about 30, seeded and claimed automatically. Little kids never get Speed Run or Review quests.
+- **Weekly quests:** 2 per week (Monday to Sunday), bigger rewards, also claimed automatically (stored as quest events keyed by the Monday's date, ids start `w-`).
+- **Streaks:** a day counts if the child finishes a session or gives at least 5 answers. Every 7 practice days earns a rest-day shield (up to 2) that covers a missed day, so one slip doesn't erase a long streak. Shields are computed in `derive`, never stored.
+- **Shop unlocks:** some items need a level or trophy as well as coins (`unlock` in `src/lib/shop.ts`).
+- **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
+- **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
 ### Arcade games
 - **Number Munchers** (math), **Word Ninja** (a Fruit Ninja-style game with Dolch sight words by grade), **Critter Catch** (science), **Bubble Pop** (phonics) and **Memory Match**.
@@ -316,8 +331,9 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **Before launch, BC teachers need to review all content.**
   - Several Big Ideas statements were written from memory; check them against curriculum.gov.bc.ca.
   - Check history dates in the Grade 4–5 social studies units.
+  - Grade 8–9 content (shared helpers in `src/content/grades/kit.ts`) uses the Big Ideas and content topics published on curriculum.gov.bc.ca, but the questions and unit detail still need teacher review. The Grade 9 Indigenous history unit should be reviewed with First Peoples partners.
 - **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices): the device layout tests now pass in real WebKit (Playwright's WebKit build, not Safari). A check on a real iPhone or iPad is still needed, especially for read-aloud voices.
 - **Deployment** is not done. Steps, env vars and the launch checklist are in `docs/DEPLOY.md`.
 - **Legal and content:** `/privacy/` and `/terms/` are drafts needing legal review; `LEGAL_NAME` and `CONTACT_EMAIL` in `src/lib/brand.ts` are placeholders.
-- **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI hasn't had a colour-blind simulation pass.
+- **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI has only had a simulated colour-blind pass (`scripts/colour-blind.mjs`, run by `e2e-a11y.mjs`), not testing with colour-blind children.
 - **CSP on a real host:** production has no `'unsafe-inline'`, but the page-level policy lives in a `<meta>` tag that `scripts/csp-postbuild.mjs` writes into `.next/server/**/*.html` after the build. It is tested with `next start`, not yet on Vercel. After the first deploy, check that a prerendered page (e.g. `/play/`) still has the tag and loads with no console errors.

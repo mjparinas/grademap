@@ -33,6 +33,10 @@ const ACCENT: Record<string, string> = {
   "en-IE": "Irish",
   "en-IN": "Indian",
   "en-ZA": "South African",
+  "fr-CA": "Canadian French",
+  "fr-FR": "French (France)",
+  "fr-BE": "Belgian French",
+  "fr-CH": "Swiss French",
 };
 
 /** "Microsoft Aria Online (Natural) - English (United States)" → "Aria". */
@@ -41,8 +45,8 @@ function shortName(name: string): string {
     .replace(/^Microsoft\s+/i, "")
     .replace(/\s+Online/i, "")
     .replace(/\s*\((Natural|Premium|Enhanced)\)/i, "")
-    .replace(/\s+-\s+English.*$/i, "")
-    .replace(/\s*\(English.*\)$/i, "")
+    .replace(/\s+-\s+(English|French|français).*$/i, "")
+    .replace(/\s*\((English|French|français).*\)$/i, "")
     .trim();
 }
 
@@ -129,6 +133,58 @@ export function VoicePicker() {
           <Tips open={best?.quality === "basic" || best?.quality === "standard"} />
         </div>
       )}
+      {canSpeak() && <FrenchVoice />}
     </Panel>
+  );
+}
+
+/** The voice for French Immersion and Core French questions. Separate from the English voice because every voice speaks one language. */
+function FrenchVoice() {
+  const options = useSyncExternalStore((l) => subscribeVoices(l), () => getVoiceOptions("fr"), () => NONE);
+  const preferred = useSyncExternalStore(subscribeVoices, () => getVoicePreference("fr"), () => null);
+  const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+  const best = chooseVoice(options, null, offline);
+  const current = chooseVoice(options, preferred, offline);
+  return (
+    <div className="mt-5 flex flex-col gap-3 border-t border-line pt-4">
+      <h3 className="text-lg font-bold">French voice</h3>
+      {options.length === 0 ? (
+        <p className="text-sm text-ink-soft">
+          No French voices found on this device yet, so French lessons will be read in an English voice. Add a French voice in your device&apos;s speech settings
+          (the same place as the English tips above, but choose French, ideally Canadian French), then reopen GradeMap.
+        </p>
+      ) : (
+        <>
+          <label className="flex flex-col gap-1">
+            <span className="font-semibold">Voice for French lessons</span>
+            <select
+              value={preferred && options.some((o) => o.uri === preferred) ? preferred : ""}
+              onChange={(e) => {
+                stopSpeaking();
+                setVoicePreference(e.target.value || null, "fr");
+              }}
+              className="rounded-xl border-2 border-line bg-white px-3 py-2.5 text-base"
+            >
+              <option value="">Automatic: {best ? describe(best) : "best available"}</option>
+              {options.map((o) => (
+                <option key={o.uri} value={o.uri}>
+                  {describe(o)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="flex flex-wrap items-center gap-3">
+            <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2.5 font-bold text-[#0f172a]" onClick={() => previewVoice(preferred, "fr")}>
+              ▶ Preview French
+            </button>
+            {current && (
+              <span className={`rounded-full px-3 py-1 text-sm font-semibold ${QUALITY[current.quality].className}`}>
+                {shortName(current.name)}: {QUALITY[current.quality].label}
+              </span>
+            )}
+          </div>
+        </>
+      )}
+    </div>
   );
 }

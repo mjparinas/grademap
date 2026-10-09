@@ -222,7 +222,7 @@ describe("curriculum content", () => {
       expect(getUnitRef(key)?.unit.title).toBe(first.units[0].title);
       expect(parseUnitKey(key)).toEqual({ grade, subject: first.subject, unitId: first.units[0].id });
     }
-    expect(parseUnitKey("9/math/x")).toBeUndefined();
+    expect(parseUnitKey("10/math/x")).toBeUndefined();
     expect(parseUnitKey("nonsense")).toBeUndefined();
   });
 
@@ -234,6 +234,21 @@ describe("curriculum content", () => {
       });
     const offenders = walk(join(__dirname, "grades")).filter((f) => readFileSync(f, "utf8").includes("Math.random"));
     expect(offenders).toEqual([]);
+  });
+
+  it("offers French Immersion from Kindergarten and Core French from Grade 5", () => {
+    const has = (grade: string, subject: string) => COURSES.some((c) => c.grade === grade && c.subject === subject);
+    for (const g of ["k", "1", "2", "3", "4", "5", "6", "7"]) expect(has(g, "immersion"), `immersion ${g}`).toBe(true);
+    for (const g of ["k", "1", "2", "3", "4"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(false);
+    for (const g of ["5", "6", "7"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(true);
+  });
+
+  it("marks every French Immersion question as French so read-aloud uses a French voice", () => {
+    for (const course of COURSES.filter((c) => c.subject === "immersion")) {
+      for (const unit of course.units) {
+        for (const q of unit.generate({ difficulty: 2 })) expect(q.lang, `${course.grade}/${unit.id}: ${q.prompt}`).toBe("fr");
+      }
+    }
   });
 
   for (const course of COURSES) {

@@ -1,6 +1,7 @@
 import { parseUnitKey } from "@/content";
 import type { SubjectId } from "@/content/types";
 import { dayKey, type AppEvent, type Mode } from "./model";
+import { unitLevel } from "./proficiency";
 import { TIER_COINS, TIER_POINTS, trophyTier } from "./trophies";
 
 // Everything a child has achieved is computed from their event log. Because
@@ -19,6 +20,14 @@ export interface UnitStat {
   sessions: number;
   challengePassed: boolean;
   ms: number;
+  /** Once dipped to Emerging after a fair number of tries. */
+  wasEmerging: boolean;
+  /** Climbed from Emerging to Proficient or better. */
+  grew: boolean;
+  /** Answers still to give after coming back from 30+ days away (while Proficient). */
+  returnLeft: number;
+  /** Came back after 30+ days and was still Proficient. */
+  kept: boolean;
 }
 
 export interface DayStat {
@@ -27,6 +36,8 @@ export interface DayStat {
   answers: number;
   correct: number;
   sessions: number;
+  /** Flawless lessons that day. */
+  perfect: number;
   playSeconds: number;
   bestRun: number;
   /** Per-subject answers that day. */
@@ -44,7 +55,23 @@ export interface Derived {
   trophies: Record<string, number>;
   units: Record<string, UnitStat>;
   days: Record<string, DayStat>;
-  streak: { current: number; best: number; activeToday: boolean };
+  streak: {
+    current: number;
+    best: number;
+    activeToday: boolean;
+    /** Rest-day shields banked (earned by learning, up to 2). */
+    shields: number;
+    /** Shields spent so far. */
+    shieldsUsed: number;
+    /** Today's streak is only alive because a shield will cover missed days. */
+    saved: boolean;
+  };
+  /** Days with real practice. */
+  activeDays: number;
+  /** Sessions finished at 11:11. */
+  wishSessions: number;
+  /** Easter eggs found, by code. */
+  secrets: string[];
   totals: {
     answers: number;
     correct: number;
@@ -86,7 +113,7 @@ export function learnSecondsFor(ms: number): number {
 }
 
 function emptyDay(day: string): DayStat {
-  return { day, learnSeconds: 0, answers: 0, correct: 0, sessions: 0, playSeconds: 0, bestRun: 0, subjects: {}, modes: {} };
+  return { day, learnSeconds: 0, answers: 0, correct: 0, sessions: 0, perfect: 0, playSeconds: 0, bestRun: 0, subjects: {}, modes: {} };
 }
 
 export function derive(events: AppEvent[], now = Date.now()): Derived {
@@ -101,7 +128,9 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
     trophies: {},
     units: {},
     days: {},
-    streak: { current: 0, best: 0, activeToday: false },
+    streak: { current: 0, best: 0, activeToday: false, shields: 0, shieldsUsed: 0, saved: false },
+    activeDays: 0,
+    wishSessions: 0,
     totals: {
       answers: 0,
       correct: 0,
@@ -125,6 +154,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
     owned: [],
     questsClaimed: {},
     dailyDone: [],
+    secrets: [],
   };
   const seen = new Set<string>();
   let run = 0;
@@ -147,7 +177,13 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
           sessions: 0,
           challengePassed: false,
           ms: 0,
+          wasEmerging: false,
+          grew: false,
+          returnLeft: 0,
+          kept: false,
         });
+        const levelBefore = unitLevel(u);
+        const away = u.lastT > 0 && e.t - u.lastT >= 30 * 86_400_000;
         u.attempts++;
         if (e.hinted) d.totals.hints++;
         if (e.correct) u.firstTry++;
@@ -158,6 +194,15 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
         u.mastery = u.mastery + alpha * ((e.correct ? 1 : 0) - u.mastery);
         u.lastT = e.t;
         u.ms += e.ms;
+        // Growth: climbing out of Emerging, and still knowing a unit after a month away.
+        const levelNow = unitLevel(u);
+        if (u.attempts >= 4 && levelNow === 0) u.wasEmerging = true;
+        if (u.wasEmerging && levelNow >= 2) u.grew = true;
+        if (away && levelBefore >= 2) u.returnLeft = 5;
+        if (u.returnLeft > 0) {
+          if (levelNow < 2) u.returnLeft = 0;
+          else if (--u.returnLeft === 0) u.kept = true;
+        }
 
         const secs = learnSecondsFor(e.ms);
         day.learnSeconds += secs;
@@ -198,11 +243,16 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
         d.modes[e.mode] = (d.modes[e.mode] ?? 0) + 1;
         day.modes[e.mode] = (day.modes[e.mode] ?? 0) + 1;
         if (new Date(e.t).getHours() < 8) d.earlySessions++;
+        {
+          const at = new Date(e.t);
+          if (at.getHours() % 12 === 11 && at.getMinutes() === 11) d.wishSessions++;
+        }
         const ratio = e.total ? e.correct / e.total : 0;
         d.xp += 15;
         d.coins += 5;
         if (e.total >= 5 && e.correct === e.total) {
           d.totals.perfectSessions++;
+          day.perfect++;
           d.xp += 25;
           d.coins += 10;
         }
@@ -240,6 +290,9 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
         }
         break;
       }
+      case "secret":
+        if (!d.secrets.includes(e.code)) d.secrets.push(e.code);
+        break;
       case "buy":
         if (!d.owned.includes(e.item)) {
           d.owned.push(e.item);
@@ -252,7 +305,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
         if (!claimed.includes(e.quest)) {
           claimed.push(e.quest);
           d.coins += e.reward;
-          d.xp += 25;
+          d.xp += e.quest.startsWith("w-") ? 60 : 25;
         }
         break;
       }
@@ -273,23 +326,42 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
   d.levelNeed = xpForLevel(level);
 
   // Streak: days with real practice (a finished session or 5+ answers).
+  // Every 7 practice days earns a rest-day shield (up to 2) that covers a missed day.
   const active = (s: DayStat | undefined) => !!s && (s.sessions > 0 || s.answers >= 5);
+  const dayNum = (k: string) => Math.round(new Date(`${k}T12:00:00`).getTime() / 86_400_000);
   const days = Object.keys(d.days).sort();
   let best = 0;
   let cur = 0;
+  let bank = 0;
+  let used = 0;
+  let count = 0;
   let prev: string | null = null;
   for (const k of days) {
     if (!active(d.days[k])) continue;
-    cur = prev && dayKey(new Date(`${prev}T12:00:00`).getTime() + 86_400_000) === k ? cur + 1 : 1;
+    const missed = prev ? dayNum(k) - dayNum(prev) - 1 : 0;
+    if (!prev) cur = 1;
+    else if (missed <= 0) cur++;
+    else if (missed <= bank) {
+      bank -= missed;
+      used += missed;
+      cur++;
+    } else cur = 1;
+    count++;
+    if (count % 7 === 0) bank = Math.min(2, bank + 1);
     best = Math.max(best, cur);
     prev = k;
   }
   const today = dayKey(now);
-  const yesterday = dayKey(now - 86_400_000);
+  const away = prev ? Math.max(0, dayNum(today) - dayNum(prev) - 1) : 0;
+  const alive = !!prev && away <= bank;
+  d.activeDays = count;
   d.streak = {
-    current: prev === today || prev === yesterday ? cur : 0,
+    current: alive ? cur : 0,
     best,
     activeToday: active(d.days[today]),
+    shields: bank,
+    shieldsUsed: used,
+    saved: alive && away > 0,
   };
   return d;
 }

@@ -93,7 +93,7 @@ jobs:
           - { name: "devices 2/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 2/4" }
           - { name: "devices 3/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 3/4" }
           - { name: "devices 4/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 4/4" }
-          - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000" }
+          - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000 e2e-shots/a11y" }
           - { name: "playthrough and sync", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline" }
           # Starts and stops its own server, so only the service worker can answer.
           - { name: "offline", serve: false, run: "node scripts/e2e-offline.mjs" }

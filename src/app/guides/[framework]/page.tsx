@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/guides/[framework
   const f = r.framework;
   return {
     title: `${f.name} parent guides and free printable practice sheets`,
-    description: `Free guides for ${f.shortName} parents: what each grade learns in the ${f.curriculumName}, how to help at home, Core Competencies, the FSA and printable practice sheets for Kindergarten to Grade 7.`,
+    description: `Free guides for ${f.shortName} parents: what each grade learns in the ${f.curriculumName}, how to help at home, Core Competencies, the FSA and printable practice sheets for Kindergarten to Grade 9.`,
     alternates: { canonical: guidePath.hub(r.framework) },
   };
 }
@@ -48,7 +48,7 @@ export default async function GuidesHub({ params }: PageProps<"/guides/[framewor
         <h2 id="understand" className="mb-3 text-2xl font-bold">
           Understand your child’s school year
         </h2>
-        <ul className="grid gap-4 md:grid-cols-3">
+        <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <li className="card p-5">
             <Link href={`/report-cards/${f.slug}/`} className="text-xl font-bold hover:underline">
               Understanding {f.shortName} report cards
@@ -66,6 +66,12 @@ export default async function GuidesHub({ params }: PageProps<"/guides/[framewor
               The FSA explained
             </Link>
             <p className="mt-1 font-read text-ink-soft">The Grade 4 and Grade 7 Foundation Skills Assessment.</p>
+          </li>
+          <li className="card p-5">
+            <Link href={guidePath.french(f)} className="text-xl font-bold hover:underline">
+              Core French and French Immersion
+            </Link>
+            <p className="mt-1 font-read text-ink-soft">How they differ, when they start and how to help at home.</p>
           </li>
         </ul>
       </section>

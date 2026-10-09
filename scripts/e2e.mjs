@@ -190,15 +190,22 @@ async function eventsWaiting(page) {
   await page.getByRole("switch", { name: /Free play/ }).first().click();
 
   // Read-aloud voice: the most natural voice comes first, and a parent's choice is used everywhere.
-  const voice = page.getByRole("combobox", { name: "Voice" });
+  const voice = page.getByRole("combobox", { name: "Voice", exact: true });
   const options = await voice.locator("option").allTextContents();
   log("voices offered:", options.slice(1).join(" | "));
   if (!options[1]?.startsWith("Clara · Canadian · Sounds natural")) errors.push(`voice ranking: first voice is "${options[1]}"`);
   if (options.some((o) => /French|Denise/.test(o))) errors.push("voice ranking: a French voice was offered");
   const aria = EDGE_VOICES[2].name;
   await voice.selectOption(aria);
-  await page.getByRole("button", { name: /Preview/ }).click();
+  await page.getByRole("button", { name: "▶ Preview", exact: true }).click();
   if ((await spoken(page)).at(-1)?.voice !== aria) errors.push("voice preview didn't use the chosen voice");
+  // French lessons have their own voice, ranked from the French voices only.
+  const french = page.getByRole("combobox", { name: "Voice for French lessons" });
+  const frOptions = await french.locator("option").allTextContents();
+  if (!frOptions.some((o) => /Denise/.test(o))) errors.push("french voice picker: no French voice offered");
+  if (frOptions.some((o) => /Clara|Aria|Linda|David/.test(o.replace(/^Automatic:.*/, "")))) errors.push("french voice picker: an English voice was offered");
+  await page.getByRole("button", { name: "▶ Preview French", exact: true }).click();
+  if (!/Denise/.test((await spoken(page)).at(-1)?.voice ?? "")) errors.push("french preview didn't use a French voice");
   await shot(page, "21-parent-settings", true);
   await page.goto(`${BASE}/play/#/`);
   await page.getByRole("button", { name: /Adventure/ }).click({ force: true });

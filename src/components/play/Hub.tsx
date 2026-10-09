@@ -9,7 +9,7 @@ import { weakest } from "@/lib/adaptive";
 import { gameTime } from "@/lib/gametime";
 import { dayKey } from "@/lib/model";
 import { canUse, type Feature } from "@/lib/plan";
-import { dailyQuests } from "@/lib/quests";
+import { dailyQuests, weekDays, weeklyQuests, weekStart } from "@/lib/quests";
 import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
@@ -17,6 +17,7 @@ import { useBand } from "../band";
 import { Critter, SpeechBubble } from "../Critter";
 import { Dialog, Page, ProgressBar } from "../ui";
 import { Hud } from "./Hud";
+import { BuddyButton, MooseVisitor } from "./Secrets";
 import { suggestions } from "./plans";
 import { useAllowed } from "./useAllowed";
 
@@ -58,6 +59,10 @@ export function Hub() {
   const dailyDone = d.dailyDone.includes(today);
   const quests = dailyQuests(profile.id, today, band);
   const claimed = d.questsClaimed[today] ?? [];
+  const monday = weekStart(now);
+  const weekly = weeklyQuests(profile.id, monday, band);
+  const weekStats = weekDays(monday).flatMap((k) => (d.days[k] ? [d.days[k]] : []));
+  const weekClaimed = d.questsClaimed[monday] ?? [];
   const suggested = suggestions(profile.grade, d, subjects, allowed, 1)[0];
   const little = band === "little";
 
@@ -66,7 +71,9 @@ export function Hub() {
     : minutes >= goal
       ? `You hit today's goal! ${minutes} minutes of learning. Amazing!`
       : d.streak.current > 1 && !d.streak.activeToday
-        ? `Keep your ${d.streak.current}-day streak going! 🔥`
+        ? d.streak.saved
+          ? `A rest-day shield kept your ${d.streak.current}-day streak safe. 🛡️ Play today to keep it going!`
+          : `Keep your ${d.streak.current}-day streak going! 🔥`
         : `${greeting(profile.name, new Date(now).getHours())} ${goal - minutes} more minutes to reach today's goal.`;
 
   const gameDesc = !games.enabled
@@ -120,8 +127,10 @@ export function Hub() {
 
       <div className="flex items-center gap-3">
         {/* Smaller on the narrowest phones, hidden on phones held sideways, so the big button stays in view. */}
-        <Critter id={profile.companion} mood="wave" size={little ? 130 : 104} className="narrow:hidden short:hidden" />
-        <Critter id={profile.companion} mood="wave" size={72} className="hidden narrow:block short:hidden" />
+        <BuddyButton name={"your buddy"}>
+          <Critter id={profile.companion} mood="wave" size={little ? 130 : 104} className="narrow:hidden short:hidden" />
+          <Critter id={profile.companion} mood="wave" size={72} className="hidden narrow:block short:hidden" />
+        </BuddyButton>
         <SpeechBubble className="flex-1">
           <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>
           <div className="mt-2 flex items-center gap-2">
@@ -201,6 +210,29 @@ export function Hub() {
         </ul>
       </section>
 
+      <section className="card p-4 sm:p-5">
+        <h2 className="mb-3 flex items-center justify-between text-xl font-bold sm:text-2xl">
+          <span>🗓️ This week</span>
+          <span className="text-sm font-semibold text-ink-soft">New goals on Monday</span>
+        </h2>
+        <ul className="flex flex-col gap-2.5">
+          {weekly.map((q) => {
+            const got = weekClaimed.includes(q.id);
+            const value = Math.min(q.target, q.progress(weekStats));
+            return (
+              <li key={q.id} className={`flex items-center gap-3 rounded-2xl p-2.5 ${got ? "bg-good-soft" : "bg-paper"}`}>
+                <span className="text-3xl">{got ? "✅" : q.icon}</span>
+                <div className="flex-1">
+                  <p className="font-read text-lg font-bold">{q.title}</p>
+                  <ProgressBar value={value} max={q.target} height={12} label={q.title} />
+                </div>
+                <span className="rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#7a5700]">🪙 {q.reward}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
       {suggested && (
         <Link
           href={`#/session?mode=practice&scope=${encodeURIComponent(suggested.key)}`}
@@ -221,6 +253,8 @@ export function Hub() {
           🔒 Grown-ups
         </Link>
       </div>
+
+      <MooseVisitor />
 
       <Dialog open={locked} title="Ask a grown-up" onClose={() => setLocked(false)}>
         <div className="mb-4 flex justify-center">
