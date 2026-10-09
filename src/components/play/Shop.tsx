@@ -73,7 +73,7 @@ export function Shop() {
                 </span>
                 <span className="text-lg leading-tight font-bold">{item.name}</span>
                 <span className={`rounded-full px-3 py-0.5 text-sm font-bold ${isOn ? "bg-white/30" : isOwned ? "bg-good-soft text-good-dark" : locked ? "bg-black/5 text-ink-soft" : affordable ? "bg-[#fff4cc] text-[#7a5700]" : "bg-black/5 text-ink-soft"}`}>
-                  {isOn ? "Using ✓" : isOwned ? "Owned · Use" : locked ? `🔒 ${item.unlock?.label}` : `🪙 ${item.cost}`}
+                  {isOn ? "Using ✓" : isOwned ? "Owned · Use" : locked ? `🔒 ${item.unlock?.label} · 🪙 ${item.cost}` : `🪙 ${item.cost}`}
                 </span>
               </button>
             </div>
