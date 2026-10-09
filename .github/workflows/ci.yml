@@ -77,28 +77,33 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Browsers and their system libraries come preinstalled. The tag must match the Playwright
+    # version in package-lock.json, so bump both together.
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+      options: --ipc=host
     strategy:
       fail-fast: false
       matrix:
         include:
-          # 14 device layouts, split over three machines. iPhones and iPads run in real WebKit.
-          - { name: "devices 1/3", browsers: "chromium webkit", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 1/3" }
-          - { name: "devices 2/3", browsers: "chromium webkit", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 2/3" }
-          - { name: "devices 3/3", browsers: "chromium webkit", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 3/3" }
-          - { name: "accessibility", browsers: "chromium", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000" }
-          - { name: "playthrough and sync", browsers: "chromium", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline" }
+          # 14 device layouts, split over four machines. iPhones and iPads run in real WebKit.
+          - { name: "devices 1/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 1/4" }
+          - { name: "devices 2/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 2/4" }
+          - { name: "devices 3/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 3/4" }
+          - { name: "devices 4/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 4/4" }
+          - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000" }
+          - { name: "playthrough and sync", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline" }
           # Starts and stops its own server, so only the service worker can answer.
-          - { name: "offline", browsers: "chromium", serve: false, run: "node scripts/e2e-offline.mjs" }
+          - { name: "offline", serve: false, run: "node scripts/e2e-offline.mjs" }
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
+        with:
+          flavor: playwright
       - uses: actions/download-artifact@v4
         with:
           name: next-build
       - run: tar -xf next-build.tar
-      - uses: ./.github/actions/browsers
-        with:
-          browsers: ${{ matrix.browsers }}
       - name: Run
         run: |
           if [ "${{ matrix.serve }}" = "true" ]; then

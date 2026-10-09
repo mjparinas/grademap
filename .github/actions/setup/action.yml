@@ -1,5 +1,9 @@
 name: Set up GradeMap
-description: Node 22 and the exact locked dependencies, with the npm download cache.
+description: Node 22 and the exact locked dependencies, with node_modules cached by lockfile.
+inputs:
+  flavor:
+    description: Cache name for where this runs, so modules built in one environment are not reused in another
+    default: host
 runs:
   using: composite
   steps:
@@ -7,5 +11,13 @@ runs:
       with:
         node-version: 22
         cache: npm
-    - run: npm ci
+    # Restoring node_modules is much faster than npm ci. The cache is only saved on a miss,
+    # and a miss falls through to a clean npm ci.
+    - id: modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: node-modules-${{ runner.os }}-${{ inputs.flavor }}-${{ hashFiles('package-lock.json') }}
+    - if: steps.modules.outputs.cache-hit != 'true'
+      run: npm ci --prefer-offline --no-audit --no-fund
       shell: bash
