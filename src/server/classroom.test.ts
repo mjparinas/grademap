@@ -89,10 +89,17 @@ describe("classroom mode", () => {
     expect(s.units[0].attempts).toBe(10);
     expect(s.units[0].level).toBeGreaterThanOrEqual(0);
 
+    // The child's devices get the assigned units with their next sync, and only the family's own.
+    const down = await (await sync.POST(req("/api/sync/", "POST", {}, parent))).json();
+    expect(down.classwork).toEqual([{ profileId: "kid1", classId: id, className: "Room 12", unitKeys: [unitKey] }]);
+    const stranger = await account_("stranger@example.com");
+    expect((await (await sync.POST(req("/api/sync/", "POST", {}, stranger))).json()).classwork).toEqual([]);
+
     // The parent can leave; the teacher stops seeing the child.
     expect((await join_.DELETE(req(`/api/classes/join/?classId=${id}&profileId=kid1`, "DELETE", undefined, parent))).status).toBe(200);
     const after = await (await classes.GET(req(`/api/classes/?id=${id}`, "GET", undefined, teacher))).json();
     expect(after.students).toHaveLength(0);
+    expect((await (await sync.POST(req("/api/sync/", "POST", {}, parent))).json()).classwork).toEqual([]);
   });
 
   it("needs a confirmed email to create a class, and can replace the join code", async () => {

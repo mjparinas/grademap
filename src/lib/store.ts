@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { DEFAULT_FRAMEWORK } from "@/content/frameworks";
 import { ageBandFor } from "@/content/subjects";
 import type { FrameworkId, GradeId } from "@/content/types";
+import type { Classwork } from "./classroom";
 import { derive, type Derived } from "./derive";
 import * as localdb from "./localdb";
 import {
@@ -55,6 +56,8 @@ interface State {
   pin: { hash: string; salt: string } | null;
   events: AppEvent[];
   sync: SyncState;
+  /** Units teachers assigned, per linked child. Replaced on every sync; never edited on the device. */
+  classwork: Classwork[];
   toasts: Toast[];
 
   init: () => Promise<void>;
@@ -72,7 +75,7 @@ interface State {
   checkPin: (pin: string) => Promise<boolean>;
   setFamily: (patch: Partial<FamilyInfo>, fromServer?: boolean) => void;
   setSync: (patch: Partial<SyncState>) => void;
-  mergeRemote: (data: { events: AppEvent[]; profiles: Profile[]; settings: ChildSettings[]; family?: FamilyInfo }) => void;
+  mergeRemote: (data: { events: AppEvent[]; profiles: Profile[]; settings: ChildSettings[]; family?: FamilyInfo; classwork?: Classwork[] }) => void;
   pushToast: (t: Omit<Toast, "id">) => void;
   dismissToast: (id: string) => void;
   wipeDevice: () => Promise<void>;
@@ -124,11 +127,12 @@ export const useStore = create<State>()((set, get) => ({
   pin: null,
   events: [],
   sync: { cursor: 0, status: "signed-out", dirtyProfiles: [], dirtyFamily: false },
+  classwork: [],
   toasts: [],
 
   init: async () => {
     if (get().ready) return;
-    const [deviceId, profiles, activeId, settings, family, pin, sync, events] = await Promise.all([
+    const [deviceId, profiles, activeId, settings, family, pin, sync, classwork, events] = await Promise.all([
       localdb.getKV<string>("deviceId"),
       localdb.getKV<Profile[]>("profiles"),
       localdb.getKV<string | null>("activeId"),
@@ -136,6 +140,7 @@ export const useStore = create<State>()((set, get) => ({
       localdb.getKV<FamilyInfo>("family"),
       localdb.getKV<State["pin"]>("pin"),
       localdb.getKV<SyncState>("sync"),
+      localdb.getKV<Classwork[]>("classwork"),
       localdb.allEvents(),
     ]);
     const id = deviceId ?? newId();
@@ -151,6 +156,7 @@ export const useStore = create<State>()((set, get) => ({
       family: fam,
       pin: pin ?? null,
       sync: { ...get().sync, ...(sync ?? {}), status: fam.account ? "idle" : "signed-out" },
+      classwork: classwork ?? [],
       events,
     });
   },
@@ -326,7 +332,7 @@ export const useStore = create<State>()((set, get) => ({
     save("sync", { cursor: sync.cursor, lastSyncAt: sync.lastSyncAt, dirtyProfiles: sync.dirtyProfiles, dirtyFamily: sync.dirtyFamily });
   },
 
-  mergeRemote: ({ events, profiles, settings, family }) => {
+  mergeRemote: ({ events, profiles, settings, family, classwork }) => {
     const state = get();
     const known = new Set(state.events.map((e) => e.id));
     const newEvents = events.filter((e) => !known.has(e.id));
@@ -353,6 +359,10 @@ export const useStore = create<State>()((set, get) => ({
     save("profiles", mergedProfiles);
     save("settings", mergedSettings);
     if (family) save("family", get().family);
+    if (classwork) {
+      set({ classwork });
+      save("classwork", classwork);
+    }
   },
 
   pushToast: (t) => set({ toasts: [...get().toasts, { ...t, id: newId() }] }),
@@ -368,6 +378,7 @@ export const useStore = create<State>()((set, get) => ({
       family: newFamily(),
       pin: null,
       events: [],
+      classwork: [],
       sync: { cursor: 0, status: "signed-out", dirtyProfiles: [], dirtyFamily: false },
     });
   },

@@ -10,6 +10,7 @@ import { gameTime } from "@/lib/gametime";
 import { dayKey } from "@/lib/model";
 import { canUse, type Feature } from "@/lib/plan";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "@/lib/quests";
+import { unitLevel } from "@/lib/proficiency";
 import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
@@ -20,6 +21,8 @@ import { Hud } from "./Hud";
 import { BuddyButton, MooseVisitor } from "./Secrets";
 import { suggestions } from "./plans";
 import { useAllowed } from "./useAllowed";
+import { useClasswork } from "./useClasswork";
+import { LevelChip } from "./Practice";
 
 interface Tile {
   id: string;
@@ -65,6 +68,7 @@ export function Hub() {
   const weekClaimed = d.questsClaimed[monday] ?? [];
   const suggested = suggestions(profile.grade, profile.framework, d, subjects, allowed, 1)[0];
   const little = band === "little";
+  const classwork = useClasswork();
 
   const message = !d.totals.answers
     ? `${greeting(profile.name, new Date(now).getHours())} Tap the big button to start your first adventure!`
@@ -186,6 +190,38 @@ export function Hub() {
           );
         })}
       </div>
+
+      {classwork.length > 0 && (
+        <section className="card p-4 sm:p-5" aria-label="From your teacher">
+          <h2 className="mb-3 flex items-center justify-between gap-2 text-xl font-bold sm:text-2xl">
+            <span>🍎 From your teacher</span>
+            <span className="text-sm font-semibold text-ink-soft">{classwork[0].className}</span>
+          </h2>
+          <ul className="flex flex-col gap-2.5">
+            {classwork.map(({ ref }) => {
+              const meta = getSubjectMeta(ref.course.subject);
+              const done = unitLevel(d.units[ref.key]) >= 2;
+              return (
+                <li key={ref.key}>
+                  <Link
+                    href={`#/session?mode=practice&scope=${encodeURIComponent(ref.key)}`}
+                    className={`flex min-h-14 items-center gap-3 rounded-2xl border-2 p-2.5 ${done ? "bg-good-soft" : "bg-paper"}`}
+                    style={{ borderColor: meta.colour }}
+                  >
+                    <span className="text-3xl">{ref.unit.emoji}</span>
+                    <span className="flex-1">
+                      <span className="block font-read text-lg font-bold">{ref.unit.title}</span>
+                      <span className="block text-sm font-semibold text-ink-soft">{meta.title[band]}</span>
+                    </span>
+                    <LevelChip level={unitLevel(d.units[ref.key])} compact={little} />
+                    <span className="text-xl">▶</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       <section className="card p-4 sm:p-5">
         <h2 className="mb-3 flex items-center justify-between text-xl font-bold sm:text-2xl">

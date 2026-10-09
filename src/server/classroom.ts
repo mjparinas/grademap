@@ -50,6 +50,32 @@ export async function assignmentKeys(classId: string): Promise<string[]> {
   return rows.map((r) => r.unit_key);
 }
 
+export interface Classwork {
+  profileId: string;
+  classId: string;
+  className: string;
+  unitKeys: string[];
+}
+
+/** What each of a family's linked children has been assigned. Sent only to that family's own devices. */
+export async function familyClasswork(familyId: string): Promise<Classwork[]> {
+  const rows = await query<{ profile_id: string; class_id: string; name: string; unit_key: string | null }>(
+    `SELECT m.profile_id, m.class_id, c.name, a.unit_key FROM class_members m
+     JOIN classes c ON c.id = m.class_id AND c.closed_at IS NULL
+     LEFT JOIN class_assignments a ON a.class_id = m.class_id
+     WHERE m.family_id = ? ORDER BY m.joined_at, a.created_at, a.unit_key`,
+    [familyId],
+  );
+  const out = new Map<string, Classwork>();
+  for (const r of rows) {
+    const k = `${r.profile_id}/${r.class_id}`;
+    const entry = out.get(k) ?? { profileId: r.profile_id, classId: r.class_id, className: r.name, unitKeys: [] };
+    if (r.unit_key) entry.unitKeys.push(r.unit_key);
+    out.set(k, entry);
+  }
+  return [...out.values()];
+}
+
 export interface StudentProgress {
   profileId: string;
   name: string;

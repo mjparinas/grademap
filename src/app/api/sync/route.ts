@@ -2,6 +2,7 @@ import type { InValue } from "@libsql/client";
 import type { AppEvent, ChildSettings, Profile } from "@/lib/model";
 import { error, getSession, json, rateLimited, sameOrigin } from "@/server/auth";
 import { batch, query } from "@/server/db";
+import { familyClasswork } from "@/server/classroom";
 import { getFamilyRow, toFamilyInfo } from "@/server/family";
 
 // Two-way sync. Devices upload events they haven't sent yet, plus any profile
@@ -137,6 +138,7 @@ export async function POST(req: Request) {
     events: rows.map((r) => JSON.parse(r.data)),
     profiles: profiles.map((r) => JSON.parse(r.data)),
     settings: settings.map((r) => JSON.parse(r.data)),
+    classwork: await familyClasswork(family),
     family: famRow ? toFamilyInfo(famRow, session.email, session.verified) : undefined,
   });
 }

@@ -61,6 +61,7 @@ export async function signOut() {
   await post("/api/auth/logout/").catch(() => {});
   useStore.getState().setFamily({ account: undefined }, true);
   useStore.getState().setSync({ status: "signed-out" });
+  useStore.getState().mergeRemote({ events: [], profiles: [], settings: [], classwork: [] }); // Teacher work is for linked accounts only.
 }
 
 export interface BillingInfo {
