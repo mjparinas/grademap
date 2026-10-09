@@ -1,3 +1,4 @@
+import { isCoreSubject } from "@/content/subjects";
 import { allUnitRefs } from "@/content";
 import type { GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
@@ -42,12 +43,12 @@ const count = (target: number, value: (d: Derived, ctx: TrophyContext) => number
   (d: Derived, ctx: TrophyContext) => ({ value: Math.min(target, value(d, ctx)), target });
 
 function unitsAtLevel(d: Derived, grade: GradeId, min: number, subject?: SubjectId): number {
-  return allUnitRefs(grade).filter((r) => (!subject || r.course.subject === subject) && unitLevel(d.units[r.key]) >= min)
+  return allUnitRefs(grade).filter((r) => (subject ? r.course.subject === subject : isCoreSubject(r.course.subject)) && unitLevel(d.units[r.key]) >= min)
     .length;
 }
 
 function unitsInGrade(grade: GradeId, subject?: SubjectId): number {
-  return allUnitRefs(grade).filter((r) => !subject || r.course.subject === subject).length;
+  return allUnitRefs(grade).filter((r) => (subject ? r.course.subject === subject : isCoreSubject(r.course.subject))).length;
 }
 
 const ALL_MODES: Mode[] = ["practice", "adventure", "review", "speed", "daily", "challenge"];

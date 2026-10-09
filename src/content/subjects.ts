@@ -54,7 +54,34 @@ export const SUBJECTS: SubjectMeta[] = [
     tagline: { little: "Me, family & community", middle: "Communities & caring", big: "People, places & history" },
     mascot: "juniper",
   },
+  {
+    id: "immersion",
+    title: { little: "En français", middle: "Français", big: "French Immersion" },
+    emoji: "🥐",
+    colour: "#ef6b6b",
+    colourDark: "#cc4a4a",
+    colourSoft: "#ffe9e9",
+    tagline: { little: "Mots, sons et histoires", middle: "Lire, écrire et parler", big: "Lecture, écriture et grammaire" },
+    mascot: "ollie",
+  },
+  {
+    id: "core-french",
+    title: { little: "Core French", middle: "Core French", big: "Core French" },
+    emoji: "🍁",
+    colour: "#1fb5c5",
+    colourDark: "#12909e",
+    colourSoft: "#e0f7fa",
+    tagline: { little: "Bonjour!", middle: "Bonjour!", big: "Speak and read French" },
+    mascot: "ollie",
+  },
 ];
+
+/** The four subjects every child studies. French is opt-in (Settings), so it never counts toward "every unit" goals. */
+export const CORE_SUBJECTS: SubjectId[] = ["math", "language", "science", "social"];
+
+export function isCoreSubject(id: SubjectId | string): boolean {
+  return (CORE_SUBJECTS as string[]).includes(id);
+}
 
 export function getSubjectMeta(id: SubjectId | string): SubjectMeta {
   return SUBJECTS.find((s) => s.id === id) ?? SUBJECTS[0];

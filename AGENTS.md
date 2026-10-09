@@ -103,6 +103,12 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Reports must say this reflects practice, not a report-card mark.** The teacher decides proficiency.
 - **The report card explainer appears in two places:** the parent area and the public `/report-cards/{slug}/` page. Both use `ReportCardGuide`.
 
+### French
+- **Two opt-in subjects, off by default** (a parent turns them on per child in Settings > Subjects): `immersion` (BC *Français langue seconde – immersion*, Kindergarten to Grade 7) and `core-french` (BC Core French, Grades 5 to 7, since Core French starts in Grade 5).
+- **They never count toward "every unit in your grade" goals or the Grade Champion trophy** (`isCoreSubject`), and reports only list French units once a child has started them.
+- **Immersion prompts are in French and set `lang: "fr"`**, so read-aloud uses a French voice (`speak(text, uri, "fr")`). Hints stay in English for parents. Core French prompts are in English with French answers.
+- **Verify French against curriculum.gov.bc.ca** (`/curriculum/fral/{grade}/core` and `/curriculum/core-french/{grade}`) and have a French teacher review the wording before launch.
+
 ### Ages
 - **Three age bands** (`ageBandFor`): little (K–1), middle (2–4) and big (5–7). The band changes copy, size and features:
   - **Subject names:**

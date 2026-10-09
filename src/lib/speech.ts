@@ -5,6 +5,9 @@
 // installed voices and pick the most natural one; parents can choose another in
 // Settings (saved per device, because every device has different voices).
 
+/** English is the app's language; French is for French Immersion and Core French questions. */
+export type SpeechLanguage = "en" | "fr";
+
 export type VoiceQuality = "natural" | "enhanced" | "standard" | "basic";
 
 export interface VoiceOption {
@@ -33,12 +36,15 @@ const ELOQUENCE = /\b(eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley)\b/i;
 // Apple's better standard voices.
 const APPLE_GOOD = /\b(samantha|ava|allison|susan|zoe|karen|moira|tessa|daniel|serena|evan|nathan|tom|alex|nicky|aaron|martha|arthur)\b/i;
 
-const LOCALE_BONUS: Record<string, number> = { "en-ca": 12, "en-us": 8, "en-gb": 6, "en-au": 6, "en-nz": 6, "en-ie": 6 };
+const LOCALE_BONUS: Record<string, number> = {
+  "en-ca": 12, "en-us": 8, "en-gb": 6, "en-au": 6, "en-nz": 6, "en-ie": 6,
+  "fr-ca": 12, "fr-fr": 8, "fr-be": 4, "fr-ch": 4,
+};
 
 /** Scores one voice, or undefined if it shouldn't be offered at all. */
-export function scoreVoice(v: VoiceLike): VoiceOption | undefined {
+export function scoreVoice(v: VoiceLike, language: SpeechLanguage = "en"): VoiceOption | undefined {
   const lang = v.lang.replace("_", "-").toLowerCase();
-  if (!lang.startsWith("en") || NOVELTY.test(v.name)) return undefined;
+  if (!lang.startsWith(language) || NOVELTY.test(v.name)) return undefined;
   const id = `${v.name} ${v.voiceURI}`;
   let quality: VoiceQuality;
   let score: number;
@@ -55,9 +61,9 @@ export function scoreVoice(v: VoiceLike): VoiceOption | undefined {
 }
 
 /** English voices, most natural first. Locale only breaks ties between similar voices. */
-export function rankVoices(voices: readonly VoiceLike[]): VoiceOption[] {
+export function rankVoices(voices: readonly VoiceLike[], language: SpeechLanguage = "en"): VoiceOption[] {
   return voices
-    .map(scoreVoice)
+    .map((v) => scoreVoice(v, language))
     .filter((o): o is VoiceOption => !!o)
     .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
 }
@@ -75,6 +81,7 @@ export function chooseVoice(ranked: readonly VoiceOption[], preferredUri: string
 const PREF_KEY = "grademap.voice";
 const EMPTY: VoiceOption[] = [];
 let ranked: VoiceOption[] = EMPTY;
+let rankedFr: VoiceOption[] = EMPTY;
 const listeners = new Set<() => void>();
 
 export function canSpeak(): boolean {
@@ -83,7 +90,9 @@ export function canSpeak(): boolean {
 
 function refresh() {
   if (!canSpeak()) return;
-  ranked = rankVoices(window.speechSynthesis.getVoices());
+  const voices = window.speechSynthesis.getVoices();
+  ranked = rankVoices(voices);
+  rankedFr = rankVoices(voices, "fr");
   for (const l of listeners) l();
 }
 
@@ -134,22 +143,23 @@ export function currentVoice(): VoiceOption | undefined {
 }
 
 /** Turn on-screen symbols into words a speech engine reads naturally. */
-function forSpeech(text: string): string {
+function forSpeech(text: string, language: SpeechLanguage = "en"): string {
+  const blank = language === "fr" ? " mot manquant " : " blank ";
   return text
-    .replace(/☐/g, " blank ")
+    .replace(/☐/g, blank)
     .replace(/(\d+)¢/g, "$1 cents")
     .replace(/−/g, " minus ")
-    .replace(/_{2,}/g, " blank ")
+    .replace(/_{2,}/g, blank)
     .replace(/\s+/g, " ")
     .trim();
 }
 
-function utter(text: string, option: VoiceOption | undefined, onFail?: () => void) {
+function utter(text: string, option: VoiceOption | undefined, onFail?: () => void, language: SpeechLanguage = "en") {
   const synth = window.speechSynthesis;
-  const u = new SpeechSynthesisUtterance(forSpeech(text));
+  const u = new SpeechSynthesisUtterance(forSpeech(text, language));
   const voice = option ? synth.getVoices().find((v) => v.voiceURI === option.uri) : undefined;
   if (voice) u.voice = voice;
-  u.lang = voice?.lang ?? "en-CA";
+  u.lang = voice?.lang ?? (language === "fr" ? "fr-CA" : "en-CA");
   // A touch slower than normal for young listeners; natural pitch (raising it makes good voices sound processed).
   u.rate = 0.92;
   u.pitch = 1;
@@ -161,15 +171,18 @@ function utter(text: string, option: VoiceOption | undefined, onFail?: () => voi
   synth.speak(u);
 }
 
-export function speak(text: string, voiceUri?: string | null) {
+export function speak(text: string, voiceUri?: string | null, language: SpeechLanguage = "en") {
   if (!canSpeak()) return;
   watch();
   window.speechSynthesis.cancel();
   const offline = navigator.onLine === false;
-  const choice = chooseVoice(ranked, voiceUri !== undefined ? voiceUri : getVoicePreference(), offline);
+  // The parent's saved voice is an English one, so French always uses the best French voice on the device.
+  const list = language === "fr" ? rankedFr : ranked;
+  const preferred = language === "fr" ? null : voiceUri !== undefined ? voiceUri : getVoicePreference();
+  const choice = chooseVoice(list, preferred, offline);
   // A cloud voice can fail on a flaky connection: try again with the best on-device voice.
-  const fallback = choice?.online ? chooseVoice(ranked, null, true) : undefined;
-  utter(text, choice, fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback) : undefined);
+  const fallback = choice?.online ? chooseVoice(list, null, true) : undefined;
+  utter(text, choice, fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback, undefined, language) : undefined, language);
 }
 
 export function stopSpeaking() {

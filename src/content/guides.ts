@@ -119,6 +119,46 @@ export const HOME_TIPS: Record<SubjectId, Record<AgeBand, string[]>> = {
       "Ask “Whose voice is missing from this story?” when reading about the past.",
     ],
   },
+  immersion: {
+    little: [
+      "Read French picture books together, even if you are learning too. Let your child tell you what is happening.",
+      "Sing French songs and nursery rhymes in the car or at bath time.",
+      "Name things around the house in French, and ask your child to teach you the words.",
+      "Clap the syllables in French words and play “What rhymes with chat?”",
+    ],
+    middle: [
+      "Read a short French book or comic together a few times a week, and talk about it in either language.",
+      "Ask your child to teach you one new French word or grammar rule a day.",
+      "Watch a French show with the French subtitles on, then retell the story.",
+      "Keep a short French journal: one or two sentences a day.",
+    ],
+    big: [
+      "Read French novels, comics or articles on topics your child enjoys.",
+      "Ask your child to explain a grammar rule to you, with an example.",
+      "Have your child write a short French note or message to a relative or pen pal.",
+      "Use a French dictionary or conjugation tool together when revising a draft.",
+    ],
+  },
+  "core-french": {
+    little: [
+      "Learn a few French words together, like bonjour, merci and au revoir.",
+      "Sing a French song and clap along.",
+      "Name colours and animals in French.",
+      "Greet each other in French at breakfast.",
+    ],
+    middle: [
+      "Learn a few French words together, like bonjour, merci and au revoir.",
+      "Label things around the house with French sticky notes.",
+      "Count in French while climbing the stairs.",
+      "Play a French game or watch a short French video together.",
+    ],
+    big: [
+      "Practise a few minutes a day: greetings, numbers, then simple sentences about yourself.",
+      "Say your answers out loud in French, even if you are not sure. Speaking is how it sticks.",
+      "Watch French videos with subtitles and spot words that look like English (cognates).",
+      "Look up a Francophone festival or community in Canada and share one thing you learned.",
+    ],
+  },
 };
 
 const BC_GUIDES: FrameworkGuides = {

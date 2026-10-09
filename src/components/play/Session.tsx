@@ -158,7 +158,7 @@ function Runner({ plan }: { plan: Plan }) {
 
   // Read each question aloud when the setting is on.
   useEffect(() => {
-    if (q && settings?.autoRead && !done && !checkpoint) speak(readAloudText(q));
+    if (q && settings?.autoRead && !done && !checkpoint) speak(readAloudText(q), undefined, q.lang);
     return stopSpeaking;
   }, [q, settings?.autoRead, done, checkpoint]);
 
@@ -380,7 +380,7 @@ function Runner({ plan }: { plan: Plan }) {
             ⏱ {timerText}
           </span>
         )}
-        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speak(readAloudText(q))}>
+        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speak(readAloudText(q), undefined, q.lang)}>
           🔊
         </button>
       </header>
