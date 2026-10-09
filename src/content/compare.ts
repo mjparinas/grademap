@@ -158,7 +158,7 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "Subjects",
         them: "Mostly math.",
-        us: "Math, language arts, science and social studies from Kindergarten to Grade 7.",
+        us: "Math, language arts, science and social studies from Kindergarten to Grade 9.",
       },
     ],
     chooseThem: ["Your child will only practise inside a big, story-driven game.", "You want a free math option to try."],

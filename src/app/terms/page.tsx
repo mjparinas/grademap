@@ -18,7 +18,7 @@ export default function TermsPage() {
     >
       <Section title="Who can use it">
         <p>
-          {APP_NAME} is for children in Kindergarten to Grade 7, used with a parent or guardian. You must be at least 18, or the age of majority where you live, to create an account. You confirm that you are the parent or legal guardian of any child you add, or have their parent’s permission. How we handle information is described in our <Link href="/privacy/">privacy policy</Link>.
+          {APP_NAME} is for children in Kindergarten to Grade 9, used with a parent or guardian. You must be at least 18, or the age of majority where you live, to create an account. You confirm that you are the parent or legal guardian of any child you add, or have their parent’s permission. How we handle information is described in our <Link href="/privacy/">privacy policy</Link>.
         </p>
       </Section>
 

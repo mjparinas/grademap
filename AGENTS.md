@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # GradeMap: guide for agents
 
-GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 7. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
+GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 9. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
 
 ## Commands
 
@@ -60,7 +60,7 @@ Tests are duplicated across screen sizes only where layout can break:
 ## Product decisions
 
 ### Positioning
-- **Audience:** parents of children in Kindergarten to Grade 7. Kids use the app; parents choose it, configure it and pay.
+- **Audience:** parents of children in Kindergarten to Grade 9. Kids use the app; parents choose it, configure it and pay.
 - **We differentiate on clarity, kindness and usability, not price.** IXL is expensive and hard to use, and Khan Academy is free. We win by:
   - speaking the language of the report card;
   - giving kind, encouraging feedback;
@@ -104,7 +104,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **The report card explainer appears in two places:** the parent area and the public `/report-cards/{slug}/` page. Both use `ReportCardGuide`.
 
 ### Ages
-- **Three age bands** (`ageBandFor`): little (K–1), middle (2–4) and big (5–7). The band changes copy, size and features:
+- **Three age bands** (`ageBandFor`): little (K–1), middle (2–4) and big (5–9). The band changes copy, size and features:
   - **Subject names:**
     - Language: "Letters & Words" (little), "Reading & Writing" (middle), "Language Arts" (big).
     - Social studies: "My World" (little), "Our World" (middle), "Social Studies" (big).
@@ -316,6 +316,7 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **Before launch, BC teachers need to review all content.**
   - Several Big Ideas statements were written from memory; check them against curriculum.gov.bc.ca.
   - Check history dates in the Grade 4–5 social studies units.
+  - Grade 8–9 content (shared helpers in `src/content/grades/kit.ts`) uses the Big Ideas and content topics published on curriculum.gov.bc.ca, but the questions and unit detail still need teacher review. The Grade 9 Indigenous history unit should be reviewed with First Peoples partners.
 - **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices): the device layout tests now pass in real WebKit (Playwright's WebKit build, not Safari). A check on a real iPhone or iPad is still needed, especially for read-aloud voices.
 - **Deployment** is not done. Steps, env vars and the launch checklist are in `docs/DEPLOY.md`.
 - **Legal and content:** `/privacy/` and `/terms/` are drafts needing legal review; `LEGAL_NAME` and `CONTACT_EMAIL` in `src/lib/brand.ts` are placeholders.
