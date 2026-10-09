@@ -646,6 +646,7 @@ function clapTheBeat(opts?: GenerateOptions): Question[] {
 const SIGHT_WORDS = [
   "the", "a", "I", "see", "can", "go", "and", "is", "it",
   "to", "me", "my", "we", "you", "up", "look", "in", "like",
+  "at", "on", "do", "no", "so",
 ];
 
 /** Real words that look a lot like each sight word. */
@@ -668,6 +669,11 @@ const SIGHT_LOOKALIKES: Record<string, string[]> = {
   look: ["like", "book", "to"],
   in: ["is", "it", "I"],
   like: ["look", "it", "is"],
+  at: ["a", "it", "an"],
+  on: ["no", "in", "an"],
+  do: ["go", "to", "so"],
+  no: ["on", "go", "so"],
+  so: ["go", "no", "to"],
 };
 
 /** Sight words that a picture can show. */
@@ -683,6 +689,12 @@ const PICTURE_WORDS: { word: string; emoji: string; group: string }[] = [
   { word: "down", emoji: "⬇️", group: "way" },
   { word: "run", emoji: "🏃", group: "action" },
   { word: "look", emoji: "👀", group: "action" },
+  { word: "orange", emoji: "🟠", group: "colour" },
+  { word: "purple", emoji: "🟣", group: "colour" },
+  { word: "black", emoji: "⚫", group: "colour" },
+  { word: "four", emoji: "4️⃣", group: "number" },
+  { word: "five", emoji: "5️⃣", group: "number" },
+  { word: "jump", emoji: "🤸", group: "action" },
 ];
 
 const spell = (word: string) => word.split("").join("-");

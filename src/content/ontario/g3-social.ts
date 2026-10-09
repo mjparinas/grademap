@@ -230,6 +230,14 @@ const ON_REGIONS: Item[] = [
   hq("The Hudson Bay Lowlands are wet, flat and have few people. What does this mean?", "the land is hard to build roads and farms on", ["it is a good place for skyscrapers", "it is a desert", "it is hotter than Toronto"], "Wet ground is hard to build on.", "🌫️"),
   hq("Which statement best describes the Great Lakes–St. Lawrence Lowlands?", "flat or gently rolling land with fertile soil and many cities", ["rocky and covered by lakes", "wet and swampy", "frozen all year"], "This region supports farms and cities.", "🌾"),
   hq("The Great Lakes are important because they…", "provide fresh water, shipping routes and places to play", ["are salty", "are used as farmland", "are made of rock"], "Many cities were built on the lakes.", "🚢"),
+  q("Which Great Lake is the largest by area and lies at the northern edge of Ontario's Great Lakes?", "Lake Superior", ["Lake Erie", "Lake Ontario", "Lake Huron"], "Superior is the largest of the five Great Lakes.", "🌊"),
+  q("Which Great Lake is the smallest by area of the five, and borders Ontario's south shore?", "Lake Ontario", ["Lake Superior", "Lake Huron", "Lake Michigan"], "Toronto sits on its shore.", "🌊"),
+  q("Which landform region has the most rock, lakes and forests in Ontario?", "the Canadian Shield", ["the Great Lakes–St. Lawrence Lowlands", "the Hudson Bay Lowlands", "the Prairies"], "It is made of very old rock.", "🪨"),
+  q("What is a municipality?", "a city, town or township with its own local government", ["a kind of mountain", "a lake", "a farm tool"], "Municipalities provide services like parks and garbage pickup.", "🏘️"),
+  q("Which person leads a city council?", "the mayor", ["the premier", "the prime minister", "the chief justice"], "Mayors lead local councils.", "🏛️"),
+  q("Which of these is a landform?", "a plain", ["a city", "a river road", "a school"], "Landforms are natural shapes of the land, like plains, hills and mountains.", "🏞️"),
+  q("Which body of water lies between Ontario and the United States and is shared by both?", "the Great Lakes", ["Hudson Bay", "the Pacific Ocean", "the Gulf of Mexico"], "Lakes Superior, Huron, Erie and Ontario are on the border.", "🗺️"),
+  q("What does a map's scale help you do?", "figure out real distances", ["see the weather", "find out who lives there", "know the year"], "Scale shows how map distance matches real distance.", "📏"),
 ];
 
 // ---------- Land use and jobs ----------

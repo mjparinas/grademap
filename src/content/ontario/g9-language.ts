@@ -32,6 +32,10 @@ const WORDS: BankItem[] = [
   { prompt: "In math class, what does the word product mean?", right: "the result of multiplying", wrong: ["the result of adding", "a store item", "a group of numbers"], hint: "Domain-specific words can mean something different from everyday use." },
   { prompt: "In science, what is mass?", right: "the amount of matter in an object", wrong: ["how heavy it feels on a hill", "how tall it is", "how quickly it moves"], hint: "Mass is measured in grams and kilograms." },
   { prompt: "On a map, what does the scale tell you?", right: "how map distances compare with real distances", wrong: ["which way is north", "how old the map is", "the name of the mapmaker"], hint: "A scale such as 1 cm = 5 km connects the map to real life." },
+  { prompt: "What does the prefix inter- mean in international?", right: "between", wrong: ["inside only", "against", "without"], hint: "International means between nations." },
+  { prompt: "What does the base graph mean in autograph and photograph?", right: "write or draw", wrong: ["walk", "hear", "carry"], hint: "An autograph is writing by hand, and a photograph is drawing with light." },
+  { prompt: "What does the suffix -ist mean in scientist?", right: "a person who does or studies something", wrong: ["without", "not able", "full of"], hint: "A scientist is a person who studies science." },
+  { prompt: "Choose the best meaning of ambiguous. “His directions were ambiguous, so we could not tell which road to take.”", right: "unclear or open to more than one meaning", wrong: ["very detailed", "friendly", "loud"], hint: "If you cannot tell which road, the directions were not clear." },
 ];
 
 function words(): Question[] {
@@ -53,6 +57,9 @@ const DEVICES: BankItem[] = [
   { prompt: "“Learning to code is like learning to cook: you start with simple recipes and slowly build your own.” What is this device?", right: "analogy", wrong: ["flashback", "allusion", "juxtaposition"], hint: "The writer explains one process by comparing it to another process." },
   { prompt: "A story shows a cramped, noisy apartment on one page and a silent mansion on the next. Which device is at work?", right: "juxtaposition", wrong: ["flashback", "analogy", "allusion"], hint: "Two settings are set side by side so the reader compares them." },
   { prompt: "A chapter opens on a stormy night, then jumps to “three years earlier,” when the characters were laughing at a picnic. What is this device?", right: "flashback", wrong: ["juxtaposition", "allusion", "analogy"], hint: "The jump back in time is a flashback." },
+  { prompt: "“Dealing with homework is like climbing a hill: each step is small, but you slowly reach the top.” Which device is this?", right: "analogy", wrong: ["allusion", "flashback", "juxtaposition"], hint: "One familiar process explains another." },
+  { prompt: "A writer calls a stubborn friend “a real Scrooge” about spending. What is this device?", right: "allusion", wrong: ["analogy", "flashback", "juxtaposition"], hint: "The writer refers briefly to a well-known character." },
+  { prompt: "A story shows a child's cheerful drawing next to a hospital waiting room. What is the effect?", right: "The contrast makes the reader feel the emotion more", wrong: ["It makes the setting vanish", "It explains the plot with a list", "It adds a new narrator"], hint: "Two opposite images placed side by side draw attention to the difference." },
 ];
 
 const DEVICE_PASSAGES: Passage[] = [
@@ -83,6 +90,18 @@ const DEVICE_PASSAGES: Passage[] = [
       { prompt: "What is the main effect of the comparison to a bus shelter?", right: "It shows how still and apart Ravi feels", wrong: ["It shows he is late for a bus", "It makes the cafeteria seem calm", "It tells us the ending"], hint: "A bus shelter stays put while traffic moves." },
     ],
   },
+  {
+    title: "The Old Radio",
+    text: [
+      "The old radio crackled once and went silent. Kenji turned the dial, and for a moment he was back in his grandfather's workshop, sawdust on his sleeves, listening to a hockey game on a rainy night.",
+      "Now the workshop was cold and bare. On the empty bench, a single shiny screw sat beside a pile of dust. Like a compass without a needle, the room had lost its direction.",
+    ],
+    questions: [
+      { prompt: "Which device is used when Kenji is “back in his grandfather's workshop”?", right: "flashback", wrong: ["analogy", "juxtaposition", "allusion"], hint: "The story moves to an earlier time." },
+      { prompt: "“Like a compass without a needle, the room had lost its direction” is an example of…", right: "analogy", wrong: ["flashback", "allusion", "juxtaposition"], hint: "It compares the room to a familiar object that has lost its purpose." },
+      { prompt: "What is the effect of describing the shiny screw beside the pile of dust?", right: "It sets a small bright detail against neglect", wrong: ["It shows that the radio works", "It moves the story to the past", "It adds a new narrator"], hint: "Bright and dusty are placed side by side." },
+    ],
+  },
 ];
 
 function devices(): Question[] {
@@ -106,6 +125,16 @@ const DIGITAL: BankItem[] = [
   { prompt: "A headline reads “SHOCKING!” and the article has no author, date or sources. What does this suggest?", right: "It may not be credible and should be checked", wrong: ["It must be true because it is exciting", "It is the newest information", "It is written by an expert"], hint: "Missing author, date and sources are warning signs." },
   { prompt: "Before you post a photo of a friend, what should you do?", right: "Ask for their permission", wrong: ["Post it first and ask later", "Assume it is fine if they smiled", "Tag everyone you can"], hint: "A friend's image and privacy are theirs to decide about." },
   { prompt: "Which source is most reliable for facts about vaccine safety?", right: "A public health agency page that lists its studies", wrong: ["An anonymous forum post", "A company's advertisement", "A friend's short video"], hint: "Reliable sources show their evidence and are accountable for accuracy." },
+  { prompt: "What is an algorithm in a social media app?", right: "A set of rules that decides what content you see", wrong: ["A kind of password", "A photo filter only", "The name of a website"], hint: "Algorithms sort and recommend posts." },
+  { prompt: "What is a filter bubble?", right: "When you mostly see ideas that match your own because of what a site shows you", wrong: ["A bubble in a video", "A strong password", "A pop-up window"], hint: "Curated feeds can narrow what you see." },
+  { prompt: "A website's address starts with https and shows a padlock. What does this tell you?", right: "The connection is encrypted, but the content might still be false", wrong: ["Everything on the page is true", "The site is run by a government", "The page has no ads"], hint: "Security of the connection does not prove accuracy." },
+  { prompt: "Which of these is an example of cyberbullying?", right: "Repeatedly posting mean comments about someone online", wrong: ["Sharing a recipe", "Posting a vacation photo with permission", "Liking a friend's post"], hint: "Online harm is still harm." },
+  { prompt: "What is the best response if you see someone being bullied online?", right: "Do not join in, support the person and tell a trusted adult or report it", wrong: ["Add a comment to join the joke", "Ignore it forever", "Share the post"], hint: "Being an upstander helps." },
+  { prompt: "What does a digital footprint mean?", right: "The trail of information you leave when you use the internet", wrong: ["The size of your screen", "A print of your shoe", "The speed of your connection"], hint: "Posts, searches and photos can last a long time." },
+  { prompt: "Which is a sign that an image may be edited or AI-generated?", right: "Odd details such as extra fingers or blurry text", wrong: ["It has a caption", "It is in colour", "It is on a phone"], hint: "Look closely for inconsistencies." },
+  { prompt: "An advertisement appears as a news-style article. What is this called?", right: "sponsored content", wrong: ["an editorial", "a primary source", "a diary"], hint: "It is paid for by a company, so the purpose is to promote something." },
+  { prompt: "Why is it helpful to look at the 'About' page of a website?", right: "It can tell you who runs the site and why", wrong: ["It lists the latest scores", "It shows only photos", "It turns off ads"], hint: "Knowing the creator helps you judge purpose and bias." },
+  { prompt: "A video shows a famous athlete saying something shocking. Which step is best before sharing?", right: "Check whether trusted news sources report the same thing", wrong: ["Share it first", "Assume it is real because it has views", "Send it to everyone in your contacts"], hint: "Deepfakes and edits can look real." },
 ];
 
 function digital(): Question[] {
@@ -130,6 +159,16 @@ const REVISE: BankItem[] = [
   { prompt: "Which sentence uses a licence or license correctly in Canadian English?", right: "She needs a licence to license the software.", wrong: ["She needs a license to licence the software.", "She needs a licence to licence the software.", "She needs a license to license the software."], hint: "In Canada, licence is the noun and license is the verb." },
   { prompt: "Which revision fixes the tense shift and keeps the story in the past? “Jay opens the door and walked inside.”", right: "Jay opened the door and walked inside.", wrong: ["Jay opens the door and walks inside.", "Jay opened the door and walks inside.", "Jay is opening the door and walked inside."], hint: "Keep the verbs in one tense. Opened and walked are both past tense." },
   { prompt: "Which sentence is a run-on?", right: "The bus was late we missed the start.", wrong: ["The bus was late, so we missed the start.", "The bus was late; we missed the start.", "Because the bus was late, we missed the start."], hint: "A run-on joins two complete sentences with no punctuation or conjunction." },
+  { prompt: "Which transition best fits? “The museum is free. ____, it is open late on Fridays.”", right: "In addition", wrong: ["On the other hand", "As a result", "Instead"], hint: "The second sentence adds another benefit." },
+  { prompt: "Which sentence has a misplaced modifier fixed correctly?", right: "Walking down the street, Maya saw a bright mural.", wrong: ["Walking down the street, a bright mural was seen by Maya's eyes.", "Maya saw walking down the street a bright mural.", "A bright mural, walking down the street, saw Maya."], hint: "Keep the descriptive phrase next to the word it describes." },
+  { prompt: "Which sentence is a fragment?", right: "Because the power went out.", wrong: ["The power went out.", "The power went out, so we lit candles.", "We lit candles when the power went out."], hint: "A fragment lacks a complete idea." },
+  { prompt: "Which revision removes the repeated meaning? “The big, large dog was friendly.”", right: "The large dog was friendly.", wrong: ["The big, large, huge dog was friendly.", "The dog was friendly, friendly and big and large."], hint: "Big and large mean the same thing, so keep only one." },
+  { prompt: "Which is the standard Canadian spelling?", right: "colour", wrong: ["color", "colur", "culor"], hint: "Canadian English keeps the u in colour." },
+  { prompt: "Which is the standard Canadian spelling?", right: "theatre", wrong: ["theater", "thaeter", "theetre"], hint: "Canadian English uses -re in theatre." },
+  { prompt: "Which sentence has subject-verb agreement?", right: "The group of students is ready to start.", wrong: ["The group of students are ready to start.", "The group of student are ready to start.", "The groups of students is ready to start."], hint: "Group is singular, so use is." },
+  { prompt: "Which revision makes the sentence parallel? “She likes hiking, swimming and to bike.”", right: "She likes hiking, swimming and biking.", wrong: ["She likes to hike, swimming and to bike.", "She likes hike, swim and biking.", "She likes hiking, to swim and bike."], hint: "Keep each item in the same form." },
+  { prompt: "Which is the correct form? “___ going to the park after school.”", right: "They're", wrong: ["Their", "There", "Theyre"], hint: "They're means they are." },
+  { prompt: "Which sentence uses a comma splice?", right: "The film was long, it was worth watching.", wrong: ["The film was long; it was worth watching.", "The film was long, but it was worth watching.", "The film was long. It was worth watching."], hint: "A comma alone cannot join two complete sentences." },
 ];
 
 function revise(): Question[] {
@@ -154,6 +193,16 @@ const FORMS: BankItem[] = [
   { prompt: "What is a hyperlink in an online article used for?", right: "To connect readers to related information or a source", wrong: ["To change the font", "To count the words", "To hide the author's name"], hint: "Clicking a link takes you to another page." },
   { prompt: "Two news sites report the same event with different headlines. What is the most likely reason?", right: "They have different purposes or target audiences", wrong: ["Only one of them is a real website", "Headlines are chosen at random", "One of them has no photos"], hint: "Creators shape their message for a particular audience and purpose." },
   { prompt: "Which pattern organizes information in time order?", right: "Sequence (chronological order)", wrong: ["Compare and contrast", "Problem and solution", "Cause and effect"], hint: "Sequence follows events from first to last." },
+  { prompt: "Which feature at the back of a book explains difficult words?", right: "The glossary", wrong: ["The index", "The dedication", "The title page"], hint: "A glossary defines key terms." },
+  { prompt: "What does a sidebar in a magazine article usually offer?", right: "Extra information set apart from the main text", wrong: ["The whole article again", "The author's address", "The table of contents"], hint: "Sidebars add detail without interrupting the main story." },
+  { prompt: "A line graph in a news article is best used to show…", right: "how something changes over time", wrong: ["a list of definitions", "the parts of a whole in a pie", "a character's emotions"], hint: "Time on one axis and a value on the other show trends." },
+  { prompt: "Which text form is mainly written to persuade readers to agree with an opinion?", right: "An editorial", wrong: ["A weather report", "A glossary", "A table of contents"], hint: "An editorial argues for a position." },
+  { prompt: "Which text feature shows the order of chapters and their page numbers?", right: "The table of contents", wrong: ["The index", "The glossary", "The footnote"], hint: "It is near the front of a book." },
+  { prompt: "In an infographic, why are icons and short labels used?", right: "To present key information quickly and clearly", wrong: ["To hide the facts", "To replace every number", "To tell a long story"], hint: "Design helps readers see the main ideas fast." },
+  { prompt: "What is the purpose of a heading in an article?", right: "To tell what a section is about and help readers navigate", wrong: ["To list the author's age", "To act as a caption", "To end the text"], hint: "Headings organize information." },
+  { prompt: "A poem is written in free verse. What does that mean?", right: "It does not follow a fixed rhyme or rhythm pattern", wrong: ["It must rhyme every line", "It is a prose paragraph", "It is a list of facts"], hint: "Free verse sets its own structure." },
+  { prompt: "Which pattern uses words such as first, next, then and finally?", right: "Sequence", wrong: ["Compare and contrast", "Cause and effect", "Problem and solution"], hint: "Time words show order." },
+  { prompt: "A scene is told in letters between two characters. What is this text form called?", right: "an epistolary text", wrong: ["a script", "an editorial", "an index"], hint: "Epistolary means told through letters." },
 ];
 
 function forms(): Question[] {

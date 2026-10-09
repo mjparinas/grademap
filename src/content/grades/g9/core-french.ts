@@ -20,6 +20,21 @@ const TIMES: FrItem[] = [
   ["Which sentence is in the future?", "Nous allons visiter le musée demain.", ["Nous avons visité le musée hier.", "Nous visitions le musée chaque été."], TIME_HINT],
   ["Which sentence tells what always used to happen?", "Chaque été, nous allions au lac.", ["Hier, nous sommes allés au lac.", "Demain, nous irons au lac."], "The imparfait (allions) describes repeated actions in the past."],
   ["Complète : Les élèves ___ à la bibliothèque ce matin. (arriver, passé composé)", "sont arrivés", ["ont arrivé", "arrivent"], "Arriver uses être in the passé composé."],
+  ["Complète : Hier, nous ___ au parc. (aller, passé composé)", "sommes allés", ["avons allé", "allons aller"], "Aller uses être in the passé composé, and the participle agrees with the subject."],
+  ["Complète : Demain, vous ___ visiter la ville. (near future)", "allez", ["avez", "êtes"], "The near future is aller + an infinitive: vous allez visiter."],
+  ["Complète : Quand j'avais six ans, j'___ un chat. (avoir, habit)", "avais", ["ai eu", "aurai"], "The imparfait describes habits and background in the past."],
+  ["Complète : Hier matin, elle ___ un courriel. (envoyer, finished event)", "a envoyé", ["envoyait", "enverra"], "The passé composé tells what happened and was finished."],
+  ["How do you say “Last year we travelled to Québec”?", "L'année dernière, nous avons voyagé au Québec.", ["L'année prochaine, nous voyageons au Québec.", "L'année dernière, nous allons voyager au Québec."], TIME_HINT],
+  ["How do you say “Next Saturday I am going to paint”?", "Samedi prochain, je vais peindre.", ["Samedi dernier, j'ai peint.", "Samedi prochain, je peignais."], TIME_HINT],
+  ["What does “le mois dernier” mean?", "last month", ["next month", "every month"], TIME_HINT],
+  ["What does “l'été prochain” mean?", "next summer", ["last summer", "every summer"], TIME_HINT],
+  ["What does “autrefois” mean?", "in the past, long ago", ["tomorrow", "right now"], TIME_HINT],
+  ["What does “dans deux jours” mean?", "in two days", ["two days ago", "every two days"], TIME_HINT],
+  ["What does “il y a deux jours” mean?", "two days ago", ["in two days", "every two days"], TIME_HINT],
+  ["Which sentence uses the imparfait to describe the background?", "Il faisait froid et il neigeait.", ["Il a fait froid hier.", "Il fera froid demain."], "The imparfait describes how things were. The passé composé tells what happened."],
+  ["Which sentence uses the passé composé for a finished event?", "Elle a gagné la course.", ["Elle gagnait la course.", "Elle gagnera la course."], TIME_HINT],
+  ["Which sentence is in the near future?", "Tu vas aider ta sœur.", ["Tu as aidé ta sœur.", "Tu aidais ta sœur."], TIME_HINT],
+  ["Complète : Ce matin, mes amis ___ en retard. (arriver, passé composé)", "sont arrivés", ["ont arrivé", "arrivent"], "Arriver uses être in the passé composé."],
 ];
 
 // ---------- Poser des questions ----------
@@ -39,6 +54,21 @@ const QUESTIONS: FrItem[] = [
   ["Which answer fits “Comment vas-tu?”", "Je vais bien, merci.", ["J'ai douze ans.", "Il est midi."], QUEST_HINT],
   ["Which question asks for a place?", "Où habites-tu?", ["Quand arrives-tu?", "Qui est-ce?"], QUEST_HINT],
   ["Which question asks for a reason?", "Pourquoi es-tu en retard?", ["Combien coûte le billet?", "Où est le gymnase?"], QUEST_HINT],
+  ["Change “Tu aimes le chocolat.” into a question with inversion.", "Aimes-tu le chocolat?", ["Tu aimes-tu le chocolat?", "Est-ce aimes-tu le chocolat?"], QUEST_HINT],
+  ["Change “Ils jouent au soccer.” into a question with inversion.", "Jouent-ils au soccer?", ["Ils jouent-ils au soccer?", "Est-ce jouent-ils au soccer?"], QUEST_HINT],
+  ["Change “Il a un frère.” into a question with inversion.", "A-t-il un frère?", ["A-il un frère?", "Il a-t-il un frère?"], "Add -t- between two vowels to make the question easy to say: a-t-il."],
+  ["Which question uses est-ce que?", "Est-ce que vous habitez ici?", ["Habitez-vous ici?", "Vous habitez ici?"], QUEST_HINT],
+  ["Which question uses inversion?", "Parlez-vous anglais?", ["Est-ce que vous parlez anglais?", "Vous parlez anglais?"], QUEST_HINT],
+  ["Change “Tu joues au tennis.” into a question with est-ce que.", "Est-ce que tu joues au tennis?", ["Est-ce tu joues au tennis?", "Que tu joues au tennis?"], QUEST_HINT],
+  ["Complète : ___ coûtent ces souliers? — Soixante dollars.", "Combien", ["Quand", "Où"], QUEST_HINT],
+  ["Complète : ___ commences-tu ton projet? — Lundi.", "Quand", ["Qui", "Combien"], QUEST_HINT],
+  ["Complète : ___ est ton nouvel enseignant? — C'est monsieur Dubois.", "Qui", ["Où", "Quand"], QUEST_HINT],
+  ["Complète : ___ viens-tu à l'école? — À pied.", "Comment", ["Combien", "Quand"], QUEST_HINT],
+  ["Complète : ___ n'es-tu pas venu? — J'étais malade.", "Pourquoi", ["Comment", "Où"], QUEST_HINT],
+  ["Which answer fits “Où est le gymnase?”", "Il est au bout du couloir.", ["Il est midi.", "Il coûte dix dollars."], QUEST_HINT],
+  ["Which answer fits “Combien de sœurs as-tu?”", "J'ai deux sœurs.", ["Elle s'appelle Sara.", "À huit heures."], QUEST_HINT],
+  ["Which answer fits “Quand est le concert?”", "Samedi soir.", ["Au gymnase.", "Dix dollars."], QUEST_HINT],
+  ["Which question asks for a person?", "Qui a gagné?", ["Où a-t-il gagné?", "Quand a-t-il gagné?"], QUEST_HINT],
 ];
 
 // ---------- Les séquences ----------
@@ -54,6 +84,24 @@ const SEQUENCES: FrItem[] = [
   ["Which sentence tells the steps in order?", "D'abord, je lave les légumes; ensuite, je les coupe; finalement, je les mange.", ["Finalement, je mange les légumes; d'abord, je les coupe.", "Ensuite, je lave les légumes; d'abord, je les mange."], SEQ_HINT],
   ["Which word means “after that”?", "après", ["avant", "pendant"], SEQ_HINT],
   ["Which word means “before”?", "avant", ["après", "finalement"], SEQ_HINT],
+  ["What does “d'abord” mean?", "first", ["last", "never"], SEQ_HINT],
+  ["What does “premièrement” mean?", "first of all", ["lastly", "yesterday"], SEQ_HINT],
+  ["What does “deuxièmement” mean?", "secondly", ["twice a day", "before"], SEQ_HINT],
+  ["What does “enfin” mean?", "finally, at last", ["at first", "sometimes"], SEQ_HINT],
+  ["What does “puis” mean?", "then", ["before", "because"], SEQ_HINT],
+  ["What does “pendant” mean?", "during", ["after", "before"], SEQ_HINT],
+  ["D'abord, je me brosse les dents. ___, je me couche.", "Ensuite", ["Avant", "Hier"], SEQ_HINT],
+  ["___, on se lave les mains. Ensuite, on mange.", "D'abord", ["Finalement", "Après"], SEQ_HINT],
+  ["Premièrement, on ouvre le livre. Deuxièmement, on lit. ___, on discute.", "Troisièmement", ["Premièrement", "Hier"], SEQ_HINT],
+  ["Which word introduces the last step?", "Enfin", ["D'abord", "Ensuite"], SEQ_HINT],
+  ["Which sentence puts a morning routine in order?", "D'abord, je me lève; ensuite, je m'habille; finalement, je pars.", ["Finalement, je me lève; d'abord, je pars.", "Ensuite, je pars; d'abord, je me lève; finalement, je m'habille."], SEQ_HINT],
+  ["Which expression means “at the same time”?", "en même temps", ["jamais", "demain"], SEQ_HINT],
+  ["Complète : Je fais mes devoirs ___ le dîner. (before)", "avant", ["après", "pendant"], SEQ_HINT],
+  ["Complète : Nous jouons dehors ___ le dîner. (after)", "après", ["avant", "pendant"], SEQ_HINT],
+  ["Complète : Elle chante ___ qu'elle cuisine. (while)", "pendant", ["avant", "après"], "Pendant que means “while”: elle chante pendant qu'elle cuisine."],
+  ["Which word tells you a new step is coming?", "ensuite", ["jamais", "hier"], SEQ_HINT],
+  ["In a recipe, which word would come first?", "D'abord", ["Finalement", "Ensuite"], SEQ_HINT],
+  ["Which sentence is in the right order?", "Premièrement, je prends mon sac; deuxièmement, je mets mes souliers; troisièmement, je sors.", ["Troisièmement, je prends mon sac; premièrement, je sors.", "Deuxièmement, je sors; premièrement, je mets mes souliers."], SEQ_HINT],
 ];
 
 function sequences(opts?: GenerateOptions): Question[] {
@@ -79,6 +127,21 @@ const NEEDS: FrItem[] = [
   ["What does “Je trouve que c'est intéressant” mean?", "I find that it's interesting", ["I found it in the street", "I am not interested"], NEED_HINT],
   ["Which sentence gives an opinion about a familiar topic?", "Je trouve que le hockey est un sport rapide.", ["Le hockey se joue sur la glace.", "Le match commence à sept heures."], NEED_HINT],
   ["Il me faut… means…", "I need…", ["I am missing the bus", "I am thinking of…"], NEED_HINT],
+  ["What does “Je voudrais un jus” mean?", "I would like a juice", ["I saw a juice", "I am making a juice"], NEED_HINT],
+  ["What does “Il me faut un cahier” mean?", "I need a notebook", ["I lost a notebook", "I sell notebooks"], NEED_HINT],
+  ["How do you politely ask what time it is?", "Pourriez-vous me dire l'heure, s'il vous plaît?", ["Dis-moi l'heure!", "Quelle heure? Vite!"], NEED_HINT],
+  ["How do you politely ask someone to repeat?", "Pouvez-vous répéter, s'il vous plaît?", ["Répète encore!", "Je n'écoute pas."], NEED_HINT],
+  ["How do you say “I need help with my homework”?", "J'ai besoin d'aide avec mes devoirs.", ["J'ai fini mes devoirs.", "Je déteste mes devoirs."], NEED_HINT],
+  ["How do you politely ask to borrow a pen?", "Puis-je emprunter ton stylo, s'il te plaît?", ["Donne ton stylo!", "Je prends ton stylo."], NEED_HINT],
+  ["What does “Selon moi” mean?", "in my opinion", ["without me", "with me"], NEED_HINT],
+  ["Which sentence gives an opinion?", "Je pense que ce livre est amusant.", ["Ce livre a deux cents pages.", "Ce livre est sur la table."], NEED_HINT],
+  ["Which sentence agrees politely?", "Tu as raison, c'est une bonne idée.", ["Tu as tort, c'est stupide.", "Je ne t'écoute pas."], NEED_HINT],
+  ["What does “Tu as raison” mean?", "You are right", ["You are late", "You are wrong"], NEED_HINT],
+  ["What does “Tu as tort” mean?", "You are wrong", ["You are right", "You are tired"], NEED_HINT],
+  ["Complète : Je ___ un stylo, s'il te plaît. (would like)", "voudrais", ["voulais", "veux"], NEED_HINT],
+  ["Complète : J'ai besoin ___ ton aide. (of)", "de", ["à", "en"], NEED_HINT],
+  ["Which phrase expresses a need?", "J'ai besoin de repos.", ["J'adore le repos.", "Le repos est fini."], NEED_HINT],
+  ["Which sentence disagrees politely?", "Je comprends, mais je pense autrement.", ["C'est faux!", "Tu n'y connais rien!"], NEED_HINT],
 ];
 
 // ---------- Comparer ----------
@@ -96,6 +159,21 @@ const COMPARE: FrItem[] = [
   ["How do you say “He has as many cousins as I do”?", "Il a autant de cousins que moi.", ["Il a plus de cousins que moi.", "Il est aussi cousin que moi."], COMP_HINT],
   ["Complète : Ma sœur est ___ grande que moi. (the same height)", "aussi", ["autant", "plus de"], COMP_HINT],
   ["Complète : Mon frère mange ___ de pain que moi. (more)", "plus", ["aussi", "très"], COMP_HINT],
+  ["Complète : J'ai ___ de patience que mon frère. (less)", "moins", ["autant", "plus"], COMP_HINT],
+  ["Complète : Il y a ___ de neige en février qu'en octobre. (more)", "plus", ["moins", "aussi"], COMP_HINT],
+  ["Complète : Marc et Léa ont quatre stylos chacun. Marc a ___ de stylos que Léa.", "autant", ["plus", "moins"], COMP_HINT],
+  ["Complète : Ce film est ___ long que l'autre. (the same length)", "aussi", ["autant", "plus de"], COMP_HINT],
+  ["Complète : Elle lit ___ de livres que moi. (fewer)", "moins", ["plus", "aussi"], COMP_HINT],
+  ["Complète : Ma ville a ___ d'habitants que ta ville. (the same number)", "autant", ["aussi", "très"], COMP_HINT],
+  ["Which sentence is correct?", "Nous avons autant de temps que vous.", ["Nous avons aussi de temps que vous.", "Nous avons autant temps que vous."], COMP_HINT],
+  ["How do you say “There are more cars than bikes”?", "Il y a plus de voitures que de vélos.", ["Il y a moins de voitures que de vélos.", "Il y a autant de voitures que de vélos."], COMP_HINT],
+  ["How do you say “She runs as fast as her brother”?", "Elle court aussi vite que son frère.", ["Elle court plus vite que son frère.", "Elle court moins vite que son frère."], COMP_HINT],
+  ["How do you say “I have fewer books than you”?", "J'ai moins de livres que toi.", ["J'ai plus de livres que toi.", "J'ai autant de livres que toi."], COMP_HINT],
+  ["What does “moins de… que” mean?", "fewer or less… than", ["as many… as", "more… than"], COMP_HINT],
+  ["What does “plus de… que” mean?", "more… than", ["fewer… than", "as many… as"], COMP_HINT],
+  ["Which sentence compares two adjectives?", "Cette rivière est plus longue que la nôtre.", ["Cette rivière a autant d'eau que la nôtre.", "Cette rivière coule vers l'est."], COMP_HINT],
+  ["Which sentence compares amounts?", "Ma classe a moins d'élèves que la tienne.", ["Ma classe est aussi grande que la tienne.", "Ma classe est au premier étage."], COMP_HINT],
+  ["Which sentence shows a contrast with “mais”?", "Je suis fatigué, mais je continue.", ["Je suis fatigué parce que j'ai couru.", "Je suis fatigué donc je dors."], COMP_HINT],
 ];
 
 // ---------- Décrire ----------
@@ -113,6 +191,22 @@ const DESCRIPTIONS: FrItem[] = [
   ["Which sentence describes a person?", "Mon voisin est grand, blond et très gentil.", ["Mon voisin habite à côté.", "Mon voisin arrive demain."], DESC_HINT],
   ["Which sentence describes a personal interest?", "J'adore le basketball et je joue chaque semaine.", ["La salle de sport est grande.", "Le basketball est un ballon."], DESC_HINT],
   ["Complète : C'est une ville ___ et ___. (moderne, animé)", "moderne et animée", ["moderne et animé", "modernes et animées"], DESC_HINT],
+  ["Complète : Les fleurs sont ___. (beau)", "belles", ["beau", "beaux"], DESC_HINT],
+  ["Complète : Mon frère est ___. (grand)", "grand", ["grande", "grandes"], DESC_HINT],
+  ["Complète : Ma cousine est ___ et ___. (gentil, drôle)", "gentille et drôle", ["gentil et drôle", "gentilles et drôles"], DESC_HINT],
+  ["Complète : Ces garçons sont ___. (sportif)", "sportifs", ["sportives", "sportif"], DESC_HINT],
+  ["Complète : La classe est ___. (bruyant)", "bruyante", ["bruyant", "bruyants"], DESC_HINT],
+  ["Complète : Nos voisins sont ___. (sympathique)", "sympathiques", ["sympathique", "sympathiquement"], DESC_HINT],
+  ["Which word means “friendly, nice”?", "sympathique", ["fâché", "timide"], DESC_HINT],
+  ["Which word means “shy”?", "timide", ["courageux", "drôle"], DESC_HINT],
+  ["Which word means “funny”?", "drôle", ["sérieux", "paresseux"], DESC_HINT],
+  ["Which word means “brave”?", "courageux", ["peureux", "paresseux"], DESC_HINT],
+  ["Which word describes a place with lots of people and activity?", "animé", ["désert", "tranquille"], DESC_HINT],
+  ["Which sentence describes a personal interest?", "J'adore dessiner et peindre.", ["Mon frère a douze ans.", "Il habite à Ottawa."], DESC_HINT],
+  ["Which sentence describes a place?", "La plage est grande, propre et ensoleillée.", ["Elle nage tous les matins.", "Hier, j'ai visité la plage."], DESC_HINT],
+  ["Which sentence describes an object?", "C'est un sac rouge, léger et pratique.", ["Il a acheté un sac hier.", "Ils cherchent un sac."], DESC_HINT],
+  ["Complète : C'est une ville ___ et ___. (ancien, tranquille)", "ancienne et tranquille", ["ancien et tranquille", "anciennes et tranquilles"], DESC_HINT],
+  ["Complète : Mes chaussures sont ___. (neuf)", "neuves", ["neuf", "neufs"], DESC_HINT],
 ];
 
 // ---------- Types de textes ----------
@@ -131,6 +225,22 @@ const TEXTS: FrItem[] = [
   ["Which text uses a list of ingredients and numbered steps?", "A recipe", ["A postcard", "A poem"], TEXT_HINT],
   ["Who is the audience of a school announcement?", "Students and teachers at the school", ["Only the principal", "People in another country"], TEXT_HINT],
   ["Which tone suits a postcard to your cousin?", "Friendly and informal", ["Very formal", "Stiff and distant"], TEXT_HINT],
+  ["Which closing is informal?", "Bisous, Maya", ["Cordialement,", "Veuillez agréer mes salutations distinguées."], TEXT_HINT],
+  ["Which greeting is formal?", "Monsieur Roy,", ["Salut Léo!", "Allô!"], TEXT_HINT],
+  ["Which greeting is formal?", "Madame, Monsieur,", ["Coucou!", "Hé, toi!"], TEXT_HINT],
+  ["What is the purpose of a postcard?", "To share news from a trip", ["To sell a product", "To give instructions"], TEXT_HINT],
+  ["What is the purpose of a thank-you note?", "To show appreciation", ["To advertise a sale", "To report news"], TEXT_HINT],
+  ["What is the purpose of a poster for a school play?", "To announce an event and attract an audience", ["To teach a recipe", "To describe a person"], TEXT_HINT],
+  ["Which text has a headline, a date and facts about an event?", "A news report", ["A postcard", "A birthday invitation"], TEXT_HINT],
+  ["Which text gives the time, place and date of a party?", "An invitation", ["A recipe", "A news report"], TEXT_HINT],
+  ["Which text often begins with “Chère Maya,”?", "A personal letter", ["A recipe", "A bus schedule"], TEXT_HINT],
+  ["Which tone suits an email to a principal?", "Polite and formal", ["Slangy and jokey", "Rude and short"], TEXT_HINT],
+  ["Which sentence uses “vous” correctly with a teacher?", "Pouvez-vous m'aider, madame?", ["Peux-tu m'aider, madame?", "Aide-moi, madame!"], TEXT_HINT],
+  ["Which sentence uses “tu” correctly with a friend?", "Veux-tu venir chez moi?", ["Voulez-vous bien venir chez moi, cher ami?", "Venez-vous à la maison, monsieur?"], TEXT_HINT],
+  ["Which register fits a text message to a close friend?", "Informal", ["Very formal", "Legal"], TEXT_HINT],
+  ["Which text is meant to persuade?", "An advertisement", ["A recipe", "A weather report"], TEXT_HINT],
+  ["Which word often ends a formal email?", "Cordialement", ["Bisous", "Coucou"], TEXT_HINT],
+  ["Who is the audience of a letter to the mayor?", "The mayor", ["Only your friends", "Nobody"], TEXT_HINT],
 ];
 
 // ---------- Traditions et expressions ----------
@@ -149,6 +259,22 @@ const TRADITIONS: FrItem[] = [
   ["What does “avoir le cafard” mean?", "To feel sad or down", ["To have a bug in the house", "To drink coffee"], "Figurative meaning: to feel blue.", "😔"],
   ["What does “coûter les yeux de la tête” mean?", "To be very expensive", ["To cost very little", "To need glasses"], "Figurative meaning: to cost a lot.", "💰"],
   ["Why do expressions often confuse language learners?", "Their meaning is different from the meaning of the words", ["They have no verbs", "They are always in the future"], TRAD_HINT],
+  ["What is the Carnaval de Québec?", "A winter festival in Québec City", ["A summer swimming race", "A harvest market"], TRAD_HINT, "⛄"],
+  ["What is a cabane à sucre?", "A place where maple syrup is made and enjoyed in spring", ["A winter ski hut", "A fishing cabin"], TRAD_HINT, "🍁"],
+  ["What does “Ce n'est pas la fin du monde” mean?", "It's not a big deal", ["The world is ending", "It's near the end"], "Figurative meaning: it's nothing to worry about."],
+  ["What does “avoir le coup de foudre” mean?", "To fall in love at first sight", ["To be struck by a storm", "To feel angry"], "Figurative meaning: love at first sight."],
+  ["What does “mettre son grain de sel” mean?", "To give an opinion nobody asked for", ["To add salt to soup", "To buy salt"], "Figurative meaning: to give an opinion nobody asked for."],
+  ["What does “tomber dans les pommes” mean?", "To faint", ["To fall in an orchard", "To eat apples"], "Figurative meaning: to faint.", "🍎"],
+  ["What does “être dans la lune” mean?", "To be daydreaming", ["To travel to the moon", "To stay up all night"], "Figurative meaning: to be daydreaming.", "🌙"],
+  ["What does “casser les pieds à quelqu'un” mean?", "To annoy someone", ["To hurt someone's feet", "To help someone dance"], "Figurative meaning: to annoy someone."],
+  ["What does “Il fait un temps de chien” mean?", "The weather is terrible", ["The weather is perfect for dogs", "It is sunny"], "Figurative meaning: the weather is awful.", "🐶"],
+  ["What does “un froid de canard” describe?", "Very cold weather", ["A duck pond", "A soft coat"], "Figurative meaning: bitterly cold weather.", "🦆"],
+  ["What is Mardi gras known for in many Francophone places?", "Parades, costumes and special foods", ["Quiet reading", "Fireworks on July 1"], TRAD_HINT, "🎭"],
+  ["Which winter festival in Winnipeg celebrates Francophone and Métis heritage?", "Festival du Voyageur", ["Tour de France", "Carnaval de Rio"], TRAD_HINT],
+  ["What is poutine?", "A Québec dish of fries, cheese curds and gravy", ["A winter coat", "A sports game"], TRAD_HINT, "🍟"],
+  ["What is a tourtière?", "A traditional meat pie, often eaten around Christmas", ["A kind of skate", "A winter hat"], TRAD_HINT, "🥧"],
+  ["What does “chanter comme une casserole” mean?", "To sing badly", ["To sing in a choir", "To sing while cooking"], "Figurative meaning: to sing out of tune."],
+  ["What does “rire aux éclats” mean?", "To burst out laughing", ["To laugh quietly", "To cry"], "Figurative meaning: to laugh out loud.", "😂"],
 ];
 
 // ---------- Histoires ----------
@@ -169,6 +295,30 @@ const MARKET = {
   ],
 };
 
+const POWER_CUT = {
+  type: "passage" as const,
+  title: "La panne d'électricité",
+  paragraphs: [
+    "Vendredi soir, il y a une panne d'électricité dans le quartier de Karim. Il fait noir et sa petite sœur Aya a peur. D'abord, Karim cherche une lampe de poche. Ensuite, il allume des chandelles avec sa mère. Pendant la panne, la famille joue aux cartes. Finalement, l'électricité revient et Aya s'endort, rassurée.",
+  ],
+};
+
+const CONCERT = {
+  type: "passage" as const,
+  title: "Le concert de Sofia",
+  paragraphs: [
+    "Sofia joue du violon depuis deux ans. Samedi dernier, elle a joué à son premier concert devant toute l'école. Avant de commencer, ses mains tremblaient parce qu'elle avait le trac. Puis, elle a regardé son professeur, qui lui a souri. Elle a respiré profondément et elle a joué sa pièce sans erreur. À la fin, tout le monde a applaudi.",
+  ],
+};
+
+const HIKE = {
+  type: "passage" as const,
+  title: "Le sentier",
+  paragraphs: [
+    "Dimanche, Hugo et son oncle font une randonnée dans la forêt. Le sentier est long et la journée est chaude. Au milieu du chemin, Hugo perd sa bouteille d'eau. Il est inquiet, mais son oncle partage la sienne. Au sommet, ils admirent le lac et ils mangent des sandwichs. Hugo se promet de ne plus oublier son sac.",
+  ],
+};
+
 const STORY_HINT = "A story has characters, a setting, a plot, a problem and a resolution. Look for sequence words and time words to follow the order.";
 
 const STORIES: FrItem[] = [
@@ -182,6 +332,25 @@ const STORIES: FrItem[] = [
   ["Why does Chloé give her grandmother her arm?", "She is worried about the slippery streets", ["She wants to run", "She is tired of waiting"], STORY_HINT, MARKET],
   ["How does the story end?", "They have hot chocolate and go home happy", ["They get lost", "They cancel the visit"], STORY_HINT, MARKET],
   ["What season is it?", "Winter", ["Summer", "Spring"], STORY_HINT, MARKET],
+  ["When does the story take place?", "Friday evening", ["Monday morning", "Saturday afternoon"], STORY_HINT, POWER_CUT],
+  ["What is the problem?", "There is a power outage", ["Karim loses his key", "A storm destroys the house"], STORY_HINT, POWER_CUT],
+  ["Who is afraid?", "Aya", ["Karim", "Their mother"], STORY_HINT, POWER_CUT],
+  ["What does Karim look for first?", "A flashlight", ["Candles", "Cards"], STORY_HINT, POWER_CUT],
+  ["What does the family do during the outage?", "They play cards", ["They watch TV", "They go to bed early"], STORY_HINT, POWER_CUT],
+  ["Which word shows the last step?", "Finalement", ["D'abord", "Ensuite"], STORY_HINT, POWER_CUT],
+  ["How does the story end?", "The power comes back and Aya falls asleep reassured", ["Aya cries all night", "The power stays off"], STORY_HINT, POWER_CUT],
+  ["How long has Sofia played the violin?", "Two years", ["Two months", "Ten years"], STORY_HINT, CONCERT],
+  ["When was the concert?", "Last Saturday", ["Next Saturday", "Yesterday"], STORY_HINT, CONCERT],
+  ["Why do her hands shake?", "She is nervous", ["She is cold", "She is hungry"], STORY_HINT, CONCERT],
+  ["What helps Sofia calm down?", "Her teacher's smile and a deep breath", ["A glass of water", "A new violin"], STORY_HINT, CONCERT],
+  ["How does her performance go?", "She plays without mistakes", ["She stops in the middle", "She forgets the music"], STORY_HINT, CONCERT],
+  ["What does the audience do at the end?", "They applaud", ["They leave", "They sing"], STORY_HINT, CONCERT],
+  ["Which word in the story means “last”?", "dernier", ["prochain", "chaque"], STORY_HINT, CONCERT],
+  ["Who goes hiking?", "Hugo and his uncle", ["Hugo and his sister", "Hugo and his teacher"], STORY_HINT, HIKE],
+  ["What is the weather like?", "Hot", ["Snowy", "Rainy"], STORY_HINT, HIKE],
+  ["What is Hugo's problem?", "He loses his water bottle", ["He loses his shoes", "He breaks his phone"], STORY_HINT, HIKE],
+  ["How does his uncle help?", "He shares his water", ["He carries Hugo", "He turns back"], STORY_HINT, HIKE],
+  ["What do they see at the top?", "A lake", ["A city", "A road"], STORY_HINT, HIKE],
 ];
 
 // ---------- Identité et créations ----------
@@ -197,6 +366,24 @@ const IDENTITY: FrItem[] = [
   ["How can you compare traditions in two cultures?", "Describe what is similar and what is different, and explain why", ["Say one is better", "Avoid talking about them"], ID_HINT],
   ["Which question helps you explore a cultural practice?", "What is the purpose of this celebration for the people who take part?", ["Who is richer?", "Which food is cheaper?"], ID_HINT],
   ["What does “la francophonie” include?", "Communities around the world where French is spoken", ["Only France", "Only schools"], ID_HINT],
+  ["How can a song in French help you learn about a community?", "It shows the feelings, stories and traditions of the people who made it", ["It teaches only math", "It replaces your own culture"], ID_HINT],
+  ["Why is it useful to read a poem written by a Francophone author?", "To see the world through another person's experience", ["To avoid learning vocabulary", "To prove one culture is better"], ID_HINT],
+  ["Which of these is a Francophone creative work?", "A film made in Québec", ["A calculator", "A road sign"], ID_HINT],
+  ["What can a painting tell you about a culture?", "How its people see their land, history and daily life", ["Nothing at all", "Only the price of paint"], ID_HINT],
+  ["How does learning French help you see your own culture?", "You compare traditions and notice what is similar and different", ["You forget your own traditions", "You decide which culture is best"], ID_HINT],
+  ["Which question helps you compare two cultures respectfully?", "What do these traditions have in common, and what is unique?", ["Which culture is more modern?", "Whose food is cheaper?"], ID_HINT],
+  ["Why is it important to listen to Indigenous people when learning about their languages and cultures?", "They are the best source for their own stories and knowledge", ["They have nothing to share", "Books are always enough"], "Indigenous peoples in Canada are living communities with their own languages, stories and knowledge."],
+  ["Which statement is true?", "Many Indigenous nations in Canada have languages that are different from French and English.", ["All Indigenous peoples in Canada speak the same language.", "Indigenous languages are no longer spoken."], "There are many different Indigenous languages in Canada. They are living languages, and many communities are working to teach and strengthen them."],
+  ["Why do some Francophone communities in Canada work to protect their language?", "Language carries culture, history and identity", ["Because French is the only language in Canada", "Because it is easy"], ID_HINT],
+  ["What is an Acadian?", "A member of a Francophone community with roots in the Atlantic provinces", ["A kind of French food", "A Canadian bank"], ID_HINT],
+  ["What is Michif?", "A Métis language that mixes Cree and French", ["A kind of dance", "A French dictionary"], "Michif is a living language of the Métis that blends parts of Cree and French."],
+  ["What does it mean to explore your cultural identity?", "To think about the traditions, languages and stories that shape who you are", ["To copy another culture", "To hide where you come from"], ID_HINT],
+  ["A class listens to a Francophone song about winter. Which question asks about culture?", "What does this song say about how people live in winter?", ["How many words are in the song?", "What day was it recorded?"], ID_HINT],
+  ["Which creative work uses images and words together?", "A poster or a comic strip", ["A train ticket", "A phone number"], ID_HINT],
+  ["Why do artists share their experiences in creative works?", "To help others understand their point of view", ["To avoid being heard", "To copy other artists"], ID_HINT],
+  ["Learning French can help you…", "make connections with people in many communities", ["avoid other languages", "stop using English"], ID_HINT],
+  ["What does “francophone” mean?", "a person or community that speaks French", ["a person who speaks English", "a kind of music"], ID_HINT],
+  ["What does “bilingue” mean?", "speaking two languages", ["speaking no language", "speaking very loudly"], ID_HINT],
 ];
 
 // ---------- Culture et respect ----------
@@ -212,6 +399,24 @@ const CULTURE: FrItem[] = [
   ["Which statement shows respect when you talk about a culture?", "I learned this from members of that community.", ["I know everything about them.", "They are all the same."], CULT_HINT],
   ["You want to show a traditional dance in a video. What is a respectful first step?", "Ask people from that community and learn its meaning", ["Copy it from a movie", "Change the moves so it's funnier"], CULT_HINT],
   ["What does “voice” mean in the idea of cultural appropriation?", "The way a community tells its own stories", ["The volume of a speaker", "A microphone"], "Using a community's voice without permission can misrepresent their real experience."],
+  ["Which is plagiarism?", "Copying a paragraph from a website and calling it yours", ["Quoting a sentence and citing the author", "Paraphrasing and listing the source"], CULT_HINT],
+  ["You find a quote that supports your idea. What do you do?", "Put it in quotation marks and name the author", ["Remove the quotation marks", "Change one word and use it as yours"], CULT_HINT],
+  ["Why is giving credit important?", "It respects the creator and shows where your information comes from", ["It makes your project longer", "It hides the source"], CULT_HINT],
+  ["Which is a way to avoid plagiarism?", "Use your own words and list the sources", ["Copy and change a few words", "Skip the sources"], CULT_HINT],
+  ["A friend lets you read their essay. Which action is plagiarism?", "Handing in parts of it as your own", ["Reading it for ideas, then writing your own", "Asking how they organized it"], CULT_HINT],
+  ["Which is an example of cultural appropriation?", "Using a community's sacred design on products you sell, without asking", ["Learning a traditional dance from a teacher who invites you", "Reading a book written by someone from the community"], CULT_HINT],
+  ["Which action shows respect for a culture that is not yours?", "Ask community members how to take part and listen to their answers", ["Decide for them what is okay", "Take photos of private events without asking"], CULT_HINT],
+  ["You want to use a traditional story in a school play. What should you do first?", "Ask permission from the community and credit them", ["Rewrite it so no one recognizes it", "Just use it, because it is online"], CULT_HINT],
+  ["Which statement is true about stories that belong to a community?", "The community decides who may share them", ["Anyone may change them freely", "They belong to everyone"], CULT_HINT],
+  ["Why can wearing another culture's traditional clothing as a costume be hurtful?", "It can turn something meaningful into a joke", ["It is hard to wash", "It is too expensive"], CULT_HINT],
+  ["What should you include in a bibliography?", "The authors, titles and dates of your sources", ["Your favourite colour", "Your friends' names"], CULT_HINT],
+  ["You paraphrase a paragraph from an article. What must you still do?", "Name the article as a source", ["Nothing, it's your idea now", "Put quotation marks around every word"], CULT_HINT],
+  ["Which is an example of using a community's voice without permission?", "Telling a community's story as if you were a member, without asking", ["Sharing a story with permission and credit", "Reading a story aloud and naming the author"], CULT_HINT],
+  ["You take a photo of a mural. What shows respect when you share it?", "Credit the artist", ["Crop the signature", "Say you painted it"], CULT_HINT],
+  ["What can you do if you are not sure whether a source needs credit?", "Ask your teacher and cite it to be safe", ["Leave it out of the list", "Hope no one notices"], CULT_HINT],
+  ["Which is a respectful question to ask a community member?", "Would you be willing to share how you celebrate this tradition?", ["Why is your tradition so strange?", "Can I have your costume?"], CULT_HINT],
+  ["Which behaviour is both fair and honest?", "Doing your own work and thanking those who helped", ["Letting others do your work", "Using a stranger's drawing without a name"], CULT_HINT],
+  ["What does “plagier” mean?", "to plagiarize", ["to play", "to plan"], "Plagier is the French verb for passing off someone else's work as your own."],
 ];
 
 export const course: Course = {

@@ -24,6 +24,18 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which sentence has a gerund as the object?", right: "Jay enjoys skating.", wrong: ["Jay is skating now.", "Jay skated yesterday."], hint: "Skating tells what Jay enjoys. It is a noun here." },
   { prompt: "Which of these sentences is in the active voice?", right: "Mia painted a mural on the wall.", wrong: ["A mural was painted on the wall by Mia.", "A mural was painted."], hint: "Mia, the doer, is the subject." },
   { prompt: "Which sentence changes the active voice sentence into passive? Sam read the book.", right: "The book was read by Sam.", wrong: ["Sam was read by the book.", "The book read Sam."], hint: "The book is the thing that received the action." },
+  { prompt: "Which word is a gerund? Hiking is Zoe's favourite weekend plan.", right: "Hiking", wrong: ["favourite", "weekend"], hint: "Hiking names an activity and is the subject, so it works as a noun." },
+  { prompt: "Which word is a gerund? Ravi's job is feeding the class fish.", right: "feeding", wrong: ["job", "class"], hint: "Feeding names Ravi's job. It acts as a noun after is." },
+  { prompt: "Which sentence does NOT use a gerund?", right: "The children are singing loudly.", wrong: ["Singing makes Priya happy.", "Amir loves singing."], hint: "In are singing, the -ing word is part of the verb. In the others it is a noun." },
+  { prompt: "Which word completes the sentence with a gerund? Lena is good at ___ puzzles.", right: "solving", wrong: ["solve", "solved"], hint: "After a word like at, a gerund (-ing word) is used." },
+  { prompt: "Which sentence is in the passive voice?", right: "The trail was cleared by volunteers.", wrong: ["Volunteers cleared the trail.", "The trail is long."], hint: "The trail receives the action, and by volunteers names the doer." },
+  { prompt: "Which sentence is in the active voice?", right: "Noah fixed the bike chain.", wrong: ["The bike chain was fixed by Noah.", "The bike chain was fixed."], hint: "The doer, Noah, comes first and does the action." },
+  { prompt: "Change to active voice: The garden was watered by Sam.", right: "Sam watered the garden.", wrong: ["The garden watered Sam.", "Sam was watering by the garden."], hint: "Start with the doer, Sam, then the verb, then the garden." },
+  { prompt: "Change to passive voice: Ana wrote the poem.", right: "The poem was written by Ana.", wrong: ["Ana was written by the poem.", "The poem wrote Ana."], hint: "The poem receives the action. Use was written by." },
+  { prompt: "Change to passive voice: The wind knocked over the signs.", right: "The signs were knocked over by the wind.", wrong: ["The wind was knocked over by the signs.", "The signs knocked over the wind."], hint: "Signs is plural, so use were. Then add by the wind." },
+  { prompt: "Which sentence leaves out the doer on purpose?", right: "The window was left open.", wrong: ["Maya left the window open.", "Maya opened the window."], hint: "The passive voice can hide who did something." },
+  { prompt: "Which word is a gerund? Learning new words is fun.", right: "Learning", wrong: ["new", "fun"], hint: "Learning is the subject. It names an activity." },
+  { prompt: "Which sentence is in the passive voice?", right: "The lost mitten was found by a student.", wrong: ["A student found the lost mitten.", "The mitten is blue."], hint: "Look for was found by: the mitten receives the action." },
 ];
 
 function grammar(): Question[] {
@@ -45,6 +57,20 @@ const SENTENCES: BankItem[] = [
   { prompt: "Which word should replace the blank? The family ___ house is yellow just moved in.", right: "whose", wrong: ["who", "which"], hint: "Whose shows belonging." },
   { prompt: "Which sentence uses a relative clause to give extra information?", right: "My grandmother, who is 80, still skis.", wrong: ["My grandmother skis.", "My grandmother is 80 and skis."], hint: "Who is 80 gives extra information about the grandmother." },
   { prompt: "Which sentence is best? The tree fell. The tree was old.", right: "The tree that fell was old.", wrong: ["The tree fell was old.", "The tree, fell, was old."], hint: "Join the ideas with that." },
+  { prompt: "Which part is the relative clause? The boy who sits beside me plays hockey.", right: "who sits beside me", wrong: ["The boy", "plays hockey"], hint: "It starts with who and tells more about the boy." },
+  { prompt: "Which part is the relative clause? The cookies that Priya baked disappeared quickly.", right: "that Priya baked", wrong: ["The cookies", "disappeared quickly"], hint: "That Priya baked describes the cookies." },
+  { prompt: "Which part is the relative clause? Our school, which was built in 1950, has a new gym.", right: "which was built in 1950", wrong: ["Our school", "has a new gym"], hint: "Which was built in 1950 adds extra information about the school." },
+  { prompt: "Which word should replace the blank? The woman ___ owns the bakery greets everyone.", right: "who", wrong: ["whose", "where"], hint: "Use who for a person doing something." },
+  { prompt: "Which word should replace the blank? The lake ___ we swim is very cold.", right: "where", wrong: ["who", "whose"], hint: "Where is used for a place." },
+  { prompt: "Which word should replace the blank? The boy ___ bike was stolen felt sad.", right: "whose", wrong: ["who", "which"], hint: "Whose shows that the bike belongs to the boy." },
+  { prompt: "Which sentence combines these two correctly? The river is wide. It flows through our town.", right: "The river that flows through our town is wide.", wrong: ["The river flows through our town is wide.", "The river, flows through our town, is wide."], hint: "Use that to tell which river." },
+  { prompt: "Which sentence combines these two correctly? Lena is my neighbour. She plays the violin.", right: "Lena, who plays the violin, is my neighbour.", wrong: ["Lena, which plays the violin, is my neighbour.", "Lena who plays the violin, is my neighbour."], hint: "Use who for a person, with commas around the extra information." },
+  { prompt: "Which sentence combines these two correctly? The museum is downtown. We visited it.", right: "The museum that we visited is downtown.", wrong: ["The museum we visited it is downtown.", "The museum is downtown that we."], hint: "Join the ideas with that and drop the extra it." },
+  { prompt: "Which sentence has a relative clause?", right: "The book that Kenji lent me was exciting.", wrong: ["Kenji lent me a book.", "Kenji lent me a book, and it was exciting."], hint: "Look for a clause that starts with that, who, which, whose or where." },
+  { prompt: "Which sentence is complex?", right: "The player who scored the goal waved.", wrong: ["The player scored the goal.", "The player scored, and the crowd cheered."], hint: "A complex sentence has a clause that depends on the main clause." },
+  { prompt: "Which sentence is punctuated correctly?", right: "Our dog, which is very old, sleeps all day.", wrong: ["Our dog which is very old, sleeps all day.", "Our dog, which is very old sleeps all day."], hint: "Extra information that is not needed to identify the noun goes between commas." },
+  { prompt: "Which sentence is best? The path was icy. It leads to the lake.", right: "The path that leads to the lake was icy.", wrong: ["The path leads to the lake was icy.", "The path, that leads, to the lake was icy."], hint: "Join the ideas with that, with no extra commas." },
+  { prompt: "Which word does the clause 'who won the prize' describe? The artist who won the prize lives nearby.", right: "artist", wrong: ["prize", "nearby"], hint: "A relative clause describes the noun right before it." },
 ];
 
 function sentences(): Question[] {
@@ -66,6 +92,19 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which transitional word shows a contrast?", right: "However", wrong: ["Therefore", "Furthermore"], hint: "However shows that the next idea is different." },
   { prompt: "Which transitional word shows a result?", right: "Therefore", wrong: ["However", "Meanwhile"], hint: "Therefore shows that something happened because of what came before." },
   { prompt: "Which formal letter closing is correct?", right: "Sincerely,", wrong: ["Sincerely:", "Sincerely;"], hint: "Closings end with a comma, even in formal letters." },
+  { prompt: "Which greeting is correct in a business letter?", right: "Dear Dr. Lee:", wrong: ["Dear Dr. Lee;", "Dear Dr. Lee."], hint: "Use a colon after the greeting in a formal letter." },
+  { prompt: "Which greeting is correct in a business letter?", right: "To Whom It May Concern:", wrong: ["To Whom It May Concern;", "To Whom It May Concern,"], hint: "Formal letters use a colon after the greeting." },
+  { prompt: "Which memo line is correct?", right: "From: Mr. Okafor", wrong: ["From; Mr. Okafor", "From, Mr. Okafor"], hint: "A colon follows labels like From in a memo." },
+  { prompt: "Which memo line is correct?", right: "Subject: Field Trip Forms", wrong: ["Subject; Field Trip Forms", "Subject. Field Trip Forms"], hint: "A colon follows the label Subject." },
+  { prompt: "Which script line shows the speaker correctly?", right: "LEO: I think we are lost.", wrong: ["LEO; I think we are lost.", "LEO. I think we are lost."], hint: "In a script, put a colon after the speaker's name." },
+  { prompt: "Which script line shows the speaker correctly?", right: "NARRATOR: The sun rose slowly.", wrong: ["NARRATOR, The sun rose slowly.", "NARRATOR; The sun rose slowly."], hint: "A colon separates the speaker's name from the words." },
+  { prompt: "Which sentence is punctuated correctly?", right: "Meanwhile, the others waited outside.", wrong: ["Meanwhile the others, waited outside.", "Meanwhile; the others waited outside."], hint: "Put a comma right after a transitional word like meanwhile." },
+  { prompt: "Which sentence is punctuated correctly?", right: "On the other hand, walking is free.", wrong: ["On the other hand walking is free.", "On the other, hand walking is free."], hint: "A comma follows the whole transitional phrase." },
+  { prompt: "Which sentence is punctuated correctly?", right: "Therefore, we packed extra water.", wrong: ["Therefore we packed, extra water.", "Therefore; we packed extra water."], hint: "Put the comma straight after Therefore." },
+  { prompt: "Which transitional word shows that something is added?", right: "Furthermore", wrong: ["However", "Instead"], hint: "Furthermore adds one more idea." },
+  { prompt: "Which transitional phrase shows an example?", right: "For instance", wrong: ["In conclusion", "On the other hand"], hint: "For instance introduces an example." },
+  { prompt: "Which transitional word shows time?", right: "Afterward", wrong: ["Although", "Therefore"], hint: "Afterward tells what happens later." },
+  { prompt: "Which sentence is punctuated correctly?", right: "Next, add two cups of flour.", wrong: ["Next add, two cups of flour.", "Next; add two cups of flour."], hint: "A comma follows the transitional word Next." },
 ];
 
 function punctuation(): Question[] {
@@ -87,6 +126,12 @@ const FORMS: BankItem[] = [
   { prompt: "Two images show the same park in summer and in winter. What is the likely purpose?", right: "to compare how it changes", wrong: ["to confuse the reader", "to hide the name of the park"], hint: "Seeing both side by side shows the difference." },
   { prompt: "Which text form is mostly written to convince the reader?", right: "an editorial", wrong: ["a weather report", "a dictionary entry"], hint: "An editorial gives an opinion and tries to persuade." },
   { prompt: "Which text form tells about a real person's life?", right: "a biography", wrong: ["a fable", "a science fiction story"], hint: "A biography is the true story of someone's life." },
+  { prompt: "A text lists events in the order they happened, using first, then and finally. What pattern is it?", right: "chronological order", wrong: ["problem and solution", "compare and contrast"], hint: "Time words like first, then and finally show chronological order." },
+  { prompt: "A text uses both, however and on the other hand. What pattern is it?", right: "compare and contrast", wrong: ["chronological order", "cause and effect"], hint: "These words show how two things are alike and different." },
+  { prompt: "Which feature of a website shows where you are in the site?", right: "a menu bar or page title", wrong: ["a copyright line", "the font size"], hint: "Menus and titles help readers find their way." },
+  { prompt: "A diagram with labels is included in a science article. What is its job?", right: "to show parts or steps clearly", wrong: ["to replace the title", "to list the sources"], hint: "Labels point out the parts the text talks about." },
+  { prompt: "Which text form usually has a title, a list of materials and numbered steps?", right: "instructions", wrong: ["a diary entry", "a poem"], hint: "Instructions tell you how to make or do something in order." },
+  { prompt: "Which text form is a set of lines written as a speaker's private thoughts, with dates?", right: "a diary or journal entry", wrong: ["a news article", "a script"], hint: "A diary is personal and often dated." },
 ];
 
 const PASSAGES: Passage[] = [

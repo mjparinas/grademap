@@ -8,6 +8,7 @@ import {
   shuffle,
   textChoice,
 } from "../../random";
+import { fromBank, type BankItem } from "../../bank";
 import { COIN_NAMES } from "../../money";
 import type { ChoiceQuestion, Question, ShapeName, Course } from "../../types";
 
@@ -538,6 +539,111 @@ const SIDES: Partial<Record<ShapeName, number>> = {
   hexagon: 6,
 };
 
+const SHAPE_EXTRAS: BankItem[] = [
+  {
+    prompt: "Which shape has no straight sides?",
+    right: { label: "circle", shape: "circle" },
+    wrong: [
+      { label: "triangle", shape: "triangle" },
+      { label: "hexagon", shape: "hexagon" },
+    ],
+    hint: "A circle is round all the way. Triangles and hexagons have straight sides.",
+  },
+  {
+    prompt: "Which shape has exactly 3 corners?",
+    right: { label: "triangle", shape: "triangle" },
+    wrong: [
+      { label: "pentagon", shape: "pentagon" },
+      { label: "hexagon", shape: "hexagon" },
+    ],
+    hint: "Tri means three. A triangle has 3 sides and 3 corners.",
+  },
+  {
+    prompt: "Which shape has exactly 5 sides?",
+    right: { label: "pentagon", shape: "pentagon" },
+    wrong: [
+      { label: "triangle", shape: "triangle" },
+      { label: "hexagon", shape: "hexagon" },
+    ],
+    hint: "Penta means five. Count the sides: 1, 2, 3, 4, 5.",
+  },
+  {
+    prompt: "Which shape has exactly 6 sides?",
+    right: { label: "hexagon", shape: "hexagon" },
+    wrong: [
+      { label: "pentagon", shape: "pentagon" },
+      { label: "square", shape: "square" },
+    ],
+    hint: "Hexa means six. A hexagon has 6 sides and 6 corners.",
+  },
+  {
+    prompt: "A square has 4 sides that are all…",
+    right: "the same length",
+    wrong: ["different lengths", "curved"],
+    hint: "Look at a square. Every side is the same length.",
+    emoji: "🟦",
+  },
+  {
+    prompt: "How many corners does a triangle have?",
+    right: "3",
+    wrong: ["4", "5"],
+    hint: "Put your finger on each corner and count: 1, 2, 3.",
+    emoji: "🔺",
+  },
+  {
+    prompt: "A rectangle has 4 sides. How many are long sides?",
+    right: "2",
+    wrong: ["1", "4"],
+    hint: "A rectangle has 2 long sides and 2 short sides.",
+  },
+  {
+    prompt: "Which 3D shape can roll AND stack?",
+    right: { label: "cylinder", shape: "cylinder" },
+    wrong: [
+      { label: "sphere", shape: "sphere" },
+      { label: "cube", shape: "cube" },
+    ],
+    hint: "A cylinder has flat circles on the ends to stack, and a curved side to roll. A sphere rolls but won't stack.",
+  },
+  {
+    prompt: "Which 3D shape has 1 flat face and 1 point at the top?",
+    right: { label: "cone", shape: "cone" },
+    wrong: [
+      { label: "cylinder", shape: "cylinder" },
+      { label: "sphere", shape: "sphere" },
+    ],
+    hint: "A cone has a flat circle on the bottom and a point on top.",
+  },
+  {
+    prompt: "A cylinder has 2 flat faces. What shape are they?",
+    right: { label: "circle", shape: "circle" },
+    wrong: [
+      { label: "square", shape: "square" },
+      { label: "triangle", shape: "triangle" },
+    ],
+    hint: "Think of the top and bottom of a can. Both are circles.",
+    emoji: "🥫",
+  },
+  {
+    prompt: "Which 3D shape has 6 square faces that are all the same?",
+    right: { label: "cube", shape: "cube" },
+    wrong: [
+      { label: "cone", shape: "cone" },
+      { label: "cylinder", shape: "cylinder" },
+    ],
+    hint: "A cube is like a dice. All 6 faces are matching squares.",
+  },
+  {
+    prompt: "Which shape has 4 sides and 4 corners?",
+    right: { label: "rectangle", shape: "rectangle" },
+    wrong: [
+      { label: "triangle", shape: "triangle" },
+      { label: "hexagon", shape: "hexagon" },
+    ],
+    hint: "Count the sides and corners. Only the rectangle has 4 of each here.",
+  },
+];
+
 function shapes(): Question[] {
   const flat = Object.keys(SIDES) as ShapeName[];
   const sideQs: Question[] = sample(flat, 2).map((shape) =>
@@ -580,6 +686,10 @@ function shapes(): Question[] {
     { thing: "can of soup", emoji: "🥫", answer: "cylinder" as ShapeName },
     { thing: "dice", emoji: "🎲", answer: "cube" as ShapeName },
     { thing: "ice cream cone", emoji: "🍦", answer: "cone" as ShapeName },
+    { thing: "globe", emoji: "🌍", answer: "sphere" as ShapeName },
+    { thing: "marble", emoji: "🔮", answer: "sphere" as ShapeName },
+    { thing: "party hat", emoji: "🎉", answer: "cone" as ShapeName },
+    { thing: "drum", emoji: "🥁", answer: "cylinder" as ShapeName },
   ]);
   const solids: ShapeName[] = ["sphere", "cylinder", "cube", "cone"];
   const realQ = textChoice(
@@ -608,7 +718,9 @@ function shapes(): Question[] {
     "A sphere is round all over, like a ball. It has no flat faces.",
   );
 
-  return shuffle([...sideQs, cornerQ, ...findQs, realQ, faces, roll]);
+  const extraQs = fromBank(SHAPE_EXTRAS, 2);
+
+  return shuffle([...sideQs, cornerQ, ...findQs, realQ, faces, roll, ...extraQs]);
 }
 
 // ---------- Graphs ----------

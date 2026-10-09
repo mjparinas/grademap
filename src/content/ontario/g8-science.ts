@@ -371,6 +371,14 @@ const FLUID_SOCIETY: Item[] = [
   q(3, "Which is a long-term cost of a large spill that is not paid right away?", "monitoring the area and restoring habitat for years", ["buying one boom", "a single day of cleaning", "printing a poster"], "Recovery and monitoring continue long after the spill."),
   q(3, "Which innovation reduces the chance of spills from tanker ships?", "double-hulled ships", ["single thin hulls", "ships without maps", "ships with no crew training"], "A second hull adds protection if the outer one is damaged."),
   q(3, "Why is it important to have emergency plans before a spill happens?", "Quick action limits how far the fluid spreads.", ["Plans make spills impossible.", "Plans make fluids lighter.", "Plans remove the need for cleanup crews."], "Speed matters during a spill."),
+  q(1, "Which of these is a fluid?", "water", ["a brick", "a wooden chair", "a steel beam"], "Fluids are liquids and gases, which can flow."),
+  q(1, "Which of these is a gas fluid that can leak from a damaged pipe?", "natural gas", ["gravel", "concrete", "sand"], "Gases flow and spread out to fill space."),
+  q(2, "How can a fuel spill in a lake affect plants and animals?", "It can poison fish, plants and the animals that eat them.", ["It makes the water cleaner.", "It feeds all the fish.", "It has no effect."], "Chemicals can pass through the food web."),
+  q(2, "Why do communities near a spill often need clean drinking water brought in?", "The usual water source may be unsafe until it is cleaned.", ["They are not thirsty.", "Water does not matter.", "Spills make water taste sweeter."], "Safe water is a basic need."),
+  q(2, "A city builds a water treatment plant. What fluid technology does it use?", "pumps and filters to clean water and send it to homes", ["a wooden bridge", "a long fence", "a radio mast"], "Clean water is moved with pressure and pipes."),
+  q(3, "A company wants to build an oil pipeline through a First Nation's territory. Which step should come first?", "Consult and seek the free, prior and informed consent of the Nation", ["Start building at once", "Keep the plan secret", "Ask the nearest city only"], "Consultation respects Indigenous rights and knowledge."),
+  q(3, "Why might people have different views about a dam that provides electricity?", "Some value clean power, while others lose land or fish habitat", ["Everyone agrees", "Dams do nothing", "Electricity is never useful"], "Costs and benefits are not shared equally."),
+  q(3, "How might sensors in a pipeline reduce the risk of spills?", "They can detect pressure changes and warn operators quickly", ["They make fluids thicker", "They stop all flow forever", "They replace the pipe"], "Early warning helps people act fast."),
 ];
 
 // ---------- Systems in action ----------

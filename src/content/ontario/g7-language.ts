@@ -28,6 +28,18 @@ const GRAMMAR: BankItem[] = [
   { prompt: "What does the adverbial phrase tell? She spoke with great care.", right: "how", wrong: ["where", "when"], hint: "With great care tells the way she spoke." },
   { prompt: "What does the adverbial phrase tell? We stayed inside because of the rain.", right: "why", wrong: ["where", "how"], hint: "Because of the rain gives the reason." },
   { prompt: "Which word is a linking verb? The bread tastes fresh.", right: "tastes", wrong: ["bread", "fresh"], hint: "Here tastes links the subject to a word that describes it." },
+  { prompt: "Which word is the indirect object? Priya sent her grandmother a postcard.", right: "grandmother", wrong: ["postcard", "sent"], hint: "Ask: sent a postcard to whom?" },
+  { prompt: "Which word is the direct object? The teacher gave the class a quiz.", right: "quiz", wrong: ["class", "gave"], hint: "The direct object is the thing that was given." },
+  { prompt: "Which word is a predicate adjective? The gym felt warm.", right: "warm", wrong: ["gym", "felt"], hint: "Felt links the gym to a word that describes it." },
+  { prompt: "Which word is a predicate noun? Zoe remained the team captain.", right: "captain", wrong: ["Zoe", "remained"], hint: "Captain renames Zoe after the linking verb remained." },
+  { prompt: "Which word is a participle? The burning log crackled.", right: "burning", wrong: ["log", "crackled"], hint: "Burning describes the log, so it works as an adjective." },
+  { prompt: "Which word does the participial phrase describe? Waving to the crowd, Kenji walked on stage.", right: "Kenji", wrong: ["crowd", "stage"], hint: "Who was waving? The phrase describes the person." },
+  { prompt: "What does the adverbial phrase tell? Ana arrived before the bell rang.", right: "when", wrong: ["where", "how"], hint: "Before the bell rang tells the time." },
+  { prompt: "What does the adverbial phrase tell? They hung the banner above the door.", right: "where", wrong: ["when", "why"], hint: "Above the door tells the place." },
+  { prompt: "Which word is a linking verb? The night became cold.", right: "became", wrong: ["night", "cold"], hint: "Became links the subject to a word that describes it." },
+  { prompt: "Which phrase is a participial phrase? Frightened by the thunder, the dog hid.", right: "Frightened by the thunder", wrong: ["the dog hid", "by the thunder, the dog"], hint: "It begins with a participle and describes the dog." },
+  { prompt: "Which sentence has a direct object and an indirect object?", right: "Lena told Amir a joke.", wrong: ["Lena laughed loudly.", "Lena is funny."], hint: "A joke is told, and Amir receives it." },
+  { prompt: "Which sentence has a predicate noun?", right: "Noah is a talented drummer.", wrong: ["Noah drums loudly.", "Noah is in the band room."], hint: "Drummer renames Noah after the linking verb." },
 ];
 
 function grammar(): Question[] {
@@ -51,6 +63,20 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which word is a conjunctive adverb?", right: "however", wrong: ["because", "and"], hint: "Conjunctive adverbs link ideas between sentences. Because and and are conjunctions." },
   { prompt: "Which is a conjunctive adverb?", right: "meanwhile", wrong: ["although", "but"], hint: "Meanwhile links two sentences and is followed by a comma." },
   { prompt: "Which sentence is punctuated correctly?", right: "It was late; still, we stayed.", wrong: ["It was late: still we stayed.", "It was late, still; we stayed."], hint: "Semicolon before the conjunctive adverb, comma after it." },
+  { prompt: "Which sentence introduces a list correctly?", right: "Pack these items: a flashlight, a map and a snack.", wrong: ["Pack these items; a flashlight, a map and a snack.", "Pack: these items a flashlight, a map and a snack."], hint: "A colon follows a complete statement before a list." },
+  { prompt: "Which sentence uses a semicolon correctly?", right: "Maya loves art; her sister prefers music.", wrong: ["Maya loves art; and her sister prefers music.", "Maya; loves art her sister prefers music."], hint: "A semicolon joins two related independent clauses." },
+  { prompt: "Which sentence is punctuated correctly?", right: "The path was icy; therefore, we walked slowly.", wrong: ["The path was icy, therefore, we walked slowly.", "The path was icy therefore; we walked slowly."], hint: "Use a semicolon before the conjunctive adverb and a comma after it." },
+  { prompt: "Which sentence uses a dash to add emphasis?", right: "She had one wish—to win.", wrong: ["She had one wish to—win.", "She—had one wish to win."], hint: "A dash can set off a final, emphasized idea." },
+  { prompt: "What does the ellipsis show? “Well … maybe,” said Jay.", right: "a hesitation", wrong: ["a list", "a title"], hint: "Three dots can show a pause." },
+  { prompt: "Which sentence uses a colon correctly?", right: "Remember this rule: always read the question twice.", wrong: ["Remember: this rule always read the question twice.", "Remember this: rule always read: the question twice."], hint: "A colon comes after a full independent clause." },
+  { prompt: "Which sentence is punctuated correctly?", right: "The movie was long; however, I enjoyed it.", wrong: ["The movie was long; however I enjoyed it.", "The movie was long however; I enjoyed it."], hint: "Put a semicolon before however and a comma after it." },
+  { prompt: "Which sentence shows an interruption with dashes?", right: "My cousin—the one who plays hockey—is visiting.", wrong: ["My cousin—the one who plays hockey is visiting.", "My—cousin the one who plays hockey—is visiting."], hint: "A pair of dashes goes on both sides of the interruption." },
+  { prompt: "Which pair of sentences can be joined with a semicolon?", right: "The store was closed. We went home.", wrong: ["Because the store was closed. We went home.", "The store. Closed."], hint: "Each part must be a complete sentence on its own." },
+  { prompt: "Which word is a conjunctive adverb?", right: "consequently", wrong: ["since", "or"], hint: "A conjunctive adverb links two independent clauses and shows the relationship." },
+  { prompt: "Which mark best shows a trailing-off voice? “I just thought …”", right: "ellipsis", wrong: ["colon", "semicolon"], hint: "Three dots show the voice fading." },
+  { prompt: "Which sentence is punctuated correctly?", right: "The room was quiet; everyone was reading.", wrong: ["The room was quiet, everyone was reading.", "The room was; quiet everyone was reading."], hint: "A semicolon links two related complete ideas." },
+  { prompt: "Which sentence uses a colon to introduce a quotation correctly?", right: "Coach said one thing: “Never stop trying.”", wrong: ["Coach said; one thing “Never stop trying.”", "Coach said one thing “Never: stop trying.”"], hint: "A colon follows the complete clause that introduces the quotation." },
+  { prompt: "Which sentence uses commas around a conjunctive adverb correctly?", right: "Our team, however, won the game.", wrong: ["Our team however, won the game.", "Our, team however won the game."], hint: "Set off a conjunctive adverb in the middle of a sentence with commas." },
 ];
 
 function punctuation(): Question[] {
@@ -180,6 +206,28 @@ const VIEW_PASSAGES: Passage[] = [
       { prompt: "How might a player telling this story differ?", right: "The player might think the call was unfair.", wrong: ["The ball would not exist.", "It would have no ending."], hint: "Different characters see events differently." },
     ],
   },
+  {
+    title: "The Science Fair",
+    text: [
+      "I carried my volcano model carefully down the hall. My hands were shaking, and I worried that the baking soda would spill before the judges arrived.",
+    ],
+    questions: [
+      { prompt: "What point of view is this?", right: "first person", wrong: ["second person", "third person"], hint: "The narrator says I and my." },
+      { prompt: "What does the reader learn about the narrator?", right: "The narrator is nervous.", wrong: ["The narrator is bored.", "The narrator is angry."], hint: "Shaking hands and worry show how the narrator feels." },
+      { prompt: "Which change would put this in third person?", right: "Change I and my to she and her.", wrong: ["Change the volcano to a rocket.", "Add the word you."], hint: "Third person uses he, she or they." },
+    ],
+  },
+  {
+    title: "Lost in the Market",
+    text: [
+      "You push through the crowded market, searching for your sister's red scarf. The smell of fresh bread and spices makes you hungry, but you keep walking.",
+    ],
+    questions: [
+      { prompt: "What point of view is this?", right: "second person", wrong: ["first person", "third person"], hint: "The narrator speaks to you." },
+      { prompt: "Which detail is told in second person?", right: "You keep walking.", wrong: ["Sam keeps walking.", "I keep walking."], hint: "Look for you." },
+      { prompt: "Why might an author use second person here?", right: "To pull the reader into the scene", wrong: ["To describe the narrator's past", "To make the market quiet"], hint: "The reader feels like the character." },
+    ],
+  },
 ];
 
 const VIEW: BankItem[] = [
@@ -189,6 +237,10 @@ const VIEW: BankItem[] = [
   { prompt: "Why might an author choose first person?", right: "to share one character's thoughts closely", wrong: ["to describe every character's thoughts", "to avoid using pronouns"], hint: "The reader sees through one narrator's eyes." },
   { prompt: "Which sentence is written in second person?", right: "You hear a strange sound behind the door.", wrong: ["I hear a strange sound behind the door.", "Sam hears a strange sound behind the door."], hint: "Look for you." },
   { prompt: "Which sentence is written in first person?", right: "I opened the door slowly.", wrong: ["She opened the door slowly.", "You opened the door slowly."], hint: "Look for I." },
+  { prompt: "A story is told by a narrator who knows what every character thinks. What is this called?", right: "omniscient third person", wrong: ["second person", "first person"], hint: "Omniscient means all-knowing." },
+  { prompt: "A story is told by a narrator who only knows one character's thoughts. What is this called?", right: "limited third person", wrong: ["omniscient third person", "second person"], hint: "The narrator sticks to one character's mind." },
+  { prompt: "Which sentence is written in third person?", right: "Ravi stared at the door.", wrong: ["I stared at the door.", "You stared at the door."], hint: "Look for a name or he/she/they." },
+  { prompt: "How does first person help readers connect with a narrator?", right: "They hear the narrator's own voice and feelings.", wrong: ["They learn every character's secrets.", "The story becomes a list."], hint: "First person is the narrator's own telling." },
 ];
 
 function view(): Question[] {

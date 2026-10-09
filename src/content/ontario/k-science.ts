@@ -26,6 +26,15 @@ const SCIENTIST: Item[] = [
   q("You guessed the paper would float. It sank. What do you do?", "Say what really happened", ["Say it floated", "Throw the paper away"], "Scientists share what really happened, even when the guess was not right.", { d: 2 }),
   q("You want to find out which toy is the heaviest. What do you pick?", e("balance scale", "⚖️"), [e("ruler", "📏"), e("magnifying glass", "🔍")], "A balance scale shows which side is heavier.", { d: 2 }),
   q("Which words tell what you see?", "big, round, red", ["I want a snack", "Let's go inside"], "Describing words such as big, round and red tell what you observe.", { d: 3 }),
+  q("Which tool tells you how hot or cold it is outside?", e("thermometer", "🌡️"), [e("ruler", "📏"), e("balance scale", "⚖️")], "A thermometer shows the temperature."),
+  q("Which body part do you use to taste soup?", e("tongue", "👅"), [e("ears", "👂"), e("eyes", "👀")], "We taste with our tongue.", { emoji: "🍲" }),
+  q("Which body part do you use to feel a soft blanket?", e("hands", "✋"), [e("ears", "👂"), e("eyes", "👀")], "Our skin, especially our hands, lets us feel soft and rough.", { emoji: "🧸" }),
+  q("Which question can you answer by trying it?", "Will a sponge soak up water?", ["What is the best colour?", "Who is the nicest?"], "A science question can be tested by looking or trying."),
+  q("You want to know if a toy sinks or floats. What do you do?", "Put it in water and watch", ["Ask the toy", "Wait for night"], "Scientists test things and watch what happens.", { emoji: "🛁", d: 2 }),
+  q("“I notice the leaf has lines.” This is an…", "observation", ["prediction", "snack"], "An observation tells what you notice with your senses.", { d: 2 }),
+  q("“I think the ice will melt in the sun.” This is a…", "prediction", ["observation", "tool"], "A prediction is a guess about what will happen.", { emoji: "🧊", d: 2 }),
+  q("Why do scientists look closely?", "To notice more details", ["To hide things", "To be loud"], "Looking closely helps us see small parts and changes.", { d: 2 }),
+  q("Which tool helps you see the Moon up close?", e("telescope", "🔭"), [e("ruler", "📏"), e("measuring cup", "🥛")], "A telescope makes faraway things look closer.", { d: 3 }),
 ];
 
 // ---------- Build and Test ----------
@@ -46,6 +55,15 @@ const BUILD: Item[] = [
   q("You test a model and it works! What can you do?", "Share it with the class", ["Hide it", "Break it right away"], "Sharing what we made helps others learn too.", { d: 3 }),
   q("Why do we test a model before using it?", "To see if it works", ["To make it dirty", "To make it disappear"], "Testing shows what works and what to fix.", { d: 3 }),
   q("Which has a stronger shape for a bridge: flat paper or paper folded in pleats?", "folded in pleats", ["flat paper", "They are the same"], "Folding paper makes it stronger. Try it with a few books on top!", { d: 3 }),
+  q("Which material is soft and good for a model pillow?", "a cotton ball", ["a brick", "a nail"], "Soft things like cotton are good for pillows.", { emoji: "🛏️" }),
+  q("You build a tall tower. Which blocks go on the bottom?", "the biggest ones", ["the smallest ones", "the round ones"], "Big, flat blocks make a steady base."),
+  q("Which one can clip two papers together?", e("paper clip", "📎"), [e("spoon", "🥄"), e("leaf", "🍃")], "A paper clip holds papers together."),
+  q("Why do builders make a plan first?", "To know what to build", ["To waste time", "To make noise"], "A plan helps us know what we need before we start."),
+  q("Your model bridge is too short to cross the gap. What do you do?", "Make it longer", ["Make it shorter", "Move the river"], "A test shows what to fix. Here the bridge needs to be longer.", { d: 2 }),
+  q("Which piece is best for a flat roof?", "a flat piece", ["a ball", "a cone"], "A flat piece sits on top of the walls.", { d: 2 }),
+  q("Which material is see-through for a model window?", "clear plastic", ["cardboard", "clay"], "We can see through clear plastic.", { d: 2 }),
+  q("Your friend's tower fell. What is a kind thing to say?", "Let's try again together", ["That was silly", "I won't help"], "Builders help each other and try again.", { d: 3 }),
+  q("Which material is soft and bendy for a model rope?", "yarn", ["a rock", "a metal pan"], "Yarn bends easily, like a rope.", { emoji: "🧶", d: 3 }),
 ];
 
 const BUILD_STEPS = order("Put the steps in order. What do you do first?", "Plan first, build, test it, then make it better.", [

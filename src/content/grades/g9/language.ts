@@ -76,6 +76,54 @@ const READINGS: Reading[] = [
       { prompt: "What does the last sentence suggest about the grandfather's influence?", right: "His way of speaking and seeing continues in the people he leaves behind.", wrong: ["He should have taught more languages.", "He is still alive.", "People forget the dead quickly."], hint: "“We go on speaking it long after they stop.”" },
     ],
   },
+  {
+    level: 1,
+    title: "The Swap Table",
+    paragraphs: [
+      "Every Saturday in August, the community garden held a swap table. People left extra tomatoes, jars of jam and bundles of herbs, and took home whatever they needed. There was no price list and no cashier, only a hand-lettered sign that read “Take what you need, leave what you can.”",
+      "Noor, who was fourteen, had volunteered to watch the table. At first she thought it would be dull. But she began to notice things: Mr. Alvarez arriving with a single zucchini as long as her arm, a young couple leaving with armfuls of basil, an older woman who always left a small bunch of flowers “for whoever needs one.”",
+      "By September, Noor had stopped checking her phone. She knew the regulars by name, and she knew, without anyone saying so, that the table was never really about vegetables.",
+    ],
+    questions: [
+      { prompt: "What does Noor come to understand by the end of the passage?", right: "The swap table is really about people sharing and connecting.", wrong: ["The garden grows too many vegetables.", "Her phone is more interesting.", "The sign needs a price list."], hint: "The last sentence says the table “was never really about vegetables.”" },
+      { prompt: "What does the hand-lettered sign suggest about the swap table?", right: "It runs on trust and generosity rather than prices.", wrong: ["It is run by a large company.", "It is only for volunteers.", "It is open every day."], hint: "“Take what you need, leave what you can” asks people to be fair and kind." },
+      { prompt: "Why does the author mention that Noor “had stopped checking her phone”?", right: "To show she has become interested in the people around her", wrong: ["To show she lost her phone", "To criticize phones", "To show the table is closing"], hint: "Her attention has moved from her phone to the regulars." },
+      { prompt: "What is the tone of the second paragraph?", right: "warm and observant", wrong: ["bitter and critical", "fearful and tense", "bored and distant"], hint: "Look at the friendly details Noor notices." },
+      { prompt: "Which statement best expresses the theme of the passage?", right: "Sharing with a community builds connection.", wrong: ["Gardens are hard work.", "Teenagers dislike volunteering.", "Prices should always be low."], hint: "Think about what Noor learns from watching people give and take." },
+    ],
+  },
+  {
+    level: 2,
+    title: "Tiny Forests",
+    paragraphs: [
+      "In a few cities around the world, planners have started creating “tiny forests”: dense patches of native trees and shrubs planted in spaces about the size of a tennis court. Because the plants are packed closely, they grow fast, creating shade, habitat and a spongy layer of soil that soaks up rainwater.",
+      "Supporters point out that these forests are cheap compared with large parks and can fit on vacant lots or school grounds. Studies of early projects report cooler temperatures nearby and more birds and insects within a few years. Children who help plant them often develop a stronger sense of ownership over their neighbourhoods.",
+      "Still, the evidence is young. Most tiny forests have existed for less than a decade, and long-term results are unknown. Critics add that planting a few small patches should not replace protecting the older forests and wetlands that already store enormous amounts of carbon. The strongest approach, many experts suggest, is to treat tiny forests as one tool among many.",
+    ],
+    questions: [
+      { prompt: "Which sentence best states the author's position?", right: "Tiny forests are promising, but they should be one tool among many.", wrong: ["Tiny forests should replace all parks.", "Tiny forests have been proven useless.", "Old forests no longer matter."], hint: "The last sentence says to treat them “as one tool among many.”" },
+      { prompt: "What does the word “spongy” suggest about the soil?", right: "It can absorb and hold water.", wrong: ["It is dry and hard.", "It is full of rocks.", "It is made of foam."], hint: "Sponges soak up liquid. The passage says the soil “soaks up rainwater.”" },
+      { prompt: "Why does the author mention that most tiny forests are less than a decade old?", right: "To show that long-term effects are not yet known", wrong: ["To show they are very old", "To prove they have failed", "To explain how to plant them"], hint: "The passage says “long-term results are unknown.”" },
+      { prompt: "What does the word “Still” do at the start of the third paragraph?", right: "It introduces a limitation after the benefits.", wrong: ["It repeats the first point.", "It starts a joke.", "It ends the discussion."], hint: "“Still” signals a turn from the advantages to the concerns." },
+      { prompt: "Which claim is supported by evidence in the passage?", right: "Nearby temperatures were cooler and more birds and insects appeared.", wrong: ["Tiny forests store more carbon than old forests.", "Tiny forests cost more than large parks.", "Tiny forests have existed for centuries."], hint: "Reread the second paragraph for what “studies of early projects report.”" },
+    ],
+  },
+  {
+    level: 3,
+    title: "The Interpreter",
+    paragraphs: [
+      "At the pharmacy counter, I became my grandmother's voice. She spoke Cantonese with the careful dignity of someone who had once run a shop, and I turned her sentences into the short, plain English the pharmacist expected.",
+      "Something was always lost between her words and mine. When she said the pills made her feel “like a house with the windows shut,” I told the pharmacist, “She says she feels tired.” He nodded and wrote it down. Tired was true. It was also the smallest part of what she had said.",
+      "On the walk home she took my arm. “You make me sound very simple,” she said, smiling, and I laughed, because it was true, and because she had understood more English than either of us had admitted.",
+    ],
+    questions: [
+      { prompt: "What does the grandmother's phrase “like a house with the windows shut” express?", right: "A feeling of being closed in and dulled", wrong: ["A wish to paint the house", "A fear of the weather", "A request for fresh air at home"], hint: "A house with its windows shut is stuffy and closed off. She is describing how the pills make her feel." },
+      { prompt: "Why does the narrator say, “Tired was true. It was also the smallest part of what she had said”?", right: "The translation was accurate but left out much of her meaning.", wrong: ["The narrator made up a story.", "The pharmacist did not listen.", "The grandmother was not tired."], hint: "Tired is part of what she meant, but not the whole picture." },
+      { prompt: "What does the last paragraph reveal about the grandmother?", right: "She understands more English than she has let on.", wrong: ["She dislikes the narrator.", "She wants to move away.", "She cannot hear well."], hint: "“She had understood more English than either of us had admitted.”" },
+      { prompt: "Which idea about language is developed in the passage?", right: "Translation can lose depth and feeling even when the words are correct.", wrong: ["Short sentences are always better.", "Nobody can learn a second language.", "Pharmacists need more training."], hint: "Think about the gap between “tired” and the grandmother's image." },
+      { prompt: "Which phrase best shows the role the narrator plays?", right: "“I became my grandmother's voice”", wrong: ["“she took my arm”", "“wrote it down”", "“the smallest part”"], hint: "The narrator speaks for her grandmother at the counter." },
+    ],
+  },
 ];
 
 function closeReading(opts?: GenerateOptions): Question[] {
@@ -104,6 +152,18 @@ const ELEMENTS: Item[] = [
   dev(3, "“What a lovely day for a picnic,” she muttered, as the storm clouds rolled in.", "Verbal irony", ["Situational irony", "Personification", "Alliteration"], "She says the opposite of what she means. That's verbal irony."),
   dev(3, "The audience knew the killer was hiding in the cellar, but the detective strolled calmly toward it.", "Dramatic irony", ["Verbal irony", "Foil", "Motif"], "The audience knows something a character doesn't. That gap is dramatic irony."),
   dev(3, "Silence hung in the room like a heavy winter coat, and every word fell into it and disappeared.", "Simile", ["Metaphor", "Hyperbole", "Allusion"], "“Like a heavy winter coat” makes an explicit comparison with “like.”"),
+  dev(1, "The smoke alarm shrieked and the toast popped up.", "Onomatopoeia", ["Simile", "Irony", "Allusion"], "“Shrieked” and “popped” imitate sounds."),
+  dev(1, "The city never sleeps; it hums all night.", "Personification", ["Simile", "Foil", "Hyperbole"], "A city can't sleep or hum like a person. Human actions are given to a place."),
+  dev(2, "She was a real Cinderella at the dance, rushing off before midnight.", "Allusion", ["Simile", "Foreshadowing", "Hyperbole"], "A reference to a well-known story or character is an allusion."),
+  dev(2, "Throughout the book, a cracked watch appears each time the family argues.", "Motif", ["Foil", "Hyperbole", "Allusion"], "A repeated image that supports a theme is a motif."),
+  dev(2, "I've been waiting here for ages, and my feet have grown roots.", "Hyperbole", ["Simile", "Irony", "Symbolism"], "No one's feet grow roots. The exaggeration stresses how long she has waited."),
+  dev(2, "The doctor caught the flu the week before the health conference.", "Situational irony", ["Verbal irony", "Motif", "Alliteration"], "The outcome is the opposite of what you would expect from a doctor."),
+  dev(3, "The reader has seen the thief hide in the barn, but the farmer hums happily as he walks inside.", "Dramatic irony", ["Verbal irony", "Foil", "Allusion"], "The audience knows something the character does not."),
+  dev(3, "Unlike the gentle, trusting Wren, her sister Cass trusted no one, and the contrast made Wren's openness stand out.", "Foil", ["Motif", "Hyperbole", "Allusion"], "A foil is a character whose contrasting traits highlight another's."),
+  dev(3, "Her words were daggers, and every sentence found its mark.", "Metaphor", ["Simile", "Allusion", "Foreshadowing"], "Her words ARE daggers, with no “like” or “as.”"),
+  dev(3, "As Leo packed his lunch, the radio warned of a storm, but he decided an umbrella was unnecessary.", "Foreshadowing", ["Flashback", "Motif", "Dramatic irony"], "The warning hints at trouble to come."),
+  dev(3, "He's a real Scrooge about sharing his snacks.", "Allusion", ["Simile", "Personification", "Situational irony"], "Scrooge is a famous stingy character. Referring to him is an allusion."),
+  dev(3, "Smoke curled from the chimney like a lazy grey cat, stretching toward the sky.", "Simile", ["Metaphor", "Hyperbole", "Allusion"], "“Like a lazy grey cat” makes a comparison with “like.”"),
 ];
 
 const TONE_MOOD: Item[] = [
@@ -113,6 +173,12 @@ const TONE_MOOD: Item[] = [
   qe(2, "The report notes that the experiment was performed on three separate occasions and that the results were consistent.", "What is the tone of this sentence?", "formal and objective", ["emotional and personal", "playful and silly", "angry"], "It reports facts in a neutral, formal way with no personal feelings."),
   qe(3, "For one brief moment, the stadium held its breath, and then the world fell apart in joy.", "Which best describes the shift in the mood?", "from suspense to celebration", ["from sadness to anger", "from joy to fear", "from boredom to disgust"], "“Held its breath” builds suspense, then the release is “joy.”"),
   qe(3, "She folded the note and slipped it into her pocket, and nothing in her face gave a hint of what it said.", "What does the author's description suggest about her?", "She is hiding her feelings.", ["She is relieved.", "She is bored.", "She has forgotten the note."], "A face that shows nothing, while hiding a note, suggests she is concealing something."),
+  qe(1, "The puppy tumbled down the stairs and landed on its feet, tail wagging, as if it had meant to do it all along.", "What is the tone?", "lighthearted and amused", ["grim and serious", "angry", "fearful"], "The writer describes the puppy in a playful, fond way."),
+  qe(1, "The hallway was dark, and every step echoed. Somewhere behind the door, something scraped.", "What is the mood?", "eerie and suspenseful", ["warm and cosy", "silly and playful", "calm and cheerful"], "Darkness, echoes and scraping sounds build suspense."),
+  qe(2, "“Congratulations,” she said, her smile not reaching her eyes. “I'm sure you worked very hard.”", "What does the description suggest about her feelings?", "She may be jealous or insincere.", ["She is truly delighted.", "She is confused.", "She is sleepy."], "A smile that does not reach the eyes suggests the words are not heartfelt."),
+  qe(2, "The scientist wrote that the data “suggest a modest increase, though more research is needed.”", "What is the tone?", "cautious and objective", ["boastful", "angry", "dramatic"], "The wording is careful and avoids strong claims."),
+  qe(3, "After all the noise of the day, the empty classroom felt larger than ever, and the ticking clock was the only thing that answered her.", "Which best describes the mood?", "lonely and reflective", ["rowdy and excited", "angry and bitter", "playful and silly"], "Empty space and a single sound create a quiet, lonely feeling."),
+  qe(3, "“I suppose it's a perfectly adequate result,” he said, folding the certificate into a very small square.", "What does his behaviour suggest?", "He is disappointed but hiding it.", ["He is thrilled.", "He is bored by certificates.", "He lost the certificate."], "His words are calm but his actions show he is upset."),
 ];
 
 // ---------- Argument & Rhetoric ----------
@@ -134,6 +200,21 @@ const RHETORIC: Item[] = [
   q(3, "Which source is the most credible for a claim about the effects of sleep on teens?", "A peer-reviewed study by sleep researchers", ["A social media post", "An advertisement for pillows", "A friend’s opinion"], "Credible sources are based on evidence, expertise and review by others."),
   q(3, "What does it mean to “consider the purpose” of a media message?", "Ask why it was made, such as to inform, persuade or sell", ["Check how many colours it uses", "Check its length", "Check who liked it"], "Knowing the purpose helps you judge how the message tries to influence you."),
   q(3, "An influencer says she “loves” a drink in a video but does not mention she was paid. What is the problem?", "The audience may not realize it is advertising.", ["She is lying about her name.", "The video is too short.", "Drinks cannot be advertised."], "Hidden sponsorship can mislead viewers about the speaker's motives."),
+  q(1, "What is evidence in an argument?", "Facts, examples or expert statements that support a claim", ["A joke that entertains readers", "The writer's name", "A list of unrelated ideas"], "Evidence shows why a claim is believable."),
+  q(1, "Which of these is a claim?", "Schools should provide free breakfast.", ["Many schools have cafeterias.", "Breakfast is eaten in the morning.", "Some breakfasts include fruit."], "A claim takes a position that someone could disagree with."),
+  q(1, "What is the job of a conclusion in a persuasive essay?", "To restate the main point and leave the reader with a final thought", ["To introduce a new topic", "To list your sources", "To tell a joke"], "A strong ending reminds readers of your position."),
+  q(2, "“If we let students use phones in class, next they'll want to sleep in class!” This is…", "a slippery slope", ["a statistic", "a rebuttal", "ethos"], "It claims one small step will lead to an extreme result."),
+  q(2, "“Jordan is a famous actor, so his advice on nutrition must be right.” What is the flaw?", "Fame is not the same as expertise.", ["It uses statistics.", "It quotes a nutrition study.", "It compares two options fairly."], "An expert on the topic is more credible than someone famous for something else."),
+  q(2, "A writer asks readers to “imagine your little brother, shivering at a bus stop.” This mainly appeals to…", "emotion (pathos)", ["credibility (ethos)", "logic (logos)", "grammar"], "The image is meant to make readers feel concern."),
+  q(2, "Which phrase signals that a writer is about to present a counterargument?", "“Some people might argue that…”", ["“In conclusion…”", "“For example…”", "“First of all…”"], "Writers acknowledge other views before responding to them."),
+  q(2, "What is cherry-picking evidence?", "Using only the facts that support your side and ignoring the rest", ["Choosing the freshest fruit", "Quoting an expert fairly", "Listing every possible fact"], "Leaving out evidence can make an argument misleading."),
+  q(2, "A graph's vertical axis starts at 90 instead of 0, making a small difference look huge. What is the problem?", "It can mislead readers about the size of the difference.", ["It makes the graph more accurate.", "It adds more data.", "It shows the data in a different language."], "Check the scale of a graph before trusting its message."),
+  q(3, "“Ice cream sales and sunburns both rise in July, so ice cream causes sunburn.” What is the error?", "Treating two things that rise together as cause and effect", ["Using too many facts", "Not using numbers", "Quoting an expert"], "Hot, sunny weather explains both. A link is not always a cause."),
+  q(3, "What is the purpose of a rebuttal paragraph?", "To respond to an opposing view with reasons or evidence", ["To repeat the thesis word for word", "To introduce the author", "To list the sources"], "A rebuttal shows why the other view is less convincing."),
+  q(3, "Why are words like “always,” “never” and “everyone” warning signs in an argument?", "They make absolute claims that are hard to support.", ["They are too short.", "They make writing formal.", "They always mean the claim is true."], "A single exception can weaken an absolute claim."),
+  q(3, "Which source would be most trustworthy for current Canadian unemployment rates?", "Statistics Canada", ["A rumour on a message board", "A celebrity's post", "A sponsored advertisement"], "Official statistics agencies collect data carefully and explain their methods."),
+  q(3, "An image with no caption or source shows a shocking event. What should you do before sharing it?", "Look for the original source and other reports.", ["Share it right away.", "Trust it because it looks real.", "Assume it is true because it is popular."], "Checking where an image came from helps stop false information spreading."),
+  q(3, "Which sentence is the best example of a call to action?", "Please sign the petition to add a crosswalk.", ["The crosswalk is old.", "Crosswalks are painted white.", "Many people walk to school."], "A call to action asks readers to do something specific."),
 ];
 
 const APPEALS: SortSet = {
@@ -209,6 +290,25 @@ const VOICES: Item[] = [
   q(3, "Why does the cultural background of an author matter when reading?", "It can shape the stories they tell, the language they use and what they see as important.", ["It doesn't matter at all.", "It determines the book's length.", "It decides the grammar."], "Understanding context helps us read with more insight."),
   q(3, "Which is an example of a text being shaped by its time and place?", "A story that reflects the attitudes of the period in which it was written", ["A dictionary entry for a new word", "A list of numbers", "A recipe"], "Texts often reflect the values and assumptions of their world."),
   q(3, "When you quote someone, what is the most respectful way to use their words?", "Quote them accurately, in context, and credit them.", ["Change the words to suit your point.", "Use the words without a source.", "Quote only part to change the meaning."], "Accuracy, context and credit respect the speaker and your readers."),
+  q(1, "What does it mean to listen actively to someone's story?", "Pay attention, ask thoughtful questions and avoid interrupting", ["Look at your phone while they talk", "Wait to talk about yourself", "Correct their grammar"], "Active listening shows respect and helps you understand."),
+  q(1, "Which of these is a primary source?", "A letter written by someone who lived through the event", ["A modern textbook summary", "A movie made a hundred years later", "A summary on a website"], "A primary source comes directly from the time or the person involved."),
+  q(1, "An autobiography is…", "the story of a person's life written by that person", ["a made-up adventure", "a poem about nature", "a list of facts about places"], "“Auto” means self. The author writes about their own life."),
+  q(1, "What is a perspective?", "A way of seeing something, shaped by experiences and values", ["A kind of map", "A spelling rule", "A type of rhyme"], "Different people can see the same event differently."),
+  q(2, "Why might an author tell a story in the first person?", "To let readers see events through one person's thoughts and feelings", ["To avoid using any names", "To show everything that happens everywhere", "To make the story shorter"], "First person gives a close, personal view."),
+  q(2, "One article calls an event a “riot” and another calls it a “demonstration.” What does this show?", "Word choice can reveal a writer's perspective.", ["Both words mean exactly the same.", "One article must be fake.", "Writers cannot choose words."], "Words carry feelings and judgments."),
+  q(2, "Why do some First Nations use oral storytelling to share history, laws and teachings?", "Oral traditions carry knowledge, relationships and responsibilities across generations.", ["Spoken stories are only for entertainment.", "Oral stories are less important than books.", "It is cheaper than printing."], "Oral traditions are respected ways of keeping and sharing knowledge."),
+  q(2, "Why is it important to read books by Indigenous authors?", "They offer perspectives and stories from Indigenous peoples in their own voices.", ["All Indigenous peoples tell one story.", "Only Indigenous people may read them.", "They replace every other book."], "Hearing from people directly gives a fuller understanding."),
+  q(2, "What does cultural appropriation mean?", "Using another culture's stories or symbols without permission, understanding or credit", ["Sharing a story with permission and credit", "Learning a language in school", "Visiting a museum"], "Respect means asking, learning and giving credit."),
+  q(2, "Which choice shows respect when learning about a community's cultural story?", "Ask whether it is appropriate to share and credit the source.", ["Retell it as your own.", "Change it to be funnier.", "Skip the source to save space."], "Respect includes permission, accuracy and credit."),
+  q(2, "How might a person's age shape the way they tell a story?", "Their experiences and what they value can differ at different ages.", ["Age decides the number of pages.", "Only older people can tell stories.", "Age has no effect at all."], "A teenager and an elder may notice different things about the same event."),
+  q(2, "A narrator tells their own story but leaves out a mistake they made. What can a reader do?", "Question what is left out and look for other perspectives.", ["Believe every detail.", "Stop reading.", "Assume the narrator is lying about everything."], "Good readers notice gaps and compare accounts."),
+  q(3, "A narrator who cannot be fully trusted to tell the truth is called…", "an unreliable narrator", ["an omniscient narrator", "a reliable narrator", "a supporting narrator"], "Clues in the text can show that the narrator is mistaken or hiding something."),
+  q(3, "Which question helps you find a voice that is missing from a text?", "Who is speaking for whom, and who is left out?", ["How long is the text?", "What colour is the cover?", "Who printed it?"], "Noticing what is absent is part of reading critically."),
+  q(3, "Why might a writer use a character's dialect or way of speaking in dialogue?", "To show where a character is from and make them feel real", ["To confuse readers on purpose", "To avoid using punctuation", "To shorten the story"], "Voice shows identity and background."),
+  q(3, "A memoir and a biography about the same person differ because…", "the memoir is told by the person and the biography by someone else", ["a biography is always fiction", "a memoir has no facts", "they use different alphabets"], "Who tells a story affects what is included and how it is told."),
+  q(3, "What is a dominant narrative?", "The most widely told version of a story, which may leave out other voices", ["A story with the most characters", "A narrative written in verse", "The shortest version of a story"], "Looking beyond the dominant narrative can reveal other perspectives."),
+  q(3, "A poem is printed in its original language beside an English translation. How can this honour the speaker's voice?", "It keeps the original words visible so meaning is not lost.", ["It hides the original language.", "It makes the poem shorter.", "It replaces the author's name."], "Translation can lose meaning, so keeping the original respects the speaker."),
+  q(3, "Which question best helps you analyse an author's bias?", "What experiences or interests might shape this author's view?", ["How many pages did the author write?", "Where was the book printed?", "Is the title in capital letters?"], "Understanding an author's background helps you judge their perspective."),
 ];
 
 // ---------- Language & Style ----------

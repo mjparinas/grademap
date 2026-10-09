@@ -69,6 +69,15 @@ const CONTRIBUTIONS: Item[] = [
   { prompt: "Maple syrup was first made by…", right: "Indigenous peoples in northeastern North America", wrong: ["Viking settlers", "English colonists"], hint: "Many nations in the region made sugar from maple sap long before Europeans arrived.", hard: true },
   { prompt: "Why do many Indigenous communities work to revitalize their languages?", right: "Language carries culture, history and identity", wrong: ["There are too many languages", "Languages are not important"], hint: "Language keeps stories and teachings alive.", hard: true },
   { prompt: "Which statement is most accurate?", right: "First Nations, Métis and Inuit communities are diverse and are living, changing communities today", wrong: ["Indigenous peoples all have the same traditions", "Indigenous cultures are only part of the past"], hint: "Each community has its own history and culture, and contributes to Canada now.", hard: true },
+  { prompt: "Many Indigenous peoples have their own languages. Which is the name of an Inuit language?", right: "Inuktitut", wrong: ["Latin", "Norse"], hint: "It is spoken in Nunavut and other Inuit regions." },
+  { prompt: "Which of these Ontario places has a name from an Anishinaabe language?", right: "Ottawa (from 'adawe', to trade)", wrong: ["Kingston", "London"], hint: "The Ottawa River name comes from the Odawa people." },
+  { prompt: "Which is an Indigenous invention?", right: "The snowshoe", wrong: ["The compass", "The printing press"], hint: "Snowshoes help people walk on deep snow." },
+  { prompt: "What is a totem pole?", right: "A carved pole made by some Pacific Northwest Coast nations to tell stories and honour families", wrong: ["A kind of canoe", "A house made of ice"], hint: "Carving styles differ among nations, such as the Haida and Kwakwaka'wakw." },
+  { prompt: "Métis people are known for the sash. What is it?", right: "A woven belt that is part of Métis culture", wrong: ["A snow boot", "A drum"], hint: "The sash is a symbol of Métis identity." },
+  { prompt: "Inuit throat singing and drum dancing are examples of…", right: "living Inuit arts and traditions", wrong: ["forgotten arts", "foods"], hint: "These art forms are still practised and shared." },
+  { prompt: "Many Canadian cities stand where Indigenous peoples have lived for thousands of years. What does this tell us?", right: "Indigenous communities have deep and lasting ties to these places", wrong: ["The land was empty", "Cities were built first"], hint: "Place names and histories point back to Indigenous communities." },
+  { prompt: "Why do many people now say 'First Nations, Métis and Inuit' instead of just 'Indians'?", right: "It uses names the peoples use for themselves", wrong: ["It is shorter", "It makes the groups the same"], hint: "Respectful names matter." },
+  { prompt: "The Haudenosaunee Confederacy is known for…", right: "a system of governance that joined several nations", wrong: ["inventing hockey sticks", "a lighthouse"], hint: "Six Nations cooperate in the confederacy.", hard: true },
 ];
 
 // ---------- Newcomers (A3.2, A3.3, A3.4) ----------
@@ -89,6 +98,16 @@ const NEWCOMERS: Item[] = [
   { prompt: "Why did the government of Canada advertise free farmland in Europe around 1900?", right: "To attract farmers to settle the Prairies", wrong: ["To get miners for the Arctic", "To fill cities with factory workers"], hint: "Settling the Prairies was a government goal.", hard: true },
   { prompt: "Which is an economic reason that people moved to Canada?", right: "Finding work or a better income", wrong: ["Fleeing a war", "Escaping religious persecution"], hint: "Economic reasons are about jobs and money.", hard: true },
   { prompt: "Which is a political or religious reason that people moved to Canada?", right: "Seeking freedom to practise their beliefs", wrong: ["Wanting a higher salary", "Following a job offer"], hint: "Some groups came to live without being persecuted.", hard: true },
+  { prompt: "Which is a pull factor that drew Prairie settlers around 1900?", right: "Cheap land offered for farming", wrong: ["A war at home", "A crop failure at home"], hint: "A pull factor attracts people to a place." },
+  { prompt: "Which is a push factor?", right: "A drought that ruins farms at home", wrong: ["A job offer abroad", "Free land abroad"], hint: "A push factor makes staying difficult." },
+  { prompt: "Who helped many people on the Underground Railroad reach Canada?", right: "Conductors and safe-house keepers, including Harriet Tubman", wrong: ["Railway ticket sellers", "Customs officers"], hint: "It was a secret network, not a real train." },
+  { prompt: "After 1867 which group of newcomers helped to settle the Prairies in large numbers?", right: "Eastern European farm families", wrong: ["Arctic hunters", "Pacific fishing crews"], hint: "Many Ukrainian, Polish and German families farmed there." },
+  { prompt: "Which people came from India to British Columbia in the early 1900s to work in forestry and mills?", right: "Many Sikh men and their families", wrong: ["Viking sailors", "Norman knights"], hint: "Communities such as these still shape BC today." },
+  { prompt: "Why do newcomers often settle near others from their home country?", right: "To share language, food and support", wrong: ["Because the law requires it", "To avoid making friends"], hint: "Shared community helps people feel at home." },
+  { prompt: "What is multiculturalism?", right: "Valuing the many cultures that make up a society", wrong: ["Speaking only one language", "Having a single tradition"], hint: "Canada's Multiculturalism Act is from 1988." },
+  { prompt: "Which is an example of a newcomer contribution?", right: "Opening a restaurant that shares food from home", wrong: ["Closing a library", "Moving a mountain"], hint: "Businesses, music, art and food all change communities." },
+  { prompt: "Loyalists were people who…", right: "stayed loyal to the British Crown during the American Revolution", wrong: ["fought for the American side", "lived only in Québec"], hint: "Many moved north after 1783." },
+  { prompt: "Which of these came to Canada after 2015 as refugees?", right: "Many families from Syria", wrong: ["Viking crews", "Gold miners from the 1850s"], hint: "Canadians, governments and groups welcomed them." },
 ];
 
 // ---------- Hard chapters in the history of communities (A3.6, A3.8) ----------
@@ -108,6 +127,17 @@ const PAST: Item[] = [
   { prompt: "Which was true about the Acadians after the Expulsion?", right: "Many were scattered, and some later returned or settled in places such as Louisiana", wrong: ["They were all kept in Québec", "They moved to the Arctic"], hint: "The Acadians kept their culture and are still part of Canada.", hard: true },
   { prompt: "After the British won in 1759–1760, the 1774 Quebec Act allowed French Canadians to keep what?", right: "Their language, religion and legal system in civil matters", wrong: ["Their own army", "Their own king"], hint: "It helped French culture continue in Québec.", hard: true },
   { prompt: "Which pair is correct?", right: "Head tax — Chinese Canadians; Internment — Japanese Canadians", wrong: ["Head tax — Japanese Canadians; Internment — Chinese Canadians", "Head tax — Ukrainian Canadians; Internment — Acadians"], hint: "Each event affected a specific community.", hard: true },
+  { prompt: "The Expulsion of the Acadians took place in which century?", right: "The 1700s", wrong: ["The 1500s", "The 1900s"], hint: "It began in 1755." },
+  { prompt: "Which people were charged the head tax to enter Canada?", right: "Chinese immigrants", wrong: ["Irish immigrants", "Ukrainian immigrants"], hint: "It was aimed only at people coming from China." },
+  { prompt: "Which group was forced to leave the BC coast in 1942 and had belongings sold?", right: "Japanese Canadians", wrong: ["Acadians", "Loyalists"], hint: "Many were Canadian-born." },
+  { prompt: "Africville was home to a community that…", right: "had churches, a school and homes for generations", wrong: ["was built only in 2010", "was always in Vancouver"], hint: "Families lived there for about 150 years before it was torn down." },
+  { prompt: "In 2010 the City of Halifax did what about Africville?", right: "Apologized to former residents and their families", wrong: ["Built a new highway there", "Denied it ever existed"], hint: "A church was rebuilt as a museum and gathering place." },
+  { prompt: "What is one purpose of a museum exhibit about the Komagata Maru?", right: "To help people learn about a hard chapter in history", wrong: ["To sell tickets for a ship ride", "To forget the event"], hint: "Remembering helps us learn from the past." },
+  { prompt: "Which is an example of redress?", right: "A government gives payments and an apology to people who were treated unfairly", wrong: ["A government raises the tax", "A government hides records"], hint: "Redress tries to make up for a wrong." },
+  { prompt: "The 1759 battle on the Plains of Abraham was between which two sides?", right: "British and French forces", wrong: ["Canadian and American forces", "Dutch and Spanish forces"], hint: "The British and French were competing for control of the region." },
+  { prompt: "What does discrimination mean?", right: "Treating people unfairly because of who they are", wrong: ["Choosing a favourite colour", "Winning a game"], hint: "Laws like the head tax were unfair to one group." },
+  { prompt: "Many Acadians kept their language and culture after the Expulsion. This shows their…", right: "resilience", wrong: ["silence", "disinterest"], hint: "Resilience means recovering and carrying on." },
+  { prompt: "Which pair is correct?", right: "Africville — Halifax; Plains of Abraham — Québec City", wrong: ["Africville — Québec City; Plains of Abraham — Halifax", "Africville — Winnipeg; Plains of Abraham — Toronto"], hint: "Africville was a Black community in Nova Scotia's largest city.", hard: true },
 ];
 
 // ---------- First Nations, Métis and Inuit histories (A3.5, A3.8) ----------
@@ -128,6 +158,16 @@ const INDIGENOUS_HISTORY: Item[] = [
   { prompt: "Nunatsiavut is a self-governing Inuit region in which part of Canada?", right: "Northern Labrador", wrong: ["Southern Ontario", "Vancouver Island"], hint: "Labrador Inuit gained self-government in 2005.", hard: true },
   { prompt: "Why did the fur trade change communities for many First Nations and Métis?", right: "It created new economies, new families and new pressures on land", wrong: ["It ended all trading", "It had no effect"], hint: "The fur trade affected many people in different ways.", hard: true },
   { prompt: "The Truth and Reconciliation Commission shared its report in 2015. What did it include?", right: "Calls to Action for governments and all Canadians", wrong: ["A list of hockey scores", "Plans for new roads"], hint: "It listened to survivors and made recommendations.", hard: true },
+  { prompt: "The creation of Nunavut in 1999 followed a land claim by which people?", right: "Inuit", wrong: ["Acadians", "Loyalists"], hint: "Inuit negotiated a land claim agreement." },
+  { prompt: "Louis Riel is remembered as a leader of which people?", right: "The Métis", wrong: ["The Acadians", "The Loyalists"], hint: "He led the Red River Resistance in 1869–70." },
+  { prompt: "What did the 2008 apology say about residential schools?", right: "That the policy caused great harm and was wrong", wrong: ["That they were a good idea", "That nothing happened"], hint: "The apology recognized harm to children, families and communities." },
+  { prompt: "Which law created the 'status' system that defined who counts as a First Nations person under federal law?", right: "The Indian Act", wrong: ["The Charter of Rights", "The Official Languages Act"], hint: "The Indian Act dates from 1876." },
+  { prompt: "Why are treaties still important today?", right: "They are agreements that still guide relationships and rights", wrong: ["They are only old paper", "They end when a year is over"], hint: "Treaty rights are recognized in the Constitution." },
+  { prompt: "What is reconciliation?", right: "Building respectful relationships and making things right", wrong: ["Forgetting history", "Winning an argument"], hint: "It involves learning, listening and action." },
+  { prompt: "What does it mean when a First Nation, Métis or Inuit community has self-government?", right: "It makes decisions about matters such as its own laws and services", wrong: ["It has no connection to Canada", "It has no leaders"], hint: "Some communities have agreements giving them more control." },
+  { prompt: "Survivors of residential schools shared their stories with the Truth and Reconciliation Commission. Why did that matter?", right: "It helped Canadians learn the truth", wrong: ["It ended all schools in Canada", "It created the Indian Act"], hint: "Listening to survivors is part of the learning." },
+  { prompt: "Which of these is a place that has been home to Métis communities for a long time?", right: "The Red River area in Manitoba", wrong: ["The Sahara Desert", "Easter Island"], hint: "Red River is the Métis homeland connected to Louis Riel." },
+  { prompt: "Eleven treaties signed between 1871 and 1921 across much of Canada are known as…", right: "the numbered treaties", wrong: ["the royal numbers", "the town contracts"], hint: "Treaties 1 to 11 cover large parts of the Prairies, northern Ontario and beyond.", hard: true },
 ];
 
 // ---------- Canada and international organizations (B1.1, B3.1–B3.3) ----------
@@ -148,6 +188,16 @@ const WORLD: Item[] = [
   { prompt: "The Commonwealth is a group of countries that…", right: "mostly have a history connected to the British Empire and cooperate", wrong: ["only speak French", "are all in North America"], hint: "Canada is a member.", hard: true },
   { prompt: "La Francophonie is an organization of countries and regions where…", right: "French is spoken or shared", wrong: ["English is the only language", "everyone is a farmer"], hint: "Canada is a member, with Québec and New Brunswick taking part.", hard: true },
   { prompt: "Why can NGOs be useful in a crisis?", right: "They can act quickly and focus on specific needs", wrong: ["They make the laws of each country", "They control each country's military"], hint: "Different organizations help in different ways.", hard: true },
+  { prompt: "Where is the headquarters of the United Nations?", right: "New York City", wrong: ["Toronto", "Paris"], hint: "The UN headquarters sits beside the East River in New York." },
+  { prompt: "What is humanitarian aid?", right: "Help for people suffering from conflict or disasters", wrong: ["A kind of trade tax", "A sports award"], hint: "Humanitarian means caring about human well-being." },
+  { prompt: "Which organization works to improve children's lives through health, education and protection?", right: "UNICEF", wrong: ["NATO", "CUSMA"], hint: "The 'C' stands for children's." },
+  { prompt: "Why did countries create the United Nations after the Second World War?", right: "To help prevent future wars and support cooperation", wrong: ["To start a new war", "To make a new sport"], hint: "Peace was the first goal." },
+  { prompt: "Which language groups are linked by La Francophonie?", right: "French-speaking countries and regions", wrong: ["Spanish-speaking countries", "Mandarin-speaking schools"], hint: "'Franco' means French." },
+  { prompt: "Which of these is an example of an international accord?", right: "The Paris Agreement", wrong: ["A school rule", "A recipe book"], hint: "An accord is an agreement among countries." },
+  { prompt: "The Red Cross and Red Crescent help people in need around the world. What type of group is it?", right: "A non-governmental organization", wrong: ["A national army", "A province"], hint: "NGOs are independent of governments." },
+  { prompt: "How can Canada take part in peacekeeping?", right: "By sending trained personnel to UN missions", wrong: ["By closing the border", "By sending only toys"], hint: "Members of the military and police have served." },
+  { prompt: "Which country is part of NATO along with Canada?", right: "The United States", wrong: ["Japan", "Mexico"], hint: "NATO began with countries in North America and Europe." },
+  { prompt: "The Commonwealth meets to cooperate on things like…", right: "trade, education and human rights", wrong: ["building the moon", "choosing hockey teams"], hint: "Its members share links but each is independent.", hard: true },
 ];
 
 // ---------- Responding to global events (B1.2, B1.3, B3.4, B3.5, B3.10) ----------
@@ -167,6 +217,17 @@ const GLOBAL_HELP: Item[] = [
   { prompt: "Canadian peacekeepers helped stabilize some regions. What is one effect?", right: "Less fighting and safer conditions for people", wrong: ["More wars", "No change at all"], hint: "Peacekeeping aims to protect civilians.", hard: true },
   { prompt: "Invasive species can travel between countries on ships. How is this an environmental effect of global trade?", right: "Species can reach places where they harm native life", wrong: ["It makes plants taller", "It cleans the water"], hint: "Trade connects regions, including their ecosystems.", hard: true },
   { prompt: "After a disaster, why is clean water one of the first needs?", right: "Dirty water spreads illness", wrong: ["It is needed for decoration", "It makes buildings stronger"], hint: "Aid agencies bring safe water first.", hard: true },
+  { prompt: "Which group often sends doctors and supplies after an earthquake?", right: "Aid organizations (NGOs) and governments", wrong: ["Sports leagues", "Movie studios"], hint: "Disaster relief takes many helpers." },
+  { prompt: "What is a refugee camp for?", right: "To give safe, temporary shelter to people who had to flee", wrong: ["To hold summer festivals", "To grow rice for sale"], hint: "Refugees need shelter, food and care." },
+  { prompt: "Which is a way Canadians sponsor refugees?", right: "A group raises money and helps a family settle in Canada", wrong: ["They buy a plane", "They vote for the family"], hint: "Private sponsorship lets groups welcome families." },
+  { prompt: "The ozone layer helps protect living things from…", right: "harmful sunlight (UV rays)", wrong: ["noise", "earthquakes"], hint: "The Montreal Protocol protects it." },
+  { prompt: "Which is a greenhouse gas that countries want to reduce?", right: "Carbon dioxide", wrong: ["Oxygen", "Helium"], hint: "Burning fossil fuels adds a lot of carbon dioxide." },
+  { prompt: "Why might a country send aid after a flood?", right: "People need food, clean water and shelter", wrong: ["To win a medal", "To change its flag"], hint: "Aid meets urgent needs." },
+  { prompt: "Which is a good way to check a charity before giving?", right: "Look for how it spends its money and who runs it", wrong: ["Choose the loudest advertisement", "Give to whoever asks first"], hint: "Trusted charities share their records." },
+  { prompt: "Global Affairs Canada is a part of the federal government. It helps by…", right: "managing Canada's relations and aid abroad", wrong: ["making school lunches", "building local parks"], hint: "It works with other countries and NGOs." },
+  { prompt: "After the MS St. Louis was turned away in 1939, what did Canada do many years later?", right: "Officially recognized and apologized for the decision", wrong: ["Closed the harbour", "Changed the date"], hint: "The Government of Canada apologized in 2018." },
+  { prompt: "Why do many countries work together on climate change?", right: "Greenhouse gases spread around the whole planet", wrong: ["Every country has the same weather", "Only one country makes pollution"], hint: "Air does not stop at borders." },
+  { prompt: "A class holds a bake sale to help a relief charity. This is an example of…", right: "citizens taking action on a global issue", wrong: ["a trade agreement", "a peace treaty"], hint: "Small actions can add up." },
 ];
 
 // ---------- Canada's partners on the map (B3.7, B3.8, B3.9) ----------
@@ -188,6 +249,15 @@ const PARTNERS: Item[] = [
   { prompt: "What can happen to some Canadian jobs when companies move factories to countries with lower labour costs?", right: "Some jobs in manufacturing may be lost", wrong: ["All jobs are created", "Nothing changes"], hint: "Trade changes can affect workers.", hard: true },
   { prompt: "Tourists visiting Canada from other countries have what effect on the economy?", right: "They bring money into the economy", wrong: ["They remove all jobs", "They make trade agreements end"], hint: "Visitors spend money on hotels, food and attractions.", hard: true },
   { prompt: "Nairobi is just south of the equator. Which is correct?", right: "It is in the Southern Hemisphere", wrong: ["It is in the Northern Hemisphere", "It is in the Western Hemisphere"], hint: "South of the equator means the Southern Hemisphere.", hard: true },
+  { prompt: "The equator is at which latitude?", right: "0°", wrong: ["90°", "180°"], hint: "It divides the Northern and Southern Hemispheres." },
+  { prompt: "The prime meridian is at which longitude?", right: "0°", wrong: ["90°", "45° north"], hint: "It divides the Eastern and Western Hemispheres." },
+  { prompt: "Canada is in which hemispheres?", right: "Northern and Western", wrong: ["Southern and Eastern", "Northern and Eastern"], hint: "It is north of the equator and west of the prime meridian." },
+  { prompt: "In which country is Paris, a city where Canada has strong ties?", right: "France", wrong: ["Spain", "Germany"], hint: "France shares French language links with parts of Canada." },
+  { prompt: "In which country is the city of Mexico City?", right: "Mexico", wrong: ["Brazil", "Spain"], hint: "Mexico is part of the CUSMA trade agreement." },
+  { prompt: "Which three oceans touch Canada's coasts?", right: "The Atlantic, Pacific and Arctic", wrong: ["The Indian, Southern and Atlantic", "The Pacific, Indian and Southern"], hint: "Canada has coasts on the east, west and north." },
+  { prompt: "Canada exports lumber, wheat and oil. What is an export?", right: "A product sold to another country", wrong: ["A product bought from another country", "A tax"], hint: "Exports leave a country." },
+  { prompt: "Canada imports bananas. What does that mean?", right: "Canada buys them from other countries", wrong: ["Canada sells them abroad", "Canada grows them all"], hint: "Imports arrive in a country." },
+  { prompt: "Sydney is a large city in which country?", right: "Australia", wrong: ["Chile", "Italy"], hint: "Australia is a Commonwealth country in the Southern Hemisphere." },
 ];
 
 // ---------- Social studies inquiry (A2, B2) ----------
@@ -205,6 +275,20 @@ const INQUIRY6: Item[] = [
   { prompt: "A graphic organizer helps you…", right: "sort evidence and compare different perspectives", wrong: ["draw a map", "pick a winner"], hint: "Use charts to organize information.", hard: true },
   { prompt: "A conclusion is strongest when it is based on…", right: "evidence from several reliable sources", wrong: ["one source only", "guessing"], hint: "More evidence means more confidence.", hard: true },
   { prompt: "A map of Canada's trade partners uses darker colours for larger amounts of trade. What is this part of the map called?", right: "The legend (key)", wrong: ["The compass rose", "The scale"], hint: "It explains what colours mean.", hard: true },
+  { prompt: "Which is a secondary source about the 1900s?", right: "A history book written last year", wrong: ["A diary written in 1905", "A photo taken in 1910"], hint: "A secondary source is made later by someone who was not there." },
+  { prompt: "A diary kept by a child in 1920 is a…", right: "primary source", wrong: ["secondary source", "textbook"], hint: "It was written at the time, by someone who lived it." },
+  { prompt: "Which is an open inquiry question?", right: "How did the railway change life in prairie towns?", wrong: ["In what year was the railway finished?", "Is the railway long?"], hint: "An open question needs research and has more than one part to its answer." },
+  { prompt: "Which of these is a fact?", right: "Canada has ten provinces.", wrong: ["Canada has the nicest provinces.", "Provinces should be larger."], hint: "A fact can be checked in a reliable source." },
+  { prompt: "Which of these is an opinion?", right: "Winter is the best season in Canada.", wrong: ["Winter is cold in much of Canada.", "Winter comes after fall."], hint: "Words like best show a feeling or belief." },
+  { prompt: "Two accounts of the same event disagree. What should you do?", right: "Check who wrote each one and look for more sources", wrong: ["Choose the shorter one", "Ignore both"], hint: "Compare sources and think about each writer's point of view." },
+  { prompt: "A map has a title, a legend and a scale. What does the scale tell you?", right: "How map distances match real distances", wrong: ["What the colours mean", "Which way is north"], hint: "The scale compares the map to the real world." },
+  { prompt: "A map's compass rose shows…", right: "directions such as north and south", wrong: ["the map's age", "the population"], hint: "Compass means directions." },
+  { prompt: "Why is it good to use a source written by a person who was there?", right: "They saw or lived the event themselves", wrong: ["Their writing is always perfect", "They cannot make mistakes"], hint: "First-hand accounts are close to the event, but still show one point of view." },
+  { prompt: "A bar graph shows how many newcomers arrived each decade. What can you find?", right: "Which decade had the most arrivals", wrong: ["What each person felt", "Where each person lived"], hint: "Read the tallest bar." },
+  { prompt: "Which source is most reliable for Canada's population numbers?", right: "Statistics Canada", wrong: ["A random social media post", "An advertisement"], hint: "Look for official sites run by governments or well-known organizations." },
+  { prompt: "A museum photograph from 1900 has a caption. Why read the caption?", right: "It tells who, what, where and when", wrong: ["It changes the photo", "It is always an opinion"], hint: "Captions give background to help you understand a source." },
+  { prompt: "After researching, which step comes next in an inquiry?", right: "Organize evidence and draw a conclusion", wrong: ["Pick a topic", "Skip to the title"], hint: "Evidence leads to a conclusion, and then you share and reflect." },
+  { prompt: "Why do historians ask 'whose voice is missing?'", right: "Some perspectives were not recorded or are left out", wrong: ["To make the story longer", "Because every source is wrong"], hint: "Looking for missing voices gives a fuller picture.", hard: true },
 ];
 
 export const units: Unit[] = [
