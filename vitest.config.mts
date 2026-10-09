@@ -9,5 +9,9 @@ export default defineConfig({
       "server-only": fileURLToPath(new URL("./node_modules/server-only/empty.js", import.meta.url)),
     },
   },
-  test: { include: ["src/**/*.test.ts"] },
+  test: {
+    include: ["src/**/*.test.{ts,tsx}"],
+    // Component tests opt in to jsdom with `// @vitest-environment jsdom`; everything else stays in node.
+    setupFiles: ["./src/test/setup.ts"],
+  },
 });
