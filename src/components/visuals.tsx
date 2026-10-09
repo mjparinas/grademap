@@ -539,6 +539,95 @@ export function CoordinateGrid({ size, min = 0, points }: { size: number; min?: 
   );
 }
 
+export function Plot({
+  xMin,
+  xMax,
+  yMin,
+  yMax,
+  step = 1,
+  curves,
+  points = [],
+}: {
+  xMin: number;
+  xMax: number;
+  yMin: number;
+  yMax: number;
+  step?: number;
+  curves: { points: { x: number; y: number }[]; label?: string; dashed?: boolean }[];
+  points?: { x: number; y: number; label?: string }[];
+}) {
+  const W = 300;
+  const H = Math.max(120, Math.min(300, (W * (yMax - yMin)) / (xMax - xMin)));
+  const px = (x: number) => ((x - xMin) / (xMax - xMin)) * W;
+  const py = (y: number) => H - ((y - yMin) / (yMax - yMin)) * H;
+  const ticks = (lo: number, hi: number) => {
+    const out: number[] = [];
+    for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(Math.round(v * 1e6) / 1e6);
+    return out;
+  };
+  const colours = ["#2a78d6", "#c43a7c", "#0f7a4f"];
+  const clipId = `plot-${xMin}-${xMax}-${yMin}-${yMax}`;
+  return (
+    <svg viewBox={`-30 -12 ${W + 48} ${H + 44}`} className="w-full max-w-sm" role="img" aria-label="a graph on x and y axes">
+      <defs>
+        <clipPath id={clipId}>
+          <rect x="0" y="0" width={W} height={H} />
+        </clipPath>
+      </defs>
+      {ticks(xMin, xMax).map((v) => (
+        <g key={`x${v}`}>
+          <line x1={px(v)} y1="0" x2={px(v)} y2={H} stroke="#e3e7ef" strokeWidth="1" />
+          <text x={px(v)} y={H + 14} textAnchor="middle" fontSize="10" fill={INK}>
+            {v}
+          </text>
+        </g>
+      ))}
+      {ticks(yMin, yMax).map((v) => (
+        <g key={`y${v}`}>
+          <line x1="0" y1={py(v)} x2={W} y2={py(v)} stroke="#e3e7ef" strokeWidth="1" />
+          <text x="-6" y={py(v) + 3} textAnchor="end" fontSize="10" fill={INK}>
+            {v}
+          </text>
+        </g>
+      ))}
+      <rect x="0" y="0" width={W} height={H} fill="none" stroke="#c9cfdc" strokeWidth="1" />
+      {xMin <= 0 && xMax >= 0 && <line x1={px(0)} y1="0" x2={px(0)} y2={H} stroke={INK} strokeWidth="2" />}
+      {yMin <= 0 && yMax >= 0 && <line x1="0" y1={py(0)} x2={W} y2={py(0)} stroke={INK} strokeWidth="2" />}
+      <g clipPath={`url(#${clipId})`}>
+        {curves.map((c, i) => (
+          <polyline
+            key={i}
+            points={c.points.map((p) => `${px(p.x).toFixed(1)},${py(p.y).toFixed(1)}`).join(" ")}
+            fill="none"
+            stroke={colours[i % colours.length]}
+            strokeWidth="3"
+            strokeLinejoin="round"
+            strokeDasharray={c.dashed ? "6 5" : undefined}
+          />
+        ))}
+      </g>
+      {curves.map(
+        (c, i) =>
+          c.label && (
+            <text key={`l${i}`} x={W - 4} y={12 + i * 15} textAnchor="end" fontSize="12" fontWeight="700" fill={colours[i % colours.length]}>
+              {c.label}
+            </text>
+          ),
+      )}
+      {points.map((p, i) => (
+        <g key={`p${i}`}>
+          <circle cx={px(p.x)} cy={py(p.y)} r="5" fill="#e9559a" stroke="#fff" strokeWidth="2" />
+          {p.label && (
+            <text x={px(p.x) + 8} y={py(p.y) - 7} fontSize="12" fontWeight="700" fill="#c43a7c">
+              {p.label}
+            </text>
+          )}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 // ---------- Data ----------
 
 export function Pictograph({
@@ -779,6 +868,8 @@ export function QuestionVisual({ visual }: { visual: Visual }) {
       return <CoordinateGrid size={visual.size} min={visual.min} points={visual.points} />;
     case "angle":
       return <Angle degrees={visual.degrees} />;
+    case "plot":
+      return <Plot {...visual} />;
     case "story":
       return (
         <div className="w-full max-w-2xl rounded-2xl border-[3px] border-[#f3c6dc] bg-[#fff7fb] px-5 py-4">

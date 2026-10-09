@@ -1,9 +1,9 @@
-import { pick, randInt, sample, shuffle } from "@/content/random";
+import { chance, pick, randInt, sample, shuffle } from "@/content/random";
 import type { GradeId } from "@/content/types";
 
 // Learning content for the arcade, adapted to each grade.
 
-const G: Record<GradeId, number> = { k: 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7 };
+const G: Record<GradeId, number> = { k: 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12 };
 
 // ---------- Number Munchers ----------
 
@@ -122,6 +122,14 @@ export function muncherRules(grade: GradeId): MuncherRule[] {
       numberRule("Munch factors of 36", [1, 40], (x) => 36 % x === 0, (x) => `36 ÷ ${x} doesn't divide evenly.`),
       fractionHalfRule(),
     ];
+  if (g >= 8)
+    return [
+      numberRule("Munch perfect squares", [1, 150], (x) => Number.isInteger(Math.sqrt(x)), (x) => `${x} is between ${Math.floor(Math.sqrt(x)) ** 2} and ${(Math.floor(Math.sqrt(x)) + 1) ** 2}, so it's not a perfect square.`),
+      numberRule("Munch prime numbers", [2, 100], isPrime, (x) => `${x} has other factors.`),
+      numberRule("Munch factors of 48", [1, 50], (x) => 48 % x === 0, (x) => `48 ÷ ${x} doesn't divide evenly.`),
+      numberRule("Munch negative numbers", [-30, 30], (x) => x < 0, (x) => `${x} is not below zero.`),
+      numberRule("Munch perfect cubes", [1, 400], (x) => Number.isInteger(Math.round(Math.cbrt(x))) && Math.round(Math.cbrt(x)) ** 3 === x, (x) => `${x} isn't a number cubed.`),
+    ];
   return [
     numberRule("Munch prime numbers", [2, 100], isPrime, (x) => `${x} has other factors.`),
     fractionHalfRule(),
@@ -171,6 +179,14 @@ const SYNONYMS: { word: string; same: string[]; other: string[] }[] = [
   { word: "smart", same: ["clever", "bright", "wise", "brilliant", "sharp"], other: ["silly", "foolish", "clumsy", "confused", "dull"] },
 ];
 
+const ROOTS: { root: string; meaning: string; words: string[] }[] = [
+  { root: "bio", meaning: "life", words: ["biology", "biography", "biome", "antibiotic", "symbiosis"] },
+  { root: "geo", meaning: "Earth", words: ["geography", "geology", "geothermal", "geometry", "geosphere"] },
+  { root: "graph", meaning: "write or draw", words: ["autograph", "paragraph", "photograph", "graphic", "telegraph"] },
+  { root: "scrib / script", meaning: "write", words: ["describe", "scribble", "manuscript", "prescription", "transcript"] },
+  { root: "chron", meaning: "time", words: ["chronological", "chronicle", "synchronize", "chronic", "anachronism"] },
+];
+
 export function ninjaRound(grade: GradeId): NinjaRound {
   const g = G[grade];
   if (g <= 3) {
@@ -184,6 +200,10 @@ export function ninjaRound(grade: GradeId): NinjaRound {
     const others = Object.entries(PARTS).filter(([k]) => k !== kind).flatMap(([, v]) => v);
     const label = kind === "adjectives" ? "describing words (adjectives)" : kind === "verbs" ? "action words (verbs)" : "naming words (nouns)";
     return { title: `Slice the ${kind}`, speak: `Slice the ${label}`, targets: PARTS[kind], decoys: others };
+  }
+  if (g >= 8 && chance(0.5)) {
+    const r = pick(ROOTS);
+    return { title: `Slice words with the root “${r.root}” (${r.meaning})`, speak: `Slice words built on the root ${r.root}, meaning ${r.meaning}`, targets: r.words, decoys: ROOTS.filter((o) => o !== r).flatMap((o) => o.words) };
   }
   const s = pick(SYNONYMS);
   return { title: `Slice words that mean “${s.word}”`, speak: `Slice words that mean ${s.word}`, targets: s.same, decoys: s.other };
@@ -250,6 +270,21 @@ export function catchRounds(grade: GradeId): CatchRound[] {
     });
     return rounds;
   }
+  if (g >= 8) {
+    rounds.push({
+      title: "Catch the metals",
+      speak: "Catch the metals",
+      good: [e("🔩", "iron"), e("🥇", "gold"), e("🪙", "copper"), e("🥈", "silver"), e("🔗", "aluminum"), e("⚙️", "zinc")],
+      bad: [e("🧊", "ice"), e("🪵", "wood"), e("🎈", "helium"), e("💎", "carbon"), e("🟡", "sulfur"), e("🌬️", "oxygen")],
+    });
+    rounds.push({
+      title: "Catch parts of a cell",
+      speak: "Catch the parts of a cell",
+      good: [e("🧬", "nucleus"), e("🔋", "mitochondria"), e("🟢", "chloroplast"), e("🫧", "vacuole"), e("🧱", "cell wall")],
+      bad: [e("🫀", "heart"), e("🧠", "brain"), e("🦴", "bone"), e("🫁", "lung"), e("🩸", "blood vessel")],
+    });
+    return rounds;
+  }
   rounds.push({
     title: "Catch the planets",
     speak: "Catch the planets",
@@ -296,7 +331,11 @@ export function bubbleRound(grade: GradeId): BubbleRound {
     const head = fams[fam][0];
     return { title: `Pop words that rhyme with ${head}`, speak: `Pop words that rhyme with ${head}`, good: fams[fam].slice(1), bad: Object.entries(fams).filter(([f]) => f !== fam).flatMap(([, w]) => w) };
   }
-  const sets: BubbleRound[] = [
+  const sets: BubbleRound[] = g >= 8 ? [
+    { title: "Pop correctly spelled words", speak: "Pop the words that are spelled correctly", good: ["necessary", "definitely", "separate", "occurrence", "privilege", "rhythm"], bad: ["neccessary", "definately", "seperate", "occurence", "priviledge", "rythm"] },
+    { title: "Pop words that are adjectives", speak: "Pop the adjectives", good: ["reluctant", "ambiguous", "profound", "diligent", "fragile", "vivid"], bad: ["analyze", "evidence", "conclude", "theme", "justify", "advocate"] },
+    { title: "Pop the literary devices", speak: "Pop the literary devices", good: ["metaphor", "simile", "irony", "symbolism", "foreshadowing", "imagery"], bad: ["sonnet", "protagonist", "setting", "stanza", "narrator", "chapter"] },
+  ] : [
     { title: "Pop words with the prefix un-", speak: "Pop words that start with the prefix un", good: ["undo", "unhappy", "unlock", "unfair", "unkind", "unpack"], bad: ["under", "uncle", "until", "redo", "preheat", "mislead"] },
     { title: "Pop correctly spelled words", speak: "Pop the words that are spelled correctly", good: ["because", "friend", "people", "beautiful", "different", "believe"], bad: ["becuase", "freind", "peeple", "beutiful", "diffrent", "beleive"] },
     { title: "Pop words with 3 syllables", speak: "Pop words with three syllables", good: ["banana", "dinosaur", "elephant", "computer", "volcano", "kangaroo"], bad: ["apple", "pencil", "rainbow", "rocket", "watermelon", "caterpillar"] },
@@ -373,7 +412,40 @@ export function memoryPairs(grade: GradeId, count: number): Pair[] {
                 { a: "9 × 9", b: "81" },
               ],
             ]
-          : [
+          : g >= 8
+            ? [
+                [
+                  { a: "H₂O", b: "water" },
+                  { a: "CO₂", b: "carbon dioxide" },
+                  { a: "NaCl", b: "table salt" },
+                  { a: "O₂", b: "oxygen gas" },
+                  { a: "CH₄", b: "methane" },
+                  { a: "NH₃", b: "ammonia" },
+                  { a: "Fe", b: "iron" },
+                  { a: "Au", b: "gold" },
+                ],
+                [
+                  { a: "x²", b: "squared" },
+                  { a: "√49", b: "7" },
+                  { a: "2³", b: "8" },
+                  { a: "3⁴", b: "81" },
+                  { a: "5⁰", b: "1" },
+                  { a: "10⁻¹", b: "0.1" },
+                  { a: "√144", b: "12" },
+                  { a: "4³", b: "64" },
+                ],
+                [
+                  { a: "Magna Carta", b: "1215" },
+                  { a: "Confederation of Canada", b: "1867" },
+                  { a: "Vimy Ridge", b: "1917" },
+                  { a: "Canada's Centennial", b: "1967" },
+                  { a: "Statute of Westminster", b: "1931" },
+                  { a: "Canadian Charter of Rights", b: "1982" },
+                  { a: "Nunavut created", b: "1999" },
+                  { a: "Treaty of Versailles", b: "1919" },
+                ],
+              ]
+            : [
               [
                 { a: "½", b: "50%" },
                 { a: "¼", b: "25%" },

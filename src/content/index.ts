@@ -2,7 +2,7 @@ import { GRADE_ORDER } from "./subjects";
 import type { Course, GradeId, SubjectId, Unit } from "./types";
 
 // The content registry for the apps. Each grade's content is its own download,
-// loaded on demand with `loadGrade`, so a Grade 2 child never downloads Grade 7.
+// loaded on demand with `loadGrade`, so a Grade 2 child never downloads Grade 12.
 // Lookups only see grades that have loaded; the apps wait for the grades they need
 // (see src/lib/useGradeContent.ts). Server pages and tests use ./all instead.
 
@@ -15,6 +15,11 @@ const LOADERS: Record<GradeId, () => Promise<{ courses: Course[] }>> = {
   "5": () => import("./grades/g5"),
   "6": () => import("./grades/g6"),
   "7": () => import("./grades/g7"),
+  "8": () => import("./grades/g8"),
+  "9": () => import("./grades/g9"),
+  "10": () => import("./grades/g10"),
+  "11": () => import("./grades/g11"),
+  "12": () => import("./grades/g12"),
 };
 
 /** Grades that have content. Every grade has a loader; tests check each one has units. */

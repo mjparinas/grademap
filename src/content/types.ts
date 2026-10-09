@@ -2,7 +2,7 @@
 // units carry learning-standard text per framework (e.g. "ca-bc"), and the
 // scoring scheme and report-card language live with the framework.
 
-export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
+export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
 export type SubjectId = "math" | "language" | "science" | "social";
 /** A curriculum framework: a province, state or national standard set. */
 export type FrameworkId = "ca-bc";
@@ -85,7 +85,22 @@ export type Visual =
   /** Points on a coordinate grid (first quadrant unless min is negative). */
   | { type: "grid"; size: number; min?: number; points: { x: number; y: number; label?: string }[] }
   /** An angle drawn with two rays. */
-  | { type: "angle"; degrees: number };
+  | { type: "angle"; degrees: number }
+  /**
+   * A graph of one or more curves on x–y axes (lines, parabolas, exponentials, trig…). Curves are
+   * lists of points the content computes (a polyline; use 0.25 steps or finer for smooth curves).
+   * `step` is the tick spacing (default 1). Points outside the window are clipped.
+   */
+  | {
+      type: "plot";
+      xMin: number;
+      xMax: number;
+      yMin: number;
+      yMax: number;
+      step?: number;
+      curves: { points: { x: number; y: number }[]; label?: string; dashed?: boolean }[];
+      points?: { x: number; y: number; label?: string }[];
+    };
 
 export interface Choice {
   id: string;

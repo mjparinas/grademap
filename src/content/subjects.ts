@@ -21,7 +21,7 @@ export const SUBJECTS: SubjectMeta[] = [
     colour: "#4f8ef7",
     colourDark: "#2f6fd6",
     colourSoft: "#e6f0ff",
-    tagline: { little: "Count, shapes & patterns", middle: "Numbers, shapes & money", big: "Number sense to algebra" },
+    tagline: { little: "Count, shapes & patterns", middle: "Numbers, shapes & money", big: "Number sense to pre-calculus" },
     mascot: "hoot",
   },
   {
@@ -31,7 +31,7 @@ export const SUBJECTS: SubjectMeta[] = [
     colour: "#e9559a",
     colourDark: "#c43a7c",
     colourSoft: "#ffe8f3",
-    tagline: { little: "Sounds, letters & stories", middle: "Sounds, words & stories", big: "Reading, writing & grammar" },
+    tagline: { little: "Sounds, letters & stories", middle: "Sounds, words & stories", big: "Reading, writing & literature" },
     mascot: "ruby",
   },
   {
@@ -60,7 +60,7 @@ export function getSubjectMeta(id: SubjectId | string): SubjectMeta {
   return SUBJECTS.find((s) => s.id === id) ?? SUBJECTS[0];
 }
 
-export const GRADE_ORDER: GradeId[] = ["k", "1", "2", "3", "4", "5", "6", "7"];
+export const GRADE_ORDER: GradeId[] = ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
 
 export const GRADE_LABEL: Record<GradeId, string> = {
   k: "Kindergarten",
@@ -71,6 +71,11 @@ export const GRADE_LABEL: Record<GradeId, string> = {
   "5": "Grade 5",
   "6": "Grade 6",
   "7": "Grade 7",
+  "8": "Grade 8",
+  "9": "Grade 9",
+  "10": "Grade 10",
+  "11": "Grade 11",
+  "12": "Grade 12",
 };
 
 export const GRADE_SHORT: Record<GradeId, string> = {
@@ -82,6 +87,11 @@ export const GRADE_SHORT: Record<GradeId, string> = {
   "5": "5",
   "6": "6",
   "7": "7",
+  "8": "8",
+  "9": "9",
+  "10": "10",
+  "11": "11",
+  "12": "12",
 };
 
 export function gradeSlug(grade: GradeId): string {
@@ -93,13 +103,14 @@ export function gradeFromSlug(slug: string): GradeId | undefined {
 }
 
 export function ageBandFor(grade: GradeId): AgeBand {
-  if (grade === "k" || grade === "1") return "little";
-  if (grade === "5" || grade === "6" || grade === "7") return "big";
+  const g = GRADE_ORDER.indexOf(grade);
+  if (g <= 1) return "little";
+  if (g >= 5) return "big";
   return "middle";
 }
 
 /** Typical age at the start of a grade, for suggesting a grade from a child's age. */
 export function gradeForAge(age: number): GradeId {
-  const g = Math.max(0, Math.min(7, Math.round(age) - 5));
+  const g = Math.max(0, Math.min(12, Math.round(age) - 5));
   return GRADE_ORDER[g];
 }

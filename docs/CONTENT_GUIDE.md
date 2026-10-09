@@ -4,7 +4,7 @@ All learning content lives in `src/content/grades/<grade>/<subject>.ts`. Each fi
 
 ```ts
 export const course: Course = {
-  grade: "1",                 // "k" | "1" … "7"
+  grade: "1",                 // "k" | "1" … "12"
   subject: "math",            // "math" | "language" | "science" | "social"
   bigIdeas: { "ca-bc": [ /* the official Big Ideas for this grade + subject */ ] },
   units: [ /* 4–10 units */ ],
@@ -78,3 +78,13 @@ npx vitest run src/content                  # everything
 ```
 
 The tests generate every unit 120 times at each difficulty and check structure, fairness and maths. They must pass.
+
+## Writing for Grades 8–12
+
+Teens want to be treated as capable adults-in-training. Use a direct, respectful tone, real-world contexts and no babyish wording.
+
+- **Course shape:** Grades 8 and 9 follow the BC subject curriculum. From Grade 10, BC is course-based, so each `grade/subject` file covers the academic route: FMP 10, Pre-calculus 11 and Pre-calculus 12 for math; a general English course for each grade; and, for Science and Social Studies 11 and 12, several electives in one course (prefix the unit title with the discipline, such as "Chem: The Mole"). Other pathways (Workplace, Foundations 11/12, Calculus 12) are not covered yet.
+- **Graphs:** the `plot` visual draws lines, parabolas, exponentials and trig curves from points the content computes. Use `grid` for plotting individual points.
+- **Algebra answers:** typed answers must still fit the keypads, so use `integer` for negatives and `choice` with Unicode (x², √, π, ±) for expressions.
+- **Hard history:** residential schools, war, genocide and discrimination are factual, respectful and non-graphic. Use present tense for living Indigenous communities.
+- **Quotes:** original passages only, apart from very short public-domain quotes you are certain of word for word.

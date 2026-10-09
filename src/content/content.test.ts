@@ -74,6 +74,18 @@ function checkVisual(v: Visual) {
       if (v.each !== undefined) expect(Number.isInteger(v.each) && v.each >= 1).toBe(true);
       for (const r of v.rows) expect(r.count).toBeLessThanOrEqual(20);
       break;
+    case "plot":
+      expect(v.xMax).toBeGreaterThan(v.xMin);
+      expect(v.yMax).toBeGreaterThan(v.yMin);
+      expect((v.xMax - v.xMin) / (v.step ?? 1)).toBeLessThanOrEqual(40);
+      expect((v.yMax - v.yMin) / (v.step ?? 1)).toBeLessThanOrEqual(40);
+      expect(v.curves.length + (v.points?.length ?? 0)).toBeGreaterThan(0);
+      for (const c of v.curves) {
+        expect(c.points.length).toBeGreaterThanOrEqual(2);
+        expect(c.points.length).toBeLessThanOrEqual(400);
+        for (const p of c.points) expect(Number.isFinite(p.x) && Number.isFinite(p.y)).toBe(true);
+      }
+      break;
     case "angle":
       expect(v.degrees).toBeGreaterThan(0);
       expect(v.degrees).toBeLessThan(360);

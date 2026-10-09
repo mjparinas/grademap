@@ -100,7 +100,7 @@ export const FRAMEWORKS: Framework[] = [
     shortName: "BC",
     country: "CA",
     curriculumName: "BC Curriculum",
-    grades: ["k", "1", "2", "3", "4", "5", "6", "7"],
+    grades: ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
     scoringFor: () => BC_PROFICIENCY,
     reportCard: {
       title: "Understanding BC report cards",
@@ -110,6 +110,10 @@ export const FRAMEWORKS: Framework[] = [
         {
           title: "Four levels, not letter grades",
           body: "Kindergarten to Grade 9 use Emerging, Developing, Proficient and Extending. Letter grades and percentages start in Grade 10.",
+        },
+        {
+          title: "Grades 10 to 12 use letter grades",
+          body: "From Grade 10, courses count toward graduation and are reported with letter grades and percentages. GradeMap keeps showing the same four practice levels for older students so you can see where they are at a glance. A level here is never a letter grade or a percentage, and the teacher decides the mark.",
         },
         {
           title: "Several updates a year",

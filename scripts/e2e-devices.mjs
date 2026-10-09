@@ -159,7 +159,7 @@ async function everyDevice(device, page) {
   const goPos = await onScreen(page, go);
   record(device, "first run: Let's go above the fold", goPos.ok, goPos.detail);
   await go.click();
-  await checkTargets(device, "new player: grade buttons", page.getByRole("button", { name: /^(Kindergarten|Grade \d)$/ }), KID_TARGET);
+  await checkTargets(device, "new player: grade buttons", page.getByRole("button", { name: /^(Kindergarten|Grade \d+)$/ }), KID_TARGET);
   await newChild(page, "Maya", "Grade 3");
 
   // Hub

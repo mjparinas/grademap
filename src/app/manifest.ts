@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: APP_NAME,
     short_name: APP_NAME,
-    description: "Curriculum practice, learning games and trophies for Kindergarten to Grade 7.",
+    description: "Curriculum practice, learning games and trophies for Kindergarten to Grade 12.",
     id: "/play/",
     start_url: "/play/",
     scope: "/",
