@@ -65,7 +65,7 @@ jobs:
       - run: npm run build
       # One tar file keeps the folder layout exactly as built.
       - run: tar -cf next-build.tar --exclude=.next/cache .next
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: next-build
           path: next-build.tar
@@ -111,7 +111,7 @@ jobs:
           else
             ${{ matrix.run }}
           fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: screenshots-${{ strategy.job-index }}
