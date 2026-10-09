@@ -4,9 +4,10 @@ import { useMemo, useState } from "react";
 import { getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, getSubjectMeta, SUBJECTS } from "@/content/subjects";
 import { buildReport } from "@/lib/reports";
-import { eventsFor, useDerived, useStore } from "@/lib/store";
+import { eventsFor, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { getTrophy, TIER_STYLE } from "@/lib/trophies";
 import { ColumnChart, LevelStacks, LineChart, RowBars, StatTile } from "./charts";
+import { ShareReport } from "./ShareReport";
 import { ChildTabs, NoChildren, PageTitle, Panel, useChild } from "./common";
 
 const pct = (v: number) => `${Math.round(v * 100)}%`;
@@ -15,6 +16,7 @@ export function ReportsPage({ childId }: { childId?: string }) {
   const child = useChild(childId);
   const events = useStore((s) => s.events);
   const d = useDerived(child?.id ?? null);
+  const settings = useChildSettings(child?.id);
   const [period, setPeriod] = useState(14);
   const report = useMemo(
     () => (child ? buildReport(eventsFor(events, child), d, child.grade, period) : null),
@@ -39,6 +41,7 @@ export function ReportsPage({ childId }: { childId?: string }) {
                 {p} days
               </button>
             ))}
+            <ShareReport profileId={child.id} name={child.name} days={period} />
             <button type="button" onClick={() => window.print()} className="rounded-xl border border-line bg-white px-3 py-2 text-sm font-semibold">
               🖨️ Print
             </button>
@@ -64,6 +67,13 @@ export function ReportsPage({ childId }: { childId?: string }) {
         />
         <StatTile label="Average time per question" value={t.answers ? `${Math.round(t.avgSeconds)} s` : "–"} sub={`Streak: ${d.streak.current} days (best ${d.streak.best})`} />
       </div>
+
+      {t.hints > 0 && (
+        <p className="mt-3 rounded-xl bg-help-soft px-4 py-2 font-read">
+          💡 Hints opened before answering: <b>{t.hints}</b> of {t.answers} questions.{" "}
+          {settings?.freeHints ? "These still count as first-try answers for this child." : "These count like a retry, so they don’t add to “right on the first try”."}
+        </p>
+      )}
 
       <div className="mt-5 grid gap-5 lg:grid-cols-2">
         <ColumnChart

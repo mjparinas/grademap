@@ -115,7 +115,7 @@ export function VoicePicker() {
             </select>
           </label>
           <div className="flex flex-wrap items-center gap-3">
-            <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2.5 font-bold text-white" onClick={() => previewVoice(preferred)}>
+            <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2.5 font-bold text-[#0f172a]" onClick={() => previewVoice(preferred)}>
               ▶ Preview
             </button>
             {current && (

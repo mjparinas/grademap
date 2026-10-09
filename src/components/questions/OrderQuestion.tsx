@@ -64,7 +64,7 @@ export function OrderQuestion({ q, status, onAttempt }: QuestionProps<Q>) {
             <div key={i} className={`flex items-center gap-2.5 ${compact ? "" : "w-full"}`}>
               {!compact && (
                 <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl font-bold text-white"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl font-bold text-[#0f172a]"
                   style={{ background: "var(--c)" }}
                 >
                   {i + 1}

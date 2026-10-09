@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { deleteAccount, refreshAccount, signIn, signOut, signUp, type BillingInfo } from "@/lib/account";
+import { deleteAccount, forgotPassword, refreshAccount, resendVerification, signIn, signOut, signUp, type BillingInfo } from "@/lib/account";
 import * as localdb from "@/lib/localdb";
 import { useStore } from "@/lib/store";
 import { syncNow } from "@/lib/sync";
@@ -10,16 +10,22 @@ import { Dialog } from "../ui";
 import { PageTitle, Panel } from "./common";
 
 function AuthForm({ onDone }: { onDone: () => void }) {
-  const [mode, setMode] = useState<"signup" | "signin">("signup");
+  const [mode, setMode] = useState<"signup" | "signin" | "forgot">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
     setError("");
+    setNotice("");
     try {
+      if (mode === "forgot") {
+        setNotice(await forgotPassword(email));
+        return;
+      }
       if (mode === "signup") await signUp(email, password);
       else await signIn(email, password);
       onDone();
@@ -42,6 +48,7 @@ function AuthForm({ onDone }: { onDone: () => void }) {
         <span className="font-semibold">Email</span>
         <input type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-xl border-2 border-line px-3 py-2 text-lg" />
       </label>
+      {mode !== "forgot" && (
       <label className="flex flex-col gap-1">
         <span className="font-semibold">Password</span>
         <input
@@ -55,12 +62,104 @@ function AuthForm({ onDone }: { onDone: () => void }) {
         />
         {mode === "signup" && <span className="text-sm text-ink-soft">At least 8 characters.</span>}
       </label>
+      )}
+      {notice && <p className="rounded-xl bg-[#e8f7f0] p-3 font-semibold">{notice}</p>}
       {error && <p className="font-semibold text-nudge-dark">{error}</p>}
-      <button type="submit" disabled={busy} className="rounded-xl bg-[#25b47e] px-4 py-3 text-lg font-bold text-white disabled:opacity-60">
-        {busy ? "One moment…" : mode === "signup" ? "Create account & sync" : "Sign in & sync"}
+      {mode === "signup" && (
+        <p className="text-sm text-ink-soft">
+          By creating an account you confirm you are a parent or guardian and agree to the{" "}
+          <a href="/terms/" target="_blank" rel="noreferrer" className="underline">
+            terms
+          </a>{" "}
+          and{" "}
+          <a href="/privacy/" target="_blank" rel="noreferrer" className="underline">
+            privacy policy
+          </a>
+          .
+        </p>
+      )}
+      <button type="submit" disabled={busy} className="rounded-xl bg-[#25b47e] px-4 py-3 text-lg font-bold text-[#0f172a] disabled:opacity-60">
+        {busy ? "One moment…" : mode === "signup" ? "Create account & sync" : mode === "forgot" ? "Email me a reset link" : "Sign in & sync"}
       </button>
+      {mode === "signin" && (
+        <button type="button" className="self-start text-sm font-semibold underline" onClick={() => setMode("forgot")}>
+          Forgot your password?
+        </button>
+      )}
+      {mode === "forgot" && (
+        <button type="button" className="self-start text-sm font-semibold underline" onClick={() => setMode("signin")}>
+          Back to sign in
+        </button>
+      )}
       <p className="text-sm text-ink-soft">Your children&apos;s progress from this device is uploaded and merged with anything already in your account.</p>
     </form>
+  );
+}
+
+function WeeklyReportToggle({ verified }: { verified: boolean }) {
+  const [on, setOn] = useState<boolean | null>(null);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    void fetch("/api/account/prefs/", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { weeklyReport?: boolean } | null) => setOn(d?.weeklyReport ?? null))
+      .catch(() => setOn(null));
+  }, []);
+  if (on === null) return null;
+  async function toggle() {
+    setError("");
+    const res = await fetch("/api/account/prefs/", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ weeklyReport: !on }),
+    }).catch(() => null);
+    const data = (await res?.json().catch(() => ({}))) as { weeklyReport?: boolean; error?: string } | undefined;
+    if (res?.ok) setOn(Boolean(data?.weeklyReport));
+    else setError(data?.error ?? "You’re offline. Try again when connected.");
+  }
+  return (
+    <div className="mt-3">
+      <button type="button" role="switch" aria-checked={on} onClick={() => void toggle()} className="flex w-full items-center justify-between gap-4 rounded-xl bg-paper px-4 py-3 text-left">
+        <span>
+          <span className="block font-semibold">Weekly progress email</span>
+          <span className="block text-sm text-ink-soft">{verified ? "A short summary every Sunday. Unsubscribe any time." : "Confirm your email first to turn this on."}</span>
+        </span>
+        <span className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${on ? "bg-good" : "bg-ink/20"}`} aria-hidden="true">
+          <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-all ${on ? "left-7" : "left-1"}`} />
+        </span>
+      </button>
+      {error && <p className="mt-1 text-sm text-nudge-dark">{error}</p>}
+    </div>
+  );
+}
+
+function VerifyNotice() {
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [message, setMessage] = useState("");
+  return (
+    <div className="mt-3 rounded-xl bg-[#fff6e5] p-3 text-sm">
+      <p className="font-semibold">Please confirm your email.</p>
+      <p className="text-ink-soft">We sent a link when you signed up. Confirming lets you subscribe and get account emails.</p>
+      <button
+        type="button"
+        disabled={state === "sending" || state === "sent"}
+        className="mt-2 rounded-xl border border-line bg-white px-3 py-1.5 font-semibold disabled:opacity-60"
+        onClick={() => {
+          setState("sending");
+          void resendVerification().then(
+            () => setState("sent"),
+            (e: Error) => {
+              setMessage(e.message);
+              setState("error");
+            },
+          );
+        }}
+      >
+        {state === "sent" ? "Sent. Check your inbox" : "Send the link again"}
+      </button>
+      {state === "error" && <p className="mt-1 text-nudge-dark">{message}</p>}
+    </div>
   );
 }
 
@@ -93,9 +192,11 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
               <dt className="text-ink-soft">Waiting to upload</dt>
               <dd className="font-semibold">{pending ?? "…"} events</dd>
             </dl>
+            {account.verified === false && <VerifyNotice />}
+            <WeeklyReportToggle verified={account.verified !== false} />
             {sync.error && <p className="mt-2 text-sm text-nudge-dark">{sync.error}</p>}
             <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2 font-bold text-white" onClick={() => void syncNow()}>
+              <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2 font-bold text-[#0f172a]" onClick={() => void syncNow()}>
                 Sync now
               </button>
               <button type="button" className="rounded-xl border border-line px-4 py-2 font-semibold" onClick={() => void signOut()}>

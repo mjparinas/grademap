@@ -102,6 +102,6 @@ export async function POST(req: Request) {
     events: rows.map((r) => JSON.parse(r.data)),
     profiles: profiles.map((r) => JSON.parse(r.data)),
     settings: settings.map((r) => JSON.parse(r.data)),
-    family: famRow ? toFamilyInfo(famRow, session.email) : undefined,
+    family: famRow ? toFamilyInfo(famRow, session.email, session.verified) : undefined,
   });
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { ReportQuestion } from "./ReportQuestion";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { getUnitRef } from "@/content";
 import type { Question } from "@/content/types";
@@ -33,7 +34,7 @@ const NUDGE = ["Almost! Try again.", "So close! Have another go.", "Good try! Lo
 export function readAloudText(q: Question): string {
   const parts: string[] = [];
   if (q.visual?.type === "story") parts.push(q.visual.lines.join(" "));
-  if (q.visual?.type === "passage") parts.push([q.visual.title, ...q.visual.paragraphs].filter(Boolean).join(". "));
+  if (q.visual?.type === "passage") parts.push([q.visual.title, ...q.visual.paragraphs].filter(Boolean).join(". ").replace(/\n/g, " "));
   parts.push(q.speak ?? q.prompt);
   if (q.kind === "choice") {
     const said = q.choices.map((c) => c.speak ?? c.label).filter((s) => s !== "");
@@ -85,6 +86,7 @@ export function Session({ mode, scope }: { mode: Mode; scope: string }) {
       subjects: settings?.enabledSubjects ?? ["math", "language", "science", "social"],
       derived: derivedNow,
       allowed,
+      short: settings?.shortSessions,
     }),
   );
   if (!plan) {
@@ -122,6 +124,7 @@ function Runner({ plan }: { plan: Plan }) {
   const [done, setDone] = useState(false);
   const [checkpoint, setCheckpoint] = useState(false);
   const [confirmExit, setConfirmExit] = useState(false);
+  const [hinted, setHinted] = useState(false);
   const [flash, setFlash] = useState<"good" | "bad" | null>(null);
   const stage = useRef<HTMLDivElement>(null);
   const loggedUpTo = useRef(0);
@@ -146,7 +149,7 @@ function Runner({ plan }: { plan: Plan }) {
   useEffect(() => {
     if (remaining === undefined || done) return;
     const whole = Math.ceil(remaining);
-    if (whole <= 5 && whole > 0 && whole !== lastTick.current) {
+    if (whole <= 5 && whole > 0 && whole !== lastTick.current && !settings?.hideTimers) {
       lastTick.current = whole;
       sounds.tick();
     }
@@ -168,6 +171,7 @@ function Runner({ plan }: { plan: Plan }) {
         correct,
         attempts,
         revealed,
+        ...(hinted ? { hinted: true } : {}),
         ms: Date.now() - shownAt,
         mode: plan.mode,
         difficulty: item.difficulty,
@@ -223,18 +227,27 @@ function Runner({ plan }: { plan: Plan }) {
     setShownAt(Date.now());
     setStatus("answering");
     setMisses(0);
+    setHinted(false);
     setMood("happy");
     setMessage("");
+  }
+
+  function showHint() {
+    if (!q || hinted) return;
+    setHinted(true);
+    if (settings?.autoRead || band === "little") speak(q.hint);
   }
 
   function onAttempt(correct: boolean, el?: Element | null) {
     if (!item || answered) return;
     const fast = plan.feedback === "flash";
     if (correct) {
-      const clean = misses === 0;
+      // A hint opened first counts like a retry, unless the parent turned that off for this child.
+      const helped = hinted && !settings?.freeHints;
+      const clean = misses === 0 && !helped;
       const newRun = clean ? run + 1 : 0;
       setRun(newRun);
-      record(clean, misses + 1, false);
+      record(clean, misses + 1 + (helped && misses === 0 ? 1 : 0), false);
       sounds.correct(newRun);
       burstFrom(el ?? null, fast ? 14 : 26);
       floatText(el ?? null, clean ? (newRun >= 3 ? `🔥 ${newRun}` : "+1 ⭐") : "✓");
@@ -332,8 +345,9 @@ function Runner({ plan }: { plan: Plan }) {
 
   const progressValue = plan.total ? index + (answered ? 1 : 0) : plan.checkpoint ? (index % plan.checkpoint) + (answered ? 1 : 0) : 0;
   const progressMax = plan.total ?? plan.checkpoint ?? 1;
-  const timerText = remaining !== undefined ? formatTime(remaining) : settings?.showTimer ? formatTime(elapsed) : null;
-  const urgent = remaining !== undefined && remaining <= 10;
+  const hideTimers = Boolean(settings?.hideTimers);
+  const timerText = hideTimers ? null : remaining !== undefined ? formatTime(remaining) : settings?.showTimer ? formatTime(elapsed) : null;
+  const urgent = !hideTimers && remaining !== undefined && remaining <= 10;
 
   return (
     <Page className={flash === "good" ? "animate-flash-good" : flash === "bad" ? "animate-flash-bad" : ""}>
@@ -346,9 +360,12 @@ function Runner({ plan }: { plan: Plan }) {
             ⚡ <span key={firstTry} className="inline-block animate-pop-in">{firstTry}</span>
           </div>
         ) : (
-          <ProgressBar value={progressValue} max={progressMax} className="flex-1" />
+          <ProgressBar value={progressValue} max={progressMax} className="flex-1" label="Questions answered" />
         )}
-        {run >= 2 && (
+        {hideTimers && plan.timeLimit && remaining !== undefined && (
+          <ProgressBar value={Math.max(0, remaining)} max={plan.timeLimit} className="w-16 shrink-0 sm:w-28" label="Time left" />
+        )}
+        {run >= 2 && !hideTimers && (
           <span className="flex h-14 min-w-14 items-center justify-center rounded-2xl bg-nudge-soft px-2 text-xl font-bold text-nudge-dark" aria-label={`${run} in a row`}>
             🔥{run}
           </span>
@@ -356,7 +373,7 @@ function Runner({ plan }: { plan: Plan }) {
         {timerText && (
           <span
             className={`flex h-14 min-w-20 items-center justify-center rounded-2xl px-3 text-xl font-bold tabular-nums ${
-              urgent ? "animate-pulse-soft bg-nudge text-white" : "bg-white text-ink shadow-[0_4px_0_var(--color-line)]"
+              urgent ? "animate-pulse-soft bg-nudge text-[#0f172a]" : "bg-white text-ink shadow-[0_4px_0_var(--color-line)]"
             }`}
             aria-label={remaining !== undefined ? `${Math.ceil(remaining)} seconds left` : "time"}
           >
@@ -379,6 +396,20 @@ function Runner({ plan }: { plan: Plan }) {
           </SpeechBubble>
         </div>
         <div className="flex flex-1 flex-col justify-center gap-6">
+          {plan.retries && status === "answering" && (
+            <div className="flex flex-col items-center gap-2">
+              {hinted ? (
+                <p className="max-w-2xl rounded-2xl border-[3px] border-help bg-help-soft px-4 py-3 text-center font-read text-lg leading-snug sm:text-xl">
+                  <span aria-hidden="true">💡 </span>
+                  {q.hint}
+                </p>
+              ) : (
+                <button type="button" className="btn btn-soft min-h-12 px-5 text-lg" onClick={showHint}>
+                  <span aria-hidden="true">💡</span> Need a hint?
+                </button>
+              )}
+            </div>
+          )}
           {q.visual && (
             <div className="flex animate-rise-in justify-center" style={{ animationDelay: "80ms" }}>
               <QuestionVisual visual={q.visual} />
@@ -394,6 +425,7 @@ function Runner({ plan }: { plan: Plan }) {
           status={status}
           message={message}
           hint={q.hint}
+          report={band === "little" || !item ? undefined : { unitKey: item.unitKey, prompt: q.prompt }}
           onNext={advance}
           onDismiss={() => setStatus("answering")}
           last={plan.total !== undefined && index + 1 >= plan.total}
@@ -433,6 +465,7 @@ function FeedbackBar({
   status,
   message,
   hint,
+  report,
   onNext,
   onDismiss,
   last,
@@ -440,6 +473,7 @@ function FeedbackBar({
   status: Status;
   message: string;
   hint: string;
+  report?: { unitKey: string; prompt: string };
   onNext: () => void;
   onDismiss: () => void;
   last: boolean;
@@ -452,9 +486,10 @@ function FeedbackBar({
         : { bg: "bg-nudge-soft", border: "border-nudge", icon: "🤔", iconBg: "bg-nudge", text: "text-nudge-dark" };
   return (
     <div role="status" aria-live="polite" className={`fixed inset-x-0 bottom-0 z-40 animate-slide-up border-t-4 ${theme.bg} ${theme.border}`} style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}>
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-center sm:px-6">
+      <div className="relative mx-auto flex max-w-5xl flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-center sm:px-6">
+        {report && <ReportQuestion unitKey={report.unitKey} prompt={report.prompt} />}
         <div className="flex flex-1 items-start gap-3">
-          <span className={`flex h-14 w-14 shrink-0 animate-pop-in items-center justify-center rounded-full text-3xl text-white ${theme.iconBg}`}>{theme.icon}</span>
+          <span className={`flex h-14 w-14 shrink-0 animate-pop-in items-center justify-center rounded-full text-3xl text-[#0f172a] ${theme.iconBg}`}>{theme.icon}</span>
           <div>
             <p className={`text-2xl font-bold sm:text-3xl ${theme.text}`}>{message}</p>
             <p className="font-read text-lg leading-snug text-ink sm:text-xl">{hint}</p>
@@ -555,7 +590,7 @@ function Summary({ plan, results, startDerived }: { plan: Plan; results: Result[
             ✅ {correct}/{total} first try
           </span>
           <span className="rounded-full bg-[#ede9fe] px-4 py-2 text-lg font-bold text-[#6d3fd6]">+{xp} XP</span>
-          <span className="rounded-full bg-[#fff4cc] px-4 py-2 text-lg font-bold text-[#a07400]">🪙 +{coins}</span>
+          <span className="rounded-full bg-[#fff4cc] px-4 py-2 text-lg font-bold text-[#7a5700]">🪙 +{coins}</span>
         </div>
 
         {unit && info && (

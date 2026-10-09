@@ -22,5 +22,5 @@ export async function POST(req: Request) {
     );
   }
   const row = await getFamilyRow(session.familyId);
-  return json({ family: toFamilyInfo(row!, session.email) });
+  return json({ family: toFamilyInfo(row!, session.email, session.verified) });
 }

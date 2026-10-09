@@ -12,7 +12,7 @@ export function WithBlanks({ text }: { text: string }) {
       {parts.map((part, i) => (
         <Fragment key={i}>
           {part}
-          {i < parts.length - 1 && <span className="blank-box mx-1" aria-label="blank" />}
+          {i < parts.length - 1 && <span className="blank-box mx-1" role="img" aria-label="blank" />}
         </Fragment>
       ))}
     </>
@@ -541,7 +541,16 @@ export function CoordinateGrid({ size, min = 0, points }: { size: number; min?: 
 
 // ---------- Data ----------
 
-export function Pictograph({ title, rows }: { title: string; rows: { label: string; emoji: string; count: number }[] }) {
+export function Pictograph({
+  title,
+  rows,
+  each = 1,
+}: {
+  title: string;
+  rows: { label: string; emoji: string; count: number }[];
+  /** How many each picture stands for (default 1). `count` is the number of pictures drawn. */
+  each?: number;
+}) {
   return (
     <div className="w-full max-w-xl rounded-2xl border-[3px] border-line bg-white p-3">
       <p className="mb-2 text-center text-lg font-semibold">{title}</p>
@@ -559,7 +568,7 @@ export function Pictograph({ title, rows }: { title: string; rows: { label: stri
           </div>
         ))}
       </div>
-      <p className="mt-2 text-center text-sm text-ink-soft">Each picture = 1</p>
+      <p className="mt-2 text-center text-sm text-ink-soft">Each picture = {each}</p>
     </div>
   );
 }
@@ -732,7 +741,7 @@ export function QuestionVisual({ visual }: { visual: Visual }) {
     case "ruler":
       return <Ruler length={visual.length} emoji={visual.emoji} />;
     case "pictograph":
-      return <Pictograph title={visual.title} rows={visual.rows} />;
+      return <Pictograph title={visual.title} rows={visual.rows} each={visual.each} />;
     case "bars":
       return <BarGraph title={visual.title} bars={visual.bars} />;
     case "table":
@@ -784,11 +793,15 @@ export function QuestionVisual({ visual }: { visual: Visual }) {
       return (
         <article className="max-h-[45vh] w-full max-w-2xl overflow-y-auto rounded-2xl border-[3px] border-[#f3c6dc] bg-[#fff7fb] px-5 py-4">
           {visual.title && <h3 className="mb-2 text-xl font-bold">{visual.title}</h3>}
-          {visual.paragraphs.map((p, i) => (
-            <p key={i} className="mb-2 font-read text-lg leading-relaxed sm:text-xl">
-              {p}
-            </p>
-          ))}
+          {visual.paragraphs.map((p, i) =>
+            p === "" ? (
+              <div key={i} aria-hidden className="h-4" />
+            ) : (
+              <p key={i} className="mb-2 whitespace-pre-line font-read text-lg leading-relaxed sm:text-xl">
+                {p}
+              </p>
+            ),
+          )}
         </article>
       );
   }

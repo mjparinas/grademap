@@ -13,11 +13,11 @@ export type Tier = "bronze" | "silver" | "gold" | "platinum";
 export const TIER_POINTS: Record<Tier, number> = { bronze: 15, silver: 30, gold: 90, platinum: 300 };
 export const TIER_COINS: Record<Tier, number> = { bronze: 10, silver: 25, gold: 60, platinum: 250 };
 
-export const TIER_STYLE: Record<Tier, { label: string; colour: string; dark: string; glow: string }> = {
-  bronze: { label: "Bronze", colour: "#d08a4c", dark: "#9a5a26", glow: "#f6cfa6" },
-  silver: { label: "Silver", colour: "#a7b4c6", dark: "#6f7d90", glow: "#e8eef6" },
-  gold: { label: "Gold", colour: "#f0bd2a", dark: "#b88905", glow: "#ffe9a3" },
-  platinum: { label: "Platinum", colour: "#8fd3f0", dark: "#3d93b8", glow: "#e0f6ff" },
+export const TIER_STYLE: Record<Tier, { label: string; colour: string; dark: string; glow: string; /** Readable text colour on a light tint of `colour`. */ text: string }> = {
+  bronze: { label: "Bronze", colour: "#d08a4c", dark: "#9a5a26", glow: "#f6cfa6", text: "#7a4416" },
+  silver: { label: "Silver", colour: "#a7b4c6", dark: "#6f7d90", glow: "#e8eef6", text: "#4a5668" },
+  gold: { label: "Gold", colour: "#f0bd2a", dark: "#b88905", glow: "#ffe9a3", text: "#6b4f00" },
+  platinum: { label: "Platinum", colour: "#8fd3f0", dark: "#3d93b8", glow: "#e0f6ff", text: "#1f6a8a" },
 };
 
 export type TrophyCategory = "Getting started" | "Practice" | "Streaks" | "Mastery" | "Modes" | "Arcade" | "Collector" | "Secret";

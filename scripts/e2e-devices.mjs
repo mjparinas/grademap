@@ -2,7 +2,7 @@
 //
 //   npm run build && npm start   # or npm run dev
 //   npm i --no-save playwright && npx playwright install chromium webkit
-//   node scripts/e2e-devices.mjs http://localhost:3000 [out-dir] [--only "iPad Mini"]
+//   node scripts/e2e-devices.mjs http://localhost:3000 [out-dir] [--only "iPad Mini"] [--shard 1/3]
 //
 // Not every test runs everywhere. Cheap layout checks run on every device; the
 // riskier flows run once per class of device; the full playthrough
@@ -29,6 +29,13 @@ import { enterPin, newChild, step, vis } from "./helpers.mjs";
 const BASE = (process.argv[2] || "http://localhost:3000").replace(/\/$/, "");
 const OUT = process.argv[3] && !process.argv[3].startsWith("--") ? process.argv[3] : "e2e-shots/devices";
 const ONLY = process.argv.includes("--only") ? process.argv[process.argv.indexOf("--only") + 1] : undefined;
+// --shard 2/3 runs one third of the devices, so CI can test them on several machines at once.
+const SHARD = (() => {
+  const i = process.argv.indexOf("--shard");
+  if (i < 0) return undefined;
+  const [n, of] = process.argv[i + 1].split("/").map(Number);
+  return { n, of };
+})();
 fs.mkdirSync(OUT, { recursive: true });
 
 // Minimum touch target: 48 px for kids (Android's 48 dp), 44 px elsewhere (Apple's 44 pt).
@@ -70,8 +77,21 @@ async function sideScroll(page) {
   return page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
 }
 
+/** A box that has stopped moving: the feedback bar slides in, and measuring it mid-slide gives false alarms. */
+async function settledBox(loc) {
+  let box = await loc.first().boundingBox();
+  for (let i = 0; i < 20; i++) {
+    await loc.page().waitForTimeout(100);
+    const next = await loc.first().boundingBox();
+    const same = box && next && ["x", "y", "width", "height"].every((k) => Math.abs(box[k] - next[k]) < 0.5);
+    box = next;
+    if (same) break;
+  }
+  return box;
+}
+
 async function onScreen(page, loc) {
-  const box = await loc.first().boundingBox();
+  const box = await settledBox(loc);
   const vp = page.viewportSize();
   if (!box) return { ok: false, detail: "not rendered" };
   const ok = box.x >= -1 && box.y >= -1 && box.x + box.width <= vp.width + 1 && box.y + box.height <= vp.height + 1;
@@ -111,7 +131,7 @@ async function shot(page, device, name) {
 async function answerUntilFeedback(page) {
   const bar = page.locator("[role=status]").filter({ has: page.getByRole("button") });
   for (let i = 0; i < 40; i++) {
-    if (await vis(bar)) return bar.getByRole("button").first();
+    if (await vis(bar)) return bar.getByRole("button", { name: /^(Next →|Finish 🎉|OK)$/ });
     await step(page);
     await page.waitForTimeout(150);
   }
@@ -164,6 +184,16 @@ async function everyDevice(device, page) {
   const answers = page.locator('[data-testid="choice"], [data-testid="bin"], [data-testid="sort-item"], [data-testid="pool-item"], main button:has-text("Check")');
   await checkTargets(device, "question: answer buttons", answers, KID_TARGET);
   await shot(page, device, "3-question");
+  const hintButton = page.getByRole("button", { name: /Need a hint/ });
+  if (await vis(hintButton)) {
+    const hp = await onScreen(page, hintButton);
+    record(device, "question: hint button on screen", hp.ok, hp.detail);
+    await checkTargets(device, "question: hint button", hintButton, KID_TARGET);
+    await hintButton.click();
+    await page.waitForTimeout(150);
+    record(device, "question: hint shows and answers stay reachable", (await vis(page.getByText("💡").first())) && (await vis(answers.first())));
+    await noSideScroll(device, page, "question with hint");
+  }
   const next = await answerUntilFeedback(page);
   if (!next) record(device, "question: feedback bar appears", false, "no feedback after 40 tries");
   else {
@@ -171,6 +201,26 @@ async function everyDevice(device, page) {
     record(device, "question: feedback button fully on screen", pos.ok, pos.detail);
     await checkTargets(device, "question: feedback button", next, KID_TARGET);
     await shot(page, device, "4-feedback");
+
+    // "Report a problem" is hidden on short landscape screens; elsewhere it must be reachable
+    // and must not sit on top of the Next button.
+    const flag = page.getByRole("button", { name: /Report a problem/ });
+    if (await vis(flag)) {
+      const fp = await onScreen(page, flag);
+      record(device, "question: report flag on screen", fp.ok, fp.detail);
+      await checkTargets(device, "question: report flag", flag, KID_TARGET);
+      const [fb, nb] = [await flag.boundingBox(), await next.boundingBox()];
+      const overlaps = fb && nb && fb.x < nb.x + nb.width && fb.x + fb.width > nb.x && fb.y < nb.y + nb.height && fb.y + fb.height > nb.y;
+      record(device, "question: report flag doesn't cover Next", !overlaps);
+      await flag.click();
+      await page.getByRole("dialog").getByRole("button", { name: /answer looks wrong/ }).click();
+      const thanked = await page
+        .getByRole("heading", { name: /Thank you/ })
+        .waitFor({ timeout: 5000 })
+        .then(() => true, () => false);
+      record(device, "question: report is sent", thanked);
+      await page.getByRole("dialog").getByRole("button", { name: /Back to the question/ }).click();
+    }
   }
 
   // Parent reports
@@ -208,8 +258,17 @@ async function deepChecks(device, browser, descriptor, page) {
   // An arcade game: turn on free play, then check the play area fits.
   await page.goto(`${BASE}/parents/#/settings`);
   await enterPin(page, false);
-  await page.getByRole("switch", { name: /Free play/ }).first().click();
+  const freePlay = page.getByRole("switch", { name: /Free play/ }).first();
+  await freePlay.click();
+  await page.waitForFunction((el) => el?.getAttribute("aria-checked") === "true", await freePlay.elementHandle());
+  await page.getByRole("switch", { name: /Calm motion/ }).click();
+  await page.getByRole("switch", { name: /Hide timers/ }).click();
+  await page.waitForTimeout(600); // let the settings reach IndexedDB before leaving the page
   await page.goto(`${BASE}/play/#/arcade/ninja`);
+  const calmClass = await page
+    .waitForFunction(() => document.documentElement.classList.contains("calm"), undefined, { timeout: 5000 })
+    .then(() => true, () => false);
+  record(device, "calm motion: page gets the calm class", calmClass);
   await page.getByRole("button", { name: /Play!/ }).click();
   const board = page.getByTestId("game-board");
   await board.waitFor();
@@ -258,8 +317,13 @@ async function browserFor(type) {
   return browsers.chromium;
 }
 
+// The slower "deep" devices are dealt out first so every shard gets a similar share.
+const dealt = [...DEVICES.filter((d) => d.deep), ...DEVICES.filter((d) => !d.deep)];
+const inShard = (d) => !SHARD || dealt.indexOf(d) % SHARD.of === SHARD.n - 1;
+
 for (const d of DEVICES) {
   if (ONLY && d.name !== ONLY) continue;
+  if (!inShard(d)) continue;
   const descriptor = d.descriptor ?? devices[d.name];
   if (!descriptor) {
     record(d.name, "device profile exists", false, "not in this Playwright version");
@@ -268,7 +332,9 @@ for (const d of DEVICES) {
   const { defaultBrowserType, ...options } = descriptor;
   const browser = await browserFor(defaultBrowserType ?? "chromium");
   console.log(`${d.name} (${options.viewport.width}×${options.viewport.height}, ${d.cls}${d.deep ? ", deep checks" : ""})`);
-  const ctx = await browser.newContext({ ...options, reducedMotion: "reduce" });
+  // A fresh "client address" per device and run, so the server's rate limits (20 reports an hour) never trip.
+  const fakeIp = `10.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 250)}`;
+  const ctx = await browser.newContext({ ...options, reducedMotion: "reduce", extraHTTPHeaders: { "x-forwarded-for": fakeIp } });
   const page = await ctx.newPage();
   page.on("pageerror", (e) => record(d.name, "no page errors", false, e.message));
   try {

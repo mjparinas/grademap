@@ -68,6 +68,31 @@ export function SiteFooter() {
                 Parent area
               </Link>
             </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href="/pricing/">
+                Pricing
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href="/help/">
+                Help
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href="/contact/">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href="/privacy/">
+                Privacy policy
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href="/terms/">
+                Terms of use
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

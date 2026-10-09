@@ -44,7 +44,7 @@ export function PrivacyPage() {
         </Panel>
         <Panel title="Your data, your choice">
           <div className="flex flex-col gap-3">
-            <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2.5 font-bold text-white" onClick={exportData}>
+            <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2.5 font-bold text-[#0f172a]" onClick={exportData}>
               ⬇️ Download all data (JSON)
             </button>
             <button type="button" className="rounded-xl border border-[#e57a12] px-4 py-2.5 font-semibold text-nudge-dark" onClick={() => setConfirm(true)}>

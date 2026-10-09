@@ -37,8 +37,9 @@ It's a web app first: it runs in any browser, installs to a tablet or phone home
 - **Report cards:** every unit on the report-card scale (BC: Emerging, Developing, Proficient, Extending) with a plain-language explainer.
 - **Children:** add up to 4, edit names, birth year (a grade is suggested from age), grade, curriculum and avatar; reset or remove.
 - **Settings per child:** daily goal, timer visibility, learn-to-play ratio and cap, games on/off, subjects, sound, read-aloud.
+- **Calm and focus options:** per child, parents can turn off in-app motion and celebration sounds, hide timers, hold trophy pop-ups until after the lesson, and use five-question sessions.
 - **Read-aloud voice (per device):** the most natural installed voice is picked automatically; parents can choose another with a preview and get tips for installing better voices.
-- **Account & sync, Subscription** (Stripe), **Privacy** (JSON export, erase device, delete account).
+- **Account & sync** (email confirmation, password reset, optional weekly progress email, share a read-only report link), **Subscription** (Stripe), **Privacy** (JSON export, erase device, delete account).
 
 ### For search engines (public pages)
 
@@ -156,6 +157,8 @@ src/
 The installable web app already works offline. For Google Play, wrap it as a Trusted Web Activity ([Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap)) pointing at `/play/`, or use [Capacitor](https://capacitorjs.com/) for native features. Before submitting, check the Play Families policy and the Apple Kids Category requirements.
 
 ## Research
+
+Deployment steps (Vercel, Turso, Stripe) are in [`docs/DEPLOY.md`](docs/DEPLOY.md).
 
 The market research behind the product decisions (market size, competitors, monetization and what parents want) is in [`docs/research/`](docs/research/), starting with the [summary report](docs/research/market-report.md).
 

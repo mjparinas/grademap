@@ -1,5 +1,6 @@
 "use client";
 
+import { onColour } from "@/lib/contrast";
 import { useCallback, useEffect, useEffectEvent, useRef, useState, type CSSProperties } from "react";
 import { gameTime } from "@/lib/gametime";
 import { celebrate } from "@/lib/juice";
@@ -55,7 +56,7 @@ function TimeBank() {
         ) : (
           <p className="text-xl font-bold">That&apos;s all the game time for today. See you tomorrow!</p>
         )}
-        {!t.freePlay && t.nextInSeconds > 0 && <ProgressBar value={per - t.nextInSeconds} max={per} className="mt-2" height={14} />}
+        {!t.freePlay && t.nextInSeconds > 0 && <ProgressBar value={per - t.nextInSeconds} max={per} className="mt-2" height={14} label="Learning time until the next game minutes" />}
         <p className="mt-1 font-read text-sm text-ink-soft">
           Every {settings?.learnMinutesPerReward ?? 20} minutes of learning earns {settings?.rewardGameMinutes ?? 5} minutes of games (up to {settings?.maxGameMinutesPerDay ?? 20} a day).
         </p>
@@ -90,13 +91,13 @@ export function Arcade() {
               disabled={!canPlay}
               onClick={() => go(`/arcade/${g.id}`)}
               className={`btn h-full w-full items-start justify-start gap-4 p-4 text-left ${canPlay ? "" : "opacity-60"}`}
-              style={{ "--btn-bg": g.colour, "--btn-edge": g.dark, "--btn-fg": "#fff" } as CSSProperties}
+              style={{ "--btn-bg": g.colour, "--btn-edge": g.dark, "--btn-fg": onColour(g.colour) } as CSSProperties}
             >
               <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-white/25 text-5xl">{canPlay ? g.icon : "🔒"}</span>
               <span>
                 <span className="block text-sm font-semibold opacity-80">{g.subject}</span>
                 <span className="block text-2xl font-bold">{g.title}</span>
-                <span className="block font-read text-sm opacity-90">{g.desc}</span>
+                <span className="block font-read text-sm">{g.desc}</span>
                 <span className="mt-1 block text-sm font-bold">Best: {d.gameBest[g.id] ?? 0}</span>
               </span>
             </button>
@@ -237,7 +238,7 @@ export function GameScreen({ id }: { id: string }) {
         <span className="flex-1 text-2xl font-bold">
           {info.icon} <span key={shownScore} className="inline-block animate-pop-in">{shownScore}</span>
         </span>
-        <span className={`flex h-14 items-center rounded-2xl px-4 text-xl font-bold tabular-nums ${left <= 30 ? "animate-pulse-soft bg-nudge text-white" : "bg-white shadow-[0_4px_0_var(--color-line)]"}`}>
+        <span className={`flex h-14 items-center rounded-2xl px-4 text-xl font-bold tabular-nums ${left <= 30 ? "animate-pulse-soft bg-nudge text-[#0f172a]" : "bg-white shadow-[0_4px_0_var(--color-line)]"}`}>
           🎮 {mmss(left)}
         </span>
       </header>

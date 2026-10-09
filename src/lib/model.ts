@@ -36,6 +36,23 @@ export interface ChildSettings {
   /** Games are always unlocked (no learning needed). */
   freePlay: boolean;
   showTimer: boolean;
+  /** Focus options for children who find lots of motion, noise or pressure hard. All default to off. */
+  /** Turn off bursts, confetti, floating text and screen shakes, whatever the device setting is. */
+  calmMotion?: boolean;
+  /** Keep only gentle sounds: no fanfares, chimes or countdown ticks. */
+  quietSounds?: boolean;
+  /** Hide clocks and countdown numbers; timed modes show a quiet bar instead. */
+  hideTimers?: boolean;
+  /** Hold trophy and level pop-ups until the lesson is over. */
+  quietToasts?: boolean;
+  /** Five questions at a time (Adventure checkpoints and Review). */
+  shortSessions?: boolean;
+  /** Reading comfort: extra space between letters, words and lines. */
+  /** A hint opened before answering still counts as a first-try answer. Off by default: it counts like a retry. */
+  freeHints?: boolean;
+  roomyText?: boolean;
+  /** Stronger text colours and outlines. */
+  highContrast?: boolean;
   autoRead: boolean;
   sound: boolean;
   enabledSubjects: SubjectId[];
@@ -44,7 +61,7 @@ export interface ChildSettings {
 
 export interface FamilyInfo {
   /** Server-side account, when a parent has signed in on this device. */
-  account?: { email: string; familyId: string };
+  account?: { email: string; familyId: string; /** Has the parent confirmed their email address? */ verified?: boolean };
   plan: "trial" | "free" | "premium";
   trialEndsAt: number;
   subscription?: { status: string; interval?: "month" | "year"; currentPeriodEnd?: number };
@@ -68,6 +85,8 @@ export type AppEvent = EventBase &
         correct: boolean;
         attempts: number;
         revealed: boolean;
+        /** The child opened the hint before answering. */
+        hinted?: boolean;
         ms: number;
         mode: Mode;
         difficulty?: number;

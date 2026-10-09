@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRoute } from "@/lib/router";
 import { sounds } from "@/lib/sound";
 import { useStore, type Toast } from "@/lib/store";
 import { TIER_STYLE } from "@/lib/trophies";
@@ -27,8 +28,12 @@ function TrophyGlyph({ toast }: { toast: Toast }) {
 
 export function Toasts() {
   const toasts = useStore((s) => s.toasts);
+  const quiet = useStore((s) => Boolean(s.activeId && s.settings[s.activeId]?.quietToasts));
+  const area = useRoute().path[0];
+  // In quiet mode, pop-ups wait until the child is out of a lesson or game.
+  const hold = quiet && (area === "session" || area === "arcade");
   const dismiss = useStore((s) => s.dismissToast);
-  const current = toasts[0];
+  const current = hold ? undefined : toasts[0];
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {

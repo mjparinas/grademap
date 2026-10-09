@@ -47,6 +47,7 @@ export function SettingsPage({ childId }: { childId?: string }) {
   if (!child) return <NoChildren />;
   const s: ChildSettings = stored ?? defaultChildSettings(child.id, child.grade === "k" || child.grade === "1");
   const set = (patch: Partial<ChildSettings>) => update(child.id, patch);
+  const focusOn = Boolean(s.calmMotion && s.quietSounds && s.hideTimers && s.quietToasts && s.shortSessions);
   const toggleSubject = (id: SubjectId) => {
     const next = s.enabledSubjects.includes(id) ? s.enabledSubjects.filter((x) => x !== id) : [...s.enabledSubjects, id];
     if (next.length) set({ enabledSubjects: next });
@@ -61,6 +62,30 @@ export function SettingsPage({ childId }: { childId?: string }) {
           <Slider label="Daily learning goal" value={s.dailyGoalMinutes} min={5} max={60} step={5} unit="min" onChange={(v) => set({ dailyGoalMinutes: v })} help="Shown as a progress bar on the home screen." />
           <div className="mt-4">
             <Switch label="Show a timer during lessons" value={s.showTimer} onChange={(v) => set({ showTimer: v })} help="Timed modes (Speed Run, Challenge) always show their countdown." />
+          </div>
+        </Panel>
+
+        <Panel title="🌤️ Calm and focus">
+          <div className="flex flex-col gap-4">
+            <p className="text-sm text-ink-soft">
+              Options for children who find lots of motion, noise or time pressure hard to handle, including many children with ADHD. They only change how things look and sound; scoring is the same.
+            </p>
+            <button type="button" className="btn btn-soft min-h-12 px-4 font-semibold" onClick={() => set(focusOn ? { calmMotion: false, quietSounds: false, hideTimers: false, quietToasts: false, shortSessions: false } : { calmMotion: true, quietSounds: true, hideTimers: true, quietToasts: true, shortSessions: true })}>
+              {focusOn ? "Turn all calm options off" : "Turn on all calm options"}
+            </button>
+            <Switch label="Calm motion" value={Boolean(s.calmMotion)} onChange={(v) => set({ calmMotion: v })} help="No confetti, bursts, floating text or screen shakes." />
+            <Switch label="Quiet sounds" value={Boolean(s.quietSounds)} onChange={(v) => set({ quietSounds: v })} help="Keeps gentle taps and feedback; no fanfares, chimes or countdown ticks." />
+            <Switch label="Hide timers" value={Boolean(s.hideTimers)} onChange={(v) => set({ hideTimers: v })} help="Hides clocks and countdown numbers. Speed Run and Challenge show a quiet bar instead and still end on time." />
+            <Switch label="Hold trophy pop-ups until after the lesson" value={Boolean(s.quietToasts)} onChange={(v) => set({ quietToasts: v })} help="Nothing appears on screen while your child is working on a question." />
+            <Switch label="Hints count as first try" value={Boolean(s.freeHints)} onChange={(v) => set({ freeHints: v })} help="Children can open a hint before answering. Normally that counts like a retry. Turn this on if asking for help should never lower their accuracy." />
+            <Switch label="Shorter sessions" value={Boolean(s.shortSessions)} onChange={(v) => set({ shortSessions: v })} help="Five questions at a time in Adventure (with a break screen) and Review." />
+          </div>
+        </Panel>
+
+        <Panel title="👓 Easier reading">
+          <div className="flex flex-col gap-4">
+            <Switch label="Roomy text" value={Boolean(s.roomyText)} onChange={(v) => set({ roomyText: v })} help="More space between letters, words and lines. Some children find this easier to read." />
+            <Switch label="High contrast" value={Boolean(s.highContrast)} onChange={(v) => set({ highContrast: v })} help="Darker text and firmer outlines, and a heavier ring around the button being tabbed to." />
           </div>
         </Panel>
 

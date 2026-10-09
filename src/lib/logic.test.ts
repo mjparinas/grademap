@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { allUnitRefs, loadGrade } from "@/content";
+import { makePlan } from "@/components/play/plans";
 import { pickNext } from "./adaptive";
 import { derive, xpForLevel } from "./derive";
-import { dayKey, type AppEvent } from "./model";
+import { dayKey, defaultChildSettings, type AppEvent } from "./model";
 import { unitLevel } from "./proficiency";
 import { dailyQuests } from "./quests";
 import { newlyEarned, TROPHIES } from "./trophies";
@@ -141,5 +142,52 @@ describe("quests", () => {
     const a = dailyQuests("p1", day, "middle").map((q) => q.id);
     expect(dailyQuests("p1", day, "middle").map((q) => q.id)).toEqual(a);
     expect(a).toHaveLength(3);
+  });
+});
+
+describe("calm and focus options", () => {
+  it("are all off by default", () => {
+    const s = defaultChildSettings("p", false);
+    for (const key of ["calmMotion", "quietSounds", "hideTimers", "quietToasts", "shortSessions", "roomyText", "highContrast"] as const) expect(Boolean(s[key])).toBe(false);
+  });
+
+  it("shorter sessions use five questions in Review and a five-question checkpoint in Adventure", () => {
+    const base = { scope: "mix", grade: "2" as const, band: "middle" as const, profileId: "p", subjects: ["math" as const], derived: derive([]), allowed: () => true };
+    expect(makePlan({ ...base, mode: "review" })?.total).toBe(10);
+    expect(makePlan({ ...base, mode: "review", short: true })?.total).toBe(5);
+    expect(makePlan({ ...base, mode: "adventure" })?.checkpoint).toBe(10);
+    expect(makePlan({ ...base, mode: "adventure", short: true })?.checkpoint).toBe(5);
+  });
+});
+
+describe("text contrast helper", () => {
+  it("uses dark text on the bright subject colours and white on the dark ones", async () => {
+    const { contrast, onColour } = await import("./contrast");
+    for (const bg of ["#4f8ef7", "#e9559a", "#25b47e", "#ff9636", "#ffb020", "#06b6d4", "#22b573", "#ff9f43"]) {
+      expect(contrast(onColour(bg), bg), bg).toBeGreaterThanOrEqual(4.5);
+    }
+    expect(onColour("#2f6fd6")).toBe("#ffffff");
+    expect(onColour("#253047")).toBe("#ffffff");
+  });
+});
+
+describe("hints opened before answering", () => {
+  const base = { type: "answer" as const, unit: "2/math/tens-and-ones", attempts: 1, revealed: false, ms: 5000, mode: "practice" as const, profileId: "p" };
+
+  it("earn retry XP and no first-try credit, and aren't comebacks", () => {
+    const t = Date.now() - 60_000;
+    const clean = derive([{ ...base, id: "a", t, correct: true }]);
+    const hinted = derive([{ ...base, id: "b", t, correct: false, attempts: 2, hinted: true }]);
+    expect(clean.xp).toBe(10);
+    expect(hinted.xp).toBe(4);
+    expect(hinted.units["2/math/tens-and-ones"].firstTry).toBe(0);
+    expect(hinted.totals.hints).toBe(1);
+    expect(hinted.totals.comebacks).toBe(0);
+    // A real miss followed by a fix still is a comeback.
+    expect(derive([{ ...base, id: "c", t, correct: false, attempts: 2 }]).totals.comebacks).toBe(1);
+  });
+
+  it("are only free when the parent turns it on", () => {
+    expect(defaultChildSettings("p", false).freeHints).toBeFalsy();
   });
 });

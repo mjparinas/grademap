@@ -43,7 +43,7 @@ export interface Report {
   days: DayPoint[];
   weeks: WeekPoint[];
   subjects: SubjectPoint[];
-  totals: { minutes: number; answers: number; correct: number; sessions: number; activeDays: number; avgSeconds: number };
+  totals: { minutes: number; answers: number; correct: number; sessions: number; activeDays: number; avgSeconds: number; hints: number };
   previous: { minutes: number; answers: number; correct: number };
   units: UnitRow[];
   strengths: UnitRow[];
@@ -71,7 +71,7 @@ export function buildReport(events: AppEvent[], derived: Derived, grade: GradeId
   });
   const byDay = new Map(days.map((d) => [d.day, d]));
   const subjects = new Map<SubjectId, SubjectPoint>();
-  const totals = { minutes: 0, answers: 0, correct: 0, sessions: 0, activeDays: 0, avgSeconds: 0 };
+  const totals = { minutes: 0, answers: 0, correct: 0, sessions: 0, activeDays: 0, avgSeconds: 0, hints: 0 };
   const previous = { minutes: 0, answers: 0, correct: 0 };
   let ms = 0;
 
@@ -95,6 +95,7 @@ export function buildReport(events: AppEvent[], derived: Derived, grade: GradeId
     totals.answers++;
     ms += Math.min(e.ms, 60_000);
     if (e.correct) totals.correct++;
+    if (e.hinted) totals.hints++;
     const subject = parseUnitKey(e.unit)?.subject;
     if (subject) {
       const s = subjects.get(subject) ?? { subject, answers: 0, correct: 0, minutes: 0 };

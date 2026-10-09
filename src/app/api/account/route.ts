@@ -8,6 +8,9 @@ export async function DELETE(req: Request) {
   if (!session) return error(401, "Not signed in");
   const f = session.familyId;
   await batch([
+    { sql: "DELETE FROM auth_tokens WHERE parent_id IN (SELECT id FROM parents WHERE family_id = ?)", args: [f] },
+    { sql: "DELETE FROM report_shares WHERE family_id = ?", args: [f] },
+    { sql: "DELETE FROM question_reports WHERE family_id = ?", args: [f] },
     { sql: "DELETE FROM events WHERE family_id = ?", args: [f] },
     { sql: "DELETE FROM child_settings WHERE family_id = ?", args: [f] },
     { sql: "DELETE FROM profiles WHERE family_id = ?", args: [f] },

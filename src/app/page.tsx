@@ -1,3 +1,5 @@
+import { onColour } from "@/lib/contrast";
+import { PricingCards } from "@/components/site/Pricing";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Critter } from "@/components/Critter";
@@ -146,7 +148,7 @@ export default function Home() {
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {GAMES.map((g) => (
-            <div key={g.id} className="rounded-3xl p-5 text-white" style={{ background: g.colour }}>
+            <div key={g.id} className="rounded-3xl p-5" style={{ background: g.colour, color: onColour(g.colour) }}>
               <p className="text-4xl" aria-hidden="true">
                 {g.icon}
               </p>
@@ -212,30 +214,7 @@ export default function Home() {
         <h2 id="pricing" className="mb-6 text-3xl font-bold sm:text-4xl">
           Simple pricing for the whole family
         </h2>
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="card p-6">
-            <h3 className="text-xl font-bold">Free trial</h3>
-            <p className="mt-2 text-4xl font-bold">
-              $0 <span className="text-base font-semibold text-ink-soft">for {TRIAL_DAYS} days</span>
-            </p>
-            <p className="mt-2 font-read text-ink-soft">Everything included. No card needed. Afterwards, the first {FREE_UNITS_PER_COURSE} units of every subject stay free.</p>
-          </div>
-          <div className="card border-[#4f8ef7] p-6">
-            <h3 className="text-xl font-bold">Family · monthly</h3>
-            <p className="mt-2 text-4xl font-bold">
-              ${PRICES.month.amount} <span className="text-base font-semibold text-ink-soft">CAD / month</span>
-            </p>
-            <p className="mt-2 font-read text-ink-soft">Up to {MAX_CHILDREN} children. Every grade, mode and game. Cancel anytime.</p>
-          </div>
-          <div className="card relative border-[#25b47e] p-6">
-            <span className="absolute -top-3 right-4 rounded-full bg-[#25b47e] px-3 py-1 text-sm font-bold text-white">{PRICES.year.note}</span>
-            <h3 className="text-xl font-bold">Family · yearly</h3>
-            <p className="mt-2 text-4xl font-bold">
-              ${PRICES.year.amount} <span className="text-base font-semibold text-ink-soft">CAD / year</span>
-            </p>
-            <p className="mt-2 font-read text-ink-soft">Everything in monthly, for about $10 a month.</p>
-          </div>
-        </div>
+        <PricingCards />
         <div className="mt-6 flex justify-center">
           <Link href="/play/" className="btn btn-good min-h-14 px-8 text-xl">
             Start learning

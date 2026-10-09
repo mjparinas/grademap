@@ -1,0 +1,11 @@
+name: Set up GradeMap
+description: Node 22 and the exact locked dependencies, with the npm download cache.
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: npm
+    - run: npm ci
+      shell: bash

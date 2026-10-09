@@ -69,7 +69,7 @@ export function Shop() {
                   {item.critter ? <CritterSvg id={item.critter} mood={isOn ? "cheer" : "happy"} /> : <span className="text-6xl">{item.icon}</span>}
                 </span>
                 <span className="text-lg leading-tight font-bold">{item.name}</span>
-                <span className={`rounded-full px-3 py-0.5 text-sm font-bold ${isOn ? "bg-white/30" : isOwned ? "bg-good-soft text-good-dark" : affordable ? "bg-[#fff4cc] text-[#a07400]" : "bg-black/5 text-ink-soft"}`}>
+                <span className={`rounded-full px-3 py-0.5 text-sm font-bold ${isOn ? "bg-white/30" : isOwned ? "bg-good-soft text-good-dark" : affordable ? "bg-[#fff4cc] text-[#7a5700]" : "bg-black/5 text-ink-soft"}`}>
                   {isOn ? "Using ✓" : isOwned ? "Owned · Use" : `🪙 ${item.cost}`}
                 </span>
               </button>

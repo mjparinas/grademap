@@ -1,0 +1,241 @@
+import { createHmac } from "node:crypto";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+
+// These tests run the real route handlers against a throwaway SQLite file.
+
+const dir = mkdtempSync(join(tmpdir(), "grademap-test-"));
+process.env.DATABASE_URL = `file:${join(dir, "test.db")}`;
+process.env.STRIPE_WEBHOOK_SECRET = "whsec_test";
+delete process.env.RESEND_API_KEY;
+delete process.env.NEXT_PUBLIC_SITE_URL;
+
+type Mod = Record<string, (req: Request) => Promise<Response>>;
+let signup: Mod, login: Mod, forgot: Mod, reset: Mod, verify: Mod, resend: Mod, me: Mod, sync: Mod, account: Mod, webhook: Mod, checkout: Mod;
+let auth: typeof import("@/server/auth");
+let dbm: typeof import("@/server/db");
+let email: typeof import("@/server/email");
+
+beforeAll(async () => {
+  [signup, login, forgot, reset, verify, resend, me, sync, account, webhook, checkout] = (await Promise.all([
+    import("@/app/api/auth/signup/route"),
+    import("@/app/api/auth/login/route"),
+    import("@/app/api/auth/forgot/route"),
+    import("@/app/api/auth/reset/route"),
+    import("@/app/api/auth/verify/route"),
+    import("@/app/api/auth/resend-verification/route"),
+    import("@/app/api/auth/me/route"),
+    import("@/app/api/sync/route"),
+    import("@/app/api/account/route"),
+    import("@/app/api/billing/webhook/route"),
+    import("@/app/api/billing/checkout/route"),
+  ])) as unknown as Mod[];
+  auth = await import("@/server/auth");
+  dbm = await import("@/server/db");
+  email = await import("@/server/email");
+});
+afterAll(() => rmSync(dir, { recursive: true, force: true }));
+
+let ip = 0;
+function post(path: string, body: unknown, cookie?: string, method = "POST"): Request {
+  return new Request(`http://localhost${path}`, {
+    method,
+    headers: { "content-type": "application/json", "x-forwarded-for": `10.0.0.${++ip}`, ...(cookie ? { cookie } : {}) },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+const cookieOf = (res: Response) => (res.headers.get("set-cookie") ?? "").split(";")[0];
+const lastEmail = () => email.outbox().at(-1)!;
+const tokenIn = (text: string) => decodeURIComponent(/token=([^\s&"]+)/.exec(text)![1]);
+
+async function newAccount(address: string, password = "correct horse") {
+  const res = await signup.POST(post("/api/auth/signup/", { email: address, password }));
+  expect(res.status).toBe(200);
+  return { cookie: cookieOf(res), body: await res.json() };
+}
+
+describe("signup, login and email confirmation", () => {
+  it("creates an unconfirmed account, emails a link, and confirms with it once", async () => {
+    const { cookie, body } = await newAccount("a@example.com");
+    expect(body.family.account.verified).toBe(false);
+    const mail = lastEmail();
+    expect(mail.to).toBe("a@example.com");
+    expect(mail.text).toContain("/account/verify/?token=");
+
+    const token = tokenIn(mail.text);
+    expect((await verify.POST(post("/api/auth/verify/", { token }))).status).toBe(200);
+    expect((await verify.POST(post("/api/auth/verify/", { token }))).status).toBe(400); // used
+    const info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
+    expect(info.family.account.verified).toBe(true);
+  });
+
+  it("rejects duplicates, short passwords and wrong passwords", async () => {
+    await newAccount("b@example.com");
+    expect((await signup.POST(post("/api/auth/signup/", { email: "b@example.com", password: "another long one" }))).status).toBe(409);
+    expect((await signup.POST(post("/api/auth/signup/", { email: "c@example.com", password: "short" }))).status).toBe(400);
+    expect((await login.POST(post("/api/auth/login/", { email: "b@example.com", password: "nope nope nope" }))).status).toBe(401);
+    expect((await login.POST(post("/api/auth/login/", { email: "b@example.com", password: "correct horse" }))).status).toBe(200);
+  });
+
+  it("refuses cross-site posts", async () => {
+    const req = post("/api/auth/login/", { email: "b@example.com", password: "correct horse" });
+    req.headers.set("origin", "https://evil.example");
+    expect((await login.POST(req)).status).toBe(403);
+  });
+
+  it("limits resending the confirmation email", async () => {
+    const { cookie } = await newAccount("resend@example.com");
+    const statuses: number[] = [];
+    for (let i = 0; i < 4; i++) statuses.push((await resend.POST(post("/api/auth/resend-verification/", {}, cookie))).status);
+    expect(statuses).toEqual([200, 200, 200, 429]);
+  });
+
+  it("keeps real checkout closed until the email is confirmed", async () => {
+    const { cookie } = await newAccount("pay@example.com");
+    expect((await checkout.POST(post("/api/billing/checkout/", { interval: "month" }, cookie))).status).toBe(403);
+  });
+});
+
+describe("password reset", () => {
+  it("answers the same for unknown emails and sends nothing", async () => {
+    const before = email.outbox().length;
+    const known = await (await forgot.POST(post("/api/auth/forgot/", { email: "nobody@example.com" }))).json();
+    expect(known.ok).toBe(true);
+    expect(email.outbox().length).toBe(before);
+  });
+
+  it("resets once, signs other devices out and confirms the email", async () => {
+    const { cookie: oldCookie } = await newAccount("r@example.com", "old password 1");
+    const sent = email.outbox().length;
+    const res = await forgot.POST(post("/api/auth/forgot/", { email: "R@example.com" }));
+    expect(res.status).toBe(200);
+    expect(email.outbox().length).toBe(sent + 1);
+    const token = tokenIn(lastEmail().text);
+
+    expect((await reset.POST(post("/api/auth/reset/", { token, password: "short" }))).status).toBe(400);
+    const done = await reset.POST(post("/api/auth/reset/", { token, password: "brand new pass" }));
+    expect(done.status).toBe(200);
+    expect((await done.json()).family.account.verified).toBe(true);
+    expect((await reset.POST(post("/api/auth/reset/", { token, password: "another pass 22" }))).status).toBe(400);
+
+    // The old session is gone and only the new password works.
+    expect((await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie: oldCookie } }))).status).toBe(401);
+    expect((await login.POST(post("/api/auth/login/", { email: "r@example.com", password: "old password 1" }))).status).toBe(401);
+    expect((await login.POST(post("/api/auth/login/", { email: "r@example.com", password: "brand new pass" }))).status).toBe(200);
+  });
+
+  it("rejects expired tokens", async () => {
+    const { body } = await newAccount("exp@example.com");
+    void body;
+    const rows = await dbm.query<{ id: string }>("SELECT id FROM parents WHERE email = ?", ["exp@example.com"]);
+    const token = await auth.createAuthToken(rows[0].id, "reset", -1000);
+    expect((await reset.POST(post("/api/auth/reset/", { token, password: "valid password" }))).status).toBe(400);
+  });
+
+  it("does not accept a verification token for a reset", async () => {
+    await newAccount("kind@example.com");
+    const token = tokenIn(lastEmail().text);
+    expect((await reset.POST(post("/api/auth/reset/", { token, password: "valid password" }))).status).toBe(400);
+  });
+});
+
+describe("rate limiter", () => {
+  it("counts per key across calls and starts a new window after it ends", async () => {
+    const results: boolean[] = [];
+    for (let i = 0; i < 4; i++) results.push(await auth.rateLimited("test:key", 3, 60_000));
+    expect(results).toEqual([false, false, false, true]);
+    expect(await auth.rateLimited("test:other", 3, 60_000)).toBe(false);
+    await dbm.run("UPDATE rate_limits SET reset_at = ? WHERE key = ?", [Date.now() - 1, "test:key"]);
+    expect(await auth.rateLimited("test:key", 3, 60_000)).toBe(false);
+  });
+
+  it("blocks repeated logins for one email even from different addresses", async () => {
+    await newAccount("brute@example.com");
+    let last = 0;
+    for (let i = 0; i < 12; i++) last = (await login.POST(post("/api/auth/login/", { email: "brute@example.com", password: "wrong wrong" }))).status;
+    expect(last).toBe(429);
+  });
+});
+
+describe("sync", () => {
+  const event = (id: string, profileId: string) => ({ id, profileId, type: "answer", t: Date.now() - 1000, unitKey: "2/math/x", correct: true });
+  const profile = (id: string) => ({ id, name: "Maya", grade: "2", avatar: "ollie", colour: "#fff", updatedAt: Date.now() });
+
+  it("stores events once however often a device re-sends them", async () => {
+    const { cookie } = await newAccount("sync@example.com");
+    const body = { cursor: 0, profiles: [profile("p1")], events: [event("e1", "p1"), event("e2", "p1")] };
+    const first = await (await sync.POST(post("/api/sync/", body, cookie))).json();
+    expect(first.accepted).toEqual(["e1", "e2"]);
+    const again = await (await sync.POST(post("/api/sync/", { ...body, cursor: 0 }, cookie))).json();
+    expect(again.events).toHaveLength(2);
+  });
+
+  it("ignores events for children that belong to another family", async () => {
+    const a = await newAccount("fam-a@example.com");
+    const b = await newAccount("fam-b@example.com");
+    await sync.POST(post("/api/sync/", { profiles: [profile("pa")] }, a.cookie));
+    const res = await (await sync.POST(post("/api/sync/", { cursor: 0, events: [event("x1", "pa")] }, b.cookie))).json();
+    expect(res.accepted).toEqual([]);
+    expect(res.events).toEqual([]);
+  });
+
+  it("needs a session", async () => {
+    expect((await sync.POST(post("/api/sync/", {}))).status).toBe(401);
+  });
+});
+
+describe("Stripe webhook", () => {
+  const sign = (payload: string, secret = "whsec_test", t = Math.floor(Date.now() / 1000)) => `t=${t},v1=${createHmac("sha256", secret).update(`${t}.${payload}`).digest("hex")}`;
+  const hook = (payload: string, header: string | null) =>
+    webhook.POST(new Request("http://localhost/api/billing/webhook/", { method: "POST", body: payload, headers: header ? { "stripe-signature": header } : {} }));
+
+  it("rejects missing, wrong and stale signatures", async () => {
+    const payload = JSON.stringify({ type: "customer.subscription.updated", data: { object: {} } });
+    expect((await hook(payload, null)).status).toBe(400);
+    expect((await hook(payload, sign(payload, "whsec_other"))).status).toBe(400);
+    expect((await hook(payload, sign(payload, "whsec_test", Math.floor(Date.now() / 1000) - 3600))).status).toBe(400);
+  });
+
+  it("moves a family between premium and free as the subscription changes", async () => {
+    const { cookie } = await newAccount("stripe@example.com");
+    const familyId = (await dbm.query<{ family_id: string }>("SELECT family_id FROM parents WHERE email = ?", ["stripe@example.com"]))[0].family_id;
+    const send = async (type: string, object: Record<string, unknown>) => {
+      const payload = JSON.stringify({ type, data: { object } });
+      expect((await hook(payload, sign(payload))).status).toBe(200);
+    };
+    await send("checkout.session.completed", { client_reference_id: familyId, customer: "cus_1" });
+    await send("customer.subscription.updated", { status: "active", customer: "cus_1", current_period_end: 2_000_000_000, items: { data: [{ price: { recurring: { interval: "year" } } }] } });
+    let info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
+    expect(info.family.plan).toBe("premium");
+    expect(info.family.subscription).toMatchObject({ status: "active", interval: "year" });
+    await send("customer.subscription.deleted", { status: "canceled", customer: "cus_1" });
+    info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
+    expect(info.family.plan).toBe("free");
+  });
+});
+
+describe("account deletion", () => {
+  it("removes every row that belongs to the family", async () => {
+    const { cookie } = await newAccount("gone@example.com");
+    await sync.POST(post("/api/sync/", { profiles: [{ id: "pg", name: "Kid", grade: "1", avatar: "ollie", colour: "#fff", updatedAt: Date.now() }], events: [{ id: "eg", profileId: "pg", type: "answer", t: Date.now() - 1000 }], settings: [{ profileId: "pg", updatedAt: Date.now() }] }, cookie));
+    const parent = (await dbm.query<{ id: string; family_id: string }>("SELECT id, family_id FROM parents WHERE email = ?", ["gone@example.com"]))[0];
+    await dbm.run("INSERT INTO report_shares (token_hash, family_id, profile_id, days, created_at, expires_at) VALUES ('h', ?, 'pg', 7, 1, 2)", [parent.family_id]);
+
+    const res = await account.DELETE(post("/api/account/", undefined, cookie, "DELETE"));
+    expect(res.status).toBe(200);
+    for (const [table, col, val] of [
+      ["parents", "family_id", parent.family_id],
+      ["families", "id", parent.family_id],
+      ["profiles", "family_id", parent.family_id],
+      ["events", "family_id", parent.family_id],
+      ["child_settings", "family_id", parent.family_id],
+      ["sessions", "family_id", parent.family_id],
+      ["report_shares", "family_id", parent.family_id],
+      ["auth_tokens", "parent_id", parent.id],
+    ]) {
+      expect(await dbm.query(`SELECT 1 FROM ${table} WHERE ${col} = ?`, [val]), table).toHaveLength(0);
+    }
+  });
+});

@@ -44,12 +44,15 @@ export function ProgressBar({
   className = "",
   height = 20,
   track = "rgba(0, 0, 0, 0.08)",
+  label = "Progress",
 }: {
   value: number;
   max: number;
   className?: string;
   height?: number;
   track?: string;
+  /** What the bar measures, for screen readers. */
+  label?: string;
 }) {
   const pct = max ? Math.min(100, (value / max) * 100) : 0;
   return (
@@ -57,6 +60,7 @@ export function ProgressBar({
       className={`relative overflow-hidden rounded-full ${className}`}
       style={{ height, background: track }}
       role="progressbar"
+      aria-label={label}
       aria-valuemin={0}
       aria-valuemax={max}
       aria-valuenow={value}

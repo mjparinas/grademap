@@ -32,7 +32,7 @@ function Keypad({ value, onChange, onSubmit, max = 6 }: { value: string; onChang
 
 function Dots({ n, of = 4 }: { n: number; of?: number }) {
   return (
-    <div className="flex gap-3" aria-label={`${n} digits entered`}>
+    <div className="flex gap-3" role="img" aria-label={`${n} digits entered`}>
       {Array.from({ length: Math.max(of, n) }, (_, i) => (
         <span key={i} className={`h-4 w-4 rounded-full ${i < n ? "bg-ink" : "bg-ink/15"}`} />
       ))}

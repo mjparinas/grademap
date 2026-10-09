@@ -12,6 +12,7 @@ export interface SessionInfo {
   parentId: string;
   familyId: string;
   email: string;
+  verified: boolean;
 }
 
 export async function hashPassword(password: string): Promise<string> {
@@ -56,13 +57,13 @@ function readCookie(req: Request, name: string): string | undefined {
 export async function getSession(req: Request): Promise<SessionInfo | null> {
   const token = readCookie(req, COOKIE);
   if (!token) return null;
-  const rows = await query<{ parent_id: string; family_id: string; expires_at: number; email: string }>(
-    `SELECT s.parent_id, s.family_id, s.expires_at, p.email FROM sessions s JOIN parents p ON p.id = s.parent_id WHERE s.token_hash = ?`,
+  const rows = await query<{ parent_id: string; family_id: string; expires_at: number; email: string; email_verified_at: number | null }>(
+    `SELECT s.parent_id, s.family_id, s.expires_at, p.email, p.email_verified_at FROM sessions s JOIN parents p ON p.id = s.parent_id WHERE s.token_hash = ?`,
     [sha(token)],
   );
   const row = rows[0];
   if (!row || Number(row.expires_at) < Date.now()) return null;
-  return { parentId: row.parent_id, familyId: row.family_id, email: row.email };
+  return { parentId: row.parent_id, familyId: row.family_id, email: row.email, verified: Boolean(row.email_verified_at) };
 }
 
 export async function endSession(req: Request): Promise<void> {
@@ -96,18 +97,54 @@ export function sameOrigin(req: Request): boolean {
   }
 }
 
-const attempts = new Map<string, { count: number; reset: number }>();
-
-/** A simple in-memory limiter for login and signup. */
-export function rateLimited(key: string, limit = 10, windowMs = 10 * 60_000): boolean {
+/**
+ * A limiter for login, signup and email-sending routes. The counters live in the database,
+ * so they hold across serverless instances and restarts. Returns true when over the limit.
+ */
+export async function rateLimited(key: string, limit = 10, windowMs = 10 * 60_000): Promise<boolean> {
   const now = Date.now();
-  const entry = attempts.get(key);
-  if (!entry || entry.reset < now) {
-    attempts.set(key, { count: 1, reset: now + windowMs });
-    return false;
-  }
-  entry.count++;
-  return entry.count > limit;
+  const rows = await query<{ count: number }>(
+    `INSERT INTO rate_limits (key, count, reset_at) VALUES (?, 1, ?)
+     ON CONFLICT(key) DO UPDATE SET
+       count = CASE WHEN reset_at < ? THEN 1 ELSE count + 1 END,
+       reset_at = CASE WHEN reset_at < ? THEN ? ELSE reset_at END
+     RETURNING count`,
+    [key, now + windowMs, now, now, now + windowMs],
+  );
+  return Number(rows[0]?.count ?? 1) > limit;
+}
+
+// ---------- One-time tokens (password reset, email confirmation) ----------
+
+export type TokenKind = "reset" | "verify";
+
+export async function createAuthToken(parentId: string, kind: TokenKind, ttlMs: number): Promise<string> {
+  const token = randomBytes(32).toString("base64url");
+  await run("DELETE FROM auth_tokens WHERE parent_id = ? AND kind = ?", [parentId, kind]);
+  await run("INSERT INTO auth_tokens (token_hash, parent_id, kind, expires_at) VALUES (?, ?, ?, ?)", [sha(token), parentId, kind, Date.now() + ttlMs]);
+  return token;
+}
+
+/** Uses a token once. Returns the parent id, or null if it is wrong, used or expired. */
+export async function consumeAuthToken(token: string, kind: TokenKind): Promise<string | null> {
+  if (!token || token.length > 200) return null;
+  const hash = sha(token);
+  const claimed = await run(
+    "UPDATE auth_tokens SET used_at = ? WHERE token_hash = ? AND kind = ? AND used_at IS NULL AND expires_at > ?",
+    [Date.now(), hash, kind, Date.now()],
+  );
+  if (!claimed) return null;
+  const rows = await query<{ parent_id: string }>("SELECT parent_id FROM auth_tokens WHERE token_hash = ?", [hash]);
+  return rows[0]?.parent_id ?? null;
+}
+
+/**
+ * The public origin to put in emailed links. Uses NEXT_PUBLIC_SITE_URL when it is set, so a forged
+ * Host header can never point a reset link at another site.
+ */
+export function appOrigin(req: Request): string {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  return configured || new URL(req.url).origin;
 }
 
 export function clientIp(req: Request): string {
@@ -124,4 +161,13 @@ export function json(data: unknown, init: ResponseInit & { cookie?: string } = {
 
 export function error(status: number, message: string): Response {
   return json({ error: message }, { status });
+}
+
+/** A long-lived secret that lets an email's unsubscribe link work without signing in. */
+export async function unsubscribeToken(parentId: string): Promise<string> {
+  const rows = await query<{ unsub_token: string | null }>("SELECT unsub_token FROM parents WHERE id = ?", [parentId]);
+  if (rows[0]?.unsub_token) return rows[0].unsub_token;
+  const token = randomBytes(24).toString("base64url");
+  await run("UPDATE parents SET unsub_token = ? WHERE id = ? AND unsub_token IS NULL", [token, parentId]);
+  return (await query<{ unsub_token: string }>("SELECT unsub_token FROM parents WHERE id = ?", [parentId]))[0].unsub_token;
 }

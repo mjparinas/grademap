@@ -12,6 +12,18 @@ export function setSoundCheck(check: () => boolean) {
   soundOn = check;
 }
 
+// Children who find noise tiring can keep only the gentle sounds (taps, "try again").
+let quietOn: () => boolean = () => false;
+export function setQuietCheck(check: () => boolean) {
+  quietOn = check;
+}
+/** Wrap a celebration sound so it stays silent in quiet mode. */
+function loud<A extends unknown[]>(fn: (...args: A) => void): (...args: A) => void {
+  return (...args) => {
+    if (!quietOn()) fn(...args);
+  };
+}
+
 function audio(): AudioContext | null {
   if (typeof window === "undefined" || !soundOn()) return null;
   try {
@@ -57,6 +69,8 @@ const SCALE = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568];
 export const sounds = {
   tap: () => tone(vary(620, 0.12), 0, 0.07, "triangle", 0.07, vary(820, 0.1)),
   correct: (streak = 0) => {
+    // Quiet mode keeps one soft note, so a right answer still gets a response.
+    if (quietOn()) return tone(SCALE[2], 0, 0.14, "sine", 0.08);
     const base = Math.min(streak, 4);
     tone(SCALE[base], 0, 0.16);
     tone(SCALE[base + 2], 0.08, 0.18);
@@ -81,28 +95,28 @@ export const sounds = {
   },
   whoosh: () => tone(vary(240, 0.1), 0, 0.22, "sine", 0.06, 900),
   /** One per star on the finish screen: pitch climbs with each. */
-  starLand: (i: number) => {
+  starLand: loud((i: number) => {
     tone(SCALE[2 + i * 2], 0, 0.25, "triangle", 0.15);
     tone(110, 0, 0.12, "sine", 0.2, 60);
-  },
+  }),
   /** A console-style trophy chime; bigger for gold and platinum. */
-  trophy: (big = false) => {
+  trophy: loud((big = false) => {
     tone(1319, 0, 0.12, "sine", 0.12);
     tone(1760, 0.09, 0.35, "sine", 0.14);
     if (big) {
       tone(2093, 0.22, 0.4, "triangle", 0.1);
       tone(2637, 0.34, 0.5, "sine", 0.08);
     }
-  },
-  levelUp: () => {
+  }),
+  levelUp: loud(() => {
     [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.07, 0.18, "square", 0.05));
     tone(1568, 0.3, 0.45, "sine", 0.14);
-  },
+  }),
   /** A soft tick for countdowns. */
-  tick: () => tone(1200, 0, 0.04, "square", 0.025),
+  tick: loud(() => tone(1200, 0, 0.04, "square", 0.025)),
   /** Wrong in a fast game: a quick, low boop. */
   boop: () => tone(220, 0, 0.12, "triangle", 0.1, 150),
-  complete: () => {
+  complete: loud(() => {
     [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, i * 0.1, 0.35, "sine", 0.15));
-  },
+  }),
 };

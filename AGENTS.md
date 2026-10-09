@@ -23,11 +23,13 @@ npm run build && npm start  # offline/service worker only works in a production 
 node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline   # full playthrough + sync
 node scripts/e2e-devices.mjs http://localhost:3000                # layout on 14 phones/tablets
 node scripts/e2e-offline.mjs                                      # real offline (starts its own server)
+node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA on public, kids' and parent screens
 ```
 
 Before you push, run tests, lint and typecheck. For UI or flow changes, also run the e2e scripts.
 
-- **Playwright:** the scripts need `playwright` (`npm i --no-save playwright && npx playwright install chromium webkit`).
+- **Playwright** is a dev dependency, pinned. Install the browsers once with `npx playwright install chromium webkit` (on Linux add `npx playwright install-deps`).
+- **CI** (`.github/workflows/ci.yml`) runs types, lint, unit tests and the build in parallel, then the browser tests in parallel on separate machines (device layouts in three shards, accessibility, playthrough, offline). Require the "CI passed" job in branch protection.
 - **Stale styles:** if a change to `globals.css` (`@theme`, `@custom-variant`) doesn't show up in a build, delete `.next` and rebuild.
 
 ### What the e2e scripts cover
@@ -125,6 +127,7 @@ Tests are duplicated across screen sizes only where layout can break:
 ### Feedback
 - **A wrong answer gets a hint and another try.** A second miss shows the answer with an explanation.
 - **Only first-try answers count** toward accuracy, stars and proficiency. Stars never go down.
+- **A hint opened before answering counts like a retry** (`hinted` on the answer event): no first-try credit, 4 XP instead of 10, and it isn't a "comeback". A parent can turn on "Hints count as first try" per child (`freeHints`) so asking for help never lowers accuracy. Reports show how many hints were opened. The hint button appears only in modes with retries (not Speed Run or Challenge).
 - **The tone is soft:** a gentle "try again" sound, not a buzzer, and encouraging messages. Never shame a child.
 
 ### Timers and the learn-to-play loop
@@ -169,6 +172,10 @@ Tests are duplicated across screen sizes only where layout can break:
   - Children: up to 4; a birth year suggests a grade; a curriculum can be picked per child.
   - Settings per child.
   - Account & sync, Subscription, and Privacy (JSON export, erase device, delete account).
+- **Calm and focus options** (per child, all off by default, in Settings): calm motion, quiet sounds, hide timers, hold trophy pop-ups until after the lesson, and shorter sessions (5 questions). They change presentation only; scoring is unchanged. They exist for children who find motion, noise or time pressure hard, including many with ADHD. Never make health claims about them.
+- **Easier reading options** (per child, off by default): roomy text and high contrast, next to the calm options.
+- **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email. Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
+- **Share a report:** a parent can create a read-only link (30 days, revocable) to one child's report. It is served from `/shared/{token}/`, never indexed.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 
 ### Privacy
@@ -198,6 +205,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Theme tokens and animations live in `src/app/globals.css`.
 - **Subject colours:** math blue `#4f8ef7`, language pink `#e9559a`, science green `#25b47e`, social orange `#ff9636`.
   - Use them for subject identity in the kids' UI only, never in charts.
+  - **Text on these bright fills is very dark navy (`#0f172a`), not white,** because white fails the WCAG AA contrast rules (see `src/lib/contrast.ts`, `onColour`). The arcade purple is `#7c4fe0` for the same reason. Don't put white text on a bright fill; `node scripts/e2e-a11y.mjs` will catch it.
 - **Mascots:** an original cast drawn from one parametric SVG (`src/components/Critter.tsx`). Every critter shares the same moods, and their eyes follow the pointer.
   - Ollie the Otter is the guide.
   - Each subject has its own guide: Hoot the owl (math), Ruby the fox (reading), Bolt the beaver (science) and Juniper the bear (social studies).
@@ -295,7 +303,8 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **Before launch, BC teachers need to review all content.**
   - Several Big Ideas statements were written from memory; check them against curriculum.gov.bc.ca.
   - Check history dates in the Grade 4–5 social studies units.
-- **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices) need a run with WebKit installed, plus a check on a real iPhone or iPad. The device tests here ran iOS profiles in Chromium.
-- **Visuals:**
-  - The `pictograph` visual always shows "each picture = 1". Content works around it with tables.
-  - The `passage` visual has no stanza breaks; poems use a blank paragraph instead.
+- **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices): the device layout tests now pass in real WebKit (Playwright's WebKit build, not Safari). A check on a real iPhone or iPad is still needed, especially for read-aloud voices.
+- **Deployment** is not done. Steps, env vars and the launch checklist are in `docs/DEPLOY.md`.
+- **Legal and content:** `/privacy/` and `/terms/` are drafts needing legal review; `LEGAL_NAME` and `CONTACT_EMAIL` in `src/lib/brand.ts` are placeholders.
+- **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI hasn't had a colour-blind simulation pass.
+- **Security headers:** the CSP allows inline scripts and styles (`'unsafe-inline'`) so pages stay static and cacheable offline. A nonce-based policy would need dynamic rendering for every page.
