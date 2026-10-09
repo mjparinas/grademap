@@ -1,5 +1,6 @@
 import type { Course } from "../types";
-import { G7_MATH } from "./overall";
+import { G7_LANGUAGE, G7_MATH } from "./overall";
+import { units as languageUnits } from "./g7-language";
 import { units as mathUnits } from "./g7-math";
 import { on } from "./kit";
 
@@ -26,6 +27,26 @@ export const courses: Course[] = [
     },
     order: {
       "ca-on": ["numbers-7", "powers-7", "integer-add-subtract", "decimal-operations", "fractions-7", "fractions-decimals-percents", "percents-7", "linear-relations", "algebra-7", "two-step-equations", "data-7", "circle-graphs", "probability", "dependent-events", "coordinates-transformations", "circles", "solids-7", "volume", "measure-7", "money-7"],
+    },
+  },
+  {
+    grade: "7",
+    subject: "language",
+    bigIdeas: { "ca-on": G7_LANGUAGE },
+    units: languageUnits,
+    shares: {
+      "clauses-sentences": { standards: on("B3.1", "complex sentences that combine phrases and clauses") },
+      "modifiers-parallelism": { standards: on("B3.1, B3.2", "sentence structure, modifiers and parallel ideas") },
+      "semicolons-colons-dashes": { standards: on("B3.3", "semicolons, colons and dashes") },
+      "close-reading": { standards: on("C3.2, C3.3", "inferences and analyzing complex texts") },
+      "literary-devices": { standards: on("C3.1", "foreshadowing, symbolism and other literary devices") },
+      "tone-mood": { standards: on("C1.5", "word choice, voice and tone") },
+      persuasion: { standards: on("C3.3, C3.5", "analyzing arguments and perspectives") },
+      "source-check": { standards: on("C3.5", "evidence of bias and checking sources") },
+      "poetry-lab": { standards: on("C1.2", "text forms and genres, including poetry") },
+    },
+    order: {
+      "ca-on": ["clauses-sentences", "grammar-7", "modifiers-parallelism", "punctuation-7", "semicolons-colons-dashes", "close-reading", "point-of-view-7", "literary-devices", "tone-mood", "text-patterns-7", "persuasion", "source-check", "poetry-lab"],
     },
   },
 ];
