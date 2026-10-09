@@ -1,5 +1,5 @@
 import { loadChildReport, familyProfileIds } from "@/server/reportData";
-import { unsubscribeToken } from "@/server/auth";
+import { secretsMatch, unsubscribeToken } from "@/server/auth";
 import { query, run } from "@/server/db";
 import { sendEmail } from "@/server/email";
 import { trialEndingEmail, weeklyEmail, type WeeklyChild } from "@/server/emailTemplates";
@@ -13,7 +13,7 @@ export const maxDuration = 300;
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
-  if (!secret || req.headers.get("authorization") !== `Bearer ${secret}`) return new Response("Unauthorized", { status: 401 });
+  if (!secret || !secretsMatch(req.headers.get("authorization") ?? "", `Bearer ${secret}`)) return new Response("Unauthorized", { status: 401 });
   const origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "") || new URL(req.url).origin;
   const now = Date.now();
   const result = { trialNotices: 0, weekly: 0 };

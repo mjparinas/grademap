@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     if (/UNIQUE|constraint/i.test(String((e as Error).message))) return error(409, "That email already has an account. Try signing in.");
     throw e;
   }
-  const { token, maxAge } = await createSession(parentId, familyId);
+  const { token, maxAge } = await createSession(parentId, familyId, req);
   const family = toFamilyInfo((await getFamilyRow(familyId))!, email, false);
   // A failed email never blocks signup; the parent can ask for another from the Account page.
   await sendEmail(verifyEmail(email, appOrigin(req), await createAuthToken(parentId, "verify", 3 * 86_400_000)));

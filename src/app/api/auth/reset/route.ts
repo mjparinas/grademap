@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   await run("UPDATE parents SET password_hash = ?, email_verified_at = COALESCE(email_verified_at, ?) WHERE id = ?", [await hashPassword(password), Date.now(), parentId]);
   // Anyone signed in with the old password is signed out everywhere.
   await run("DELETE FROM sessions WHERE parent_id = ?", [parentId]);
-  const { token, maxAge } = await createSession(parentId, parent.family_id);
+  const { token, maxAge } = await createSession(parentId, parent.family_id, req);
   const family = toFamilyInfo((await getFamilyRow(parent.family_id))!, parent.email, true);
   return json({ family }, { cookie: sessionCookie(token, maxAge) });
 }

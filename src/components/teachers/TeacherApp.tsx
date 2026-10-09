@@ -192,6 +192,10 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
         <p className="mt-1 font-read text-ink-soft">
           Share this with families. A parent enters it under Children in the parent area, so they choose what to share. You will only see first names, grade and practice results for the units you assign.
         </p>
+        <button type="button" className="mt-3 rounded-xl border border-line px-4 py-2 font-semibold" onClick={() => change(`/api/classes/?id=${encodeURIComponent(id)}`, "PATCH")}>
+          Get a new code
+        </button>
+        <p className="mt-1 text-sm text-ink-soft">If the code was shared too widely. Families already linked stay linked; the old code stops working.</p>
       </section>
 
       <section className="mt-4 rounded-2xl border border-line bg-white p-5">

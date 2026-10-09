@@ -1,6 +1,6 @@
 import type { InValue } from "@libsql/client";
 import type { AppEvent, ChildSettings, Profile } from "@/lib/model";
-import { error, getSession, json, sameOrigin } from "@/server/auth";
+import { error, getSession, json, rateLimited, sameOrigin } from "@/server/auth";
 import { batch, query } from "@/server/db";
 import { getFamilyRow, toFamilyInfo } from "@/server/family";
 
@@ -10,6 +10,9 @@ import { getFamilyRow, toFamilyInfo } from "@/server/family";
 
 const MAX_EVENTS = 1000;
 const PAGE = 2000;
+/** Most events one family can store; a real child makes a few thousand a year. */
+const MAX_FAMILY_EVENTS = 250_000;
+const MAX_JSON = 4000;
 const EVENT_TYPES = new Set(["answer", "session", "play", "game", "trophy", "secret", "buy", "quest", "placement"]);
 
 interface SyncBody {
@@ -26,6 +29,8 @@ export async function POST(req: Request) {
   const session = await getSession(req);
   if (!session) return error(401, "Not signed in");
   const family = session.familyId;
+  // The app syncs every couple of minutes and after changes; this is far above that.
+  if (await rateLimited(`sync:${family}`, 300, 10 * 60_000)) return error(429, "Syncing too often. Try again in a few minutes.");
   const body = (await req.json().catch(() => null)) as SyncBody | null;
   if (!body) return error(400, "Bad request");
   const list = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
@@ -60,7 +65,8 @@ export async function POST(req: Request) {
     mine.add(p.id);
     if (!row || p.updatedAt > Number(row.updated_at)) {
       gone.set(p.id, { deleted: Boolean(p.deleted), resetAt: p.resetAt ?? 0 });
-      const data = JSON.stringify(p).slice(0, 4000);
+      const data = JSON.stringify(p);
+      if (data.length > MAX_JSON) continue; // never store half a JSON document
       writes.push({
         sql: `INSERT INTO profiles (id, family_id, data, updated_at) VALUES (?, ?, ?, ?)
               ON CONFLICT(id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at`,
@@ -79,15 +85,21 @@ export async function POST(req: Request) {
 
   for (const s of incomingSettings) {
     if (!isId(s?.profileId) || !mine.has(s.profileId) || typeof s.updatedAt !== "number") continue;
+    const settingsJson = JSON.stringify(s);
+    if (settingsJson.length > MAX_JSON) continue;
     writes.push({
       sql: `INSERT INTO child_settings (profile_id, family_id, data, updated_at) VALUES (?, ?, ?, ?)
             ON CONFLICT(profile_id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at
             WHERE excluded.updated_at > child_settings.updated_at`,
-      args: [s.profileId, family, JSON.stringify(s).slice(0, 4000), s.updatedAt],
+      args: [s.profileId, family, settingsJson, s.updatedAt],
     });
   }
 
   const accepted: string[] = [];
+  // A family at its storage cap can still read and sync its profiles, just not add more events.
+  const used = incomingEvents.length ? Number((await query<{ n: number }>("SELECT COUNT(*) AS n FROM events WHERE family_id = ?", [family]))[0].n) : 0;
+  const room = Math.max(0, MAX_FAMILY_EVENTS - used);
+  let stored = 0;
   for (const e of incomingEvents) {
     if (!isId(e?.id) || !isId(e.profileId) || !mine.has(e.profileId) || !EVENT_TYPES.has(e.type)) continue;
     if (typeof e.t !== "number" || e.t > Date.now() + 86_400_000) continue;
@@ -99,6 +111,7 @@ export async function POST(req: Request) {
       accepted.push(e.id);
       continue;
     }
+    if (stored++ >= room) continue;
     writes.push({
       sql: "INSERT OR IGNORE INTO events (id, family_id, profile_id, t, data) VALUES (?, ?, ?, ?, ?)",
       args: [e.id, family, e.profileId, e.t, data],
