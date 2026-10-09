@@ -7,7 +7,7 @@ import { SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent } from "@/components/site/curriculum";
 import { GAMES } from "@/components/play/games/types";
 import { DEFAULT_FRAMEWORK, getFramework } from "@/content/frameworks";
-import { GRADE_LABEL, SUBJECTS } from "@/content/subjects";
+import { GRADE_LABEL, SUBJECTS, isCoreSubject } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
 import { JsonLd, ORG_JSON_LD, SITE_URL, absolute } from "@/lib/site";
@@ -174,7 +174,7 @@ export default function Home() {
               <span className="text-xl font-bold">{GRADE_LABEL[g]}</span>
               <span className="text-sm text-ink-soft">{coursesFor(framework, g).reduce((n, c) => n + c.units.length, 0)} units</span>
               <span className="text-lg" aria-hidden="true">
-                {SUBJECTS.map((s) => s.emoji).join(" ")}
+                {SUBJECTS.filter((s) => isCoreSubject(s.id)).map((s) => s.emoji).join(" ")}
               </span>
             </Link>
           ))}
