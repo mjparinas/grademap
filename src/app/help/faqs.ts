@@ -74,6 +74,10 @@ export const HELP: HelpSection[] = [
         a: "They get a hint and a second try. After a second miss, the answer is shown with a short explanation. The tone is always gentle; there are no buzzers and no shaming.",
       },
       {
+        q: "Can my child ask for a hint before answering?",
+        a: "Yes. In practice, Adventure, Review and the Daily Challenge there’s a “Need a hint?” button. Because the hint helps, an answer given after opening it counts like a retry: it earns a little XP but doesn’t add to “right on the first try”. If your child tends to avoid asking for help, you can switch on “Hints count as first try” for them in Parent area → Settings. Reports show how many hints were opened.",
+      },
+      {
         q: "How are the report levels worked out?",
         a: `For BC, levels use the Provincial Proficiency Scale: Emerging, Developing, Proficient and Extending. Only first-try answers count. Proficient needs at least 75% over at least 8 recent answers, and Extending also needs 90% over 16 answers and a passed Challenge. Reports show practice in the app. They are not a report-card mark; your child’s teacher decides proficiency.`,
       },

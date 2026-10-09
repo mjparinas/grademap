@@ -55,6 +55,8 @@ export interface Derived {
     bestRun: number;
     currentRun: number;
     comebacks: number;
+    /** Answers where the child opened the hint first. */
+    hints: number;
   };
   subjects: Partial<Record<SubjectId, { answers: number; correct: number }>>;
   modes: Partial<Record<Mode, number>>;
@@ -110,6 +112,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
       bestRun: 0,
       currentRun: 0,
       comebacks: 0,
+      hints: 0,
     },
     subjects: {},
     modes: {},
@@ -146,6 +149,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
           ms: 0,
         });
         u.attempts++;
+        if (e.hinted) d.totals.hints++;
         if (e.correct) u.firstTry++;
         u.recent.push(e.correct);
         if (u.recent.length > 20) u.recent.shift();
@@ -180,7 +184,8 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
           run = 0;
           if (!e.revealed) {
             d.xp += 4;
-            d.totals.comebacks++;
+            // Asking for a hint first isn't a comeback from a miss.
+            if (!e.hinted) d.totals.comebacks++;
           } else d.xp += 1;
         }
         d.totals.bestRun = Math.max(d.totals.bestRun, run);

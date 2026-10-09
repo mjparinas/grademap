@@ -170,3 +170,24 @@ describe("text contrast helper", () => {
     expect(onColour("#253047")).toBe("#ffffff");
   });
 });
+
+describe("hints opened before answering", () => {
+  const base = { type: "answer" as const, unit: "2/math/tens-and-ones", attempts: 1, revealed: false, ms: 5000, mode: "practice" as const, profileId: "p" };
+
+  it("earn retry XP and no first-try credit, and aren't comebacks", () => {
+    const t = Date.now() - 60_000;
+    const clean = derive([{ ...base, id: "a", t, correct: true }]);
+    const hinted = derive([{ ...base, id: "b", t, correct: false, attempts: 2, hinted: true }]);
+    expect(clean.xp).toBe(10);
+    expect(hinted.xp).toBe(4);
+    expect(hinted.units["2/math/tens-and-ones"].firstTry).toBe(0);
+    expect(hinted.totals.hints).toBe(1);
+    expect(hinted.totals.comebacks).toBe(0);
+    // A real miss followed by a fix still is a comeback.
+    expect(derive([{ ...base, id: "c", t, correct: false, attempts: 2 }]).totals.comebacks).toBe(1);
+  });
+
+  it("are only free when the parent turns it on", () => {
+    expect(defaultChildSettings("p", false).freeHints).toBeFalsy();
+  });
+});

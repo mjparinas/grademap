@@ -48,6 +48,8 @@ export interface ChildSettings {
   /** Five questions at a time (Adventure checkpoints and Review). */
   shortSessions?: boolean;
   /** Reading comfort: extra space between letters, words and lines. */
+  /** A hint opened before answering still counts as a first-try answer. Off by default: it counts like a retry. */
+  freeHints?: boolean;
   roomyText?: boolean;
   /** Stronger text colours and outlines. */
   highContrast?: boolean;
@@ -83,6 +85,8 @@ export type AppEvent = EventBase &
         correct: boolean;
         attempts: number;
         revealed: boolean;
+        /** The child opened the hint before answering. */
+        hinted?: boolean;
         ms: number;
         mode: Mode;
         difficulty?: number;

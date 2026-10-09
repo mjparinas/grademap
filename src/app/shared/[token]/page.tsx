@@ -119,6 +119,12 @@ export default async function SharedReport({ params }: PageProps<"/shared/[token
         </div>
       </section>
 
+      {t.hints > 0 && (
+        <p className="mt-6 font-read text-sm text-ink-soft">
+          Hints opened before answering: {t.hints} of {t.answers} questions.
+        </p>
+      )}
+
       <p className="mt-6 rounded-2xl bg-[#eef4ff] p-4 font-read text-sm">
         This shows practice in the {APP_NAME} app. It isn’t a report-card mark: a child’s teacher decides proficiency.
       </p>

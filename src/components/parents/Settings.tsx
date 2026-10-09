@@ -77,6 +77,7 @@ export function SettingsPage({ childId }: { childId?: string }) {
             <Switch label="Quiet sounds" value={Boolean(s.quietSounds)} onChange={(v) => set({ quietSounds: v })} help="Keeps gentle taps and feedback; no fanfares, chimes or countdown ticks." />
             <Switch label="Hide timers" value={Boolean(s.hideTimers)} onChange={(v) => set({ hideTimers: v })} help="Hides clocks and countdown numbers. Speed Run and Challenge show a quiet bar instead and still end on time." />
             <Switch label="Hold trophy pop-ups until after the lesson" value={Boolean(s.quietToasts)} onChange={(v) => set({ quietToasts: v })} help="Nothing appears on screen while your child is working on a question." />
+            <Switch label="Hints count as first try" value={Boolean(s.freeHints)} onChange={(v) => set({ freeHints: v })} help="Children can open a hint before answering. Normally that counts like a retry. Turn this on if asking for help should never lower their accuracy." />
             <Switch label="Shorter sessions" value={Boolean(s.shortSessions)} onChange={(v) => set({ shortSessions: v })} help="Five questions at a time in Adventure (with a break screen) and Review." />
           </div>
         </Panel>
