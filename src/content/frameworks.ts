@@ -125,7 +125,7 @@ export const FRAMEWORKS: Framework[] = [
         },
         {
           title: "FSA is separate",
-          body: "The Foundation Skills Assessment in Grades 4 and 7 is a separate provincial check of reading, writing and numeracy. It isn't part of the report card.",
+          body: "The Foundation Skills Assessment in Grades 4 and 7 is a separate provincial check of literacy and numeracy. It isn't part of the report card.",
         },
       ],
       faqs: [

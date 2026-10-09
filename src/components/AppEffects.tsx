@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { replay } from "@/lib/juice";
+import { replay, warmConfetti } from "@/lib/juice";
 import { cacheLoadedScripts } from "@/lib/offline";
 import { sounds } from "@/lib/sound";
 
@@ -15,6 +15,12 @@ export function AppEffects() {
     // On a first visit, lessons load before the worker takes control; hand them over once it does.
     navigator.serviceWorker.addEventListener("controllerchange", cacheLoadedScripts);
     cacheLoadedScripts();
+  }, []);
+
+  // Public pages never celebrate, so only the apps warm the confetti library.
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.startsWith("/play") || path.startsWith("/parents")) warmConfetti();
   }, []);
 
   // Every .btn gets a little click sound on press and a jelly spring on release.

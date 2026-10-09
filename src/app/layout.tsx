@@ -9,7 +9,6 @@ import "./globals.css";
 const fredoka = Fredoka({
   variable: "--font-fredoka",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
 // Andika is designed for beginning readers (simple a, g and clear letter shapes).
