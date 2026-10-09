@@ -81,7 +81,7 @@ export default function PrivacyPage() {
             <strong>Sentry</strong>, to tell us when the app crashes. Error reports are stripped of names, email addresses, cookies and what was typed or tapped before they leave your device or our server, and are not used for anything else.
           </li>
           <li>
-            <strong>Vercel Web Analytics</strong>, to count anonymous page views on our public website, such as which pages are visited and from which country. It sets no cookies and builds no profile of a visitor. It is switched off in the kids’ app, the parent area, shared reports and account pages, so nothing a child does is measured.
+            <strong>Vercel Web Analytics and Speed Insights</strong>, to count anonymous page views and measure how fast our public website loads, such as which pages are visited, from which country and how quickly they appear. It sets no cookies and builds no profile of a visitor. It is switched off in the kids’ app, the parent area, shared reports and account pages, so nothing a child does is measured.
           </li>
           <li>
             <strong>Our hosting and database providers</strong>, which store the account and progress data described above on our behalf.

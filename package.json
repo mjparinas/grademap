@@ -13,6 +13,7 @@
     "@libsql/client": "^0.18.0",
     "@sentry/nextjs": "^11.6.0",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "canvas-confetti": "^1.9.4",
     "next": "16.4.0",
     "react": "19.3.0",
