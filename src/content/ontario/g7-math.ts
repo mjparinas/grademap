@@ -1,6 +1,6 @@
 import { pick, randInt, sample, shuffle, textChoice } from "../random";
-import type { GenerateOptions, Question, Unit, Visual } from "../types";
-import { buildSet, levelOf, on, others, numQ, range, spaced, typeIn } from "./kit";
+import type { GenerateOptions, Question, Unit } from "../types";
+import { buildSet, levelOf, on, numQ, range, spaced, typeIn } from "./kit";
 
 // Ontario Grade 7 mathematics (2020 curriculum). Whole numbers go up to a billion; rational numbers,
 // exponents and proportional reasoning appear for the first time.
@@ -9,7 +9,6 @@ const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
 const lcm = (a: number, b: number): number => (a * b) / gcd(a, b);
 const dec = (n: number): string => String(Math.round(n * 1000) / 1000);
 const money = (n: number): string => `$${(Math.round(n * 100) / 100).toFixed(2)}`;
-const int = (n: number): string => (n < 0 ? `−${Math.abs(n)}` : String(n));
 const SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 const sup = (n: number): string => String(n).split("").map((d) => SUP[Number(d)]).join("");
 

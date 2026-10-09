@@ -1,5 +1,5 @@
 import { fromBank, type BankItem } from "../bank";
-import type { GenerateOptions, Question, Unit } from "../types";
+import type { Question, Unit } from "../types";
 import { on, type Passage, passageQuestions } from "./kit";
 
 // Ontario Grade 1 language (2023 curriculum). The phonics, sentences and story units BC children
@@ -27,7 +27,7 @@ const WORD_JOBS: BankItem[] = [
   { prompt: "Which word fits? Yesterday we ___ in the snow.", right: "played", wrong: ["play", "will play"], hint: "Yesterday means it already happened." },
 ];
 
-function wordJobs(_opts?: GenerateOptions): Question[] {
+function wordJobs(): Question[] {
   return fromBank(WORD_JOBS, 8);
 }
 
@@ -49,7 +49,7 @@ const SENTENCE_TYPES: BankItem[] = [
   { prompt: "Which sentence starts correctly?", right: "The cat is sleeping.", wrong: ["the cat is sleeping.", "The Cat is sleeping."], hint: "A sentence starts with a capital letter. Only names need other capitals." },
 ];
 
-function sentenceTypes(_opts?: GenerateOptions): Question[] {
+function sentenceTypes(): Question[] {
   return fromBank(SENTENCE_TYPES, 8);
 }
 
@@ -70,7 +70,7 @@ const SOUND_PLAY: BankItem[] = [
   { prompt: "Rhymes make a poem fun to hear. Which pair rhymes?", right: "star and far", wrong: ["star and stop", "far and fun"], hint: "The ending sounds are the same in rhyming words." },
 ];
 
-function soundPlay(_opts?: GenerateOptions): Question[] {
+function soundPlay(): Question[] {
   return fromBank(SOUND_PLAY, 8);
 }
 
@@ -119,7 +119,7 @@ const PASSAGES: Passage[] = [
   },
 ];
 
-function thinkItThrough(_opts?: GenerateOptions): Question[] {
+function thinkItThrough(): Question[] {
   return passageQuestions(PASSAGES, "story", 8);
 }
 

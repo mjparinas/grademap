@@ -30,7 +30,7 @@ const GRAMMAR: BankItem[] = [
   { prompt: "She smiled ___ she won the game.", right: "because", wrong: ["or", "but"], hint: "Because gives the reason." },
 ];
 
-function grammar(_opts?: GenerateOptions): Question[] {
+function grammar(): Question[] {
   return fromBank(GRAMMAR, 8);
 }
 
@@ -51,7 +51,7 @@ const SENTENCES: BankItem[] = [
   { prompt: "Which sentence has the words in the best order?", right: "The little frog jumped into the pond.", wrong: ["Jumped the little frog into pond the.", "Into the little jumped frog pond the."], hint: "Say it out loud. The right order sounds natural." },
 ];
 
-function sentences(_opts?: GenerateOptions): Question[] {
+function sentences(): Question[] {
   return fromBank(SENTENCES, 8);
 }
 
@@ -71,7 +71,7 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which day of the week is written correctly?", right: "Wednesday", wrong: ["wednesday", "wednesDay"], hint: "Days of the week start with a capital letter." },
 ];
 
-function punctuation(_opts?: GenerateOptions): Question[] {
+function punctuation(): Question[] {
   return fromBank(PUNCTUATION, 8);
 }
 
@@ -90,7 +90,7 @@ const WORD_PICTURES: BankItem[] = [
   { prompt: "Complete the simile: as slow as a ___", right: "snail", wrong: ["rocket", "cheetah"], hint: "Pick something that moves very slowly." },
 ];
 
-function wordPictures(_opts?: GenerateOptions): Question[] {
+function wordPictures(): Question[] {
   return fromBank(WORD_PICTURES, 8);
 }
 
@@ -135,7 +135,7 @@ const PASSAGES: Passage[] = [
   },
 ];
 
-function readingDetectives(_opts?: GenerateOptions): Question[] {
+function readingDetectives(): Question[] {
   return passageQuestions(PASSAGES, "passage", 8);
 }
 

@@ -301,7 +301,7 @@ function data4(opts?: GenerateOptions): Question[] {
 
 // ---------- Chance and predictions ----------
 
-function chance4(opts?: GenerateOptions): Question[] {
+function chance4(): Question[] {
   const bag = () => {
     const total = pick([4, 5, 8, 10]);
     const red = randInt(1, total - 1);
@@ -425,7 +425,7 @@ function anglesArea4(opts?: GenerateOptions): Question[] {
 
 // ---------- Metric measurement ----------
 
-function metric4(opts?: GenerateOptions): Question[] {
+function metric4(): Question[] {
   const conv = (): Question => {
     const n = randInt(2, 9);
     return pick([

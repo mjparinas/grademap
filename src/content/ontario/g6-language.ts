@@ -1,6 +1,6 @@
 import { fromBank, type BankItem } from "../bank";
 import { shuffle } from "../random";
-import type { GenerateOptions, Question, Unit } from "../types";
+import type { Question, Unit } from "../types";
 import { on, type Passage, passageQuestions } from "./kit";
 
 // Ontario Grade 6 language (2023 curriculum). BC's close reading, point of view, figurative language,
@@ -26,7 +26,7 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which sentence changes the active voice sentence into passive? Sam read the book.", right: "The book was read by Sam.", wrong: ["Sam was read by the book.", "The book read Sam."], hint: "The book is the thing that received the action." },
 ];
 
-function grammar(_opts?: GenerateOptions): Question[] {
+function grammar(): Question[] {
   return fromBank(GRAMMAR, 8);
 }
 
@@ -47,7 +47,7 @@ const SENTENCES: BankItem[] = [
   { prompt: "Which sentence is best? The tree fell. The tree was old.", right: "The tree that fell was old.", wrong: ["The tree fell was old.", "The tree, fell, was old."], hint: "Join the ideas with that." },
 ];
 
-function sentences(_opts?: GenerateOptions): Question[] {
+function sentences(): Question[] {
   return fromBank(SENTENCES, 8);
 }
 
@@ -68,7 +68,7 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which formal letter closing is correct?", right: "Sincerely,", wrong: ["Sincerely:", "Sincerely;"], hint: "Closings end with a comma, even in formal letters." },
 ];
 
-function punctuation(_opts?: GenerateOptions): Question[] {
+function punctuation(): Question[] {
   return fromBank(PUNCTUATION, 8);
 }
 
@@ -118,7 +118,7 @@ const PASSAGES: Passage[] = [
   },
 ];
 
-function forms(_opts?: GenerateOptions): Question[] {
+function forms(): Question[] {
   return shuffle([...fromBank(FORMS, 5), ...passageQuestions(PASSAGES, "passage", 3)]);
 }
 

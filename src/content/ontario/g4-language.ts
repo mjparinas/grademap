@@ -1,6 +1,6 @@
 import { fromBank, type BankItem } from "../bank";
 import { shuffle } from "../random";
-import type { GenerateOptions, Question, Unit } from "../types";
+import type { Question, Unit } from "../types";
 import { on, type Passage, passageQuestions } from "./kit";
 
 // Ontario Grade 4 language (2023 curriculum). BC's reading, point of view, figurative language and
@@ -29,7 +29,7 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which pair is correct? ___ coat is on the hook and ___ boots are by the door.", right: "My, your", wrong: ["Me, you", "I, you"], hint: "My and your tell who owns something. They work like adjectives." },
 ];
 
-function grammar(_opts?: GenerateOptions): Question[] {
+function grammar(): Question[] {
   return fromBank(GRAMMAR, 8);
 }
 
@@ -54,7 +54,7 @@ const SENTENCES: BankItem[] = [
   { prompt: "Which sentence has the dependent clause at the end?", right: "I will wait here until you come back.", wrong: ["Until you come back, I will wait here.", "I will wait here."], hint: "Find the clause that begins with until." },
 ];
 
-function sentences(_opts?: GenerateOptions): Question[] {
+function sentences(): Question[] {
   return fromBank(SENTENCES, 8);
 }
 
@@ -77,7 +77,7 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which phrase is written correctly?", right: "the Canadian flag", wrong: ["the canadian flag", "the Canadian Flag"], hint: "Canadian comes from Canada. Capitalize it." },
 ];
 
-function punctuation(_opts?: GenerateOptions): Question[] {
+function punctuation(): Question[] {
   return fromBank(PUNCTUATION, 8);
 }
 
@@ -148,7 +148,7 @@ const PASSAGES: Passage[] = [
   },
 ];
 
-function textFeatures(_opts?: GenerateOptions): Question[] {
+function textFeatures(): Question[] {
   return shuffle([...fromBank(FEATURES, 4), ...passageQuestions(PASSAGES, "passage", 4)]);
 }
 

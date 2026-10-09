@@ -1,6 +1,6 @@
 import { fromBank, type BankItem } from "../bank";
 import { shuffle } from "../random";
-import type { GenerateOptions, Question, Unit } from "../types";
+import type { Question, Unit } from "../types";
 import { on, type Passage, passageQuestions } from "./kit";
 
 // Ontario Grade 5 language (2023 curriculum). BC's reading, plot, figurative language, text structure
@@ -28,7 +28,7 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which sentence has a reflexive pronoun?", right: "She taught herself to juggle.", wrong: ["She taught him to juggle.", "She likes to juggle."], hint: "Herself refers back to the subject, she." },
 ];
 
-function grammar(_opts?: GenerateOptions): Question[] {
+function grammar(): Question[] {
   return fromBank(GRAMMAR, 8);
 }
 
@@ -50,7 +50,7 @@ const SENTENCES: BankItem[] = [
   { prompt: "How many dependent clauses does this sentence have? When it rains, I read, but when it is sunny, I bike.", right: "2", wrong: ["1", "0"], hint: "When it rains and when it is sunny cannot stand alone." },
 ];
 
-function sentences(_opts?: GenerateOptions): Question[] {
+function sentences(): Question[] {
   return fromBank(SENTENCES, 8);
 }
 
@@ -70,7 +70,7 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which sentence is punctuated correctly?", right: "Walking into the room, Priya turned on the light.", wrong: ["Walking into the room Priya, turned on the light.", "Walking into the room Priya turned on the light."], hint: "A comma follows the opening participial phrase." },
 ];
 
-function punctuation(_opts?: GenerateOptions): Question[] {
+function punctuation(): Question[] {
   return fromBank(PUNCTUATION, 8);
 }
 
@@ -136,7 +136,7 @@ const PREFACE: BankItem[] = [
   { prompt: "What does a text feature such as a preface help a reader do?", right: "know what the book is about and why it was written", wrong: ["find a word's spelling", "see the page numbers"], hint: "A preface sets up the book." },
 ];
 
-function perspective(_opts?: GenerateOptions): Question[] {
+function perspective(): Question[] {
   return shuffle([...fromBank(STYLE, 3), ...fromBank(PREFACE, 1), ...passageQuestions(PASSAGES, "passage", 4)]);
 }
 

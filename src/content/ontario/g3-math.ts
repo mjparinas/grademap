@@ -206,7 +206,7 @@ function dataAndMean(opts?: GenerateOptions): Question[] {
 
 const TERMS = ["impossible", "unlikely", "equally likely", "likely", "certain"];
 
-function likelihood3(opts?: GenerateOptions): Question[] {
+function likelihood3(): Question[] {
   const bag = (): Question => {
     const cases = [
       { red: 6, blue: 0, ask: "red", term: "certain" },

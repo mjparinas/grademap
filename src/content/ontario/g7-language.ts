@@ -1,6 +1,6 @@
 import { fromBank, type BankItem } from "../bank";
 import { shuffle } from "../random";
-import type { GenerateOptions, Question, Unit } from "../types";
+import type { Question, Unit } from "../types";
 import { on, type Passage, passageQuestions } from "./kit";
 
 // Ontario Grade 7 language (2023 curriculum). BC's literary devices, close reading, tone, persuasion,
@@ -30,7 +30,7 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which word is a linking verb? The bread tastes fresh.", right: "tastes", wrong: ["bread", "fresh"], hint: "Here tastes links the subject to a word that describes it." },
 ];
 
-function grammar(_opts?: GenerateOptions): Question[] {
+function grammar(): Question[] {
   return fromBank(GRAMMAR, 8);
 }
 
@@ -53,7 +53,7 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which sentence is punctuated correctly?", right: "It was late; still, we stayed.", wrong: ["It was late: still we stayed.", "It was late, still; we stayed."], hint: "Semicolon before the conjunctive adverb, comma after it." },
 ];
 
-function punctuation(_opts?: GenerateOptions): Question[] {
+function punctuation(): Question[] {
   return fromBank(PUNCTUATION, 8);
 }
 
@@ -129,7 +129,7 @@ const PATTERN_PASSAGES: Passage[] = [
   },
 ];
 
-function patterns(_opts?: GenerateOptions): Question[] {
+function patterns(): Question[] {
   return shuffle([...fromBank(FEATURES, 4), ...passageQuestions(PATTERN_PASSAGES, "passage", 4)]);
 }
 
@@ -191,7 +191,7 @@ const VIEW: BankItem[] = [
   { prompt: "Which sentence is written in first person?", right: "I opened the door slowly.", wrong: ["She opened the door slowly.", "You opened the door slowly."], hint: "Look for I." },
 ];
 
-function view(_opts?: GenerateOptions): Question[] {
+function view(): Question[] {
   return shuffle([...fromBank(VIEW, 3), ...passageQuestions(VIEW_PASSAGES, "passage", 5)]);
 }
 

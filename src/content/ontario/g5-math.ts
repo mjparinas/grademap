@@ -4,7 +4,6 @@ import { buildSet, levelOf, on, others, numQ, range, spaced, typeIn } from "./ki
 
 // Ontario Grade 5 mathematics (2020 curriculum). Whole numbers go up to 100 000 and decimals to hundredths.
 
-const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
 
 /** Read-aloud says big numbers without the thin spaces. */
 function say<T extends Question>(q: T): T {

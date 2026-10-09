@@ -1,7 +1,7 @@
 import { COIN_NAMES } from "../money";
 import { chance, pick, randInt, sample, shuffle, textChoice } from "../random";
 import type { BuildQuestion, CoinsQuestion, GenerateOptions, OrderQuestion, Question, ShapeName, SortQuestion, Unit, Visual } from "../types";
-import { buildSet, eq, levelOf, NAMES, on, others, numQ, range, THINGS } from "./kit";
+import { buildSet, eq, levelOf, on, others, numQ, range, THINGS } from "./kit";
 
 // Ontario Grade 2 mathematics (2020 curriculum). Whole numbers go up to 200.
 

@@ -1,6 +1,6 @@
 import { fromBank, type BankItem } from "../bank";
 import { pick, sample, shuffle, textChoice } from "../random";
-import type { GenerateOptions, Question, Unit } from "../types";
+import type { Question, Unit } from "../types";
 import { on, type Passage, passageQuestions } from "./kit";
 
 // Ontario Grade 3 language (2023 curriculum). BC's phonics, spelling, word-part and story units are
@@ -31,7 +31,7 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which sentence has an interjection?", right: "Oops! I dropped my cup.", wrong: ["I dropped my cup.", "My cup is on the floor."], hint: "Oops! shows a quick feeling at the start of the sentence." },
 ];
 
-function grammar(_opts?: GenerateOptions): Question[] {
+function grammar(): Question[] {
   return fromBank(GRAMMAR, 8);
 }
 
@@ -56,7 +56,7 @@ const SENTENCES: BankItem[] = [
   { prompt: "What does the word while show?", right: "two things happening at the same time", wrong: ["a choice", "a reason"], hint: "While means during the time that something else is happening." },
 ];
 
-function sentences(_opts?: GenerateOptions): Question[] {
+function sentences(): Question[] {
   return fromBank(SENTENCES, 8);
 }
 
@@ -82,7 +82,7 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Many girls own the team. Which is correct?", right: "The girls' team won the game.", wrong: ["The girl's team won the game.", "The girls team's won the game."], hint: "Many girls own one team, so put the apostrophe after the s." },
 ];
 
-function punctuation(_opts?: GenerateOptions): Question[] {
+function punctuation(): Question[] {
   return fromBank(PUNCTUATION, 8);
 }
 
@@ -106,7 +106,7 @@ const DEVICES: BankItem[] = [
   { prompt: "Which sentence sounds like it was written by someone who is excited?", right: "We won! I can't believe it!", wrong: ["The game ended.", "There was a game on Saturday."], hint: "Short bursts and exclamation marks show strong feeling. That is the writer's voice." },
 ];
 
-function devices(_opts?: GenerateOptions): Question[] {
+function devices(): Question[] {
   return fromBank(DEVICES, 8);
 }
 
@@ -211,7 +211,7 @@ function indexQuestions(count: number): Question[] {
   return shuffle(makers).slice(0, count).map((m) => m());
 }
 
-function textPatterns(_opts?: GenerateOptions): Question[] {
+function textPatterns(): Question[] {
   return shuffle([...passageQuestions(PASSAGES, "passage", 5), ...indexQuestions(3)]);
 }
 
