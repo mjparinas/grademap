@@ -40,6 +40,9 @@ const nextConfig: NextConfig = {
   // so the sync, account and billing APIs can live alongside the site.
   trailingSlash: true,
   images: { unoptimized: true },
+  // Vercel sets VERCEL=1 at build time. Its analytics script only exists there, so elsewhere
+  // (local, CI, other hosts) we don't load it and avoid failed script requests.
+  env: { NEXT_PUBLIC_ON_VERCEL: process.env.VERCEL ? "1" : "" },
   serverExternalPackages: ["@libsql/client", "libsql"],
   turbopack: {
     // Pin the project root so Turbopack never picks up a lockfile from a parent folder.

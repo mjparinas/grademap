@@ -12,5 +12,6 @@ function beforeSend(event: BeforeSendEvent): BeforeSendEvent | null {
 }
 
 export function SiteAnalytics() {
+  if (!process.env.NEXT_PUBLIC_ON_VERCEL) return null;
   return <Analytics beforeSend={beforeSend} />;
 }
