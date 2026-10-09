@@ -50,7 +50,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <AppEffects />
         {children}
-        <SpeedInsights />
+        {/* The script is only served by Vercel, so skip it in local and CI builds. */}
+        {process.env.VERCEL ? <SpeedInsights /> : null}
       </body>
     </html>
   );
