@@ -72,6 +72,12 @@ export default function PrivacyPage() {
             <strong>Stripe</strong>, to take payments and manage subscriptions. Stripe receives your email and payment details under its own privacy policy.
           </li>
           <li>
+            <strong>Resend</strong>, to deliver the emails we send you (such as password resets). It receives your email address and the message.
+          </li>
+          <li>
+            <strong>Sentry</strong>, to tell us when the app crashes. Error reports are stripped of names, email addresses, cookies and what was typed or tapped before they leave your device or our server, and are not used for anything else.
+          </li>
+          <li>
             <strong>Our hosting and database providers</strong>, which store the account and progress data described above on our behalf.
           </li>
         </ul>

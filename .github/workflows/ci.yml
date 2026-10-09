@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Tests, lint, types, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx next typegen
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      # The device e2e job reuses this build.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: next-build
+          path: |
+            .next
+            public
+          include-hidden-files: true
+          retention-days: 1
+
+  e2e:
+    name: Browser tests (devices, offline)
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: next-build
+      - name: Install Playwright browsers
+        run: |
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium webkit
+      - name: Run the browser tests
+        run: |
+          npm start &
+          SERVER=$!
+          trap 'kill $SERVER 2>/dev/null || true' EXIT
+          npx --yes wait-on http://localhost:3000/play/ --timeout 60000
+          node scripts/e2e-devices.mjs http://localhost:3000
+          node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline
+          # The offline test starts its own server, so stop this one first.
+          kill $SERVER
+          wait $SERVER 2>/dev/null || true
+          node scripts/e2e-offline.mjs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-screenshots
+          path: e2e-shots
+          retention-days: 7
