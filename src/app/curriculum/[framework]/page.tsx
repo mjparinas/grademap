@@ -62,6 +62,10 @@ export default async function FrameworkPage({ params }: PageProps<"/curriculum/[
         <Link href={`/report-cards/${f.slug}/`} className="font-semibold text-[#2f6fd6] underline">
           Read our {f.shortName} report card guide
         </Link>
+        . New to the {f.shortName} curriculum? Start with our{" "}
+        <Link href={`/guides/${f.slug}/`} className="font-semibold text-[#2f6fd6] underline">
+          parent guides and free practice sheets
+        </Link>
         .
       </p>
     </SitePage>

@@ -6,6 +6,7 @@ import { ReportCardGuide } from "@/components/ReportCardGuide";
 import { breadcrumbJsonLd, faqJsonLd } from "@/components/site/jsonld";
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { curriculumPath, frameworkBySlug } from "@/components/site/curriculum";
+import { guidePath } from "@/components/site/guides";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { APP_NAME } from "@/lib/brand";
 import { JsonLd } from "@/lib/site";
@@ -50,6 +51,12 @@ export default async function ReportCardsPage({ params }: PageProps<"/report-car
             </Link>
             <Link href={curriculumPath.framework(f)} className="font-semibold text-[#2f6fd6] underline">
               Browse the {f.curriculumName}
+            </Link>
+            <Link href={guidePath.competencies(f)} className="font-semibold text-[#2f6fd6] underline">
+              {f.shortName} Core Competencies explained
+            </Link>
+            <Link href={guidePath.hub(f)} className="font-semibold text-[#2f6fd6] underline">
+              More {f.shortName} parent guides
             </Link>
           </div>
         </aside>
