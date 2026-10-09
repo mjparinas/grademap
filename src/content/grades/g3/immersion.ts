@@ -161,7 +161,7 @@ export const course: Course = {
   subject: "immersion",
   bigIdeas: {
     "ca-bc": [
-      "Making connections between personal experiences and the experiences of others helps us understand and respond to a message.",
+      "Making connections between personal experiences and the experiences of others can help us to better understand and respond to a message.",
       "Texts present cultural elements that allow us to experience or understand different viewpoints.",
       "The structure and textual cues, as well as the words, all help to convey the message.",
       "Fairy and folk tales illustrate universal aspects of human life.",

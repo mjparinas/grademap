@@ -179,10 +179,10 @@ export const course: Course = {
   bigIdeas: {
     "ca-bc": [
       "One's self-image is revealed by one's choice of message and the way it is communicated.",
-      "Cultural diversity in texts mirrors the diversity within society.",
-      "Readers can uncover the subtler meanings of a text by making inferences.",
-      "Characters are shaped by their own traits and by how others perceive them.",
-      "Stylistic devices and precise vocabulary produce distinctive effects.",
+      "The diversity of cultural elements in texts reflects the cultural diversity within society.",
+      "The nuances in a text can be discovered through inferences.",
+      "Characters are defined by who they are, but also by how others see them.",
+      "The use of stylistic devices and specific vocabulary creates unique effects.",
     ],
   },
   units: [

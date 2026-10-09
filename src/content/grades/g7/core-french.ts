@@ -178,10 +178,10 @@ export const course: Course = {
     "ca-bc": [
       "Listening and viewing with intent helps us increase our understanding of French.",
       "Using various strategies helps us understand and acquire language.",
-      "With simple French, we can describe others and their interests.",
-      "Reciprocal communication in French is possible using high-frequency vocabulary and sentence structures.",
-      "Stories help us acquire language and understand the world around us, including our thoughts, feelings, culture and identity.",
-      "Learning about Francophone communities helps us develop cultural awareness.",
+      "With simple French, we can discuss our interests.",
+      "Reciprocal interactions are possible even with limited French.",
+      "Stories help us to acquire language and understand the world around us.",
+      "Deepening our knowledge of Francophone communities helps us develop cultural awareness.",
     ],
   },
   units: [

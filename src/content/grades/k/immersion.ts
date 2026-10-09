@@ -197,8 +197,8 @@ export const course: Course = {
   bigIdeas: {
     "ca-bc": [
       "A new language is acquired by listening to and reproducing the models introduced by the teacher.",
-      "Politeness, listening and letting others speak support communication and respect.",
-      "Images help convey meaning and make a text easier to understand.",
+      "Observing codes of politeness, knowing how to listen and letting others speak are practices that facilitate communication and promote respect.",
+      "Images convey meaning and facilitate the understanding of a text.",
       "Each letter has its own graphic representation and its own sound.",
     ],
   },

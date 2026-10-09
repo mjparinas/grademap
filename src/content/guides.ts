@@ -31,7 +31,18 @@ export interface GradeNote {
   lookFor: string;
 }
 
+export interface FrenchGuide {
+  title: string;
+  intro: string;
+  /** Core French and French Immersion side by side. */
+  compare: { title: string; core: string; immersion: string }[];
+  sections: { title: string; body: string }[];
+  atHome: string[];
+  faqs: { q: string; a: string }[];
+}
+
 export interface FrameworkGuides {
+  french: FrenchGuide;
   competencies: { title: string; intro: string; items: Competency[]; faqs: { q: string; a: string }[] };
   assessment: Assessment;
   gradeNotes: Record<GradeId, GradeNote>;
@@ -228,6 +239,39 @@ const BC_GUIDES: FrameworkGuides = {
         q: "How can I help my child with their self-assessment?",
         a: "Ask open questions: What are you proud of? What was tricky? What is one thing you want to get better at? Then let your child use their own words. Teachers care more about honest reflection than a polished answer.",
       },
+    ],
+  },
+  french: {
+    title: "Core French and French Immersion in BC: a guide for parents",
+    intro:
+      "Many BC families wonder how Core French and French Immersion differ, when each starts, and how to help at home if you don't speak French. Both follow the BC curriculum, and GradeMap practises both as optional subjects you can switch on for each child.",
+    compare: [
+      { title: "What it is", core: "French as one school subject, taught a few times a week alongside classes in English.", immersion: "A program where much of the school day, including subjects such as math and science, is taught in French." },
+      { title: "When it starts", core: "Core French starts in Grade 5 in BC.", immersion: "Early French Immersion usually begins in Kindergarten or Grade 1. Some districts also offer late immersion, often in Grade 6." },
+      { title: "Who it suits", core: "Every child can learn some French. No earlier French is needed.", immersion: "Families who want their child to become fluent. Programs and entry points differ by district, so check with yours." },
+      { title: "Name in the curriculum", core: "BC Core French", immersion: "Français langue seconde – immersion" },
+      { title: "In GradeMap", core: "Grades 5 to 7. Prompts are in English, with French words and sentences to read, choose and build.", immersion: "Kindergarten to Grade 7. Prompts and stories are in French, with English hints for parents." },
+    ],
+    sections: [
+      { title: "What Core French children learn", body: "Core French builds everyday communication: greetings, numbers, family, school, food, weather, hobbies and describing people and places. In the upper grades children start to write short texts, use common verbs and ask and answer questions. The aim is confidence with simple, real conversations." },
+      { title: "What French Immersion children learn", body: "In immersion, children learn to listen, speak, read and write in French, and learn other subjects in French too. Younger children start with songs, stories and routines, then move on to sentences, paragraphs and longer texts as the grades go on. English reading and writing are taught as well. How much is in French in each grade depends on the school district." },
+      { title: "How report cards describe French", body: "French is reported on the same four-level scale as other subjects: Emerging, Developing, Proficient and Extending. Teachers look at listening, speaking, reading and writing together. GradeMap shows practice, not a report card mark, so ask your child's teacher what the level means for your child." },
+      { title: "Helping if you don't speak French", body: "You don't need French to help. Ask your child to teach you a word each day, listen while they read aloud, and celebrate effort over accuracy. Mistakes are a normal part of learning a language." },
+      { title: "How GradeMap fits in", body: "French is off by default. A parent can switch on Immersion, Core French or both for each child in Settings, under Subjects. French is not counted toward the Grade Champion trophy, and French lessons are read aloud with a French voice from your device. You can pick that voice in Settings." },
+    ],
+    atHome: [
+      "Pick one new French word each day and use it at dinner or on the way to school.",
+      "Label a few household objects with sticky notes in French.",
+      "Listen to French songs or watch a short French video together and talk about what you noticed.",
+      "Ask your child to read a page aloud in French, then retell it to you in English.",
+      "Play a French game: count stairs, name colours, or spell a word out loud.",
+    ],
+    faqs: [
+      { q: "When does Core French start in BC?", a: "Core French begins in Grade 5. Your school or district can tell you how much time it gets each week." },
+      { q: "Can my child start French Immersion later?", a: "Some districts offer late immersion, often starting in Grade 6, and some have limited spaces in other grades. Entry rules differ, so ask your district office." },
+      { q: "Will French Immersion hurt my child's English?", a: "English reading and writing are still taught in immersion, and research has generally found that immersion students do well in English. If you are worried, talk with your child's teacher." },
+      { q: "Do French marks count toward the Grade Champion trophy in GradeMap?", a: "No. French is a separate, optional set of subjects. Children earn their own French trophies instead." },
+      { q: "Does GradeMap replace French class?", a: "No. It gives short, kind practice that matches the topics in the BC curriculum. It doesn't replace a teacher, and its levels are not a report card mark." },
     ],
   },
   assessment: {

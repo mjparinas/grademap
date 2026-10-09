@@ -107,6 +107,10 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Two opt-in subjects, off by default** (a parent turns them on per child in Settings > Subjects): `immersion` (BC *Français langue seconde – immersion*, Kindergarten to Grade 7) and `core-french` (BC Core French, Grades 5 to 7, since Core French starts in Grade 5).
 - **They never count toward "every unit in your grade" goals or the Grade Champion trophy** (`isCoreSubject`), and reports only list French units once a child has started them.
 - **Immersion prompts are in French and set `lang: "fr"`**, so read-aloud uses a French voice (`speak(text, uri, "fr")`). Hints stay in English for parents. Core French prompts are in English with French answers.
+- **Big Ideas are copied word for word from the official BC PDFs** (Immersion K–7: `en_fral_k-9_elab.pdf`; Core French: `en_languages_5-10_core-french.pdf`). Competencies and content are still to be reviewed by a French teacher.
+- **French read-aloud** (`src/lib/readaloud.ts`) speaks each part of a question in its own language: Immersion prompts are French; Core French prompts are English with French marked in « » (`tagCoreFrench`), and `choicesLang`/`visualLang` mark French choices and stories. Parents pick a separate French voice in Settings (`grademap.voice.fr`, per device). Hints are always read in the English voice.
+- **French trophies** (8, category "French") live in their own `FRENCH_TROPHIES` list in `src/lib/trophies.ts`; French still doesn't count toward Grade Champion.
+- **Parent guide:** `/guides/bc/french/` compares Core French and French Immersion.
 - **Verify French against curriculum.gov.bc.ca** (`/curriculum/fral/{grade}/core` and `/curriculum/core-french/{grade}`) and have a French teacher review the wording before launch.
 
 ### Ages
@@ -150,7 +154,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Session bonuses: +15 per session, +25 when perfect, +40 for the Daily Challenge, +30 for passing a Challenge.
   - Level *n* needs `80 + 40(n−1)` XP.
 - **Coins** come from correct answers, sessions, games, trophies and quests. They're spent in a pretend shop on critter companions, titles and confetti styles.
-- **Trophies:** 57 of them (`src/lib/trophies.ts`) in Xbox/PlayStation-style tiers.
+- **Trophies:** 65 of them, 8 of them French (a "French" group kept in its own list) (`src/lib/trophies.ts`) in Xbox/PlayStation-style tiers.
 
   | Tier | Points | Coins |
   | --- | --- | --- |

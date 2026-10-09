@@ -173,10 +173,10 @@ export const course: Course = {
   bigIdeas: {
     "ca-bc": [
       "Listening and viewing with intent helps us begin to understand French.",
-      "Verbal and non-verbal cues both contribute meaning in language.",
+      "Both verbal and non-verbal cues contribute meaning in language.",
       "With simple French, we can describe ourselves and our interests.",
-      "Communication in French is possible using high-frequency vocabulary and sentence structures.",
-      "Stories help us acquire language.",
+      "Reciprocal communication in French is possible using high-frequency vocabulary and sentence structures.",
+      "Stories help us to acquire language.",
       "Each culture has traditions and ways of celebrating.",
     ],
   },

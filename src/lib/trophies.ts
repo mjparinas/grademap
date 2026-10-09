@@ -21,7 +21,7 @@ export const TIER_STYLE: Record<Tier, { label: string; colour: string; dark: str
   platinum: { label: "Platinum", colour: "#8fd3f0", dark: "#3d93b8", glow: "#e0f6ff", text: "#1f6a8a" },
 };
 
-export type TrophyCategory = "Getting started" | "Practice" | "Streaks" | "Mastery" | "Modes" | "Arcade" | "Collector" | "Secret";
+export type TrophyCategory = "Getting started" | "Practice" | "Streaks" | "Mastery" | "Modes" | "Arcade" | "Collector" | "French" | "Secret";
 
 export interface TrophyContext {
   grade: GradeId;
@@ -54,15 +54,32 @@ function unitsInGrade(grade: GradeId, subject?: SubjectId): number {
 const ALL_MODES: Mode[] = ["practice", "adventure", "review", "speed", "daily", "challenge"];
 export const ARCADE_GAMES = ["munchers", "ninja", "catch", "bubbles", "memory"];
 
-const subjectMastery = (subject: SubjectId, name: string, icon: string, description: string): Trophy => ({
+const subjectMastery = (subject: SubjectId, name: string, icon: string, description: string, category: TrophyCategory = "Mastery"): Trophy => ({
   id: `master-${subject}`,
   name,
   description,
   tier: "gold",
   icon,
-  category: "Mastery",
+  category,
   progress: (d, ctx) => ({ value: unitsAtLevel(d, ctx.grade, 2, subject), target: Math.max(1, unitsInGrade(ctx.grade, subject)) }),
 });
+
+// French (opt-in subjects). Kept in their own list so they are easy to maintain separately.
+const frenchAnswers = (d: Derived) => (d.subjects.immersion?.answers ?? 0) + (d.subjects["core-french"]?.answers ?? 0);
+const frenchCorrect = (d: Derived) => (d.subjects.immersion?.correct ?? 0) + (d.subjects["core-french"]?.correct ?? 0);
+const frenchUnits = (d: Derived, grade: GradeId, min: number) =>
+  unitsAtLevel(d, grade, min, "immersion") + unitsAtLevel(d, grade, min, "core-french");
+
+const FRENCH_TROPHIES: Trophy[] = [
+  { id: "french-first", name: "Bonjour!", description: "Answer your first French question.", tier: "bronze", icon: "👋", category: "French", progress: count(1, frenchAnswers) },
+  { id: "french-100", name: "Petit à petit", description: "Answer 100 French questions.", tier: "silver", icon: "🥐", category: "French", progress: count(100, frenchAnswers) },
+  { id: "french-500", name: "Très bien!", description: "Get 500 French questions right.", tier: "gold", icon: "🥖", category: "French", progress: count(500, frenchCorrect) },
+  { id: "french-proficient-1", name: "French Sprout", description: "Reach Proficient in any French unit.", tier: "bronze", icon: "🌿", category: "French", progress: count(1, (d, ctx) => frenchUnits(d, ctx.grade, 2)) },
+  { id: "french-proficient-5", name: "Parlez-vous?", description: "Reach Proficient in 5 French units.", tier: "silver", icon: "💬", category: "French", progress: count(5, (d, ctx) => frenchUnits(d, ctx.grade, 2)) },
+  { id: "french-extending-1", name: "Étoile du français", description: "Reach Extending in any French unit.", tier: "silver", icon: "⭐", category: "French", progress: count(1, (d, ctx) => frenchUnits(d, ctx.grade, 3)) },
+  subjectMastery("immersion", "Maître du français", "🎓", "Reach Proficient in every French Immersion unit in your grade.", "French"),
+  subjectMastery("core-french", "Core French Champion", "🍁", "Reach Proficient in every Core French unit in your grade.", "French"),
+];
 
 export const TROPHIES: Trophy[] = [
   // Getting started
@@ -140,6 +157,8 @@ export const TROPHIES: Trophy[] = [
   { id: "buy-1", name: "Shopper", description: "Buy something in the shop.", tier: "bronze", icon: "🛍️", category: "Collector", progress: count(1, (d) => d.owned.length) },
   { id: "collect-6", name: "Collector", description: "Own 6 shop items.", tier: "silver", icon: "🧸", category: "Collector", progress: count(6, (d) => d.owned.length) },
   { id: "coins-1000", name: "Treasure Hunter", description: "Earn 1,000 coins in total.", tier: "silver", icon: "💰", category: "Collector", progress: count(1000, (d) => d.coinsEarned) },
+
+  ...FRENCH_TROPHIES,
 
   // Secret
   { id: "early-bird", name: "Early Bird", description: "Finish a session before 8 a.m.", tier: "bronze", icon: "🐦", category: "Secret", hidden: true, progress: count(1, (d) => d.earlySessions) },

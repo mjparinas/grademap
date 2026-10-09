@@ -176,9 +176,9 @@ export const course: Course = {
   bigIdeas: {
     "ca-bc": [
       "The impact of a message largely depends on the author's word choices and style.",
-      "Discovering other cultures encourages us to examine our own values.",
+      "Discovering other cultures encourages us to examine our own mores and values.",
       "Asking questions allows us to connect ideas and develop our ability to think critically.",
-      "The author of a message transports the audience to a unique world that reflects the author's experiences and imagination.",
+      "The author transports the audience to a unique world that is a reflection of the former's experiences and imagination.",
       "Reflecting on the form of the language improves the coherence of the message.",
     ],
   },

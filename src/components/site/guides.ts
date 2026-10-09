@@ -14,6 +14,7 @@ export const guidePath = {
   worksheet: (f: Framework, g: GradeId, s: SubjectId) => `/guides/${f.slug}/${gradeSlug(g)}/${s}/worksheet/`,
   competencies: (f: Framework) => `/guides/${f.slug}/core-competencies/`,
   assessment: (f: Framework) => `/guides/${f.slug}/fsa/`,
+  french: (f: Framework) => `/guides/${f.slug}/french/`,
   compareIndex: () => "/compare/",
   compare: (slug: string) => `/compare/${slug}/`,
 };
@@ -25,6 +26,7 @@ export function allGuidePaths(): { path: string; priority: number }[] {
     out.push({ path: guidePath.hub(f), priority: 0.8 });
     out.push({ path: guidePath.competencies(f), priority: 0.8 });
     out.push({ path: guidePath.assessment(f), priority: 0.8 });
+    out.push({ path: guidePath.french(f), priority: 0.8 });
     for (const g of gradesWithContent(f)) {
       out.push({ path: guidePath.grade(f, g), priority: 0.8 });
       for (const c of coursesFor(f, g)) {
