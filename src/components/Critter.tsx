@@ -40,6 +40,9 @@ export const CRITTERS: CritterDef[] = [
   { id: "maple", name: "Maple", species: "moose", fur: "#8a5a3b", furDark: "#5f3b24", face: "#c89a72", belly: "#c89a72", ears: "small", nose: "snout", noseColour: "#5f3b24", extras: ["antlers"] },
   { id: "shelly", name: "Shelly", species: "turtle", fur: "#5cc28a", furDark: "#3a9a68", face: "#a8e6c1", belly: "#f3e3a2", ears: "none", nose: "button", noseColour: "#2f6b4a", extras: ["turtle"] },
   { id: "bao", name: "Bao", species: "panda", fur: "#ffffff", furDark: "#2b2f36", face: "#ffffff", belly: "#ffffff", ears: "round", nose: "button", noseColour: "#2b2f36", extras: ["panda"] },
+  { id: "marlo", name: "Marlo", species: "marmot", fur: "#b9a58a", furDark: "#8d7a5f", face: "#f1e6d2", belly: "#f1e6d2", ears: "small", nose: "button", noseColour: "#3d2a20", extras: ["teeth"] },
+  { id: "willow", name: "Willow", species: "wolf", fur: "#8d97a8", furDark: "#5f6877", face: "#e6ebf2", belly: "#e6ebf2", ears: "pointy", earInner: "#414857", nose: "button", noseColour: "#2b2f36", extras: ["scarf"] },
+  { id: "frost", name: "Frost", species: "arctic fox", fur: "#f4f8fc", furDark: "#c5d3e3", face: "#ffffff", belly: "#ffffff", ears: "pointy", earInner: "#9db4cf", nose: "button", noseColour: "#2b2f36", extras: [] },
   { id: "nori", name: "Nori", species: "narwhal", fur: "#7fa6d6", furDark: "#5a84b8", face: "#dbe9fa", belly: "#dbe9fa", ears: "none", nose: "button", noseColour: "#3a5a85", extras: ["horn"] },
 ];
 

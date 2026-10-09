@@ -126,6 +126,7 @@ export function SettingsPage({ childId }: { childId?: string }) {
         <Panel title="🔊 Sound & reading">
           <div className="flex flex-col gap-3">
             <Switch label="Sounds" value={s.sound} onChange={(v) => set({ sound: v })} help="Clicks, chimes and celebrations." />
+            <Switch label="Vibration" value={s.haptics !== false && !s.calmMotion} onChange={(v) => set({ haptics: v })} help="A light buzz on taps and answers. Works on Android phones and tablets; iPhones and iPads do not support it. Off whenever motion is calmed." />
             <Switch label="Read questions out loud" value={s.autoRead} onChange={(v) => set({ autoRead: v })} help="On by default for Kindergarten and Grade 1. Kids can always tap 🔊 to hear a question." />
           </div>
         </Panel>

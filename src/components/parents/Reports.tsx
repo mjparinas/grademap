@@ -1,5 +1,6 @@
 "use client";
 
+import { Milestones } from "./Milestones";
 import { useMemo, useState } from "react";
 import { getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, getSubjectMeta, SUBJECTS } from "@/content/subjects";
@@ -51,6 +52,8 @@ export function ReportsPage({ childId }: { childId?: string }) {
       <div className="print:hidden">
         <ChildTabs base="reports" current={child} />
       </div>
+
+      <Milestones p={child} />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StatTile
