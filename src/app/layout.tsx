@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Andika, Fredoka } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AppEffects } from "@/components/AppEffects";
 import { APP_NAME } from "@/lib/brand";
 import { SITE_URL } from "@/lib/site";
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <AppEffects />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
