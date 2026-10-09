@@ -80,10 +80,16 @@ export function Hud() {
           className={`flex h-16 items-center gap-1 rounded-2xl px-3 text-xl font-bold shadow-[0_4px_0_var(--color-line)] ${
             d.streak.activeToday ? "bg-nudge-soft text-nudge-dark" : "bg-white text-ink-soft"
           }`}
-          aria-label={`${d.streak.current} day streak`}
+          aria-label={`${d.streak.current} day streak${d.streak.shields ? `, ${d.streak.shields} rest-day shields` : ""}`}
         >
-          <span className={d.streak.activeToday ? "animate-wiggle" : "grayscale"}>🔥</span>
+          <span className={d.streak.activeToday ? "animate-wiggle" : "grayscale"}>{d.streak.current >= 3 ? "🥞" : "🔥"}</span>
           {d.streak.current}
+          {d.streak.current >= 7 && <span aria-hidden="true">🍁</span>}
+          {d.streak.shields > 0 && (
+            <span className="text-base" title={`${d.streak.shields} rest-day shield${d.streak.shields === 1 ? "" : "s"}`} aria-hidden="true">
+              🛡️{d.streak.shields}
+            </span>
+          )}
         </span>
         <button type="button" className="btn h-16 gap-1 px-3 text-xl" onClick={() => go("/trophies")} aria-label={`${trophies} trophies`}>
           🏆 {trophies}

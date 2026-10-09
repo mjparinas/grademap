@@ -16,6 +16,7 @@ import { Arcade, GameScreen } from "./Arcade";
 import { Hub } from "./Hub";
 import { SpeedPicker, SubjectPicker, UnitList } from "./Practice";
 import { PlacementTest } from "./PlacementTest";
+import { SecretsListener } from "./Secrets";
 import { Session } from "./Session";
 import { Shop } from "./Shop";
 import { FirstRun, Picker } from "./Start";
@@ -79,6 +80,7 @@ export function PlayApp() {
           <Screen />
         </div>
         <Toasts />
+        <SecretsListener />
       </BandProvider>
     </ContentGate>
   );

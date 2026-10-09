@@ -373,7 +373,7 @@ function Runner({ plan }: { plan: Plan }) {
         </button>
       </header>
 
-      <section ref={stage} key={index} className="flex flex-1 flex-col gap-5 py-5">
+      <section ref={stage} key={index} className={`flex flex-1 flex-col gap-5 py-5 ${run === 11 ? "animate-flip" : ""}`}>
         <div className="flex animate-rise-in items-start gap-2 sm:gap-4">
           <Critter id={guide && band !== "little" ? subjectGuide(guide, companion) : companion} mood={mood} size={band === "little" ? 110 : 88} className="sm:hidden" />
           <Critter id={guide && band !== "little" ? subjectGuide(guide, companion) : companion} mood={mood} size={band === "little" ? 140 : 116} className="hidden sm:block" />
