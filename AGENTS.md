@@ -178,6 +178,13 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Share a report:** a parent can create a read-only link (30 days, revocable) to one child's report. It is served from `/shared/{token}/`, never indexed.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 
+### Classroom mode (`/teachers/`)
+- **A teacher is an ordinary account** that creates classes (`classes`, `class_members`, `class_assignments`). No billing change: classes are free for now.
+- **Students join by code, and the parent decides.** A parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that, and the teacher only sees first name, avatar, grade, and level, accuracy and attempts on the units they assigned.
+- Closing a class, leaving it, removing a child and deleting an account all remove the links. Retention rules for school use are not decided; ask before adding any.
+- Teacher screens are labelled as practice, not a report-card mark. `/teachers/` is `noindex` and disallowed in `robots.ts`.
+- **Not built yet:** showing assigned units to the child in `/play/`, teacher-created (parentless) students, a school or teacher plan, and classroom wording in `/privacy/` and `/terms/`.
+
 ### Privacy
 - **We store very little about each child:**
   - a first name or nickname;
