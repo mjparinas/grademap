@@ -34,7 +34,14 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      // Unhashed static files: a day in the browser, a week stale-while-revalidate. Not sw.js, which must stay fresh.
+      {
+        source: "/:file(icon-192\\.png|icon-512\\.png|icon-maskable-512\\.png|apple-touch-icon\\.png|icon\\.svg)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
+    ];
   },
   // Runs as a normal Next.js server (pages are still pre-rendered where possible)
   // so the sync, account and billing APIs can live alongside the site.
