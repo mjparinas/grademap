@@ -1,25 +1,12 @@
 import path from "node:path";
 import type { NextConfig } from "next";
+import { DEV_POLICY, HEADER_POLICY } from "./src/lib/csp.mjs";
 
 const isDev = process.env.NODE_ENV === "development";
 
-// A fixed policy (no per-request nonce) so pages stay statically generated and cacheable offline.
-// Error reports go to Sentry's ingest hosts only when a DSN is configured.
-const csp = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
-  "font-src 'self' data:",
-  "media-src 'self' blob: data:",
-  "connect-src 'self' https://*.ingest.sentry.io https://*.ingest.us.sentry.io https://*.ingest.de.sentry.io",
-  "worker-src 'self' blob:",
-  "manifest-src 'self'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-].join("; ");
+// Production has no 'unsafe-inline': each page's own policy is written into it after the build
+// (scripts/csp-postbuild.mjs), and the header carries what a <meta> tag can't. See src/lib/csp.mjs.
+const csp = isDev ? DEV_POLICY : HEADER_POLICY;
 
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
