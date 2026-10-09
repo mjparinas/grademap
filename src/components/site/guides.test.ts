@@ -29,13 +29,13 @@ describe("guide pages", () => {
 
   it("has guide copy for every framework and grade", () => {
     for (const f of FRAMEWORKS) {
-      const g = GUIDES[f.id];
-      if (!g) continue;
-      expect(g).toBeDefined();
+      const g = GUIDES[f.id]!;
+      // Every province gets the full set of guides (see "Public pages and SEO" in AGENTS.md).
+      expect(g, `guides for ${f.id}`).toBeDefined();
       for (const grade of GRADE_ORDER.filter((x) => f.grades.includes(x))) expect(g.gradeNotes[grade]?.overview.length).toBeGreaterThan(40);
       expect(g.competencies.items.length).toBeGreaterThan(0);
       expect(g.assessment.faqs.length).toBeGreaterThan(0);
-      if (g.french) expect(g.french.faqs.length).toBeGreaterThan(0);
+      expect(g.french?.faqs.length ?? 0, `French guide for ${f.id}`).toBeGreaterThan(0);
     }
   });
 

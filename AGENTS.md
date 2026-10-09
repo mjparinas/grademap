@@ -169,7 +169,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Session bonuses: +15 per session, +25 when perfect, +40 for the Daily Challenge, +30 for passing a Challenge.
   - Level *n* needs `80 + 40(n−1)` XP.
 - **Coins** come from correct answers, sessions, games, trophies and quests. They're spent in a pretend shop on critter companions, titles and confetti styles.
-- **Trophies:** about 150 of them, including a French group kept in its own list (`src/lib/trophies.ts`), in Xbox/PlayStation-style tiers. Everything a child can do has a trophy: every subject (a practice ladder for each of math, language, science, social studies and both French subjects), every mode, every arcade game, streaks, levels, shop, and mastery for every grade and subject.
+- **Trophies:** 186 in the list, about 115 visible to a child at any one grade (mastery trophies are per grade), including a French group kept in its own list (`src/lib/trophies.ts`), in Xbox/PlayStation-style tiers. Everything a child can do has a trophy: every subject (a practice ladder for each of math, language, science, social studies and both French subjects), every mode, every arcade game, streaks, levels, shop, and mastery for every grade and subject.
 
   | Tier | Points | Coins |
   | --- | --- | --- |
