@@ -28,7 +28,8 @@ node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCA
 
 Before you push, run tests, lint and typecheck. For UI or flow changes, also run the e2e scripts.
 
-- **Playwright:** the scripts need `playwright` (`npm i --no-save playwright && npx playwright install chromium webkit`).
+- **Playwright** is a dev dependency, pinned. Install the browsers once with `npx playwright install chromium webkit` (on Linux add `npx playwright install-deps`).
+- **CI** (`.github/workflows/ci.yml`) runs types, lint, unit tests and the build in parallel, then the browser tests in parallel on separate machines (device layouts in three shards, accessibility, playthrough, offline). Require the "CI passed" job in branch protection.
 - **Stale styles:** if a change to `globals.css` (`@theme`, `@custom-variant`) doesn't show up in a build, delete `.next` and rebuild.
 
 ### What the e2e scripts cover
@@ -126,6 +127,7 @@ Tests are duplicated across screen sizes only where layout can break:
 ### Feedback
 - **A wrong answer gets a hint and another try.** A second miss shows the answer with an explanation.
 - **Only first-try answers count** toward accuracy, stars and proficiency. Stars never go down.
+- **A hint opened before answering counts like a retry** (`hinted` on the answer event): no first-try credit, 4 XP instead of 10, and it isn't a "comeback". A parent can turn on "Hints count as first try" per child (`freeHints`) so asking for help never lowers accuracy. Reports show how many hints were opened. The hint button appears only in modes with retries (not Speed Run or Challenge).
 - **The tone is soft:** a gentle "try again" sound, not a buzzer, and encouraging messages. Never shame a child.
 
 ### Timers and the learn-to-play loop

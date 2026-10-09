@@ -2,7 +2,7 @@
 //
 //   npm run build && npm start   # or npm run dev
 //   npm i --no-save playwright && npx playwright install chromium webkit
-//   node scripts/e2e-devices.mjs http://localhost:3000 [out-dir] [--only "iPad Mini"]
+//   node scripts/e2e-devices.mjs http://localhost:3000 [out-dir] [--only "iPad Mini"] [--shard 1/3]
 //
 // Not every test runs everywhere. Cheap layout checks run on every device; the
 // riskier flows run once per class of device; the full playthrough
@@ -29,6 +29,13 @@ import { enterPin, newChild, step, vis } from "./helpers.mjs";
 const BASE = (process.argv[2] || "http://localhost:3000").replace(/\/$/, "");
 const OUT = process.argv[3] && !process.argv[3].startsWith("--") ? process.argv[3] : "e2e-shots/devices";
 const ONLY = process.argv.includes("--only") ? process.argv[process.argv.indexOf("--only") + 1] : undefined;
+// --shard 2/3 runs one third of the devices, so CI can test them on several machines at once.
+const SHARD = (() => {
+  const i = process.argv.indexOf("--shard");
+  if (i < 0) return undefined;
+  const [n, of] = process.argv[i + 1].split("/").map(Number);
+  return { n, of };
+})();
 fs.mkdirSync(OUT, { recursive: true });
 
 // Minimum touch target: 48 px for kids (Android's 48 dp), 44 px elsewhere (Apple's 44 pt).
@@ -70,8 +77,21 @@ async function sideScroll(page) {
   return page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
 }
 
+/** A box that has stopped moving: the feedback bar slides in, and measuring it mid-slide gives false alarms. */
+async function settledBox(loc) {
+  let box = await loc.first().boundingBox();
+  for (let i = 0; i < 20; i++) {
+    await loc.page().waitForTimeout(100);
+    const next = await loc.first().boundingBox();
+    const same = box && next && ["x", "y", "width", "height"].every((k) => Math.abs(box[k] - next[k]) < 0.5);
+    box = next;
+    if (same) break;
+  }
+  return box;
+}
+
 async function onScreen(page, loc) {
-  const box = await loc.first().boundingBox();
+  const box = await settledBox(loc);
   const vp = page.viewportSize();
   if (!box) return { ok: false, detail: "not rendered" };
   const ok = box.x >= -1 && box.y >= -1 && box.x + box.width <= vp.width + 1 && box.y + box.height <= vp.height + 1;
@@ -164,6 +184,16 @@ async function everyDevice(device, page) {
   const answers = page.locator('[data-testid="choice"], [data-testid="bin"], [data-testid="sort-item"], [data-testid="pool-item"], main button:has-text("Check")');
   await checkTargets(device, "question: answer buttons", answers, KID_TARGET);
   await shot(page, device, "3-question");
+  const hintButton = page.getByRole("button", { name: /Need a hint/ });
+  if (await vis(hintButton)) {
+    const hp = await onScreen(page, hintButton);
+    record(device, "question: hint button on screen", hp.ok, hp.detail);
+    await checkTargets(device, "question: hint button", hintButton, KID_TARGET);
+    await hintButton.click();
+    await page.waitForTimeout(150);
+    record(device, "question: hint shows and answers stay reachable", (await vis(page.getByText("💡").first())) && (await vis(answers.first())));
+    await noSideScroll(device, page, "question with hint");
+  }
   const next = await answerUntilFeedback(page);
   if (!next) record(device, "question: feedback bar appears", false, "no feedback after 40 tries");
   else {
@@ -287,8 +317,13 @@ async function browserFor(type) {
   return browsers.chromium;
 }
 
+// The slower "deep" devices are dealt out first so every shard gets a similar share.
+const dealt = [...DEVICES.filter((d) => d.deep), ...DEVICES.filter((d) => !d.deep)];
+const inShard = (d) => !SHARD || dealt.indexOf(d) % SHARD.of === SHARD.n - 1;
+
 for (const d of DEVICES) {
   if (ONLY && d.name !== ONLY) continue;
+  if (!inShard(d)) continue;
   const descriptor = d.descriptor ?? devices[d.name];
   if (!descriptor) {
     record(d.name, "device profile exists", false, "not in this Playwright version");

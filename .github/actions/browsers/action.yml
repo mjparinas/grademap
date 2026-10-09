@@ -1,0 +1,21 @@
+name: Install Playwright browsers
+description: Browsers for the pinned Playwright version, cached between runs.
+inputs:
+  browsers:
+    description: Space-separated browser names (chromium, webkit)
+    required: true
+runs:
+  using: composite
+  steps:
+    - id: version
+      shell: bash
+      run: echo "playwright=$(node -p "require('playwright/package.json').version")" >> "$GITHUB_OUTPUT"
+    - uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.version.outputs.playwright }}-${{ inputs.browsers }}
+    - shell: bash
+      run: npx playwright install ${{ inputs.browsers }}
+    # System libraries are not part of the browser download, so they are installed every run.
+    - shell: bash
+      run: npx playwright install-deps ${{ inputs.browsers }}
