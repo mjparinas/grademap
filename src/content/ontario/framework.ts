@@ -91,7 +91,7 @@ export const ONTARIO: Framework = {
   id: "ca-on",
   slug: "ontario",
   name: "Ontario",
-  shortName: "ON",
+  shortName: "Ontario",
   country: "CA",
   curriculumName: "Ontario Curriculum",
   region: "Ontario",

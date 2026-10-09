@@ -69,7 +69,8 @@ describe("public pages", () => {
   const NO_CTA = ["/contact/", "/help/", "/account/"];
 
   it("end with a call to action to try the app", () => {
-    const missing = walk(appDir)
+    // Shared page bodies (the guide extras) render inside thin page.tsx wrappers.
+    const missing = [...walk(appDir), join(__dirname, "../components/site/GuideExtras.tsx")]
       .filter((f) => readFileSync(f, "utf8").includes("<SitePage"))
       .filter((f) => !NO_CTA.some((n) => f.replaceAll("\\", "/").includes(`/app${n}`)))
       .filter((f) => {

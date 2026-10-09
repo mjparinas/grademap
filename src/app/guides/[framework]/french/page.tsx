@@ -6,12 +6,13 @@ import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { curriculumPath, resolve } from "@/components/site/curriculum";
 import { guidePath } from "@/components/site/guides";
 import { guidesFor, GUIDE_FRAMEWORKS } from "@/content/guides";
+import { GRADE_LABEL } from "@/content/subjects";
 import { JsonLd } from "@/lib/site";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return GUIDE_FRAMEWORKS.map((f) => ({ framework: f.slug }));
+  return GUIDE_FRAMEWORKS.filter((f) => guidesFor(f.id).french).map((f) => ({ framework: f.slug }));
 }
 
 type Props = PageProps<"/guides/[framework]/french">;
@@ -20,9 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const r = resolve(await params);
   if (!r) return {};
   const g = guidesFor(r.framework.id).french;
+  if (!g) return {};
   return {
     title: g.title,
-    description: `${g.intro.split(". ")[0]}. Core French starts in Grade 5; French Immersion usually starts in Kindergarten or Grade 1. How to help at home, even if you don't speak French.`,
+    description: `${g.intro.split(". ")[0]}. ${g.metaTail} How to help at home, even if you don't speak French.`,
     alternates: { canonical: guidePath.french(r.framework) },
   };
 }
@@ -32,6 +34,7 @@ export default async function FrenchGuidePage({ params }: Props) {
   if (!r) notFound();
   const f = r.framework;
   const g = guidesFor(f.id).french;
+  if (!g) notFound();
   const crumbs = [{ label: "Home", href: "/" }, { label: `${f.shortName} parent guides`, href: guidePath.hub(f) }, { label: "Core French and French Immersion" }];
 
   return (
@@ -94,13 +97,14 @@ export default async function FrenchGuidePage({ params }: Props) {
         </ul>
         <p className="mt-3 font-read text-lg">
           Browse the French lessons by grade:{" "}
-          <Link href={curriculumPath.grade(f, "5")} className="font-semibold text-[#2f6fd6] underline">
-            Grade 5
-          </Link>
-          ,{" "}
-          <Link href={curriculumPath.grade(f, "k")} className="font-semibold text-[#2f6fd6] underline">
-            Kindergarten
-          </Link>
+          {g.browse.map((gr, i) => (
+            <span key={gr}>
+              {i > 0 && ", "}
+              <Link href={curriculumPath.grade(f, gr)} className="font-semibold text-[#2f6fd6] underline">
+                {GRADE_LABEL[gr]}
+              </Link>
+            </span>
+          ))}
           .
         </p>
       </section>
