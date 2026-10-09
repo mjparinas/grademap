@@ -67,7 +67,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - making it as compelling as a good video game.
   - Research is in `docs/research/`.
 - **Name:** "GradeMap" is a working name. It is set once in `src/lib/brand.ts`; never hard-code it elsewhere. The name was chosen because it works across provinces and countries.
-- **Platform:** a web-first installable app (PWA) built with Next.js. Android comes later by wrapping `/play/`, as a Trusted Web Activity or with Capacitor. Don't add features that only work in a native shell.
+- **Platform:** a web-first installable app (PWA) built with Next.js. Android is a Trusted Web Activity that wraps `/play/` (`android/`, `docs/ANDROID.md`), not Capacitor. Don't add features that only work in a native shell.
 
 ### Money
 - **No ads, ever. No tracking pixels. Never sell data.** Kids can never buy anything; coins are earned only by learning.

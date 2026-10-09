@@ -43,3 +43,12 @@ next-env.d.ts
 # local SQLite database (dev)
 /data/
 /e2e-shots/
+
+# Android signing keys and build output (docs/ANDROID.md)
+*.keystore
+*.jks
+/android/app/
+/android/build/
+/android/.gradle/
+/android/*.aab
+/android/*.apk
