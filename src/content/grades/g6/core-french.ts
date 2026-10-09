@@ -1,4 +1,4 @@
-import { frQuestions, type FrItem } from "../../french";
+import { coreQuestions, tagCoreFrench, type FrItem } from "../../french";
 import { sample, textChoice } from "../../random";
 import type { Course, GenerateOptions, Question } from "../../types";
 
@@ -35,7 +35,7 @@ function motifs(opts?: GenerateOptions): Question[] {
       sample(others, wrongCount),
       "In French, the same letter pattern almost always makes the same sound. Say each word out loud and listen for the pattern.",
     );
-  });
+  }).map(tagCoreFrench);
 }
 
 // ---------- Les mots interrogatifs ----------
@@ -191,7 +191,7 @@ export const course: Course = {
       blurb: "Qui, où, quand, pourquoi",
       parentNote: "Asking and answering questions with qui, où, quand, pourquoi, comment and combien.",
       standards: { "ca-bc": "Common high-frequency vocabulary and sentence structures: questions" },
-      generate: (o) => frQuestions(QUESTIONS, o, 8),
+      generate: (o) => coreQuestions(QUESTIONS, o, 8),
     },
     {
       id: "loisirs",
@@ -200,7 +200,7 @@ export const course: Course = {
       blurb: "Jouer à, jouer de, faire de",
       parentNote: "Talking about hobbies and interests, including the difference between jouer à (sports) and jouer de (instruments).",
       standards: { "ca-bc": "Hobbies and topics of interest" },
-      generate: (o) => frQuestions(HOBBIES, o, 8),
+      generate: (o) => coreQuestions(HOBBIES, o, 8),
     },
     {
       id: "parce-que",
@@ -209,7 +209,7 @@ export const course: Course = {
       blurb: "Parce que…",
       parentNote: "Explaining likes, dislikes and preferences with “parce que”.",
       standards: { "ca-bc": "Reasons for likes, dislikes and preferences" },
-      generate: (o) => frQuestions(BECAUSE, o, 8),
+      generate: (o) => coreQuestions(BECAUSE, o, 8),
     },
     {
       id: "emotions-et-etats",
@@ -218,7 +218,7 @@ export const course: Course = {
       blurb: "J'ai faim, je suis content",
       parentNote: "Common emotions and physical states, including the French habit of saying “I have hunger” (j'ai faim) instead of “I am hungry”.",
       standards: { "ca-bc": "Common emotions and physical states" },
-      generate: (o) => frQuestions(STATES, o, 8),
+      generate: (o) => coreQuestions(STATES, o, 8),
     },
     {
       id: "famille",
@@ -227,7 +227,7 @@ export const course: Course = {
       blurb: "Mon, ma, mes, son, sa, ses",
       parentNote: "Describing family members and friends, with the possessive words that match what is owned.",
       standards: { "ca-bc": "Descriptions of people and items" },
-      generate: (o) => frQuestions(FAMILY, o, 8),
+      generate: (o) => coreQuestions(FAMILY, o, 8),
     },
     {
       id: "communautes-francophones",
@@ -236,7 +236,7 @@ export const course: Course = {
       blurb: "Acadian, Métis, and more",
       parentNote: "Communities where French is spoken across Canada, including Acadian, Franco-Albertan, Franco-Columbian, Fransaskois, Québécois and Métis communities.",
       standards: { "ca-bc": "Communities where French is spoken across Canada, including Acadian, Franco-Albertan, Franco-Columbian, Fransaskois, Québécois and Métis communities" },
-      generate: (o) => frQuestions(COMMUNITIES, o, 8),
+      generate: (o) => coreQuestions(COMMUNITIES, o, 8),
     },
     {
       id: "sources-et-respect",
@@ -245,7 +245,7 @@ export const course: Course = {
       blurb: "Credit, culture, honesty",
       parentNote: "The ethics of plagiarism and cultural appropriation: naming sources, using your own words and learning about cultures from the people who live them.",
       standards: { "ca-bc": "The ethics of cultural appropriation and plagiarism" },
-      generate: (o) => frQuestions(RESPECT, o, 8),
+      generate: (o) => coreQuestions(RESPECT, o, 8),
     },
   ],
 };

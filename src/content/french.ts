@@ -104,3 +104,33 @@ export function soundItems(groups: Pair[][]): FrItem[] {
     }),
   );
 }
+
+// ---------- Core French read-aloud ----------
+// Core French prompts are English with French in them. These helpers mark which parts are French so
+// read-aloud can switch voices (see src/lib/readaloud.ts).
+
+// English glosses in quotes: “I am hungry”. Anything else in quotes is French.
+const ENGLISH_GLOSS = /\b(the|is|are|am|i|my|she|he|we|you|why|who|where|when|how|kind|funny|hospital|thank|do|play|love|like|go|can|better|older|taller|fast)\b/i;
+
+// Prompts whose answer choices are French.
+const FRENCH_CHOICES =
+  /^(How do you (say|ask)|Choose the best|What is the plural|Where do (you|children)|Which (word has|word means|word is|article|question word|spelling|greeting|French word|question asks|reason fits|sentence (says|means|gives|is correct)))|Which (answer|sentence is correct)/;
+
+/** Marks the French parts of a Core French question for read-aloud, and sets French quotations in « ». */
+export function tagCoreFrench(q: Question): Question {
+  if (/^(Complète|Combien|Mon |Ma |Mes )/.test(q.prompt)) {
+    // A French sentence with an English gloss in brackets: say only the French.
+    q.speak = q.prompt.replace(/\s*\([^)]*\)/g, "");
+    q.lang = "fr";
+    return q;
+  }
+  q.prompt = q.prompt.replace(/“([^”]*)”/g, (m, inner: string) => (ENGLISH_GLOSS.test(inner) ? m : `«${inner}»`));
+  if (q.kind === "choice" && FRENCH_CHOICES.test(q.prompt)) q.choicesLang = "fr";
+  if (q.visual?.type === "story" || q.visual?.type === "passage") q.visualLang = "fr";
+  return q;
+}
+
+/** Like frQuestions, for Core French banks. */
+export function coreQuestions(items: FrItem[], opts: GenerateOptions | undefined, count = 8): Question[] {
+  return frQuestions(items, opts, count).map(tagCoreFrench);
+}

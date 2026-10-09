@@ -1,4 +1,4 @@
-import { frQuestions, type FrItem } from "../../french";
+import { coreQuestions, tagCoreFrench, type FrItem } from "../../french";
 import { randInt, shuffle, textChoice } from "../../random";
 import type { Course, GenerateOptions, Question } from "../../types";
 
@@ -78,7 +78,7 @@ function nombres(opts?: GenerateOptions): Question[] {
     const b = randInt(1, 10);
     qs.push(textChoice(`Combien font ${a} + ${b}?`, NUMBER_WORDS[a + b], near(a + b, wrongCount).map((m) => NUMBER_WORDS[m]), "Add the numbers, then say the answer in French."));
   }
-  return qs;
+  return qs.map(tagCoreFrench);
 }
 
 // ---------- Le, la, les ----------
@@ -188,7 +188,7 @@ export const course: Course = {
       blurb: "Greet and introduce yourself",
       parentNote: "Greetings, introductions and polite phrases: bonjour, comment t'appelles-tu?, merci, de rien, à bientôt.",
       standards: { "ca-bc": "Common high-frequency vocabulary and sentence structures: greetings and introductions; basic information about oneself and others" },
-      generate: (o) => frQuestions(GREETINGS, o, 8),
+      generate: (o) => coreQuestions(GREETINGS, o, 8),
     },
     {
       id: "sons-et-accents",
@@ -197,7 +197,7 @@ export const course: Course = {
       blurb: "Letters, accents, nasal vowels",
       parentNote: "French sounds (including nasal vowels), accents (é, è, ê, ç) and silent letters.",
       standards: { "ca-bc": "The French alphabet; French phonemes, including diphthongs and nasal vowels" },
-      generate: (o) => frQuestions(SOUNDS, o, 8),
+      generate: (o) => coreQuestions(SOUNDS, o, 8),
     },
     {
       id: "nombres",
@@ -215,7 +215,7 @@ export const course: Course = {
       blurb: "Le, la, les, un, une",
       parentNote: "An introduction to gender (masculine and feminine) and number (singular and plural) in French nouns and adjectives.",
       standards: { "ca-bc": "An introduction to gender (masculine and feminine forms) and number (singular and plural forms)" },
-      generate: (o) => frQuestions(GENDER, o, 8),
+      generate: (o) => coreQuestions(GENDER, o, 8),
     },
     {
       id: "gouts",
@@ -224,7 +224,7 @@ export const course: Course = {
       blurb: "J'aime, je n'aime pas",
       parentNote: "Saying what you like, love, prefer and dislike, and asking others the same.",
       standards: { "ca-bc": "Likes, dislikes, preferences and interests" },
-      generate: (o) => frQuestions(LIKES, o, 8),
+      generate: (o) => coreQuestions(LIKES, o, 8),
     },
     {
       id: "descriptions",
@@ -233,7 +233,7 @@ export const course: Course = {
       blurb: "Il est grand, elle est petite",
       parentNote: "Simple descriptions of people and objects, with adjectives that agree in gender and number.",
       standards: { "ca-bc": "Simple descriptions" },
-      generate: (o) => frQuestions(DESCRIBE, o, 8),
+      generate: (o) => coreQuestions(DESCRIBE, o, 8),
     },
     {
       id: "communautes-francophones",
@@ -242,7 +242,7 @@ export const course: Course = {
       blurb: "Communities and festivals",
       parentNote: "Where French is spoken across Canada, Francophone festivals and celebrations, and a connection between First Peoples and the French language.",
       standards: { "ca-bc": "Communities where French is spoken across Canada; a Francophone cultural festival or celebration in Canada" },
-      generate: (o) => frQuestions(COMMUNITIES, o, 8),
+      generate: (o) => coreQuestions(COMMUNITIES, o, 8),
     },
     {
       id: "respect",
@@ -251,7 +251,7 @@ export const course: Course = {
       blurb: "Plagiarism and culture",
       parentNote: "The ethics of plagiarism and cultural appropriation, at a Grade 5 level: name your sources and learn about cultures respectfully.",
       standards: { "ca-bc": "The ethics of cultural appropriation and plagiarism" },
-      generate: (o) => frQuestions(RESPECT, o, 8),
+      generate: (o) => coreQuestions(RESPECT, o, 8),
     },
   ],
 };

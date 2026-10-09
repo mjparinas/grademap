@@ -105,6 +105,10 @@ interface BaseQuestion {
   speak?: string;
   /** Set to "fr" when the prompt (and passage) is in French, so read-aloud uses a French voice. Hints stay in English. */
   lang?: "fr";
+  /** Core French: the answer choices are French even though the prompt is English. */
+  choicesLang?: "fr";
+  /** Core French: the passage or story shown above is French even though the prompt is English. */
+  visualLang?: "fr";
   /** Shown after a miss, and again with the answer if they still need help. */
   hint: string;
   visual?: Visual;

@@ -34,7 +34,7 @@ const NOVELTY = /\b(albert|bad news|bahh|bells|boing|bubbles|cellos|good news|je
 // Apple's older "Eloquence" voices: understandable but robotic.
 const ELOQUENCE = /\b(eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley)\b/i;
 // Apple's better standard voices.
-const APPLE_GOOD = /\b(samantha|ava|allison|susan|zoe|karen|moira|tessa|daniel|serena|evan|nathan|tom|alex|nicky|aaron|martha|arthur)\b/i;
+const APPLE_GOOD = /\b(amélie|amelie|thomas|audrey|aurélie|aurelie|marie|jacques|nicolas|samantha|ava|allison|susan|zoe|karen|moira|tessa|daniel|serena|evan|nathan|tom|alex|nicky|aaron|martha|arthur)\b/i;
 
 const LOCALE_BONUS: Record<string, number> = {
   "en-ca": 12, "en-us": 8, "en-gb": 6, "en-au": 6, "en-nz": 6, "en-ie": 6,
@@ -79,6 +79,8 @@ export function chooseVoice(ranked: readonly VoiceOption[], preferredUri: string
 // ---- Browser state ----
 
 const PREF_KEY = "grademap.voice";
+const PREF_KEY_FR = "grademap.voice.fr";
+const prefKey = (language: SpeechLanguage) => (language === "fr" ? PREF_KEY_FR : PREF_KEY);
 const EMPTY: VoiceOption[] = [];
 let ranked: VoiceOption[] = EMPTY;
 let rankedFr: VoiceOption[] = EMPTY;
@@ -112,24 +114,24 @@ export function subscribeVoices(listener: () => void): () => void {
   return () => listeners.delete(listener);
 }
 
-export function getVoiceOptions(): VoiceOption[] {
+export function getVoiceOptions(language: SpeechLanguage = "en"): VoiceOption[] {
   watch();
-  return ranked;
+  return language === "fr" ? rankedFr : ranked;
 }
 
-export function getVoicePreference(): string | null {
+export function getVoicePreference(language: SpeechLanguage = "en"): string | null {
   try {
-    return localStorage.getItem(PREF_KEY);
+    return localStorage.getItem(prefKey(language));
   } catch {
     return null;
   }
 }
 
 /** null = automatic (best available). Saved on this device only. */
-export function setVoicePreference(uri: string | null) {
+export function setVoicePreference(uri: string | null, language: SpeechLanguage = "en") {
   try {
-    if (uri) localStorage.setItem(PREF_KEY, uri);
-    else localStorage.removeItem(PREF_KEY);
+    if (uri) localStorage.setItem(prefKey(language), uri);
+    else localStorage.removeItem(prefKey(language));
   } catch {
     // Private mode: the choice just won't stick.
   }
@@ -137,9 +139,9 @@ export function setVoicePreference(uri: string | null) {
 }
 
 /** The voice read-aloud will use right now (for showing in Settings). */
-export function currentVoice(): VoiceOption | undefined {
+export function currentVoice(language: SpeechLanguage = "en"): VoiceOption | undefined {
   watch();
-  return chooseVoice(ranked, getVoicePreference(), typeof navigator !== "undefined" && navigator.onLine === false);
+  return chooseVoice(language === "fr" ? rankedFr : ranked, getVoicePreference(language), typeof navigator !== "undefined" && navigator.onLine === false);
 }
 
 /** Turn on-screen symbols into words a speech engine reads naturally. */
@@ -171,18 +173,30 @@ function utter(text: string, option: VoiceOption | undefined, onFail?: () => voi
   synth.speak(u);
 }
 
-export function speak(text: string, voiceUri?: string | null, language: SpeechLanguage = "en") {
-  if (!canSpeak()) return;
-  watch();
-  window.speechSynthesis.cancel();
+function queue(text: string, voiceUri: string | null | undefined, language: SpeechLanguage) {
   const offline = navigator.onLine === false;
-  // The parent's saved voice is an English one, so French always uses the best French voice on the device.
+  // English and French each have their own ranked list and saved choice.
   const list = language === "fr" ? rankedFr : ranked;
-  const preferred = language === "fr" ? null : voiceUri !== undefined ? voiceUri : getVoicePreference();
+  const preferred = voiceUri !== undefined ? voiceUri : getVoicePreference(language);
   const choice = chooseVoice(list, preferred, offline);
   // A cloud voice can fail on a flaky connection: try again with the best on-device voice.
   const fallback = choice?.online ? chooseVoice(list, null, true) : undefined;
   utter(text, choice, fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback, undefined, language) : undefined, language);
+}
+
+export function speak(text: string, voiceUri?: string | null, language: SpeechLanguage = "en") {
+  if (!canSpeak()) return;
+  watch();
+  window.speechSynthesis.cancel();
+  queue(text, voiceUri, language);
+}
+
+/** Speaks pieces one after another, each in its own language (e.g. an English question about a French word). */
+export function speakSegments(segments: readonly { text: string; lang: SpeechLanguage }[]) {
+  if (!canSpeak() || segments.length === 0) return;
+  watch();
+  window.speechSynthesis.cancel();
+  for (const s of segments) queue(s.text, undefined, s.lang);
 }
 
 export function stopSpeaking() {
@@ -190,6 +204,7 @@ export function stopSpeaking() {
 }
 
 /** A short sample for the voice picker. */
-export function previewVoice(uri: string | null) {
-  speak("Hi! I'm Ollie the Otter. Let's count together: one, two, three. Great job!", uri);
+export function previewVoice(uri: string | null, language: SpeechLanguage = "en") {
+  if (language === "fr") speak("Bonjour! Je m'appelle Ollie la loutre. Comptons ensemble : un, deux, trois. Bravo!", uri, "fr");
+  else speak("Hi! I'm Ollie the Otter. Let's count together: one, two, three. Great job!", uri);
 }

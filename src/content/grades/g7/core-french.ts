@@ -1,4 +1,4 @@
-import { frQuestions, type FrItem } from "../../french";
+import { coreQuestions, type FrItem } from "../../french";
 import type { Course } from "../../types";
 
 // Core French: instructions are in English, the French is what students learn.
@@ -192,7 +192,7 @@ export const course: Course = {
       blurb: "Left, right, straight ahead",
       parentNote: "Asking for and giving directions, and describing where places are (à gauche, devant, derrière, à côté de).",
       standards: { "ca-bc": "Common, high-frequency vocabulary and sentence structures for locations and directions" },
-      generate: (o) => frQuestions(DIRECTIONS, o, 8),
+      generate: (o) => coreQuestions(DIRECTIONS, o, 8),
     },
     {
       id: "lieux",
@@ -201,7 +201,7 @@ export const course: Course = {
       blurb: "La ville et les magasins",
       parentNote: "Vocabulary for places in a community and the contractions au, à la, à l'.",
       standards: { "ca-bc": "Locations and directions; cultural aspects of communities" },
-      generate: (o) => frQuestions(PLACES, o, 8),
+      generate: (o) => coreQuestions(PLACES, o, 8),
     },
     {
       id: "comparaisons",
@@ -210,7 +210,7 @@ export const course: Course = {
       blurb: "Plus, moins, aussi… que",
       parentNote: "Making simple comparisons with plus… que, moins… que and aussi… que, and the special forms meilleur and mieux.",
       standards: { "ca-bc": "Simple comparisons" },
-      generate: (o) => frQuestions(COMPARE, o, 8),
+      generate: (o) => coreQuestions(COMPARE, o, 8),
     },
     {
       id: "personnalite",
@@ -219,7 +219,7 @@ export const course: Course = {
       blurb: "Family, friends, teachers",
       parentNote: "Describing the personality of family, friends and teachers, with adjectives that agree in gender and number.",
       standards: { "ca-bc": "Describing others, such as family, friends and teachers" },
-      generate: (o) => frQuestions(PERSONALITY, o, 8),
+      generate: (o) => coreQuestions(PERSONALITY, o, 8),
     },
     {
       id: "mots-amis",
@@ -228,7 +228,7 @@ export const course: Course = {
       blurb: "Words that look alike",
       parentNote: "Using cognates and context to understand new French words, and watching out for false friends such as librairie.",
       standards: { "ca-bc": "Use a range of strategies to support understanding, such as using cognates and context" },
-      generate: (o) => frQuestions(COGNATES, o, 8),
+      generate: (o) => coreQuestions(COGNATES, o, 8),
     },
     {
       id: "histoires",
@@ -237,7 +237,7 @@ export const course: Course = {
       blurb: "Characters, setting, problem",
       parentNote: "Understanding key information and events in simple French stories: characters, setting, problem and solution.",
       standards: { "ca-bc": "Stories: common story elements (place, characters, setting and plot)" },
-      generate: (o) => frQuestions(STORIES, o, 8),
+      generate: (o) => coreQuestions(STORIES, o, 8),
     },
     {
       id: "monde-francophone",
@@ -246,7 +246,7 @@ export const course: Course = {
       blurb: "French around the world",
       parentNote: "Communities where French is spoken around the world, such as Belgium, Haiti, Morocco and Senegal, and in Canada.",
       standards: { "ca-bc": "Communities where French is spoken across Canada and around the world" },
-      generate: (o) => frQuestions(WORLD, o, 8),
+      generate: (o) => coreQuestions(WORLD, o, 8),
     },
     {
       id: "cultures-et-respect",
@@ -255,7 +255,7 @@ export const course: Course = {
       blurb: "Appropriation and plagiarism",
       parentNote: "The ethics of cultural appropriation and plagiarism: crediting sources and learning from cultures respectfully.",
       standards: { "ca-bc": "Ethics: cultural appropriation; plagiarism" },
-      generate: (o) => frQuestions(CULTURE, o, 8),
+      generate: (o) => coreQuestions(CULTURE, o, 8),
     },
   ],
 };
