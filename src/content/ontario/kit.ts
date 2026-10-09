@@ -1,4 +1,4 @@
-import { shuffle, textChoice } from "../random";
+import { numberChoice, shuffle, textChoice } from "../random";
 import type { GenerateOptions, InputQuestion, Question, Unit, Visual } from "../types";
 
 // Small helpers shared by the Ontario units. The expectation codes in `on()` are
@@ -125,4 +125,14 @@ export function passageQuestions(passages: Passage[], visual: "story" | "passage
     }
   }
   return out.slice(0, total);
+}
+
+/** A number-answer multiple choice question with wrong answers near the right one. */
+export function numQ(prompt: string, answer: number, hint: string, visual?: Visual, max = 100, min = 0): Question {
+  return numberChoice(prompt, answer, hint, visual, { min, max });
+}
+
+/** Distinct wrong answers drawn from `pool`, never equal to `right`. */
+export function others<T>(pool: readonly T[], right: T, n: number): T[] {
+  return shuffle(pool.filter((x) => x !== right)).slice(0, n);
 }
