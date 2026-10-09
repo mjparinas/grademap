@@ -14,7 +14,7 @@
 - Questions go through the same fairness checks as BC content (answer among the choices, no look-alike choices, the maths evaluates, keypad fit).
 - Report cards follow *Growing Success* (2010): Levels 1 to 4; letter grades in Grades 1 to 6; percentages in Grades 7 to 9. Kindergarten has no grades.
 
-**Scope today.** Kindergarten to Grade 9: math and language, plus French (Core French from Grade 4, French Immersion from Grade 1) from the FSL curriculum (2013) and the Grade 9 courses FSF1D and FIF1D. The FSL curriculum is skills-based, so French units cite the strand-level expectations (A Listening, B Speaking, C Reading, D Writing); most share BC French units. Science and social studies are not written yet (the framework lists only the two subjects, so the app does not show the others for Ontario).
+**Scope today.** Kindergarten to Grade 9: math, language, science and technology, social studies (Grades 7 and 8 combine Geography and History, whose strand letters repeat, so standards name the subject, e.g. "History A1.1"), plus French (Core French from Grade 4, French Immersion from Grade 1) from the FSL curriculum (2013) and the Grade 9 courses FSF1D and FIF1D. The FSL curriculum is skills-based, so French units cite the strand-level expectations (A Listening, B Speaking, C Reading, D Writing); most share BC French units. 
 
 **Still to do before launch.**
 

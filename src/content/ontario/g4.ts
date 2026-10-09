@@ -1,5 +1,8 @@
 import type { Course } from "../types";
 import { G4_LANGUAGE, G4_MATH } from "./overall";
+import { G4_SCIENCE, G4_SOCIAL } from "./g4-overall-ss";
+import { units as scienceUnits } from "./g4-science";
+import { units as socialUnits } from "./g4-social";
 import { units as languageUnits } from "./g4-language";
 import { units as mathUnits } from "./g4-math";
 import { on } from "./kit";
@@ -41,6 +44,27 @@ export const courses: Course[] = [
     },
     order: {
       "ca-on": ["word-builders", "grammar-4", "sentences-4", "punctuation-4", "reading-detectives", "text-features", "text-features-4", "point-of-view", "figurative-language"],
+    },
+  },
+  {
+    grade: "4",
+    subject: "science",
+    bigIdeas: { "ca-on": G4_SCIENCE },
+    units: scienceUnits,
+    order: {
+      "ca-on": ["habitats-4", "food-webs-4", "adaptations-4", "light-4", "sound-4", "machines-4", "motion-4", "rocks-4", "earth-history-4"],
+    },
+  },
+  {
+    grade: "4",
+    subject: "social",
+    bigIdeas: { "ca-on": G4_SOCIAL },
+    units: socialUnits,
+    shares: {
+      "provinces-and-regions": { standards: on("B3.1, B3.5", "Canada's provinces, territories and capitals, and its physical regions") },
+    },
+    order: {
+      "ca-on": ["early-societies", "daily-life-4", "environment-4", "governing-4", "early-tech-4", "physical-regions-4", "sectors-4", "industry-env-4", "political-4", "provinces-and-regions"],
     },
   },
   coreFrench4,

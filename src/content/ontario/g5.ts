@@ -1,7 +1,10 @@
 import type { Course } from "../types";
 import { G5_LANGUAGE, G5_MATH } from "./overall";
+import { G5_SCIENCE, G5_SOCIAL } from "./g5-overall-ss";
 import { units as languageUnits } from "./g5-language";
 import { units as mathUnits } from "./g5-math";
+import { units as scienceUnits } from "./g5-science";
+import { units as socialUnits } from "./g5-social";
 import { on } from "./kit";
 import { frenchCourses } from "./french";
 
@@ -36,6 +39,34 @@ export const courses: Course[] = [
     },
     order: {
       "ca-on": ["word-roots", "context-clues", "grammar-5", "sentences-5", "punctuation-5", "reading-detectives", "plot-and-conflict", "figurative-language", "purpose-and-structure", "style-and-perspective"],
+    },
+  },
+  {
+    grade: "5",
+    subject: "science",
+    bigIdeas: { "ca-on": G5_SCIENCE },
+    units: scienceUnits,
+    shares: {
+      "digestion-and-breathing": { standards: on("B2.1, B2.2", "the digestive and respiratory systems and their vital organs") },
+      "heart-bones-muscles": { standards: on("B2.1–B2.3", "the circulatory and musculoskeletal systems, and how body systems work together") },
+      "natural-resources": { standards: on("E1.1, E2.5", "renewable and non-renewable resources and using them wisely") },
+    },
+    order: {
+      "ca-on": ["healthy-choices-5", "digestion-and-breathing", "heart-bones-muscles", "body-teamwork-5", "states-of-matter-5", "changes-of-state-5", "matter-changes-5", "forces-on-structures-5", "forms-of-energy-5", "energy-sources-5", "natural-resources", "science-skills-5"],
+    },
+  },
+  {
+    grade: "5",
+    subject: "social",
+    bigIdeas: { "ca-on": G5_SOCIAL },
+    units: socialUnits,
+    shares: {
+      "levels-of-government": { standards: on("B3.2, B3.4", "the levels of government, what each looks after, and shared responsibilities") },
+      "making-laws": { standards: on("B3.5, B3.9", "elections, how laws are made, and ways citizens can take part") },
+      "rights-and-freedoms": { standards: on("B3.1", "citizens' rights and responsibilities, including the Canadian Charter of Rights and Freedoms") },
+    },
+    order: {
+      "ca-on": ["first-peoples-5", "explorers-5", "new-france-5", "fur-trade-5", "conflict-and-change-5", "treaties-today-5", "levels-of-government", "services-5", "making-laws", "rights-and-freedoms", "citizen-action-5", "inquiry-5"],
     },
   },
   ...frenchCourses("5"),

@@ -1,6 +1,9 @@
 import type { Course } from "../types";
 import { units as languageUnits } from "./g9-language";
 import { units as mathUnits } from "./g9-math";
+import { G9_SCIENCE, G9_SOCIAL } from "./g9-overall-ss";
+import { units as scienceUnits } from "./g9-science";
+import { units as socialUnits } from "./g9-social";
 import { on } from "./kit";
 import { frenchCourses } from "./french";
 
@@ -71,6 +74,24 @@ export const courses: Course[] = [
     },
     order: {
       "ca-on": ["word-parts-9", "grammar-and-style", "revise-edit-9", "close-reading", "devices-9", "language-and-style", "voices-and-perspectives", "forms-features-9", "argument-and-rhetoric", "digital-9"],
+    },
+  },
+  {
+    grade: "9",
+    subject: "science",
+    bigIdeas: { "ca-on": G9_SCIENCE },
+    units: scienceUnits,
+    order: {
+      "ca-on": ["stem-skills-9", "ecosystems-9", "photosynthesis-respiration-9", "climate-change-9", "atoms-9", "periodic-table-9", "compounds-9", "static-charges-9", "circuits-9", "electrical-energy-9", "space-9"],
+    },
+  },
+  {
+    grade: "9",
+    subject: "social",
+    bigIdeas: { "ca-on": G9_SOCIAL },
+    units: socialUnits,
+    order: {
+      "ca-on": ["geo-inquiry-9", "landform-regions-9", "physical-processes-9", "nature-people-9", "resources-9", "industries-9", "sustainable-development-9", "population-patterns-9", "population-issues-9", "land-use-9", "sustainable-communities-9"],
     },
   },
   ...frenchCourses("9"),

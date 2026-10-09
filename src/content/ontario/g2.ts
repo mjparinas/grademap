@@ -3,6 +3,9 @@ import { G2_LANGUAGE, G2_MATH } from "./overall";
 import { units as languageUnits } from "./g2-language";
 import { units as mathUnits } from "./g2-math";
 import { on } from "./kit";
+import { G2_SCIENCE, G2_SOCIAL } from "./g2-overall-ss";
+import { units as scienceUnits } from "./g2-science";
+import { units as socialUnits } from "./g2-social";
 import { frenchCourses } from "./french";
 
 // Ontario Grade 2. Units the BC course also has are shared; the rest are written for the
@@ -38,6 +41,33 @@ export const courses: Course[] = [
     },
     order: {
       "ca-on": ["rhyme-time", "sound-detectives", "word-power", "grammar-2", "super-sentences", "build-sentences", "punctuation-2", "word-pictures", "story-builders", "reading-detectives", "text-features"],
+    },
+  },
+  {
+    grade: "2",
+    subject: "science",
+    bigIdeas: { "ca-on": G2_SCIENCE },
+    units: scienceUnits,
+    shares: {
+      "solids-and-liquids": { standards: on("C2.1, C2.3, C2.4", "solids and liquids, and the changes of state of water") },
+      "push-and-pull": { standards: on("D2.1, D2.2", "the ways an object can move and how its position can be changed") },
+      "water-world": { standards: on("E1.2, E2.2, E2.3", "sources of water, the water cycle and using water responsibly") },
+    },
+    order: {
+      "ca-on": ["think-like-a-scientist", "animal-life-cycles", "how-animals-move", "animal-adaptations", "animals-and-people", "solids-and-liquids", "mixtures-and-materials", "safety-symbols", "push-and-pull", "simple-machines", "air-and-water-for-life", "water-world"],
+    },
+  },
+  {
+    grade: "2",
+    subject: "social",
+    bigIdeas: { "ca-on": G2_SOCIAL },
+    units: socialUnits,
+    shares: {
+      "needs-and-wants": { standards: on("B3.6", "basic human needs and how communities meet them") },
+      "caring-citizens": { standards: on("B1.3", "sustainability and the way people care for the places they share") },
+    },
+    order: {
+      "ca-on": ["families-and-caring", "traditions-and-celebrations", "then-and-now", "groups-in-our-community", "globe-and-continents", "climate-and-ways-of-life", "needs-and-wants", "communities-compared", "caring-citizens", "social-studies-detectives"],
     },
   },
   ...frenchCourses("2"),

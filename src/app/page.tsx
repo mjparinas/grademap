@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: "Is it matched to our provincial curriculum?",
-    a: "Yes. Choose British Columbia or Ontario. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4). Ontario covers math, language and French (Core and Immersion) from Kindergarten to Grade 9 for now. More provinces and states are on the way.",
+    a: "Yes. Choose British Columbia or Ontario. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4). Ontario covers math, language, science, social studies and French (Core and Immersion) from Kindergarten to Grade 9. More provinces and states are on the way.",
   },
   {
     q: "Does it work without internet?",
