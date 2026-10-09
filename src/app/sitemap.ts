@@ -9,6 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages: { path: string; priority: number }[] = [
     { path: "/", priority: 1 },
     { path: "/report-cards/", priority: 0.6 },
+    { path: "/pricing/", priority: 0.7 },
+    { path: "/help/", priority: 0.6 },
+    { path: "/contact/", priority: 0.4 },
     { path: "/privacy/", priority: 0.3 },
     { path: "/terms/", priority: 0.3 },
     ...FRAMEWORKS.map((f) => ({ path: `/report-cards/${f.slug}/`, priority: 0.9 })),
