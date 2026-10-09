@@ -1,6 +1,24 @@
 "use client";
 
-import confetti from "canvas-confetti";
+import type confettiType from "canvas-confetti";
+
+type Confetti = typeof confettiType;
+type ConfettiShape = confettiType.Shape;
+
+// canvas-confetti loads on first use (or when the browser is idle), so it never delays first paint.
+let confettiLib: Promise<Confetti> | undefined;
+function loadConfetti(): Promise<Confetti> {
+  confettiLib ??= import("canvas-confetti").then((m) => m.default);
+  return confettiLib;
+}
+
+/** Fetch the confetti library when the browser is idle, so it is also cached for offline play. */
+export function warmConfetti() {
+  if (typeof window === "undefined") return;
+  const start = () => void loadConfetti().catch(() => undefined);
+  if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 8000 });
+  else setTimeout(start, 4000);
+}
 
 const COLOURS = ["#4f8ef7", "#e9559a", "#25b47e", "#ff9636", "#f5b301", "#8b5cf6"];
 
@@ -24,7 +42,7 @@ function centreOf(el: Element): { x: number; y: number } {
 export function burstFrom(el: Element | null, count = 26) {
   if (!el || prefersReducedMotion()) return;
   const { x, y } = centreOf(el);
-  confetti({
+  void loadConfetti().then((confetti) => confetti({
     colors: COLOURS,
     disableForReducedMotion: true,
     zIndex: 60,
@@ -37,7 +55,7 @@ export function burstFrom(el: Element | null, count = 26) {
     scalar: 0.9,
     shapes: ["star", "circle"],
     origin: { x: x / window.innerWidth, y: y / window.innerHeight },
-  });
+  }), () => undefined);
 }
 
 /** "+1"-style text that pops up from an element and floats away. */
@@ -67,17 +85,19 @@ export function replay(el: Element | null, className: string) {
 /** A big two-sided celebration for finishing a unit. Pass emoji for a themed style. */
 export function celebrate(emoji: string[] = []) {
   if (prefersReducedMotion()) return;
-  const shapes = emoji.length ? emoji.map((text) => confetti.shapeFromText({ text, scalar: 2 })) : undefined;
-  const base = { colors: COLOURS, disableForReducedMotion: true, zIndex: 60, ticks: 240, ...(shapes ? { shapes, scalar: 2 } : {}) };
-  confetti({ ...base, particleCount: shapes ? 40 : 90, spread: 70, angle: 60, origin: { x: 0, y: 0.75 }, startVelocity: 58 });
-  confetti({ ...base, particleCount: shapes ? 40 : 90, spread: 70, angle: 120, origin: { x: 1, y: 0.75 }, startVelocity: 58 });
-  setTimeout(() => {
-    confetti({
-      ...base,
-      particleCount: shapes ? 50 : 140,
-      spread: 130,
-      origin: { x: 0.5, y: 0.3 },
-      ...(shapes ? {} : { scalar: 1.15, shapes: ["star", "square", "circle"] as confetti.Shape[] }),
-    });
-  }, 380);
+  void loadConfetti().then((confetti) => {
+    const shapes = emoji.length ? emoji.map((text) => confetti.shapeFromText({ text, scalar: 2 })) : undefined;
+    const base = { colors: COLOURS, disableForReducedMotion: true, zIndex: 60, ticks: 240, ...(shapes ? { shapes, scalar: 2 } : {}) };
+    confetti({ ...base, particleCount: shapes ? 40 : 90, spread: 70, angle: 60, origin: { x: 0, y: 0.75 }, startVelocity: 58 });
+    confetti({ ...base, particleCount: shapes ? 40 : 90, spread: 70, angle: 120, origin: { x: 1, y: 0.75 }, startVelocity: 58 });
+    setTimeout(() => {
+      confetti({
+        ...base,
+        particleCount: shapes ? 50 : 140,
+        spread: 130,
+        origin: { x: 0.5, y: 0.3 },
+        ...(shapes ? {} : { scalar: 1.15, shapes: ["star", "square", "circle"] as ConfettiShape[] }),
+      });
+    }, 380);
+  }, () => undefined);
 }
