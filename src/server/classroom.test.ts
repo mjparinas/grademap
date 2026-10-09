@@ -11,6 +11,7 @@ delete process.env.RESEND_API_KEY;
 
 type Mod = Record<string, (req: Request) => Promise<Response>>;
 let signup: Mod, sync: Mod, classes: Mod, assignments: Mod, join_: Mod, account: Mod;
+let dbm: typeof import("@/server/db");
 
 beforeAll(async () => {
   [signup, sync, classes, assignments, join_, account] = (await Promise.all([
@@ -21,6 +22,7 @@ beforeAll(async () => {
     import("@/app/api/classes/join/route"),
     import("@/app/api/account/route"),
   ])) as unknown as Mod[];
+  dbm = await import("@/server/db");
 });
 afterAll(() => rmSync(dir, { recursive: true, force: true }));
 
@@ -32,8 +34,9 @@ const req = (path: string, method: string, body?: unknown, cookie?: string) =>
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 
-async function account_(email: string) {
+async function account_(email: string, confirmed = true) {
   const res = await signup.POST(req("/api/auth/signup/", "POST", { email, password: "correct horse" }));
+  if (confirmed) await dbm.run("UPDATE parents SET email_verified_at = ? WHERE email = ?", [Date.now(), email]);
   return (res.headers.get("set-cookie") ?? "").split(";")[0];
 }
 
@@ -92,6 +95,19 @@ describe("classroom mode", () => {
     expect(after.students).toHaveLength(0);
   });
 
+  it("needs a confirmed email to create a class, and can replace the join code", async () => {
+    const unconfirmed = await account_("t-unconfirmed@example.com", false);
+    expect((await classes.POST(req("/api/classes/", "POST", { name: "Nope", grade: "2" }, unconfirmed))).status).toBe(403);
+    const teacher = await account_("t-rotate@example.com");
+    const { class: c } = await (await classes.POST(req("/api/classes/", "POST", { name: "Codes", grade: "2" }, teacher))).json();
+    const parent = await parentWithChild("p-rotate@example.com", "kid-rotate");
+    const { joinCode } = await (await classes.PATCH(req(`/api/classes/?id=${c.id}`, "PATCH", undefined, teacher))).json();
+    expect(joinCode).not.toBe(c.joinCode);
+    expect((await join_.POST(req("/api/classes/join/", "POST", { code: c.joinCode, profileId: "kid-rotate" }, parent))).status).toBe(404);
+    expect((await join_.POST(req("/api/classes/join/", "POST", { code: joinCode, profileId: "kid-rotate" }, parent))).status).toBe(200);
+    expect((await classes.PATCH(req(`/api/classes/?id=${c.id}`, "PATCH", undefined, parent))).status).toBe(404);
+  });
+
   it("keeps classes private to their owner and rejects the wrong grade", async () => {
     const teacher = await account_("t2@example.com");
     const other = await account_("t3@example.com");
@@ -111,7 +127,7 @@ describe("classroom mode", () => {
     await join_.POST(req("/api/classes/join/", "POST", { code: c.joinCode, profileId: "kid3" }, parent));
 
     // Deleting the parent's account unlinks the child.
-    await account.DELETE(req("/api/account/", "DELETE", undefined, parent));
+    await account.DELETE(req("/api/account/", "DELETE", { password: "correct horse" }, parent));
     const detail = await (await classes.GET(req(`/api/classes/?id=${c.id}`, "GET", undefined, teacher))).json();
     expect(detail.students).toHaveLength(0);
 

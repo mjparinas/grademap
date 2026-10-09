@@ -125,3 +125,34 @@ export function questionReportEmail(to: string, p: { unitKey: string; prompt: st
     body: [`Unit: ${p.unitKey}`, `Reason: ${p.reason}`, `Question: ${p.prompt}`],
   });
 }
+
+export function newSignInEmail(to: string, origin: string, device: string): Email {
+  return layout({
+    to,
+    origin,
+    subject: `New sign-in to your ${APP_NAME} account`,
+    heading: "New sign-in",
+    body: [`Your account was just signed in to from ${device}.`, "If that was you, there's nothing to do. If it wasn't, reset your password now; that signs every device out."],
+    button: { label: "Open the parent area to reset it", url: `${origin}/parents/` },
+  });
+}
+
+export function passwordChangedEmail(to: string, origin: string): Email {
+  return layout({
+    to,
+    origin,
+    subject: `Your ${APP_NAME} password was changed`,
+    heading: "Your password was changed",
+    body: ["The password for your account was just changed, and other devices were signed out.", `If this wasn't you, reply to this email or write to ${CONTACT_EMAIL} straight away.`],
+  });
+}
+
+export function accountDeletedEmail(to: string, origin: string): Email {
+  return layout({
+    to,
+    origin,
+    subject: `Your ${APP_NAME} account was deleted`,
+    heading: "Your account was deleted",
+    body: ["Your account, your children's progress on our servers and any shared report links have been deleted, and any subscription was cancelled.", `If you didn't do this, write to ${CONTACT_EMAIL} straight away.`],
+  });
+}

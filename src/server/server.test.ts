@@ -13,13 +13,13 @@ delete process.env.RESEND_API_KEY;
 delete process.env.NEXT_PUBLIC_SITE_URL;
 
 type Mod = Record<string, (req: Request) => Promise<Response>>;
-let signup: Mod, login: Mod, forgot: Mod, reset: Mod, verify: Mod, resend: Mod, me: Mod, sync: Mod, account: Mod, webhook: Mod, checkout: Mod;
+let signup: Mod, login: Mod, forgot: Mod, reset: Mod, verify: Mod, resend: Mod, me: Mod, sync: Mod, account: Mod, webhook: Mod, checkout: Mod, sessions: Mod, password: Mod;
 let auth: typeof import("@/server/auth");
 let dbm: typeof import("@/server/db");
 let email: typeof import("@/server/email");
 
 beforeAll(async () => {
-  [signup, login, forgot, reset, verify, resend, me, sync, account, webhook, checkout] = (await Promise.all([
+  [signup, login, forgot, reset, verify, resend, me, sync, account, webhook, checkout, sessions, password] = (await Promise.all([
     import("@/app/api/auth/signup/route"),
     import("@/app/api/auth/login/route"),
     import("@/app/api/auth/forgot/route"),
@@ -31,6 +31,8 @@ beforeAll(async () => {
     import("@/app/api/account/route"),
     import("@/app/api/billing/webhook/route"),
     import("@/app/api/billing/checkout/route"),
+    import("@/app/api/auth/sessions/route"),
+    import("@/app/api/auth/password/route"),
   ])) as unknown as Mod[];
   auth = await import("@/server/auth");
   dbm = await import("@/server/db");
@@ -151,11 +153,28 @@ describe("rate limiter", () => {
     expect(await auth.rateLimited("test:key", 3, 60_000)).toBe(false);
   });
 
-  it("blocks repeated logins for one email even from different addresses", async () => {
+  it("blocks guessing from one address, but a stranger can't lock the parent out", async () => {
     await newAccount("brute@example.com");
+    const from = (ip: string, password: string) =>
+      login.POST(new Request("http://localhost/api/auth/login/", { method: "POST", headers: { "content-type": "application/json", "x-forwarded-for": ip }, body: JSON.stringify({ email: "brute@example.com", password }) }));
     let last = 0;
-    for (let i = 0; i < 12; i++) last = (await login.POST(post("/api/auth/login/", { email: "brute@example.com", password: "wrong wrong" }))).status;
+    for (let i = 0; i < 12; i++) last = (await from("203.0.113.9", "wrong wrong")).status;
     expect(last).toBe(429);
+    expect((await from("198.51.100.4", "correct horse")).status).toBe(200);
+  });
+
+  it("blocks guessing spread across many addresses", async () => {
+    await newAccount("spread@example.com");
+    let last = 0;
+    for (let i = 0; i < 62; i++) last = (await login.POST(post("/api/auth/login/", { email: "spread@example.com", password: "wrong wrong" }))).status;
+    expect(last).toBe(429);
+  });
+
+  it("ignores a forged first X-Forwarded-For entry", () => {
+    const ip = (xff: string) => auth.clientIp(new Request("http://localhost/", { headers: { "x-forwarded-for": xff } }));
+    expect(ip("1.1.1.1, 9.9.9.9")).toBe("9.9.9.9");
+    expect(ip("9.9.9.9")).toBe("9.9.9.9");
+    expect(auth.clientIp(new Request("http://localhost/", { headers: { "x-vercel-forwarded-for": "7.7.7.7", "x-forwarded-for": "1.1.1.1" } }))).toBe("7.7.7.7");
   });
 });
 
@@ -206,6 +225,13 @@ describe("sync", () => {
   it("needs a session", async () => {
     expect((await sync.POST(post("/api/sync/", {}))).status).toBe(401);
   });
+
+  it("skips oversized records instead of storing half a document", async () => {
+    const { cookie } = await newAccount("big@example.com");
+    const big = { id: "p-big", name: "x".repeat(5000), grade: "1", avatar: "ollie", colour: "#fff", updatedAt: Date.now() };
+    const res = await (await sync.POST(post("/api/sync/", { profiles: [big] }, cookie))).json();
+    expect(res.profiles).toEqual([]);
+  });
 });
 
 describe("Stripe webhook", () => {
@@ -223,11 +249,13 @@ describe("Stripe webhook", () => {
   it("moves a family between premium and free as the subscription changes", async () => {
     const { cookie } = await newAccount("stripe@example.com");
     const familyId = (await dbm.query<{ family_id: string }>("SELECT family_id FROM parents WHERE email = ?", ["stripe@example.com"]))[0].family_id;
-    const send = async (type: string, object: Record<string, unknown>) => {
-      const payload = JSON.stringify({ type, data: { object } });
+    let n = 0;
+    const base = Math.floor(Date.now() / 1000) - 1000;
+    const send = async (type: string, object: Record<string, unknown>, created = base + ++n, id = `evt_${familyId}_${n}`) => {
+      const payload = JSON.stringify({ id, created, type, data: { object } });
       expect((await hook(payload, sign(payload))).status).toBe(200);
     };
-    await send("checkout.session.completed", { client_reference_id: familyId, customer: "cus_1" });
+    await send("checkout.session.completed", { client_reference_id: familyId, customer: "cus_1", payment_status: "paid" });
     await send("customer.subscription.updated", { status: "active", customer: "cus_1", current_period_end: 2_000_000_000, items: { data: [{ price: { recurring: { interval: "year" } } }] } });
     let info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
     expect(info.family.plan).toBe("premium");
@@ -235,6 +263,27 @@ describe("Stripe webhook", () => {
     await send("customer.subscription.deleted", { status: "canceled", customer: "cus_1" });
     info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
     expect(info.family.plan).toBe("free");
+
+    // A late, older "active" event must not bring a cancelled family back.
+    await send("customer.subscription.updated", { status: "active", customer: "cus_1" }, base + 1, "evt_late");
+    info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
+    expect(info.family.plan).toBe("free");
+
+    // Redelivery of an event that was already handled is ignored.
+    await send("customer.subscription.updated", { status: "active", customer: "cus_1" }, base + 100, "evt_once");
+    await send("customer.subscription.deleted", { status: "canceled", customer: "cus_1" }, base + 101, "evt_cancel");
+    await send("customer.subscription.updated", { status: "active", customer: "cus_1" }, base + 102, "evt_once");
+    info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
+    expect(info.family.plan).toBe("free");
+  });
+
+  it("does not grant premium for a checkout that isn't paid yet", async () => {
+    const { cookie } = await newAccount("unpaid@example.com");
+    const familyId = (await dbm.query<{ family_id: string }>("SELECT family_id FROM parents WHERE email = ?", ["unpaid@example.com"]))[0].family_id;
+    const payload = JSON.stringify({ id: "evt_unpaid", created: Math.floor(Date.now() / 1000), type: "checkout.session.completed", data: { object: { client_reference_id: familyId, customer: "cus_u", payment_status: "unpaid" } } });
+    expect((await hook(payload, sign(payload))).status).toBe(200);
+    const info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
+    expect(info.family.plan).toBe("trial");
   });
 });
 
@@ -277,11 +326,11 @@ describe("subscriptions", () => {
         if (fail) return new Response(JSON.stringify({ error: { message: "down" } }), { status: 500 });
         return new Response(JSON.stringify(init?.method === "DELETE" ? {} : { data: [{ id: "sub_1", status: "active" }, { id: "sub_0", status: "canceled" }] }));
       });
-      expect((await account.DELETE(post("/api/account/", undefined, cookie, "DELETE"))).status).toBe(502);
+      expect((await account.DELETE(post("/api/account/", { password: "correct horse" }, cookie, "DELETE"))).status).toBe(502);
       expect(await dbm.query("SELECT 1 FROM parents WHERE email = 'cancel@example.com'")).toHaveLength(1);
       fail = false;
       calls.length = 0;
-      expect((await account.DELETE(post("/api/account/", undefined, cookie, "DELETE"))).status).toBe(200);
+      expect((await account.DELETE(post("/api/account/", { password: "correct horse" }, cookie, "DELETE"))).status).toBe(200);
       expect(calls.some((c) => c.startsWith("DELETE") && c.endsWith("/subscriptions/sub_1"))).toBe(true);
       expect(calls.some((c) => c.endsWith("sub_0"))).toBe(false);
       expect(await dbm.query("SELECT 1 FROM parents WHERE email = 'cancel@example.com'")).toHaveLength(0);
@@ -292,6 +341,43 @@ describe("subscriptions", () => {
   });
 });
 
+describe("account security", () => {
+  it("asks for the password before deleting an account", async () => {
+    const { cookie } = await newAccount("careful@example.com");
+    expect((await account.DELETE(post("/api/account/", undefined, cookie, "DELETE"))).status).toBe(403);
+    expect((await account.DELETE(post("/api/account/", { password: "wrong wrong" }, cookie, "DELETE"))).status).toBe(403);
+    expect(await dbm.query("SELECT 1 FROM parents WHERE email = 'careful@example.com'")).toHaveLength(1);
+  });
+
+  it("changes the password, signs out other devices and lists and revokes devices", async () => {
+    const { cookie } = await newAccount("devices@example.com");
+    const second = cookieOf(await login.POST(post("/api/auth/login/", { email: "devices@example.com", password: "correct horse" })));
+    const list = async (c: string) => (await sessions.GET(post("/api/auth/sessions/", undefined, c, "GET")));
+    const { sessions: all } = await (await list(cookie)).json();
+    expect(all).toHaveLength(2);
+    expect(all.filter((s: { current: boolean }) => s.current)).toHaveLength(1);
+
+    // Wrong current password is refused; the right one changes it and signs the other device out.
+    expect((await password.POST(post("/api/auth/password/", { current: "nope nope", password: "brand new pass" }, cookie))).status).toBe(403);
+    expect((await password.POST(post("/api/auth/password/", { current: "correct horse", password: "brand new pass" }, cookie))).status).toBe(200);
+    expect((await list(second)).status).toBe(401);
+    expect((await list(cookie)).status).toBe(200);
+    expect((await login.POST(post("/api/auth/login/", { email: "devices@example.com", password: "brand new pass" }))).status).toBe(200);
+
+    // "Sign out everywhere else" keeps the current device.
+    expect((await sessions.DELETE(post("/api/auth/sessions/", undefined, cookie, "DELETE"))).status).toBe(200);
+    const { sessions: after } = await (await list(cookie)).json();
+    expect(after).toHaveLength(1);
+  });
+
+  it("emails a heads-up on sign-in for confirmed accounts", async () => {
+    await newAccount("alert@example.com");
+    await dbm.run("UPDATE parents SET email_verified_at = ? WHERE email = ?", [Date.now(), "alert@example.com"]);
+    await login.POST(post("/api/auth/login/", { email: "alert@example.com", password: "correct horse" }));
+    expect(lastEmail().subject).toMatch(/New sign-in/);
+  });
+});
+
 describe("account deletion", () => {
   it("removes every row that belongs to the family", async () => {
     const { cookie } = await newAccount("gone@example.com");
@@ -299,7 +385,7 @@ describe("account deletion", () => {
     const parent = (await dbm.query<{ id: string; family_id: string }>("SELECT id, family_id FROM parents WHERE email = ?", ["gone@example.com"]))[0];
     await dbm.run("INSERT INTO report_shares (token_hash, family_id, profile_id, days, created_at, expires_at) VALUES ('h', ?, 'pg', 7, 1, 2)", [parent.family_id]);
 
-    const res = await account.DELETE(post("/api/account/", undefined, cookie, "DELETE"));
+    const res = await account.DELETE(post("/api/account/", { password: "correct horse" }, cookie, "DELETE"));
     expect(res.status).toBe(200);
     for (const [table, col, val] of [
       ["parents", "family_id", parent.family_id],

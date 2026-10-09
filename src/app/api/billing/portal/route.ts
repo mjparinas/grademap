@@ -1,4 +1,4 @@
-import { error, getSession, json, sameOrigin } from "@/server/auth";
+import { appOrigin, error, getSession, json, sameOrigin } from "@/server/auth";
 import { getFamilyRow } from "@/server/family";
 import { createPortal, stripeConfigured } from "@/server/stripe";
 
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const family = await getFamilyRow(session.familyId);
   if (!family?.stripe_customer) return error(400, "No subscription to manage yet.");
   try {
-    return json({ url: await createPortal(family.stripe_customer, new URL(req.url).origin) });
+    return json({ url: await createPortal(family.stripe_customer, appOrigin(req)) });
   } catch (e) {
     return error(502, (e as Error).message);
   }

@@ -99,7 +99,29 @@ export async function devBilling(action: "subscribe" | "cancel", interval: "mont
   adopt(family);
 }
 
-export async function deleteAccount() {
-  await post("/api/account/", undefined, "DELETE");
+export async function deleteAccount(password: string) {
+  await post("/api/account/", { password }, "DELETE");
   await useStore.getState().wipeDevice();
+}
+
+export async function changePassword(current: string, password: string) {
+  await post("/api/auth/password/", { current, password });
+}
+
+export interface DeviceSession {
+  id: string;
+  createdAt: number;
+  device: string;
+  current: boolean;
+}
+
+export async function listDevices(): Promise<DeviceSession[]> {
+  const res = await fetch("/api/auth/sessions/", { credentials: "same-origin" });
+  if (!res.ok) throw new Error("Couldn't load your devices.");
+  return ((await res.json()) as { sessions: DeviceSession[] }).sessions;
+}
+
+/** Signs out one device, or every device but this one when no id is given. */
+export async function signOutDevices(id?: string) {
+  await post(`/api/auth/sessions/${id ? `?id=${encodeURIComponent(id)}` : ""}`, undefined, "DELETE");
 }

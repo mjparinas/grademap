@@ -11,6 +11,8 @@ export async function GET(req: Request) {
   if (!session) return error(401, "Not signed in");
   const id = new URL(req.url).searchParams.get("id");
   if (id) {
+    // Building a class view reads every student's history, so it is rate limited.
+    if (await rateLimited(`classview:${session.parentId}`, 60, 10 * 60_000)) return error(429, "Too many refreshes. Try again in a minute.");
     const cls = await ownedClass(id, session.parentId);
     if (!cls) return error(404, "Class not found");
     return json({
@@ -31,6 +33,8 @@ export async function POST(req: Request) {
   if (!sameOrigin(req)) return error(403, "Bad origin");
   const session = await getSession(req);
   if (!session) return error(401, "Sign in to create a class.");
+  // Teachers see children's first names and results, so the account's email has to be confirmed first.
+  if (!session.verified) return error(403, "Please confirm your email first. Classes show children's progress, so we only allow them for confirmed accounts.");
   if (await rateLimited(`class:${session.parentId}`, 20, 60 * 60_000)) return error(429, "Too many classes created. Try again later.");
   const body = (await req.json().catch(() => null)) as { name?: unknown; grade?: unknown } | null;
   const name = typeof body?.name === "string" ? body.name.trim().slice(0, 60) : "";
@@ -51,6 +55,26 @@ export async function POST(req: Request) {
     }
   }
   return error(500, "Couldn’t create the class. Try again.");
+}
+
+/** Replaces the class's join code (?id=), for when it has been shared more widely than intended. Linked students stay linked. */
+export async function PATCH(req: Request) {
+  if (!sameOrigin(req)) return error(403, "Bad origin");
+  const session = await getSession(req);
+  if (!session) return error(401, "Not signed in");
+  const id = new URL(req.url).searchParams.get("id") ?? "";
+  const cls = await ownedClass(id, session.parentId);
+  if (!cls) return error(404, "Class not found");
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const code = newJoinCode();
+    try {
+      await run("UPDATE classes SET join_code = ? WHERE id = ?", [code, id]);
+      return json({ joinCode: code });
+    } catch {
+      // Collision: try another.
+    }
+  }
+  return error(500, "Couldn’t make a new code. Try again.");
 }
 
 /** Closes a class. Links to students are removed, so the teacher no longer sees anyone's progress. */
