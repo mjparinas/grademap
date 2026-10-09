@@ -11,6 +11,9 @@ export async function POST(req: Request) {
   const body = (await req.json().catch(() => ({}))) as { interval?: string };
   const interval = body.interval === "year" ? "year" : "month";
   const family = await getFamilyRow(session.familyId);
+  if (family && ["active", "trialing", "past_due"].includes(family.subscription_status ?? "")) {
+    return error(409, "You already have a subscription. Use Manage billing to change or cancel it.");
+  }
   const origin = appOrigin(req);
   try {
     const url = await createCheckout({ interval, familyId: session.familyId, email: session.email, customer: family?.stripe_customer, origin });

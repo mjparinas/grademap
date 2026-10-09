@@ -2,7 +2,7 @@ import { createHmac } from "node:crypto";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 // These tests run the real route handlers against a throwaway SQLite file.
 
@@ -181,6 +181,28 @@ describe("sync", () => {
     expect(res.events).toEqual([]);
   });
 
+  it("does not bring back events for a deleted or reset child", async () => {
+    const { cookie } = await newAccount("deleted-child@example.com");
+    const t0 = Date.now() - 5000;
+    await sync.POST(post("/api/sync/", { profiles: [{ ...profile("pd"), updatedAt: t0 }], events: [event("d1", "pd")] }, cookie));
+    // Deleted in the same request that still carries a pending event, and again from a later push.
+    const gone = await (await sync.POST(post("/api/sync/", { profiles: [{ ...profile("pd"), deleted: true, updatedAt: t0 + 10 }], events: [event("d2", "pd")] }, cookie))).json();
+    expect(gone.accepted).toContain("d2");
+    const later = await (await sync.POST(post("/api/sync/", { cursor: 0, events: [event("d3", "pd")] }, cookie))).json();
+    expect(later.events).toEqual([]);
+
+    await sync.POST(post("/api/sync/", { profiles: [{ ...profile("pr"), updatedAt: t0 }] }, cookie));
+    const reset = await (await sync.POST(post("/api/sync/", { cursor: 0, profiles: [{ ...profile("pr"), resetAt: Date.now(), updatedAt: t0 + 10 }], events: [event("r1", "pr")] }, cookie))).json();
+    expect(reset.events).toEqual([]);
+  });
+
+  it("survives malformed bodies", async () => {
+    const { cookie } = await newAccount("malformed@example.com");
+    for (const body of [{ profiles: [null] }, { events: "x" }, { events: [null], settings: [null] }]) {
+      expect((await sync.POST(post("/api/sync/", body, cookie))).status).toBe(200);
+    }
+  });
+
   it("needs a session", async () => {
     expect((await sync.POST(post("/api/sync/", {}))).status).toBe(401);
   });
@@ -213,6 +235,60 @@ describe("Stripe webhook", () => {
     await send("customer.subscription.deleted", { status: "canceled", customer: "cus_1" });
     info = await (await me.GET(new Request("http://localhost/api/auth/me/", { headers: { cookie } }))).json();
     expect(info.family.plan).toBe("free");
+  });
+});
+
+describe("signup race", () => {
+  it("answers a duplicate email with 409 and leaves no empty family", async () => {
+    const before = (await dbm.query<{ n: number }>("SELECT COUNT(*) AS n FROM families"))[0].n;
+    const results = await Promise.all([1, 2, 3].map(() => signup.POST(post("/api/auth/signup/", { email: "race@example.com", password: "correct horse" }))));
+    expect(results.map((r) => r.status).sort()).toEqual([200, 409, 409]);
+    expect((await dbm.query<{ n: number }>("SELECT COUNT(*) AS n FROM families"))[0].n).toBe(Number(before) + 1);
+  });
+});
+
+describe("subscriptions", () => {
+  const stripeEnv = { STRIPE_SECRET_KEY: "sk_test", STRIPE_PRICE_MONTHLY: "price_m", STRIPE_PRICE_YEARLY: "price_y" };
+  async function subscribed(address: string) {
+    const { cookie } = await newAccount(address);
+    await dbm.run("UPDATE parents SET email_verified_at = 1 WHERE email = ?", [address]);
+    await dbm.run("UPDATE families SET stripe_customer = 'cus_x', subscription_status = 'active', plan = 'premium' WHERE id = (SELECT family_id FROM parents WHERE email = ?)", [address]);
+    return cookie;
+  }
+
+  it("refuses a second checkout while a subscription is live", async () => {
+    Object.assign(process.env, stripeEnv);
+    try {
+      const cookie = await subscribed("double@example.com");
+      expect((await checkout.POST(post("/api/billing/checkout/", { interval: "month" }, cookie))).status).toBe(409);
+    } finally {
+      for (const k of Object.keys(stripeEnv)) delete process.env[k];
+    }
+  });
+
+  it("cancels the Stripe subscription before deleting the account, and keeps the account if Stripe fails", async () => {
+    Object.assign(process.env, stripeEnv);
+    try {
+      const cookie = await subscribed("cancel@example.com");
+      const calls: string[] = [];
+      let fail = true;
+      vi.stubGlobal("fetch", async (url: string, init?: RequestInit) => {
+        calls.push(`${init?.method ?? "GET"} ${url}`);
+        if (fail) return new Response(JSON.stringify({ error: { message: "down" } }), { status: 500 });
+        return new Response(JSON.stringify(init?.method === "DELETE" ? {} : { data: [{ id: "sub_1", status: "active" }, { id: "sub_0", status: "canceled" }] }));
+      });
+      expect((await account.DELETE(post("/api/account/", undefined, cookie, "DELETE"))).status).toBe(502);
+      expect(await dbm.query("SELECT 1 FROM parents WHERE email = 'cancel@example.com'")).toHaveLength(1);
+      fail = false;
+      calls.length = 0;
+      expect((await account.DELETE(post("/api/account/", undefined, cookie, "DELETE"))).status).toBe(200);
+      expect(calls.some((c) => c.startsWith("DELETE") && c.endsWith("/subscriptions/sub_1"))).toBe(true);
+      expect(calls.some((c) => c.endsWith("sub_0"))).toBe(false);
+      expect(await dbm.query("SELECT 1 FROM parents WHERE email = 'cancel@example.com'")).toHaveLength(0);
+    } finally {
+      vi.unstubAllGlobals();
+      for (const k of Object.keys(stripeEnv)) delete process.env[k];
+    }
   });
 });
 
