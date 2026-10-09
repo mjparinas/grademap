@@ -10,10 +10,11 @@ updates:
       # Minor and patch updates arrive as one PR a week. Majors stay separate so they get a proper look.
       minor-and-patch:
         update-types: [minor, patch]
-        exclude-patterns: [playwright, "@playwright/*"]
-      # The browsers Playwright downloads must match its version, so it moves on its own.
-      playwright:
-        patterns: [playwright, "@playwright/*", "@axe-core/playwright"]
+    # Playwright is bumped by hand: the browser container image tag in ci.yml must change
+    # together with the npm version, and Dependabot can't edit both.
+    ignore:
+      - dependency-name: playwright
+      - dependency-name: "@playwright/*"
   - package-ecosystem: github-actions
     directories: ["/", "/.github/actions/*"]
     schedule:
