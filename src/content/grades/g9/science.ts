@@ -104,7 +104,7 @@ const ELEMENTS: Element[] = [
   { name: "aluminum", symbol: "Al", z: 13 },
   { name: "silicon", symbol: "Si", z: 14 },
   { name: "phosphorus", symbol: "P", z: 15 },
-  { name: "sulfur", symbol: "S", z: 16 },
+  { name: "sulphur", symbol: "S", z: 16 },
   { name: "chlorine", symbol: "Cl", z: 17 },
   { name: "argon", symbol: "Ar", z: 18 },
   { name: "potassium", symbol: "K", z: 19 },
