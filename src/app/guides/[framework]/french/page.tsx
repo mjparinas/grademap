@@ -5,14 +5,13 @@ import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/components/site/js
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { curriculumPath, resolve } from "@/components/site/curriculum";
 import { guidePath } from "@/components/site/guides";
-import { FRAMEWORKS } from "@/content/frameworks";
-import { guidesFor } from "@/content/guides";
+import { guidesFor, GUIDE_FRAMEWORKS } from "@/content/guides";
 import { JsonLd } from "@/lib/site";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return FRAMEWORKS.map((f) => ({ framework: f.slug }));
+  return GUIDE_FRAMEWORKS.map((f) => ({ framework: f.slug }));
 }
 
 type Props = PageProps<"/guides/[framework]/french">;
