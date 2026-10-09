@@ -16,10 +16,10 @@ import { Arcade, GameScreen } from "./Arcade";
 import { Hub } from "./Hub";
 import { SpeedPicker, SubjectPicker, UnitList } from "./Practice";
 import { PlacementTest } from "./PlacementTest";
+import { SecretsListener } from "./Secrets";
 import { Session } from "./Session";
 import { Shop } from "./Shop";
 import { FirstRun, Picker } from "./Start";
-import { KonamiListener } from "./KonamiListener";
 import { Toasts } from "./Toasts";
 import { TrophyRoom } from "./Trophies";
 
@@ -80,7 +80,7 @@ export function PlayApp() {
           <Screen />
         </div>
         <Toasts />
-        <KonamiListener />
+        <SecretsListener />
       </BandProvider>
     </ContentGate>
   );

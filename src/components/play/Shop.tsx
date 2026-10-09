@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { celebrate } from "@/lib/juice";
-import { SHOP, type ItemKind, type ShopItem } from "@/lib/shop";
+import { isUnlocked, SHOP, type ItemKind, type ShopItem } from "@/lib/shop";
 import { sounds } from "@/lib/sound";
 import { useActiveProfile, useDerived, useStore } from "@/lib/store";
 import { Critter, CritterSvg } from "../Critter";
@@ -25,6 +25,8 @@ export function Shop() {
   const equipped = (item: ShopItem) =>
     item.kind === "companion" ? profile.companion === item.id : item.kind === "title" ? profile.title === item.id : profile.confetti === item.id;
   const owned = (item: ShopItem) => item.cost === 0 || d.owned.includes(item.id);
+
+  const unlocked = (item: ShopItem) => isUnlocked(item, d.level, d.trophies);
 
   const choose = (item: ShopItem) => {
     if (owned(item)) {
@@ -57,20 +59,21 @@ export function Shop() {
           const isOwned = owned(item);
           const isOn = equipped(item);
           const affordable = d.coins >= item.cost;
+          const locked = !isOwned && !unlocked(item);
           return (
             <div key={item.id} className="animate-rise-in" style={{ animationDelay: `${i * 40}ms` }}>
               <button
                 type="button"
                 onClick={() => choose(item)}
                 className={`btn h-full w-full flex-col gap-2 p-3 ${isOn ? "btn-good" : ""}`}
-                aria-label={`${item.name}${isOn ? ", equipped" : isOwned ? ", owned" : `, ${item.cost} coins`}`}
+                aria-label={`${item.name}${isOn ? ", equipped" : isOwned ? ", owned" : locked ? `, locked: ${item.unlock?.label}` : `, ${item.cost} coins`}`}
               >
                 <span className="flex h-24 w-24 items-center justify-center">
                   {item.critter ? <CritterSvg id={item.critter} mood={isOn ? "cheer" : "happy"} /> : <span className="text-6xl">{item.icon}</span>}
                 </span>
                 <span className="text-lg leading-tight font-bold">{item.name}</span>
-                <span className={`rounded-full px-3 py-0.5 text-sm font-bold ${isOn ? "bg-white/30" : isOwned ? "bg-good-soft text-good-dark" : affordable ? "bg-[#fff4cc] text-[#7a5700]" : "bg-black/5 text-ink-soft"}`}>
-                  {isOn ? "Using ✓" : isOwned ? "Owned · Use" : `🪙 ${item.cost}`}
+                <span className={`rounded-full px-3 py-0.5 text-sm font-bold ${isOn ? "bg-white/30" : isOwned ? "bg-good-soft text-good-dark" : locked ? "bg-black/5 text-ink-soft" : affordable ? "bg-[#fff4cc] text-[#7a5700]" : "bg-black/5 text-ink-soft"}`}>
+                  {isOn ? "Using ✓" : isOwned ? "Owned · Use" : locked ? `🔒 ${item.unlock?.label}` : `🪙 ${item.cost}`}
                 </span>
               </button>
             </div>
@@ -82,7 +85,9 @@ export function Shop() {
         {confirm && (
           <div className="flex flex-col items-center gap-4">
             {confirm.critter ? <Critter id={confirm.critter} mood="wave" size={130} /> : <span className="text-7xl">{confirm.icon}</span>}
-            {d.coins >= confirm.cost ? (
+            {!unlocked(confirm) ? (
+              <p className="font-read text-lg">This one is locked. {confirm.unlock?.label} to unlock it!</p>
+            ) : d.coins >= confirm.cost ? (
               <>
                 <p className="font-read text-lg">
                   It costs <b>🪙 {confirm.cost}</b>. You have 🪙 {d.coins}.
@@ -105,7 +110,7 @@ export function Shop() {
               <p className="font-read text-lg">You need 🪙 {confirm.cost - d.coins} more coins. Keep learning to earn them!</p>
             )}
             <button type="button" className="btn min-h-14 w-full text-xl" onClick={() => setConfirm(null)}>
-              {d.coins >= confirm.cost ? "Not now" : "OK"}
+              {unlocked(confirm) && d.coins >= confirm.cost ? "Not now" : "OK"}
             </button>
           </div>
         )}

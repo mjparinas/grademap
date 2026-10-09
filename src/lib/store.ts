@@ -17,9 +17,9 @@ import {
   type Profile,
 } from "./model";
 import { TRIAL_DAYS } from "./plan";
-import { dailyQuests } from "./quests";
-import { getItem, STARTER } from "./shop";
-import { setCalmCheck } from "./juice";
+import { dailyQuests, weekDays, weeklyQuests, weekStart } from "./quests";
+import { getItem, isUnlocked, STARTER } from "./shop";
+import { celebrate, setCalmCheck } from "./juice";
 import { setQuietCheck, setSoundCheck } from "./sound";
 import { getTrophy, newlyEarned, TIER_STYLE } from "./trophies";
 
@@ -226,6 +226,16 @@ export const useStore = create<State>()((set, get) => ({
         toasts.push({ kind: "quest", title: "Quest complete!", subtitle: `${q.title} · +${q.reward} coins`, icon: q.icon });
       }
     }
+    // Weekly quests add up the week's days and are claimed under the Monday's date.
+    const monday = weekStart(now);
+    const weekClaimed = after.questsClaimed[monday] ?? [];
+    const thisWeek = weekDays(monday).flatMap((k) => (after.days[k] ? [after.days[k]] : []));
+    for (const q of weeklyQuests(profile.id, monday, ageBandFor(profile.grade))) {
+      if (!weekClaimed.includes(q.id) && q.progress(thisWeek) >= q.target) {
+        questEvents.push({ type: "quest", quest: q.id, day: monday, reward: q.reward, id: newId(), t: now + 60, profileId: profile.id });
+        toasts.push({ kind: "quest", title: "Weekly quest complete!", subtitle: `${q.title} · +${q.reward} coins`, icon: q.icon });
+      }
+    }
     if (questEvents.length) {
       events = [...events, ...questEvents];
       fresh.push(...questEvents);
@@ -251,6 +261,9 @@ export const useStore = create<State>()((set, get) => ({
       toasts.unshift({ kind: "level", title: `Level ${after.level}!`, subtitle: "You levelled up!", icon: "⬆️" });
     }
 
+    // Make a Wish: a little shower of stars.
+    if (fresh.some((e) => e.type === "trophy" && e.trophy === "make-a-wish")) celebrate(["⭐", "🌟", "✨"]);
+
     set({ events });
     void localdb.putEvents(fresh);
     toasts.forEach((t) => get().pushToast(t));
@@ -265,6 +278,7 @@ export const useStore = create<State>()((set, get) => ({
       get().equip(itemId);
       return true;
     }
+    if (!isUnlocked(item, d.level, d.trophies)) return false;
     if (d.coins < item.cost) return false;
     get().log([{ type: "buy", item: itemId, cost: item.cost }]);
     get().equip(itemId);
