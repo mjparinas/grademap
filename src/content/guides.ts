@@ -350,6 +350,14 @@ const BC_GUIDES: FrameworkGuides = {
       overview: "Grade 7 is the last elementary year in many BC schools and prepares students for secondary school. Students take the Foundation Skills Assessment, and work on integers, the links between decimals, fractions, ratios and percents, two-step equations, circles and deeper analysis of what they read.",
       lookFor: "Look for comments on independence, study habits and confidence with the harder math and reading ahead.",
     },
+    "8": {
+      overview: "Grade 8 is the first year of secondary school in many BC districts. Students work with fraction operations, squares and roots, ratios and rates, linear equations, the Pythagorean theorem and surface area and volume, and they study cells, particles and plate tectonics.",
+      lookFor: "Look for comments on managing a heavier workload, showing steps in math and supporting an argument with evidence from a text.",
+    },
+    "9": {
+      overview: "Grade 9 builds towards the graduation years. Students work with rational numbers, exponent laws, polynomials, multi-step equations and linear relations, explore atoms, electric current and ecosystems, and study the Enlightenment, industrialization and Canada's story.",
+      lookFor: "Look for comments on planning ahead for course choices, explaining reasoning in math and weighing perspectives in social studies and English.",
+    },
   },
 };
 

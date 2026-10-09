@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/guides/[framework
   const f = r.framework;
   return {
     title: `${f.name} parent guides and free printable practice sheets`,
-    description: `Free guides for ${f.shortName} parents: what each grade learns in the ${f.curriculumName}, how to help at home, Core Competencies, the FSA and printable practice sheets for Kindergarten to Grade 7.`,
+    description: `Free guides for ${f.shortName} parents: what each grade learns in the ${f.curriculumName}, how to help at home, Core Competencies, the FSA and printable practice sheets for Kindergarten to Grade 9.`,
     alternates: { canonical: guidePath.hub(r.framework) },
   };
 }

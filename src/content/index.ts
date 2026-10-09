@@ -15,6 +15,8 @@ const LOADERS: Record<GradeId, () => Promise<{ courses: Course[] }>> = {
   "5": () => import("./grades/g5"),
   "6": () => import("./grades/g6"),
   "7": () => import("./grades/g7"),
+  "8": () => import("./grades/g8"),
+  "9": () => import("./grades/g9"),
 };
 
 /** Grades that have content. Every grade has a loader; tests check each one has units. */

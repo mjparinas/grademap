@@ -87,7 +87,7 @@ export function getSubjectMeta(id: SubjectId | string): SubjectMeta {
   return SUBJECTS.find((s) => s.id === id) ?? SUBJECTS[0];
 }
 
-export const GRADE_ORDER: GradeId[] = ["k", "1", "2", "3", "4", "5", "6", "7"];
+export const GRADE_ORDER: GradeId[] = ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 export const GRADE_LABEL: Record<GradeId, string> = {
   k: "Kindergarten",
@@ -98,6 +98,8 @@ export const GRADE_LABEL: Record<GradeId, string> = {
   "5": "Grade 5",
   "6": "Grade 6",
   "7": "Grade 7",
+  "8": "Grade 8",
+  "9": "Grade 9",
 };
 
 export const GRADE_SHORT: Record<GradeId, string> = {
@@ -109,6 +111,8 @@ export const GRADE_SHORT: Record<GradeId, string> = {
   "5": "5",
   "6": "6",
   "7": "7",
+  "8": "8",
+  "9": "9",
 };
 
 export function gradeSlug(grade: GradeId): string {
@@ -121,12 +125,12 @@ export function gradeFromSlug(slug: string): GradeId | undefined {
 
 export function ageBandFor(grade: GradeId): AgeBand {
   if (grade === "k" || grade === "1") return "little";
-  if (grade === "5" || grade === "6" || grade === "7") return "big";
+  if (grade === "5" || grade === "6" || grade === "7" || grade === "8" || grade === "9") return "big";
   return "middle";
 }
 
 /** Typical age at the start of a grade, for suggesting a grade from a child's age. */
 export function gradeForAge(age: number): GradeId {
-  const g = Math.max(0, Math.min(7, Math.round(age) - 5));
+  const g = Math.max(0, Math.min(9, Math.round(age) - 5));
   return GRADE_ORDER[g];
 }
