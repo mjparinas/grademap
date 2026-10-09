@@ -34,7 +34,7 @@ describe("per-grade mastery trophies", () => {
     const d = derive([]);
     const shown = visibleTrophies(d, "2").filter((t) => t.grade);
     expect(shown.every((t) => t.grade === "2")).toBe(true);
-    expect(newlyEarned(d, { grade: "2" }).every((t) => !t.grade || t.grade === "2")).toBe(true);
+    expect(newlyEarned(d, { grade: "2", framework: "ca-bc" }).every((t) => !t.grade || t.grade === "2")).toBe(true);
   });
   it("still count points for trophies earned before they went per-grade", () => {
     expect(trophyTier("grade-champion")).toBe("platinum");

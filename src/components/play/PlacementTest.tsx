@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AVAILABLE_GRADES, loadGrades } from "@/content";
+import { AVAILABLE_GRADES, loadGrades, type ContentTarget } from "@/content";
+import { getFramework } from "@/content/frameworks";
 import { getSubjectMeta } from "@/content/subjects";
-import type { GradeId, SubjectId } from "@/content/types";
+import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import { buildStage, gradesWithSubject, nextGrade, STAGE_SIZE, summarize, toEvent, MAX_STAGES, type Stage, type StageQuestion } from "@/lib/placement";
 import { go } from "@/lib/router";
 import { speakQuestion } from "@/lib/readaloud";
@@ -20,9 +21,10 @@ import { QuestionBody } from "./Session";
 
 type Phase = "intro" | "loading" | "asking" | "done" | "error";
 
-const neighbours = (grade: GradeId): GradeId[] => {
-  const i = AVAILABLE_GRADES.indexOf(grade);
-  return [AVAILABLE_GRADES[i - 1], grade, AVAILABLE_GRADES[i + 1]].filter(Boolean);
+const neighbours = (grade: GradeId, framework: FrameworkId): ContentTarget[] => {
+  const grades = AVAILABLE_GRADES.filter((g) => getFramework(framework).grades.includes(g));
+  const i = grades.indexOf(grade);
+  return [grades[i - 1], grade, grades[i + 1]].filter(Boolean).map((g) => ({ grade: g, framework }));
 };
 
 export function PlacementTest({ subject }: { subject: SubjectId }) {
@@ -51,7 +53,7 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
   }, [phase, q, settings?.autoRead]);
 
   async function startStage(grade: GradeId) {
-    const qs = buildStage(grade, subject);
+    const qs = buildStage(grade, subject, profile.framework);
     if (!qs.length) return false;
     current.current = { grade, correct: 0, missed: [] };
     setStageQs(qs);
@@ -64,7 +66,7 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
   async function begin() {
     setPhase("loading");
     try {
-      await loadGrades(neighbours(profile.grade));
+      await loadGrades(neighbours(profile.grade, profile.framework));
     } catch {
       return setPhase("error");
     }
@@ -77,10 +79,10 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
     stages.current = [...stages.current, { grade: c.grade, total: STAGE_SIZE, correct: c.correct, asked: stageQs.map((s) => s.unitKey), missed: c.missed }];
     setPhase("loading");
     // Make sure the grades either side are in before deciding where to go next. Offline, just work with what we have.
-    await loadGrades(neighbours(c.grade)).catch(() => {});
-    const next = nextGrade(stages.current, gradesWithSubject(subject));
+    await loadGrades(neighbours(c.grade, profile.framework)).catch(() => {});
+    const next = nextGrade(stages.current, gradesWithSubject(subject, profile.framework));
     if (next && (await startStage(next))) return setPhase("asking");
-    log([toEvent(summarize(subject, profile.grade, stages.current))]);
+    log([toEvent(summarize(subject, profile.grade, stages.current, profile.framework))]);
     setPhase("done");
   }
 

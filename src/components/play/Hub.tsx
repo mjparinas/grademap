@@ -55,7 +55,7 @@ export function Hub() {
   const goal = settings?.dailyGoalMinutes ?? 15;
   const subjects = settings?.enabledSubjects ?? ["math", "language", "science", "social"];
   const games = gameTime(settings, d, now);
-  const weak = weakest({ grade: profile.grade, derived: d, subjects }, 10).length;
+  const weak = weakest({ grade: profile.grade, framework: profile.framework, derived: d, subjects }, 10).length;
   const dailyDone = d.dailyDone.includes(today);
   const quests = dailyQuests(profile.id, today, band);
   const claimed = d.questsClaimed[today] ?? [];
@@ -63,7 +63,7 @@ export function Hub() {
   const weekly = weeklyQuests(profile.id, monday, band);
   const weekStats = weekDays(monday).flatMap((k) => (d.days[k] ? [d.days[k]] : []));
   const weekClaimed = d.questsClaimed[monday] ?? [];
-  const suggested = suggestions(profile.grade, d, subjects, allowed, 1)[0];
+  const suggested = suggestions(profile.grade, profile.framework, d, subjects, allowed, 1)[0];
   const little = band === "little";
 
   const message = !d.totals.answers

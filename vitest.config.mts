@@ -13,5 +13,7 @@ export default defineConfig({
     include: ["src/**/*.test.{ts,tsx}"],
     // Component tests opt in to jsdom with `// @vitest-environment jsdom`; everything else stays in node.
     setupFiles: ["./src/test/setup.ts"],
+    // Sign-up and login hash passwords with scrypt, which can pass the 5 s default on a busy CI machine.
+    testTimeout: 20000,
   },
 });

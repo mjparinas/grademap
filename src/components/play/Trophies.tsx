@@ -37,7 +37,7 @@ export function TrophyRoom() {
   const all = visibleTrophies(d, profile.grade);
   const earned = all.filter((t) => d.trophies[t.id]);
   const pct = Math.round((earned.length / all.length) * 100);
-  const ctx = { grade: profile.grade };
+  const ctx = { grade: profile.grade, framework: profile.framework };
 
   return (
     <Page className="gap-5">

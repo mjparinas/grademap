@@ -212,7 +212,7 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
             Add a unit
             <select className="mt-1 min-h-11 max-w-full rounded-xl border border-line bg-white px-3" value={pick} onChange={(e) => setPick(e.target.value)}>
               <option value="">Choose a unit…</option>
-              {coursesForGrade(cls.grade).map((course) => (
+              {coursesForGrade(cls.grade, FRAMEWORK).map((course) => (
                 <optgroup key={course.subject} label={course.subject}>
                   {course.units.map((u) => {
                     const key = `${course.grade}/${course.subject}/${u.id}`;

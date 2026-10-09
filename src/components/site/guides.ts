@@ -1,5 +1,6 @@
 import { COMPETITORS } from "@/content/compare";
-import { FRAMEWORKS, type Framework } from "@/content/frameworks";
+import type { Framework } from "@/content/frameworks";
+import { GUIDE_FRAMEWORKS } from "@/content/guides";
 import { gradeSlug } from "@/content/subjects";
 import type { GradeId, SubjectId } from "@/content/types";
 import { coursesFor, gradesWithContent } from "./curriculum";
@@ -22,7 +23,7 @@ export const guidePath = {
 export function allGuidePaths(): { path: string; priority: number }[] {
   const out: { path: string; priority: number }[] = [{ path: guidePath.compareIndex(), priority: 0.6 }];
   for (const c of COMPETITORS) out.push({ path: guidePath.compare(c.slug), priority: 0.6 });
-  for (const f of FRAMEWORKS) {
+  for (const f of GUIDE_FRAMEWORKS) {
     out.push({ path: guidePath.hub(f), priority: 0.8 });
     out.push({ path: guidePath.competencies(f), priority: 0.8 });
     out.push({ path: guidePath.assessment(f), priority: 0.8 });

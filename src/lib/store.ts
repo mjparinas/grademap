@@ -98,6 +98,9 @@ export function eventsFor(events: AppEvent[], profile: Profile | undefined): App
   return events.filter((e) => e.profileId === profile.id && e.t > (profile.resetAt ?? 0));
 }
 
+/** Profiles saved before provinces existed have no framework; they are BC. */
+const withFramework = (p: Profile): Profile => (p.framework ? p : { ...p, framework: DEFAULT_FRAMEWORK });
+
 export function derivedFor(state: Pick<State, "events" | "profiles">, profileId: string | null): Derived {
   const profile = state.profiles.find((p) => p.id === profileId);
   const key = profileId ?? "";
@@ -142,7 +145,7 @@ export const useStore = create<State>()((set, get) => ({
     set({
       ready: true,
       deviceId: id,
-      profiles: profiles ?? [],
+      profiles: (profiles ?? []).map(withFramework),
       activeId: activeId ?? null,
       settings: settings ?? {},
       family: fam,
@@ -249,7 +252,7 @@ export const useStore = create<State>()((set, get) => ({
 
     // Trophies can unlock other trophies (e.g. levels), so check until nothing new.
     for (let round = 0; round < 3; round++) {
-      const earned = newlyEarned(after, { grade: profile.grade });
+      const earned = newlyEarned(after, { grade: profile.grade, framework: profile.framework });
       if (!earned.length) break;
       const trophyEvents = earned.map(
         (t, i) => ({ type: "trophy", trophy: t.id, id: newId(), t: now + 100 + round * 10 + i, profileId: profile.id }) as AppEvent,
@@ -329,7 +332,8 @@ export const useStore = create<State>()((set, get) => ({
     const newEvents = events.filter((e) => !known.has(e.id));
     // Last write wins for profiles and settings.
     const byId = new Map(state.profiles.map((p) => [p.id, p]));
-    for (const p of profiles) {
+    for (const raw of profiles) {
+      const p = withFramework(raw);
       const mine = byId.get(p.id);
       if (!mine || p.updatedAt > mine.updatedAt) byId.set(p.id, p);
     }

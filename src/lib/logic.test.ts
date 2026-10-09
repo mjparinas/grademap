@@ -98,7 +98,7 @@ describe("trophies", () => {
   it("have unique ids and award First Steps", () => {
     expect(new Set(TROPHIES.map((t) => t.id)).size).toBe(TROPHIES.length);
     const d = derive([answer(true, Date.now())]);
-    const earned = newlyEarned(d, { grade: "2" }).map((t) => t.id);
+    const earned = newlyEarned(d, { grade: "2", framework: "ca-bc" }).map((t) => t.id);
     expect(earned).toContain("first-answer");
     expect(earned).not.toContain("correct-50");
   });
@@ -118,20 +118,20 @@ describe("adaptive", () => {
     const d = derive(strong);
     const counts = new Map<string, number>();
     for (let i = 0; i < 2000; i++) {
-      const p = pickNext({ grade: "2", derived: d, subjects: ["math"], recent: [], mode: "adventure" });
+      const p = pickNext({ grade: "2", framework: "ca-bc", derived: d, subjects: ["math"], recent: [], mode: "adventure" });
       counts.set(p!.ref.key, (counts.get(p!.ref.key) ?? 0) + 1);
     }
-    const others = allUnitRefs("2").filter((r) => r.course.subject === "math" && r.key !== UNIT);
+    const others = allUnitRefs("2", "ca-bc").filter((r) => r.course.subject === "math" && r.key !== UNIT);
     const avgOther = others.reduce((s, r) => s + (counts.get(r.key) ?? 0), 0) / others.length;
     expect(counts.get(UNIT) ?? 0).toBeLessThan(avgOther);
-    const again = pickNext({ grade: "2", derived: d, subjects: ["math"], recent: [UNIT, UNIT], mode: "adventure" });
+    const again = pickNext({ grade: "2", framework: "ca-bc", derived: d, subjects: ["math"], recent: [UNIT, UNIT], mode: "adventure" });
     expect(again).toBeDefined();
   });
 
   it("review only picks practised units", () => {
     const d = derive([answer(false, Date.now())]);
     for (let i = 0; i < 50; i++) {
-      expect(pickNext({ grade: "2", derived: d, subjects: ["math", "language"], recent: [], mode: "review" })!.ref.key).toBe(UNIT);
+      expect(pickNext({ grade: "2", framework: "ca-bc", derived: d, subjects: ["math", "language"], recent: [], mode: "review" })!.ref.key).toBe(UNIT);
     }
   });
 });
@@ -152,7 +152,7 @@ describe("calm and focus options", () => {
   });
 
   it("shorter sessions use five questions in Review and a five-question checkpoint in Adventure", () => {
-    const base = { scope: "mix", grade: "2" as const, band: "middle" as const, profileId: "p", subjects: ["math" as const], derived: derive([]), allowed: () => true };
+    const base = { scope: "mix", grade: "2" as const, framework: "ca-bc" as const, band: "middle" as const, profileId: "p", subjects: ["math" as const], derived: derive([]), allowed: () => true };
     expect(makePlan({ ...base, mode: "review" })?.total).toBe(10);
     expect(makePlan({ ...base, mode: "review", short: true })?.total).toBe(5);
     expect(makePlan({ ...base, mode: "adventure" })?.checkpoint).toBe(10);

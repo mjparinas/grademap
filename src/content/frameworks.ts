@@ -1,4 +1,5 @@
-import type { FrameworkId, GradeId } from "./types";
+import { ONTARIO } from "./ontario/framework";
+import type { FrameworkId, GradeId, SubjectId } from "./types";
 
 // Everything that differs between provinces/states lives here: names, which
 // grades exist, how report cards grade students, and the report-card guide.
@@ -14,6 +15,8 @@ export interface ProficiencyLevel {
   colour: string;
   /** What this usually looks like at home, in plain words. */
   atHome: string;
+  /** How the report card records this level, if it uses marks (e.g. "B range" or "70–79%"). */
+  marks?: string;
 }
 
 export interface ScoringScheme {
@@ -39,7 +42,18 @@ export interface Framework {
   shortName: string;
   country: "CA" | "US";
   curriculumName: string;
+  /** The place name used in sentences, e.g. "Ontario". */
+  region: string;
+  /** What this framework calls the big picture of a course, shown to parents. */
+  overviewLabel: string;
+  /** What this framework calls one learning standard, e.g. "Learning standard" or "Expectation". */
+  standardLabel: string;
+  /** Where the standards come from, shown on public pages. */
+  sourceName: string;
+  sourceUrl: string;
   grades: GradeId[];
+  /** Subjects with content for this framework. */
+  subjects: SubjectId[];
   scoringFor: (grade: GradeId) => ScoringScheme;
   reportCard: ReportCardGuide;
 }
@@ -100,7 +114,13 @@ export const FRAMEWORKS: Framework[] = [
     shortName: "BC",
     country: "CA",
     curriculumName: "BC Curriculum",
+    region: "British Columbia",
+    overviewLabel: "Big Ideas",
+    standardLabel: "Learning standard",
+    sourceName: "BC Ministry of Education and Child Care",
+    sourceUrl: "https://curriculum.gov.bc.ca/",
     grades: ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    subjects: ["math", "language", "science", "social", "immersion", "core-french"],
     scoringFor: () => BC_PROFICIENCY,
     reportCard: {
       title: "Understanding BC report cards",
@@ -152,6 +172,7 @@ export const FRAMEWORKS: Framework[] = [
       ],
     },
   },
+  ONTARIO,
 ];
 
 export const DEFAULT_FRAMEWORK: FrameworkId = "ca-bc";

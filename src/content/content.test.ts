@@ -2,11 +2,22 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { COURSES } from "./all";
-import { allUnitRefs, AVAILABLE_GRADES, coursesForGrade, getUnitRef, isGradeLoaded, loadGrade, parseUnitKey, unitKey } from "./index";
+import { allUnitRefs, AVAILABLE_GRADES, coursesForGrade, coursesInFramework, getUnitRef, isGradeLoaded, loadGrade, parseUnitKey, unitKey } from "./index";
 import { ageBandFor } from "./subjects";
 import type { Course, Question, Visual } from "./types";
 
 const RUNS = 120;
+
+// The official Ontario expectations (docs/research/ontario). Unit standards cite them by code.
+const ONTARIO_EXPECTATIONS = JSON.parse(readFileSync(join(__dirname, "../../docs/research/ontario/expectations.json"), "utf8")) as Record<
+  string,
+  { idx: string; kind: string }[]
+>;
+
+/** The codes a standard cites, e.g. "B1.1–B1.3, B2.2 · ..." gives B1.1, B1.3, B2.2. */
+function citedCodes(standard: string): string[] {
+  return (standard.split(" · ")[0].match(/[A-F]\d{1,2}(?:\.\d{1,2})?/g) ?? []).filter(Boolean);
+}
 
 const KEYPAD_PATTERN: Record<string, RegExp> = {
   number: /^\d+$/,
@@ -210,13 +221,16 @@ describe("curriculum content", () => {
 
   it("downloads each grade on demand, with the same courses as the full set", async () => {
     for (const grade of AVAILABLE_GRADES) {
-      const expected = COURSES.filter((c) => c.grade === grade);
+      const expected = coursesInFramework(
+        COURSES.filter((c) => c.grade === grade),
+        "ca-bc",
+      );
       expect(expected.length, `${grade} has content`).toBeGreaterThan(0);
-      expect(coursesForGrade(grade)).toEqual([]);
+      expect(coursesForGrade(grade, "ca-bc")).toEqual([]);
       await loadGrade(grade);
       expect(isGradeLoaded(grade)).toBe(true);
-      expect(coursesForGrade(grade).map((c) => c.subject)).toEqual(expected.map((c) => c.subject));
-      expect(allUnitRefs(grade).length).toBe(expected.reduce((n, c) => n + c.units.length, 0));
+      expect(coursesForGrade(grade, "ca-bc").map((c) => c.subject)).toEqual(expected.map((c) => c.subject));
+      expect(allUnitRefs(grade, "ca-bc").length).toBe(expected.reduce((n, c) => n + c.units.length, 0));
       const first = expected[0];
       const key = unitKey(grade, first.subject, first.units[0].id);
       expect(getUnitRef(key)?.unit.title).toBe(first.units[0].title);
@@ -232,15 +246,15 @@ describe("curriculum content", () => {
         const p = join(dir, f);
         return statSync(p).isDirectory() ? walk(p) : [p];
       });
-    const offenders = walk(join(__dirname, "grades")).filter((f) => readFileSync(f, "utf8").includes("Math.random"));
+    const offenders = [...walk(join(__dirname, "grades")), ...walk(join(__dirname, "ontario"))].filter((f) => readFileSync(f, "utf8").includes("Math.random"));
     expect(offenders).toEqual([]);
   });
 
-  it("offers French Immersion from Kindergarten and Core French from Grade 5", () => {
-    const has = (grade: string, subject: string) => COURSES.some((c) => c.grade === grade && c.subject === subject);
-    for (const g of ["k", "1", "2", "3", "4", "5", "6", "7"]) expect(has(g, "immersion"), `immersion ${g}`).toBe(true);
+  it("offers BC French Immersion from Kindergarten and Core French from Grade 5, through Grade 9", () => {
+    const has = (grade: string, subject: string) => COURSES.some((c) => c.grade === grade && c.subject === subject && c.units.some((u) => u.standards["ca-bc"]));
+    for (const g of ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"]) expect(has(g, "immersion"), `immersion ${g}`).toBe(true);
     for (const g of ["k", "1", "2", "3", "4"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(false);
-    for (const g of ["5", "6", "7"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(true);
+    for (const g of ["5", "6", "7", "8", "9"]) expect(has(g, "core-french"), `core-french ${g}`).toBe(true);
   });
 
   it("marks every French Immersion question as French so read-aloud uses a French voice", () => {
@@ -253,15 +267,34 @@ describe("curriculum content", () => {
 
   for (const course of COURSES) {
     describe(`${course.grade}/${course.subject}`, () => {
-      it("has Big Ideas and complete unit info", () => {
-        expect(course.bigIdeas["ca-bc"]?.length ?? 0).toBeGreaterThan(0);
+      it("has an overview and complete unit info for each framework", () => {
+        const frameworks = new Set(course.units.flatMap((u) => Object.keys(u.standards)));
+        for (const f of frameworks) expect(course.bigIdeas[f as "ca-bc" | "ca-on"]?.length ?? 0, `${f} overview`).toBeGreaterThan(0);
         for (const u of course.units) {
           expect(u.title.trim()).not.toBe("");
           expect(u.emoji.trim()).not.toBe("");
           expect(u.blurb.trim()).not.toBe("");
           expect(u.parentNote.trim()).not.toBe("");
-          expect(u.standards["ca-bc"]?.trim() ?? "").not.toBe("");
+          expect(Object.keys(u.standards).length, `${u.id} has standards`).toBeGreaterThan(0);
+          for (const text of Object.values(u.standards)) expect((text ?? "").trim()).not.toBe("");
         }
+      });
+
+      it("cites real Ontario expectations", () => {
+        const official = new Set((ONTARIO_EXPECTATIONS[course.grade === "k" ? "k/all" : `${course.grade}/${course.subject}`] ?? []).map((r) => r.idx));
+        for (const u of course.units) {
+          const standard = u.standards["ca-on"];
+          if (!standard) continue;
+          const codes = citedCodes(standard);
+          expect(codes.length, `${u.id}: "${standard}" cites no expectation`).toBeGreaterThan(0);
+          for (const code of codes) expect(official.has(code), `${u.id} cites ${code}, which is not in Ontario ${course.grade}/${course.subject}`).toBe(true);
+        }
+      });
+
+      it("lists shared and ordered units that exist", () => {
+        const ids = new Set(course.units.map((u) => u.id));
+        for (const id of Object.keys(course.shares ?? {})) expect(ids.has(id), `shared unit ${id}`).toBe(true);
+        for (const order of Object.values(course.order ?? {})) for (const id of order ?? []) expect(ids.has(id), `ordered unit ${id}`).toBe(true);
       });
 
       for (const unit of course.units) {

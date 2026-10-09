@@ -5,7 +5,7 @@ import { articleJsonLd, breadcrumbJsonLd } from "@/components/site/jsonld";
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectSeoTitle } from "@/components/site/curriculum";
 import { guidePath } from "@/components/site/guides";
-import { FRAMEWORKS } from "@/content/frameworks";
+import { GUIDE_FRAMEWORKS } from "@/content/guides";
 import { GRADE_LABEL, getSubjectMeta } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { JsonLd } from "@/lib/site";
@@ -13,7 +13,7 @@ import { JsonLd } from "@/lib/site";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return FRAMEWORKS.map((f) => ({ framework: f.slug }));
+  return GUIDE_FRAMEWORKS.map((f) => ({ framework: f.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/guides/[framework]">): Promise<Metadata> {

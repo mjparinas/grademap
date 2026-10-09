@@ -1,5 +1,5 @@
-import { unitKey } from "@/content";
-import { COURSES, getCourse } from "@/content/all";
+import { coursesInFramework, unitKey } from "@/content";
+import { COURSES } from "@/content/all";
 import { FRAMEWORKS, getFramework, type Framework } from "@/content/frameworks";
 import { GRADE_LABEL, ageBandFor, getSubjectMeta, gradeFromSlug, gradeSlug } from "@/content/subjects";
 import type { Course, GradeId, SubjectId, Unit } from "@/content/types";
@@ -12,8 +12,11 @@ export function frameworkBySlug(slug: string): Framework | undefined {
 }
 
 export function coursesFor(framework: Framework, grade: GradeId): Course[] {
-  // Every course carries standards per framework; only list the ones this framework covers.
-  return COURSES.filter((c) => c.grade === grade && framework.grades.includes(grade) && c.units.some((u) => u.standards[framework.id]));
+  // Units carry standards per framework; each framework sees only the units it has standards for.
+  return coursesInFramework(
+    COURSES.filter((c) => c.grade === grade && framework.grades.includes(grade)),
+    framework.id,
+  );
 }
 
 export function gradesWithContent(framework: Framework): GradeId[] {
@@ -52,10 +55,10 @@ export function resolve(params: { framework: string; grade?: string; subject?: s
   const grade = gradeFromSlug(params.grade);
   if (!grade || !framework.grades.includes(grade)) return undefined;
   if (!params.subject) return { framework, grade };
-  const course = getCourse(grade, params.subject);
-  if (!course || !coursesFor(framework, grade).includes(course)) return undefined;
+  const course = coursesFor(framework, grade).find((c) => c.subject === params.subject);
+  if (!course) return undefined;
   if (!params.unit) return { framework, grade, course };
-  const unit = course.units.find((u) => u.id === params.unit && u.standards[framework.id]);
+  const unit = course.units.find((u) => u.id === params.unit);
   if (!unit) return undefined;
   return { framework, grade, course, unit };
 }

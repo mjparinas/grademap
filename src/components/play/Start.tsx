@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AVAILABLE_GRADES } from "@/content";
-import { DEFAULT_FRAMEWORK, getFramework } from "@/content/frameworks";
+import { DEFAULT_FRAMEWORK, FRAMEWORKS, getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, GRADE_SHORT } from "@/content/subjects";
-import type { GradeId } from "@/content/types";
+import type { FrameworkId, GradeId } from "@/content/types";
 import { APP_NAME } from "@/lib/brand";
 import { MAX_CHILDREN } from "@/lib/plan";
 import { sounds } from "@/lib/sound";
@@ -71,7 +71,8 @@ export function NewChild({ onDone, onCancel, first = false }: { onDone: (id: str
   const [avatar, setAvatar] = useState(CRITTERS[0].id);
   const addProfile = useStore((s) => s.addProfile);
   const ready = name.trim().length > 0 && grade !== null;
-  const framework = getFramework(DEFAULT_FRAMEWORK);
+  const [frameworkId, setFrameworkId] = useState<FrameworkId>(DEFAULT_FRAMEWORK);
+  const framework = getFramework(frameworkId);
 
   return (
     <Page className="items-center justify-center gap-6 text-center">
@@ -110,6 +111,22 @@ export function NewChild({ onDone, onCancel, first = false }: { onDone: (id: str
         <p className="mt-2 font-read text-sm text-ink-soft">
           {grade ? `${GRADE_LABEL[grade]} · ${framework.curriculumName}` : "K means Kindergarten."}
         </p>
+        {FRAMEWORKS.length > 1 && (
+          <label className="mt-3 flex flex-col items-center gap-1">
+            <span className="text-lg font-semibold">Where do you live?</span>
+            <select
+              value={frameworkId}
+              onChange={(e) => setFrameworkId(e.target.value as FrameworkId)}
+              className="min-h-12 rounded-2xl border-4 border-line bg-white px-4 text-xl font-bold"
+            >
+              {FRAMEWORKS.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
       </div>
 
       <div>
@@ -139,7 +156,7 @@ export function NewChild({ onDone, onCancel, first = false }: { onDone: (id: str
           onClick={() => {
             if (!grade) return;
             const idx = CRITTERS.findIndex((c) => c.id === avatar);
-            const id = addProfile({ name, avatar, colour: AVATAR_COLOURS[idx % AVATAR_COLOURS.length], grade });
+            const id = addProfile({ name, avatar, colour: AVATAR_COLOURS[idx % AVATAR_COLOURS.length], grade, framework: frameworkId });
             sounds.complete();
             onDone(id);
           }}

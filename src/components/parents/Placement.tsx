@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { getUnitRef, parseUnitKey } from "@/content";
+import { DEFAULT_FRAMEWORK } from "@/content/frameworks";
 import { GRADE_LABEL, getSubjectMeta } from "@/content/subjects";
 import type { GradeId, SubjectId } from "@/content/types";
 import { compareToGrade, latestPlacements, PLACEMENT_SUBJECTS, placementSentence, STAGE_SIZE, type PlacementEvent } from "@/lib/placement";
@@ -99,8 +100,11 @@ export function PlacementPage({ childId }: { childId?: string }) {
   const placements = useMemo(() => (child ? latestPlacements(eventsFor(events, child)) : {}), [events, child]);
   // Results can mention grades other than the child's own, so make sure their lessons are in to show unit names.
   const grades = useMemo(
-    () => Object.values(placements).flatMap((p) => [p.placedGrade, ...p.stages.map((s) => s.grade as GradeId)]),
-    [placements],
+    () =>
+      Object.values(placements).flatMap((p) =>
+        [p.placedGrade, ...p.stages.map((s) => s.grade as GradeId)].map((grade) => ({ grade, framework: child?.framework ?? DEFAULT_FRAMEWORK })),
+      ),
+    [placements, child],
   );
   useGradeContent(grades);
   if (!child) return <NoChildren />;

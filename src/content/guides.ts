@@ -1,3 +1,4 @@
+import { FRAMEWORKS } from "./frameworks";
 import type { AgeBand, FrameworkId, GradeId, SubjectId } from "./types";
 
 // Parent-facing guide copy that differs by province. Like frameworks.ts, this is
@@ -361,8 +362,13 @@ const BC_GUIDES: FrameworkGuides = {
   },
 };
 
-export const GUIDES: Record<FrameworkId, FrameworkGuides> = { "ca-bc": BC_GUIDES };
+/** Guides are written per jurisdiction. Frameworks without an entry have no guide pages yet. */
+export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-bc": BC_GUIDES };
+
+export const GUIDE_FRAMEWORKS = FRAMEWORKS.filter((f) => GUIDES[f.id]);
 
 export function guidesFor(id: FrameworkId): FrameworkGuides {
-  return GUIDES[id];
+  const g = GUIDES[id];
+  if (!g) throw new Error(`No parent guides for ${id}`);
+  return g;
 }

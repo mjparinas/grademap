@@ -69,6 +69,7 @@ export function Session({ mode, scope }: { mode: Mode; scope: string }) {
       mode,
       scope,
       grade: profile.grade,
+      framework: profile.framework,
       band,
       profileId: profile.id,
       subjects: settings?.enabledSubjects ?? ["math", "language", "science", "social"],

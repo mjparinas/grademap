@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Critter } from "@/components/Critter";
 import { SitePage } from "@/components/site/SiteChrome";
-import { coursesFor, curriculumPath, gradesWithContent } from "@/components/site/curriculum";
+import { coursesFor, curriculumPath, gradesWithContent, subjectSeoTitle } from "@/components/site/curriculum";
 import { GAMES } from "@/components/play/games/types";
-import { DEFAULT_FRAMEWORK, getFramework } from "@/content/frameworks";
+import { DEFAULT_FRAMEWORK, FRAMEWORKS, getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, SUBJECTS, isCoreSubject } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
@@ -35,8 +35,8 @@ const FAQS = [
     a: "Kindergarten to Grade 9, in math, English language arts, science and social studies. The text, buttons and read-aloud adapt to the child's age: big pictures and spoken prompts for Kindergarten and Grade 1, more independence for older kids.",
   },
   {
-    q: "Is it matched to the BC curriculum?",
-    a: "Yes. Every unit is tagged with the BC curriculum learning standard it practises, and parent reports use the BC proficiency scale (Emerging, Developing, Proficient, Extending). More provinces are on the way.",
+    q: "Is it matched to our provincial curriculum?",
+    a: "Yes. Choose British Columbia or Ontario. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4). Ontario covers math, language and French (Core and Immersion) from Kindergarten to Grade 9 for now. More provinces and states are on the way.",
   },
   {
     q: "Does it work without internet?",
@@ -92,7 +92,7 @@ export default function Home() {
       {/* Hero */}
       <section className="grid items-center gap-8 py-6 md:grid-cols-[1.1fr_1fr] md:py-12">
         <div>
-          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">Kindergarten to Grade 9 · {framework.curriculumName}</p>
+          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">{FRAMEWORKS.map((f) => f.region).join(" and ")} curriculum · Kindergarten to Grade 9</p>
           <h1 className="text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
             Practice that feels like play. <span className="text-[#4f8ef7]">Progress you can read.</span>
           </h1>
@@ -107,6 +107,19 @@ export default function Home() {
               See what&apos;s covered
             </Link>
           </div>
+          <p className="mt-4 max-w-xl font-read text-ink-soft">
+            Choose your province when you add a child:{" "}
+            {FRAMEWORKS.map((f, i) => (
+              <span key={f.id}>
+                {i > 0 && " and "}
+                <Link href={curriculumPath.framework(f)} className="font-semibold text-[#2f6fd6] underline">
+                  {f.region}
+                </Link>{" "}
+                ({f.subjects.map((s) => subjectSeoTitle(s).toLowerCase()).join(", ")}, up to {GRADE_LABEL[f.grades[f.grades.length - 1]]})
+              </span>
+            ))}
+            . More provinces and states are coming.
+          </p>
           <p className="mt-3 text-sm text-ink-soft">No card needed · No ads · Works offline</p>
         </div>
         <div className="relative mx-auto grid max-w-md grid-cols-3 items-end gap-2" aria-hidden="true">
