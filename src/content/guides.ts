@@ -194,12 +194,12 @@ const BC_GUIDES: FrameworkGuides = {
     short: "FSA",
     name: "Foundation Skills Assessment (FSA)",
     intro:
-      "The Foundation Skills Assessment is a provincial check of reading comprehension, writing and numeracy that students in Grades 4 and 7 take in BC public schools. It is separate from the report card and from class marks.",
+      "The Foundation Skills Assessment is an annual provincial check of literacy and numeracy that students in Grades 4 and 7 take in BC. For many students it is the first provincial assessment they write. It is separate from the report card and from class marks.",
     grades: ["4", "7"],
     facts: [
       { title: "Who takes it", body: "Students in Grades 4 and 7. Parents can ask their school if they have questions about their child taking part." },
-      { title: "What it covers", body: "Reading comprehension, writing and numeracy, in line with the BC curriculum." },
-      { title: "When", body: "It is written in the fall, and the school sets the exact dates within the window the Ministry of Education and Child Care announces each year." },
+      { title: "What it covers", body: "Literacy (reading and writing) and numeracy, in line with the BC curriculum." },
+      { title: "When", body: "Most students write it in the fall. Schools set their own dates within a window the Ministry of Education and Child Care announces each year (for example, early October to mid-November in 2025)." },
       { title: "How results are described", body: "Results are reported in three levels: Emerging, On Track and Extending. They are not the four report card levels, and they are not letter grades or percentages." },
       { title: "Report card link", body: "FSA results do not change a student's report card. They give families and schools one more snapshot of reading, writing and numeracy." },
     ],
@@ -213,7 +213,7 @@ const BC_GUIDES: FrameworkGuides = {
     faqs: [
       {
         q: "What does FSA stand for?",
-        a: "Foundation Skills Assessment. It is BC's provincial check of reading, writing and numeracy for Grade 4 and Grade 7 students.",
+        a: "Foundation Skills Assessment. It is BC's annual provincial check of literacy and numeracy for Grade 4 and Grade 7 students.",
       },
       {
         q: "Is the FSA part of my child's report card?",
@@ -248,7 +248,7 @@ const BC_GUIDES: FrameworkGuides = {
     },
     "3": {
       overview: "Grade 3 is a bridge year. Students read to learn as well as learning to read, start multiplication and division, and work with fractions, in the context of communities and the natural world.",
-      lookFor: "Look for comments about reading comprehension, paragraph writing, multiplication facts and fractions.",
+      lookFor: "Look for comments about reading comprehension, paragraph writing, understanding multiplication and division, and fractions. (Memorizing multiplication facts isn’t expected until later grades.)",
     },
     "4": {
       overview: "Grade 4 raises the pace on reading, writing and number work with larger numbers, multiplication, fractions and decimals. Students in Grade 4 also take the Foundation Skills Assessment.",
@@ -259,11 +259,11 @@ const BC_GUIDES: FrameworkGuides = {
       lookFor: "Look for comments on problem solving, supporting ideas with evidence, and independent research.",
     },
     "6": {
-      overview: "Grade 6 pushes towards abstract thinking: ratios, integers and early algebra ideas, longer writing and more independent study.",
-      lookFor: "Look for comments about organization, explaining reasoning in math and writing with evidence.",
+      overview: "Grade 6 pushes towards more abstract thinking: an introduction to ratios and percents, multiplying and dividing decimals, factors and multiples, one-step equations, longer writing and more independent study.",
+      lookFor: "Look for comments about organization, explaining reasoning in math (including ratios and percents) and writing with evidence.",
     },
     "7": {
-      overview: "Grade 7 is the last elementary year in many BC schools and prepares students for secondary school. Students take the Foundation Skills Assessment, and work on algebraic thinking, proportional reasoning and deeper analysis of what they read.",
+      overview: "Grade 7 is the last elementary year in many BC schools and prepares students for secondary school. Students take the Foundation Skills Assessment, and work on integers, the links between decimals, fractions, ratios and percents, two-step equations, circles and deeper analysis of what they read.",
       lookFor: "Look for comments on independence, study habits and confidence with the harder math and reading ahead.",
     },
   },
