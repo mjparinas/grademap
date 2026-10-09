@@ -78,3 +78,23 @@ describe("read-aloud voice ranking", () => {
     expect(chooseVoice([], null, false)).toBeUndefined();
   });
 });
+
+describe("French voices", () => {
+  it("ranks French voices separately and prefers Canadian French", () => {
+    const voices = [
+      v("Microsoft Denise Online (Natural) - French (France)", "fr-FR", false),
+      v("Microsoft Sylvie Online (Natural) - French (Canada)", "fr-CA", false),
+      v("Thomas", "fr-FR"),
+      v("Microsoft David - English (United States)", "en-US"),
+    ];
+    const fr = rankVoices(voices, "fr").map((o) => o.name);
+    expect(fr[0]).toBe("Microsoft Sylvie Online (Natural) - French (Canada)");
+    expect(fr).not.toContain("Microsoft David - English (United States)");
+    expect(rankVoices(voices).map((o) => o.name)).toEqual(["Microsoft David - English (United States)"]);
+  });
+
+  it("falls back to an on-device French voice when offline", () => {
+    const ranked = rankVoices([v("Microsoft Sylvie Online (Natural) - French (Canada)", "fr-CA", false), v("Thomas", "fr-FR")], "fr");
+    expect(chooseVoice(ranked, null, true)?.name).toBe("Thomas");
+  });
+});

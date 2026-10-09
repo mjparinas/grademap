@@ -120,7 +120,7 @@ export const FRAMEWORKS: Framework[] = [
     sourceName: "BC Ministry of Education and Child Care",
     sourceUrl: "https://curriculum.gov.bc.ca/",
     grades: ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-    subjects: ["math", "language", "science", "social"],
+    subjects: ["math", "language", "science", "social", "immersion", "core-french"],
     scoringFor: () => BC_PROFICIENCY,
     reportCard: {
       title: "Understanding BC report cards",

@@ -202,5 +202,17 @@ export const ONTARIO_GUIDES: FrameworkGuides = {
       lookFor:
         "Look for comments on independence, study habits and confidence with the harder math and reading ahead. Level 3 is 70 to 79 per cent.",
     },
+    "8": {
+      overview:
+        "Grade 8 is the last year before secondary school. Students work with rational numbers, ratios, rates and percents, equations, the Pythagorean theorem and measurement, study history and geography, and begin thinking about course choices for Grade 9.",
+      lookFor:
+        "Look for comments on managing a heavier workload, showing steps in math and supporting an argument with evidence. Reports use percentage marks, and Level 3 is 70 to 79 per cent.",
+    },
+    "9": {
+      overview:
+        "Grade 9 is the first year of secondary school in Ontario. Students take credit courses in math, English, science, Canadian geography and more, and the work builds towards the Ontario Secondary School Diploma.",
+      lookFor:
+        "Look for percentage marks for each credit course, comments on planning ahead for course choices, and explaining reasoning in math and weighing evidence in English, science and geography. Grade 9 students also write the EQAO math assessment.",
+    },
   },
 };

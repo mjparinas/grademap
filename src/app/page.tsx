@@ -7,7 +7,7 @@ import { SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent, subjectSeoTitle } from "@/components/site/curriculum";
 import { GAMES } from "@/components/play/games/types";
 import { DEFAULT_FRAMEWORK, FRAMEWORKS, getFramework } from "@/content/frameworks";
-import { GRADE_LABEL, SUBJECTS } from "@/content/subjects";
+import { GRADE_LABEL, SUBJECTS, isCoreSubject } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
 import { JsonLd, ORG_JSON_LD, SITE_URL, absolute } from "@/lib/site";
@@ -36,7 +36,7 @@ const FAQS = [
   },
   {
     q: "Is it matched to our provincial curriculum?",
-    a: "Yes. Choose British Columbia or Ontario. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4). Ontario covers math and language for now. More provinces and states are on the way.",
+    a: "Yes. Choose British Columbia or Ontario. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4). Ontario covers math, language, science, social studies and French (Core and Immersion) from Kindergarten to Grade 9. More provinces and states are on the way.",
   },
   {
     q: "Does it work without internet?",
@@ -187,7 +187,7 @@ export default function Home() {
               <span className="text-xl font-bold">{GRADE_LABEL[g]}</span>
               <span className="text-sm text-ink-soft">{coursesFor(framework, g).reduce((n, c) => n + c.units.length, 0)} units</span>
               <span className="text-lg" aria-hidden="true">
-                {SUBJECTS.map((s) => s.emoji).join(" ")}
+                {SUBJECTS.filter((s) => isCoreSubject(s.id)).map((s) => s.emoji).join(" ")}
               </span>
             </Link>
           ))}

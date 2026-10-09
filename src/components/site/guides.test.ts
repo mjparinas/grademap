@@ -35,6 +35,7 @@ describe("guide pages", () => {
       for (const grade of GRADE_ORDER.filter((x) => f.grades.includes(x))) expect(g.gradeNotes[grade]?.overview.length).toBeGreaterThan(40);
       expect(g.competencies.items.length).toBeGreaterThan(0);
       expect(g.assessment.faqs.length).toBeGreaterThan(0);
+      if (g.french) expect(g.french.faqs.length).toBeGreaterThan(0);
     }
   });
 

@@ -6,6 +6,7 @@ import { dayKey, type Profile } from "@/lib/model";
 import { subjectSummaries } from "@/lib/proficiency";
 import { useDerived, useProfiles, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
+import { Milestones } from "./Milestones";
 import { Avatar, NoChildren, PageTitle, Panel } from "./common";
 
 function ChildCard({ p }: { p: Profile }) {
@@ -87,11 +88,18 @@ export function Overview() {
       {profiles.length === 0 ? (
         <NoChildren />
       ) : (
+        <>
+          {profiles.map((p) => (
+            <Milestones key={p.id} p={p} limit={3} />
+          ))}
         <div className="grid gap-5 lg:grid-cols-2">
           {profiles.map((p) => (
-            <ChildCard key={p.id} p={p} />
+            <div key={p.id}>
+              <ChildCard p={p} />
+            </div>
           ))}
         </div>
+        </>
       )}
     </>
   );

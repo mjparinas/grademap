@@ -1,8 +1,12 @@
 import type { Course } from "../types";
 import { G7_LANGUAGE, G7_MATH } from "./overall";
+import { G7_SCIENCE, G7_SOCIAL } from "./g7-overall-ss";
 import { units as languageUnits } from "./g7-language";
 import { units as mathUnits } from "./g7-math";
+import { units as scienceUnits } from "./g7-science";
+import { units as socialUnits } from "./g7-social";
 import { on } from "./kit";
+import { frenchCourses } from "./french";
 
 // Ontario Grade 7. Units the BC course also has are shared; the rest are written for the
 // Ontario expectations.
@@ -49,4 +53,27 @@ export const courses: Course[] = [
       "ca-on": ["clauses-sentences", "grammar-7", "modifiers-parallelism", "punctuation-7", "semicolons-colons-dashes", "close-reading", "point-of-view-7", "literary-devices", "tone-mood", "text-patterns-7", "persuasion", "source-check", "poetry-lab"],
     },
   },
+  {
+    grade: "7",
+    subject: "science",
+    bigIdeas: { "ca-on": G7_SCIENCE },
+    units: scienceUnits,
+    shares: {
+      "atoms-and-elements": { standards: on("C2.8", "elements and compounds as atoms and combinations of atoms") },
+      "changing-climate": { standards: on("E1.2, E2.7, E2.8", "the greenhouse effect, greenhouse gas sources, and renewable and non-renewable energy") },
+    },
+    order: {
+      "ca-on": ["ecosystems-7", "food-chains-7", "cycles-succession-7", "human-impact-7", "particles-mixtures-7", "solutions-separation-7", "atoms-and-elements", "structures-forces-7", "safe-structures-7", "heat-particles-7", "heat-transfer-7", "changing-climate"],
+    },
+  },
+  {
+    grade: "7",
+    subject: "social",
+    bigIdeas: { "ca-on": G7_SOCIAL },
+    units: socialUnits,
+    order: {
+      "ca-on": ["landforms-processes-7", "water-climate-7", "vegetation-people-7", "natural-resources-7", "sustainability-7", "new-france-7", "power-conflict-7", "black-history-7", "war-1812-7", "reform-rebellions-7"],
+    },
+  },
+  ...frenchCourses("7"),
 ];

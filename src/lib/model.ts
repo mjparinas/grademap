@@ -56,6 +56,8 @@ export interface ChildSettings {
   highContrast?: boolean;
   autoRead: boolean;
   sound: boolean;
+  /** Light vibration on taps and answers, on devices that support it. On unless set to false. */
+  haptics?: boolean;
   enabledSubjects: SubjectId[];
   updatedAt: number;
 }
@@ -104,6 +106,8 @@ export type AppEvent = EventBase &
     | { type: "play"; game: string; seconds: number }
     | { type: "game"; game: string; score: number; level: number }
     | { type: "trophy"; trophy: string }
+    /** A hidden easter egg found (for example "konami"). */
+    | { type: "secret"; code: string }
     | { type: "buy"; item: string; cost: number }
     | { type: "quest"; quest: string; day: string; reward: number }
     /** A finished placement test. Not practice: it never counts toward XP, stars or proficiency. */

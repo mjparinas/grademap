@@ -63,7 +63,7 @@ export const HELP: HelpSection[] = [
     faqs: [
       {
         q: "Which curriculum and grades does it follow?",
-        a: `Kindergarten to Grade 9 in math, English language arts, science and social studies, matched to the BC Curriculum. Ontario is also available for math and language (up to Grade 7), and parents can switch a child’s province in Children. Every unit shows the learning standard it practises. More provinces and states are planned.`,
+        a: `Kindergarten to Grade 9 in math, English language arts, science and social studies, matched to the BC Curriculum. Ontario is also available for math, language, science, social studies and French (Core French and French Immersion), Kindergarten to Grade 9, and parents can switch a child’s province in Children. Every unit shows the learning standard it practises. More provinces and states are planned.`,
       },
       {
         q: "What is Adventure mode?",

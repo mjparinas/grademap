@@ -3,7 +3,7 @@
 // scoring scheme and report-card language live with the framework.
 
 export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
-export type SubjectId = "math" | "language" | "science" | "social";
+export type SubjectId = "math" | "language" | "science" | "social" | "immersion" | "core-french";
 /** A curriculum framework: a province, state or national standard set. */
 export type FrameworkId = "ca-bc" | "ca-on";
 /** UI and wording adapt to the child's age band. */
@@ -103,6 +103,12 @@ interface BaseQuestion {
   prompt: string;
   /** What read-aloud says, if different from the prompt (e.g. letter sounds). */
   speak?: string;
+  /** Set to "fr" when the prompt (and passage) is in French, so read-aloud uses a French voice. Hints stay in English. */
+  lang?: "fr";
+  /** Core French: the answer choices are French even though the prompt is English. */
+  choicesLang?: "fr";
+  /** Core French: the passage or story shown above is French even though the prompt is English. */
+  visualLang?: "fr";
   /** Shown after a miss, and again with the answer if they still need help. */
   hint: string;
   visual?: Visual;
