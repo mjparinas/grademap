@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { ageBandFor } from "@/content/subjects";
 import type { GradeId, SubjectId } from "@/content/types";
 import type { Mode } from "@/lib/model";
+import { PLACEMENT_SUBJECTS } from "@/lib/placement";
 import { useRoute } from "@/lib/router";
 import { useActiveProfile, useProfiles, useReady, useStore } from "@/lib/store";
 import { startBackgroundSync } from "@/lib/sync";
@@ -14,6 +15,7 @@ import { LoadingScreen } from "../ui";
 import { Arcade, GameScreen } from "./Arcade";
 import { Hub } from "./Hub";
 import { SpeedPicker, SubjectPicker, UnitList } from "./Practice";
+import { PlacementTest } from "./PlacementTest";
 import { Session } from "./Session";
 import { Shop } from "./Shop";
 import { FirstRun, Picker } from "./Start";
@@ -36,6 +38,9 @@ function Screen() {
       // A new key restarts the session cleanly when "Play again" is pressed.
       return <Session key={`${mode}:${scope}:${query.get("r") ?? ""}`} mode={mode} scope={scope} />;
     }
+    case "placement":
+      if (!PLACEMENT_SUBJECTS.includes(path[1] as SubjectId)) return <Hub />;
+      return <PlacementTest key={path[1]} subject={path[1] as SubjectId} />;
     case "arcade":
       return path[1] ? <GameScreen key={path[1]} id={path[1]} /> : <Arcade />;
     case "trophies":
