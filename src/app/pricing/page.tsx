@@ -34,7 +34,7 @@ export default function PricingPage() {
       />
       <Crumbs items={crumbs} />
       <h1 className="text-4xl font-bold">Simple pricing for the whole family</h1>
-      <p className="mt-2 max-w-2xl font-read text-lg text-ink-soft">One plan covers up to {MAX_CHILDREN} children, every grade from Kindergarten to Grade 7, every mode and every game. Prices are in Canadian dollars; taxes may be added.</p>
+      <p className="mt-2 max-w-2xl font-read text-lg text-ink-soft">One plan covers up to {MAX_CHILDREN} children, every grade from Kindergarten to Grade 9, every mode and every game. Prices are in Canadian dollars; taxes may be added.</p>
       <div className="mt-8">
         <PricingCards />
       </div>

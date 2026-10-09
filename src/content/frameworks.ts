@@ -100,7 +100,7 @@ export const FRAMEWORKS: Framework[] = [
     shortName: "BC",
     country: "CA",
     curriculumName: "BC Curriculum",
-    grades: ["k", "1", "2", "3", "4", "5", "6", "7"],
+    grades: ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
     scoringFor: () => BC_PROFICIENCY,
     reportCard: {
       title: "Understanding BC report cards",

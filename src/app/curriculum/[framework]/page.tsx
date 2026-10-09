@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: PageProps<"/curriculum/[frame
   if (!r) return {};
   const f = r.framework;
   return {
-    title: `${f.curriculumName} practice, Kindergarten to Grade 7`,
-    description: `Kid-friendly practice for the ${f.curriculumName} (${f.name}): math, English language arts, science and social studies from Kindergarten to Grade 7, with sample questions for every unit.`,
+    title: `${f.curriculumName} practice, Kindergarten to Grade 9`,
+    description: `Kid-friendly practice for the ${f.curriculumName} (${f.name}): math, English language arts, science and social studies from Kindergarten to Grade 9, with sample questions for every unit.`,
     alternates: { canonical: curriculumPath.framework(f) },
   };
 }
@@ -31,7 +31,7 @@ export default async function FrameworkPage({ params }: PageProps<"/curriculum/[
   return (
     <SitePage>
       <Crumbs items={[{ label: "Home", href: "/" }, { label: "Curriculum", href: curriculumPath.index() }, { label: f.curriculumName }]} />
-      <h1 className="text-4xl font-bold">{f.curriculumName}: Kindergarten to Grade 7</h1>
+      <h1 className="text-4xl font-bold">{f.curriculumName}: Kindergarten to Grade 9</h1>
       <p className="mt-2 max-w-3xl font-read text-lg text-ink-soft">
         Every {APP_NAME} unit is matched to a learning standard in the {f.curriculumName}. Choose a grade to see the units and try sample questions.
       </p>

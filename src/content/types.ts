@@ -2,7 +2,7 @@
 // units carry learning-standard text per framework (e.g. "ca-bc"), and the
 // scoring scheme and report-card language live with the framework.
 
-export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
+export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 export type SubjectId = "math" | "language" | "science" | "social";
 /** A curriculum framework: a province, state or national standard set. */
 export type FrameworkId = "ca-bc";
