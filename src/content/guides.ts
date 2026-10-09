@@ -1,4 +1,5 @@
 import { FRAMEWORKS } from "./frameworks";
+import { ONTARIO_GUIDES } from "./ontario/guides";
 import type { AgeBand, FrameworkId, GradeId, SubjectId } from "./types";
 
 // Parent-facing guide copy that differs by province. Like frameworks.ts, this is
@@ -8,14 +9,20 @@ export interface Competency {
   id: string;
   name: string;
   blurb: string;
-  /** The official sub-competencies. */
+  /** The official sub-competencies, if the framework has them. */
   parts: { name: string; blurb: string }[];
   atHome: string[];
 }
 
 export interface Assessment {
+  /** URL segment, e.g. "fsa" or "eqao". */
+  slug: string;
   /** Short name used in links and headings, e.g. "FSA". */
   short: string;
+  /** Who runs it and where the current dates are published, for the "dates change" note. */
+  source: string;
+  /** One line for the guides hub. */
+  hubBlurb: string;
   name: string;
   intro: string;
   /** Grades that write it. */
@@ -33,9 +40,27 @@ export interface GradeNote {
 }
 
 export interface FrameworkGuides {
-  competencies: { title: string; intro: string; items: Competency[]; faqs: { q: string; a: string }[] };
+  competencies: {
+    /** URL segment, e.g. "core-competencies" or "learning-skills". */
+    slug: string;
+    /** Short name used in links and breadcrumbs, e.g. "Core Competencies". */
+    label: string;
+    /** One line for the guides hub. */
+    hubBlurb: string;
+    /** Meta description. */
+    description: string;
+    /** Sentence for grade pages, ending in a link to the guide. */
+    gradeLine: string;
+    /** Closing note on the guide page. */
+    closing: string;
+    title: string;
+    intro: string;
+    items: Competency[];
+    faqs: { q: string; a: string }[];
+  };
   assessment: Assessment;
-  gradeNotes: Record<GradeId, GradeNote>;
+  /** Only for grades the framework covers. */
+  gradeNotes: Partial<Record<GradeId, GradeNote>>;
 }
 
 /** Short home activities, by subject and age band. Not tied to a province. */
@@ -124,6 +149,13 @@ export const HOME_TIPS: Record<SubjectId, Record<AgeBand, string[]>> = {
 
 const BC_GUIDES: FrameworkGuides = {
   competencies: {
+    slug: "core-competencies",
+    label: "Core Competencies",
+    hubBlurb: "Communication, Thinking, and Personal and Social, in plain words.",
+    description:
+      "What the three BC Core Competencies mean (Communication, Thinking, and Personal and Social), how they show up on the report card, and simple ways to support them at home.",
+    gradeLine: "Core Competencies are part of every grade.",
+    closing: "Core Competencies grow through conversation, projects and play.",
     title: "BC Core Competencies on the report card, explained for parents",
     intro:
       "Alongside subjects like math and science, the BC curriculum has three Core Competencies: Communication, Thinking, and Personal and Social. They are the skills students use to learn anything. Students think about their own growth in them, usually with a short self-assessment, and teachers refer to them in report card comments.",
@@ -192,7 +224,10 @@ const BC_GUIDES: FrameworkGuides = {
     ],
   },
   assessment: {
+    slug: "fsa",
     short: "FSA",
+    source: "the Ministry of Education and Child Care",
+    hubBlurb: "The Grade 4 and Grade 7 Foundation Skills Assessment.",
     name: "Foundation Skills Assessment (FSA)",
     intro:
       "The Foundation Skills Assessment is an annual provincial check of literacy and numeracy that students in Grades 4 and 7 take in BC. For many students it is the first provincial assessment they write. It is separate from the report card and from class marks.",
@@ -279,7 +314,7 @@ const BC_GUIDES: FrameworkGuides = {
 };
 
 /** Guides are written per jurisdiction. Frameworks without an entry have no guide pages yet. */
-export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-bc": BC_GUIDES };
+export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES };
 
 export const GUIDE_FRAMEWORKS = FRAMEWORKS.filter((f) => GUIDES[f.id]);
 

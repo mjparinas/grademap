@@ -32,7 +32,7 @@ describe("guide pages", () => {
       const g = GUIDES[f.id];
       if (!g) continue;
       expect(g).toBeDefined();
-      for (const grade of GRADE_ORDER) expect(g.gradeNotes[grade].overview.length).toBeGreaterThan(40);
+      for (const grade of GRADE_ORDER.filter((x) => f.grades.includes(x))) expect(g.gradeNotes[grade]?.overview.length).toBeGreaterThan(40);
       expect(g.competencies.items.length).toBeGreaterThan(0);
       expect(g.assessment.faqs.length).toBeGreaterThan(0);
     }

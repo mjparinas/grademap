@@ -1,11 +1,13 @@
 import { COMPETITORS } from "@/content/compare";
 import type { Framework } from "@/content/frameworks";
-import { GUIDE_FRAMEWORKS } from "@/content/guides";
+import { GUIDE_FRAMEWORKS, guidesFor } from "@/content/guides";
 import { gradeSlug } from "@/content/subjects";
 import type { GradeId, SubjectId } from "@/content/types";
 import { coursesFor, gradesWithContent } from "./curriculum";
 
-// URLs for the parent guides. Like the curriculum pages, they carry the framework
+// URLs for the parent guides. The competencies and assessment pages take their slug from the
+// province's guide copy (BC: core-competencies, fsa; Ontario: learning-skills, eqao).
+// Like the curriculum pages, they carry the framework
 // slug: /guides/bc/grade-3/math/ and so on.
 
 export const guidePath = {
@@ -13,8 +15,8 @@ export const guidePath = {
   grade: (f: Framework, g: GradeId) => `/guides/${f.slug}/${gradeSlug(g)}/`,
   subject: (f: Framework, g: GradeId, s: SubjectId) => `/guides/${f.slug}/${gradeSlug(g)}/${s}/`,
   worksheet: (f: Framework, g: GradeId, s: SubjectId) => `/guides/${f.slug}/${gradeSlug(g)}/${s}/worksheet/`,
-  competencies: (f: Framework) => `/guides/${f.slug}/core-competencies/`,
-  assessment: (f: Framework) => `/guides/${f.slug}/fsa/`,
+  competencies: (f: Framework) => `/guides/${f.slug}/${guidesFor(f.id).competencies.slug}/`,
+  assessment: (f: Framework) => `/guides/${f.slug}/${guidesFor(f.id).assessment.slug}/`,
   compareIndex: () => "/compare/",
   compare: (slug: string) => `/compare/${slug}/`,
 };

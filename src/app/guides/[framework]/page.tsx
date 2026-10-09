@@ -5,7 +5,7 @@ import { articleJsonLd, breadcrumbJsonLd } from "@/components/site/jsonld";
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectSeoTitle } from "@/components/site/curriculum";
 import { guidePath } from "@/components/site/guides";
-import { GUIDE_FRAMEWORKS } from "@/content/guides";
+import { GUIDE_FRAMEWORKS, guidesFor } from "@/content/guides";
 import { GRADE_LABEL, getSubjectMeta } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { JsonLd } from "@/lib/site";
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/guides/[framework
   const f = r.framework;
   return {
     title: `${f.name} parent guides and free printable practice sheets`,
-    description: `Free guides for ${f.shortName} parents: what each grade learns in the ${f.curriculumName}, how to help at home, Core Competencies, the FSA and printable practice sheets for Kindergarten to Grade 9.`,
+    description: `Free guides for ${f.shortName} parents: what each grade learns in the ${f.curriculumName}, how to help at home, ${guidesFor(f.id).competencies.label.toLowerCase()}, the ${guidesFor(f.id).assessment.short} and printable practice sheets for ${GRADE_LABEL[f.grades[0]]} to ${GRADE_LABEL[f.grades[f.grades.length - 1]]}.`,
     alternates: { canonical: guidePath.hub(r.framework) },
   };
 }
@@ -31,6 +31,8 @@ export default async function GuidesHub({ params }: PageProps<"/guides/[framewor
   const r = resolve(await params);
   if (!r) notFound();
   const f = r.framework;
+  const guides = guidesFor(f.id);
+  const levels = f.scoringFor(f.grades.find((g) => g !== "k") ?? f.grades[0]).levels.map((l) => l.label);
   const crumbs = [{ label: "Home", href: "/" }, { label: `${f.shortName} parent guides` }];
   const title = `${f.name} parent guides and free practice sheets`;
   const description = `Plain-language guides for parents following the ${f.curriculumName}, plus free printable practice sheets.`;
@@ -53,19 +55,19 @@ export default async function GuidesHub({ params }: PageProps<"/guides/[framewor
             <Link href={`/report-cards/${f.slug}/`} className="text-xl font-bold hover:underline">
               Understanding {f.shortName} report cards
             </Link>
-            <p className="mt-1 font-read text-ink-soft">What Emerging, Developing, Proficient and Extending mean.</p>
+            <p className="mt-1 font-read text-ink-soft">What {levels.slice(0, -1).join(", ")} and {levels[levels.length - 1]} mean.</p>
           </li>
           <li className="card p-5">
             <Link href={guidePath.competencies(f)} className="text-xl font-bold hover:underline">
-              {f.shortName} Core Competencies
+              {guides.competencies.label}
             </Link>
-            <p className="mt-1 font-read text-ink-soft">Communication, Thinking, and Personal and Social, in plain words.</p>
+            <p className="mt-1 font-read text-ink-soft">{guides.competencies.hubBlurb}</p>
           </li>
           <li className="card p-5">
             <Link href={guidePath.assessment(f)} className="text-xl font-bold hover:underline">
-              The FSA explained
+              The {guides.assessment.short} explained
             </Link>
-            <p className="mt-1 font-read text-ink-soft">The Grade 4 and Grade 7 Foundation Skills Assessment.</p>
+            <p className="mt-1 font-read text-ink-soft">{guides.assessment.hubBlurb}</p>
           </li>
         </ul>
       </section>
