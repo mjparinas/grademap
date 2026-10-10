@@ -41,16 +41,14 @@ Nothing here can be done from code; each step needs an account, a key or a domai
 
 For later releases, raise `appVersionCode` and `appVersionName` in `android/twa-manifest.json`, run `npx @bubblewrap/cli build`, and upload the new bundle. Site changes need no new release.
 
-## Decision for you: paying inside the app
+## Paying: not inside the Android app
 
-GradeMap is for children, so Play will review it under its **Families policy**. The no-ads, no-tracking, no-purchases-by-kids rules in `AGENTS.md` fit that, and the parent area is already behind the PIN gate.
+Google Play generally requires subscriptions for digital content sold inside an app to use Google Play Billing (with a fee), and doesn't allow sending people from the app to an outside checkout such as Stripe. Decision: **the Android app has no purchase screens** and families subscribe on the website. Their plan syncs to the app like any other device.
 
-**Billing is the open question.** Google Play generally requires subscriptions for digital content sold inside an app to use **Google Play Billing** (with a fee), and doesn't allow sending people from the app to an outside checkout such as Stripe. Options:
-
-- **A. No purchases in the Android app.** Hide the upgrade buttons when running inside the TWA and tell parents to subscribe on the website. Least work, but it is the part most likely to be questioned in review, so check Google's current payments policy first.
-- **B. Add Play Billing** (Digital Goods API with a server check of Play purchases, reconciled with Stripe per account). More work and the Play fee.
-
-Neither is built. It needs your decision before you submit to Play.
+- The app opens `/play/?app=android` (`startUrl` in `android/twa-manifest.json`). `src/lib/twa.ts` (`isAndroidApp`) reads that, or the `android-app://` referrer, and keeps it in `sessionStorage`.
+- On the parent area's Subscription page, the Android app shows the plan and a plain note, with no prices, buttons or link to the website (Play's rules also cover steering).
+- Rejection is still possible. Check Google's current payments policy before you submit, and if it asks for more, the fallback is Google Play Billing (not built).
+- The Families policy also applies because the app is for children. The no-ads, no-tracking and no-purchases-by-kids rules in `AGENTS.md` fit it, and the parent area is behind the PIN gate.
 
 ## Testing before you publish
 

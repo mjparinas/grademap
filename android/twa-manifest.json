@@ -12,7 +12,7 @@
   "navigationDividerColor": "#fffaf1",
   "navigationDividerColorDark": "#fffaf1",
   "backgroundColor": "#fffaf1",
-  "startUrl": "/play/",
+  "startUrl": "/play/?app=android",
   "iconUrl": "https://grademap.ca/icon-512.png",
   "maskableIconUrl": "https://grademap.ca/icon-maskable-512.png",
   "webManifestUrl": "https://grademap.ca/manifest.webmanifest",
