@@ -23,6 +23,7 @@ npm run build && npm start  # offline/service worker only works in a production 
 node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline   # full playthrough + sync
 node scripts/e2e-devices.mjs http://localhost:3000                # layout on 14 phones/tablets
 node scripts/e2e-offline.mjs                                      # real offline (starts its own server)
+node scripts/e2e-classroom.mjs http://localhost:3000              # teacher adds a student, who signs in with codes, opens a lesson and practises
 node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA, plus colour-blind checks (screenshots in e2e-shots/a11y)
 ```
 
@@ -54,6 +55,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - An arcade game's play area fitting the screen.
   - Toasts not blocking taps.
 - **`e2e.mjs`:** the full playthrough on an iPad-sized screen plus a phone. It covers every mode and game, the parent area, sign-up, two-device sync, and offline progress uploading on reconnect.
+- **`e2e-classroom.mjs`:** a teacher (made through the API, email confirmed straight in the database file) adds a student; the student signs in with codes, sees the assignment, opens a lesson, practises and signs out; the teacher sees the results.
 - **`e2e-offline.mjs`:** stops the server so only the service worker can answer. Playwright's `setOffline()` doesn't cut off service worker requests, so it can't prove the cache works.
 - **WebKit:** iPhone and iPad profiles run in WebKit when it's installed, otherwise in Chromium at the same size, pixel ratio and touch settings.
 

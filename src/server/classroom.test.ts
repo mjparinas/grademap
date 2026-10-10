@@ -105,7 +105,7 @@ describe("classroom mode", () => {
 
     // The child's devices get the assigned units with their next sync, and only the family's own.
     const down = await (await sync.POST(req("/api/sync/", "POST", {}, parent))).json();
-    expect(down.classwork).toEqual([{ profileId: "kid1", classId: id, className: "Room 12", unitKeys: [unitKey] }]);
+    expect(down.classwork).toEqual([{ profileId: "kid1", classId: id, className: "Room 12", unitKeys: [unitKey], due: {} }]);
     const stranger = await account_("stranger@example.com");
     expect((await (await sync.POST(req("/api/sync/", "POST", {}, stranger))).json()).classwork).toEqual([]);
 

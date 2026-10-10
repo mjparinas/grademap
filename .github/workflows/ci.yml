@@ -95,6 +95,7 @@ jobs:
           - { name: "devices 4/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 4/4" }
           - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000 e2e-shots/a11y" }
           - { name: "playthrough and sync", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline" }
+          - { name: "classroom", serve: true, run: "node scripts/e2e-classroom.mjs http://localhost:3000 e2e-shots/classroom" }
           # Starts and stops its own server, so only the service worker can answer.
           - { name: "offline", serve: false, run: "node scripts/e2e-offline.mjs" }
     steps:
