@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { COURSES } from "./all";
 import { allUnitRefs, AVAILABLE_GRADES, coursesForGrade, coursesInFramework, getUnitRef, isGradeLoaded, loadGrade, parseUnitKey, unitKey } from "./index";
 import { ageBandFor } from "./subjects";
-import type { Course, Question, Visual } from "./types";
+import type { Course, FrameworkId, Question, Visual } from "./types";
 
 const RUNS = 120;
 
@@ -255,7 +255,7 @@ describe("curriculum content", () => {
         const p = join(dir, f);
         return statSync(p).isDirectory() ? walk(p) : [p];
       });
-    const offenders = [...walk(join(__dirname, "grades")), ...walk(join(__dirname, "ontario")), ...walk(join(__dirname, "saskatchewan")), ...walk(join(__dirname, "manitoba"))].filter((f) => readFileSync(f, "utf8").includes("Math.random"));
+    const offenders = [...walk(join(__dirname, "grades")), ...walk(join(__dirname, "ontario")), ...walk(join(__dirname, "alberta")), ...walk(join(__dirname, "saskatchewan")), ...walk(join(__dirname, "manitoba"))].filter((f) => readFileSync(f, "utf8").includes("Math.random"));
     expect(offenders).toEqual([]);
   });
 
@@ -278,7 +278,7 @@ describe("curriculum content", () => {
     describe(`${course.grade}/${course.subject}`, () => {
       it("has an overview and complete unit info for each framework", () => {
         const frameworks = new Set(course.units.flatMap((u) => Object.keys(u.standards)));
-        for (const f of frameworks) expect(course.bigIdeas[f as "ca-bc" | "ca-on"]?.length ?? 0, `${f} overview`).toBeGreaterThan(0);
+        for (const f of frameworks) expect(course.bigIdeas[f as FrameworkId]?.length ?? 0, `${f} overview`).toBeGreaterThan(0);
         for (const u of course.units) {
           expect(u.title.trim()).not.toBe("");
           expect(u.emoji.trim()).not.toBe("");

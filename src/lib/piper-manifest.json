@@ -1,0 +1,32 @@
+{
+  "version": "1",
+  "voiceSource": "https://github.com/mjparinas/gradelings/releases/download/piper-voices-1/",
+  "engine": {
+    "ort.wasm.min.js": "onnxruntime-web/dist/ort.wasm.min.js",
+    "ort-wasm-simd-threaded.mjs": "onnxruntime-web/dist/ort-wasm-simd-threaded.mjs",
+    "ort-wasm-simd-threaded.wasm": "onnxruntime-web/dist/ort-wasm-simd-threaded.wasm",
+    "piper_phonemize.js": "@diffusionstudio/piper-wasm/build/piper_phonemize.js",
+    "piper_phonemize.wasm": "@diffusionstudio/piper-wasm/build/piper_phonemize.wasm",
+    "piper_phonemize.data": "@diffusionstudio/piper-wasm/build/piper_phonemize.data"
+  },
+  "voices": {
+    "en": {
+      "id": "en_US-kristin-medium",
+      "name": "Kristin",
+      "credit": "Kristin voice by Bryce Beattie, trained on public-domain LibriVox recordings.",
+      "files": {
+        "en_US-kristin-medium.onnx": "5849957f929cbf720c258f8458692d6103fff2f0e3d3b19c8259474bb06a18d4",
+        "en_US-kristin-medium.onnx.json": "5681426d4aead22195de70531eeeeddb46493cfaffc5764b2ea3db73428b651c"
+      }
+    },
+    "fr": {
+      "id": "fr_FR-siwis-medium",
+      "name": "Siwis",
+      "credit": "Siwis voice trained on the SIWIS French Speech Synthesis Database (University of Edinburgh, CC BY 4.0).",
+      "files": {
+        "fr_FR-siwis-medium.onnx": "641d1ab097da2b81128c076810edb052b385decc8be3381814802a64a73baf99",
+        "fr_FR-siwis-medium.onnx.json": "39479916c2db192b5ac9764daddd0c744d83e023ad890c6976c0633ae4df8959"
+      }
+    }
+  }
+}

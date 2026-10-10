@@ -106,9 +106,14 @@ jobs:
           key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**', 'next.config.ts') }}
           restore-keys: |
             next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+      # The Piper voices (about 130 MB from our piper-voices release), so each run doesn't download them again.
+      - uses: actions/cache@v6
+        with:
+          path: public/piper
+          key: piper-${{ hashFiles('src/lib/piper-manifest.json', 'package-lock.json') }}
       - run: npm run build
-      # One tar file keeps the folder layout exactly as built.
-      - run: tar -cf next-build.tar --exclude=.next/cache .next
+      # One tar file keeps the folder layout exactly as built. The Piper files go too, for the offline test.
+      - run: tar -cf next-build.tar --exclude=.next/cache .next public/piper
       - uses: actions/upload-artifact@v6
         with:
           name: next-build

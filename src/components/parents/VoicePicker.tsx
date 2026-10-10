@@ -15,6 +15,7 @@ import {
   type VoiceQuality,
 } from "@/lib/speech";
 import { Panel } from "./common";
+import { PiperVoice } from "./PiperVoice";
 
 const NONE: VoiceOption[] = [];
 
@@ -92,6 +93,9 @@ export function VoicePicker() {
 
   return (
     <Panel title="🗣️ Read-aloud voice (this device)">
+      <div className="mb-4">
+        <PiperVoice language="en" />
+      </div>
       {!canSpeak() ? (
         <p className="text-ink-soft">This browser can&apos;t read aloud.</p>
       ) : options.length === 0 ? (
@@ -102,7 +106,7 @@ export function VoicePicker() {
       ) : (
         <div className="flex flex-col gap-3">
           <label className="flex flex-col gap-1">
-            <span className="font-semibold">Voice</span>
+            <span className="font-semibold">Device voice</span>
             <select
               value={preferred && options.some((o) => o.uri === preferred) ? preferred : ""}
               onChange={(e) => {
@@ -130,7 +134,7 @@ export function VoicePicker() {
             )}
           </div>
           {current?.online && <p className="text-sm text-ink-soft">This voice needs internet. When offline, read-aloud switches to the best voice on the device.</p>}
-          <p className="text-sm text-ink-soft">Each device has its own voices, so choose one on every tablet or phone your children use.</p>
+          <p className="text-sm text-ink-soft">Each device has its own voices, so choose one on every tablet or phone your children use. When the offline voice is on, this one is only used if it can&apos;t play.</p>
           <Tips open={best?.quality === "basic" || best?.quality === "standard"} />
         </div>
       )}
@@ -149,6 +153,7 @@ function FrenchVoice() {
   return (
     <div className="mt-5 flex flex-col gap-3 border-t border-line pt-4">
       <h3 className="text-lg font-bold">French voice</h3>
+      <PiperVoice language="fr" />
       {options.length === 0 ? (
         <p className="text-sm text-ink-soft">
           No French voices found on this device yet, so French lessons will be read in an English voice. Add a French voice in your device&apos;s speech settings

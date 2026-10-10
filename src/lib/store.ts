@@ -21,7 +21,9 @@ import { TRIAL_DAYS } from "./plan";
 import { celebrate, setCalmCheck } from "./juice";
 import { setHapticsCheck } from "./haptics";
 import { effectiveGoal, STRETCH_QUEST, STRETCH_REWARD } from "./goal";
+import { growthStage } from "./buddy";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "./quests";
+import { getRoomItem, isRoomOwned } from "./room";
 import { getItem, isUnlocked, STARTER } from "./shop";
 import { setQuietCheck, setSoundCheck } from "./sound";
 import { getTrophy, newlyEarned, TIER_STYLE } from "./trophies";
@@ -71,6 +73,8 @@ interface State {
   /** Record events for the active child; awards trophies and quests. */
   log: (events: NewEvent[]) => void;
   buy: (itemId: string) => boolean;
+  /** Buy (if needed) and place a room item. */
+  placeRoomItem: (itemId: string) => boolean;
   equip: (itemId: string) => void;
   setPin: (pin: string) => Promise<void>;
   checkPin: (pin: string) => Promise<boolean>;
@@ -281,7 +285,14 @@ export const useStore = create<State>()((set, get) => ({
     }
 
     if (after.level > before.level) {
-      toasts.unshift({ kind: "level", title: `Level ${after.level}!`, subtitle: "You levelled up!", icon: "⬆️" });
+      const grown = growthStage(after.level);
+      const grew = grown.stage > growthStage(before.level).stage;
+      toasts.unshift({
+        kind: "level",
+        title: `Level ${after.level}!`,
+        subtitle: grew ? `Your buddy grew into a ${grown.name}!` : "You levelled up!",
+        icon: grew ? "🌟" : "⬆️",
+      });
     }
 
     // Make a Wish: a little shower of stars.
@@ -305,6 +316,21 @@ export const useStore = create<State>()((set, get) => ({
     if (d.coins < item.cost) return false;
     get().log([{ type: "buy", item: itemId, cost: item.cost }]);
     get().equip(itemId);
+    return true;
+  },
+
+  placeRoomItem: (itemId) => {
+    const state = get();
+    const item = getRoomItem(itemId);
+    const profile = state.profiles.find((p) => p.id === state.activeId);
+    if (!item || !profile) return false;
+    const d = derivedFor(state, profile.id);
+    if (!isRoomOwned(item, d.owned)) {
+      if (item.unlock && d.level < item.unlock.level) return false;
+      if (d.coins < item.cost) return false;
+      get().log([{ type: "buy", item: item.id, cost: item.cost }]);
+    }
+    get().updateProfile(profile.id, { room: { ...profile.room, [item.slot]: item.id } });
     return true;
   },
 

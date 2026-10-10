@@ -313,14 +313,51 @@ function TopExtras({ c }: { c: CritterDef }) {
   );
 }
 
-export function CritterSvg({ id, mood = "happy" }: { id: string; mood?: Mood }) {
+/** What a buddy has grown into: a bow tie, a cape, a medal and a crown as the child levels up. */
+function GrowthBack({ stage }: { stage: number }) {
+  if (stage < 3) return null;
+  return <path d="M62 128 Q36 170 48 204 Q100 190 152 204 Q164 170 138 128 Q100 144 62 128 Z" fill="#c43a7c" opacity="0.95" />;
+}
+
+function GrowthFront({ stage }: { stage: number }) {
+  if (stage < 2) return null;
+  return (
+    <g>
+      <path d="M100 152 L80 140 L80 164 Z M100 152 L120 140 L120 164 Z" fill="#e9559a" stroke="#c43a7c" strokeWidth="2" strokeLinejoin="round" />
+      <circle cx="100" cy="152" r="6" fill="#c43a7c" />
+      {stage >= 4 && (
+        <g>
+          <path d="M92 172 L92 190 L100 184 L108 190 L108 172 Z" fill="#4f8ef7" />
+          <circle cx="100" cy="171" r="10" fill="#f0bd2a" stroke="#b88905" strokeWidth="2" />
+          <path d="M100 165 L102 169 L106 169 L103 172 L104 176 L100 174 L96 176 L97 172 L94 169 L98 169 Z" fill="#fff4cc" />
+        </g>
+      )}
+    </g>
+  );
+}
+
+function GrowthTop({ stage }: { stage: number }) {
+  if (stage < 5) return null;
+  return (
+    <g>
+      <path d="M68 40 L72 12 L86 28 L100 6 L114 28 L128 12 L132 40 Z" fill="#f0bd2a" stroke="#b88905" strokeWidth="3" strokeLinejoin="round" />
+      <circle cx="72" cy="12" r="4" fill="#e9559a" />
+      <circle cx="100" cy="6" r="4" fill="#4f8ef7" />
+      <circle cx="128" cy="12" r="4" fill="#25b47e" />
+    </g>
+  );
+}
+
+export function CritterSvg({ id, mood = "happy", stage = 1 }: { id: string; mood?: Mood; stage?: number }) {
   const c = getCritter(id);
   const headFill = c.extras.includes("panda") ? "#ffffff" : c.fur;
   return (
     <svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true" overflow="visible">
+      <GrowthBack stage={stage} />
       <BackLayer c={c} />
       <ellipse cx="100" cy="162" rx="58" ry="40" fill={c.extras.includes("turtle") ? c.fur : c.extras.includes("panda") ? "#2b2f36" : c.fur} />
       <ellipse cx="100" cy="168" rx="38" ry="27" fill={c.belly} />
+      <GrowthFront stage={stage} />
       <Arms mood={mood} c={c} />
       <g className={mood === "oops" ? "animate-wiggle" : undefined} style={{ ...part, transformOrigin: "50% 80%" }}>
         <EarsLayer c={c} />
@@ -351,6 +388,7 @@ export function CritterSvg({ id, mood = "happy" }: { id: string; mood?: Mood }) 
         <NoseLayer c={c} />
         <Mouth mood={mood} c={c} />
         <TopExtras c={c} />
+        <GrowthTop stage={stage} />
         {mood === "sleepy" && (
           <g fill={INK} fontFamily="var(--font-fredoka, sans-serif)" fontWeight="700" opacity="0.55">
             <text x="150" y="52" fontSize="26">z</text>
@@ -378,7 +416,7 @@ const MOOD_MOTION: Record<Mood, string> = {
 };
 
 /** A mascot that floats, reacts to answers and watches your finger. */
-export function Critter({ id = "ollie", mood = "happy", size = 120, className = "" }: { id?: string; mood?: Mood; size?: number; className?: string }) {
+export function Critter({ id = "ollie", mood = "happy", size = 120, className = "", stage = 1 }: { id?: string; mood?: Mood; size?: number; className?: string; stage?: number }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -408,7 +446,7 @@ export function Critter({ id = "ollie", mood = "happy", size = 120, className = 
 
   return (
     <div ref={ref} key={mood} className={`shrink-0 ${MOOD_MOTION[mood]} ${className}`} style={{ width: size, height: size }}>
-      <CritterSvg id={id} mood={mood} />
+      <CritterSvg id={id} mood={mood} stage={stage} />
     </div>
   );
 }

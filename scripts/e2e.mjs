@@ -190,6 +190,14 @@ async function eventsWaiting(page) {
     await home(page);
     await tile(page, /Shop/);
     await shot(page, "19-shop", true);
+    await home(page);
+    await tile(page, /Sticker Book/);
+    await page.getByRole("heading", { name: /Sticker Book/ }).waitFor();
+    await shot(page, "19b-stickers", true);
+    await home(page);
+    await tile(page, /My Room/);
+    await page.getByRole("heading", { name: /My Room/ }).waitFor();
+    await shot(page, "19c-room", true);
 
   }
   if (PARENTS) {
@@ -202,7 +210,7 @@ async function eventsWaiting(page) {
     await page.getByRole("switch", { name: /Free play/ }).first().click();
 
     // Read-aloud voice: the most natural voice comes first, and a parent's choice is used everywhere.
-    const voice = page.getByRole("combobox", { name: "Voice", exact: true });
+    const voice = page.getByRole("combobox", { name: "Device voice", exact: true });
     const options = await voice.locator("option").allTextContents();
     log("voices offered:", options.slice(1).join(" | "));
     if (!options[1]?.startsWith("Clara · Canadian · Sounds natural")) errors.push(`voice ranking: first voice is "${options[1]}"`);

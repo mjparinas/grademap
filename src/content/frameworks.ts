@@ -1,3 +1,4 @@
+import { ALBERTA } from "./alberta/framework";
 import { MANITOBA } from "./manitoba/framework";
 import { ONTARIO } from "./ontario/framework";
 import { SASKATCHEWAN } from "./saskatchewan/framework";
@@ -175,6 +176,7 @@ export const FRAMEWORKS: Framework[] = [
     },
   },
   ONTARIO,
+  ALBERTA,
   SASKATCHEWAN,
   MANITOBA,
 ];

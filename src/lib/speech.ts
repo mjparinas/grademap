@@ -3,7 +3,11 @@
 // Read-aloud with the device's own voices (Web Speech API), so it works offline
 // and costs nothing. Voice quality varies hugely between devices, so we rank the
 // installed voices and pick the most natural one; parents can choose another in
-// Settings (saved per device, because every device has different voices).
+// Settings (saved per device, because every device has different voices). A parent can
+// also download the Piper voice (src/lib/piper.ts), which then reads instead of the device
+// voice; if it fails, the device voice takes over.
+
+import { piperCanSpeak, piperMightSpeak, piperWanted, speakPiper, stopPiper } from "./piper";
 
 /** English is the app's language; French is for French Immersion and Core French questions. */
 export type SpeechLanguage = "en" | "fr";
@@ -86,12 +90,16 @@ let ranked: VoiceOption[] = EMPTY;
 let rankedFr: VoiceOption[] = EMPTY;
 const listeners = new Set<() => void>();
 
-export function canSpeak(): boolean {
+function hasSynth(): boolean {
   return typeof window !== "undefined" && "speechSynthesis" in window;
 }
 
+export function canSpeak(): boolean {
+  return hasSynth() || (typeof window !== "undefined" && piperCanSpeak());
+}
+
 function refresh() {
-  if (!canSpeak()) return;
+  if (!hasSynth()) return;
   const voices = window.speechSynthesis.getVoices();
   ranked = rankVoices(voices);
   rankedFr = rankVoices(voices, "fr");
@@ -100,7 +108,7 @@ function refresh() {
 
 let watching = false;
 function watch() {
-  if (watching || !canSpeak()) return;
+  if (watching || !hasSynth()) return;
   watching = true;
   // Many browsers load voices asynchronously (and some add cloud voices later).
   window.speechSynthesis.addEventListener?.("voiceschanged", refresh);
@@ -156,14 +164,18 @@ function forSpeech(text: string, language: SpeechLanguage = "en"): string {
     .trim();
 }
 
+// A touch slower than normal for young listeners.
+const RATE = 0.92;
+
 function utter(text: string, option: VoiceOption | undefined, onFail?: () => void, language: SpeechLanguage = "en", onDone?: () => void) {
+  if (!hasSynth()) return onDone?.();
   const synth = window.speechSynthesis;
   const u = new SpeechSynthesisUtterance(forSpeech(text, language));
   const voice = option ? synth.getVoices().find((v) => v.voiceURI === option.uri) : undefined;
   if (voice) u.voice = voice;
   u.lang = voice?.lang ?? (language === "fr" ? "fr-CA" : "en-CA");
-  // A touch slower than normal for young listeners; natural pitch (raising it makes good voices sound processed).
-  u.rate = 0.92;
+  // Natural pitch: raising it makes good voices sound processed.
+  u.rate = RATE;
   u.pitch = 1;
   u.onend = () => onDone?.();
   u.onerror = (e) => {
@@ -175,6 +187,20 @@ function utter(text: string, option: VoiceOption | undefined, onFail?: () => voi
 }
 
 function queue(text: string, voiceUri: string | null | undefined, language: SpeechLanguage, onDone?: () => void) {
+  // A named voice (the device-voice preview in Settings) always uses that voice.
+  if (voiceUri !== undefined || !piperMightSpeak(language)) return queueDevice(text, voiceUri, language, onDone);
+  const id = run;
+  void piperWanted(language).then((wanted) => {
+    if (id !== run) return;
+    if (!wanted) return queueDevice(text, voiceUri, language, onDone);
+    speakPiper(forSpeech(text, language), language, RATE).then(
+      () => id === run && onDone?.(),
+      () => id === run && queueDevice(text, voiceUri, language, onDone),
+    );
+  });
+}
+
+function queueDevice(text: string, voiceUri: string | null | undefined, language: SpeechLanguage, onDone?: () => void) {
   const offline = navigator.onLine === false;
   // English and French each have their own ranked list and saved choice.
   const list = language === "fr" ? rankedFr : ranked;
@@ -206,7 +232,8 @@ let pauseTimer: ReturnType<typeof setTimeout> | undefined;
 function cancelAll() {
   run++;
   clearTimeout(pauseTimer);
-  window.speechSynthesis.cancel();
+  stopPiper();
+  if (hasSynth()) window.speechSynthesis.cancel();
 }
 
 /** Speaks pieces one after another, each in its own language, with optional pauses between them. */
@@ -232,8 +259,19 @@ export function stopSpeaking() {
   if (canSpeak()) cancelAll();
 }
 
+const SAMPLE: Record<SpeechLanguage, string> = {
+  en: "Hi! I'm Ollie the Otter. Let's count together: one, two, three. Great job!",
+  fr: "Bonjour! Je m'appelle Ollie la loutre. Comptons ensemble : un, deux, trois. Bravo!",
+};
+
 /** A short sample for the voice picker. */
 export function previewVoice(uri: string | null, language: SpeechLanguage = "en") {
-  if (language === "fr") speak("Bonjour! Je m'appelle Ollie la loutre. Comptons ensemble : un, deux, trois. Bravo!", uri, "fr");
-  else speak("Hi! I'm Ollie the Otter. Let's count together: one, two, three. Great job!", uri);
+  speak(SAMPLE[language], uri, language);
+}
+
+/** A short sample of the Piper voice. Rejects if it can't play, so Settings can say so. */
+export function previewPiper(language: SpeechLanguage = "en"): Promise<void> {
+  if (typeof window === "undefined") return Promise.resolve();
+  cancelAll();
+  return speakPiper(forSpeech(SAMPLE[language], language), language, RATE);
 }
