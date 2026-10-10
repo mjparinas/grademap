@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 // Read-aloud with the device's own voices (Web Speech API), so it works offline

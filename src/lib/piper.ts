@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import manifest from "./piper-manifest.json";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Read-aloud picks Piper when a parent has turned it on and the voice is on this device,
