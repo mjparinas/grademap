@@ -73,14 +73,48 @@ export function resetEmail(to: string, origin: string, token: string): Email {
   });
 }
 
-export function trialEndingEmail(to: string, origin: string, daysLeft: number): Email {
+/** What a child did during the trial: first name and practice totals only. */
+export interface TrialChild {
+  name: string;
+  answers: number;
+  activeDays: number;
+  minutes: number;
+  strength?: string;
+}
+
+function recapLines(children: TrialChild[]): string[] {
+  return children
+    .filter((c) => c.answers > 0)
+    .flatMap((c) => [
+      `${c.name} has practised on ${c.activeDays} ${c.activeDays === 1 ? "day" : "days"}: ${c.minutes} min and ${c.answers} questions so far.`,
+      ...(c.strength ? [`  Going well: ${c.strength}`] : []),
+    ]);
+}
+
+const KEEP_FREE = "After the trial, the first 2 units of every course stay free forever. The family plan keeps everything unlocked for up to 4 children.";
+
+/** Mid-trial: what the trial has done so far. Sent once, to parents whose children have practised. */
+export function trialRecapEmail(to: string, origin: string, daysLeft: number, children: TrialChild[]): Email {
+  return layout({
+    to,
+    origin,
+    subject: `${APP_NAME}: what your trial has done so far`,
+    heading: "Your trial so far",
+    body: [...recapLines(children), `${daysLeft} ${daysLeft === 1 ? "day" : "days"} of the free trial left. This reflects practice in the app, not a report-card mark.`, KEEP_FREE],
+    button: { label: "See full reports", url: `${origin}/parents/#/reports` },
+  });
+}
+
+export function trialEndingEmail(to: string, origin: string, daysLeft: number, children: TrialChild[] = []): Email {
+  const recap = recapLines(children);
   return layout({
     to,
     origin,
     subject: `Your ${APP_NAME} free trial ends in ${daysLeft} ${daysLeft === 1 ? "day" : "days"}`,
     heading: `Your free trial ends in ${daysLeft} ${daysLeft === 1 ? "day" : "days"}`,
     body: [
-      "After the trial, the first 2 units of every course stay free forever. The family plan keeps everything unlocked for up to 4 children.",
+      ...(recap.length ? ["Here's what the trial has done:", ...recap] : []),
+      KEEP_FREE,
       "There's nothing to do if you'd like to stay on the free units. No card was needed to start.",
     ],
     button: { label: "See plans", url: `${origin}/parents/#/subscription` },

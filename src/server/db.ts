@@ -150,6 +150,7 @@ const PARENT_COLUMNS: [string, string][] = [
   ["unsub_token", "TEXT"],
   ["last_weekly_at", "INTEGER"],
   ["trial_notice_at", "INTEGER"],
+  ["trial_recap_at", "INTEGER"],
   ["last_push_at", "INTEGER"],
   ["practice_reminders", "INTEGER NOT NULL DEFAULT 0"],
   ["last_nudge_at", "INTEGER"],

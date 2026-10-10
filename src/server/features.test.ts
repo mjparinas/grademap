@@ -240,6 +240,32 @@ describe("daily email job", () => {
     expect(email.outbox().filter((m) => m.subject.includes("free trial ends")).length).toBe(n);
   });
 
+  it("sends a trial recap once, about a week before the trial ends, only when a child has practised", async () => {
+    const practised = await family("recap-yes@example.com");
+    const unconfirmed = await family("recap-unconfirmed@example.com", { verified: false });
+    const idle = await family("recap-idle@example.com");
+    await dbm.run("DELETE FROM events WHERE family_id = ?", [idle.familyId]);
+    await dbm.run("UPDATE families SET trial_ends_at = ? WHERE id IN (?, ?, ?)", [Date.now() + 7 * 86_400_000, practised.familyId, unconfirmed.familyId, idle.familyId]);
+    await run();
+    const recaps = () => email.outbox().filter((m) => m.subject.includes("what your trial has done"));
+    expect(recaps().map((m) => m.to)).toEqual(expect.arrayContaining(["recap-yes@example.com"]));
+    expect(recaps().map((m) => m.to)).not.toContain("recap-unconfirmed@example.com");
+    expect(recaps().map((m) => m.to)).not.toContain("recap-idle@example.com");
+    const mail = recaps().find((m) => m.to === "recap-yes@example.com")!;
+    expect(mail.text).toContain("Maya has practised on 1 day");
+    expect(mail.text).toContain("report-card mark");
+    const n = recaps().length;
+    await run();
+    expect(recaps().length).toBe(n);
+
+    // Closer to the end, the final notice repeats the recap.
+    await dbm.run("UPDATE families SET trial_ends_at = ? WHERE id = ?", [Date.now() + 2 * 86_400_000, practised.familyId]);
+    await run();
+    const last = email.outbox().filter((m) => m.to === "recap-yes@example.com" && m.subject.includes("free trial ends")).at(-1)!;
+    expect(last.text).toContain("Here's what the trial has done");
+    expect(last.text).toContain("Maya");
+  });
+
   it("warns after 11 months and deletes an inactive class after 12 months", async () => {
     const teacher = await family("inactive-class@example.com");
     const { class: cls } = await (await classes.POST(req("/api/classes/", "POST", { name: "Room 7", grade: "2" }, teacher.cookie))).json();
