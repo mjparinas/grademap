@@ -2,6 +2,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { APP_NAME } from "@/lib/brand";
 
 const mocks = vi.hoisted(() => ({ call: vi.fn() }));
 
@@ -129,7 +130,7 @@ describe("TeacherApp", () => {
     render(<TeacherApp />);
     await user.click(await screen.findByRole("button", { name: /Room 3/ }));
 
-    expect(await screen.findByText("This reflects practice in GradeMap, not a report-card mark. You decide proficiency.")).toBeInTheDocument();
+    expect(await screen.findByText(`This reflects practice in ${APP_NAME}, not a report-card mark. You decide proficiency.`)).toBeInTheDocument();
     expect(screen.getAllByText("Maya")).toHaveLength(3);
     expect(screen.getByLabelText("Login code Z X 9 1 P Q")).toHaveTextContent("ZX91PQ");
     expect(screen.getByText(/Hasn’t started yet/)).toBeInTheDocument();

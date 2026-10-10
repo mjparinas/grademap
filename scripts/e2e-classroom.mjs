@@ -97,7 +97,10 @@ check(answered >= 6, "the student answers questions");
 
 // No parent area.
 await page.goto(`${BASE}/parents/`);
-check(await page.getByRole("heading", { name: "This is a class account" }).isVisible(), "the parent area shows the class account notice");
+check(
+  await page.getByRole("heading", { name: "This is a class account" }).waitFor({ state: "visible", timeout: 8000 }).then(() => true, () => false),
+  "the parent area shows the class account notice",
+);
 
 // The teacher sees the work (after the app syncs).
 let attempts = 0;
