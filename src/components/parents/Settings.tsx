@@ -46,7 +46,7 @@ export function SettingsPage({ childId }: { childId?: string }) {
   const [newPin, setNewPin] = useState("");
   const [pinSaved, setPinSaved] = useState(false);
   if (!child) return <NoChildren />;
-  const s: ChildSettings = stored ?? defaultChildSettings(child.id, child.grade === "k" || child.grade === "1");
+  const s: ChildSettings = stored ?? defaultChildSettings(child.id, false, child.grade);
   const set = (patch: Partial<ChildSettings>) => update(child.id, patch);
   const focusOn = Boolean(s.calmMotion && s.quietSounds && s.hideTimers && s.quietToasts && s.shortSessions);
   const toggleSubject = (id: SubjectId) => {

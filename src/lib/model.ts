@@ -127,7 +127,10 @@ export function dayKey(t: number): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-export function defaultChildSettings(profileId: string, little: boolean): ChildSettings {
+/** Grades whose children have read-aloud switched on by default. Parents can still turn it off per child. */
+export const AUTO_READ_GRADES: readonly GradeId[] = ["k", "1"];
+
+export function defaultChildSettings(profileId: string, little: boolean, grade?: GradeId): ChildSettings {
   return {
     profileId,
     dailyGoalMinutes: little ? 10 : 15,
@@ -137,7 +140,7 @@ export function defaultChildSettings(profileId: string, little: boolean): ChildS
     gamesEnabled: true,
     freePlay: false,
     showTimer: !little,
-    autoRead: little,
+    autoRead: grade ? AUTO_READ_GRADES.includes(grade) : little,
     sound: true,
     enabledSubjects: ["math", "language", "science", "social"],
     updatedAt: Date.now(),

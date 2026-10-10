@@ -12,7 +12,7 @@ import { go } from "@/lib/router";
 import { getItem } from "@/lib/shop";
 import { sounds } from "@/lib/sound";
 import { speakQuestion } from "@/lib/readaloud";
-import { speak, stopSpeaking } from "@/lib/speech";
+import { speak, speakSegments, stopSpeaking } from "@/lib/speech";
 import { derivedFor, useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useBand } from "../band";
 import { Critter, SpeechBubble, type Mood } from "../Critter";
@@ -221,6 +221,16 @@ function Runner({ plan }: { plan: Plan }) {
     setMessage("");
   }
 
+  // Read the green/blue/yellow feedback bar aloud: its title, then the explanation under it.
+  useEffect(() => {
+    if (!q || !settings?.autoRead || plan.feedback !== "bar" || status === "answering") return;
+    const title = message.replace(/[\p{Extended_Pictographic}\uFE0F]/gu, "").trim();
+    speakSegments([
+      ...(title ? [{ text: title, lang: "en" as const }] : []),
+      { text: q.hint, lang: "en" as const, pause: title ? 300 : 0 },
+    ]);
+  }, [status, message, q, settings?.autoRead, plan.feedback]);
+
   function showHint() {
     if (!q || hinted) return;
     setHinted(true);
@@ -250,7 +260,6 @@ function Runner({ plan }: { plan: Plan }) {
       setMood("cheer");
       const praise = newRun >= 3 ? `${newRun} in a row! 🔥` : pick(PRAISE);
       setMessage(praise);
-      if (settings?.autoRead && band === "little") speak(praise.replace("🔥", ""));
       return;
     }
 

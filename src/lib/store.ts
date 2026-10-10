@@ -178,7 +178,7 @@ export const useStore = create<State>()((set, get) => ({
       createdAt: now,
       updatedAt: now,
     };
-    const settings = { ...get().settings, [id]: defaultChildSettings(id, ageBandFor(grade) === "little") };
+    const settings = { ...get().settings, [id]: defaultChildSettings(id, ageBandFor(grade) === "little", grade) };
     const profiles = [...get().profiles, profile];
     set({ profiles, settings, activeId: id });
     save("profiles", profiles);
