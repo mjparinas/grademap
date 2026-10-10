@@ -49,6 +49,48 @@ jobs:
       # Same tests as `npm test`, plus line coverage written to the run's summary page. It has no
       # threshold yet; e2e scripts are not counted.
       - run: npm run test:coverage
+      - uses: actions/upload-artifact@v6
+        with:
+          name: unit-coverage
+          path: coverage/summary.md
+          retention-days: 1
+
+  coverage-comment:
+    name: Coverage comment
+    needs: unit
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: unit-coverage
+          path: coverage
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('node:fs');
+            const marker = '<!-- gradelings-coverage-summary -->';
+            const summary = fs.readFileSync('coverage/summary.md', 'utf8').trim();
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            });
+            const existing = comments.find((comment) =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker),
+            );
+            const body = `${marker}\n${summary}\n\n_Updated by [CI run #${context.runNumber}](${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId})._`;
+
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
 
   build:
     name: Build

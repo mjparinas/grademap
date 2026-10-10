@@ -1,7 +1,7 @@
 // Turns coverage/coverage-summary.json into a short Markdown table: overall, without lesson
 // content (which the content tests cover almost completely), and by area.
 // In CI it is appended to the run's summary page; locally it prints to the terminal.
-import { appendFileSync, readFileSync } from "node:fs";
+import { appendFileSync, readFileSync, writeFileSync } from "node:fs";
 import { relative, sep } from "node:path";
 
 const summary = JSON.parse(readFileSync("coverage/coverage-summary.json", "utf8"));
@@ -41,5 +41,6 @@ const out = [
   "",
 ].join("\n");
 
+writeFileSync("coverage/summary.md", out);
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, out);
 else console.log(out);
