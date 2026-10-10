@@ -45,6 +45,14 @@ const EARLY: Item[] = [
   q("In Rome's Republic, a senator was…", "an important leader who helped make laws", ["a farmer", "a gladiator", "an enslaved worker"], "The Senate was a council of powerful Romans.", "🏛️"),
   q("In many early societies, people were divided into groups with different rights and jobs. This is called…", "social organization", ["geography", "weather", "map making"], "Rulers, nobles, farmers and enslaved people all had different roles.", "👥"),
   q("Which of these societies lived in the Americas before 1500?", "the Maya and the Haudenosaunee", ["the Romans", "the Egyptians", "the Greeks"], "Many Indigenous societies lived in the Americas for thousands of years.", "🌎"),
+  q("What did the ancient Egyptians use to write on?", "papyrus, made from a river plant", ["plastic sheets", "paper from trees", "computer screens"], "Papyrus grew along the Nile and was pressed into sheets.", "📜"),
+  q("Where is the Mali Empire found on a map today?", "in West Africa", ["in the Arctic", "in South America", "in northern Europe"], "Mali was in West Africa, near the Niger River.", "🌍"),
+  q("In ancient Rome, what was the Colosseum used for?", "public shows and games", ["growing wheat", "storing grain only", "ruling the Senate"], "It was a large stadium where crowds gathered.", "🏟️"),
+  q("In the Haudenosaunee Confederacy, who chooses the chiefs?", "clan mothers", ["the pharaoh", "the Roman Senate", "kings of Europe"], "Clan mothers have an important role in choosing leaders.", "👩"),
+  q("Ancient Greece was made up of many…", "independent city-states", ["small countries with one king", "farms with no towns", "empires ruled by one pharaoh"], "Athens and Sparta were separate city-states.", "🏛️"),
+  q("What is a historian?", "someone who studies the past", ["someone who predicts the weather", "someone who builds boats", "someone who draws maps only"], "Historians use evidence to learn about long ago.", "🔍"),
+  q("About how long ago did the pyramids of Giza get built?", "more than 4000 years ago", ["about 100 years ago", "about 500 years ago", "about 2 years ago"], "They were built by ancient Egyptians for pharaohs.", "🔺"),
+  q("What was a castle in medieval Europe mainly used for?", "to protect and house a lord and his people", ["to grow food on the roof", "to give classes", "to launch boats"], "Castles were built with thick walls.", "🏰"),
   hq("Why can it be misleading to say 'ancient' societies are all in the past?", "some, like the Haudenosaunee and Inuit, are living peoples today", ["because none of them were real", "because all disappeared", "because history isn't real"], "Many Indigenous peoples are living, thriving communities.", "🪶"),
   hq("Egypt and feudal Europe both had classes. What is one difference?", "in Egypt the pharaoh was ruler of all, in feudal Europe power was shared among a king and nobles", ["Egypt had no rulers", "Europe had no farmers", "Egypt had no farmers"], "Different systems of power.", "⚖️"),
   hq("Athens is called an early democracy, but it was limited. Why?", "women, enslaved people and non-citizens could not vote", ["no one could vote", "all children could vote", "only kings voted"], "Democracy then was not like today.", "🗳️"),
@@ -89,6 +97,13 @@ const DAILY: Item[] = [
   hq("Which is a similarity between children's lives in early societies and now?", "they play games and learn from adults", ["they all went to the same school", "they had phones", "they travelled by plane"], "Children everywhere have played and learned from family.", "🎲"),
   hq("Why were the lives of a noble and a peasant so different in medieval Europe?", "their rank decided their rights, work and home", ["they lived in the same house", "they had no differences", "they had no work"], "Social class decided much of daily life.", "👑"),
   hq("Which does NOT match daily life in the Arctic long ago?", "growing wheat in big fields", ["hunting seals", "building snow houses", "using dog teams"], "The Arctic climate is too cold and the growing season too short for wheat.", "🌾"),
+  q("What did ancient Roman children often use to play a game?", "knucklebones or small stones", ["tablet games", "trading cards", "video consoles"], "Children played simple games with objects they could find.", "🎲"),
+  q("In ancient Egypt, most people were…", "farmers", ["knights", "pirates", "ship captains"], "Farmers fed the kingdom with crops grown near the Nile.", "🌾"),
+  q("How did most food reach a medieval peasant family?", "they grew it on the land they worked", ["they bought it in a supermarket", "it was delivered by trucks", "they ordered it by phone"], "Most people farmed.", "🌾"),
+  q("Which clothing would an Inuit family in the past most likely wear in winter?", "warm clothes made from animal skins and fur", ["thin cotton shirts", "silk robes", "linen togas"], "Warm clothing was essential in the Arctic cold.", "🧥"),
+  q("Which of these is something both children long ago and children today do?", "play games with friends", ["use smartphones", "ride school buses", "watch cartoons"], "Play is part of childhood in every time.", "🧒"),
+  q("In Haudenosaunee villages, who often helped care for the Three Sisters gardens?", "many families working together", ["only the king", "only travelling traders", "nobody"], "Gardening was shared work in the community.", "🌽"),
+  q("What was a Roman toga?", "a long piece of cloth worn as a garment", ["a kind of boat", "a soldier's shield", "a loaf of bread"], "Roman citizens wore togas for special occasions.", "👘"),
   hq("An enslaved person in ancient Rome differed from a senator because the enslaved person…", "was not free and had no say in their work", ["could vote", "made the laws", "owned many slaves"], "Slavery meant being owned by another person.", "⛓️"),
 ];
 
@@ -131,6 +146,13 @@ const ENVIRONMENT: Item[] = [
   hq("The Maya built terraces and used rainfall and rivers for farming. This shows that…", "people adapted farming to their environment", ["people could not farm", "rain was never helpful", "farms were underwater"], "Adapting to the land helps people meet their needs.", "🌽"),
   hq("Both ancient Egypt and the Haudenosaunee relied on farming. What does this tell us?", "farming helped many societies stay in one place", ["only hunters could settle", "farming was impossible", "farmers never traded"], "Farming provides a steady food supply.", "🌾"),
   hq("Why are an Arctic community's winter and summer homes different?", "the seasons and the animals they hunt change", ["they like variety only", "they must hide from the Sun", "they move to cities"], "Homes fit the season.", "🏠"),
+  q("Why were mountains an obstacle for people in Greece?", "they made travel and farming on steep land harder", ["they made the land flat", "they made the climate hot", "they filled the land with rivers"], "Mountains separate valleys.", "⛰️"),
+  q("How did ancient Egyptians use the Nile to travel?", "by boat", ["by airplane", "by train", "by bus"], "The river was like a highway.", "⛵"),
+  q("Which animal helped traders cross the Sahara desert?", "camels", ["polar bears", "reindeer", "seals"], "Camels can go a long time without water.", "🐪"),
+  q("The Haudenosaunee collected maple sap in spring. What does this show?", "people used plants and trees for food", ["they never used trees", "maple trees do not exist", "they bought syrup"], "Seasons shape what people gather.", "🍁"),
+  q("Why do Arctic people use dog teams or sleds in winter?", "to travel across snow and ice", ["to cross deserts", "to climb palm trees", "to sail on rivers"], "Snow and ice make sleds a good choice.", "🛷"),
+  q("A society near a lake or sea could get food by…", "fishing", ["farming in ice", "mining in sand", "hunting in the sky"], "Water supplied fish and other food.", "🎣"),
+  q("Why did many societies set up villages near forests?", "for wood to build homes and burn for fire", ["forests keep people cold", "forests have no resources", "forests are always flooded"], "Trees were useful for many needs.", "🌲"),
 ];
 
 // ---------- How societies were governed ----------
@@ -258,6 +280,13 @@ const PHYSICAL: Item[] = [
   hq("The Interior Plains are good for farming. Why?", "flat land and fertile soil", ["steep slopes and rock", "ice and snow", "deep forest"], "Machines work well on flat land.", "🚜"),
   hq("Why might a region with a lot of water and forest develop forestry and hydroelectric power?", "trees and rivers are natural resources there", ["there are no resources", "it is a desert", "it is under the sea"], "Industries often grow where resources are.", "🌲"),
   hq("Which physical region would be hardest to build roads across?", "the Western Cordillera", ["the Interior Plains", "a flat lowland", "a prairie"], "Mountains are steep and rugged.", "🛣️"),
+  q("Which region has the Great Lakes?", "the Great Lakes–St. Lawrence Lowlands and the Canadian Shield", ["the Western Cordillera", "the Arctic only", "the Interior Plains only"], "The lakes sit between the lowlands and the Shield.", "🌊"),
+  q("Which physical region covers the north above the tree line?", "the Arctic", ["the Great Lakes–St. Lawrence Lowlands", "the Appalachian region", "the Interior Plains"], "The Arctic has tundra and cold winters.", "❄️"),
+  q("Which region is known for wheat and canola farming?", "the Interior Plains", ["the Arctic", "the Canadian Shield", "the Appalachian region"], "Flat land and deep soil suit big farms.", "🌾"),
+  q("What is a lowland?", "an area of low, flat land", ["a mountain peak", "a frozen sea", "an island"], "Low means closer to sea level.", "🏞️"),
+  q("What is a plain?", "a large area of flat land", ["a steep cliff", "a frozen lake", "a rainforest"], "Plains are flat and good for farms.", "🌾"),
+  q("Where in Canada would you find mostly tundra?", "the far north", ["the southwest coast", "the Great Lakes", "the Prairies"], "Tundra is cold with low plants.", "🌿"),
+  q("Which activity is popular in the Western Cordillera in winter?", "skiing and snowboarding", ["growing wheat", "sailing on the Prairies", "riding camels"], "Snowy mountains attract visitors.", "⛷️"),
 ];
 
 // ---------- Economic sectors ----------

@@ -25,6 +25,16 @@ const WORD_JOBS: BankItem[] = [
   { prompt: "Which word is an action word (verb)? The frog jumps.", right: "jumps", wrong: ["frog", "the"], hint: "An action word tells what someone does." },
   { prompt: "Which sentence is written correctly?", right: "Mom and I went to the park.", wrong: ["Mom and i went to the park.", "i and Mom went to the park."], hint: "The word I is always a capital letter." },
   { prompt: "Which word fits? Yesterday we ___ in the snow.", right: "played", wrong: ["play", "will play"], hint: "Yesterday means it already happened." },
+  { prompt: "Which word fits? Last night we ___ a movie.", right: "watched", wrong: ["watch", "will watch"], hint: "Last night means it already happened." },
+  { prompt: "Which word fits? Tomorrow I ___ my grandma.", right: "will visit", wrong: ["visited", "visits"], hint: "Tomorrow has not happened yet, so we use will." },
+  { prompt: "Which word fits? Right now the dog ___ a bone.", right: "chews", wrong: ["chewed", "will chew"], hint: "Right now means it is happening now." },
+  { prompt: "Which word is the describing word? A tall tree grows here.", right: "tall", wrong: ["tree", "grows"], hint: "A describing word tells more about a person, animal or thing." },
+  { prompt: "Which word names a place? We went to the park.", right: "park", wrong: ["went", "we"], hint: "A noun can name a person, a place or a thing." },
+  { prompt: "Which word is an action word (verb)? Birds fly south.", right: "fly", wrong: ["birds", "south"], hint: "An action word tells what someone or something does." },
+  { prompt: "Which joining word fits? We stayed in ___ it was raining.", right: "because", wrong: ["but", "or"], hint: "Because tells us the reason." },
+  { prompt: "Which word tells how? The turtle walks slowly.", right: "slowly", wrong: ["turtle", "walks"], hint: "Slowly tells how the turtle walks." },
+  { prompt: "Which sentence is written correctly?", right: "My friend Ravi lives here.", wrong: ["my friend ravi lives here.", "My friend ravi lives here."], hint: "A sentence starts with a capital, and so does a person's name." },
+  { prompt: "Which sentence tells about the future?", right: "We will bake cookies.", wrong: ["We baked cookies.", "We bake cookies every day."], hint: "Will tells us it has not happened yet." },
 ];
 
 function wordJobs(): Question[] {
@@ -47,6 +57,19 @@ const SENTENCE_TYPES: BankItem[] = [
   { prompt: "Which one is one sentence with two ideas joined?", right: "I like dogs and I like cats.", wrong: ["I like dogs.", "Like cats."], hint: "A joined sentence has two ideas connected by a word like and." },
   { prompt: "Which one is one sentence with two ideas joined?", right: "It is cold, but I am warm.", wrong: ["It is cold.", "Warm and cold."], hint: "A joined sentence has two ideas connected by a word like but." },
   { prompt: "Which sentence starts correctly?", right: "The cat is sleeping.", wrong: ["the cat is sleeping.", "The Cat is sleeping."], hint: "A sentence starts with a capital letter. Only names need other capitals." },
+  { prompt: "Which one is a question?", right: "Who is at the door?", wrong: ["Someone is at the door.", "Open the door."], hint: "A question asks something and ends with a question mark (?)." },
+  { prompt: "Which one is a question?", right: "Is it time for lunch?", wrong: ["It is time for lunch.", "Eat your lunch."], hint: "A question asks something and ends with a question mark (?)." },
+  { prompt: "Which one tells you to do something?", right: "Line up at the door.", wrong: ["The line is long.", "Is this the line?"], hint: "A command tells someone what to do." },
+  { prompt: "Which one tells you to do something?", right: "Pick up your toys.", wrong: ["The toys are fun.", "Do you have toys?"], hint: "A command tells someone what to do." },
+  { prompt: "Which one is a telling sentence?", right: "We have a pet fish.", wrong: ["Feed the fish.", "Do we have a fish?"], hint: "A telling sentence tells something and usually ends with a period (.)." },
+  { prompt: "Which one is a telling sentence?", right: "Snow falls in winter.", wrong: ["Does snow fall in winter?", "Catch the snow!"], hint: "A telling sentence tells something and usually ends with a period (.)." },
+  { prompt: "Which one shows a big feeling?", right: "What a great day!", wrong: ["What day is it?", "It is a day."], hint: "An exclamation shows a strong feeling and ends with an exclamation mark (!)." },
+  { prompt: "Which one shows a big feeling?", right: "Hooray, we did it!", wrong: ["We did it.", "Did we do it?"], hint: "An exclamation shows a strong feeling and ends with an exclamation mark (!)." },
+  { prompt: "Which mark ends this sentence? What is your name", right: "?", wrong: [".", "!"], hint: "A question ends with a question mark." },
+  { prompt: "Which mark ends this sentence? The bus is late", right: ".", wrong: ["?", "!"], hint: "A telling sentence ends with a period." },
+  { prompt: "Which mark ends this sentence? Where did the ball go", right: "?", wrong: [".", "!"], hint: "A question ends with a question mark." },
+  { prompt: "Which one is one sentence with two ideas joined?", right: "I can run, and I can jump.", wrong: ["I can run.", "Jump high."], hint: "A joined sentence has two ideas connected by a word like and." },
+  { prompt: "Which sentence starts correctly?", right: "Birds sing in spring.", wrong: ["birds sing in spring.", "BIRDS sing in spring."], hint: "A sentence starts with one capital letter." },
 ];
 
 function sentenceTypes(): Question[] {
@@ -68,6 +91,22 @@ const SOUND_PLAY: BankItem[] = [
   { prompt: "Which sentence starts many words with the same sound?", right: "Big bears bake bread.", wrong: ["My cat sat down.", "The sun is up."], hint: "Look for the same first sound again and again: b, b, b, b." },
   { prompt: "Which sentence has the same first sound over and over?", right: "Tiny turtles take turns.", wrong: ["Rain falls from clouds.", "We eat our lunch."], hint: "Say it out loud and listen for t, t, t, t." },
   { prompt: "Rhymes make a poem fun to hear. Which pair rhymes?", right: "star and far", wrong: ["star and stop", "far and fun"], hint: "The ending sounds are the same in rhyming words." },
+  { prompt: "Which word rhymes with dog?", right: "log", wrong: ["dig", "dot"], hint: "Rhyming words end with the same sound." },
+  { prompt: "Which word rhymes with ball?", right: "wall", wrong: ["bag", "pill"], hint: "Rhyming words end with the same sound." },
+  { prompt: "Which word rhymes with boat?", right: "coat", wrong: ["bat", "bike"], hint: "Rhyming words end with the same sound." },
+  { prompt: "Which word rhymes with mouse?", right: "house", wrong: ["mouth", "moon"], hint: "Rhyming words end with the same sound." },
+  { prompt: "Which word rhymes with train?", right: "rain", wrong: ["trap", "tire"], hint: "Rhyming words end with the same sound." },
+  { prompt: "Which word rhymes with fish?", right: "dish", wrong: ["fist", "fin"], hint: "Rhyming words end with the same sound." },
+  { prompt: "Which words rhyme?", right: "moon and spoon", wrong: ["moon and mop", "spoon and spin"], hint: "Say both words and listen to the ending." },
+  { prompt: "Which words rhyme?", right: "snow and glow", wrong: ["snow and sun", "glow and gap"], hint: "Say both words and listen to the ending." },
+  { prompt: "Which one is a sound word? Boom, tree, green", right: "boom", wrong: ["tree", "green"], hint: "A sound word sounds like the noise it names." },
+  { prompt: "Which sound word goes with a drum?", right: "boom", wrong: ["meow", "hiss"], hint: "A drum goes boom." },
+  { prompt: "Which sound word goes with a duck?", right: "quack", wrong: ["woof", "tick"], hint: "A duck says quack." },
+  { prompt: "Which sound word goes with a bee?", right: "buzz", wrong: ["roar", "splash"], hint: "A bee goes buzz." },
+  { prompt: "Which sound word goes with a sneeze?", right: "achoo", wrong: ["knock", "moo"], hint: "A sneeze sounds like achoo." },
+  { prompt: "Which sentence starts many words with the same sound?", right: "Peter picks purple peppers.", wrong: ["The fish swims home.", "Rain is wet today."], hint: "Look for the same first sound again and again: p, p, p, p." },
+  { prompt: "Which pair of words starts with the same sound?", right: "sun and sand", wrong: ["sun and moon", "cat and dog"], hint: "Say each word and listen to the first sound." },
+  { prompt: "Which word does not rhyme with cake?", right: "kite", wrong: ["lake", "bake"], hint: "Cake, lake and bake all end with the same sound." },
 ];
 
 function soundPlay(): Question[] {
@@ -115,6 +154,46 @@ const PASSAGES: Passage[] = [
       { prompt: "What did Mateo do every day?", right: "gave the seed water", wrong: ["dug it up", "painted the pot"], hint: "Reread the second line." },
       { prompt: "What happened one morning?", right: "A sprout came up.", wrong: ["The pot broke.", "The seed flew away."], hint: "Reread the last line." },
       { prompt: "What is the main idea?", right: "A seed grows into a plant.", wrong: ["Mateo goes shopping.", "A pot is empty."], hint: "Think about the seed, the water and the sprout." },
+    ],
+  },
+  {
+    text: ["Jay found a small box in the garden.", "Inside was a note that said, “Come and play!”", "Jay smiled and ran to the gate."],
+    questions: [
+      { prompt: "Where did Jay find the box?", right: "in the garden", wrong: ["in the car", "at school"], hint: "Reread the first line." },
+      { prompt: "How did Jay most likely feel?", right: "happy and excited", wrong: ["sleepy", "angry"], hint: "He smiled and ran to the gate." },
+      { prompt: "What did the note ask Jay to do?", right: "come and play", wrong: ["go to bed", "clean up"], hint: "Look at what the note said." },
+    ],
+  },
+  {
+    text: ["Priya's dog wagged its tail.", "It held its leash in its mouth.", "Priya went to get her coat."],
+    questions: [
+      { prompt: "What does the dog want?", right: "to go for a walk", wrong: ["to take a bath", "to go to sleep"], hint: "The dog has its leash, and Priya gets a coat." },
+      { prompt: "What did the dog hold?", right: "its leash", wrong: ["a ball", "a bone"], hint: "Reread the second line." },
+      { prompt: "What will Priya most likely do next?", right: "take the dog outside", wrong: ["bake a cake", "paint a picture"], hint: "She gets her coat to go out." },
+    ],
+  },
+  {
+    text: ["Sam put on his swimsuit.", "He packed a towel and goggles.", "The sun was hot, and the pool was blue."],
+    questions: [
+      { prompt: "Where is Sam going?", right: "to the pool", wrong: ["to the library", "to the snow hill"], hint: "A swimsuit, a towel and goggles are clues." },
+      { prompt: "What time of year is it most likely?", right: "summer", wrong: ["winter", "fall"], hint: "The sun is hot." },
+      { prompt: "What did Sam pack?", right: "a towel and goggles", wrong: ["a hat and boots", "a book and a lamp"], hint: "Reread the second line." },
+    ],
+  },
+  {
+    text: ["Kenji drew a big red heart.", "He wrote “For Grandma” on the front.", "Then he put it in an envelope."],
+    questions: [
+      { prompt: "Who is the card for?", right: "Grandma", wrong: ["Kenji", "a teacher"], hint: "Reread the words on the front." },
+      { prompt: "What is the main idea?", right: "Kenji makes a card for Grandma.", wrong: ["Kenji paints a fence.", "Kenji goes to sleep."], hint: "Think about what he draws, writes and puts in the envelope." },
+      { prompt: "What did Kenji do last?", right: "He put it in an envelope.", wrong: ["He drew a heart.", "He wrote a name."], hint: "Look at the last line." },
+    ],
+  },
+  {
+    text: ["The class rode a bus to the farm.", "Noor fed a goat some hay.", "Leo found an egg in the straw."],
+    questions: [
+      { prompt: "Where did the class go?", right: "to a farm", wrong: ["to a beach", "to a museum"], hint: "Reread the first line." },
+      { prompt: "What did Leo find?", right: "an egg", wrong: ["a goat", "a bus"], hint: "Look at the last line." },
+      { prompt: "What is the main idea?", right: "A class visits a farm.", wrong: ["A goat goes to school.", "A bus gets lost."], hint: "Think about the bus, the goat and the egg." },
     ],
   },
 ];

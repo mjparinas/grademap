@@ -33,6 +33,16 @@ const CLASSIFY: Item[] = [
   { prompt: "Which are the levels of classification from largest group to smallest?", right: "Kingdom, class, genus, species", wrong: ["Species, genus, class, kingdom", "Genus, kingdom, species, class"], hint: "A kingdom includes many classes. A species is the smallest group.", hard: true },
   { prompt: "A dichotomous key helps identify an organism by using…", right: "a series of paired choices, such as yes or no", wrong: ["a single guess", "its age only"], hint: "'Dichotomous' means divided into two.", hard: true },
   { prompt: "Which is a trait of the fungi kingdom?", right: "They absorb nutrients from dead or living matter", wrong: ["They make food using sunlight", "They have backbones"], hint: "Fungi break things down and absorb nutrients.", hard: true },
+  { prompt: "Which group of vertebrates has gills when young and lives in water?", right: "Fish", wrong: ["Birds", "Mammals"], hint: "Fish take oxygen from water with gills." },
+  { prompt: "A snake has dry scales and lays eggs on land. Which group is it?", right: "Reptiles", wrong: ["Amphibians", "Mammals"], hint: "Reptiles are cold-blooded with dry scaly skin." },
+  { prompt: "A salamander begins life in water and lives on land as an adult. Which group is it?", right: "Amphibians", wrong: ["Reptiles", "Fish"], hint: "Amphibians live a double life, in water and on land." },
+  { prompt: "Which of these is an invertebrate?", right: "An earthworm", wrong: ["A trout", "A sparrow"], hint: "It has no backbone." },
+  { prompt: "A beetle has three body parts and six legs. Which group is it in?", right: "Insects", wrong: ["Arachnids", "Mammals"], hint: "Insects have a head, thorax and abdomen." },
+  { prompt: "Which kingdom do mosses and ferns belong to?", right: "Plants", wrong: ["Fungi", "Animals"], hint: "They make food from sunlight, but reproduce by spores." },
+  { prompt: "Which kingdom are mushrooms and yeast in?", right: "Fungi", wrong: ["Bacteria", "Plants"], hint: "Fungi are not plants or animals." },
+  { prompt: "A key asks: 'Does it have fur?' What kind of question is this?", right: "A yes-or-no question that helps sort organisms", wrong: ["A question with many answers", "A question about colour only"], hint: "A dichotomous key uses two choices at each step." },
+  { prompt: "Which is the smallest group in the classification system?", right: "Species", wrong: ["Kingdom", "Class"], hint: "A species is a single kind of organism." },
+  { prompt: "A sunflower makes seeds in its flower. Which plant group is it?", right: "Flowering plants", wrong: ["Conifers", "Mosses"], hint: "Flowering plants reproduce using flowers and fruit." },
 ];
 
 const CLASSIFY_ORDER: OrderQuestion = {
@@ -67,6 +77,16 @@ const BIODIVERSITY: Item[] = [
   { prompt: "Why does a community with many species recover better after a disaster, such as a fire?", right: "More kinds of organisms can fill different roles", wrong: ["It has fewer plants", "Nothing can live there"], hint: "Diversity gives resilience.", hard: true },
   { prompt: "When a wetland is drained, what happens to the biodiversity it supported?", right: "It decreases", wrong: ["It increases", "It stays the same for all species"], hint: "Habitat loss removes homes and food.", hard: true },
   { prompt: "Which pair shows diversity within a species?", right: "Different colours of the same type of butterfly", wrong: ["A frog and a fish", "A pine and a maple"], hint: "Look for variation inside one species.", hard: true },
+  { prompt: "A meadow has grasses, wildflowers, insects, mice and hawks. What does this show?", right: "Diversity among species", wrong: ["Diversity within one species", "No diversity"], hint: "Many different species live there." },
+  { prompt: "Which is an example of mutualism?", right: "A clownfish and an anemone protecting each other", wrong: ["A tick on a dog", "Two trees competing for light"], hint: "Both partners benefit." },
+  { prompt: "A cuckoo bird lays eggs in another bird's nest, and the other bird raises the chick at its own cost. This is closest to…", right: "parasitism", wrong: ["mutualism", "commensalism"], hint: "One benefits and the other is harmed." },
+  { prompt: "What is a habitat?", right: "The place where an organism finds food, water and shelter", wrong: ["A kind of food", "A weather forecast"], hint: "A habitat meets a living thing's needs." },
+  { prompt: "A farmer grows many crop types on one farm. How does this support biodiversity?", right: "It provides different foods and homes for different organisms", wrong: ["It lowers variety", "It has no effect on insects"], hint: "More variety supports more kinds of life." },
+  { prompt: "Why do scientists protect large areas of habitat?", right: "Many species need room and connected spaces to survive", wrong: ["To make parks bigger for no reason", "So no one can visit"], hint: "Habitat size matters for animals that travel." },
+  { prompt: "A food chain shows…", right: "how energy passes from one organism to another", wrong: ["where organisms live", "how organisms look"], hint: "Plants make food, and animals eat plants or each other." },
+  { prompt: "Which pair is a producer and a consumer?", right: "A maple tree and a deer", wrong: ["A deer and a wolf", "A mushroom and a fern"], hint: "Producers make their own food. Consumers eat other organisms." },
+  { prompt: "What do decomposers such as fungi do?", right: "Break down dead matter and return nutrients to the soil", wrong: ["Make food from sunlight", "Hunt prey"], hint: "Decomposers recycle nutrients." },
+  { prompt: "A pond has frogs, fish, dragonflies and reeds. If all the frogs disappeared, what might happen?", right: "Insect numbers could rise and the food web would change", wrong: ["Nothing would change", "The pond would dry up at once"], hint: "Each species links to others." },
 ];
 
 // ---------- Risks to biodiversity (B1, B2.6–B2.8) ----------
@@ -88,6 +108,17 @@ const RISKS: Item[] = [
   { prompt: "Growing only one crop variety over a large area is risky because…", right: "one disease or pest could destroy it all", wrong: ["it always grows faster", "it is not allowed in Canada"], hint: "The Irish potato famine was made worse because many farmers relied on a few varieties.", hard: true },
   { prompt: "Which law helps protect plants and animals at risk of disappearing in Canada?", right: "The Species at Risk Act", wrong: ["The Highway Traffic Act", "The Criminal Code"], hint: "SARA was passed in 2002.", hard: true },
   { prompt: "The Atlantic cod fishery collapsed in 1992. What does this show?", right: "Taking too much of a species can threaten it and the people who rely on it", wrong: ["Cod are an invasive species", "The fishery grew in 1992"], hint: "Overharvesting can harm both wildlife and communities.", hard: true },
+  { prompt: "Purple loosestrife is a plant that spreads through wetlands and crowds out native plants. What kind of species is it?", right: "An invasive species", wrong: ["A keystone species", "A native species"], hint: "It spreads fast where it does not belong." },
+  { prompt: "Which action can slow the spread of invasive species?", right: "Cleaning boats and boots before moving to a new place", wrong: ["Moving firewood across the country", "Releasing pets in the wild"], hint: "Seeds and small organisms hitch rides." },
+  { prompt: "Which is a result of habitat loss?", right: "Animals may have less food, shelter and space", wrong: ["Animals always move easily", "Plants grow faster"], hint: "Habitat provides everything a species needs." },
+  { prompt: "A species at risk is one that…", right: "may disappear if nothing is done to help it", wrong: ["has too many members", "is always an insect"], hint: "Laws like SARA aim to protect these species." },
+  { prompt: "How can planting native trees help biodiversity?", right: "They provide food and shelter for local wildlife", wrong: ["They stop all rain", "They remove all insects"], hint: "Native species fit with the local ecosystem." },
+  { prompt: "Why might warmer winters allow some pests to spread farther north?", right: "More of them survive the winter", wrong: ["They need snow to live", "They cannot move"], hint: "Cold winters can limit the number of pests." },
+  { prompt: "Why is it important to keep pollinators such as bees safe?", right: "Many crops and wild plants need them to make seeds and fruit", wrong: ["They make the sky blue", "They stop all weeds"], hint: "Pollinators carry pollen from flower to flower." },
+  { prompt: "A shop sells a plant that spreads easily. What could a gardener choose instead?", right: "A native plant suited to the region", wrong: ["Any plant from overseas", "A plant that is known to be invasive"], hint: "Native plants are less likely to become invasive." },
+  { prompt: "Overfishing means…", right: "catching fish faster than the population can recover", wrong: ["catching fish only with nets", "never fishing"], hint: "Populations need time to rebuild." },
+  { prompt: "Which is an example of a community working to protect biodiversity?", right: "Volunteers removing invasive plants from a park", wrong: ["Building a parking lot on a wetland", "Dumping garbage in a river"], hint: "People can restore habitats." },
+  { prompt: "Many First Nations use land and water stewardship practices. What is a good way to learn about them?", right: "Listen to and learn from the local community's knowledge keepers", wrong: ["Assume all nations have the same practices", "Ignore local voices"], hint: "Respect each community's own knowledge.", hard: true },
 ];
 
 // ---------- Static electricity (C2.1, C2.2) ----------
@@ -108,6 +139,18 @@ const STATIC: Item[] = [
   { prompt: "A student rubs a plastic rod with wool and the rod becomes negative. What happened to the wool?", right: "It lost electrons and became positively charged", wrong: ["It gained protons", "It became negative too"], hint: "Electrons moved from the wool to the rod.", hard: true },
   { prompt: "Clothes in the dryer stick together. Why?", right: "Rubbing against each other builds up opposite charges", wrong: ["The clothes melt together", "The dryer makes them magnetic"], hint: "Friction transfers electrons between materials.", hard: true },
   { prompt: "An electroscope's leaves move apart when it is charged. What does this show?", right: "The leaves have the same charge and repel", wrong: ["The leaves attract", "The leaves are heavier"], hint: "Same charges push apart.", hard: true },
+  { prompt: "Which particles move when two materials are rubbed together to make static charge?", right: "Electrons", wrong: ["Neutrons only", "Molecules of water"], hint: "Electrons are the small charged particles that can move between materials." },
+  { prompt: "A plastic comb rubbed on wool picks up small bits of paper. Why?", right: "The charged comb attracts the neutral paper", wrong: ["The comb is magnetic", "The paper is heavy"], hint: "A charged object can attract a neutral object." },
+  { prompt: "A neutral object has…", right: "equal amounts of positive and negative charge", wrong: ["only positive charge", "only negative charge"], hint: "The charges balance out." },
+  { prompt: "An object that loses electrons becomes…", right: "positively charged", wrong: ["negatively charged", "neutral"], hint: "Losing negative charges leaves more positive ones." },
+  { prompt: "Why do static shocks happen more often on dry winter days?", right: "Dry air lets charge build up instead of leaking away", wrong: ["Winter air is magnetic", "Wool makes lightning"], hint: "Moist air helps charge escape." },
+  { prompt: "A positively charged rod is brought near another positively charged rod. They will…", right: "repel", wrong: ["attract", "stay neutral"], hint: "Like charges repel." },
+  { prompt: "Which of these is a conductor that lets charge move easily?", right: "Metal", wrong: ["Plastic", "Dry wood"], hint: "Metals let electrons move through them." },
+  { prompt: "A car can build up static charge as it drives. Why do some fuel stations ask you to touch metal before pumping?", right: "To safely release static charge", wrong: ["To warm the pump", "To check the oil"], hint: "A spark near fuel could be dangerous." },
+  { prompt: "How is static electricity different from current electricity?", right: "Static charge stays in one place until it is released", wrong: ["Static electricity needs a battery", "Static electricity always powers lights"], hint: "Current electricity flows continuously in a circuit." },
+  { prompt: "A student charges a balloon and touches it to a wall. After a while it falls. Why?", right: "The charge slowly leaks away", wrong: ["The wall becomes a magnet", "The balloon gets heavier"], hint: "Charge escapes to the air or wall over time." },
+  { prompt: "Which is an example of static electricity at work?", right: "A photocopier attracting toner to paper", wrong: ["A flashlight", "A battery-powered toy"], hint: "Static charge pulls small particles toward a charged surface.", hard: true },
+  { prompt: "When a negatively charged rod touches a neutral metal ball, what happens?", right: "Some electrons move onto the ball", wrong: ["Protons move onto the ball", "The ball loses all its charge"], hint: "Electrons are the charges that move.", hard: true },
 ];
 
 // ---------- Circuits (C2.3, C2.6, C2.7) ----------
@@ -169,6 +212,16 @@ const ELECTRICAL: Item[] = [
   { prompt: "Nuclear power plants do not burn fuel, but they have what challenge?", right: "Radioactive waste must be stored safely for a very long time", wrong: ["They produce acid rain by burning coal", "They cannot make any electricity"], hint: "Every energy source has tradeoffs.", hard: true },
   { prompt: "Wind and solar power make electricity without burning fuel. What is one challenge?", right: "They only produce power when the wind blows or the Sun shines", wrong: ["They create lots of carbon dioxide while running", "They use up the wind"], hint: "Storage or backup power is needed.", hard: true },
   { prompt: "Which is a way to advocate for responsible electricity use at your school?", right: "Make posters and lead a 'lights off' challenge", wrong: ["Ask for more lights", "Keep computers on overnight"], hint: "Action and awareness help a whole community.", hard: true },
+  { prompt: "A light bulb changes electrical energy into…", right: "light and heat", wrong: ["chemical energy", "only sound"], hint: "A bulb glows and also gets warm." },
+  { prompt: "A microwave oven changes electrical energy mostly into…", right: "heat in the food", wrong: ["sound", "stored chemical energy"], hint: "The food gets hot." },
+  { prompt: "A wind turbine changes the energy of moving air into…", right: "electrical energy", wrong: ["chemical energy", "sound energy"], hint: "The wind spins the blades, which turn a generator." },
+  { prompt: "Which is a non-renewable energy source?", right: "Natural gas", wrong: ["Sunlight", "Wind"], hint: "Fossil fuels take millions of years to form." },
+  { prompt: "In Ontario, much electricity comes from which low-carbon source?", right: "Nuclear and hydroelectric stations", wrong: ["Coal only", "Candles"], hint: "Ontario closed its last coal plant in 2014." },
+  { prompt: "What does a rechargeable battery do?", right: "It can store electrical energy and be used again", wrong: ["It makes energy from nothing", "It never wears out"], hint: "Charging puts energy back into the battery." },
+  { prompt: "Why are LED bulbs more efficient than older bulbs?", right: "They turn more electrical energy into light and less into heat", wrong: ["They need more electricity", "They have no wires"], hint: "Less wasted energy means a lower bill." },
+  { prompt: "Which action saves electricity at home?", right: "Washing laundry in cold water", wrong: ["Leaving a computer on all night", "Opening the fridge often"], hint: "Heating water uses a lot of energy." },
+  { prompt: "A solar farm covers many hectares. What is one possible impact?", right: "It uses land that might be used for other things", wrong: ["It makes coal", "It produces no electricity"], hint: "Every energy source has costs and benefits." },
+  { prompt: "What does a transformer help do on the power grid?", right: "Change voltage so electricity can be sent safely and used", wrong: ["Store the electricity forever", "Make the wires thicker"], hint: "Power lines carry high voltage over long distances.", hard: true },
 ];
 
 const COAL_ORDER: OrderQuestion = {
@@ -245,6 +298,16 @@ const SKY: Item[] = [
   { prompt: "In the Northern Hemisphere, when is the shortest day of the year?", right: "In December, when the hemisphere is tilted away from the Sun", wrong: ["In June", "In September"], hint: "Less direct sunlight and fewer daylight hours.", hard: true },
   { prompt: "A full Moon happens when…", right: "the whole sunlit side of the Moon faces Earth", wrong: ["Earth's shadow covers the Moon", "The Moon is between Earth and the Sun"], hint: "The Moon is on the far side of Earth from the Sun.", hard: true },
   { prompt: "Why do we always see the same side of the Moon?", right: "The Moon rotates once in the time it orbits Earth once", wrong: ["The Moon does not rotate at all", "Earth hides the other side"], hint: "Its rotation and orbit match.", hard: true },
+  { prompt: "Which direction does Earth rotate?", right: "West to east", wrong: ["East to west", "North to south"], hint: "The Sun appears to rise in the east because Earth spins eastward." },
+  { prompt: "How long does Earth take to rotate once on its axis?", right: "About 24 hours", wrong: ["About one year", "About one week"], hint: "That is one day." },
+  { prompt: "A new Moon happens when…", right: "the sunlit side of the Moon faces away from Earth", wrong: ["Earth's shadow covers the Moon", "The Moon is closest to the Sun"], hint: "We see little or none of the lit half." },
+  { prompt: "How many main phases does the Moon cycle through in about 29.5 days?", right: "Eight", wrong: ["Two", "Twelve"], hint: "From new Moon to full Moon and back, there are eight phases." },
+  { prompt: "Which is correct?", right: "The Moon reflects sunlight", wrong: ["The Moon is a star", "The Moon makes light by burning"], hint: "Only luminous objects make their own light." },
+  { prompt: "On the first day of summer in Canada, daylight hours are…", right: "the longest of the year", wrong: ["the shortest", "exactly 12 hours"], hint: "The Northern Hemisphere is tilted toward the Sun." },
+  { prompt: "A solar eclipse can happen only during which Moon phase?", right: "New Moon", wrong: ["Full Moon", "Crescent Moon"], hint: "The Moon must be between Earth and the Sun." },
+  { prompt: "Why are there two high tides and two low tides most days?", right: "The Moon's gravity pulls on Earth's oceans as Earth rotates", wrong: ["Wind blows twice a day", "The Sun turns off"], hint: "Ocean water bulges toward and away from the Moon." },
+  { prompt: "Which of these takes the longest?", right: "Earth orbiting the Sun once", wrong: ["Earth rotating once", "The Moon orbiting Earth once"], hint: "One orbit of the Sun is a year." },
+  { prompt: "Why does the Sun look much bigger and brighter than other stars?", right: "It is much closer to Earth", wrong: ["It is the only star", "It is a planet"], hint: "Other stars are very far away." },
 ];
 
 const MOON_ORDER: OrderQuestion = {
@@ -279,6 +342,16 @@ const SPACE: Item[] = [
   { prompt: "How can space technology help us understand climate change?", right: "Satellites measure sea ice, temperature and forests over time", wrong: ["Rockets reduce clouds", "They stop storms"], hint: "Long-term data show patterns of change.", hard: true },
   { prompt: "Rocket launches bring jobs but also noise and pollution. Why might people have different views?", right: "They weigh benefits and costs differently", wrong: ["Everyone agrees", "Nobody is affected"], hint: "Perspectives depend on what people value.", hard: true },
   { prompt: "A rock has a mass of 6 kg on Earth. On the Moon it has…", right: "6 kg of mass but weighs less", wrong: ["1 kg of mass", "36 kg of mass"], hint: "Only the weight changes.", hard: true },
+  { prompt: "Which planet has the strongest gravity in our solar system?", right: "Jupiter", wrong: ["Mercury", "Mars"], hint: "The more massive the planet, the stronger its gravity." },
+  { prompt: "Your weight on Earth is 400 N. On a planet with weaker gravity, your weight would be…", right: "less than 400 N", wrong: ["more than 400 N", "exactly 400 N"], hint: "Weaker gravity means a smaller weight." },
+  { prompt: "A bag of rice has a mass of 2 kg on Earth. On the Moon its mass is…", right: "2 kg", wrong: ["0 kg", "12 kg"], hint: "Mass stays the same wherever the object is." },
+  { prompt: "What do astronauts need to bring to live in space?", right: "Air, water, food and a way to stay warm", wrong: ["Only a map", "Only a camera"], hint: "In space there is no air to breathe or water to drink." },
+  { prompt: "Why do astronauts wear spacesuits outside a spacecraft?", right: "Space has no air, and it has extreme temperatures", wrong: ["To look bright", "To fly faster"], hint: "The suit gives air and protection." },
+  { prompt: "The International Space Station is used for…", right: "research in microgravity", wrong: ["farming fish", "holding the Olympics"], hint: "Scientists do experiments there." },
+  { prompt: "Roberta Bondar is known as…", right: "Canada's first woman astronaut in space", wrong: ["the first person on Mars", "the builder of Canadarm"], hint: "She flew on the space shuttle in 1992." },
+  { prompt: "Chris Hadfield is a Canadian astronaut who…", right: "commanded the International Space Station", wrong: ["landed on Mars", "built the first satellite"], hint: "He has also shared space life with many people online." },
+  { prompt: "A rover on Mars sends back pictures. What kind of technology is this?", right: "A robotic explorer", wrong: ["A cargo ship", "A weather balloon"], hint: "Robots can explore where people cannot yet go." },
+  { prompt: "A satellite dish on Earth can receive signals from a satellite. Why do satellites help with phone and GPS service?", right: "They send signals across long distances", wrong: ["They dig tunnels", "They produce gravity"], hint: "Satellites relay signals from space." },
 ];
 
 // ---------- STEM skills (A1–A3) ----------
@@ -300,6 +373,18 @@ const SKILLS6: Item[] = [
   { prompt: "A student repeats an experiment 5 times and gets very different results each time. What could she do?", right: "Check for uncontrolled variables and measure more carefully", wrong: ["Pick her favourite result", "Stop the experiment"], hint: "Results should be consistent if the test is fair.", hard: true },
   { prompt: "Which would be the best way to show how 4 plants' heights compare on one day?", right: "A bar graph", wrong: ["A line graph", "A circle graph"], hint: "Bar graphs compare separate groups.", hard: true },
   { prompt: "A chatbot or AI tool gives an answer. What should a scientist do?", right: "Check the answer against reliable sources", wrong: ["Assume it's always correct", "Never use any tools"], hint: "Emerging technologies are useful, but results should be checked.", hard: true },
+  { prompt: "A student wants to test if warm water dissolves sugar faster. What should she keep the same?", right: "The amount of sugar and water", wrong: ["The temperature of the water", "The result she hopes to see"], hint: "Only the temperature should change." },
+  { prompt: "A student measures a plant's height every week. Which tool is best?", right: "A metric ruler", wrong: ["A clock", "A thermometer"], hint: "Length is measured with a ruler." },
+  { prompt: "Why do scientists repeat a test several times?", right: "To check that the results are reliable", wrong: ["To make the test longer", "To pick the best result"], hint: "Similar results each time build trust." },
+  { prompt: "A loop in code is used to…", right: "repeat a set of steps", wrong: ["store a value", "stop the program for good"], hint: "A loop saves writing the same steps again and again." },
+  { prompt: "A design team builds a first model to test its idea. This is a…", right: "prototype", wrong: ["hypothesis", "constraint"], hint: "Prototypes can be improved after testing." },
+  { prompt: "What should you do first if you spill something in the lab?", right: "Tell your teacher", wrong: ["Hide it", "Wipe it with your hand"], hint: "Report spills right away so they can be cleaned up safely." },
+  { prompt: "Which graph is best for showing how temperature changes over a week?", right: "A line graph", wrong: ["A circle graph", "A pictograph with one picture"], hint: "Line graphs show change over time." },
+  { prompt: "A student's results do not match her hypothesis. What does that mean?", right: "She learned something, and she can make a new hypothesis", wrong: ["She failed", "She must change the data"], hint: "A surprising result is still a result." },
+  { prompt: "What is an input in a simple program?", right: "Information that the program receives", wrong: ["The final picture", "A bug"], hint: "Examples are a key press or a sensor reading." },
+  { prompt: "Which career uses science to keep water clean for a city?", right: "A water treatment technician", wrong: ["A baker", "A pilot"], hint: "Many careers use science." },
+  { prompt: "A bug in a program is…", right: "a mistake that stops the program from working as planned", wrong: ["a type of loop", "an insect in the computer"], hint: "Fixing bugs is called debugging.", hard: true },
+  { prompt: "Which is the best reason to share your results and methods?", right: "Others can check and build on your work", wrong: ["So no one repeats your test", "So your results seem true"], hint: "Science grows when people share and review.", hard: true },
 ];
 
 export const units: Unit[] = [

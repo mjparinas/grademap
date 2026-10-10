@@ -29,6 +29,16 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which word shows where the ball is? The ball is beside the box.", right: "beside", wrong: ["ball", "box"], hint: "Beside is a preposition. It tells where the ball is." },
   { prompt: "Which word is an interjection? Wow! That is a huge fish.", right: "Wow", wrong: ["huge", "fish"], hint: "An interjection shows a sudden feeling, like surprise." },
   { prompt: "Which sentence has an interjection?", right: "Oops! I dropped my cup.", wrong: ["I dropped my cup.", "My cup is on the floor."], hint: "Oops! shows a quick feeling at the start of the sentence." },
+  { prompt: "Which word is the linking verb? The sky is cloudy.", right: "is", wrong: ["sky", "cloudy"], hint: "Is links the sky to the word that describes it." },
+  { prompt: "Which sentence has a linking verb?", right: "The lake is calm.", wrong: ["The lake froze overnight.", "The ducks swim in the lake."], hint: "Is links the lake to calm. The other verbs show actions." },
+  { prompt: "The flowers ___ pretty last week.", right: "were", wrong: ["was", "is"], hint: "Last week is past tense, and more than one flower needs were." },
+  { prompt: "Which sentence tells what was happening at that time?", right: "We were walking home.", wrong: ["We walk home.", "We will walk home."], hint: "The past progressive uses was or were with an -ing verb." },
+  { prompt: "Which word is the preposition? The ball rolled across the floor.", right: "across", wrong: ["rolled", "ball"], hint: "A preposition shows where or how things are related." },
+  { prompt: "Which word completes the question? ___ is your birthday? In May.", right: "When", wrong: ["Where", "Whose"], hint: "The answer tells a time, so ask when." },
+  { prompt: "Which word completes the question? ___ pencil is on the floor?", right: "Whose", wrong: ["Which", "Why"], hint: "Whose asks who owns something." },
+  { prompt: "Which shows that the toys belong to one baby?", right: "the baby's toys", wrong: ["the babys toys", "the babies' toys"], hint: "One owner: add an apostrophe and s." },
+  { prompt: "Which sentence has an interjection?", right: "Hooray! We won the game.", wrong: ["We won the game.", "The game was fun."], hint: "Hooray! shows a quick, strong feeling." },
+  { prompt: "Use the progressive tense: Right now, I ___ my lunch.", right: "am eating", wrong: ["ate", "will eat"], hint: "Right now means am, is or are plus an -ing verb." },
 ];
 
 function grammar(): Question[] {
@@ -54,6 +64,16 @@ const SENTENCES: BankItem[] = [
   { prompt: "What does the word although show?", right: "a surprise or a difference", wrong: ["a reason", "a time"], hint: "Although shows that something is not what you would expect." },
   { prompt: "What does the word because show?", right: "a reason", wrong: ["a choice", "a surprise"], hint: "Because tells why something happened." },
   { prompt: "What does the word while show?", right: "two things happening at the same time", wrong: ["a choice", "a reason"], hint: "While means during the time that something else is happening." },
+  { prompt: "Which is a simple sentence?", right: "Sam plays the drum.", wrong: ["Sam plays the drum, and Lena sings.", "When Sam plays, Lena sings."], hint: "A simple sentence has one complete idea." },
+  { prompt: "Which is a compound sentence?", right: "It was sunny, so we went to the beach.", wrong: ["We went to the beach.", "Because it was sunny, we went to the beach."], hint: "Two complete ideas are joined by so." },
+  { prompt: "Which is a complex sentence?", right: "We stayed inside because it was raining.", wrong: ["It was raining, so we stayed inside.", "We stayed inside."], hint: "Because starts a part that cannot stand alone." },
+  { prompt: "Which word completes the sentence? ___ I finish my homework, I will play.", right: "After", wrong: ["Or", "So"], hint: "After tells the order of the two events." },
+  { prompt: "Which word completes the sentence? Zoe can paint, ___ she can draw.", right: "and", wrong: ["because", "although"], hint: "And joins two ideas that go together." },
+  { prompt: "Which is a sentence fragment?", right: "When the movie ended.", wrong: ["The movie ended.", "We clapped."], hint: "What happened when the movie ended? The idea is not finished." },
+  { prompt: "Which is a run-on sentence?", right: "I like apples they are crunchy.", wrong: ["I like apples because they are crunchy.", "I like apples."], hint: "Two ideas are squished together without a joining word." },
+  { prompt: "Which part is the adverbial clause? Leo smiled because he was proud.", right: "because he was proud", wrong: ["Leo smiled", "smiled because"], hint: "The clause that starts with because tells why." },
+  { prompt: "Which sentence puts the adverbial clause first?", right: "When the rain stopped, we went out.", wrong: ["We went out when the rain stopped.", "We went out."], hint: "The part that starts with When comes first, followed by a comma." },
+  { prompt: "Which joining word fits? I wanted to play, ___ it was too dark.", right: "but", wrong: ["because", "while"], hint: "But shows a difference." },
 ];
 
 function sentences(): Question[] {
@@ -80,6 +100,16 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which sentence is punctuated correctly?", right: "Mom said, “Dinner is ready.”", wrong: ["Mom said, “Dinner is ready”.", "Mom said “, Dinner is ready.”"], hint: "In Canada, the end mark goes inside the closing quotation marks." },
   { prompt: "Which shows the short form of “they have”?", right: "they've", wrong: ["theyve", "they'ave"], hint: "The apostrophe takes the place of the letters ha." },
   { prompt: "Many girls own the team. Which is correct?", right: "The girls' team won the game.", wrong: ["The girl's team won the game.", "The girls team's won the game."], hint: "Many girls own one team, so put the apostrophe after the s." },
+  { prompt: "Which sentence is punctuated correctly?", right: "Jay said, “I am ready.”", wrong: ["Jay said, “i am ready.”", "Jay said “I am ready”."], hint: "Use a comma after said and put the end mark inside the quotation marks." },
+  { prompt: "Which sentence is punctuated correctly?", right: "“Come and see,” said Ana.", wrong: ["“Come and see.” said Ana.", "“Come and see” said, Ana."], hint: "End the spoken part with a comma inside the quotation marks when the speaker comes after." },
+  { prompt: "Which title is written correctly?", right: "The Big Red Barn", wrong: ["the big red barn", "The big red Barn"], hint: "Capitalize the first word and the important words." },
+  { prompt: "Which shows the short form of “cannot”?", right: "can't", wrong: ["cant", "ca'nt"], hint: "The apostrophe takes the place of the letters no." },
+  { prompt: "Which shows the short form of “I am”?", right: "I'm", wrong: ["Im", "I'am"], hint: "The apostrophe takes the place of the letter a." },
+  { prompt: "Which shows the short form of “you will”?", right: "you'll", wrong: ["youl", "you'wil"], hint: "The apostrophe takes the place of the letters wi." },
+  { prompt: "Which sentence has a comma in the right place?", right: "Before we left, we locked the door.", wrong: ["Before we left we, locked the door.", "Before, we left we locked the door."], hint: "Put a comma after the opening part, before the main idea." },
+  { prompt: "Which sentence uses capital letters correctly?", right: "My friend Priya lives in Toronto.", wrong: ["my friend Priya lives in Toronto.", "My friend priya lives in toronto."], hint: "Capitalize the first word, names and places." },
+  { prompt: "Which sentence is punctuated correctly?", right: "Dad asked, “Who wants pancakes?”", wrong: ["Dad asked, “Who wants pancakes”?", "Dad asked “Who wants pancakes?”."], hint: "The question mark belongs inside the quotation marks." },
+  { prompt: "Which sentence uses its or it's correctly?", right: "The dog wagged its tail.", wrong: ["The dog wagged it's tail.", "The dog wagged its' tail."], hint: "Its shows ownership. It's means it is." },
 ];
 
 function punctuation(): Question[] {
@@ -104,6 +134,17 @@ const DEVICES: BankItem[] = [
   { prompt: "Which sentence has the strongest word choice?", right: "The tiny puppy trembled in the storm.", wrong: ["The little puppy was in the storm.", "The puppy did things in the storm."], hint: "Exact, vivid words help us picture what is happening." },
   { prompt: "Which word is the strongest verb? The mouse ___ across the floor.", right: "scurried", wrong: ["went", "moved"], hint: "A strong verb shows exactly how something moves." },
   { prompt: "Which sentence sounds like it was written by someone who is excited?", right: "We won! I can't believe it!", wrong: ["The game ended.", "There was a game on Saturday."], hint: "Short bursts and exclamation marks show strong feeling. That is the writer's voice." },
+  { prompt: "Which sentence is a metaphor?", right: "The tree was a giant.", wrong: ["The tree was like a giant.", "The tree was tall."], hint: "A metaphor says one thing is another thing, without like or as." },
+  { prompt: "Which sentence is a simile?", right: "She was as quiet as a mouse.", wrong: ["She was a mouse.", "She was very quiet."], hint: "A simile uses like or as." },
+  { prompt: "“The stars are diamonds in the sky.” What does this metaphor mean?", right: "The stars are bright and sparkle.", wrong: ["The stars are made of jewels.", "The stars are very heavy."], hint: "Think about how a diamond looks." },
+  { prompt: "“Dad is a bear in the morning.” What does it mean?", right: "He is grumpy before he wakes up fully.", wrong: ["He has fur.", "He lives in a cave."], hint: "Think about how a bear acts when it is sleepy." },
+  { prompt: "What two things are being compared? “Time is a thief.”", right: "time and a thief", wrong: ["thief and stealing", "time and clocks"], hint: "Find the two nouns the sentence says are the same." },
+  { prompt: "Which phrase has assonance?", right: "the old road rolled slowly", wrong: ["a fast red car", "my pet cat sat"], hint: "Listen for the long o sound in old, road, rolled and slowly." },
+  { prompt: "Which phrase has assonance?", right: "a mean green bean", wrong: ["a small blue ball", "the bus ran past"], hint: "Listen for the long e sound in mean, green and bean." },
+  { prompt: "Which word is the strongest verb? The cheetah ___ across the grass.", right: "sprinted", wrong: ["moved", "went"], hint: "A strong verb shows exactly how something moves." },
+  { prompt: "Which sentence has the strongest word choice?", right: "A cold wind howled through the trees.", wrong: ["A wind was there.", "The trees had some wind."], hint: "Exact, vivid words help us picture what is happening." },
+  { prompt: "Which sentence uses a metaphor?", right: "The test was a mountain I had to climb.", wrong: ["The test was long.", "I took a test."], hint: "The test is described as a mountain." },
+  { prompt: "Which sentence sounds like a calm, quiet voice?", right: "The lake lay still beneath the soft grey sky.", wrong: ["Look out! The lake is huge!", "Wow, what a splash!"], hint: "Soft words and no exclamation marks make a calm voice." },
 ];
 
 function devices(): Question[] {

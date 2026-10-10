@@ -476,6 +476,16 @@ const EXCERPTS: { level: Level; pov: Pov; text: string }[] = [
   { level: 3, pov: "omniscient", text: "Neither Priya nor Kenji knew that the missing library book was under the back seat of the bus. Priya blamed herself. Kenji, meanwhile, was quietly planning to pay for it with his allowance." },
   { level: 3, pov: "second", text: "You step onto the frozen lake and listen. The ice creaks under your boots, and you hold your breath." },
   { level: 3, pov: "second", text: "You open the small wooden box slowly. Inside, you find a key you have never seen before." },
+  { level: 1, pov: "first", text: "I tiptoed into the kitchen and lifted the lid of the cookie jar. My heart was racing, but I couldn't stop grinning." },
+  { level: 1, pov: "limited", text: "Jay stared at the soccer ball sitting on the penalty spot. He took a deep breath and wondered if his legs would stop shaking." },
+  { level: 1, pov: "omniscient", text: "At the bake sale, Lena worried that nobody would buy her muffins. The customer at her table was thinking about how delicious they smelled, and Lena's mom was proud of her." },
+  { level: 2, pov: "first", text: "My brother and I built a fort out of couch cushions. I was sure it was the best one ever, though he kept saying the roof was too low." },
+  { level: 2, pov: "limited", text: "Noah noticed the empty chair beside him. He wished Amir had come to the party, and he wondered whether he had said something wrong the day before." },
+  { level: 2, pov: "omniscient", text: "Sam thought the surprise would be perfect. His sister Zoe had already guessed it, but she was pretending not to know. Their dad, hiding in the hallway, was trying not to laugh." },
+  { level: 3, pov: "first", text: "Looking back, I see that nobody at the table was really listening to me that night, though at the time I convinced myself they were." },
+  { level: 3, pov: "limited", text: "Priya wasn't sure why the old clock in the hallway kept stopping at 3:15. She tapped it twice and held it to her ear. Behind her, the floorboards creaked, but she was too curious to turn around." },
+  { level: 3, pov: "omniscient", text: "Ana believed the lost kitten had run away for good. Leo, watching from the window, knew it was asleep in the garden shed. The kitten itself dreamed only of warm milk." },
+  { level: 3, pov: "second", text: "You tighten your helmet and push off down the hill. The wind roars in your ears, and you laugh out loud." },
 ];
 
 const POV_CONCEPTS: Item[] = [
@@ -555,6 +565,41 @@ const POV_CONCEPTS: Item[] = [
     right: "Second person",
     wrong: ["First person", "Third person limited", "Third person omniscient"],
     hint: "Instructions are aimed at “you,” even when the word is only understood.",
+  },
+  {
+    level: 1,
+    prompt: "Which sentence is written in third person?",
+    right: "Zoe opened her lunch and smiled.",
+    wrong: ["I opened my lunch and smiled.", "You open your lunch and smile.", "We opened our lunches and smiled."],
+    hint: "Third person uses names and he, she or they.",
+  },
+  {
+    level: 2,
+    prompt: "Retell this in third person from Kenji's point of view: “I left my skates by the door.”",
+    right: "Kenji left his skates by the door.",
+    wrong: ["I left Kenji's skates by the door.", "You left your skates by the door.", "Kenji left my skates by the door."],
+    hint: "“I” becomes Kenji, and “my skates” becomes “his skates.”",
+  },
+  {
+    level: 2,
+    prompt: "Which narrator would be best to show us only what a nervous new student feels?",
+    right: "first person, told by the new student",
+    wrong: ["third person omniscient", "second person speaking to the reader", "a narrator who only describes the weather"],
+    hint: "A single character telling their own story lets readers feel their nerves up close.",
+  },
+  {
+    level: 3,
+    prompt: "A story switches back and forth between what a teacher and a student are thinking. It is most likely…",
+    right: "third person omniscient",
+    wrong: ["first person", "third person limited", "second person"],
+    hint: "Moving between more than one character's thoughts means the narrator knows more than any one character.",
+  },
+  {
+    level: 3,
+    prompt: "Why might an author choose third person limited instead of omniscient for a mystery?",
+    right: "so readers only know what the detective knows, and the clues stay hidden",
+    wrong: ["so every suspect's secret thoughts are revealed at once", "so the story has no characters", "so the narrator can speak directly to “you”"],
+    hint: "Staying with one mind keeps some facts a surprise.",
   },
 ];
 
@@ -1055,6 +1100,11 @@ const OUTSIDE = text(
   "Students should get more outdoor time during the school day. Time outside gives students a chance to move, which can help them focus afterward. In our class survey, 22 of 27 students said they felt calmer after recess. Some teachers argue that more outdoor time means less time for learning. However, students who come back focused may learn more in less time. A little more time outside is an investment in learning.",
 );
 
+const BIKE_LANE = text(
+  "A Safer Street",
+  "Our town should add a bike lane on Maple Street. Right now, students who bike to school must ride beside fast-moving cars. A painted lane would give riders their own safe space. Some neighbours worry that a bike lane will take away parking spots. However, most homes on the street have driveways, and the lane would remove only six spots. A bike lane would make the street safer for everyone.",
+);
+
 const claim = (c: string): Visual => text("Claim", c);
 
 const TECHNIQUES = {
@@ -1222,6 +1272,88 @@ const PERSUADE: Item[] = [
   },
   technique(3, "Our survey found that 87% of students ate more of their lunch when recess came first.", "stats", "The writer uses a number from a survey as proof."),
   technique(3, "Who wouldn't want an extra hour of reading time each week?", "question", "It's a question that isn't meant to be answered. The answer is supposed to seem obvious."),
+  {
+    level: 1,
+    prompt: "What does the conclusion of a persuasive piece do?",
+    right: "sums up the argument and leaves a strong final thought",
+    wrong: ["introduces a brand new topic", "lists the characters in the story", "gives step-by-step instructions"],
+    hint: "The conclusion is the last chance to remind readers of your claim.",
+  },
+  {
+    level: 1,
+    prompt: "Which evidence best supports this claim?",
+    visual: claim("Our class should have a reading corner."),
+    right: "A quiet corner gives students a calm place to enjoy books and practise reading.",
+    wrong: ["A corner is where two walls meet.", "Some classrooms are painted blue.", "Pillows are soft."],
+    hint: "Choose the reason that explains why a reading corner would help students.",
+  },
+  {
+    level: 1,
+    prompt: "What is the writer's claim (main argument)?",
+    visual: BIKE_LANE,
+    right: "Our town should add a bike lane on Maple Street.",
+    wrong: ["Some neighbours worry that a bike lane will take away parking spots.", "Right now, students who bike to school must ride beside fast-moving cars.", "Most homes on the street have driveways."],
+    hint: "The claim is the position the whole paragraph argues for. It's often the first sentence.",
+  },
+  {
+    level: 1,
+    prompt: "Which technique is this?",
+    visual: line("Everybody is wearing these boots, so you need a pair too!"),
+    right: TECHNIQUES.bandwagon,
+    wrong: [TECHNIQUES.expert, TECHNIQUES.stats, TECHNIQUES.question],
+    hint: "The ad says everyone is doing it, so you should join in.",
+  },
+  {
+    level: 2,
+    prompt: "Which sentence presents a counterargument?",
+    visual: BIKE_LANE,
+    right: "Some neighbours worry that a bike lane will take away parking spots.",
+    wrong: ["Our town should add a bike lane on Maple Street.", "A painted lane would give riders their own safe space.", "A bike lane would make the street safer for everyone."],
+    hint: "A counterargument is what someone on the other side might say.",
+  },
+  {
+    level: 2,
+    prompt: "Which sentence is the writer's rebuttal (the answer to the other side)?",
+    visual: BIKE_LANE,
+    right: "However, most homes on the street have driveways, and the lane would remove only six spots.",
+    wrong: ["Some neighbours worry that a bike lane will take away parking spots.", "Our town should add a bike lane on Maple Street.", "Right now, students who bike to school must ride beside fast-moving cars."],
+    hint: "A rebuttal answers the worry. Look for a signal word like “However.”",
+  },
+  {
+    level: 2,
+    prompt: "Which evidence best supports this claim?",
+    visual: claim("Our school should plant a vegetable garden."),
+    right: "Gardening teaches students where food comes from, and the harvest can be shared with the cafeteria.",
+    wrong: ["Tomatoes are red.", "Some students like to play inside.", "Shovels are made of metal."],
+    hint: "Choose the reason that explains why a garden would help the school.",
+  },
+  {
+    level: 2,
+    prompt: "Who is the best audience for a speech asking the school to start a recycling program?",
+    right: "the principal and the student council, who can approve it",
+    wrong: ["a baby sibling", "people in another country", "a hockey team"],
+    hint: "Write or speak to the people who have the power to make the change.",
+  },
+  technique(2, "A recent study found that schools with gardens saw 15% more students choosing vegetables at lunch.", "stats", "The writer uses a number from a study as proof."),
+  technique(2, "Isn't it time we made our playground safe for every child?", "question", "It's a question that isn't meant to be answered. The answer is supposed to seem obvious."),
+  {
+    level: 3,
+    prompt: "Which is the STRONGEST evidence for this claim?",
+    visual: claim("Our town should keep the public pool open in the evenings."),
+    right: "A count on three weekdays showed about 90 swimmers arrived after 6:00.",
+    wrong: ["I like swimming at night.", "Pools have lanes.", "Everybody loves pools.", "Water feels cool."],
+    hint: "Specific numbers from a real count are stronger than personal opinions or “everybody” claims.",
+  },
+  {
+    level: 3,
+    prompt: "What does the last sentence of this paragraph do?",
+    visual: BIKE_LANE,
+    right: "It sums up the writer's position.",
+    wrong: ["It gives data from a survey.", "It presents the other side.", "It tells a personal story.", "It states a new claim about parking."],
+    hint: "The last sentence repeats the main idea in a final, strong way.",
+  },
+  technique(3, "Park ranger Mei Lin says that feeding wildlife hurts the animals, so please keep your snacks to yourself.", "expert", "The writer quotes a person with special knowledge of the topic."),
+  technique(3, "Think of a child walking to school in the dark every morning. Please help us light the way.", "emotion", "The writer wants you to feel sympathy so you will act."),
 ];
 
 const ORDERS: string[][] = [
@@ -1238,6 +1370,20 @@ const ORDERS: string[][] = [
     "For instance, students can take turns feeding the pet and cleaning its home.",
     "Second, watching an animal can help people feel calm.",
     "For these reasons, a class pet would be a great addition to any classroom.",
+  ],
+  [
+    "Our school should add more bike racks.",
+    "To begin with, more racks mean more students can bike to school.",
+    "For example, right now 30 bikes are locked to the fence because the racks are full.",
+    "In addition, bikes locked to a fence can block the walkway.",
+    "In conclusion, new bike racks would help students and keep our walkways clear.",
+  ],
+  [
+    "Our class should have a quiet reading time every day.",
+    "First, reading every day helps students become stronger readers.",
+    "For instance, students who read for twenty minutes meet thousands of new words each year.",
+    "Also, quiet time gives busy students a calm break.",
+    "For these reasons, daily reading time is a smart choice for our class.",
   ],
 ];
 

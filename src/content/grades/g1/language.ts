@@ -955,6 +955,126 @@ const STORIES: Story[] = [
       { label: "He took the book home.", emoji: "🏠" },
     ],
   },
+  {
+    lines: [
+      "Lena and her brother planted beans in a pot.",
+      "They put the pot by the sunny window.",
+      "Every day, Lena gave the beans a little water.",
+      "Soon, tiny green leaves popped out!",
+    ],
+    who: {
+      prompt: "Who planted beans with Lena?",
+      right: { label: "her brother", emoji: "👦" },
+      wrong: [
+        { label: "her teacher", emoji: "👩" },
+        { label: "her cat", emoji: "🐱" },
+      ],
+      hint: "Look at the first line. Lena planted beans with her…",
+    },
+    where: {
+      prompt: "Where did they put the pot?",
+      right: { label: "by the window", emoji: "🪟" },
+      wrong: [
+        { label: "under the bed", emoji: "🛏️" },
+        { label: "in the snow", emoji: "❄️" },
+      ],
+      hint: "The second line tells where the pot went.",
+    },
+    think: {
+      prompt: "Why did Lena water the beans?",
+      right: { label: "to help them grow", emoji: "🌱" },
+      wrong: [
+        { label: "to make them cold", emoji: "🧊" },
+        { label: "to make them jump", emoji: "🦘" },
+      ],
+      hint: "Plants need water and sun to grow.",
+    },
+    events: [
+      { label: "They planted the beans.", emoji: "🫘" },
+      { label: "Lena watered the beans.", emoji: "💧" },
+      { label: "Green leaves popped out.", emoji: "🌱" },
+    ],
+  },
+  {
+    lines: [
+      "Noah rode the bus to school.",
+      "He sat next to his friend Ana.",
+      "They sang a song all the way.",
+      "The bus stopped, and they hopped off.",
+    ],
+    who: {
+      prompt: "Who sat next to Noah?",
+      right: { label: "Ana", emoji: "👧" },
+      wrong: [
+        { label: "the bus driver", emoji: "🚌" },
+        { label: "his dog", emoji: "🐶" },
+      ],
+      hint: "Look at line two. Noah sat next to his friend…",
+    },
+    where: {
+      prompt: "How did Noah get to school?",
+      right: { label: "on the bus", emoji: "🚌" },
+      wrong: [
+        { label: "on a boat", emoji: "⛵" },
+        { label: "on a horse", emoji: "🐴" },
+      ],
+      hint: "The first line tells how Noah got to school.",
+    },
+    think: {
+      prompt: "How did Noah and Ana feel on the bus?",
+      right: { label: "happy", emoji: "😄" },
+      wrong: [
+        { label: "sleepy", emoji: "😴" },
+        { label: "angry", emoji: "😠" },
+      ],
+      hint: "They sang a song, and singing together feels happy!",
+    },
+    events: [
+      { label: "Noah rode the bus.", emoji: "🚌" },
+      { label: "They sang a song.", emoji: "🎶" },
+      { label: "They hopped off the bus.", emoji: "🏫" },
+    ],
+  },
+  {
+    lines: [
+      "Maya made a sandcastle at the beach.",
+      "A big wave came up the sand.",
+      "Splash! The castle fell down.",
+      "Maya smiled and built a new one.",
+    ],
+    who: {
+      prompt: "Who made a sandcastle?",
+      right: { label: "Maya", emoji: "👧" },
+      wrong: [
+        { label: "a crab", emoji: "🦀" },
+        { label: "Sam", emoji: "👦" },
+      ],
+      hint: "Look at the first line. Who made the castle?",
+    },
+    where: {
+      prompt: "Where did Maya build the castle?",
+      right: { label: "at the beach", emoji: "🏖️" },
+      wrong: [
+        { label: "in the snow", emoji: "❄️" },
+        { label: "in a store", emoji: "🏪" },
+      ],
+      hint: "The first line tells where Maya was.",
+    },
+    think: {
+      prompt: "Why did the castle fall down?",
+      right: { label: "A wave hit it.", emoji: "🌊" },
+      wrong: [
+        { label: "A bird sat on it.", emoji: "🐦" },
+        { label: "It got too hot.", emoji: "🔥" },
+      ],
+      hint: "Look at lines two and three. A big wave came up the sand.",
+    },
+    events: [
+      { label: "Maya made a sandcastle.", emoji: "🏰" },
+      { label: "A wave knocked it down.", emoji: "🌊" },
+      { label: "Maya built a new one.", emoji: "😊" },
+    ],
+  },
 ];
 
 function storyQuestions(story: Story, level: Level): Question[] {

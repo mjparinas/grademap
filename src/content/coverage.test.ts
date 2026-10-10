@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { COURSES } from "./all";
 import { FRAMEWORKS } from "./frameworks";
 import { CORE_SUBJECTS, GRADE_ORDER } from "./subjects";
+import { withSeed } from "./random";
 import type { FrameworkId, GradeId } from "./types";
 
 // Parity checks: whatever one province or state gets, every framework gets. These fail when new
@@ -79,4 +80,34 @@ describe("public pages", () => {
       });
     expect(missing).toEqual([]);
   });
+});
+
+// Practice needs enough variety that a child does not see the same question every few sessions. A question
+// counts as distinct by prompt, picture and correct answer, so reshuffled choices do not count.
+const MIN_DISTINCT = 24;
+
+describe("every unit has a deep enough question pool", () => {
+  it(`has at least ${MIN_DISTINCT} distinct questions in every unit`, () => {
+    const thin: string[] = [];
+    for (const course of COURSES) {
+      for (const unit of course.units) {
+        const seen = new Set<string>();
+        for (const difficulty of [1, 2, 3] as const) {
+          for (let seed = 0; seed < 150; seed++) {
+            for (const q of withSeed(seed * 7919 + difficulty, () => unit.generate({ difficulty }))) {
+              const answer =
+                q.kind === "choice"
+                  ? q.choices.find((c) => c.id === q.answer)?.label
+                  : "items" in q
+                    ? q.items.map((i) => i.label).sort()
+                    : undefined;
+              seen.add(JSON.stringify([q.prompt, q.visual, answer]));
+            }
+          }
+        }
+        if (seen.size < MIN_DISTINCT) thin.push(`${course.grade}/${course.subject}/${unit.id}: ${seen.size}`);
+      }
+    }
+    expect(thin, "units with too few distinct questions").toEqual([]);
+  }, 120000);
 });

@@ -24,6 +24,18 @@ const ME: Item[] = [
   q("Amir tells about a trip to the lake. What is he sharing?", "an experience", ["a rule", "a meal"], "An experience is something you did or saw.", { emoji: "🏞️", d: 2 }),
   q("You are good at singing. A friend is good at building. So…", "we each have strengths", ["only one of us is good", "neither of us is good"], "Everyone is good at something.", { d: 3 }),
   q("A friend says, “Tell me about your drawing.” What could you say?", "I drew my dog at the park.", ["Nothing.", "Go away."], "Telling about what we made helps us share our ideas.", { d: 3 }),
+  q("Leo loves dinosaurs and reads about them. Dinosaurs are his…", "interest", ["weather", "shoe"], "An interest is something you like to learn about.", { emoji: "🦕" }),
+  q("Kenji practised swimming and now floats. How might he feel?", e("proud", "😊"), [e("sleepy", "😴"), e("hungry", "🍽️")], "Learning something new can make us feel proud."),
+  q("What can you say after you try something new?", "I tried my best.", ["I am no good at anything.", "I give up forever."], "Kind words to ourselves help us keep trying."),
+  q("Which one is a strength?", "Zoe is good at counting.", ["Zoe has a red coat.", "Zoe has a cold."], "A strength is something you are good at."),
+  q("Ana feels nervous about singing. What can help?", "Take a deep breath and try", ["Never sing again", "Hide forever"], "Deep breaths help us feel calm and brave.", { d: 2 }),
+  q("Your drawing looks different from a friend's. That means…", "we each have our own ideas", ["yours is wrong", "drawing is bad"], "Everyone has their own ideas.", { emoji: "🖍️" }),
+  q("Priya reads a new word. What can she say?", "I am getting better!", ["I will never learn.", "Reading is not for me."], "Practice helps us learn, one step at a time.", { d: 2 }),
+  q("Which sentence tells about your family?", "I live with my grandma and dad.", ["The moon is round.", "Snow is cold."], "We can share who is in our family.", { d: 2 }),
+  q("It is circle time. How can you share your idea?", "Raise your hand and speak", ["Shout over others", "Say nothing and frown"], "We share ideas by taking turns to talk."),
+  q("Sam made a clay bowl and shows his class. He is sharing…", "something he made", ["a weather report", "a bus ticket"], "Showing what we make is a way to share about ourselves.", { emoji: "🏺" }),
+  q("Noah falls while learning to skate. What does a brave kid do?", "Get up and try again", ["Say skating is bad", "Never go back"], "Trying again helps us grow.", { emoji: "⛸️", d: 3 }),
+  q("A friend made a picture. What is a kind thing to say?", "I like your colours!", ["That is ugly.", "Give it to me."], "Kind words help people feel proud.", { d: 3 }),
 ];
 
 // ---------- We Belong ----------
@@ -44,6 +56,16 @@ const BELONG: Item[] = [
   q("A friend celebrates in a different way than your family. You can…", "listen and ask kind questions", ["say it is silly", "laugh at them"], "Respecting differences helps us learn from each other.", { d: 2 }),
   q("Your friend has a different idea about how to build. What do you do?", "Listen to the idea", ["Say “That is dumb”", "Break the tower"], "Listening to different ideas helps teams build better things.", { d: 3 }),
   q("What do all the people in Canada have in common?", "They live in the same country", ["They all look the same", "They all eat the same food"], "People in Canada are different in many ways, and we all share the same country.", { d: 3 }),
+  q("Maya plays on a soccer team. Who is in her group?", "her teammates", ["the stars", "the clouds"], "A team is a group of people who play together.", { emoji: "⚽" }),
+  q("A group has a rule: line up quietly. Why?", "So everyone can move safely", ["To make it boring", "To be mean"], "Group rules help everyone feel safe."),
+  q("Who can be part of your community?", "Neighbours and friends", ["Only one person", "Nobody"], "A community is the people who live, work and play near each other."),
+  q("Jay has one idea. Lena has a different one. What is a fair way?", "Try both ideas", ["Say Lena is wrong", "Stop playing"], "Trying both ideas lets everyone take part.", { d: 2 }),
+  q("Your class has a job chart. Why?", "So everyone can help", ["So one child does it all", "To hide the jobs"], "Everyone helps make the class a good place."),
+  q("A class has 20 children. A school has many classes. Which has more people?", "the school", ["the class", "They are the same"], "A school is a bigger group than one class.", { d: 2 }),
+  q("Zoe sits alone at lunch. What can you do?", "Ask her to sit with you", ["Ignore her", "Take her lunch"], "Inviting someone helps them belong.", { emoji: "🍎" }),
+  q("How can you include everyone in a game?", "Change the rules so all can play", ["Pick only your best friend", "Let only fast kids play"], "Good groups make room for everybody.", { d: 2 }),
+  q("Sam and Ana have different ideas for a story. What can they do?", "Mix their ideas together", ["Fight", "Stop the story"], "Putting ideas together can make something new.", { d: 3 }),
+  q("What can you say if you see things differently?", "I see it another way.", ["You are silly.", "Be quiet."], "We can disagree in a kind way.", { d: 3 }),
 ];
 
 // ---------- Fair and Kind ----------
@@ -64,6 +86,17 @@ const FAIR: Item[] = [
   q("How can you help someone who is being treated unfairly?", "Stand up with them and tell a grown-up", ["Stay quiet", "Make it worse"], "Standing up with others shows kindness and courage.", { d: 3 }),
   q("You are kind to a classmate. How might they feel?", e("happy", "😊"), [e("sad", "😢"), e("left out", "😞")], "Kindness helps people feel safe and happy.", { d: 2 }),
   q("Is it okay to say, “That's not nice. Please stop.”?", "Yes, it is a good way to speak up", ["No, never", "Only to grown-ups"], "We can use our voice to stand up for ourselves and for others.", { d: 3 }),
+  q("Two kids want the same swing. What is fair?", "Take turns", ["The bigger kid always wins", "Pull it apart"], "Taking turns gives everyone a chance.", { emoji: "🎠" }),
+  q("One child gets many more stickers than everyone else. Is it fair?", "No, it is not fair", ["Yes, it is fair", "Only if you are tall"], "Fair means everyone gets the same chance.", { d: 2 }),
+  q("You spilled paint by mistake. What is kind to do?", "Say sorry and help clean up", ["Blame a friend", "Hide it"], "Owning up and helping fix it is kind.", { emoji: "🎨" }),
+  q("A friend shares a snack with you. What do you say?", "Thank you!", ["Not enough.", "Nothing."], "Saying thank you shows kindness."),
+  q("Which one is a kind action?", "Holding the door for someone", ["Shutting it on a friend", "Pushing in line"], "Small kind acts make a big difference."),
+  q("A classmate uses a wheelchair. How can you include them in a game?", "Pick a game everyone can play", ["Leave them out", "Pick a game they can't join"], "Fair games make room for everyone.", { d: 2 }),
+  q("Someone says something hurtful. How might the other child feel?", e("sad", "😢"), [e("proud", "😊"), e("sleepy", "😴")], "Hurtful words can make people feel sad."),
+  q("A child dropped their books. What is kind?", "Help pick them up", ["Walk by laughing", "Kick them"], "Helping out is a kind choice.", { emoji: "📚" }),
+  q("Every child in the class gets a turn to hold the class pet. This is…", "fair", ["unfair", "a secret"], "Fair means everyone gets a chance.", { d: 2 }),
+  q("A friend says, “I don't like it when you do that.” What do you do?", "Stop and say sorry", ["Do it more", "Laugh"], "Listening to a friend's feelings is kind.", { d: 3 }),
+  q("A child does not understand the game. A kind friend will…", "explain it gently", ["tease them", "leave them"], "Kind friends help others join in.", { d: 3 }),
 ];
 
 // ---------- Places Near Me ----------

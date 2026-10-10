@@ -27,6 +27,18 @@ const GRAMMAR: BankItem[] = [
   { prompt: "Which word completes the sentence? ___ shoes are on the mat. (the ones close to me)", right: "These", wrong: ["That", "This"], hint: "These points to more than one thing that is near." },
   { prompt: "Which word completes the sentence? Look at ___ bird over there. (one far away)", right: "that", wrong: ["this", "these"], hint: "That points to one thing that is far away." },
   { prompt: "Which pair is correct? ___ coat is on the hook and ___ boots are by the door.", right: "My, your", wrong: ["Me, you", "I, you"], hint: "My and your tell who owns something. They work like adjectives." },
+  { prompt: "Which word completes the sentence? The neighbour ___ waters our plants is away.", right: "who", wrong: ["whose", "which"], hint: "Use who to tell more about a person." },
+  { prompt: "Which word completes the sentence? The jacket ___ I wore was too warm.", right: "that", wrong: ["who", "whose"], hint: "Use that for things." },
+  { prompt: "Which word completes the sentence? The girl ___ drawing won the prize is my friend.", right: "whose", wrong: ["who", "which"], hint: "Whose shows who owns the drawing." },
+  { prompt: "Which sentence is in the present perfect tense?", right: "We have planted the seeds.", wrong: ["We plant the seeds.", "We will plant the seeds."], hint: "Present perfect uses has or have with a past-tense verb." },
+  { prompt: "Which completes the sentence? Noah ___ visited the museum twice.", right: "has", wrong: ["have", "had been"], hint: "Use has with one person." },
+  { prompt: "Which sentence is in the past perfect tense?", right: "She had finished before the bell rang.", wrong: ["She has finished since the bell rang.", "She finishes before the bell rings."], hint: "Past perfect uses had plus a past-tense verb." },
+  { prompt: "Which is the correct form? We have ___ the book.", right: "read", wrong: ["reading", "reads"], hint: "Have needs a past-tense verb: read." },
+  { prompt: "Which sentence is a command?", right: "Please wash your hands.", wrong: ["Did you wash your hands?", "He washes his hands."], hint: "A command tells someone to do something." },
+  { prompt: "Which sentence asks a question?", right: "Did Priya bring the map?", wrong: ["Priya brought the map.", "Bring the map, Priya."], hint: "A question often starts with do, does or did." },
+  { prompt: "Which word completes the sentence? ___ cookies on the plate are warm. (the ones near me)", right: "These", wrong: ["That", "This"], hint: "These points to more than one thing that is near." },
+  { prompt: "Which word completes the sentence? ___ mountain far away is tall.", right: "That", wrong: ["These", "This"], hint: "That points to one thing that is far away." },
+  { prompt: "Which pair is correct? ___ turn is next, and ___ turn is after.", right: "Her, your", wrong: ["She, you", "Hers, yours"], hint: "Her and your work like adjectives and come before a noun." },
 ];
 
 function grammar(): Question[] {
@@ -52,6 +64,17 @@ const SENTENCES: BankItem[] = [
   { prompt: "Which joining word starts a dependent clause? ___ the movie ended, we went home.", right: "After", wrong: ["And", "So"], hint: "After makes the first part depend on the main idea." },
   { prompt: "Which sentence is complete?", right: "The trail winds up the mountain.", wrong: ["Winding up the mountain.", "Up the mountain on the trail."], hint: "A complete sentence has a subject and a verb that tells what the subject does." },
   { prompt: "Which sentence has the dependent clause at the end?", right: "I will wait here until you come back.", wrong: ["Until you come back, I will wait here.", "I will wait here."], hint: "Find the clause that begins with until." },
+  { prompt: "Which part is an independent clause? Since the path was icy, we walked slowly.", right: "we walked slowly", wrong: ["Since the path was icy", "the path was icy"], hint: "An independent clause can stand alone as a sentence." },
+  { prompt: "Which part is a dependent clause? Maya smiled when she saw the cake.", right: "when she saw the cake", wrong: ["Maya smiled", "smiled when"], hint: "A dependent clause begins with a joining word like when and cannot stand alone." },
+  { prompt: "Which is a prepositional phrase? The kitten hid behind the sofa.", right: "behind the sofa", wrong: ["The kitten hid", "hid behind"], hint: "It starts with a preposition (behind) and ends with a noun." },
+  { prompt: "Which sentence has a prepositional phrase?", right: "The bus stopped at the corner.", wrong: ["The bus stopped.", "The bus was late."], hint: "At the corner begins with the preposition at." },
+  { prompt: "Which is a compound sentence?", right: "Lena sings, and Kenji plays the piano.", wrong: ["Lena sings in the choir.", "Because Lena sings, Kenji plays."], hint: "Two independent clauses joined by and." },
+  { prompt: "Which is a complex sentence?", right: "Although it was cold, we played outside.", wrong: ["It was cold, so we stayed inside.", "We played outside."], hint: "Although begins a dependent clause joined to a main idea." },
+  { prompt: "Which is a sentence fragment?", right: "Under the old wooden bridge.", wrong: ["The river flows under the bridge.", "We crossed the bridge."], hint: "A fragment is missing a subject and a verb for the main idea." },
+  { prompt: "How can you fix this run-on? It rained we stayed in.", right: "It rained, so we stayed in.", wrong: ["It rained we, stayed in.", "It rained so we stayed, in."], hint: "Add a comma and a joining word." },
+  { prompt: "Which sentence is the best combination of these two? Zoe was nervous. She sang loudly.", right: "Zoe was nervous, but she sang loudly.", wrong: ["Zoe was nervous, or she sang loudly.", "Zoe was nervous because she sang loudly."], hint: "The second idea is a surprise, so use but." },
+  { prompt: "Which joining word shows a choice? We can walk, ___ we can ride.", right: "or", wrong: ["because", "although"], hint: "Or gives two choices." },
+  { prompt: "Which sentence has two prepositional phrases?", right: "The ball rolled down the hill into the pond.", wrong: ["The ball rolled quickly.", "The ball splashed loudly."], hint: "Down the hill and into the pond each begin with a preposition." },
 ];
 
 function sentences(): Question[] {
@@ -75,6 +98,17 @@ const PUNCTUATION: BankItem[] = [
   { prompt: "Which sentence is punctuated correctly?", right: "“Please pass the salt,” said Dad.", wrong: ["“Please pass the salt” said Dad.", "“Please pass the salt.” said Dad."], hint: "A comma goes inside the quotation marks when the speaker comes after." },
   { prompt: "Which sentence has the right punctuation?", right: "Aiyana asked, “Is it time to go?”", wrong: ["Aiyana asked “Is it time to go”?", "Aiyana asked, “is it time to go?”"], hint: "A question mark goes inside the quotes if the quoted words are a question." },
   { prompt: "Which phrase is written correctly?", right: "the Canadian flag", wrong: ["the canadian flag", "the Canadian Flag"], hint: "Canadian comes from Canada. Capitalize it." },
+  { prompt: "Which phrase is written correctly?", right: "Italian pasta", wrong: ["italian pasta", "Italian Pasta"], hint: "Italian comes from Italy, so it is capitalized." },
+  { prompt: "Which phrase is written correctly?", right: "a Chinese lantern", wrong: ["a chinese lantern", "a Chinese Lantern"], hint: "Chinese comes from China, so it begins with a capital." },
+  { prompt: "Which phrase is written correctly?", right: "Indian music", wrong: ["indian music", "Indian Music"], hint: "A proper adjective gets a capital letter, but the noun music does not." },
+  { prompt: "Which sentence uses a comma correctly?", right: "Sam, come and see this.", wrong: ["Sam come, and see this.", "Sam come and see, this."], hint: "Put a comma after the name when you speak directly to someone." },
+  { prompt: "Which sentence uses a comma correctly?", right: "I am ready, Ms. Lee.", wrong: ["I am ready Ms. Lee.", "I am, ready Ms. Lee."], hint: "Put a comma before the name of the person you are talking to." },
+  { prompt: "Which sentence uses commas correctly?", right: "Yes, Priya, I will help.", wrong: ["Yes Priya, I will help.", "Yes, Priya I will help."], hint: "Set off the name with commas." },
+  { prompt: "Which sentence uses quotation marks for a title correctly?", right: "We sang “Row, Row, Row Your Boat.”", wrong: ["We sang Row, Row, Row Your Boat.", "We “sang” Row, Row, Row Your Boat."], hint: "Songs are short works. Put the whole title in quotation marks." },
+  { prompt: "Which kind of title gets quotation marks?", right: "a song", wrong: ["a long novel", "a magazine"], hint: "Short works like songs and poems use quotation marks." },
+  { prompt: "Which sentence is punctuated correctly?", right: "The short story “The Red Kite” is my favourite.", wrong: ["The short story The “Red Kite” is my favourite.", "The short story “The Red Kite is my favourite.”"], hint: "Put the whole title in quotation marks." },
+  { prompt: "Which sentence has the right capital letters?", right: "We drove through Manitoba in August.", wrong: ["We drove through manitoba in august.", "We drove through Manitoba in august."], hint: "Capitalize months and names of provinces." },
+  { prompt: "Which sentence is punctuated correctly?", right: "Leo said, “It is time to eat.”", wrong: ["Leo said “It is time to eat”.", "Leo said, “it is time to eat.”"], hint: "A comma after said, then a capital letter, with the end mark inside the quotes." },
 ];
 
 function punctuation(): Question[] {
@@ -95,6 +129,8 @@ const FEATURES: BankItem[] = [
   { prompt: "A picture shows a tall tree at the top and roots at the bottom. What kind of order is this?", right: "top to bottom", wrong: ["smallest to largest", "alphabetical"], hint: "Spatial order tells where things are in space, like top to bottom or left to right." },
   { prompt: "Which words show spatial order?", right: "above, beside, below", wrong: ["first, next, last", "because, so, then"], hint: "Spatial order uses words about where things are." },
   { prompt: "A bar graph has a title and labels. What do labels help you do?", right: "know what each bar stands for", wrong: ["know who drew the graph", "know when the graph was drawn"], hint: "Labels tell what the bars and numbers mean." },
+  { prompt: "Where in a book would you look to find which page a topic is on?", right: "the index", wrong: ["the caption", "the cover"], hint: "An index lists topics in alphabetical order with page numbers." },
+  { prompt: "What does a heading do in an article?", right: "tells what the next part is about", wrong: ["shows the author's name", "gives the page number"], hint: "Headings help readers find parts of a text." },
 ];
 
 const PASSAGES: Passage[] = [

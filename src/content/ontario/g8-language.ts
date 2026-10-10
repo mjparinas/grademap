@@ -86,6 +86,9 @@ const VIEW: BankItem[] = [
   { prompt: "Which sentence shows an omniscient narrator?", right: "Leo smiled politely, though he secretly dreaded the speech, and his teacher, watching him, hoped he would be brave.", wrong: ["Leo smiled politely, though he secretly dreaded the speech.", "I smiled politely, though I secretly dreaded the speech."], hint: "The omniscient narrator knows what more than one character thinks." },
   { prompt: "A story is told about a dog and shares only what the dog thinks and feels. What point of view is it?", right: "third-person limited", wrong: ["third-person omniscient", "first person", "second person"], hint: "The narrator stays with the thoughts of one character and uses he, she or it." },
   { prompt: "If a story is retold from a different character's point of view, what mostly changes?", right: "which details and feelings are shown", wrong: ["the setting only", "the title only", "nothing at all"], hint: "Different characters notice and care about different things." },
+  { prompt: "A story is told with I, but the narrator only describes things that happened to other people. What can a reader still learn?", right: "the narrator's opinions, even when describing others", wrong: ["nothing about the narrator", "every character's thoughts", "the author's address"], hint: "First-person narrators always show their own view." },
+  { prompt: "Which pronouns suggest a first-person narrator?", right: "I, me and my", wrong: ["she, her and hers", "they, them and their", "you only"], hint: "First person is the narrator speaking as a character." },
+  { prompt: "A writer wants readers to know a secret that a character does not know. Which point of view works best?", right: "third-person omniscient", wrong: ["first person", "second person", "third-person limited"], hint: "An omniscient narrator knows more than the characters." },
 ];
 
 const VIEW_PASSAGES: Passage[] = [
@@ -208,6 +211,9 @@ const STRATEGIES: BankItem[] = [
   { prompt: "What is a local inference?", right: "a conclusion about a specific word, phrase or sentence", wrong: ["a conclusion about the whole text", "the title of the text", "a summary of the whole chapter"], hint: "Local means one small part of the text." },
   { prompt: "After reading, you connect a story to something that happened to you. Which strategy is that?", right: "making connections", wrong: ["predicting", "skimming", "proofreading"], hint: "Connecting links the text to your own experience or other texts." },
   { prompt: "Which question helps you check a prediction?", right: "Did what happened match what I thought would happen, and why?", wrong: ["How many pages are there?", "Who published the book?", "What colour is the cover?"], hint: "Compare your guess with what the text says." },
+  { prompt: "What does it mean to skim a text?", right: "to read quickly to get the main idea or find a topic", wrong: ["to read every word slowly", "to copy it by hand", "to memorize it"], hint: "Skimming looks at headings, first sentences and key words." },
+  { prompt: "What does scanning a text help you do?", right: "find a specific fact, name or date", wrong: ["decide the theme", "predict the ending", "write a new paragraph"], hint: "Your eyes search for key words." },
+  { prompt: "While reading a story, you stop and say, “I think the author is trying to teach us about honesty.” What are you making?", right: "a global inference", wrong: ["a local inference", "a spelling check", "a direct quotation"], hint: "A global inference is about the text as a whole." },
 ];
 
 const STRATEGY_PASSAGES: Passage[] = [
@@ -256,6 +262,18 @@ const STRATEGY_PASSAGES: Passage[] = [
       { prompt: "What is the best prediction about what happens next?", right: "The weather will get worse and the hikers will have to decide whether to turn back.", wrong: ["The hikers will reach the summit before noon.", "The hikers will find a signal and cancel the hike.", "The wind will stop and the sky will clear."], hint: "Use the clues in the setting." },
       { prompt: "Which detail best supports your prediction?", right: "The sky had turned grey and the wind was picking up.", wrong: ["Tomás checked his phone.", "Mia pulled out the map.", "They have a trail map."], hint: "Which clue points to the weather?" },
       { prompt: "What mood does the passage create?", right: "tense", wrong: ["cheerful", "silly", "sleepy"], hint: "Think about the weather, the frown and the rumble." },
+    ],
+  },
+  {
+    title: "The Night Market",
+    text: [
+      "Stalls glowed under strings of lanterns, and the air smelled of grilled corn and sweet dough. Ana held her brother's hand tightly as the crowd pushed past.",
+      "“Stay close,” she said. A moment later, the lights flickered, and the music stopped.",
+    ],
+    questions: [
+      { prompt: "Which detail best shows Ana is careful?", right: "She held her brother's hand tightly.", wrong: ["The air smelled of grilled corn.", "Lanterns hung over the stalls.", "The music played."], hint: "Look for an action that shows she wants to keep him safe." },
+      { prompt: "What is the best prediction about what happens next?", right: "The lights go out or something unexpected happens, and Ana must keep her brother close.", wrong: ["Ana leaves the market for the day.", "The market becomes a library.", "Ana forgets about her brother."], hint: "Use the clues at the end of the passage." },
+      { prompt: "What does the flickering light most likely signal?", right: "a change or problem is coming", wrong: ["the market is closing for the season", "Ana is winning a prize", "the corn is ready"], hint: "Authors use sudden changes to build suspense." },
     ],
   },
 ];
@@ -341,6 +359,13 @@ const WRITING: BankItem[] = [
   { prompt: "Which revision best improves the flow? “I like soccer. I like soccer a lot. Soccer is my favourite sport.”", right: "I love soccer; it is my favourite sport.", wrong: ["I like soccer. I like soccer a lot.", "Soccer. I like it. Favourite.", "I like soccer and I like soccer and soccer is a sport."], hint: "Combine repeated ideas into a smooth sentence." },
   { prompt: "Which is the best topic sentence for a paragraph about the benefits of walking to school?", right: "Walking to school gives students exercise, fresh air and time with friends.", wrong: ["Some students take the bus.", "I woke up late today.", "Schools have many rooms."], hint: "A topic sentence states the main idea of the paragraph." },
   { prompt: "Which sentence has a strong, personal voice?", right: "My stomach did flips as I walked on stage, and my knees felt like jelly.", wrong: ["I was nervous and went on stage.", "There was a stage, and I went on it.", "A person walked onto a stage."], hint: "Voice shows personality through word choice and detail." },
+  { prompt: "Which sentence is the strongest thesis for a persuasive essay?", right: "Schools should start later because teens need more sleep to learn well.", wrong: ["Schools start in the morning.", "I like sleeping.", "There are many schools."], hint: "A thesis states your position and reason." },
+  { prompt: "Which edit fixes the run-on? “It was cold we wore jackets.”", right: "It was cold, so we wore jackets.", wrong: ["It was cold we wore, jackets.", "It was, cold we wore jackets.", "It was cold we wore jackets,"], hint: "Join two complete ideas with a comma and a conjunction." },
+  { prompt: "A writer reads a draft aloud. Why?", right: "To hear awkward sentences and missing words", wrong: ["To change the topic", "To skip revising", "To make it longer"], hint: "Reading aloud helps you notice problems." },
+  { prompt: "Which concluding sentence best wraps up an essay on recycling?", right: "By recycling more, our community can protect resources for the future.", wrong: ["Also, aluminum is a metal.", "Recycling bins are blue.", "That is all I have to say about lunch."], hint: "A conclusion returns to the main idea." },
+  { prompt: "Which source should you cite in a report?", right: "A book you used to learn the facts", wrong: ["Only your own opinion", "A friend's guess", "Nothing at all"], hint: "Cite the sources whose ideas you used." },
+  { prompt: "Which sentence uses a precise verb?", right: "The team sprinted across the field.", wrong: ["The team went across the field.", "The team did a thing across the field.", "The team moved over the field."], hint: "Precise verbs create a clear picture." },
+  { prompt: "What is the main purpose of an outline?", right: "To organize ideas before writing a draft", wrong: ["To check spelling", "To print the final copy", "To choose a font"], hint: "Planning makes drafting easier." },
 ];
 
 const SEQUENCES: string[][] = [

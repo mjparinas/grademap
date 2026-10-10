@@ -25,6 +25,16 @@ const SKILLS: Item[] = [
   q("An engineer designs a tool. What do they do before building?", "Make a plan", ["Eat lunch", "Close the window"], "Designers plan and draw first.", { d: 3 }),
   q("Scientists keep the test fair. Why change just one thing?", "So we know what caused the result", ["It is faster", "It is louder"], "Changing one thing at a time shows what matters.", { d: 3 }),
   q("People use science to solve problems. Which is an example?", "A bike helmet protects our heads", ["A cloud is fluffy", "A dog barks"], "Many tools and ideas from science help people every day.", { d: 3 }),
+  q("Which tool measures how heavy a rock is?", e("balance scale", "⚖️"), [e("thermometer", "🌡️"), e("ruler", "📏")], "A balance scale compares how heavy things are."),
+  q("Why do scientists write down what they see?", "So they can remember and share it", ["So no one can read it", "To make it harder"], "Notes and drawings help us remember what we found out."),
+  q("Which one is an observation?", "The ice is cold and hard.", ["I think the ice will melt.", "Let's buy some ice."], "An observation tells what you notice with your senses.", { emoji: "🧊" }),
+  q("Which one is a prediction?", "I think the ice will melt.", ["The ice is cold and hard.", "The ice is in a bowl."], "A prediction is what you think will happen.", { emoji: "🧊" }),
+  q("Which tool lets you see an ant's legs?", e("magnifier", "🔍"), [e("ruler", "📏"), e("thermometer", "🌡️")], "A magnifier makes tiny parts bigger."),
+  q("What should you do before touching a plant you do not know?", "Ask a grown-up", ["Taste it", "Pick it all"], "Some plants can hurt us, so we ask first."),
+  q("In code, a bug means…", "a mistake in the steps", ["a kind of snack", "a new screen"], "Coders find bugs and fix them. This is called debugging.", { d: 2 }),
+  q("Zoe tests two paper towels with the same amount of water. Why?", "To make the test fair", ["To make a mess", "To waste water"], "A fair test changes only one thing.", { d: 2 }),
+  q("A robot gets the steps in the wrong order. What may happen?", "It may not do the job", ["It works perfectly", "It turns into a plant"], "The order of steps matters in code.", { emoji: "🤖", d: 2 }),
+  q("An engineer builds a paper bridge. What can she test?", "How much weight it holds", ["How loud it is", "What colour it is"], "Engineers test whether a design does its job.", { d: 3 }),
 ];
 
 // ---------- What Living Things Need ----------
@@ -45,6 +55,15 @@ const NEEDS: Item[] = [
   q("A farmer plants vegetables for people. What do the plants give?", "food", ["clothes", "toys"], "Plants give food to people and animals.", { d: 3 }),
   q("Cows eat grass. What do cows get from the grass?", "food and energy", ["only water", "only light"], "Animals get energy from food.", { d: 3 }),
   q("A tree gives birds a place to build a nest. What does the tree give?", "shelter", ["water", "heat"], "Plants can provide shelter for animals.", { d: 3 }),
+  q("Which living thing needs sunlight to make its own food?", "a plant", ["a dog", "a fish"], "Plants use light, air and water to make food.", { emoji: "🌿" }),
+  q("Which one needs air?", "a puppy", ["a rock", "a spoon"], "Living things need air. Rocks and spoons are non-living.", { emoji: "🐶" }),
+  q("Why do people wear coats in winter?", "To stay warm", ["To get hungry", "To grow roots"], "Living things need the right heat to stay alive."),
+  q("A rabbit hides in a burrow. What need does the burrow meet?", "shelter", ["food", "music"], "A burrow is a safe home.", { emoji: "🐇" }),
+  q("Which pair are both needs of an animal?", "food and water", ["toys and games", "candy and TV"], "Animals need food, water, air, heat, shelter and space.", { d: 2 }),
+  q("A deer eats leaves. Which need does this meet?", "food", ["shelter", "space"], "Eating gives animals energy.", { emoji: "🦌", d: 2 }),
+  q("A puppy needs room to run and play. Which need is this?", "space", ["air", "heat"], "Living things need space to move and grow.", { d: 2 }),
+  q("A plant by a sunny window leans toward the light. Why?", "It needs light to grow", ["It likes the view", "It is scared"], "Plants grow toward light because they need it.", { d: 3 }),
+  q("A plant gets no water for a long time. What happens?", "It wilts and droops", ["It grows taller", "It sings"], "Plants need water to stay healthy.", { emoji: "🥀", d: 3 }),
 ];
 
 const NEEDS_ORDER = order("Put it in order. What does a seed need to become a plant?", "A seed needs water and warmth to sprout, then light to grow.", [
@@ -70,6 +89,17 @@ const BODY: Item[] = [
   q("You hear a bell ring. Which sense are you using?", "hearing", ["smell", "touch"], "Hearing uses our ears.", { emoji: "🔔" }),
   q("A dog sniffs the air for a smell. Which body part is it using?", "its nose", ["its tail", "its paws"], "Many animals smell with a nose.", { emoji: "🐕", d: 3 }),  q("Which body part helps you walk and run?", e("legs", "🦵"), [e("ears", "👂"), e("eyes", "👀")], "Our legs help us walk, run and jump.", { d: 3 }),  q("Which part of the body holds up your body and protects it?", "bones", ["hair", "teeth only"], "Bones hold up our body.", { emoji: "🦴", d: 3 }),
   q("Which part of your body helps you eat and digest food?", e("stomach", "🍽️"), [e("ears", "👂"), e("eyes", "👀")], "Food goes to the stomach, where it is broken down.", { d: 3 }),
+  q("Which sense do you use to enjoy a song?", "hearing", ["taste", "smell"], "We hear music with our ears.", { emoji: "🎶" }),
+  q("You pet a soft kitten. Which sense are you using?", "touch", ["hearing", "taste"], "Our skin lets us feel soft and rough things.", { emoji: "🐈" }),
+  q("You see a rainbow. Which sense are you using?", "sight", ["smell", "touch"], "We see with our eyes.", { emoji: "🌈" }),
+  q("Which sense tells you bread is baking before you see it?", "smell", ["touch", "taste"], "Our nose can smell things from far away.", { emoji: "🍞" }),
+  q("Which body part helps you pick up a pencil?", e("hand", "✋"), [e("ear", "👂"), e("nose", "👃")], "Hands help us hold and pick up things."),
+  q("Which part helps you bend your arm?", "elbow", ["eyebrow", "ear"], "An elbow is a joint where the arm bends.", { d: 2 }),
+  q("How can you keep your teeth healthy?", "Brush them twice a day", ["Never brush", "Chew on rocks"], "Brushing keeps teeth clean and strong.", { emoji: "🪥", d: 2 }),
+  q("Why do we wash our hands?", "To get rid of germs", ["To make them bigger", "To make them blue"], "Washing helps keep us healthy.", { emoji: "🧼", d: 2 }),
+  q("Why do we need sleep?", "To rest our body and brain", ["To shrink", "To grow feathers"], "Sleep helps our body and brain rest and grow.", { emoji: "😴", d: 3 }),
+  q("Which food is a healthy choice?", e("an apple", "🍎"), [e("a lollipop", "🍭"), e("a candy bar", "🍫")], "Fruits and vegetables help our bodies grow strong.", { d: 3 }),
+  q("Your skin tells you the ice is…", "cold", ["loud", "sour"], "Skin feels hot, cold, soft and rough.", { emoji: "🧊", d: 3 }),
 ];
 
 // ---------- A Healthy Environment ----------
@@ -128,6 +158,16 @@ const ENERGY: Item[] = [
   q("A car uses fuel to go. What does the fuel give the car?", "energy", ["paint", "wheels"], "Fuel gives the car energy to move.", { d: 3 }),
   q("Wind pushes a sailboat. What is the wind giving?", "energy", ["paint", "weight"], "Moving air has energy that can push things.", { emoji: "⛵", d: 3 }),
   q("Why is it good to turn off a TV when no one is watching?", "It saves energy", ["It makes it taller", "It makes the sun set"], "Using less energy helps the planet.", { d: 3 }),
+  q("Which one uses electricity?", e("a TV", "📺"), [e("a book", "📚"), e("a ball", "⚽")], "TVs plug in or use batteries."),
+  q("A flashlight needs batteries. What do batteries hold?", "energy", ["water", "wind"], "Batteries store energy for lights and toys.", { emoji: "🔦" }),
+  q("Which one gives us heat?", e("the Sun", "☀️"), [e("an ice cube", "🧊"), e("a snowman", "⛄")], "The Sun warms the Earth."),
+  q("Plants use sunlight to…", "make their own food", ["watch TV", "buy snacks"], "Plants turn light, air and water into food.", { emoji: "🌱" }),
+  q("When you run, your body uses energy from…", "the food you ate", ["the TV", "a puddle"], "Food gives us the energy to move.", { emoji: "🏃" }),
+  q("Which one uses the wind's energy?", "a kite", ["a lamp", "a toaster"], "Wind pushes a kite up into the sky.", { emoji: "🪁", d: 2 }),
+  q("What gives a toy car with a battery its energy?", "the battery", ["the floor", "its colour"], "Batteries store energy.", { d: 2 }),
+  q("How can you save energy in winter?", "Put on a sweater", ["Open the windows", "Leave the TV on"], "Dressing warmly means we need less heat.", { d: 2 }),
+  q("Rubbing your hands together makes them…", "warm", ["cold", "wet"], "Moving things rub together and make heat.", { emoji: "🙌", d: 3 }),
+  q("Moving water can turn a water wheel. The water has…", "energy", ["paint", "weight only"], "Moving water has energy that can make things move.", { d: 3 }),
 ];
 
 // ---------- Objects and Structures ----------
@@ -146,6 +186,16 @@ const STRUCT: Item[] = [
   q("A roof must keep rain out. Which property helps most?", "waterproof", ["fluffy", "sweet"], "A waterproof material keeps water out.", { d: 2 }),
   q("A bridge must hold cars. Which property helps most?", "strong", ["soft", "see-through"], "Strong materials can hold a load.", { emoji: "🌉", d: 2 }),
   q("Which bag can you use again and again to carry groceries?", "a strong cloth bag", ["a thin tissue", "a paper napkin"], "Reusable bags help make less garbage.", { d: 3 }),  q("A boot and a sandal both cover feet. What is different?", "The boot keeps feet warm and dry", ["The sandal is better in snow", "They are the same"], "Objects with a similar job can be made of different materials.", { d: 3 }),
+  q("Which one is a structure?", e("a house", "🏠"), [e("a rainbow", "🌈"), e("a shadow", "🌑")], "A house is built to hold us up and keep us safe."),
+  q("Which material is good for a window?", "glass", ["wool", "paper"], "Glass is clear, so we can see through it.", { emoji: "🪟" }),
+  q("What are boots made to do?", "protect your feet", ["tell time", "give light"], "Boots keep feet warm and dry."),
+  q("Which material is soft and warm for a hat?", "wool", ["metal", "glass"], "Wool is soft and keeps us warm.", { emoji: "🧶" }),
+  q("Which fastener can hold a poster on a wall?", "tape", ["a cup", "a sock"], "Tape sticks things together.", { d: 2 }),
+  q("Which one can hold your shoe closed?", "laces", ["a straw", "a sponge"], "Laces are a fastener for shoes.", { emoji: "👟", d: 2 }),
+  q("A tent has a frame. What does the frame do?", "holds it up", ["makes it sing", "keeps it cold"], "The frame gives the tent its shape.", { emoji: "⛺", d: 2 }),
+  q("What keeps rain off a house?", "its roof", ["its mailbox", "its door mat"], "A roof covers a house from the weather.", { d: 2 }),
+  q("Glass is made by heating…", "sand", ["leaves", "wool"], "Glass is made from sand that is heated until it melts.", { d: 3 }),
+  q("Where does cotton for T-shirts come from?", "a plant", ["a sheep", "a rock"], "Cotton grows on a plant.", { d: 3 }),
 ];
 
 // ---------- Day, Night and Seasons ----------
@@ -165,6 +215,17 @@ const SEASON: Item[] = [
   q("A bear sleeps through much of winter. Why?", "There is less food", ["It dislikes toys", "It has a job"], "Animals change what they do when seasons change.", { emoji: "🐻", d: 3 }),
   q("Geese fly south in the fall. Why?", "to find warmer weather and food", ["to find the sea", "to catch a bus"], "Many birds migrate when the weather cools.", { d: 3 }),
   q("In fall, daylight gets shorter. What happens to the temperature?", "It gets colder", ["It gets hotter", "It turns blue"], "Less sunlight means less heat.", { d: 3 }),
+  q("Which season comes after winter?", "spring", ["summer", "fall"], "The order is winter, spring, summer, fall."),
+  q("Which season comes after summer?", "fall", ["winter", "spring"], "After the warm summer comes fall.", { emoji: "🍁" }),
+  q("Which season is usually the hottest?", "summer", ["winter", "fall"], "Summer has the warmest weather.", { emoji: "🌞" }),
+  q("When do we see stars most clearly?", "at night", ["at noon", "at breakfast"], "Stars show up when the sky is dark.", { emoji: "🌟" }),
+  q("The Sun rises in the…", "morning", ["evening", "night"], "The Sun comes up in the morning."),
+  q("When does the Sun set?", "in the evening", ["in the morning", "at noon"], "The Sun goes down in the evening.", { emoji: "🌇" }),
+  q("Which clothing is best for a hot summer day?", "shorts and a hat", ["a snowsuit", "big mittens"], "We dress for the weather.", { d: 2 }),
+  q("Flowers start to bloom in…", "spring", ["winter", "midnight"], "Warm weather and rain help flowers grow.", { emoji: "🌷", d: 2 }),
+  q("Which is a daily cycle?", "morning, afternoon, evening, night", ["red, green, blue", "one, two, three"], "A day repeats the same parts again and again.", { d: 2 }),
+  q("Why do some trees lose their leaves in fall?", "To get ready for winter", ["They are sad", "They want to fly"], "Trees rest in winter and grow new leaves in spring.", { d: 3 }),
+  q("Daylight lasts longest in…", "summer", ["winter", "fall"], "Summer days are long and winter days are short.", { d: 3 }),
 ];
 
 // ---------- Units ----------

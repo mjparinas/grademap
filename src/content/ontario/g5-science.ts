@@ -149,6 +149,17 @@ const STATE_CHANGES: Item[] = [
   { prompt: "The white cloud above a boiling kettle is made of…", right: "tiny droplets of liquid water", wrong: ["invisible water vapour", "tiny pieces of ice"], hint: "Water vapour is invisible. Right after leaving the spout it cools and condenses into droplets.", hard: true },
   { prompt: "When matter changes state, what stays the same?", right: "The kind of matter it is", wrong: ["The arrangement of its particles", "How fast its particles move"], hint: "Ice, water and water vapour are all the same substance.", hard: true },
   { prompt: "A cold window pane fogs up on the inside of a warm kitchen. What happened to the water vapour in the air?", right: "It lost thermal energy and condensed", wrong: ["It gained thermal energy and evaporated", "It melted"], hint: "Warm, moist air cooling against cold glass condenses.", hard: true },
+  { prompt: "A frozen juice bar drips in the sun. Which change of state is this?", right: "Melting", wrong: ["Freezing", "Condensation"], hint: "A solid turns into a liquid when it absorbs thermal energy." },
+  { prompt: "Ice cubes form in a tray in the freezer. Which change of state is this?", right: "Freezing", wrong: ["Melting", "Evaporation"], hint: "A liquid turns into a solid when it releases thermal energy." },
+  { prompt: "A puddle slowly disappears on a warm, sunny day. Where did the water go?", right: "It evaporated into the air as water vapour", wrong: ["It froze into the ground", "It turned into a solid"], hint: "Liquid water changed into a gas." },
+  { prompt: "Which change of state takes thermal energy away from matter?", right: "Condensation", wrong: ["Melting", "Evaporation"], hint: "A gas has to lose thermal energy to become a liquid." },
+  { prompt: "Which change of state needs thermal energy to be added?", right: "Evaporation", wrong: ["Freezing", "Condensation"], hint: "A liquid needs extra energy to become a gas." },
+  { prompt: "Butter softens and melts in a hot frying pan. What is happening to its particles?", right: "They gain energy and move more freely", wrong: ["They stop moving", "They are destroyed"], hint: "More thermal energy lets particles slide past each other." },
+  { prompt: "On a cold morning, grass has tiny drops of water on it. What change of state made them?", right: "Condensation of water vapour in the air", wrong: ["Melting of the grass", "Freezing of the air"], hint: "Vapour cooled against the cold grass and became liquid." },
+  { prompt: "A bowl of water is left on a counter for days and the level goes down. What is the cause?", right: "Evaporation", wrong: ["Condensation", "Melting"], hint: "Water slowly changes into water vapour and mixes with the air." },
+  { prompt: "At about what temperature does ice melt?", right: "0 °C", wrong: ["50 °C", "100 °C"], hint: "Water freezes and ice melts at 0 °C." },
+  { prompt: "Snow on a roof melts as the weather warms. What happens to the thermal energy of the snow?", right: "It absorbs thermal energy", wrong: ["It releases thermal energy", "It gains mass"], hint: "Melting needs energy to be added.", hard: true },
+  { prompt: "Which of these is a physical change of state that is NOT water?", right: "Wax melting near a candle flame", wrong: ["A match burning", "Bread being toasted"], hint: "A change of state keeps the same substance. Burning and toasting make new substances.", hard: true },
 ];
 
 const STATE_ORDER: OrderQuestion = {
@@ -263,6 +274,19 @@ const ENERGY: Item[] = [
   { prompt: "A ball is dropped and bounces a little lower each time. Where does some of its energy go?", right: "Into thermal and sound energy in the ball, floor and air", wrong: ["It is destroyed", "It turns back into mass"], hint: "Energy is conserved. It spreads into the surroundings.", hard: true },
   { prompt: "A wind-up toy stops after its spring unwinds. What happened to the spring's stored energy?", right: "It changed to motion, then to heat and sound", wrong: ["It disappeared", "It is still in the spring"], hint: "Stored energy changed form as the toy moved.", hard: true },
   { prompt: "In a hydroelectric station, which is the correct chain of energy changes?", right: "Gravitational potential → kinetic → electrical", wrong: ["Electrical → kinetic → chemical", "Light → sound → electrical"], hint: "Water high up flows down (kinetic) and spins a turbine that makes electricity.", hard: true },
+  { prompt: "A moving swing has kinetic energy. When it pauses at the top of its path, it has mostly…", right: "potential energy", wrong: ["sound energy", "chemical energy"], hint: "At the highest point, the swing stops for a moment and its energy is stored." },
+  { prompt: "A battery in a flashlight stores which form of energy?", right: "Chemical energy", wrong: ["Sound energy", "Kinetic energy"], hint: "Batteries store energy in chemicals." },
+  { prompt: "A flashlight changes chemical energy first into…", right: "electrical energy", wrong: ["sound energy", "potential energy"], hint: "The battery makes electricity, which lights the bulb." },
+  { prompt: "A campfire gives off which two forms of energy that you can feel and see?", right: "Heat and light", wrong: ["Sound and gravity", "Electricity and magnetism"], hint: "You feel the warmth and see the glow." },
+  { prompt: "A bike rolls down a hill and speeds up. What kind of energy is increasing?", right: "Kinetic energy", wrong: ["Chemical energy", "Sound energy only"], hint: "The faster it goes, the more kinetic energy it has." },
+  { prompt: "You clap your hands and hear a sound. Kinetic energy changed into…", right: "sound energy", wrong: ["chemical energy", "gravitational energy"], hint: "The motion makes the air vibrate." },
+  { prompt: "A wind turbine changes the kinetic energy of the wind into…", right: "electrical energy", wrong: ["chemical energy", "sound energy only"], hint: "Spinning blades turn a generator." },
+  { prompt: "A rock sits at the top of a cliff. If it falls, what happens to its potential energy?", right: "It changes into kinetic energy", wrong: ["It is destroyed", "It becomes mass"], hint: "Stored energy changes into motion." },
+  { prompt: "A mixer changes electrical energy into mostly…", right: "kinetic energy", wrong: ["chemical energy", "potential energy"], hint: "The blades spin." },
+  { prompt: "Which object has the most kinetic energy?", right: "A fast-moving car", wrong: ["A parked car", "A closed book on a desk"], hint: "The faster something moves, the more kinetic energy it has." },
+  { prompt: "A wound-up toy car is ready to go. What kind of energy does the spring have?", right: "Potential energy", wrong: ["Kinetic energy", "Sound energy"], hint: "The spring is storing energy." },
+  { prompt: "Why do your hands feel warm after you rub them?", right: "Friction changes motion into thermal energy", wrong: ["Energy is created from nothing", "The air gets colder"], hint: "Rubbing turns kinetic energy into heat.", hard: true },
+  { prompt: "A light bulb is 10% efficient and wastes most energy as heat. What does that mean?", right: "Only a little of the electrical energy becomes light", wrong: ["All of the energy becomes light", "The bulb makes more energy than it uses"], hint: "Efficiency compares useful energy to total energy used.", hard: true },
 ];
 
 const ENERGY_ORDER: OrderQuestion = {
@@ -335,6 +359,16 @@ const SKILLS: Item[] = [
   { prompt: "In an experiment on how salt affects the time water takes to freeze, which is the measured variable?", right: "The time it takes to freeze", wrong: ["The amount of salt", "The size of the cup"], hint: "The thing measured at the end is the dependent variable.", hard: true },
   { prompt: "A team wants to share findings with younger students. What is the best format?", right: "A short, clear poster with pictures and simple words", wrong: ["A long report full of technical terms", "A table of raw numbers only"], hint: "Match the format and vocabulary to the audience.", hard: true },
   { prompt: "A sensor reading temperature once a minute stores the numbers in a list. Why is a list useful?", right: "The program can store and process many values in order", wrong: ["Lists make the sensor more accurate", "Lists stop the program from needing data"], hint: "A list holds many data values that code can loop through.", hard: true },
+  { prompt: "Why do scientists record their results in a table?", right: "To organize data so patterns are easy to see", wrong: ["To hide the results", "To make the test shorter"], hint: "Tables show measurements clearly." },
+  { prompt: "Which tool measures the mass of an object?", right: "A balance or scale", wrong: ["A thermometer", "A ruler"], hint: "Mass is measured in grams and kilograms." },
+  { prompt: "Which tool measures temperature?", right: "A thermometer", wrong: ["A balance", "A metre stick"], hint: "Thermometers show degrees Celsius." },
+  { prompt: "Why should you tie back long hair during a science investigation?", right: "So it does not catch in equipment or a flame", wrong: ["So it looks tidy", "So it stays cool"], hint: "Loose hair is a safety risk near equipment and heat." },
+  { prompt: "A coding program has a step that repeats ten times. Which idea does it use?", right: "A loop", wrong: ["A variable only", "A bug"], hint: "Loops repeat steps." },
+  { prompt: "In code, what is a variable?", right: "A named place to store a value", wrong: ["A mistake in the code", "A step that never runs"], hint: "Variables hold values that can change, like a score." },
+  { prompt: "Two plants get different amounts of water, but one gets more light too. Why is this not a fair test?", right: "More than one thing was changed", wrong: ["Plants cannot be tested", "Water does not matter"], hint: "Change only one variable at a time." },
+  { prompt: "What is the first step of the engineering design process?", right: "Define the problem and who needs help", wrong: ["Test the final product", "Share a finished poster"], hint: "Designers begin by understanding the problem." },
+  { prompt: "Which job might use science and technology to design safer bridges?", right: "A civil engineer", wrong: ["A florist", "A bus driver"], hint: "Civil engineers plan and design buildings and bridges." },
+  { prompt: "Why do scientists share their results with others?", right: "So others can check and build on their ideas", wrong: ["To avoid being checked", "Because they have to be quiet"], hint: "Sharing helps everyone learn.", hard: true },
 ];
 
 const DESIGN_ORDER: OrderQuestion = {

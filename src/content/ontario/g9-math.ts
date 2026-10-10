@@ -60,6 +60,18 @@ const SETS: BankItem[] = [
   { prompt: "As n gets very large, what happens to 1/n?", right: "It gets closer and closer to 0", wrong: ["It becomes negative", "It gets larger and larger", "It reaches exactly 0"], hint: "1/10, 1/100, 1/1000 … keep shrinking toward 0, the limit, but never reach it." },
   { prompt: "Which statement is true?", right: "Every integer is a rational number", wrong: ["Every rational number is an integer", "Every irrational number is a rational number", "No integer is a rational number"], hint: "Any integer n can be written as the fraction n/1." },
   { prompt: "Which best describes the set of integers?", right: "The whole numbers and their opposites", wrong: ["Only the positive numbers", "All fractions", "Numbers whose decimals never end"], hint: "Integers include 0, the positive whole numbers and the negatives of those numbers." },
+  { prompt: "Which number is rational?", right: "−3/8", wrong: ["√7", "π", "√11"], hint: "A rational number can be written as a ratio of two integers. −3/8 is exactly that." },
+  { prompt: "Which number is irrational?", right: "√15", wrong: ["√16", "−4", "2.5"], hint: "√16 = 4 and 2.5 = 5/2. 15 is not a perfect square, so √15 has a decimal that never ends or repeats." },
+  { prompt: "Which of these is a rational number?", right: "0.75", wrong: ["√2", "π", "√5"], hint: "0.75 = 3/4, a ratio of integers." },
+  { prompt: "Which number belongs to the whole numbers but is not a natural number?", right: "0", wrong: ["1", "−1", "5"], hint: "Natural numbers start at 1. Whole numbers add 0." },
+  { prompt: "Which number is an integer but not a whole number?", right: "−9", wrong: ["0", "4", "7"], hint: "Whole numbers cannot be negative." },
+  { prompt: "Which decimal is rational?", right: "0.272727… (the digits 27 repeat)", wrong: ["0.1010010001… (the pattern never repeats)", "3.14159265… (never repeats or ends)", "1.41421356… (never repeats or ends)"], hint: "A repeating decimal can be written as a fraction." },
+  { prompt: "Where does √2 belong on the number line?", right: "Between 1 and 2, closer to 1.4", wrong: ["Between 2 and 3", "At exactly 1.5", "At exactly 2"], hint: "1.4 × 1.4 = 1.96, which is close to 2." },
+  { prompt: "A student says every rational number is an integer. Which counterexample proves her wrong?", right: "1/2", wrong: ["3", "−6", "0"], hint: "1/2 is a ratio of integers but not an integer." },
+  { prompt: "Which number is both a natural number and an integer?", right: "8", wrong: ["−8", "8/3", "√8"], hint: "Natural numbers are 1, 2, 3, … and every one of them is also an integer." },
+  { prompt: "Which pair are both irrational?", right: "√6 and π", wrong: ["√9 and 0.5", "−2 and √4", "1/3 and 0.25"], hint: "√9 = 3 and √4 = 2, which are rational. Neither 6 nor π gives a repeating or terminating decimal." },
+  { prompt: "Which fraction can be written as a terminating decimal?", right: "7/8", wrong: ["1/3", "2/9", "5/6"], hint: "7 ÷ 8 = 0.875, which ends. The others repeat." },
+  { prompt: "Between 2.1 and 2.2, there is…", right: "an infinite number of rational numbers", wrong: ["no number", "exactly one number", "exactly nine numbers"], hint: "Rational numbers are dense, so you can always find another one in between." },
 ];
 
 function numberSets(): Question[] {
