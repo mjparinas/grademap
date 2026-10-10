@@ -1,6 +1,6 @@
 # Gradelings
 
-Curriculum-matched practice, learning games and parent reports for **Kindergarten to Grade 9**. It covers the BC and Ontario curricula, and other provinces and US states can be added. "Gradelings" is a working name; change it in `src/lib/brand.ts`.
+Curriculum-matched practice, learning games and parent reports for **Kindergarten to Grade 9**. It covers the BC and Ontario curricula, and other provinces and US states can be added. The app name is set in `src/lib/brand.ts`.
 
 It's a web app first: it runs in any browser, installs to a tablet or phone home screen, and **works offline**. Progress, scores and trophies sync to the family account when the device is back online.
 

@@ -1,6 +1,6 @@
-# Deploying GradeMap
+# Deploying Gradelings
 
-GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This guide covers a Vercel + Turso + Resend + Sentry + Stripe setup. Nothing here is done yet; each step needs an account or key only the owner can create.
+Gradelings is a standard Next.js 16 app (Node runtime, no custom server). This guide covers a Vercel + Turso + Resend + Sentry + Stripe setup. Nothing here is done yet; each step needs an account or key only the owner can create.
 
 **Can it all live in Vercel?** Nearly. Vercel hosts the app, preview deployments, environment variables and the daily cron job. Its **Marketplace** adds **Turso** (database), **Resend** (email) and **Sentry** (errors) from the dashboard, fills in their environment variables and puts them on one bill. Two things stay outside: **Stripe** (keys and webhook) and your **domain registrar** (you can buy the domain in Vercel or point DNS to it). Use a **Pro** plan: Hobby doesn't allow commercial use.
 
@@ -48,7 +48,7 @@ Turso offers Canadian locations only on its Fly provider (its AWS list has none)
 
 ## 4. Stripe
 
-1. Create a product "GradeMap Family" with two recurring prices in CAD: **C$14.99 / month** and **C$119.99 / year**. Copy their ids to `STRIPE_PRICE_MONTHLY` and `STRIPE_PRICE_YEARLY`. (Plan numbers live in `src/lib/plan.ts`.)
+1. Create a product "Gradelings Family" with two recurring prices in CAD: **C$14.99 / month** and **C$119.99 / year**. Copy their ids to `STRIPE_PRICE_MONTHLY` and `STRIPE_PRICE_YEARLY`. (Plan numbers live in `src/lib/plan.ts`.)
 2. Add a webhook endpoint: `https://<your-domain>/api/billing/webhook/`
    **The trailing slash is required.** Stripe does not follow redirects.
    Events: `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`.

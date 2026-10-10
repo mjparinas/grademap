@@ -6,7 +6,7 @@
 
 ## 1. What this covers
 
-The Provider supplies GradeMap, a practice and learning service, to the School's teachers and students. This agreement covers personal information about students that the Provider handles for the School through class accounts that teachers create.
+The Provider supplies Gradelings, a practice and learning service, to the School's teachers and students. This agreement covers personal information about students that the Provider handles for the School through class accounts that teachers create.
 
 ## 2. Roles
 

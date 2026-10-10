@@ -1,4 +1,4 @@
-# Using GradeMap in a school or district
+# Using Gradelings in a school or district
 
 Everything here is a **draft prepared for the owner**. None of it has been reviewed by a lawyer, and the contract and consent texts must be before anyone signs or sends them. Placeholders are marked `[...]`.
 
