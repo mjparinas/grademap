@@ -27,19 +27,20 @@ Billing is live only when `STRIPE_SECRET_KEY`, `STRIPE_PRICE_MONTHLY` and `STRIP
 ## 2. Database (Turso)
 
 ```bash
-turso db create grademap --location aws-us-west-2   # Oregon: closest Turso region to BC. `vercel.json` runs functions in pdx1 (Portland) to match
+turso db locations                        # confirm the Canadian locations (Montréal `yul`, Toronto `yyz`) are still listed
+turso db create grademap --location yul   # Montréal. `vercel.json` runs functions in yul1 (Montréal) to match
 turso db show grademap --url              # -> DATABASE_URL
 turso db tokens create grademap           # -> DATABASE_AUTH_TOKEN
 ```
 
-Or add Turso from the Vercel Marketplace and skip the CLI. Tables are created on first use (`CREATE TABLE IF NOT EXISTS` in `src/server/db.ts`), so there is no migration step. Create a separate database for staging.
+Turso offers Canadian locations only on its Fly provider (its AWS list has none), and a database cannot move between providers, so create it with the CLI rather than from the Vercel Marketplace unless the Marketplace lets you pick a Canadian location. Canadian hosting makes BC district privacy reviews easier (no "Supplemental Review" for storage outside Canada). Tables are created on first use (`CREATE TABLE IF NOT EXISTS` in `src/server/db.ts`), so there is no migration step. Create a separate database for staging.
 
 ## 3. Hosting (Vercel)
 
 1. Import `mjparinas/grademap`; the Next.js preset needs no changes (`npm run build`, `npm start`).
 2. Add the variables above to the Production environment. Use a separate set (test Stripe keys, a staging Turso database, `ALLOW_DEV_BILLING=1` if you want fake billing) for Preview.
 3. Add the domain, and set `NEXT_PUBLIC_SITE_URL` to match it. Redeploy so the build picks it up.
-4. Region: `vercel.json` pins functions to `pdx1` (Portland), next to Turso's Oregon region. Change both together if your users are elsewhere.
+4. Region: `vercel.json` pins functions to `yul1` (Montréal), next to Turso's Montréal location. Change both together if your users are elsewhere. Sentry (US or EU only) and Resend are not Canadian-hosted; they are listed as service providers in `/privacy/`.
 5. The daily email job is declared in `vercel.json` (`/api/cron/weekly/`, 15:00 UTC). Cron only runs on production deployments, and only once `CRON_SECRET` is set.
 
 `trailingSlash: true` is on, so every API URL ends in `/`. Don't add redirect or rewrite rules at the host that strip the slash.
