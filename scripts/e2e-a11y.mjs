@@ -133,6 +133,10 @@ for (let i = 0; Date.now() < deadline && !done; i++) {
       }
       sawRetry = true;
       await bar.getByRole("button", { name: "OK", exact: true }).click({ force: true });
+      // Wait for the retry bar to unmount and the remaining choices to unlock before
+      // attempting the next answer. Playwright's click can resolve before React commits.
+      await bar.waitFor({ state: "detached" });
+      await choices.locator(":scope:not([disabled])").first().waitFor({ state: "visible" });
     } else if (text.includes("✓")) {
       // The "correct" bar carries a tick as well as turning green (that is how we got here).
       const missed = page.locator('[data-testid="choice"].animate-shake');
