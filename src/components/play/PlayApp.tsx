@@ -21,6 +21,7 @@ import { Session } from "./Session";
 import { Shop } from "./Shop";
 import { FirstRun, Picker } from "./Start";
 import { Toasts } from "./Toasts";
+import { LessonScreen } from "./LessonScreen";
 import { TrailMap } from "./TrailMap";
 import { TrophyRoom } from "./Trophies";
 
@@ -31,6 +32,8 @@ function Screen() {
   switch (path[0]) {
     case "practice":
       return path[1] ? <UnitList key={path[1]} subject={path[1] as SubjectId} /> : <SubjectPicker />;
+    case "lesson":
+      return <LessonScreen key={query.get("scope") ?? ""} unitKey={query.get("scope") ?? ""} />;
     case "map":
       return <TrailMap />;
     case "speed":

@@ -115,6 +115,20 @@ export default async function UnitPage({ params }: Props) {
               <b>{f.curriculumName} {f.standardLabel.toLowerCase()}:</b> {unit.standards[f.id]}
             </p>
           )}
+          {unit.lesson && (
+            <div className="mt-5">
+              <h2 className="text-2xl font-bold">How we explain it</h2>
+              <p className="mt-1 font-read text-ink-soft">Children can open this short lesson before they practise.</p>
+              <ol className="mt-2 list-decimal space-y-1 pl-6 font-read text-lg">
+                {unit.lesson.steps.map((step, i) => (
+                  <li key={i}>{step}</li>
+                ))}
+              </ol>
+              <p className="mt-3 rounded-2xl bg-white p-4 font-read">
+                <b>Example:</b> {unit.lesson.example.question} {unit.lesson.example.work.join(" ")} <b>Answer: {unit.lesson.example.answer}</b>
+              </p>
+            </div>
+          )}
         </section>
         <aside className="card flex flex-col gap-3 p-5">
           <p className="text-lg font-bold">Practise this unit</p>

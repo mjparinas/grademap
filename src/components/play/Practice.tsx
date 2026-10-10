@@ -107,6 +107,11 @@ export function UnitDialog({ unitKey: key, onClose, onLocked }: { unitKey: strin
               {stat.firstTry} of {stat.attempts} right on the first try
             </p>
           )}
+          {ref.unit.lesson && (
+            <button type="button" className="btn min-h-14 text-xl" onClick={() => go("/lesson", { scope: key })}>
+              📖 How it works
+            </button>
+          )}
           <button type="button" className="btn btn-good min-h-16 text-2xl" onClick={() => go("/session", { mode: "practice", scope: key })}>
             ▶ Practice
           </button>
@@ -145,8 +150,9 @@ export function UnitList({ subject }: { subject: SubjectId }) {
     const key = unitKey(course.grade, subject, id);
     const ref = { key, course, unit: course.units.find((u) => u.id === id)! };
     if (!allowed(ref) && !assigned.has(key)) return setLocked(true);
-    // Little kids go straight in; older kids see their level and the Challenge option first.
-    if (band === "little") go("/session", { mode: "practice", scope: key });
+    // Little kids go straight in (after a first look at how it works, when the unit has a lesson);
+    // older kids see their level and the Challenge option first.
+    if (band === "little") go(ref.unit.lesson && !d.units[key] ? "/lesson" : "/session", ref.unit.lesson && !d.units[key] ? { scope: key } : { mode: "practice", scope: key });
     else setSelected(key);
   };
 
