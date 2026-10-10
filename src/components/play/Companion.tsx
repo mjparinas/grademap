@@ -1,6 +1,6 @@
 "use client";
 
-import { growthStage } from "@/lib/growth";
+import { growthStage } from "@/lib/buddy";
 import { useActiveProfile, useDerived } from "@/lib/store";
 import { Critter, type Mood } from "../Critter";
 

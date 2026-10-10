@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GROWTH_STAGES, growthStage, nextGrowthStage } from "@/lib/growth";
+import { GROWTH_STAGES, growthStage, nextGrowthStage } from "@/lib/buddy";
 import { celebrate } from "@/lib/juice";
 import { isUnlocked, SHOP, type ItemKind, type ShopItem } from "@/lib/shop";
 import { sounds } from "@/lib/sound";

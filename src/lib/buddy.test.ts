@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { GROWTH_STAGES, growthStage, nextGrowthStage } from "./growth";
+import { GROWTH_STAGES, growthStage, nextGrowthStage } from "./buddy";
 
 describe("buddy growth", () => {
   it("starts as a cub and grows at fixed levels", () => {

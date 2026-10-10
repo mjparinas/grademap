@@ -20,7 +20,7 @@ import {
 import { TRIAL_DAYS } from "./plan";
 import { celebrate, setCalmCheck } from "./juice";
 import { setHapticsCheck } from "./haptics";
-import { growthStage } from "./growth";
+import { growthStage } from "./buddy";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "./quests";
 import { getItem, isUnlocked, STARTER } from "./shop";
 import { setQuietCheck, setSoundCheck } from "./sound";
