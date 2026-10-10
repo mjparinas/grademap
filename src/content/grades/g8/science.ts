@@ -107,6 +107,11 @@ const MATTER: Item[] = [
   q(3, "Why does a gas get compressed more easily than a solid?", "There is lots of empty space between gas particles.", ["Gas particles are heavier.", "Gas particles are stuck together.", "Gas particles have no mass."], "Particles in a gas are far apart, so they can be pushed closer."),
   q(3, "At the boiling point, added heat energy is used to…", "pull the particles apart into a gas", ["raise the temperature of the liquid", "make the particles smaller", "make the liquid heavier"], "During a change of state, the temperature stays constant while energy breaks attractions between particles."),
   q(3, "Who first proposed a model of the atom with a dense, positive nucleus surrounded by electrons?", "Ernest Rutherford", ["Isaac Newton", "Marie Curie", "Charles Darwin"], "Rutherford's gold foil experiment showed that atoms have a small, dense nucleus."),
+  q(2, "Why do scientists keep changing their models of the atom?", "New evidence shows something the old model cannot explain.", ["Old models were never tested.", "Atoms change shape every year.", "Scientists vote on a new model each decade."], "A model is the best explanation we have so far. It is revised when experiments give new evidence."),
+  q(3, "Protons and neutrons are made of even smaller particles. What are they called?", "quarks", ["leptons", "photons", "molecules"], "Each proton and neutron is made of three quarks."),
+  q(3, "A proton is made of two up quarks and one down quark. How many quarks make up one proton?", "3", ["1", "2", "6"], "Two up quarks plus one down quark is three quarks."),
+  q(3, "Which of these is a lepton?", "an electron", ["a proton", "a neutron", "an atom"], "Electrons are leptons. As far as we know, they are not made of smaller parts."),
+  q(3, "Which statement about quarks and electrons is correct?", "Quarks build protons and neutrons, and electrons are a different kind of particle called leptons.", ["Quarks and electrons are both made of protons.", "Quarks orbit outside the atom like electrons.", "Electrons are made of three quarks."], "Quarks stay inside the nucleus's protons and neutrons. Electrons are leptons and move around the nucleus."),
 ];
 
 const MATTER_SORT: SortSet = {
@@ -282,9 +287,9 @@ export const course: Course = {
       title: "Particles & Matter",
       emoji: "⚛️",
       blurb: "Kinetic theory and the atom",
-      standards: { "ca-bc": "Kinetic molecular theory and atomic theory; states of matter, physical and chemical changes" },
+      standards: { "ca-bc": "Kinetic molecular theory and atomic theory; models of the atom, protons, neutrons, quarks, electrons and leptons; states of matter, physical and chemical changes" },
       parentNote:
-        "How the movement of particles explains solids, liquids and gases and changes of state, the parts of an atom, elements and compounds, and telling physical from chemical changes.",
+        "How the movement of particles explains solids, liquids and gases and changes of state, the parts of an atom (including the quarks inside protons and neutrons, and electrons as leptons), elements and compounds, and telling physical from chemical changes.",
       generate: unit(MATTER, [MATTER_SORT]),
     },
     {
