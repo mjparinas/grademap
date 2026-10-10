@@ -11,6 +11,7 @@ export async function DELETE(req: Request) {
   if (!sameOrigin(req)) return error(403, "Bad origin");
   const session = await getSession(req);
   if (!session) return error(401, "Not signed in");
+  if (session.coParent) return error(403, "Only the account owner can do this.");
   const f = session.familyId;
   // Deleting is permanent, so it asks for the password again.
   if (await rateLimited(`delete:${session.parentId}:${clientIp(req)}`, 5, 60 * 60_000)) return error(429, "Too many attempts. Try again later.");

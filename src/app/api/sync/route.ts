@@ -151,6 +151,6 @@ export async function POST(req: Request) {
     profiles: profiles.map((r) => JSON.parse(r.data)),
     settings: settings.map((r) => JSON.parse(r.data)),
     classwork: await familyClasswork(family),
-    family: famRow ? toFamilyInfo(famRow, session.email, session.verified, session.student) : undefined,
+    family: famRow ? toFamilyInfo(famRow, session.email, session.verified, session.student, session.coParent) : undefined,
   });
 }

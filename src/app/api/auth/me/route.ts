@@ -7,5 +7,5 @@ export async function GET(req: Request) {
   if (!session) return error(401, "Not signed in");
   const row = await getFamilyRow(session.familyId);
   if (!row) return error(401, "Not signed in");
-  return json({ family: toFamilyInfo(row, session.email, session.verified, session.student), billing: { stripe: stripeConfigured(), dev: devBillingAllowed() } });
+  return json({ family: toFamilyInfo(row, session.email, session.verified, session.student, session.coParent), billing: { stripe: stripeConfigured(), dev: devBillingAllowed() } });
 }

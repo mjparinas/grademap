@@ -9,6 +9,7 @@ export async function POST(req: Request) {
   if (!sameOrigin(req)) return error(403, "Bad origin");
   const session = await getSession(req);
   if (!session) return error(401, "Please sign in first.");
+  if (session.coParent) return error(403, "Only the account owner can do this.");
   const body = (await req.json().catch(() => ({}))) as { action?: string; interval?: string };
   const now = Date.now();
   if (body.action === "cancel") {
@@ -22,5 +23,5 @@ export async function POST(req: Request) {
     );
   }
   const row = await getFamilyRow(session.familyId);
-  return json({ family: toFamilyInfo(row!, session.email, session.verified) });
+  return json({ family: toFamilyInfo(row!, session.email, session.verified, false, session.coParent) });
 }

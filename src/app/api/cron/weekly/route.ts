@@ -80,7 +80,7 @@ export async function GET(req: Request) {
   // Mid-trial recap, once, 4 to 10 days before the trial ends, only when a child has practised.
   const recaps = await query<{ id: string; email: string; family_id: string; trial_ends_at: number }>(
     `SELECT p.id, p.email, p.family_id, f.trial_ends_at FROM parents p JOIN families f ON f.id = p.family_id
-     WHERE p.email_verified_at IS NOT NULL AND p.trial_recap_at IS NULL AND p.trial_notice_at IS NULL AND f.plan = 'trial'
+     WHERE p.role = 'parent' AND p.email_verified_at IS NOT NULL AND p.trial_recap_at IS NULL AND p.trial_notice_at IS NULL AND f.plan = 'trial'
        AND f.subscription_status IS NULL AND f.trial_ends_at > ? AND f.trial_ends_at <= ?`,
     [now + 3 * DAY, now + 10 * DAY],
   );
@@ -102,7 +102,7 @@ export async function GET(req: Request) {
   // Trial ending within 3 days, not subscribed, not told yet.
   const trials = await query<{ id: string; email: string; family_id: string; trial_ends_at: number }>(
     `SELECT p.id, p.email, p.family_id, f.trial_ends_at FROM parents p JOIN families f ON f.id = p.family_id
-     WHERE p.email_verified_at IS NOT NULL AND p.trial_notice_at IS NULL AND f.plan = 'trial'
+     WHERE p.role = 'parent' AND p.email_verified_at IS NOT NULL AND p.trial_notice_at IS NULL AND f.plan = 'trial'
        AND f.subscription_status IS NULL AND f.trial_ends_at > ? AND f.trial_ends_at <= ?`,
     [now, now + 3 * DAY],
   );

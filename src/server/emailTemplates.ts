@@ -61,6 +61,21 @@ export function verifyEmail(to: string, origin: string, token: string): Email {
   });
 }
 
+export function coParentInviteEmail(to: string, origin: string, inviterEmail: string, token: string): Email {
+  return layout({
+    to,
+    origin,
+    subject: `${inviterEmail} invited you to ${APP_NAME}`,
+    heading: `Join ${inviterEmail} on ${APP_NAME}`,
+    body: [
+      "You've been invited to see your family's learning progress: reports, milestones and weekly emails.",
+      "You won't be able to change billing or delete the account. Only the person who invited you can do that.",
+    ],
+    button: { label: "Accept the invitation", url: `${origin}/account/join/?token=${encodeURIComponent(token)}` },
+    footnote: "This link works for 7 days. If you weren't expecting it, you can ignore this email; nothing happens unless you accept.",
+  });
+}
+
 export function resetEmail(to: string, origin: string, token: string): Email {
   return layout({
     to,

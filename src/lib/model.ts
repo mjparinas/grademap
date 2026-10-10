@@ -69,6 +69,8 @@ export interface FamilyInfo {
     familyId: string;
     /** Has the parent confirmed their email address? */
     verified?: boolean;
+    /** Another adult invited to this family: no billing and no account deletion. */
+    coParent?: boolean;
     /** A class account a teacher made for this child: no parent area, no billing, no email. */
     student?: boolean;
   };

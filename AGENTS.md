@@ -215,6 +215,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Easier reading options** (per child, off by default): roomy text and high contrast, next to the calm options.
 - **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email. Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
 - **Trial emails:** a confirmed parent gets one mid-trial recap 4 to 10 days before the trial ends (only if a child has practised), then the existing "trial ends soon" notice repeats the recap. First names and practice totals only, framed as practice, not a mark.
+- **Other adults:** the account owner can invite up to two more adults by email (`family_invites`, `src/server/familyMembers.ts`, `/api/family/*`, join page `/account/join/`). They become `parents` rows with `role = 'coparent'` in the same family, with their own login and PIN, and see and sync the same children. A co-parent cannot use billing, delete the account or invite others (`session.coParent`), and gets no trial or billing emails. Removing or leaving deletes only their login; the children's data belongs to the family.
 - **Share a report:** a parent can create a read-only link (30 days, revocable) to one child's report. It is served from `/shared/{token}/`, never indexed.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 
