@@ -25,7 +25,7 @@ The web manifest is unchanged. The package id `ca.grademap.app` is in two places
 Nothing here can be done from code; each step needs an account, a key or a domain.
 
 1. **Deploy to the production domain first** (`docs/DEPLOY.md`). The TWA verifies the site over the network, so localhost or a preview URL won't do.
-2. **Set the real domain.** In `android/twa-manifest.json`, replace `grademap.ca` in `host`, `iconUrl`, `maskableIconUrl` and `webManifestUrl` if the domain is different. It should match `NEXT_PUBLIC_SITE_URL`.
+2. **Set the real domain.** In `android/twa-manifest.json`, `host`, `iconUrl`, `maskableIconUrl` and `webManifestUrl` use `gradelings.com`. Keep them matched to `NEXT_PUBLIC_SITE_URL`.
 3. **Create a Google Play Console developer account** (play.google.com/console; a one-time fee and identity verification). Check Google's current rules for new accounts: a personal account may have to run a closed test with a minimum number of testers for a set time before it can publish to production.
 4. **Create the upload key** (keep the file and passwords in a password manager; never commit them):
    ```bash
