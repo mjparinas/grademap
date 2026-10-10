@@ -10,21 +10,24 @@ delete process.env.RESEND_API_KEY;
 delete process.env.NEXT_PUBLIC_SITE_URL;
 
 type Mod = Record<string, (req: Request) => Promise<Response>>;
-let signup: Mod, verify: Mod, sync: Mod, share: Mod, prefs: Mod, unsub: Mod, cron: Mod, feedback: Mod;
+let signup: Mod, verify: Mod, login: Mod, sync: Mod, share: Mod, prefs: Mod, unsub: Mod, cron: Mod, feedback: Mod, classes: Mod, students: Mod;
 let dbm: typeof import("@/server/db");
 let email: typeof import("@/server/email");
 let reportData: typeof import("@/server/reportData");
 
 beforeAll(async () => {
-  [signup, verify, sync, share, prefs, unsub, cron, feedback] = (await Promise.all([
+  [signup, verify, login, sync, share, prefs, unsub, cron, feedback, classes, students] = (await Promise.all([
     import("@/app/api/auth/signup/route"),
     import("@/app/api/auth/verify/route"),
+    import("@/app/api/auth/login/route"),
     import("@/app/api/sync/route"),
     import("@/app/api/share/route"),
     import("@/app/api/account/prefs/route"),
     import("@/app/api/email/unsubscribe/route"),
     import("@/app/api/cron/weekly/route"),
     import("@/app/api/feedback/route"),
+    import("@/app/api/classes/route"),
+    import("@/app/api/classes/students/route"),
   ])) as unknown as Mod[];
   dbm = await import("@/server/db");
   email = await import("@/server/email");
@@ -209,6 +212,58 @@ describe("daily email job", () => {
     const n = notices.length;
     await run();
     expect(email.outbox().filter((m) => m.subject.includes("free trial ends")).length).toBe(n);
+  });
+
+  it("warns after 11 months and deletes an inactive class after 12 months", async () => {
+    const teacher = await family("inactive-class@example.com");
+    const { class: cls } = await (await classes.POST(req("/api/classes/", "POST", { name: "Room 7", grade: "2" }, teacher.cookie))).json();
+    const { students: made } = await (await students.POST(req("/api/classes/students/", "POST", { classId: cls.id, names: ["Riley"] }, teacher.cookie))).json();
+    const student = (await dbm.query<{ family_id: string; profile_id: string }>("SELECT family_id, profile_id FROM students WHERE class_id = ?", [cls.id]))[0];
+    await dbm.run("INSERT INTO events (id, family_id, profile_id, t, data) VALUES (?, ?, ?, ?, ?)", ["inactive-student-event", student.family_id, student.profile_id, Date.now(), JSON.stringify({ type: "answer" })]);
+    await dbm.run("INSERT INTO class_assignments (class_id, unit_key, created_at) VALUES (?, ?, ?)", [cls.id, "2/math/tens-and-ones", Date.now()]);
+    await dbm.run("INSERT INTO class_members (class_id, profile_id, family_id, joined_at) VALUES (?, ?, ?, ?)", [cls.id, teacher.ids[0], teacher.familyId, Date.now()]);
+
+    const year = 365.25 * 86_400_000;
+    const now = Date.now() + 2 * year;
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(now);
+    await dbm.run("UPDATE classes SET last_activity_at = ?, inactive_warning_at = NULL WHERE id = ?", [now - (11 / 12) * year, cls.id]);
+
+    const firstRun = await (await run()).json();
+    expect(firstRun.inactiveClassWarnings).toBe(1);
+    expect(firstRun.inactiveClassesDeleted).toBe(0);
+    const warning = email.outbox().filter((m) => m.to === "inactive-class@example.com" && m.subject.includes("deleted in 1 month")).at(-1)!;
+    expect(warning.text).toContain("Room 7");
+    expect(warning.text).toContain("sign in to your teacher account");
+    expect((await (await run()).json()).inactiveClassWarnings).toBe(0);
+    expect(email.outbox().filter((m) => m.to === "inactive-class@example.com" && m.subject.includes("deleted in 1 month"))).toHaveLength(1);
+
+    vi.setSystemTime(now + 31 * 86_400_000);
+    const expired = await (await run()).json();
+    expect(expired.inactiveClassesDeleted).toBe(1);
+    expect(expired.studentsDeleted).toBe(1);
+    expect(await dbm.query("SELECT id FROM classes WHERE id = ?", [cls.id])).toHaveLength(0);
+    expect(await dbm.query("SELECT unit_key FROM class_assignments WHERE class_id = ?", [cls.id])).toHaveLength(0);
+    expect(await dbm.query("SELECT id FROM students WHERE class_id = ?", [cls.id])).toHaveLength(0);
+    expect(await dbm.query("SELECT id FROM profiles WHERE id = ?", [student.profile_id])).toHaveLength(0);
+    expect(await dbm.query("SELECT id FROM events WHERE id = ?", ["inactive-student-event"])).toHaveLength(0);
+    expect(await dbm.query("SELECT profile_id FROM class_members WHERE class_id = ?", [cls.id])).toHaveLength(0);
+    // A parent-linked child's own family account and data are retained.
+    expect(await dbm.query("SELECT id FROM profiles WHERE id = ?", [teacher.ids[0]])).toHaveLength(1);
+    expect(await dbm.query("SELECT id FROM events WHERE profile_id = ?", [teacher.ids[0]])).toHaveLength(10);
+    expect(made).toHaveLength(1);
+  });
+
+  it("resets the inactivity clock and cancels a warning when the teacher signs in", async () => {
+    const teacher = await family("inactive-signin@example.com");
+    const { class: cls } = await (await classes.POST(req("/api/classes/", "POST", { name: "Room 9", grade: "2" }, teacher.cookie))).json();
+    const now = Date.now();
+    await dbm.run("UPDATE classes SET last_activity_at = ?, inactive_warning_at = ? WHERE id = ?", [now - 400 * 86_400_000, now - 1, cls.id]);
+
+    expect((await login.POST(req("/api/auth/login/", "POST", { email: "inactive-signin@example.com", password: "correct horse" }))).status).toBe(200);
+    const row = (await dbm.query<{ last_activity_at: number; inactive_warning_at: number | null }>("SELECT last_activity_at, inactive_warning_at FROM classes WHERE id = ?", [cls.id]))[0];
+    expect(Math.abs(row.last_activity_at - Date.now())).toBeLessThan(1000);
+    expect(row.inactive_warning_at).toBeNull();
   });
 });
 

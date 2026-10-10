@@ -74,6 +74,9 @@ export default function PrivacyPage() {
           <strong>Deleting it:</strong> when a teacher removes a student, closes a class or deletes their account, the related students’ accounts and practice history are deleted from our live systems straight away. A student’s device is cleared when they sign out.
         </p>
         <p>
+          Classes with no sign-in by the teacher, a linked family or a class student for 11 months receive a warning email to the teacher. After 12 months without a sign-in, we delete the class, its assignments and class-account student data automatically. A parent-linked child is unlinked, but their family account and practice history stay. Backups expire on the database provider’s schedule.
+        </p>
+        <p>
           <strong>Responsibility:</strong> a school or teacher decides whether to use {APP_NAME} with students and is responsible for telling families and getting any consent its own rules require, including the duties of public schools in British Columbia under the Freedom of Information and Protection of Privacy Act (FIPPA) and of Ontario schools under their own privacy laws. For those uses we handle students’ information only to run the service for the school. If a breach affects a school’s students we will tell the school promptly so it can meet its own duties. Schools or districts that need a signed data agreement or privacy answers for a privacy impact assessment can email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
         </p>
       </Section>

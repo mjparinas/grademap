@@ -2,13 +2,18 @@ import { loadChildReport, familyProfileIds } from "@/server/reportData";
 import { secretsMatch, unsubscribeToken } from "@/server/auth";
 import { query, run } from "@/server/db";
 import { sendEmail } from "@/server/email";
-import { reminderEmail, trialEndingEmail, weeklyEmail, type ReminderChild, type WeeklyChild } from "@/server/emailTemplates";
+import { inactiveClassEmail, reminderEmail, trialEndingEmail, weeklyEmail, type ReminderChild, type WeeklyChild } from "@/server/emailTemplates";
+import { deleteInactiveClass } from "@/server/students";
 
 // Runs once a day (see vercel.json). Vercel sends `Authorization: Bearer $CRON_SECRET`.
 // Every day: a "trial ends soon" notice to confirmed parents, once. On Sundays: the weekly report
 // to parents who opted in. Every day: a gentle practice reminder, to opted-in parents only, at most once a week.
 
 const DAY = 86_400_000;
+const YEAR = 365.25 * DAY;
+const MONTH = YEAR / 12;
+const INACTIVE_WARNING_AGE = (11 / 12) * YEAR;
+const INACTIVE_DELETE_AGE = YEAR;
 export const maxDuration = 300;
 
 export async function GET(req: Request) {
@@ -16,7 +21,49 @@ export async function GET(req: Request) {
   if (!secret || !secretsMatch(req.headers.get("authorization") ?? "", `Bearer ${secret}`)) return new Response("Unauthorized", { status: 401 });
   const origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "") || new URL(req.url).origin;
   const now = Date.now();
-  const result = { trialNotices: 0, weekly: 0, reminders: 0 };
+  const result = { trialNotices: 0, weekly: 0, reminders: 0, inactiveClassWarnings: 0, inactiveClassesDeleted: 0, studentsDeleted: 0 };
+
+  // Warn teachers after 11 months without a sign-in. Only mark a warning as sent when email
+  // delivery succeeds, so a missing mail provider cannot silently bypass the warning.
+  const inactiveForWarning = await query<{ id: string; name: string; email: string; owner_parent_id: string; delete_at: number }>(
+    `SELECT c.id, c.name, p.email, c.owner_parent_id, c.last_activity_at + ? AS delete_at
+     FROM classes c JOIN parents p ON p.id = c.owner_parent_id
+     WHERE c.closed_at IS NULL AND c.inactive_warning_at IS NULL AND p.email_verified_at IS NOT NULL
+       AND c.last_activity_at <= ?`,
+    [INACTIVE_DELETE_AGE, now - INACTIVE_WARNING_AGE],
+  );
+  for (const cls of inactiveForWarning) {
+    // Give already-expired classes a full month's notice when this policy is first deployed.
+    const deleteAt = Math.max(Number(cls.delete_at), now + MONTH);
+    const deleteDate = new Date(deleteAt).toISOString().slice(0, 10);
+    const claimed = await run(
+      `UPDATE classes SET inactive_warning_at = ? WHERE id = ? AND closed_at IS NULL
+         AND inactive_warning_at IS NULL AND last_activity_at <= ?`,
+      [now, cls.id, now - INACTIVE_WARNING_AGE],
+    );
+    if (!claimed) continue;
+    const sent = await sendEmail(inactiveClassEmail(cls.email, origin, cls.name, deleteDate));
+    if (!sent.ok) {
+      // Let tomorrow's run retry, unless a sign-in already reset the inactivity window.
+      await run("UPDATE classes SET inactive_warning_at = NULL WHERE id = ? AND inactive_warning_at = ? AND last_activity_at <= ?", [cls.id, now, now - INACTIVE_WARNING_AGE]);
+    } else {
+      result.inactiveClassWarnings++;
+    }
+  }
+
+  // Only delete after a warning was successfully sent and the full 12-month period has elapsed.
+  const inactiveToDelete = await query<{ id: string }>(
+    `SELECT id FROM classes WHERE closed_at IS NULL AND inactive_warning_at IS NOT NULL
+       AND inactive_warning_at <= ? AND last_activity_at <= ?`,
+    [now - MONTH, now - INACTIVE_DELETE_AGE],
+  );
+  for (const cls of inactiveToDelete) {
+    const deleted = await deleteInactiveClass(cls.id, now - INACTIVE_DELETE_AGE, now - MONTH);
+    if (deleted.deleted) {
+      result.studentsDeleted += deleted.students;
+      result.inactiveClassesDeleted++;
+    }
+  }
 
   // Trial ending within 3 days, not subscribed, not told yet.
   const trials = await query<{ id: string; email: string; trial_ends_at: number }>(

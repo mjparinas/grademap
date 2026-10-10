@@ -14,7 +14,7 @@ This year our class is using **GradeMap** for extra practice in `[math, reading 
 
 **Who sees it.** Only me, as the teacher who runs the class, and only your child's first name, grade and results on the units I assign. The service runs in Montréal, Canada. Its full privacy policy is at `[https://gradelings.com/privacy/]`.
 
-**Your choices.** You may say no, and your child will do the same learning another way. You may ask to see or delete what is kept about your child at any time by contacting me or `[CONTACT_EMAIL]`. When the school year ends or I remove your child from the class, their information is deleted.
+**Your choices.** You may say no, and your child will do the same learning another way. You may ask to see or delete what is kept about your child at any time by contacting me or `[CONTACT_EMAIL]`. When I remove your child from the class, their information is deleted. If the class has no sign-in for 11 months, the teacher receives a warning; after 12 months without a sign-in, the class and its class-account student information are deleted automatically. Parent-linked children are unlinked, and their family information stays with their family account.
 
 **At home.** If you would like your child to use Gradelings at home, you can make your own free family account at `[https://gradelings.com/play/]`. That account is separate from the class login and belongs to you.
 
