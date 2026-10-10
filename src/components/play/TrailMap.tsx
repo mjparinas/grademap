@@ -27,7 +27,7 @@ export function TrailMap() {
   const d = useDerived();
   const band = useBand();
   const allowed = useAllowed();
-  const courses = coursesForGrade(profile.grade).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
+  const courses = coursesForGrade(profile.grade, profile.framework).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
   const [subject, setSubject] = useState<SubjectId | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
