@@ -21,6 +21,8 @@ const range = (from: GradeId, to: GradeId) => GRADE_ORDER.slice(GRADE_ORDER.inde
 const FRENCH_GRADES: Record<FrameworkId, { immersion: GradeId[]; "core-french": GradeId[] }> = {
   "ca-bc": { immersion: range("k", "9"), "core-french": range("5", "9") },
   "ca-on": { immersion: range("1", "9"), "core-french": range("4", "9") },
+  // Saskatchewan French is not built yet (see docs/research/saskatchewan/README.md).
+  "ca-sk": { immersion: [], "core-french": [] },
 };
 
 const units = (framework: FrameworkId, grade: GradeId, subject: string) =>

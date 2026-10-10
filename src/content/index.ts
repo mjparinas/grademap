@@ -38,6 +38,18 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "8": () => import("./ontario/g8"),
     "9": () => import("./ontario/g9"),
   },
+  "ca-sk": {
+    k: () => import("./saskatchewan/k"),
+    "1": () => import("./saskatchewan/g1"),
+    "2": () => import("./saskatchewan/g2"),
+    "3": () => import("./saskatchewan/g3"),
+    "4": () => import("./saskatchewan/g4"),
+    "5": () => import("./saskatchewan/g5"),
+    "6": () => import("./saskatchewan/g6"),
+    "7": () => import("./saskatchewan/g7"),
+    "8": () => import("./saskatchewan/g8"),
+    "9": () => import("./saskatchewan/g9"),
+  },
 };
 
 /** What a child needs downloaded: a grade in a framework. */
@@ -67,6 +79,23 @@ export interface UnitRef {
   unit: Unit;
 }
 
+/** Joins two unit lists. A unit both lists have (same id) appears once, with the standards from both. */
+function mergeUnits(a: Unit[], b: Unit[]): Unit[] {
+  const out = [...a];
+  for (const u of b) {
+    const i = out.findIndex((x) => x.id === u.id);
+    out[i < 0 ? out.length : i] = i < 0 ? u : { ...out[i], standards: { ...out[i].standards, ...u.standards } };
+  }
+  return out;
+}
+
+/** Joins two share maps. A unit shared by several frameworks keeps the standards from each. */
+function mergeShares(a: Course["shares"], b: Course["shares"]): Course["shares"] {
+  const out = { ...a };
+  for (const [id, share] of Object.entries(b ?? {})) out[id] = { standards: { ...out[id]?.standards, ...share.standards } };
+  return out;
+}
+
 /** Joins courses of the same subject, so a framework's own units sit beside the shared ones. */
 export function mergeCourses(lists: Course[][]): Course[] {
   const out: Course[] = [];
@@ -80,8 +109,8 @@ export function mergeCourses(lists: Course[][]): Course[] {
     out[i] = {
       ...base,
       bigIdeas: { ...base.bigIdeas, ...course.bigIdeas },
-      units: [...base.units, ...course.units],
-      shares: { ...base.shares, ...course.shares },
+      units: mergeUnits(base.units, course.units),
+      shares: mergeShares(base.shares, course.shares),
       order: { ...base.order, ...course.order },
     };
   }
