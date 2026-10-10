@@ -4,7 +4,7 @@ The Android app is a **Trusted Web Activity (TWA)**: a small shell, built with [
 
 ## Why a TWA and not Capacitor
 
-- GradeMap is already an installable PWA with a service worker and a manifest (`src/app/manifest.ts`), and `AGENTS.md` says not to add features that only work in a native shell.
+- Gradelings is already an installable PWA with a service worker and a manifest (`src/app/manifest.ts`), and `AGENTS.md` says not to add features that only work in a native shell.
 - Nothing in the code needs a native API. Read-aloud uses the Web Speech API, vibration uses `navigator.vibrate`, sound is synthesized, and there are no push notifications, camera or file access. All of these work inside a TWA, which uses the device's own Chrome.
 - Capacitor bundles its own WebView and a copy of the web files. That means a second release process and the risk of the app and site drifting apart. Revisit only if a native-only feature is ever approved (for example Play Billing, see below).
 - One package serves phones, tablets and Chromebooks. The web manifest has `orientation: any` (Bubblewrap `default`), and the layouts are already tested on phones and tablets in both orientations (`scripts/e2e-devices.mjs`).

@@ -1,6 +1,6 @@
-# Deploying GradeMap
+# Deploying Gradelings
 
-GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This guide covers a Vercel + Turso + Resend + Sentry + Stripe setup. Nothing here is done yet; each step needs an account or key only the owner can create.
+Gradelings is a standard Next.js 16 app (Node runtime, no custom server). This guide covers a Vercel + Turso + Resend + Sentry + Stripe setup. Nothing here is done yet; each step needs an account or key only the owner can create.
 
 **Can it all live in Vercel?** Nearly. Vercel hosts the app, preview deployments, environment variables and the daily cron job. Its **Marketplace** adds **Turso** (database), **Resend** (email) and **Sentry** (errors) from the dashboard, fills in their environment variables and puts them on one bill. Two things stay outside: **Stripe** (keys and webhook) and your **domain registrar** (you can buy the domain in Vercel or point DNS to it). Use a **Pro** plan: Hobby doesn't allow commercial use.
 
@@ -17,7 +17,8 @@ GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This gui
 | `STRIPE_WEBHOOK_SECRET` | For billing | Signing secret of the webhook endpoint (`whsec_…`). |
 | `RESEND_API_KEY` | For email | Resend API key. Without it no email is sent (password reset and confirmation links won't arrive), so treat it as required in production. |
 | `EMAIL_FROM` | For email | Sender, e.g. `Gradelings <hello@gradelings.com>`. The domain must be verified in Resend (add its SPF and DKIM DNS records). |
-| `CRON_SECRET` | For the daily job | Any long random string. Vercel sends it as `Authorization: Bearer …` to `/api/cron/weekly/`; the route refuses calls without it. |
+| `CRON_SECRET` | For the daily job | Any long random string. Vercel sends it as `Authorization: Bearer …` to `/api/cron/weekly/`; the route refuses calls without it. The job sends inactive-class warnings and deletes eligible classes as well as handling email reminders. |
+| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | Optional | Turn on the Sunday "weekly report is ready" browser notification for grown-ups. Generate a P-256 pair once: `node -e "const c=require('crypto');const k=c.generateKeyPairSync('ec',{namedCurve:'prime256v1'});const j=k.privateKey.export({format:'jwk'});console.log('VAPID_PUBLIC_KEY='+Buffer.concat([Buffer.from([4]),Buffer.from(j.x,'base64url'),Buffer.from(j.y,'base64url')]).toString('base64url'));console.log('VAPID_PRIVATE_KEY='+j.d)"`. Without them the toggle is hidden. Keep the private key secret; never change the public key once parents have subscribed. |
 | `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` | Optional | Turns on error reports (server / browser). Off when unset. Reports are scrubbed of emails, cookies and request bodies before they leave (`src/lib/sentry-scrub.ts`). |
 | `ANDROID_CERT_SHA256` | For the Android app | Comma-separated SHA-256 fingerprints of the app's signing keys (Google's Play App Signing key first). Served at `/.well-known/assetlinks.json`. See `docs/ANDROID.md`. |
 | `ALLOW_DEV_BILLING` | Staging only | `1` lets a deployment without Stripe keys use the simulated billing. **Never set in production.** |
@@ -42,13 +43,14 @@ Turso offers Canadian locations only on its Fly provider (its AWS list has none)
 2. Add the variables above to the Production environment. Use a separate set (test Stripe keys, a staging Turso database, `ALLOW_DEV_BILLING=1` if you want fake billing) for Preview.
 3. Add the domain, and set `NEXT_PUBLIC_SITE_URL` to match it. Redeploy so the build picks it up.
 4. Region: `vercel.json` pins functions to `yul1` (Montréal), next to Turso's Montréal location. Change both together if your users are elsewhere. Sentry (US or EU only) and Resend are not Canadian-hosted; they are listed as service providers in `/privacy/`.
-5. The daily email job is declared in `vercel.json` (`/api/cron/weekly/`, 15:00 UTC). Cron only runs on production deployments, and only once `CRON_SECRET` is set.
+5. Preview deployments are off: `ignoreCommand` in `vercel.json` skips every build except the `main` branch, so pull requests don't use up the daily deployment limit. To preview a branch, temporarily remove that line.
+6. The daily email job is declared in `vercel.json` (`/api/cron/weekly/`, 15:00 UTC). Cron only runs on production deployments, and only once `CRON_SECRET` is set.
 
 `trailingSlash: true` is on, so every API URL ends in `/`. Don't add redirect or rewrite rules at the host that strip the slash.
 
 ## 4. Stripe
 
-1. Create a product "GradeMap Family" with two recurring prices in CAD: **C$14.99 / month** and **C$119.99 / year**. Copy their ids to `STRIPE_PRICE_MONTHLY` and `STRIPE_PRICE_YEARLY`. (Plan numbers live in `src/lib/plan.ts`.)
+1. Create a product "Gradelings Family" with two recurring prices in CAD: **C$14.99 / month** and **C$119.99 / year**. Copy their ids to `STRIPE_PRICE_MONTHLY` and `STRIPE_PRICE_YEARLY`. (Plan numbers live in `src/lib/plan.ts`.)
 2. Add a webhook endpoint: `https://<your-domain>/api/billing/webhook/`
    **The trailing slash is required.** Stripe does not follow redirects.
    Events: `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`.

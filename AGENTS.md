@@ -8,9 +8,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# GradeMap: guide for agents
+# Gradelings: guide for agents
 
-GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 9. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
+Gradelings is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 9. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
 
 ## Commands
 
@@ -70,7 +70,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - giving kind, encouraging feedback;
   - making it as compelling as a good video game.
   - Research is in `docs/research/`.
-- **Name:** "GradeMap" is a working name. It is set once in `src/lib/brand.ts`; never hard-code it elsewhere. The name was chosen because it works across provinces and countries.
+- **Name:** "Gradelings" is a working name. It is set once in `src/lib/brand.ts`; never hard-code it elsewhere. The name was chosen because it works across provinces and countries.
 - **Platform:** a web-first installable app (PWA) built with Next.js. Android is a Trusted Web Activity that wraps `/play/` (`android/`, `docs/ANDROID.md`), not Capacitor. Don't add features that only work in a native shell.
 
 ### Money
@@ -88,9 +88,16 @@ Tests are duplicated across screen sizes only where layout can break:
 - **No BC-specific wording in UI code.** Read names from the framework, such as `curriculumName` and the level labels.
   - Public URLs are `/curriculum/{framework-slug}/{grade-slug}/{subject}/{unit}/`, `/guides/{framework-slug}/...` and `/report-cards/{framework-slug}/`.
 - **Adding a province or state** means adding a `Framework` and its standards, not new screens (`docs/ADDING_A_PROVINCE.md`). BC content follows the BC curriculum; Ontario follows the Ontario curriculum; any other province or state follows its own official curriculum, with its own spelling rules (Canadian spelling in every Canadian province).
-- **Frameworks now: British Columbia (`ca-bc`, slug `bc`) and Ontario (`ca-on`, slug `ontario`).** Both cover Kindergarten to Grade 9 in math, language, science, social studies and the two French subjects. A parent picks the province per child (when adding the child, in Children and in Settings). Progress is shared between provinces for shared unit ids.
+- **Frameworks now: British Columbia (`ca-bc`, slug `bc`), Ontario (`ca-on`, slug `ontario`) and Saskatchewan (`ca-sk`, slug `saskatchewan`, no French).** BC and Ontario cover Kindergarten to Grade 9 in math, language, science, social studies and the two French subjects. A parent picks the province per child (when adding the child, in Children and in Settings). Progress is shared between provinces for shared unit ids.
 - **Whenever you create or change content, apply it to every framework.** If you add a unit, grade, subject, guide, trophy, quest or page for one province, add the matching one for every other province and state in the same change, or say plainly in the PR which framework is still missing and why. If you change how a grade works (its units, French, scoring, wording), check that grade in every framework, because grade changes apply across regions. `src/content/coverage.test.ts` fails when a framework is missing a grade, a core subject, Big Ideas or French in a grade its province teaches; extend its tables when you add a framework.
 - **All sales, call-to-action and marketing copy says "Kindergarten to Grade 9"** and names both provinces. Prefer reading the grade range and province names from `FRAMEWORKS` over typing them. When the range changes, search the repo for the old range (`README.md`, pricing, help FAQs, metadata, manifest, share image, guides, compare pages, terms, plan features) and update every hit.
+
+### Saskatchewan
+- **Framework `ca-sk`, slug `saskatchewan`**, Kindergarten to Grade 9 in math, language, science and social studies. Standards are outcomes cited by code, checked by `content.test.ts` against `docs/research/saskatchewan/outcomes.json` (record: `docs/research/saskatchewan/README.md`).
+- **Scoring:** no single provincial scale, so one four-level scheme (Beginning, Approaching, Meeting, Exemplary) with the usual kid labels. Same "practice, not a report-card mark" rule.
+- **French is not built** for Saskatchewan (no French guide; the guides test only requires one where a framework has French).
+- **Shared units:** BC units via `share(...)`, Ontario units via `reuse(...)`, plus Saskatchewan-only units in `src/content/saskatchewan/`. Known gaps (French, partly covered outcomes, review needs) are listed in the research README.
+- **First Nations, Métis and treaty content** is light and needs partner review.
 
 ### Ontario
 - **Standards** are the expectations in the Ontario Curriculum, cited by code (for example "History A1.1"; Grades 7 and 8 name the subject because Geography and History reuse strand letters). `content.test.ts` checks every code against `docs/research/ontario/expectations.json`. Source and checking record: `docs/research/ontario/`.
@@ -165,7 +172,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **The tone is soft:** a gentle "try again" sound, not a buzzer, and encouraging messages. Never shame a child.
 
 ### Timers and the learn-to-play loop
-- **Daily goal timer:** 10 minutes for little kids, 15 for everyone else. A session timer appears in timed modes, and the elapsed timer is optional (`showTimer`).
+- **Daily goal timer:** 10 minutes for little kids, 15 for everyone else. A child can tap the minutes on the home screen to pick Easy (about two thirds), Regular (the parent's goal) or Stretch (a third more) for the day (`src/lib/goal.ts`, a `goal` event). Finishing a Stretch goal earns +15 coins once a day. Parents can turn the choice off in Settings. A session timer appears in timed modes, and the elapsed timer is optional (`showTimer`).
 - **Learning earns arcade time,** Pomodoro-style. The default is 20 minutes of learning for 5 minutes of games, with a cap of 20 game minutes a day.
   - Parents can change all of these, turn games off, or allow free play (`src/lib/gametime.ts`).
 - **Learning time is counted per answer, capped at 60 seconds,** so leaving the app open doesn't earn time.
@@ -195,6 +202,8 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Streaks:** a day counts if the child finishes a session or gives at least 5 answers. Every 7 practice days earns a rest-day shield (up to 2) that covers a missed day, so one slip doesn't erase a long streak. Shields are computed in `derive`, never stored.
 - **Shop unlocks:** some items need a level or trophy as well as coins (`unlock` in `src/lib/shop.ts`).
 - **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
+- **"Almost there" card:** the home screen shows the started unit closest to its next level ("2 right answers to grow into 🌳 Tree", `questionsToNextLevel`, `src/lib/nextup.ts`). Units that need a Challenge for the next level are skipped.
+- **"Quick refresher" card:** a unit the child reached Proficient in and hasn't touched for 14 days gets a card from that subject's guide ("Hoot remembers you were great at Fractions", `refresherUnit`). It opens normal practice; scoring is unchanged and nothing says anything was lost.
 - **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
 ### Arcade games
@@ -214,7 +223,12 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Calm and focus options** (per child, all off by default, in Settings): calm motion, quiet sounds, hide timers, hold trophy pop-ups until after the lesson, and shorter sessions (5 questions). They change presentation only; scoring is unchanged. They exist for children who find motion, noise or time pressure hard, including many with ADHD. Never make health claims about them.
 - **Easier reading options** (per child, off by default): roomy text and high contrast, next to the calm options.
 - **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email. Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
+- **Trial emails:** a confirmed parent gets one mid-trial recap 4 to 10 days before the trial ends (only if a child has practised), then the existing "trial ends soon" notice repeats the recap. First names and practice totals only, framed as practice, not a mark.
+- **Weekly-report notification:** a parent can allow a browser notification on Sundays (Account & sync). Web Push goes over raw HTTPS with VAPID, no SDK (`src/server/push.ts`); messages have no payload and the service worker shows fixed text, so nothing about a child reaches a push service. Only the push address is stored, and only addresses on known push-service hosts are accepted. Off until `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` are set. Never push to children.
+- **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email (on the first Sunday of the month it also carries a short month summary: practice days, minutes, questions, and a comparison with the month before only when it went up). Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
 - **Share a report:** a parent can create a read-only link (30 days, revocable) to one child's report. It is served from `/shared/{token}/`, never indexed.
+- **"Is it working?" panel** on Reports (`src/lib/progressSince.ts`): units started and Proficient-or-higher now against 30, 90 or 180 days ago, and which units moved up a level. Computed from events and unit keys only.
+- **Weekly goal and notes:** a parent can set a weekly "days practised" goal per child and send one of four fixed kind notes (`src/lib/familyGoal.ts`). Both live in the child's synced settings; progress is computed from events. The note shows once on the child's home screen and expires after 3 days. No free text, no push to children.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 
 ### Classroom mode (`/teachers/`)
@@ -225,13 +239,13 @@ Tests are duplicated across screen sizes only where layout can break:
   - **Linked by a parent:** a parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that.
   - **Added by the teacher:** the teacher types first names or nicknames (`src/server/students.ts`, `POST /api/classes/students/`). Each student gets a six-character login code and signs in at `/play/` with the class code plus their own code (`/api/students/login/`). There is no email, password or birth year. Each student has a hidden family record (`parents.role = 'student'`, a `students` row, plan `premium` so there is never a paywall).
   - **A student session is deliberately narrow:** `getSession(req)` returns `null` for student sessions unless a route passes `{ student: true }` (only `/api/sync/` and `/api/auth/me/` do). Sync keeps a student's name, grade and province fixed and refuses new or deleted profiles. `/parents/` shows a "class account" notice. Signing in clears the device first and sign-out clears it again, so devices can be shared.
-  - **Deleting:** removing a student, closing a class and deleting a teacher account each delete the student accounts at once (`removeStudent`, `removeClassStudents`, `removeStudentsOfOwner`). Keep it that way when you add tables that hold student data. Retention for *inactive* classes is not decided; ask before adding any.
+  - **Deleting:** removing a student, closing a class and deleting a teacher account each delete the student accounts at once (`removeStudent`, `removeClassStudents`, `removeStudentsOfOwner`). Classes with no sign-in for 11 months get a warning email; at 12 months the class, assignments and class-account student data are deleted. Parent-linked children are unlinked, while their family data stays. Keep student deletion complete when adding tables that hold student data.
   - **The teacher sees** first name, avatar, grade, and level, accuracy and attempts on the units they assigned, plus "What to look at next" (`classInsights` in `src/lib/classroom.ts`: reteach units and students to check in with). Due dates are optional on assignments and reach children through sync as soft "Try to finish by" text, never as a warning. Teachers can print login cards and a class summary, and copy a "send home" note.
 - Closing a class, leaving it, removing a child and deleting an account all remove the links.
 - Teacher screens are labelled as practice, not a report-card mark. `/teachers/` is `noindex` and disallowed in `robots.ts`.
 - **Assigned units reach the child through sync** (`classwork` in the sync response, with `due` dates, kept on the device so it works offline). `/play/` shows them as "From your teacher" on the home screen and marks them in the unit list; assigned units open even on the free plan.
 - **School approval papers** live in `docs/school/` (PIA pack, data agreement, letter home, accessibility conformance). They are drafts for the owner; facts in them must stay true to the code, so update them when student data, providers or retention change. The public `/accessibility/` page and the "Schools and classes" section of `/privacy/` say the same things.
-- **Not built yet:** a school or teacher plan, co-teachers on one class, automatic deletion of inactive classes, and a lawyer's review of `/privacy/`, `/terms/` and the data agreement.
+- **Not built yet:** a school or teacher plan, co-teachers on one class, and a lawyer's review of `/privacy/`, `/terms/` and the data agreement.
 
 ### Public pages and SEO
 - **Every framework gets the full set of public pages**, generated from content so a new grade or unit appears automatically:

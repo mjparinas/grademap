@@ -1,3 +1,4 @@
+import { createPublicKey, createVerify, generateKeyPairSync } from "node:crypto";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -10,21 +11,24 @@ delete process.env.RESEND_API_KEY;
 delete process.env.NEXT_PUBLIC_SITE_URL;
 
 type Mod = Record<string, (req: Request) => Promise<Response>>;
-let signup: Mod, verify: Mod, sync: Mod, share: Mod, prefs: Mod, unsub: Mod, cron: Mod, feedback: Mod;
+let signup: Mod, verify: Mod, login: Mod, sync: Mod, share: Mod, prefs: Mod, unsub: Mod, cron: Mod, feedback: Mod, classes: Mod, students: Mod;
 let dbm: typeof import("@/server/db");
 let email: typeof import("@/server/email");
 let reportData: typeof import("@/server/reportData");
 
 beforeAll(async () => {
-  [signup, verify, sync, share, prefs, unsub, cron, feedback] = (await Promise.all([
+  [signup, verify, login, sync, share, prefs, unsub, cron, feedback, classes, students] = (await Promise.all([
     import("@/app/api/auth/signup/route"),
     import("@/app/api/auth/verify/route"),
+    import("@/app/api/auth/login/route"),
     import("@/app/api/sync/route"),
     import("@/app/api/share/route"),
     import("@/app/api/account/prefs/route"),
     import("@/app/api/email/unsubscribe/route"),
     import("@/app/api/cron/weekly/route"),
     import("@/app/api/feedback/route"),
+    import("@/app/api/classes/route"),
+    import("@/app/api/classes/students/route"),
   ])) as unknown as Mod[];
   dbm = await import("@/server/db");
   email = await import("@/server/email");
@@ -168,6 +172,31 @@ describe("daily email job", () => {
     expect(email.outbox().length).toBe(count); // not twice in one week
   });
 
+  it("adds a month summary to the weekly email on the first Sunday of the month only", async () => {
+    const { monthLine } = await import("@/server/emailTemplates");
+    expect(monthLine("Maya", { minutes: 240, answers: 900, previousAnswers: 700, activeDays: 12 })).toBe("Your month: Maya practised on 12 days, 240 min in all, 900 questions, up from 700 the month before. 🎉");
+    expect(monthLine("Maya", { minutes: 60, answers: 100, previousAnswers: 700, activeDays: 1 })).not.toContain("up from");
+    expect(monthLine("Maya", { minutes: 0, answers: 0, previousAnswers: 5, activeDays: 0 })).toContain("start again");
+
+    const f = await family("month@example.com");
+    await prefs.POST(req("/api/account/prefs/", "POST", { weeklyReport: true }, f.cookie));
+    const sundayWhere = (ok: (date: number) => boolean) => {
+      const d = new Date();
+      d.setUTCHours(12, 0, 0, 0);
+      while (d.getUTCDay() !== 0 || !ok(d.getUTCDate())) d.setUTCDate(d.getUTCDate() + 1);
+      return d;
+    };
+    const monthly = () => email.outbox().filter((m) => m.to === "month@example.com" && m.text.includes("Your month:")).length;
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(sundayWhere((date) => date > 7));
+    await run();
+    expect(monthly()).toBe(0);
+    await dbm.run("UPDATE parents SET last_weekly_at = NULL WHERE email = ?", ["month@example.com"]);
+    vi.setSystemTime(sundayWhere((date) => date <= 7));
+    await run();
+    expect(monthly()).toBe(1);
+  });
+
   it("sends a practice reminder only to opted-in parents, only after quiet days, at most once a week", async () => {
     const f = await family("nudge@example.com");
     await family("nudge-off@example.com");
@@ -210,6 +239,84 @@ describe("daily email job", () => {
     await run();
     expect(email.outbox().filter((m) => m.subject.includes("free trial ends")).length).toBe(n);
   });
+
+  it("sends a trial recap once, about a week before the trial ends, only when a child has practised", async () => {
+    const practised = await family("recap-yes@example.com");
+    const unconfirmed = await family("recap-unconfirmed@example.com", { verified: false });
+    const idle = await family("recap-idle@example.com");
+    await dbm.run("DELETE FROM events WHERE family_id = ?", [idle.familyId]);
+    await dbm.run("UPDATE families SET trial_ends_at = ? WHERE id IN (?, ?, ?)", [Date.now() + 7 * 86_400_000, practised.familyId, unconfirmed.familyId, idle.familyId]);
+    await run();
+    const recaps = () => email.outbox().filter((m) => m.subject.includes("what your trial has done"));
+    expect(recaps().map((m) => m.to)).toEqual(expect.arrayContaining(["recap-yes@example.com"]));
+    expect(recaps().map((m) => m.to)).not.toContain("recap-unconfirmed@example.com");
+    expect(recaps().map((m) => m.to)).not.toContain("recap-idle@example.com");
+    const mail = recaps().find((m) => m.to === "recap-yes@example.com")!;
+    expect(mail.text).toContain("Maya has practised on 1 day");
+    expect(mail.text).toContain("report-card mark");
+    const n = recaps().length;
+    await run();
+    expect(recaps().length).toBe(n);
+
+    // Closer to the end, the final notice repeats the recap.
+    await dbm.run("UPDATE families SET trial_ends_at = ? WHERE id = ?", [Date.now() + 2 * 86_400_000, practised.familyId]);
+    await run();
+    const last = email.outbox().filter((m) => m.to === "recap-yes@example.com" && m.subject.includes("free trial ends")).at(-1)!;
+    expect(last.text).toContain("Here's what the trial has done");
+    expect(last.text).toContain("Maya");
+  });
+
+  it("warns after 11 months and deletes an inactive class after 12 months", async () => {
+    const teacher = await family("inactive-class@example.com");
+    const { class: cls } = await (await classes.POST(req("/api/classes/", "POST", { name: "Room 7", grade: "2" }, teacher.cookie))).json();
+    const { students: made } = await (await students.POST(req("/api/classes/students/", "POST", { classId: cls.id, names: ["Riley"] }, teacher.cookie))).json();
+    const student = (await dbm.query<{ family_id: string; profile_id: string }>("SELECT family_id, profile_id FROM students WHERE class_id = ?", [cls.id]))[0];
+    await dbm.run("INSERT INTO events (id, family_id, profile_id, t, data) VALUES (?, ?, ?, ?, ?)", ["inactive-student-event", student.family_id, student.profile_id, Date.now(), JSON.stringify({ type: "answer" })]);
+    await dbm.run("INSERT INTO class_assignments (class_id, unit_key, created_at) VALUES (?, ?, ?)", [cls.id, "2/math/tens-and-ones", Date.now()]);
+    await dbm.run("INSERT INTO class_members (class_id, profile_id, family_id, joined_at) VALUES (?, ?, ?, ?)", [cls.id, teacher.ids[0], teacher.familyId, Date.now()]);
+
+    const year = 365.25 * 86_400_000;
+    const now = Date.now() + 2 * year;
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(now);
+    await dbm.run("UPDATE classes SET last_activity_at = ?, inactive_warning_at = NULL WHERE id = ?", [now - (11 / 12) * year, cls.id]);
+
+    const firstRun = await (await run()).json();
+    expect(firstRun.inactiveClassWarnings).toBe(1);
+    expect(firstRun.inactiveClassesDeleted).toBe(0);
+    const warning = email.outbox().filter((m) => m.to === "inactive-class@example.com" && m.subject.includes("deleted in 1 month")).at(-1)!;
+    expect(warning.text).toContain("Room 7");
+    expect(warning.text).toContain("sign in to your teacher account");
+    expect((await (await run()).json()).inactiveClassWarnings).toBe(0);
+    expect(email.outbox().filter((m) => m.to === "inactive-class@example.com" && m.subject.includes("deleted in 1 month"))).toHaveLength(1);
+
+    vi.setSystemTime(now + 31 * 86_400_000);
+    const expired = await (await run()).json();
+    expect(expired.inactiveClassesDeleted).toBe(1);
+    expect(expired.studentsDeleted).toBe(1);
+    expect(await dbm.query("SELECT id FROM classes WHERE id = ?", [cls.id])).toHaveLength(0);
+    expect(await dbm.query("SELECT unit_key FROM class_assignments WHERE class_id = ?", [cls.id])).toHaveLength(0);
+    expect(await dbm.query("SELECT id FROM students WHERE class_id = ?", [cls.id])).toHaveLength(0);
+    expect(await dbm.query("SELECT id FROM profiles WHERE id = ?", [student.profile_id])).toHaveLength(0);
+    expect(await dbm.query("SELECT id FROM events WHERE id = ?", ["inactive-student-event"])).toHaveLength(0);
+    expect(await dbm.query("SELECT profile_id FROM class_members WHERE class_id = ?", [cls.id])).toHaveLength(0);
+    // A parent-linked child's own family account and data are retained.
+    expect(await dbm.query("SELECT id FROM profiles WHERE id = ?", [teacher.ids[0]])).toHaveLength(1);
+    expect(await dbm.query("SELECT id FROM events WHERE profile_id = ?", [teacher.ids[0]])).toHaveLength(10);
+    expect(made).toHaveLength(1);
+  });
+
+  it("resets the inactivity clock and cancels a warning when the teacher signs in", async () => {
+    const teacher = await family("inactive-signin@example.com");
+    const { class: cls } = await (await classes.POST(req("/api/classes/", "POST", { name: "Room 9", grade: "2" }, teacher.cookie))).json();
+    const now = Date.now();
+    await dbm.run("UPDATE classes SET last_activity_at = ?, inactive_warning_at = ? WHERE id = ?", [now - 400 * 86_400_000, now - 1, cls.id]);
+
+    expect((await login.POST(req("/api/auth/login/", "POST", { email: "inactive-signin@example.com", password: "correct horse" }))).status).toBe(200);
+    const row = (await dbm.query<{ last_activity_at: number; inactive_warning_at: number | null }>("SELECT last_activity_at, inactive_warning_at FROM classes WHERE id = ?", [cls.id]))[0];
+    expect(Math.abs(row.last_activity_at - Date.now())).toBeLessThan(1000);
+    expect(row.inactive_warning_at).toBeNull();
+  });
 });
 
 describe("report a problem", () => {
@@ -230,5 +337,87 @@ describe("report a problem", () => {
     let last = 200;
     for (let i = 0; i < 22; i++) last = (await feedback.POST(r.clone())).status;
     expect(last).toBe(429);
+  });
+});
+
+describe("weekly report notifications", () => {
+  const pair = generateKeyPairSync("ec", { namedCurve: "prime256v1" });
+  const jwk = pair.privateKey.export({ format: "jwk" }) as { x: string; y: string; d: string };
+  const publicKey = Buffer.concat([Buffer.from([4]), Buffer.from(jwk.x, "base64url"), Buffer.from(jwk.y, "base64url")]).toString("base64url");
+  const endpoint = "https://fcm.googleapis.com/fcm/send/abc123";
+  const call = async (method: string, body?: unknown, cookie?: string, path = "/api/push/") => {
+    const m = (await import("@/app/api/push/route")) as Record<string, (r: Request) => Promise<Response>>;
+    return m[method](req(path, method, body, cookie));
+  };
+  const cronRun = () => cron.GET(new Request("http://localhost/api/cron/weekly/", { headers: { authorization: "Bearer cron-secret" } }));
+  afterEach(() => {
+    delete process.env.VAPID_PUBLIC_KEY;
+    delete process.env.VAPID_PRIVATE_KEY;
+    vi.unstubAllGlobals();
+  });
+
+  it("signs a VAPID token a push service can verify, and only accepts real push services", async () => {
+    process.env.VAPID_PUBLIC_KEY = publicKey;
+    process.env.VAPID_PRIVATE_KEY = jwk.d;
+    const push = await import("@/server/push");
+    const header = push.vapidAuthorization(endpoint);
+    const [, jwt] = /t=([^,]+), k=(.+)$/.exec(header)!;
+    const [h, c, sig] = jwt.split(".");
+    expect(JSON.parse(Buffer.from(c, "base64url").toString()).aud).toBe("https://fcm.googleapis.com");
+    const ok = createVerify("SHA256").update(`${h}.${c}`).verify({ key: createPublicKey({ key: { kty: "EC", crv: "P-256", x: jwk.x, y: jwk.y }, format: "jwk" }), dsaEncoding: "ieee-p1363" }, Buffer.from(sig, "base64url"));
+    expect(ok).toBe(true);
+    for (const good of [endpoint, "https://updates.push.services.mozilla.com/wpush/v2/x", "https://web.push.apple.com/x", "https://wns2-par02p.notify.windows.com/w/?token=x"]) expect(push.validEndpoint(good)).toBe(true);
+    for (const bad of ["http://fcm.googleapis.com/x", "https://evil.example.com/x", "https://fcm.googleapis.com.evil.com/x", "https://localhost/x", "https://169.254.169.254/x", "https://user@fcm.googleapis.com/x", "https://fcm.googleapis.com:8443/x", 42]) expect(push.validEndpoint(bad)).toBe(false);
+  });
+
+  it("stores a browser for a signed-in parent, and says whether it is on", async () => {
+    const f = await family("push-a@example.com");
+    expect((await call("GET", undefined, f.cookie)).status).toBe(200);
+    expect((await (await call("GET", undefined, f.cookie)).json()).configured).toBe(false);
+    expect((await call("POST", { endpoint }, f.cookie)).status).toBe(503); // not set up
+
+    process.env.VAPID_PUBLIC_KEY = publicKey;
+    process.env.VAPID_PRIVATE_KEY = jwk.d;
+    expect((await call("POST", { endpoint }, undefined)).status).toBe(401);
+    expect((await call("POST", { endpoint: "https://evil.example.com/x" }, f.cookie)).status).toBe(400);
+    expect((await call("POST", { endpoint }, f.cookie)).status).toBe(200);
+    const state = await (await call("GET", undefined, f.cookie, `/api/push/?endpoint=${encodeURIComponent(endpoint)}`)).json();
+    expect(state).toEqual({ configured: true, publicKey, subscribed: true });
+    expect((await call("DELETE", { endpoint }, f.cookie)).status).toBe(200);
+    expect((await (await call("GET", undefined, f.cookie, `/api/push/?endpoint=${encodeURIComponent(endpoint)}`)).json()).subscribed).toBe(false);
+  });
+
+  it("pushes on Sundays only, once, with no body, and forgets browsers that are gone", async () => {
+    process.env.VAPID_PUBLIC_KEY = publicKey;
+    process.env.VAPID_PRIVATE_KEY = jwk.d;
+    const f = await family("push-b@example.com");
+    const gone = "https://fcm.googleapis.com/fcm/send/gone";
+    await call("POST", { endpoint: "https://fcm.googleapis.com/fcm/send/live" }, f.cookie);
+    await call("POST", { endpoint: gone }, f.cookie);
+    const sent: { url: string; init: RequestInit }[] = [];
+    vi.stubGlobal("fetch", async (url: string, init: RequestInit) => {
+      sent.push({ url, init });
+      return new Response(null, { status: url === gone ? 410 : 201 });
+    });
+
+    vi.useFakeTimers({ toFake: ["Date"] });
+    const d = new Date();
+    d.setUTCDate(d.getUTCDate() + ((3 - d.getUTCDay() + 7) % 7 || 7)); // a Wednesday
+    vi.setSystemTime(d);
+    await cronRun();
+    expect(sent.length).toBe(0);
+
+    d.setUTCDate(d.getUTCDate() + 4); // the Sunday
+    vi.setSystemTime(d);
+    expect(new Date().getUTCDay()).toBe(0);
+    expect((await (await cronRun()).json()).pushes).toBeGreaterThanOrEqual(1);
+    expect(sent.map((s) => s.url).sort()).toEqual(["https://fcm.googleapis.com/fcm/send/gone", "https://fcm.googleapis.com/fcm/send/live"]);
+    expect((sent[0].init.headers as Record<string, string>).authorization).toMatch(/^vapid t=.+, k=/);
+    expect(sent[0].init.body).toBeUndefined();
+    expect((await dbm.query("SELECT endpoint FROM push_subscriptions WHERE parent_id = (SELECT id FROM parents WHERE email = ?)", ["push-b@example.com"])).map((r) => r.endpoint)).toEqual(["https://fcm.googleapis.com/fcm/send/live"]);
+
+    const n = sent.length;
+    await cronRun();
+    expect(sent.length).toBe(n); // not twice in one week
   });
 });

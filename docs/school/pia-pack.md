@@ -4,7 +4,7 @@ For a school or district that is completing a PIA (BC: FIPPA s. 69; Ontario boar
 
 ## 1. The service
 
-GradeMap is a web app (installable, with an Android wrapper) for practice and games matched to the BC and Ontario curricula, Kindergarten to Grade 9. In a school it is a practice aid. Its levels reflect practice, not a report-card mark; the teacher decides proficiency. There are no ads, no tracking and no sale of data.
+Gradelings is a web app (installable, with an Android wrapper) for practice and games matched to the BC and Ontario curricula, Kindergarten to Grade 9. In a school it is a practice aid. Its levels reflect practice, not a report-card mark; the teacher decides proficiency. There are no ads, no tracking and no sale of data.
 
 ## 2. Who uses it and how accounts work
 
@@ -38,7 +38,7 @@ GradeMap is a web app (installable, with an Android wrapper) for practice and ga
 - **Teacher:** each student's first name, avatar, grade, last active date, and level, first-try accuracy and number of questions for the units they assigned. Not the student's play on other units, not coins, trophies or games.
 - **Student:** only their own account.
 - **Other teachers:** nothing. A class belongs to the teacher who created it.
-- **GradeMap staff:** operational access for support and security only **(confirm access policy before signing)**.
+- **Gradelings staff:** operational access for support and security only **(confirm access policy before signing)**.
 - **Parents** (for linked children): the full family view at home, as for any family.
 
 ## 5. Data flow
@@ -47,7 +47,7 @@ GradeMap is a web app (installable, with an Android wrapper) for practice and ga
 Student's device (browser, saves on the device first)
    |  HTTPS, signed-in cookie
    v
-GradeMap app servers, Montreal  --->  Database (Turso, Montreal)
+Gradelings app servers, Montreal  --->  Database (Turso, Montreal)
    |
    +--> Resend: teacher account emails only (confirmation, password reset)
    +--> Sentry: crash reports, scrubbed of names, emails, cookies and what was tapped
@@ -79,7 +79,7 @@ If a district requires all providers to be in Canada, Resend and Sentry are the 
 | Teacher gets a new code for a student | The old code stops working and the student is signed out everywhere |
 | Parent unlinks a child | The teacher stops seeing the child at once; the family keeps its data |
 
-Backups roll off on the database provider's cycle **(confirm)**. There is no automatic deletion of inactive classes yet; see the decisions at the end.
+Classes with no teacher, parent or student sign-in for 11 months trigger a warning email to the teacher. At 12 months, the class, its assignments and class-account student data are deleted automatically. Children linked by a parent are unlinked, but their family data is kept. Backups roll off on the database provider's cycle **(confirm)**.
 
 ## 8. Security controls
 
@@ -105,8 +105,7 @@ See [accessibility-conformance.md](accessibility-conformance.md) and `/accessibi
 
 ## 12. Decisions for the owner
 
-1. **Retention for inactive classes.** Suggested: delete a class and its students after 12 months with no sign-in, with a warning email to the teacher at 11 months. Not built.
-2. **Canadian-only providers.** Replace or switch off Resend and Sentry for school deployments?
-3. **School or district plan.** Classes are free today. Say so in the agreement or set a price.
-4. **Several teachers on one class** (co-teaching, a school office role). Not built; today one account owns a class.
-5. **Birth year.** Already absent from class accounts. Keep it that way.
+1. **Canadian-only providers.** Replace or switch off Resend and Sentry for school deployments?
+2. **School or district plan.** Classes are free today. Say so in the agreement or set a price.
+3. **Several teachers on one class** (co-teaching, a school office role). Not built; today one account owns a class.
+4. **Birth year.** Already absent from class accounts. Keep it that way.

@@ -1,5 +1,6 @@
 "use client";
 
+import { GrowthPanel } from "./GrowthPanel";
 import { Milestones } from "./Milestones";
 import { useMemo, useState } from "react";
 import { getFramework } from "@/content/frameworks";
@@ -54,6 +55,7 @@ export function ReportsPage({ childId }: { childId?: string }) {
       </div>
 
       <Milestones p={child} />
+      <GrowthPanel p={child} />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StatTile

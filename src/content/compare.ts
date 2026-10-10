@@ -1,4 +1,5 @@
-// "Gradelings vs X" pages. Facts about other products come from their public pages
+import { APP_NAME } from "@/lib/brand";
+// Competitor comparison pages for the app. Facts about other products come from their public pages
 // and app store listings (see docs/research/competitors.md) and are dated, because
 // prices and features change. Keep the wording factual and fair, and re-check
 // every figure when you change PRICE_CHECKED.
@@ -67,12 +68,12 @@ export const COMPETITORS: Competitor[] = [
     ],
     faqs: [
       {
-        q: "Is Gradelings a good alternative to IXL for BC and Ontario families?",
-        a: "It can be, depending on what you want. IXL has a much larger skill library. Gradelings is smaller and built around the BC and Ontario curricula, their report-card levels, a gentler hint-and-retry style and one family price.",
+        q: `Is ${APP_NAME} a good alternative to IXL for BC and Ontario families?`,
+        a: `It can be, depending on what you want. IXL has a much larger skill library. ${APP_NAME} is smaller and built around the BC and Ontario curricula, their report-card levels, a gentler hint-and-retry style and one family price.`,
       },
       {
-        q: "Does Gradelings have a SmartScore?",
-        a: "No. Gradelings shows each unit on your province's report-card scale (BC: Emerging, Developing, Proficient, Extending; Ontario: Levels 1 to 4) based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.",
+        q: `Does ${APP_NAME} have a SmartScore?`,
+        a: `No. ${APP_NAME} shows each unit on your province's report-card scale (BC: Emerging, Developing, Proficient, Extending; Ontario: Levels 1 to 4) based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.`,
       },
     ],
   },
@@ -124,7 +125,7 @@ export const COMPETITORS: Competitor[] = [
         a: "Khan Academy's courses follow US standards. We found a 2015 mapping to Ontario and BC for some Grade 4 to 6 content, but nothing current for BC. Check with your child's teacher if you want to be sure a topic is taught in their grade.",
       },
       {
-        q: "Can I use Khan Academy and Gradelings together?",
+        q: `Can I use Khan Academy and ${APP_NAME} together?`,
         a: "Yes. Many families use a free resource for videos and a curriculum-matched app for practice and reports. Use whichever your child enjoys.",
       },
     ],
@@ -173,11 +174,11 @@ export const COMPETITORS: Competitor[] = [
     ],
     faqs: [
       {
-        q: "Does Gradelings have a game like Prodigy?",
-        a: "Gradelings has quick learning games, such as Number Munchers and Word Ninja, and a coin-and-trophy system. They are shorter than a full role-playing game and unlock through learning time you choose.",
+        q: `Does ${APP_NAME} have a game like Prodigy?`,
+        a: `${APP_NAME} has quick learning games, such as Number Munchers and Word Ninja, and a coin-and-trophy system. They are shorter than a full role-playing game and unlock through learning time you choose.`,
       },
       {
-        q: "Does Gradelings show ads or sell things to kids?",
+        q: `Does ${APP_NAME} show ads or sell things to kids?`,
         a: "Never. There are no ads, no tracking pixels and no in-app purchases for kids. Parents control the plan.",
       },
     ],

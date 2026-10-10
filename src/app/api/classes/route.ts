@@ -53,7 +53,8 @@ export async function POST(req: Request) {
   for (let attempt = 0; attempt < 5; attempt++) {
     const code = newJoinCode();
     try {
-      await run("INSERT INTO classes (id, owner_parent_id, name, grade, framework, join_code, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)", [id, session.parentId, name, grade, framework, code, Date.now()]);
+      const now = Date.now();
+      await run("INSERT INTO classes (id, owner_parent_id, name, grade, framework, join_code, created_at, last_activity_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [id, session.parentId, name, grade, framework, code, now, now]);
       return json({ class: { id, name, grade, framework, joinCode: code, students: 0 } });
     } catch {
       // Join code collision: try another.

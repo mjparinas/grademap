@@ -1,4 +1,4 @@
-# Using GradeMap in a school or district
+# Using Gradelings in a school or district
 
 Everything here is a **draft prepared for the owner**. None of it has been reviewed by a lawyer, and the contract and consent texts must be before anyone signs or sends them. Placeholders are marked `[...]`.
 
@@ -27,5 +27,5 @@ Public pages that go with this: `/privacy/` (with a "Schools and classes" sectio
 2. **Provider answers** for the **(confirm)** items in the PIA pack (Turso encryption at rest and backups, Fly region, Resend and Sentry data handling).
 3. **Screen reader and keyboard testing** (VoiceOver, TalkBack, NVDA), then update the conformance report.
 4. **A named BC teacher or district reviewer** for the content, and First Peoples partner review of the Indigenous content (see `AGENTS.md`, Open items).
-5. **Decisions for the owner**, listed at the end of the PIA pack: retention for inactive classes, whether a school plan exists, and whether teachers may have more than one class owner (co-teaching).
+5. **Decisions for the owner**, listed at the end of the PIA pack: whether a school plan exists and whether teachers may have more than one class owner (co-teaching).
 6. **A pilot** with one friendly school or district, which will show their actual process.

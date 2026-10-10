@@ -1,5 +1,6 @@
 import { MANITOBA } from "./manitoba/framework";
 import { ONTARIO } from "./ontario/framework";
+import { SASKATCHEWAN } from "./saskatchewan/framework";
 import type { FrameworkId, GradeId, SubjectId } from "./types";
 
 // Everything that differs between provinces/states lives here: names, which
@@ -174,6 +175,7 @@ export const FRAMEWORKS: Framework[] = [
     },
   },
   ONTARIO,
+  SASKATCHEWAN,
   MANITOBA,
 ];
 

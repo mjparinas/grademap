@@ -1,4 +1,5 @@
 import "server-only";
+import type { InValue } from "@libsql/client";
 import { randomInt } from "node:crypto";
 import { ageBandFor } from "@/content/subjects";
 import { defaultChildSettings, type Profile } from "@/lib/model";
@@ -122,6 +123,33 @@ export async function removeClassStudents(classId: string): Promise<number> {
   const rows = await query<StudentRecord>("SELECT id, family_id, parent_id, profile_id FROM students WHERE class_id = ?", [classId]);
   for (const s of rows) await batch(eraseStatements(s));
   return rows.length;
+}
+
+/** Erases a class and its class-owned student accounts after the inactivity retention period. */
+export async function deleteInactiveClass(classId: string, cutoff: number, warningCutoff: number): Promise<{ deleted: boolean; students: number }> {
+  const predicate = "EXISTS (SELECT 1 FROM classes WHERE id = ? AND closed_at IS NULL AND inactive_warning_at <= ? AND last_activity_at <= ?)";
+  const args = (extra: InValue[] = []): InValue[] => [...extra, classId, warningCutoff, cutoff];
+  const students = await query<{ n: number }>(
+    `SELECT COUNT(*) AS n FROM students WHERE class_id = ? AND ${predicate}`,
+    [classId, classId, warningCutoff, cutoff],
+  );
+  const familyIds = "family_id IN (SELECT family_id FROM students WHERE class_id = ?)";
+  const guarded = (table: string) => `DELETE FROM ${table} WHERE ${familyIds} AND ${predicate}`;
+  await batch([
+    { sql: guarded("events"), args: args([classId]) },
+    { sql: guarded("child_settings"), args: args([classId]) },
+    { sql: guarded("profiles"), args: args([classId]) },
+    { sql: guarded("report_shares"), args: args([classId]) },
+    { sql: guarded("sessions"), args: args([classId]) },
+    { sql: "DELETE FROM parents WHERE id IN (SELECT parent_id FROM students WHERE class_id = ?) AND " + predicate, args: args([classId]) },
+    { sql: "DELETE FROM families WHERE id IN (SELECT family_id FROM students WHERE class_id = ?) AND " + predicate, args: args([classId]) },
+    { sql: "DELETE FROM students WHERE class_id = ? AND " + predicate, args: args([classId]) },
+    { sql: "DELETE FROM class_members WHERE class_id = ? AND " + predicate, args: args([classId]) },
+    { sql: "DELETE FROM class_assignments WHERE class_id = ? AND " + predicate, args: args([classId]) },
+    { sql: "DELETE FROM classes WHERE id = ? AND closed_at IS NULL AND inactive_warning_at <= ? AND last_activity_at <= ?", args: [classId, warningCutoff, cutoff] },
+  ]);
+  const remains = await query<{ id: string }>("SELECT id FROM classes WHERE id = ?", [classId]);
+  return remains.length ? { deleted: false, students: 0 } : { deleted: true, students: Number(students[0]?.n ?? 0) };
 }
 
 /** Every student account in the classes a teacher owns (by account id). */

@@ -1,3 +1,4 @@
+import { APP_NAME } from "@/lib/brand";
 import type { Framework, ProficiencyLevel, ScoringScheme } from "../frameworks";
 import type { GradeId } from "../types";
 
@@ -142,8 +143,8 @@ export const ONTARIO: Framework = {
         a: "Level 4 means your child shows the learning with a high degree of effectiveness. It doesn't mean they've learned things beyond their grade, and it isn't expected in every area.",
       },
       {
-        q: "Does Gradelings give a Level?",
-        a: "No. Gradelings shows how practice is going on the same four steps, so you can see where your child is strong and where to practise. Your child's teacher decides their level on the report card.",
+        q: `Does ${APP_NAME} give a Level?`,
+        a: `No. ${APP_NAME} shows how practice is going on the same four steps, so you can see where your child is strong and where to practise. Your child's teacher decides their level on the report card.`,
       },
       {
         q: "How can I help at home?",

@@ -73,14 +73,48 @@ export function resetEmail(to: string, origin: string, token: string): Email {
   });
 }
 
-export function trialEndingEmail(to: string, origin: string, daysLeft: number): Email {
+/** What a child did during the trial: first name and practice totals only. */
+export interface TrialChild {
+  name: string;
+  answers: number;
+  activeDays: number;
+  minutes: number;
+  strength?: string;
+}
+
+function recapLines(children: TrialChild[]): string[] {
+  return children
+    .filter((c) => c.answers > 0)
+    .flatMap((c) => [
+      `${c.name} has practised on ${c.activeDays} ${c.activeDays === 1 ? "day" : "days"}: ${c.minutes} min and ${c.answers} questions so far.`,
+      ...(c.strength ? [`  Going well: ${c.strength}`] : []),
+    ]);
+}
+
+const KEEP_FREE = "After the trial, the first 2 units of every course stay free forever. The family plan keeps everything unlocked for up to 4 children.";
+
+/** Mid-trial: what the trial has done so far. Sent once, to parents whose children have practised. */
+export function trialRecapEmail(to: string, origin: string, daysLeft: number, children: TrialChild[]): Email {
+  return layout({
+    to,
+    origin,
+    subject: `${APP_NAME}: what your trial has done so far`,
+    heading: "Your trial so far",
+    body: [...recapLines(children), `${daysLeft} ${daysLeft === 1 ? "day" : "days"} of the free trial left. This reflects practice in the app, not a report-card mark.`, KEEP_FREE],
+    button: { label: "See full reports", url: `${origin}/parents/#/reports` },
+  });
+}
+
+export function trialEndingEmail(to: string, origin: string, daysLeft: number, children: TrialChild[] = []): Email {
+  const recap = recapLines(children);
   return layout({
     to,
     origin,
     subject: `Your ${APP_NAME} free trial ends in ${daysLeft} ${daysLeft === 1 ? "day" : "days"}`,
     heading: `Your free trial ends in ${daysLeft} ${daysLeft === 1 ? "day" : "days"}`,
     body: [
-      "After the trial, the first 2 units of every course stay free forever. The family plan keeps everything unlocked for up to 4 children.",
+      ...(recap.length ? ["Here's what the trial has done:", ...recap] : []),
+      KEEP_FREE,
       "There's nothing to do if you'd like to stay on the free units. No card was needed to start.",
     ],
     button: { label: "See plans", url: `${origin}/parents/#/subscription` },
@@ -94,6 +128,17 @@ export interface WeeklyChild {
   accuracy: number | null;
   strength?: string;
   next?: string;
+  /** Set on the first Sunday of the month: the last 30 days against the 30 before. */
+  month?: { minutes: number; answers: number; previousAnswers: number; activeDays: number };
+}
+
+/** One sentence about a month of practice. Warm either way: a quieter month is never framed as a loss. */
+export function monthLine(name: string, m: NonNullable<WeeklyChild["month"]>): string {
+  if (!m.answers) return `Your month: ${name} didn't practise in the last 30 days. Any day is a good day to start again.`;
+  const days = `${m.activeDays} ${m.activeDays === 1 ? "day" : "days"}`;
+  const base = `Your month: ${name} practised on ${days}, ${m.minutes} min in all, ${m.answers} questions`;
+  if (m.previousAnswers && m.answers > m.previousAnswers) return `${base}, up from ${m.previousAnswers} the month before. 🎉`;
+  return `${base}.`;
 }
 
 export function weeklyEmail(to: string, origin: string, children: WeeklyChild[], unsubToken: string): Email {
@@ -103,6 +148,7 @@ export function weeklyEmail(to: string, origin: string, children: WeeklyChild[],
       : `${c.name} didn't practise this week. A short session today is a great restart.`,
     ...(c.strength ? [`  Going well: ${c.strength}`] : []),
     ...(c.next ? [`  Next up: ${c.next}`] : []),
+    ...(c.month ? [monthLine(c.name, c.month)] : []),
   ]);
   return layout({
     to,
@@ -179,5 +225,20 @@ export function accountDeletedEmail(to: string, origin: string): Email {
     subject: `Your ${APP_NAME} account was deleted`,
     heading: "Your account was deleted",
     body: ["Your account, your children's progress on our servers and any shared report links have been deleted, and any subscription was cancelled.", `If you didn't do this, write to ${CONTACT_EMAIL} straight away.`],
+  });
+}
+
+export function inactiveClassEmail(to: string, origin: string, className: string, deleteDate: string): Email {
+  return layout({
+    to,
+    origin,
+    subject: `Your ${APP_NAME} class “${className}” will be deleted in 1 month`,
+    heading: "Your class will be deleted in 1 month",
+    body: [
+      `“${className}” has had no sign-ins for at least 11 months. ${APP_NAME} will delete the class and its class-account students on ${deleteDate}.`,
+      "To keep the class, sign in to your teacher account before that date. This resets the inactivity period.",
+      "Deleting the class removes its assignments and class-account student profiles, settings, practice history and sessions. Children linked by a parent are unlinked; their family data is kept.",
+    ],
+    button: { label: `Sign in to ${APP_NAME}`, url: `${origin}/teachers/` },
   });
 }

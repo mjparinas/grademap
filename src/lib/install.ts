@@ -1,7 +1,9 @@
 /** Helpers for the "Add to Home Screen" nudge shown in the parent area. */
 
 export const INSTALL_SNOOZE_DAYS = 30;
+export const KIDS_SNOOZE_DAYS = 7;
 const KEY = "grademap.install.dismissed";
+const KIDS_KEY = "grademap.install.kids.dismissed";
 
 /** The event Chromium browsers fire when the app can be installed. It isn't in lib.dom yet. */
 export type InstallPromptEvent = Event & {
@@ -9,7 +11,7 @@ export type InstallPromptEvent = Event & {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 };
 
-export type InstallKind = "prompt" | "ios" | null;
+export type InstallKind = "prompt" | "ios" | "bookmark" | null;
 
 let deferred: InstallPromptEvent | null = null;
 const listeners = new Set<() => void>();
@@ -50,26 +52,41 @@ export function isStandalone(): boolean {
   return window.matchMedia?.("(display-mode: standalone)").matches || (navigator as Navigator & { standalone?: boolean }).standalone === true;
 }
 
-export function isSnoozed(now = Date.now()): boolean {
+/** Phones and tablets. */
+export function isMobile(ua = navigator.userAgent, touchPoints = navigator.maxTouchPoints): boolean {
+  return /Android|iPhone|iPad|iPod|Mobile/.test(ua) || isIos(ua, touchPoints);
+}
+
+export function isSnoozed(now = Date.now(), key = KEY, days = INSTALL_SNOOZE_DAYS): boolean {
   try {
-    const t = Number(localStorage.getItem(KEY));
-    return t > 0 && now - t < INSTALL_SNOOZE_DAYS * 86_400_000;
+    const t = Number(localStorage.getItem(key));
+    return t > 0 && now - t < days * 86_400_000;
   } catch {
     return false;
   }
 }
 
-export function snooze(now = Date.now()) {
+export function snooze(now = Date.now(), key = KEY) {
   try {
-    localStorage.setItem(KEY, String(now));
+    localStorage.setItem(key, String(now));
   } catch {
     // Private mode; the nudge just comes back next visit.
   }
 }
 
 /** Which nudge to show right now, if any. */
-export function installKind(): InstallKind {
-  if (isStandalone() || isSnoozed()) return null;
+export function installKind(kids = false): InstallKind {
+  if (isStandalone()) return null;
+  if (kids ? isSnoozed(Date.now(), KIDS_KEY, KIDS_SNOOZE_DAYS) : isSnoozed()) return null;
   if (deferred) return "prompt";
-  return isIos() ? "ios" : null;
+  if (isIos()) return "ios";
+  // Chromium fires its own install event when it can; no event there means installed or not installable, so stay quiet.
+  if (!isMobile() && !("onbeforeinstallprompt" in window)) return "bookmark";
+  return null;
 }
+
+/** The kids' home screen asks more gently and comes back sooner than the parent area does. */
+export const snoozeKids = (now = Date.now()) => snooze(now, KIDS_KEY);
+
+/** The keyboard shortcut for bookmarking, written for the device in use. */
+export const bookmarkKeys = (ua = navigator.userAgent) => (/Mac/.test(ua) ? "⌘D" : "Ctrl+D");
