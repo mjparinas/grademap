@@ -17,6 +17,7 @@ Gradelings is curriculum-matched practice, learning games and parent reports for
 ```bash
 npm run dev                 # http://localhost:3000
 npm test                    # content checks for every unit + logic tests + province parity checks (~20 s)
+npm run test:mutation       # Stryker on the scoring/rules files in src/lib (~9 min from scratch, seconds when incremental); report in reports/mutation/
 npm run lint
 npx tsc --noEmit            # run `npx next typegen` first in a fresh checkout (PageProps/LayoutProps)
 npm run build && npm start  # offline/service worker only works in a production build
