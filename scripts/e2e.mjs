@@ -190,6 +190,10 @@ async function eventsWaiting(page) {
     await home(page);
     await tile(page, /Shop/);
     await shot(page, "19-shop", true);
+    await home(page);
+    await tile(page, /Sticker Book/);
+    await page.getByRole("heading", { name: /Sticker Book/ }).waitFor();
+    await shot(page, "19b-stickers", true);
 
   }
   if (PARENTS) {

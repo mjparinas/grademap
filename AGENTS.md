@@ -195,6 +195,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Streaks:** a day counts if the child finishes a session or gives at least 5 answers. Every 7 practice days earns a rest-day shield (up to 2) that covers a missed day, so one slip doesn't erase a long streak. Shields are computed in `derive`, never stored.
 - **Shop unlocks:** some items need a level or trophy as well as coins (`unlock` in `src/lib/shop.ts`).
 - **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
+- **Sticker Book** (`#/stickers`, `src/lib/stickers.ts`): a sticker for every lesson a child has grown in (Proficient or better; Star lessons are shiny) plus about 14 "moment" stickers (first lesson, a week's streak and so on). It is read from the derived stats, so stickers are never stored or lost. French pages appear only once French is started. When you add a mode or game, consider a moment sticker too.
 - **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
 ### Arcade games
