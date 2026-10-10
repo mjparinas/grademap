@@ -17,6 +17,7 @@ Gradelings is curriculum-matched practice, learning games and parent reports for
 ```bash
 npm run dev                 # http://localhost:3000
 npm test                    # content checks for every unit + logic tests + province parity checks (~20 s)
+npm run test:mutation       # Stryker on the scoring/rules files in src/lib (~9 min from scratch, seconds when incremental); report in reports/mutation/
 npm run lint
 npx tsc --noEmit            # run `npx next typegen` first in a fresh checkout (PageProps/LayoutProps)
 npm run build && npm start  # offline/service worker only works in a production build
@@ -150,7 +151,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Immersion prompts are in French and set `lang: "fr"`**, so read-aloud uses a French voice (`speak(text, uri, "fr")`). Hints stay in English for parents. Core French prompts are in English with French answers.
 - **BC Big Ideas are copied word for word from the official BC PDFs** (Immersion: `en_fral_k-9_elab.pdf`; Core French: `en_languages_5-10_core-french.pdf`). Competencies and content are still to be reviewed by a French teacher. Ontario French units cite the Ontario FSL curriculum.
 - **French read-aloud** (`src/lib/readaloud.ts`) speaks each part of a question in its own language: Immersion prompts are French; Core French prompts are English with French marked in « » (`tagCoreFrench`), and `choicesLang`/`visualLang` mark French choices and stories. Parents pick a separate French voice in Settings (`grademap.voice.fr`, per device). Hints are always read in the English voice.
-- **French trophies** live in their own `FRENCH_TROPHIES` list in `src/lib/trophies.ts` (category "French"), plus a French mastery trophy per grade; French still doesn't count toward Grade Champion.
+- **French trophies** live in their own `FRENCH_TROPHIES` list in `src/lib/trophies.ts` (category "French"), plus a French mastery trophy per grade; French still doesn't count toward Grade Champion. French trophies and the two French practice ladders only show where the child's grade and curriculum teach that French (`applies`), so none appear in Saskatchewan or Ontario Kindergarten.
 - **Parent guide:** each province has a French guide at `/guides/{framework-slug}/french/` that compares Core French and French Immersion for that province.
 - **Verify French against the official sources:** curriculum.gov.bc.ca (`/curriculum/fral/{grade}/core` and `/curriculum/core-french/{grade}`) for BC, and the Ministry's FSL curriculum for Ontario. Have a French teacher review the wording before launch.
 
