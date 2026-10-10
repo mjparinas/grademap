@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { clearInstallPrompt, getInstallPrompt, installKind, onInstallChange, snooze, type InstallKind } from "@/lib/install";
+import { bookmarkKeys, clearInstallPrompt, getInstallPrompt, installKind, onInstallChange, snooze, type InstallKind } from "@/lib/install";
 import { APP_NAME } from "@/lib/brand";
 import { Panel } from "./common";
 
@@ -34,9 +34,13 @@ export function InstallNudge() {
       <div className="flex items-start gap-3">
         <span className="text-3xl" aria-hidden="true">📲</span>
         <div className="flex-1">
-          <p className="font-bold">Add {APP_NAME} to your home screen</p>
+          <p className="font-bold">{kind === "bookmark" ? `Bookmark ${APP_NAME}` : `Add ${APP_NAME} to your home screen`}</p>
           {kind === "prompt" ? (
             <p className="font-read text-sm">It opens like any other app, fills the whole screen and keeps working offline.</p>
+          ) : kind === "bookmark" ? (
+            <p className="font-read text-sm">
+              Press <b>{bookmarkKeys()}</b> to bookmark this page, so your family can find it again in one click.
+            </p>
           ) : (
             <ol className="font-read mt-1 list-decimal pl-5 text-sm">
               <li>
