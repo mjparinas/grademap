@@ -29,6 +29,8 @@ node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCA
 
 Before you push, run tests, lint and typecheck. For UI or flow changes, also run the e2e scripts.
 
+Whenever you add a new feature, write a test for it in the same change. When extending an existing feature, add or update tests for the behavior you changed.
+
 - **Playwright** is a dev dependency, pinned. Install the browsers once with `npx playwright install chromium webkit` (on Linux add `npx playwright install-deps`).
 - **CI** (`.github/workflows/ci.yml`) runs types, lint, unit tests and the build in parallel, then the browser tests in parallel on separate machines (device layouts in three shards, accessibility, playthrough, offline). Require the "CI passed" job in branch protection.
 - **Stale styles:** if a change to `globals.css` (`@theme`, `@custom-variant`) doesn't show up in a build, delete `.next` and rebuild.

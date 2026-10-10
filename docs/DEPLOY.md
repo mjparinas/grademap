@@ -85,6 +85,6 @@ Turso offers Canadian locations only on its Fly provider (its AWS list has none)
 - [ ] `/play/`, `/parents/` and `/api/` stay `noindex`; public pages are indexed.
 - [ ] Submit the sitemap in Google Search Console.
 - [ ] Privacy: export and delete-account work against the production database.
-- [ ] `/privacy/` and `/terms/` had an AI review on 2026-10-09 (not a lawyer's review; the pages say so). Set `LEGAL_NAME`, `CONTACT_EMAIL` and `MAILING_ADDRESS` in `src/lib/brand.ts` (the address is required in CASL email), bump `LEGAL_UPDATED`, and still have a lawyer review both (governing law is set to British Columbia) before taking payments. Known gap: deleting an account does not cancel the Stripe subscription (`src/app/api/account/route.ts`).
+- [ ] `/privacy/` and `/terms/` had an AI review on 2026-10-09 (not a lawyer's review; the pages say so). Set `LEGAL_NAME`, `CONTACT_EMAIL` and `MAILING_ADDRESS` in `src/lib/brand.ts` (the address is required in CASL email), bump `LEGAL_UPDATED`, and still have a lawyer review both (governing law is set to British Columbia) before taking payments. Account deletion cancels Stripe subscriptions before deleting the family; if Stripe refuses, deletion stops so the parent can retry.
 - [ ] BC teacher content review, Big Ideas check and Grade 4–5 history dates (see `AGENTS.md`, Open items).
 - [ ] Check the service worker after a deploy: it precaches by build, so a second visit should pick up the new version.

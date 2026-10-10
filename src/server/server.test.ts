@@ -339,6 +339,33 @@ describe("subscriptions", () => {
       for (const k of Object.keys(stripeEnv)) delete process.env[k];
     }
   });
+
+  it("cancels every Stripe subscription when price ids are not configured", async () => {
+    process.env.STRIPE_SECRET_KEY = "sk_test";
+    delete process.env.STRIPE_PRICE_MONTHLY;
+    delete process.env.STRIPE_PRICE_YEARLY;
+    try {
+      const cookie = await subscribed("cancel-many@example.com");
+      const calls: string[] = [];
+      vi.stubGlobal("fetch", async (url: string, init?: RequestInit) => {
+        calls.push(`${init?.method ?? "GET"} ${url}`);
+        if (init?.method === "DELETE") return new Response(JSON.stringify({ id: url.split("/").pop(), status: "canceled" }));
+        if (url.includes("starting_after=sub_1")) {
+          return new Response(JSON.stringify({ data: [{ id: "sub_2", status: "active" }], has_more: false }));
+        }
+        return new Response(JSON.stringify({ data: [{ id: "sub_1", status: "active" }], has_more: true }));
+      });
+
+      const response = await account.DELETE(post("/api/account/", { password: "correct horse" }, cookie, "DELETE"));
+      expect(response.status).toBe(200);
+      expect(calls.filter((call) => call.startsWith("GET"))).toHaveLength(2);
+      expect(calls.some((call) => call.includes("starting_after=sub_1"))).toBe(true);
+      expect(calls.filter((call) => call.startsWith("DELETE"))).toHaveLength(2);
+    } finally {
+      vi.unstubAllGlobals();
+      delete process.env.STRIPE_SECRET_KEY;
+    }
+  });
 });
 
 describe("account security", () => {
