@@ -56,6 +56,10 @@ export interface ChildSettings {
   roomyText?: boolean;
   /** Stronger text colours and outlines. */
   highContrast?: boolean;
+  /** Days a week a parent hopes the child will practise (1 to 7). Unset means no family goal. */
+  weeklyGoalDays?: number;
+  /** A short kind note a parent sent from a fixed list; the child sees it once on the home screen. */
+  nudge?: { id: string; preset: string; sentAt: number };
   autoRead: boolean;
   sound: boolean;
   /** Light vibration on taps and answers, on devices that support it. On unless set to false. */
