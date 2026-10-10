@@ -4,7 +4,7 @@ For a school or district that is completing a PIA (BC: FIPPA s. 69; Ontario boar
 
 ## 1. The service
 
-GradeMap is a web app (installable, with an Android wrapper) for practice and games matched to the BC and Ontario curricula, Kindergarten to Grade 9. In a school it is a practice aid. Its levels reflect practice, not a report-card mark; the teacher decides proficiency. There are no ads, no tracking and no sale of data.
+Gradelings is a web app (installable, with an Android wrapper) for practice and games matched to the BC and Ontario curricula, Kindergarten to Grade 9. In a school it is a practice aid. Its levels reflect practice, not a report-card mark; the teacher decides proficiency. There are no ads, no tracking and no sale of data.
 
 ## 2. Who uses it and how accounts work
 
@@ -38,7 +38,7 @@ GradeMap is a web app (installable, with an Android wrapper) for practice and ga
 - **Teacher:** each student's first name, avatar, grade, last active date, and level, first-try accuracy and number of questions for the units they assigned. Not the student's play on other units, not coins, trophies or games.
 - **Student:** only their own account.
 - **Other teachers:** nothing. A class belongs to the teacher who created it.
-- **GradeMap staff:** operational access for support and security only **(confirm access policy before signing)**.
+- **Gradelings staff:** operational access for support and security only **(confirm access policy before signing)**.
 - **Parents** (for linked children): the full family view at home, as for any family.
 
 ## 5. Data flow
@@ -47,7 +47,7 @@ GradeMap is a web app (installable, with an Android wrapper) for practice and ga
 Student's device (browser, saves on the device first)
    |  HTTPS, signed-in cookie
    v
-GradeMap app servers, Montreal  --->  Database (Turso, Montreal)
+Gradelings app servers, Montreal  --->  Database (Turso, Montreal)
    |
    +--> Resend: teacher account emails only (confirmation, password reset)
    +--> Sentry: crash reports, scrubbed of names, emails, cookies and what was tapped

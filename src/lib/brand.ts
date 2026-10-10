@@ -1,4 +1,4 @@
-// Working name: change it here and it updates across the site and the install manifest.
+// App name: change it here and it updates across the site and the install manifest.
 export const APP_NAME = "Gradelings";
 export const MASCOT_NAME = "Ollie";
 
