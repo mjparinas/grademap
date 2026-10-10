@@ -394,7 +394,7 @@ function Runner({ plan }: { plan: Plan }) {
           <Critter id={guide && band !== "little" ? subjectGuide(guide, companion) : companion} mood={mood} size={band === "little" ? 110 : 88} className="sm:hidden" />
           <Critter id={guide && band !== "little" ? subjectGuide(guide, companion) : companion} mood={mood} size={band === "little" ? 140 : 116} className="hidden sm:block" />
           <SpeechBubble className="mt-2 flex-1">
-            <p className={`font-read font-bold leading-snug ${band === "little" ? "text-3xl sm:text-4xl" : band === "big" ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"}`}>
+            <p lang={q.lang} className={`font-read font-bold leading-snug ${band === "little" ? "text-3xl sm:text-4xl" : band === "big" ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"}`}>
               {q.prompt}
             </p>
           </SpeechBubble>
@@ -416,7 +416,9 @@ function Runner({ plan }: { plan: Plan }) {
           )}
           {q.visual && (
             <div className="flex animate-rise-in justify-center" style={{ animationDelay: "80ms" }}>
-              <QuestionVisual visual={q.visual} />
+              <div lang={q.visualLang}>
+                <QuestionVisual visual={q.visual} />
+              </div>
             </div>
           )}
           <QuestionBody q={q} status={status} onAttempt={onAttempt} onSlip={onSlip} />

@@ -65,7 +65,7 @@ export function ChoiceQuestion({ q, status, onAttempt }: QuestionProps<Q>) {
                   {c.coin && <Coin cents={c.coin} />}
                 </>
               )}
-              <span className={layout === "tiles" ? "font-read leading-tight" : ""}>
+              <span lang={q.choicesLang} className={layout === "tiles" ? "font-read leading-tight" : ""}>
                 {c.label}
                 {/* A tick as well as the green, for children who can't tell green from orange. */}
                 {showRight && <span aria-hidden="true"> ✓</span>}
