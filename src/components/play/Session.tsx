@@ -16,6 +16,7 @@ import { speak, speakSegments, stopSpeaking } from "@/lib/speech";
 import { derivedFor, useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useBand } from "../band";
 import { Critter, SpeechBubble, type Mood } from "../Critter";
+import { Companion } from "./Companion";
 import { BuildQuestion } from "../questions/BuildQuestion";
 import { ChoiceQuestion } from "../questions/ChoiceQuestion";
 import { CoinsQuestion } from "../questions/CoinsQuestion";
@@ -311,7 +312,7 @@ function Runner({ plan }: { plan: Plan }) {
     const last = results.slice(-plan.checkpoint!);
     return (
       <Page className="items-center justify-center gap-5 text-center">
-        <Critter id={companion} mood="cheer" size={140} />
+        <Companion mood="cheer" size={140} />
         <h1 className="text-4xl font-bold">Checkpoint! 🚩</h1>
         <p className="text-2xl">
           <b>{last.filter((r) => r.correct).length}</b> of {last.length} right on the first try
@@ -338,7 +339,7 @@ function Runner({ plan }: { plan: Plan }) {
   if (!q || !item) {
     return (
       <Page className="items-center justify-center gap-4 text-center">
-        <Critter id={companion} mood="think" size={130} />
+        <Companion mood="think" size={130} />
         <p className="text-2xl font-bold">Nothing to practise here yet. Try a lesson first!</p>
         <button type="button" className="btn btn-good min-h-14 px-6 text-xl" onClick={() => go("/")}>
           Go home
@@ -582,7 +583,7 @@ function Summary({ plan, results, startDerived }: { plan: Plan; results: Result[
   return (
     <Page className="items-center justify-center text-center">
       <div ref={stage} className="flex w-full max-w-xl flex-col items-center gap-5">
-        <Critter id={profile.companion} mood="cheer" size={150} />
+        <Companion mood="cheer" size={150} />
         <h1 className="animate-pop-in text-4xl font-bold sm:text-5xl">{headline}</h1>
 
         {plan.mode === "speed" ? (

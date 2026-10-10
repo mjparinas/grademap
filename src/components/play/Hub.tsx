@@ -16,7 +16,8 @@ import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
 import { useBand } from "../band";
-import { Critter, SpeechBubble } from "../Critter";
+import { SpeechBubble } from "../Critter";
+import { Companion } from "./Companion";
 import { Dialog, Page, ProgressBar } from "../ui";
 import { Hud } from "./Hud";
 import { BuddyButton, MooseVisitor } from "./Secrets";
@@ -140,8 +141,8 @@ export function Hub() {
       <div className="flex items-center gap-3">
         {/* Smaller on the narrowest phones, hidden on phones held sideways, so the big button stays in view. */}
         <BuddyButton name={"your buddy"}>
-          <Critter id={profile.companion} mood={mood} size={little ? 130 : 104} className="narrow:hidden short:hidden" />
-          <Critter id={profile.companion} mood={mood} size={72} className="hidden narrow:block short:hidden" />
+          <Companion mood={mood} size={little ? 130 : 104} className="narrow:hidden short:hidden" />
+          <Companion mood={mood} size={72} className="hidden narrow:block short:hidden" />
         </BuddyButton>
         <SpeechBubble className="flex-1">
           <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>
@@ -311,7 +312,7 @@ export function Hub() {
 
       <Dialog open={locked} title="Ask a grown-up" onClose={() => setLocked(false)}>
         <div className="mb-4 flex justify-center">
-          <Critter id={profile.companion} mood="think" size={110} />
+          <Companion mood="think" size={110} />
         </div>
         <p className="mb-5 font-read text-lg text-ink-soft">This part opens with a family membership. A grown-up can turn it on in the grown-ups area.</p>
         <button type="button" className="btn btn-good min-h-14 w-full text-xl" onClick={() => setLocked(false)}>

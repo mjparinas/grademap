@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { GROWTH_STAGES, growthStage, nextGrowthStage } from "@/lib/growth";
 import { celebrate } from "@/lib/juice";
 import { isUnlocked, SHOP, type ItemKind, type ShopItem } from "@/lib/shop";
 import { sounds } from "@/lib/sound";
 import { useActiveProfile, useDerived, useStore } from "@/lib/store";
 import { Critter, CritterSvg } from "../Critter";
-import { Dialog, Page } from "../ui";
+import { Dialog, Page, ProgressBar } from "../ui";
 import { BackButton } from "./Practice";
 
 const TABS: { kind: ItemKind; label: string; icon: string }[] = [
@@ -21,6 +22,8 @@ export function Shop() {
   const buy = useStore((s) => s.buy);
   const [tab, setTab] = useState<ItemKind>("companion");
   const [confirm, setConfirm] = useState<ShopItem | null>(null);
+  const stage = growthStage(d.level);
+  const upcoming = nextGrowthStage(d.level);
 
   const equipped = (item: ShopItem) =>
     item.kind === "companion" ? profile.companion === item.id : item.kind === "title" ? profile.title === item.id : profile.confetti === item.id;
@@ -45,6 +48,27 @@ export function Shop() {
         <span className="flex h-14 items-center gap-1 rounded-2xl bg-white px-4 text-2xl font-bold shadow-[0_4px_0_var(--color-line)]">🪙 {d.coins}</span>
       </header>
       <p className="font-read text-lg text-ink-soft">Earn coins by learning, finishing quests and winning trophies.</p>
+
+      <section className="card flex items-center gap-4 p-4" aria-label="Your buddy is growing">
+        <Critter id={profile.companion} mood="cheer" size={110} stage={stage.stage} />
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-ink-soft">Your buddy is growing</p>
+          <p className="text-2xl font-bold">
+            {stage.name} · level {d.level}
+          </p>
+          {upcoming ? (
+            <>
+              <ProgressBar value={d.level - stage.level} max={upcoming.level - stage.level} height={12} label={`Level ${d.level}, growing into ${upcoming.name} at level ${upcoming.level}`} />
+              <p className="mt-1 text-sm font-semibold text-ink-soft">
+                Reach level {upcoming.level} to become {upcoming.name}: {upcoming.gain.toLowerCase()}.
+              </p>
+            </>
+          ) : (
+            <p className="text-sm font-semibold text-ink-soft">All grown up! There is nothing left to unlock.</p>
+          )}
+          <p className="sr-only">{GROWTH_STAGES.map((g) => `${g.name} at level ${g.level}`).join(", ")}</p>
+        </div>
+      </section>
 
       <div className="flex flex-wrap gap-2" role="tablist">
         {TABS.map((t) => (
