@@ -1,4 +1,5 @@
 import { ALBERTA } from "./alberta/framework";
+import { MANITOBA } from "./manitoba/framework";
 import { ONTARIO } from "./ontario/framework";
 import { SASKATCHEWAN } from "./saskatchewan/framework";
 import type { FrameworkId, GradeId, SubjectId } from "./types";
@@ -177,6 +178,7 @@ export const FRAMEWORKS: Framework[] = [
   ONTARIO,
   ALBERTA,
   SASKATCHEWAN,
+  MANITOBA,
 ];
 
 export const DEFAULT_FRAMEWORK: FrameworkId = "ca-bc";

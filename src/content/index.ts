@@ -50,6 +50,18 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "8": () => import("./alberta/g8"),
     "9": () => import("./alberta/g9"),
   },
+  "ca-mb": {
+    k: () => import("./manitoba/k"),
+    "1": () => import("./manitoba/g1"),
+    "2": () => import("./manitoba/g2"),
+    "3": () => import("./manitoba/g3"),
+    "4": () => import("./manitoba/g4"),
+    "5": () => import("./manitoba/g5"),
+    "6": () => import("./manitoba/g6"),
+    "7": () => import("./manitoba/g7"),
+    "8": () => import("./manitoba/g8"),
+    "9": () => import("./manitoba/g9"),
+  },
   "ca-sk": {
     k: () => import("./saskatchewan/k"),
     "1": () => import("./saskatchewan/g1"),
@@ -100,16 +112,6 @@ export interface UnitRef {
   unit: Unit;
 }
 
-/** Joins two unit lists. A unit both lists have (same id) appears once, with the standards from both. */
-function mergeUnits(a: Unit[], b: Unit[]): Unit[] {
-  const out = [...a];
-  for (const u of b) {
-    const i = out.findIndex((x) => x.id === u.id);
-    out[i < 0 ? out.length : i] = i < 0 ? u : { ...out[i], standards: { ...out[i].standards, ...u.standards } };
-  }
-  return out;
-}
-
 /** Joins two share maps. A unit shared by several frameworks keeps the standards from each. */
 function mergeShares(a: Course["shares"], b: Course["shares"]): Course["shares"] {
   const out = { ...a };
@@ -136,6 +138,21 @@ export function mergeCourses(lists: Course[][]): Course[] {
     };
   }
   return out.map(applyShares);
+}
+
+/** Joins two unit lists. A unit with the same id is the same unit, with the standards of every framework that uses it. */
+function mergeUnits(a: Unit[], b: Unit[]): Unit[] {
+  const out = [...a];
+  for (const unit of b) {
+    const i = out.findIndex((u) => u.id === unit.id);
+    if (i < 0) {
+      out.push(unit);
+      continue;
+    }
+    if (out[i].generate !== unit.generate) throw new Error(`Two different units share the id "${unit.id}"`);
+    out[i] = { ...out[i], standards: { ...out[i].standards, ...unit.standards } };
+  }
+  return out;
 }
 
 function applyShares(course: Course): Course {

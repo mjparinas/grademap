@@ -1,0 +1,93 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 6 mathematics written for the Manitoba outcomes: integers (6.N.7) and line graphs and data (6.SP.1 to 6.SP.3).
+
+const INTEGERS: Q[] = [
+  ["Which integer shows 8 degrees below zero?", "−8", ["8", "0"], "Below zero means a negative integer."],
+  ["Which integer shows a gain of 5 points?", "+5", ["−5", "0"], "A gain is a positive integer."],
+  ["Which integer shows a loss of $12?", "−12", ["12", "+2"], "A loss is a negative integer."],
+  ["Which integer is the opposite of 7?", "−7", ["7", "0"], "Opposite integers are the same distance from zero on opposite sides."],
+  ["Which integer is the opposite of −15?", "15", ["−15", "−51"], "The opposite of a negative integer is positive."],
+  ["Which is greater?", "−2", ["−9", "−11"], "On a number line, the number farther to the right is greater. −2 is closest to zero."],
+  ["Which is less?", "−6", ["−1", "3"], "Negative numbers farther from zero are smaller."],
+  ["Which integer is greater: −4 or 2?", "2", ["−4", "They are equal"], "Every positive integer is greater than every negative integer."],
+  ["Which list is in order from least to greatest?", "−7, −3, 0, 4", ["4, 0, −3, −7", "−3, −7, 0, 4"], "Start at the far left of the number line."],
+  ["Which list is in order from greatest to least?", "5, 1, −2, −8", ["−8, −2, 1, 5", "1, 5, −2, −8"], "Start with the number farthest right."],
+  ["What integer is 3 to the left of 0 on a number line?", "−3", ["3", "−30"], "Left of zero is negative."],
+  ["What integer is 2 to the right of −5 on a number line?", "−3", ["−7", "3"], "Start at −5 and move right 2 steps: −4, −3."],
+  ["What integer is 4 to the left of −1 on a number line?", "−5", ["3", "−3"], "Start at −1 and move left 4 steps."],
+  ["The temperature was −6 °C and rose by 4 degrees. What is it now?", "−2 °C", ["−10 °C", "2 °C"], "Move 4 steps to the right of −6."],
+  ["The temperature was 3 °C and fell by 7 degrees. What is it now?", "−4 °C", ["4 °C", "−10 °C"], "Go down 3 to reach zero, then 4 more below zero."],
+  ["A diver is at −10 m and swims up 6 m. Where is she now?", "−4 m", ["−16 m", "4 m"], "Swimming up moves toward zero."],
+  ["Which temperature is colder: −12 °C or −5 °C?", "−12 °C", ["−5 °C", "They are the same"], "The farther below zero, the colder."],
+  ["Which temperature is warmer: −1 °C or −8 °C?", "−1 °C", ["−8 °C", "They are the same"], "−1 is closer to zero, so it is warmer."],
+  ["A bank account is overdrawn by $25. Which integer shows this?", "−25", ["25", "0"], "Owing money is a negative integer."],
+  ["Which integer describes a floor 3 levels underground in a parking garage?", "−3", ["3", "30"], "Below ground level is negative."],
+  ["What is the distance on a number line from 0 to −9?", "9 units", ["−9 units", "0 units"], "Distance is never negative."],
+  ["Which integer is neither positive nor negative?", "0", ["1", "−1"], "Zero is the dividing point of the number line."],
+  ["Which sign goes in the box? −3 ▢ −8", ">", ["<", "="], "−3 is to the right of −8, so it is greater."],
+  ["Which sign goes in the box? −10 ▢ 1", "<", [">", "="], "A negative number is always less than a positive number."],
+  ["Which integers are between −3 and 2?", "−2, −1, 0, 1", ["−3, −2, 1, 2", "−1, 0, 1, 2, 3"], "Between means not including the end numbers."],
+  ["Which has the same value as −(−6)?", "6", ["−6", "0"], "The opposite of −6 is 6.", true],
+  ["Which integer is 5 less than −2?", "−7", ["3", "−3"], "Move 5 steps left from −2.", true],
+  ["A submarine at −40 m rises 15 m, then dives 25 m. Where is it?", "−50 m", ["−30 m", "−80 m"], "−40 + 15 = −25, then −25 − 25 = −50.", true],
+  ["On a mountain trail, the starting point is 0 m. A cave is at −18 m and a lookout at 25 m. How far apart are they in height?", "43 m", ["7 m", "−7 m"], "Add the distances above and below zero: 18 + 25.", true],
+  ["Which pair are opposite integers?", "+9 and −9", ["9 and 90", "−9 and −90"], "Opposites are the same distance from zero on opposite sides.", true],
+  ["Which has the greatest value?", "−1", ["−20", "−100"], "The negative closest to zero is greatest.", true],
+  ["Winnipeg was −27 °C in the morning and −19 °C in the afternoon. Did it get warmer or colder?", "warmer by 8 degrees", ["colder by 8 degrees", "warmer by 46 degrees"], "−19 is to the right of −27 by 8 steps.", true],
+];
+
+export const integers = bankUnit({
+  id: "mb-integers",
+  title: "Integers",
+  emoji: "🌡️",
+  blurb: "Positive and negative numbers on a number line.",
+  parentNote:
+    "Practises reading, comparing and ordering positive and negative whole numbers on a number line, finding opposites, and using integers for temperatures, depths and money.",
+  standards: ["6.N.7", "integers: representing, comparing, ordering and using them on a number line"],
+  items: INTEGERS,
+});
+
+const GRAPHS: Q[] = [
+  ["What does a line graph show best?", "How something changes over time", ["How many are in each group", "Where places are on a map"], "A line graph connects points to show change."],
+  ["Mia tracked the daily high temperature for a week. Which graph fits best?", "a line graph", ["a map", "a calendar"], "Temperature changes over time, so a line graph works well."],
+  ["Which part of a line graph usually shows the time?", "the horizontal axis", ["the title", "the legend"], "Time goes along the bottom, the horizontal axis."],
+  ["A line graph goes steeply up between Monday and Tuesday. What does that mean?", "A big increase", ["A big decrease", "No change"], "Up means the amount grew."],
+  ["On a line graph, the line is flat between two points. What happened?", "Nothing changed", ["It doubled", "It was zero"], "A flat line means the same amount."],
+  ["On a line graph, the line goes down from 20 to 12. What happened?", "It decreased by 8", ["It increased by 8", "It decreased by 12"], "20 − 12 = 8."],
+  ["A line graph of a plant's height shows 4 cm in week 1 and 9 cm in week 2. How much did it grow?", "5 cm", ["4 cm", "13 cm"], "Subtract: 9 − 4."],
+  ["What should every graph have to tell the reader what it is about?", "a title", ["a picture", "a border"], "A title tells what the graph shows."],
+  ["Which of these is a good label for a vertical axis?", "Number of visitors", ["Nice graph", "Tuesday"], "Axis labels say what is measured."],
+  ["A questionnaire asks classmates their favourite lunch. This is a way of…", "collecting data", ["drawing a map", "solving an equation"], "Surveys and questionnaires collect data."],
+  ["Which is the best way to find out how many hours your class sleeps each night?", "Ask everyone in a questionnaire", ["Guess", "Ask only your best friend"], "Asking the whole class gives better data."],
+  ["Counting how many cars pass the school in 10 minutes is an example of…", "an observation", ["a questionnaire", "an experiment"], "You collect data by watching and counting."],
+  ["Rolling a die 30 times and writing down each result is an example of…", "an experiment", ["a questionnaire", "a map"], "An experiment collects data from a test."],
+  ["What is the range of this data? 6, 9, 12, 15, 21", "15", ["21", "6"], "Range is the greatest value minus the least: 21 − 6."],
+  ["A line graph shows 2 °C at 8 a.m., 5 °C at noon and 4 °C at 4 p.m. When was it warmest?", "noon", ["8 a.m.", "4 p.m."], "Find the highest point."],
+  ["A line graph shows 30 at 1 p.m., 45 at 2 p.m. and 60 at 3 p.m. What is the pattern?", "It goes up 15 each hour", ["It goes down 15 each hour", "It stays the same"], "45 − 30 = 15 and 60 − 45 = 15."],
+  ["Which scale makes sense for data from 0 to 50?", "0, 10, 20, 30, 40, 50", ["0, 1, 5, 50", "50, 0, 30, 10"], "A scale uses equal steps in order."],
+  ["Why do we choose equal steps on a graph scale?", "So the graph is fair and easy to read", ["So the graph looks small", "So the numbers are hidden"], "Equal steps keep distances honest."],
+  ["Sam says, “The line goes up, so the snow is getting deeper.” This is…", "a conclusion from the graph", ["a question", "a title"], "A conclusion is what you decide from the data."],
+  ["A line graph shows a town's population in 2000, 2010 and 2020. What can you predict from its upward line?", "The population may keep growing", ["The town will vanish", "The population is zero"], "Trends help us make a reasonable prediction."],
+  ["Which graph would show favourite pets (dogs, cats, fish) best?", "a bar graph", ["a line graph", "a number line"], "Separate groups fit a bar graph. Change over time fits a line graph."],
+  ["Which question can a line graph of daily rainfall answer?", "Which day had the most rain?", ["What is the capital?", "Who is tallest?"], "Read the highest point on the graph."],
+  ["In a table, the times are 1, 2, 3 and the heights are 3, 6, 9. Where is the point for time 2?", "(2, 6)", ["(6, 2)", "(2, 3)"], "Write the time first, then the height."],
+  ["A line graph has points at (1, 4), (2, 6) and (3, 8). What is the point for time 4 if the pattern continues?", "(4, 10)", ["(4, 9)", "(4, 12)"], "The value goes up by 2 each time.", true],
+  ["A graph of a hot chocolate cooling shows 80 °C at 0 min, 60 °C at 10 min and 45 °C at 20 min. Which interval cooled the most?", "0 to 10 min", ["10 to 20 min", "They cooled the same"], "80 − 60 = 20 but 60 − 45 = 15.", true],
+  ["A line graph that goes up, then down, then up shows a value that…", "rises and falls", ["only rises", "never changes"], "The direction of the line shows the change.", true],
+  ["Why might a questionnaire about school lunch not be fair if only grade 6 students answer?", "It leaves out other students' ideas", ["It uses too many numbers", "Grade 6 students cannot read"], "Good samples include different people.", true],
+  ["Why should a line graph's vertical scale start at zero for amounts like rainfall?", "So the heights compare fairly", ["So the line is longer", "So the title fits"], "Starting at zero keeps comparisons honest.", true],
+  ["On a line graph, a student reads 36 at 10 a.m. and 24 at noon. By how much did the amount change per hour, on average?", "It fell by 6 each hour", ["It rose by 6 each hour", "It fell by 12 each hour"], "The change was 12 over 2 hours.", true],
+  ["Which is the best title for a graph of daily temperature in Brandon for one week?", "Daily High Temperature in Brandon, One Week", ["Graph", "Temperatures are fun"], "A good title tells what, where and when.", true],
+];
+
+export const lineGraphs = bankUnit({
+  id: "mb-line-graphs",
+  title: "Line Graphs & Data",
+  emoji: "📈",
+  blurb: "Collect data, draw line graphs and draw conclusions.",
+  parentNote:
+    "Practises choosing ways to collect data (questionnaires, experiments, observations), reading and labelling line graphs, finding the range, and drawing conclusions from a graph.",
+  standards: ["6.SP.1, 6.SP.2, 6.SP.3", "collecting data, and creating and interpreting line graphs to draw conclusions"],
+  items: GRAPHS,
+});

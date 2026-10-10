@@ -1,0 +1,132 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 6 science written for the Manitoba outcomes: buoyancy (SCI.6.E.3), stored energy (SCI.6.E.4, SCI.6.E.5)
+// and heredity and fossils (SCI.6.E.12, SCI.6.E.13, SCI.6.E.15, SCI.6.E.17).
+
+const BUOYANCY: Q[] = [
+  ["What is buoyancy?", "The upward push of a fluid on an object", ["The pull of Earth on an object", "The force that slows sliding"], "A fluid such as water pushes up on things placed in it."],
+  ["Which force pulls a floating boat down?", "gravity", ["buoyancy", "friction"], "Gravity pulls down while buoyancy pushes up."],
+  ["A toy boat floats at rest. The buoyant force is…", "equal to its weight", ["greater than its weight", "zero"], "Balanced forces keep it from moving up or down."],
+  ["A rock sinks in water. Its weight is…", "greater than the buoyant force", ["less than the buoyant force", "zero"], "Unbalanced forces move it down."],
+  ["A cork bobs up to the surface. The buoyant force on it is…", "greater than its weight", ["less than its weight", "zero"], "The upward force wins, so it rises."],
+  ["Which is a fluid?", "water", ["a rock", "a wooden block"], "Liquids and gases are fluids."],
+  ["Which of these is also a fluid that can give buoyancy?", "air", ["sand in a box", "a brick"], "Air lifts a hot air balloon."],
+  ["Which would float more easily in water?", "a block of wood", ["a steel bolt", "a stone"], "Wood is less dense than water."],
+  ["Which would sink in water?", "a steel bolt", ["a beach ball", "a cork"], "Steel is more dense than water."],
+  ["Why does a large steel ship float?", "Its shape holds a lot of air, so it is less dense overall", ["Steel is lighter than water", "Gravity does not pull on ships"], "The ship pushes aside a large amount of water."],
+  ["A ball of plasticine sinks. What could you do to make it float?", "Shape it into a boat with a hollow", ["Squeeze it tighter", "Add a heavy stone"], "A wider shape pushes aside more water."],
+  ["What does density tell you?", "How much mass is in a given space", ["How hot an object is", "How fast it moves"], "Dense objects pack a lot of mass into a small volume."],
+  ["An object is less dense than water. It will…", "float", ["sink", "disappear"], "Less dense objects float."],
+  ["An object is more dense than water. It will…", "sink", ["float", "dissolve"], "More dense objects sink."],
+  ["Salt water is more dense than fresh water. Which is easier to float in?", "salt water", ["fresh water", "They are the same"], "A denser fluid gives more buoyant force."],
+  ["Why does a life jacket help you float?", "It is full of material that is less dense than water", ["It makes gravity weaker", "It makes you heavier"], "The jacket adds volume without much mass."],
+  ["A submarine fills tanks with water to…", "sink", ["rise", "stay on top"], "More water makes the submarine more dense."],
+  ["A submarine pushes water out of its tanks to…", "rise", ["sink", "turn off the lights"], "Less mass and more air make it less dense."],
+  ["A hot air balloon floats because the warm air inside is…", "less dense than the air around it", ["heavier than the air around it", "frozen"], "Less dense gas rises in a denser fluid."],
+  ["Which pushes up on a swimmer in a pool?", "buoyant force", ["magnetic force", "static charge"], "Water pushes up on anything in it."],
+  ["Which unit is used to measure a force like buoyancy?", "newtons", ["litres", "degrees"], "Forces are measured in newtons (N)."],
+  ["An object weighs 5 N in air and the buoyant force is 5 N. What happens?", "It floats at rest", ["It sinks", "It shoots upward"], "Equal forces are balanced."],
+  ["Why is it easier to lift a rock under water?", "Buoyancy helps hold it up", ["Gravity stops", "The rock gets lighter in mass"], "The water's upward push takes some of the load."],
+  ["A boat is loaded with heavy cargo and sits lower in the water. Why?", "It must push aside more water to make enough buoyant force", ["Gravity got weaker", "The water got thicker"], "More weight needs more displaced water.", true],
+  ["Two blocks are the same size. Block A is heavier. Which is more dense?", "Block A", ["Block B", "They are equal"], "More mass in the same volume means more dense.", true],
+  ["Why can a person float more easily in the Dead Sea than in a lake?", "The water has much more salt, so it is denser", ["The water is warmer", "People weigh less there"], "A denser fluid pushes up harder.", true],
+  ["A fair test of which shape floats longest uses the same…", "amount of plasticine", ["colour of plasticine", "shape of each boat"], "Only one thing changes: the shape.", true],
+  ["An engineer designs a boat to carry more cargo. Which change helps most?", "A wider hull that pushes aside more water", ["A smaller hull", "A heavier hull with the same shape"], "More displaced water means more buoyant force.", true],
+  ["A fish keeps a gas-filled bladder. Why?", "To adjust its density and stay at a depth", ["To make noise only", "To breathe air"], "Changing the gas changes how dense the fish is.", true],
+];
+
+export const buoyancy = bankUnit({
+  id: "mb-buoyancy",
+  title: "Buoyancy",
+  emoji: "🛟",
+  blurb: "Why things float or sink.",
+  parentNote:
+    "Practises the idea that a fluid pushes up on objects, why some things float and others sink (density, shape and the fluid), and how ships, submarines and life jackets use buoyancy.",
+  standards: ["SCI.6.E.3", "buoyancy: balanced and unbalanced forces, density, and floating and sinking"],
+  items: BUOYANCY,
+});
+
+const STORED: Q[] = [
+  ["Energy stored in food is…", "chemical energy", ["sound energy", "light energy"], "Food holds chemical energy your body can use."],
+  ["A stretched elastic band has…", "elastic (stored) energy", ["no energy", "sound energy only"], "A stretched band stores energy it can release."],
+  ["A rock at the top of a cliff has…", "stored energy because of its height", ["no energy", "only moving energy"], "The higher it is, the more energy is stored."],
+  ["A wound-up wind-up toy has…", "stored energy in the spring", ["no energy", "light energy"], "The spring stores energy until it unwinds."],
+  ["A battery stores…", "chemical energy", ["magnetic energy", "heat only"], "Batteries change stored chemical energy to electrical energy."],
+  ["Which has stored chemical energy?", "a piece of firewood", ["a still pond", "a closed window"], "Wood can release energy when burned."],
+  ["When a stretched slingshot is released, stored energy becomes…", "motion energy", ["no energy", "stored energy only"], "The stored energy moves the stone."],
+  ["A ball at the top of a hill starts rolling. Stored energy is changing to…", "motion energy", ["chemical energy", "magnetic energy"], "It speeds up as it goes down."],
+  ["What is energy transfer?", "Energy moving from one object or place to another", ["Energy disappearing", "Energy being made from nothing"], "Energy is passed along, not lost."],
+  ["Energy cannot be…", "created or destroyed", ["transferred", "stored"], "It changes form and moves."],
+  ["Toasting bread in a toaster changes electrical energy into…", "heat energy", ["chemical energy only", "no energy"], "The toaster wires get hot."],
+  ["A lamp changes electrical energy into light and…", "heat", ["a battery", "gravity"], "Some energy always becomes heat."],
+  ["A hockey stick hits a puck. Energy transfers from the stick to the…", "puck", ["ice only", "the arena roof"], "Motion energy passes to the puck."],
+  ["Which shows stored energy turning into motion?", "A bow releasing an arrow", ["A book on a shelf staying still", "A sleeping dog"], "The bow's stored energy moves the arrow."],
+  ["A skateboarder rolls up a ramp and slows down. Her motion energy is turning into…", "stored energy from height", ["sound only", "nothing"], "The higher she goes, the more energy is stored."],
+  ["Why do you feel hot after running?", "Your body changes chemical energy from food into motion and heat", ["The Sun leaves your body", "Gravity pulls harder"], "Food energy is released as you move."],
+  ["Which of these is a source of stored energy for a car?", "gasoline", ["a flat tire", "a seatbelt"], "Gasoline stores chemical energy."],
+  ["Which food gives you energy to play?", "a bowl of oatmeal", ["a cup of sand", "a leaf of paper"], "Foods store chemical energy for our bodies."],
+  ["A flashlight battery runs out. What happened to its stored energy?", "It was transferred to light and heat", ["It disappeared", "It went back in time"], "The energy changed form."],
+  ["A bouncing ball goes lower each bounce. Some energy has become…", "heat and sound", ["stored forever", "new energy"], "A bit of energy escapes each bounce."],
+  ["Dominoes fall one after another. This shows…", "energy being transferred", ["energy being stored only", "no energy"], "Each domino passes its motion on."],
+  ["Which has more stored energy?", "a book on a high shelf", ["the same book on the floor", "a book in a bag on the floor"], "Greater height means more stored energy."],
+  ["A plant makes food using light energy. Where is the energy stored?", "In the plant's food", ["In the soil only", "Nowhere"], "Plants store the Sun's energy as chemical energy.", true],
+  ["A wind-up flashlight stores energy from…", "your muscles turning the handle", ["the Moon", "a gas pump"], "Motion energy becomes electrical energy.", true],
+  ["A roller coaster car is at the top of the first hill. Which statement is true?", "It has the most stored energy there", ["It has no energy", "It has the most motion energy there"], "At the top, stored energy is greatest.", true],
+  ["An archer pulls back the string, then lets go. Order the energy changes.", "muscle energy, stored in bow, motion of arrow", ["motion of arrow, muscle energy, stored in bow", "stored in bow, muscle energy, motion of arrow"], "Energy goes from the archer to the bow to the arrow.", true],
+  ["Why is it unsafe to stand under a heavy object on a high shelf?", "It has stored energy that could change into motion", ["It has no energy", "It cannot fall"], "A falling object turns stored energy into motion.", true],
+  ["A solar panel changes…", "light energy into electrical energy", ["heat into sound", "wind into water"], "Solar panels capture the Sun's light.", true],
+  ["A hydroelectric dam uses water stored high up. This works because the water has…", "stored energy that becomes motion energy when it falls", ["no energy", "only heat"], "Falling water turns turbines.", true],
+];
+
+export const storedEnergy = bankUnit({
+  id: "mb-stored-energy",
+  title: "Stored Energy",
+  emoji: "🔋",
+  blurb: "Energy that waits, then moves.",
+  parentNote:
+    "Practises the idea that objects can hold stored energy (chemical, elastic, height) and that it can be transferred to cause events such as motion, heat and light.",
+  standards: ["SCI.6.E.4, SCI.6.E.5", "stored energy in objects, and how it is transferred to cause events"],
+  items: STORED,
+});
+
+const HEREDITY: Q[] = [
+  ["Organisms of the same kind produce offspring that…", "resemble them", ["look exactly like a different animal", "have no traits"], "Offspring inherit traits from their parents."],
+  ["A trait is…", "a characteristic of an organism", ["a kind of food", "a type of rock"], "Eye colour and fur colour are traits."],
+  ["Which trait do puppies inherit from their parents?", "fur colour", ["a haircut", "a trick they learned"], "Inherited traits are passed from parents."],
+  ["Which is a learned behaviour?", "a dog learning to sit on command", ["a puppy having brown fur", "a bird having wings"], "You learn behaviours through experience."],
+  ["Which is an inherited trait?", "the colour of a flower's petals", ["a trained parrot saying hello", "a scar on a cat"], "Petal colour is passed from parent plants."],
+  ["A scar on a deer is…", "not passed on to offspring", ["inherited", "a trait in its seeds"], "Changes during a life do not pass to young."],
+  ["Plants grown from seeds of a tall plant are often…", "like the parent plant", ["never like the parent plant", "animals"], "Seeds carry information from the parent."],
+  ["Why do siblings look alike but not exactly the same?", "They get a mix of traits from both parents", ["They only get traits from their friends", "They copy each other"], "Each child gets a different mix."],
+  ["Which word describes the passing of traits from parents to offspring?", "heredity", ["erosion", "gravity"], "Heredity means inheriting traits."],
+  ["Sexual reproduction in animals needs…", "two parents", ["no parents", "only seeds"], "Offspring get traits from two parents."],
+  ["Which structure of a flower helps make seeds with pollen?", "the pistil", ["the root", "the leaf"], "Pollen reaches the pistil to start a seed."],
+  ["What is a fossil?", "The remains or imprint of a living thing from long ago", ["A new plant", "A kind of soil"], "Fossils are preserved evidence of past life."],
+  ["Where are fossils most often found?", "in sedimentary rock", ["in melted lava", "in clouds"], "Layers of sediment can bury and preserve living things."],
+  ["A fossil seashell found on a mountain suggests that the area…", "was once under water", ["was always a desert", "has no history"], "Fossils help us learn about past environments."],
+  ["Fossils provide evidence that…", "organisms have changed over time", ["all animals are alive now", "Earth is flat"], "Older fossils can differ from living species."],
+  ["Which is a way a fossil can form?", "A shell is buried in mud that hardens into rock", ["A leaf is washed in a sink", "A rock is crushed to powder"], "Burial in sediment helps preserve remains."],
+  ["Scientists who study fossils are called…", "palaeontologists", ["meteorologists", "astronomers"], "Palaeontologists study ancient life."],
+  ["An imprint of a fern in rock is called…", "a fossil", ["a new fern", "a mineral"], "It records the plant's shape."],
+  ["Which would a palaeontologist most want to find?", "a dinosaur bone fossil", ["a plastic bottle", "a modern coin"], "Bones can tell about animals long ago."],
+  ["Younger rock layers are usually found…", "on top of older layers", ["under older layers", "only in the air"], "New sediment settles on top.", true],
+  ["Two plants have the same parents but grow in different soils. One is taller. Why?", "The environment can affect how traits show", ["Fossils changed it", "The parents moved"], "Traits come from heredity, but light and soil matter too.", true],
+  ["A trait that helps an organism survive in its habitat is called a…", "useful adaptation", ["fossil layer", "learned skill"], "Adaptations help organisms live where they do.", true],
+  ["Why do fossils show only some of the animals that lived long ago?", "Only a few were buried quickly enough to be preserved", ["All animals turn into fossils", "Fossils are made by people"], "Most remains decay or are eaten before they fossilize.", true],
+  ["Dogs trained to herd sheep pass what to puppies?", "the inherited ability to learn, not the training itself", ["the training", "a farm"], "Learned skills are not inherited.", true],
+  ["A plant grown from a cutting of a parent plant is…", "a copy of the parent", ["a different species", "a fossil"], "Asexual reproduction passes on the same traits.", true],
+  ["Which pair is most likely to share inherited traits?", "a mother cat and her kitten", ["a cat and a tree", "a fish and a hat"], "Parents and offspring share traits.", true],
+  ["A fossil footprint shows an animal's…", "size and how it walked", ["favourite colour", "exact age in years"], "Footprints show how an animal moved.", true],
+  ["Why can fossils help scientists compare past and present organisms?", "They show what past organisms looked like", ["They can speak", "They are alive"], "Comparing fossils with living things reveals changes.", true],
+];
+
+export const heredity = bankUnit({
+  id: "mb-heredity-and-fossils",
+  title: "Traits & Fossils",
+  emoji: "🦴",
+  blurb: "How offspring resemble parents, and what fossils tell us.",
+  parentNote:
+    "Practises how plants and animals pass traits to their offspring, the difference between inherited traits and learned skills, and how fossils give evidence of how organisms have changed over time.",
+  standards: ["SCI.6.E.12, SCI.6.E.13, SCI.6.E.15, SCI.6.E.17", "heredity, traits and behaviours, and fossils as evidence of change"],
+  items: HEREDITY,
+});

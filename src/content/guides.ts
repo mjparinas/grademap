@@ -2,6 +2,7 @@ import { APP_NAME } from "@/lib/brand";
 import { FRAMEWORKS } from "./frameworks";
 import { ALBERTA_GUIDES } from "./alberta/guides";
 import { ONTARIO_GUIDES } from "./ontario/guides";
+import { MANITOBA_GUIDES } from "./manitoba/guides";
 import { SASKATCHEWAN_GUIDES } from "./saskatchewan/guides";
 import type { AgeBand, FrameworkId, GradeId, SubjectId } from "./types";
 
@@ -408,7 +409,7 @@ const BC_GUIDES: FrameworkGuides = {
 };
 
 /** Guides are written per jurisdiction. Frameworks without an entry have no guide pages yet. */
-export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES };
+export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES, "ca-mb": MANITOBA_GUIDES };
 
 export const GUIDE_FRAMEWORKS = FRAMEWORKS.filter((f) => GUIDES[f.id]);
 
