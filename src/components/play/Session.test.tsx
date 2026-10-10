@@ -77,6 +77,23 @@ beforeEach(() => {
 const start = () => render(<Session mode="practice" scope="math-1" />);
 
 describe("Session answer flow", () => {
+  it("marks French prompts, choices, and story content with their language", () => {
+    const french: Question = {
+      ...question(1),
+      prompt: "Choisis le bon mot.",
+      lang: "fr",
+      choicesLang: "fr",
+      visualLang: "fr",
+      visual: { type: "story", lines: ["Bonjour!"] },
+      choices: question(1).choices,
+    };
+    h.plan = makePlan({ next: () => ({ question: french, unitKey: "immersion-2:u1", difficulty: 2 }) });
+    start();
+    expect(screen.getByText("Choisis le bon mot.")).toHaveAttribute("lang", "fr");
+    expect(screen.getByText("Yes")).toHaveAttribute("lang", "fr");
+    expect(screen.getByText("Bonjour!").closest("[lang='fr']")).toBeInTheDocument();
+  });
+
   it("counts a first-try correct answer as clean and moves on", async () => {
     start();
     expect(screen.getByText("Question number 1")).toBeInTheDocument();
