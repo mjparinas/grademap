@@ -79,7 +79,7 @@ If a district requires all providers to be in Canada, Resend and Sentry are the 
 | Teacher gets a new code for a student | The old code stops working and the student is signed out everywhere |
 | Parent unlinks a child | The teacher stops seeing the child at once; the family keeps its data |
 
-Backups roll off on the database provider's cycle **(confirm)**. There is no automatic deletion of inactive classes yet; see the decisions at the end.
+Classes with no teacher, parent or student sign-in for 11 months trigger a warning email to the teacher. At 12 months, the class, its assignments and class-account student data are deleted automatically. Children linked by a parent are unlinked, but their family data is kept. Backups roll off on the database provider's cycle **(confirm)**.
 
 ## 8. Security controls
 
@@ -105,8 +105,7 @@ See [accessibility-conformance.md](accessibility-conformance.md) and `/accessibi
 
 ## 12. Decisions for the owner
 
-1. **Retention for inactive classes.** Suggested: delete a class and its students after 12 months with no sign-in, with a warning email to the teacher at 11 months. Not built.
-2. **Canadian-only providers.** Replace or switch off Resend and Sentry for school deployments?
-3. **School or district plan.** Classes are free today. Say so in the agreement or set a price.
-4. **Several teachers on one class** (co-teaching, a school office role). Not built; today one account owns a class.
-5. **Birth year.** Already absent from class accounts. Keep it that way.
+1. **Canadian-only providers.** Replace or switch off Resend and Sentry for school deployments?
+2. **School or district plan.** Classes are free today. Say so in the agreement or set a price.
+3. **Several teachers on one class** (co-teaching, a school office role). Not built; today one account owns a class.
+4. **Birth year.** Already absent from class accounts. Keep it that way.

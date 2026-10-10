@@ -37,7 +37,7 @@ The Provider will notify the School without undue delay, and within `[__]` hours
 
 ## 8. Access, correction and deletion
 
-The School can see, correct and delete a student's information through the teacher tools, and the Provider will help with any request it cannot complete itself within `[__]` days. A teacher removing a student, closing a class or deleting their account deletes the related student information at once from live systems; backups are removed on the provider's cycle, within `[__]` days.
+The School can see, correct and delete a student's information through the teacher tools, and the Provider will help with any request it cannot complete itself within `[__]` days. A teacher removing a student, closing a class or deleting their account deletes the related student information at once from live systems. After 11 months without a sign-in by the teacher, a linked family or a class student, the Provider warns the teacher by email. After 12 months without a sign-in, the Provider deletes the class, assignments and class-account student information; a parent-linked child is unlinked while their family information is retained by that family account. Backups are removed on the provider's cycle, within `[__]` days.
 
 ## 9. End of agreement
 

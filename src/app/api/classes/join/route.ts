@@ -34,7 +34,9 @@ export async function POST(req: Request) {
   if ((child.framework ?? "ca-bc") !== cls.framework) return error(409, "This class follows a different province’s curriculum than your child’s profile.");
   const size = await query<{ n: number }>("SELECT COUNT(*) AS n FROM class_members WHERE class_id = ?", [cls.id]);
   if (Number(size[0].n) >= MAX_STUDENTS) return error(409, "This class is full.");
-  await run("INSERT OR IGNORE INTO class_members (class_id, profile_id, family_id, joined_at) VALUES (?, ?, ?, ?)", [cls.id, profileId, session.familyId, Date.now()]);
+  const now = Date.now();
+  const joined = await run("INSERT OR IGNORE INTO class_members (class_id, profile_id, family_id, joined_at) VALUES (?, ?, ?, ?)", [cls.id, profileId, session.familyId, now]);
+  if (joined) await run("UPDATE classes SET last_activity_at = ?, inactive_warning_at = NULL WHERE id = ? AND closed_at IS NULL", [now, cls.id]);
   return json({ link: { classId: cls.id, profileId, className: cls.name, grade: cls.grade } });
 }
 
