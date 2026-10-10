@@ -1,4 +1,5 @@
 import type { Course } from "../types";
+import { frenchCourses } from "./french";
 import { ab } from "./kit";
 import { units as mathUnits } from "./g3-math";
 import { units as languageUnits } from "./g3-language";
@@ -116,4 +117,5 @@ export const courses: Course[] = [
       "ca-ab": ["regions-ab", "first-nations-metis-ab", "francophone-ab", "fairness-ab", "governments-ab", "symbols-ab", "resources-ab", "giving-ab"],
     },
   },
+  ...frenchCourses("3"),
 ];

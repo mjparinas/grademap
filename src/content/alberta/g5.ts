@@ -1,4 +1,5 @@
 import type { Course } from "../types";
+import { frenchCourses } from "./french";
 import { G5_LANGUAGE, G5_MATH, G5_SCIENCE, G5_SOCIAL } from "./g5-overall";
 import { units as languageUnits } from "./g5-language";
 import { units as mathUnits } from "./g5-math";
@@ -75,4 +76,5 @@ export const courses: Course[] = [
       "ca-ab": ["where-and-when-ab", "rise-and-fall-ab", "environment-ab", "trade-and-taxes-ab", "governments-ab", "legacies-ab", "informed-citizens-ab"],
     },
   },
+  ...frenchCourses("5"),
 ];

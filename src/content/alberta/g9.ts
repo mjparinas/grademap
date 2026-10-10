@@ -1,4 +1,5 @@
 import type { Course } from "../types";
+import { frenchCourses } from "./french";
 import { units as mathUnits } from "./g9-math";
 import { units as scienceUnits } from "./g9-science";
 import { units as socialUnits } from "./g9-social";
@@ -103,4 +104,5 @@ export const courses: Course[] = [
       "ca-ab": ["governance-ab", "charter-ab", "treaties-and-rights-ab", "economic-systems-ab", "supply-demand-ab", "canada-us-trade-ab"],
     },
   },
+  ...frenchCourses("9"),
 ];

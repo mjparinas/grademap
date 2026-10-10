@@ -1,4 +1,5 @@
 import type { Course } from "../types";
+import { frenchCourses } from "./french";
 import { ab } from "./kit";
 import { K_LANGUAGE, K_MATH, K_SCIENCE, K_SOCIAL } from "./k-overall";
 import { units as mathUnits } from "./k-math";
@@ -80,4 +81,5 @@ export const courses: Course[] = [
       "ca-ab": ["all-about-me", "families", "traditions-and-celebrations-ab", "needs-and-wants", "places-near-me", "helpers-and-rules", "leaders-in-community-ab", "we-belong"],
     },
   },
+  ...frenchCourses("k"),
 ];

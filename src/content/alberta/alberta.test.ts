@@ -30,7 +30,7 @@ const norm = (s: string) => s.replace(/[“”"]/g, "").replace(/[’']/g, "'").
 const prefix = (grade: GradeId) => (grade === "k" ? "K" : grade);
 const head = (standard: string) => standard.split(" · ")[0];
 
-const mathCodes = (standard: string) => head(standard).match(/\b[K1-6][NAGMTSP]\d+(?:\.\d+)?\b/g) ?? [];
+const mathCodes = (standard: string) => head(standard).match(/\b[K1-6](?:ST|[NAGMTP])\d+(?:\.\d+)?\b/g) ?? [];
 const upperMath = (standard: string) => head(standard).match(/\b(?:N|PR|SS|SP)\d{1,2}\b/g) ?? [];
 const scienceCodes = (standard: string) => (head(standard).match(/\b[K1-6][A-Z]{1,2}\s?\d(?:\.\d+)?\b/g) ?? []).map((c) => c.replace(/\s/g, ""));
 

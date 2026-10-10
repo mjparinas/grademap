@@ -1,4 +1,5 @@
 import type { Course } from "../types";
+import { frenchCourses } from "./french";
 import { ab } from "./kit";
 import { units as mathUnits } from "./g6-math";
 import { units as scienceUnits } from "./g6-science";
@@ -125,4 +126,5 @@ export const courses: Course[] = [
       ],
     },
   },
+  ...frenchCourses("6"),
 ];
