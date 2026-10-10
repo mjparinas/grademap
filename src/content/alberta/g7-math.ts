@@ -1,6 +1,6 @@
-import { nearbyNumbers, pick, randInt, sample, shuffle, textChoice } from "../random";
+import { pick, randInt, sample, shuffle, textChoice } from "../random";
 import type { GenerateOptions, Question, Unit } from "../types";
-import { ab, buildSet, levelOf, numQ, times } from "./kit";
+import { ab, buildSet, levelOf, numQ } from "./kit";
 
 // Alberta Grade 7 mathematics (Mathematics K–9, 2007): units written for outcomes the shared BC and Ontario
 // units do not cover (divisibility, fractions with unlike denominators, expressions and equations, central
@@ -80,7 +80,7 @@ function divisibility(opts?: GenerateOptions): Question[] {
     while (neither % 2 === 0) neither = nonMultiple(3);
     return textChoice("Which number is divisible by 6?", String(right), [String(evenNot3), String(oddMult3), String(neither)], RULES[6]);
   };
-  const zero: Question = textChoice(
+  const zero = (): Question => textChoice(
     "Why can a number not be divided by 0?",
     "No number multiplied by 0 gives a number other than 0, so there is no answer",
     ["The answer is always 0", "The answer is always 1", "The answer is the number itself"],
@@ -145,7 +145,7 @@ function fractionSum(opts?: GenerateOptions): Question[] {
       const right = frac(top, l);
       const sign = adding ? "+" : "−";
       const wholeOp = adding ? w1 + w2 : Math.abs(w1 - w2);
-      const wrong = distinct(right, [`${wholeOp} ${frac(a.n + b.n, a.d + b.d)}`, frac(top + l, l), frac(top - l > 0 ? top - l : top + 2 * l, l), frac(top + 1, l), `${wholeOp + 1}`]);
+      const wrong = distinct(right, [frac(wholeOp * (a.d + b.d) + a.n + b.n, a.d + b.d), frac(top + l, l), frac(top - l > 0 ? top - l : top + 2 * l, l), frac(top + 1, l), String(wholeOp + 1)]);
       if (wrong.length < 3 || top % l === 0) continue;
       return textChoice(`What is ${w1} ${a.n}/${a.d} ${sign} ${w2} ${b.n}/${b.d}?`, right, wrong, `Change each mixed number to an improper fraction (or work with the whole numbers and fractions separately), use the common denominator ${l}, then simplify.`);
     }
@@ -215,7 +215,8 @@ function expressions(opts?: GenerateOptions): Question[] {
   const isEquation = (): Question => {
     const x = v();
     const mk = () => `${randInt(2, 9)}${x} ${pick(["+", "−"])} ${randInt(1, 12)}`;
-    const exprs = sample([mk(), mk(), mk(), `${randInt(2, 6)}(${x} + ${randInt(1, 5)})`], 3);
+    const exprs = [...new Set([mk(), mk(), mk(), mk(), `${randInt(2, 6)}(${x} + ${randInt(1, 5)})`])].slice(0, 3);
+    if (exprs.length < 3) return isEquation();
     const equation = `${mk()} = ${randInt(10, 40)}`;
     return textChoice("Which one is an equation?", equation, exprs, "An equation has an equals sign and says two amounts are the same. An expression does not.");
   };
@@ -224,6 +225,7 @@ function expressions(opts?: GenerateOptions): Question[] {
     const mk = () => `${randInt(2, 9)}${x} ${pick(["+", "−"])} ${randInt(1, 12)}`;
     const expr = mk();
     const eqs = [`${mk()} = ${randInt(10, 40)}`, `${randInt(2, 9)}${x} = ${randInt(10, 40)}`, `${x} + ${randInt(1, 9)} = ${randInt(10, 30)}`];
+    if (new Set(eqs).size < 3) return isExpression();
     return textChoice("Which one is an expression?", expr, eqs, "An expression is a maths phrase with no equals sign, like 3n + 2.");
   };
   const evaluate = (): Question => {
@@ -302,11 +304,9 @@ function centralTendency(opts?: GenerateOptions): Question[] {
       xs = shuffle(dataSet(5, 2, d === 3 ? 40 : 20));
       ans = sortNum(xs)[2];
     } else {
-      xs = dataSet(6, 2, 20);
-      const s = sortNum(xs);
-      // make the two middle values add to an even number so the median is whole
-      if ((s[2] + s[3]) % 2 !== 0) s[3] += 1;
-      xs = shuffle(s);
+      do {
+        xs = dataSet(6, 2, 20);
+      } while ((sortNum(xs)[2] + sortNum(xs)[3]) % 2 !== 0);
       ans = (sortNum(xs)[2] + sortNum(xs)[3]) / 2;
     }
     return numQ(`What is the median of ${list(xs)}?`, ans, odd ? "Put the numbers in order. The median is the middle one." : "Put the numbers in order. With an even number of values, the median is halfway between the two middle ones.", undefined, 60, 0);
@@ -362,9 +362,9 @@ function areaConstructions(opts?: GenerateOptions): Question[] {
     return numQ(`A parallelogram has a base of ${b} cm, a height of ${h} cm and a slanted side of ${slant} cm. What is its area, in square centimetres?`, b * h, `Use the height (the straight-up distance), not the slanted side: base × height = ${b} × ${h}.`, undefined, 260, 0);
   };
   const findHeight = (): Question => {
-    const b = randInt(4, 12);
-    const h = randInt(3, 12);
-    return numQ(`A triangle has an area of ${(b * h) / (b % 2 === 0 || h % 2 === 0 ? 2 : 1)} cm² and a base of ${b} cm. What is its height, in centimetres?`, b % 2 === 0 || h % 2 === 0 ? h : (b * h) / b, "Area × 2 ÷ base = height.", undefined, 40, 0);
+    const b = randInt(3, 12);
+    const h = b % 2 === 0 ? randInt(3, 12) : randInt(2, 6) * 2;
+    return numQ(`A triangle has an area of ${(b * h) / 2} cm² and a base of ${b} cm. What is its height, in centimetres?`, h, "Area × 2 ÷ base = height.", undefined, 40, 0);
   };
   const height = (): Question =>
     textChoice("What is the height of a triangle?", "The straight distance from the base to the opposite corner, at a right angle to the base", ["The length of its longest side", "The distance around the triangle", "The length of its shortest side"], "The height makes a right angle with the base.");
@@ -439,6 +439,3 @@ export const units: Unit[] = [
     generate: centralTendency,
   },
 ];
-
-void times;
-void nearbyNumbers;

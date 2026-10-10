@@ -214,7 +214,7 @@ function surfaceArea(opts?: GenerateOptions): Question[] {
     return textChoice(
       `A cylinder has radius ${r} cm and height ${h} cm. What is the area of its curved side, in terms of π?`,
       `${2 * r * h}π cm²`,
-      [`${r * h}π cm²`, `${2 * r * (r + h)}π cm²`, `${r * r * h}π cm²`],
+      [`${r * h}π cm²`, `${2 * r * (r + h)}π cm²`, `${r * r + 2 * r * h}π cm²`],
       `Unroll the curved side into a rectangle: its width is the circumference (2π × ${r}) and its height is ${h}. Area = 2π × ${r} × ${h} = ${2 * r * h}π.`,
     );
   };

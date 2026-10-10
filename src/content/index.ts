@@ -102,11 +102,19 @@ export function mergeCourses(lists: Course[][]): Course[] {
       ...base,
       bigIdeas: { ...base.bigIdeas, ...course.bigIdeas },
       units: [...base.units, ...course.units],
-      shares: { ...base.shares, ...course.shares },
+      shares: mergeShares(base.shares, course.shares),
       order: { ...base.order, ...course.order },
     };
   }
   return out.map(applyShares);
+}
+
+/** Joins two share lists. When two frameworks share the same unit, each keeps its own standards text. */
+function mergeShares(a: Course["shares"], b: Course["shares"]): Course["shares"] {
+  if (!a || !b) return a ?? b;
+  const out = { ...a };
+  for (const [id, share] of Object.entries(b)) out[id] = { standards: { ...out[id]?.standards, ...share.standards } };
+  return out;
 }
 
 function applyShares(course: Course): Course {
