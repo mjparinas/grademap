@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, type CSSProperties } from "react";
 import { getUnitRef } from "@/content";
 import { getSubjectMeta } from "@/content/subjects";
-import { weakest } from "@/lib/adaptive";
+import { refresherUnit, weakest } from "@/lib/adaptive";
 import { gameTime } from "@/lib/gametime";
 import { dayKey } from "@/lib/model";
 import { canUse, type Feature } from "@/lib/plan";
@@ -16,7 +16,7 @@ import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
 import { useBand } from "../band";
-import { Critter, SpeechBubble } from "../Critter";
+import { Critter, SpeechBubble, getCritter } from "../Critter";
 import { Dialog, Page, ProgressBar } from "../ui";
 import { Hud } from "./Hud";
 import { BuddyButton, MooseVisitor } from "./Secrets";
@@ -70,6 +70,7 @@ export function Hub() {
   const weekClaimed = d.questsClaimed[monday] ?? [];
   const suggested = suggestions(profile.grade, profile.framework, d, subjects, allowed, 1)[0];
   const little = band === "little";
+  const refresher = refresherUnit({ grade: profile.grade, framework: profile.framework, derived: d, subjects, allowed, now });
   const classwork = useClasswork();
 
   // Welcome-back and streak copy is always warm and forward-looking, never about something lost.

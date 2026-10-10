@@ -1,6 +1,7 @@
 import { allUnitRefs, type UnitRef } from "@/content";
 import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
+import { unitLevel } from "./proficiency";
 
 // Picks the next unit for Adventure and Review. Units the child finds hard,
 // hasn't tried much, or hasn't seen in a while come up more often, while the
@@ -100,4 +101,17 @@ export function weakest(opts: Omit<PickOptions, "recent" | "mode">, n = 5): Unit
     .filter((r) => (opts.derived.units[r.key]?.attempts ?? 0) > 0)
     .sort((a, b) => (opts.derived.units[a.key]?.mastery ?? 0) - (opts.derived.units[b.key]?.mastery ?? 0))
     .slice(0, n);
+}
+
+/** A unit the child knew well but hasn't touched for two weeks, for a friendly "quick refresher" offer. */
+export const REFRESHER_DAYS = 14;
+
+export function refresherUnit(opts: Omit<PickOptions, "recent" | "mode">): UnitRef | undefined {
+  const now = opts.now ?? Date.now();
+  return candidates({ ...opts, recent: [], mode: "review" })
+    .filter((r) => {
+      const stat = opts.derived.units[r.key];
+      return !!stat && unitLevel(stat) >= 2 && now - stat.lastT >= REFRESHER_DAYS * DAY;
+    })
+    .sort((a, b) => opts.derived.units[a.key].lastT - opts.derived.units[b.key].lastT)[0];
 }
