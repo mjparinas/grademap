@@ -98,7 +98,7 @@ export default function Home() {
             Practice that feels like play. <span className="text-[#4f8ef7]">Progress you can read.</span>
           </h1>
           <p className="mt-4 max-w-xl font-read text-lg text-ink-soft sm:text-xl">
-            Short, friendly lessons in math, reading, science and social studies that follow the curriculum, learning games your kids earn with focused practice, and parent reports that speak the same language as the report card.
+            Short, friendly lessons in math, reading, science, social studies and French that follow the curriculum, learning games your kids earn with focused practice, and parent reports that speak the same language as the report card.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/play/" className="btn btn-good min-h-14 px-6 text-xl">
