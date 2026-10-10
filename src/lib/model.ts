@@ -37,6 +37,8 @@ export interface ChildSettings {
   /** Games are always unlocked (no learning needed). */
   freePlay: boolean;
   showTimer: boolean;
+  /** Children may not pick an easier or stretch goal for the day. Off by default. */
+  lockGoal?: boolean;
   /** Focus options for children who find lots of motion, noise or pressure hard. All default to off. */
   /** Turn off bursts, confetti, floating text and screen shakes, whatever the device setting is. */
   calmMotion?: boolean;
@@ -117,6 +119,8 @@ export type AppEvent = EventBase &
     | { type: "secret"; code: string }
     | { type: "buy"; item: string; cost: number }
     | { type: "quest"; quest: string; day: string; reward: number }
+    /** The goal a child chose for one day. */
+    | { type: "goal"; day: string; level: "easy" | "regular" | "stretch"; minutes: number }
     /** A finished placement test. Not practice: it never counts toward XP, stars or proficiency. */
     | ({ type: "placement" } & PlacementResult)
   );
