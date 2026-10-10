@@ -62,6 +62,9 @@ export function SettingsPage({ childId }: { childId?: string }) {
         <Panel title={`⏱️ ${child.name}'s daily goal`}>
           <Slider label="Daily learning goal" value={s.dailyGoalMinutes} min={5} max={60} step={5} unit="min" onChange={(v) => set({ dailyGoalMinutes: v })} help="Shown as a progress bar on the home screen." />
           <div className="mt-4">
+            <Switch label="Let them pick a lighter or stretch goal" value={!s.lockGoal} onChange={(v) => set({ lockGoal: !v })} help="Each day your child can choose Easy, Regular (your goal) or Stretch, which is a little longer. Turn off to always use your goal." />
+          </div>
+          <div className="mt-4">
             <Switch label="Show a timer during lessons" value={s.showTimer} onChange={(v) => set({ showTimer: v })} help="Timed modes (Speed Run, Challenge) always show their countdown." />
           </div>
         </Panel>

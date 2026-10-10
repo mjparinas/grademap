@@ -6,6 +6,7 @@ import { dayKey, type Profile } from "@/lib/model";
 import { subjectSummaries } from "@/lib/proficiency";
 import { useDerived, useProfiles, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
+import { FamilyGoal } from "./FamilyGoal";
 import { InstallNudge } from "./InstallNudge";
 import { Milestones } from "./Milestones";
 import { Avatar, NoChildren, PageTitle, Panel } from "./common";
@@ -47,6 +48,7 @@ function ChildCard({ p }: { p: Profile }) {
           <dd className="text-2xl font-bold">{answers ? `${Math.round((correct / answers) * 100)}%` : "–"}</dd>
         </div>
       </dl>
+      <FamilyGoal p={p} />
       <ul className="mt-4 flex flex-col gap-2">
         {subjectSummaries(d, p.grade, p.framework).map((s) => {
           const level = scheme.levels[s.level];

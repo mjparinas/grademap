@@ -143,6 +143,17 @@ export interface WeeklyChild {
   accuracy: number | null;
   strength?: string;
   next?: string;
+  /** Set on the first Sunday of the month: the last 30 days against the 30 before. */
+  month?: { minutes: number; answers: number; previousAnswers: number; activeDays: number };
+}
+
+/** One sentence about a month of practice. Warm either way: a quieter month is never framed as a loss. */
+export function monthLine(name: string, m: NonNullable<WeeklyChild["month"]>): string {
+  if (!m.answers) return `Your month: ${name} didn't practise in the last 30 days. Any day is a good day to start again.`;
+  const days = `${m.activeDays} ${m.activeDays === 1 ? "day" : "days"}`;
+  const base = `Your month: ${name} practised on ${days}, ${m.minutes} min in all, ${m.answers} questions`;
+  if (m.previousAnswers && m.answers > m.previousAnswers) return `${base}, up from ${m.previousAnswers} the month before. 🎉`;
+  return `${base}.`;
 }
 
 export function weeklyEmail(to: string, origin: string, children: WeeklyChild[], unsubToken: string): Email {
@@ -152,6 +163,7 @@ export function weeklyEmail(to: string, origin: string, children: WeeklyChild[],
       : `${c.name} didn't practise this week. A short session today is a great restart.`,
     ...(c.strength ? [`  Going well: ${c.strength}`] : []),
     ...(c.next ? [`  Next up: ${c.next}`] : []),
+    ...(c.month ? [monthLine(c.name, c.month)] : []),
   ]);
   return layout({
     to,
