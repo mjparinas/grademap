@@ -195,6 +195,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Streaks:** a day counts if the child finishes a session or gives at least 5 answers. Every 7 practice days earns a rest-day shield (up to 2) that covers a missed day, so one slip doesn't erase a long streak. Shields are computed in `derive`, never stored.
 - **Shop unlocks:** some items need a level or trophy as well as coins (`unlock` in `src/lib/shop.ts`).
 - **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
+- **My Room** (`#/room`, `src/lib/room.ts`): a coin sink that gives a child a place to come back to. About 35 items (walls, floors, wall art, lights, plants, a cosy corner and toys, 60 to 250 coins, a few needing a level) are bought like shop items (a `buy` event, ids start `room-`, so they also count toward Collector trophies) and placed per child in `Profile.room`. The scene scales with container-query units so it fits a 320 px phone. Coins only, never real money.
 - **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
 ### Arcade games

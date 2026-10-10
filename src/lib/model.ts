@@ -18,6 +18,8 @@ export interface Profile {
   companion?: string;
   title?: string;
   confetti?: string;
+  /** What is placed in each slot of the child's room (slot to item id). */
+  room?: Record<string, string>;
   /** Progress before this time is ignored (a parent reset it). */
   resetAt?: number;
   createdAt: number;

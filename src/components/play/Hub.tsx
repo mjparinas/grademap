@@ -125,6 +125,7 @@ export function Hub() {
         ]),
     { id: "arcade", title: little ? "Games" : "Arcade", desc: gameDesc, icon: "🕹️", colour: "#7c4fe0", dark: "#5d34c4", href: "#/arcade", feature: "arcade" },
     { id: "trophies", title: "Trophies", desc: `${Object.keys(d.trophies).length} earned · ${d.trophyPoints} pts`, icon: "🏆", colour: "#f0bd2a", dark: "#b88905", href: "#/trophies" },
+    { id: "room", title: "My Room", desc: "Decorate with your coins", icon: "🏠", colour: "#f08a4b", dark: "#c46a2c", href: "#/room" },
     { id: "shop", title: "Shop", desc: `🪙 ${d.coins} to spend`, icon: "🛍️", colour: "#06b6d4", dark: "#0891b2", href: "#/shop" },
   ];
 
