@@ -204,6 +204,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
 - **"Almost there" card:** the home screen shows the started unit closest to its next level ("2 right answers to grow into 🌳 Tree", `questionsToNextLevel`, `src/lib/nextup.ts`). Units that need a Challenge for the next level are skipped.
 - **"Quick refresher" card:** a unit the child reached Proficient in and hasn't touched for 14 days gets a card from that subject's guide ("Hoot remembers you were great at Fractions", `refresherUnit`). It opens normal practice; scoring is unchanged and nothing says anything was lost.
+- **Buddy growth:** the child's buddy is dressed for their level (`src/lib/buddy.ts`): Cub, then Explorer (bow tie) at level 5, Adventurer (cape) at 15, Hero (medal) at 30 and Legend (crown) at 50. It is read from the level, so nothing is stored. The Shop shows the next stage, and a level-up toast says when the buddy grew. Use `<Companion>` (not `<Critter id={profile.companion}>`) wherever the child's own buddy appears.
 - **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
 ### Arcade games
