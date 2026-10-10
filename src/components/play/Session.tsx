@@ -34,6 +34,11 @@ const NUDGE = ["Almost! Try again.", "So close! Have another go.", "Good try! Lo
 
 export function QuestionBody(props: QuestionProps<Question>) {
   const { q } = props;
+  const settings = useChildSettings();
+  // With read-aloud on, buttons that hold words say them when tapped.
+  const lang = q.choicesLang ?? q.lang ?? "en";
+  const onSpeak = settings?.autoRead ? (text: string) => text && speak(text, undefined, lang) : undefined;
+  props = { ...props, onSpeak };
   switch (q.kind) {
     case "choice":
       return <ChoiceQuestion {...props} q={q} />;
