@@ -366,6 +366,14 @@ describe("other adults in the family", () => {
     expect((await sync.POST(req("/api/sync/", "POST", { cursor: 0 }, owner.cookie))).status).toBe(200);
   });
 
+  it("deletes open invitations with the account", async () => {
+    const owner = await family("owner-e@example.com");
+    await invite("pending-e@example.com", owner.cookie);
+    expect((await dbm.query("SELECT 1 FROM family_invites WHERE family_id = ?", [owner.familyId])).length).toBe(1);
+    expect((await call("@/app/api/account/route", "DELETE", "/api/account/", { password: "correct horse" }, owner.cookie)).status).toBe(200);
+    expect((await dbm.query("SELECT 1 FROM family_invites WHERE family_id = ?", [owner.familyId])).length).toBe(0);
+  });
+
   it("limits invitations: two adults, no existing accounts, confirmed owners only", async () => {
     const owner = await family("owner-b@example.com");
     await family("already@example.com");

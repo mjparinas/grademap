@@ -32,6 +32,7 @@ export async function DELETE(req: Request) {
   await removeStudentsOfOwner((await query<{ id: string }>("SELECT id FROM parents WHERE family_id = ?", [f])).map((p) => p.id));
   await batch([
     { sql: "DELETE FROM auth_tokens WHERE parent_id IN (SELECT id FROM parents WHERE family_id = ?)", args: [f] },
+    { sql: "DELETE FROM family_invites WHERE family_id = ?", args: [f] },
     { sql: "DELETE FROM report_shares WHERE family_id = ?", args: [f] },
     // Classroom mode: unlink this family's children, and remove any classes this account's teachers owned.
     { sql: "DELETE FROM class_members WHERE family_id = ?", args: [f] },
