@@ -164,7 +164,7 @@ export function ParentApp() {
       page = <AccountPage onBilling={setBilling} />;
       break;
     case "report-cards":
-      page = <ReportCardsPage />;
+      page = <ReportCardsPage childId={path[1]} />;
       break;
     case "privacy":
       page = <PrivacyPage />;
