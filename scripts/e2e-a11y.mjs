@@ -51,7 +51,7 @@ await page.getByRole("button", { name: "Stop", exact: true }).waitFor();
 await scan(page, "question");
 for (let i = 0; i < 40 && !(await vis(page.locator("[role=status]").getByRole("button"))); i++) await step(page);
 await scan(page, "feedback bar");
-for (const route of ["trophies", "shop", "practice", "arcade"]) {
+for (const route of ["trophies", "shop", "practice", "map", "arcade"]) {
   await page.goto(`${BASE}/play/#/${route}`);
   await scan(page, `/play/#/${route}`);
 }

@@ -120,14 +120,14 @@ describe("weekly email preference and unsubscribe", () => {
     expect((await prefs.POST(req("/api/account/prefs/", "POST", { weeklyReport: true }, unconfirmed.cookie))).status).toBe(403);
 
     const ok = await family("pref-b@example.com");
-    expect(await (await prefs.POST(req("/api/account/prefs/", "POST", { weeklyReport: true }, ok.cookie))).json()).toEqual({ weeklyReport: true });
+    expect(await (await prefs.POST(req("/api/account/prefs/", "POST", { weeklyReport: true }, ok.cookie))).json()).toEqual({ weeklyReport: true, practiceReminders: false });
     const { unsubscribeToken } = await import("@/server/auth");
     const parentId = (await dbm.query<{ id: string }>("SELECT id FROM parents WHERE email = ?", ["pref-b@example.com"]))[0].id;
     const token = await unsubscribeToken(parentId);
     expect(await unsubscribeToken(parentId)).toBe(token); // stable
     expect((await unsub.POST(req("/api/email/unsubscribe/?token=wrong", "POST"))).status).toBe(400);
     expect((await unsub.POST(req(`/api/email/unsubscribe/?token=${token}`, "POST"))).status).toBe(200);
-    expect(await (await prefs.GET(req("/api/account/prefs/", "GET", undefined, ok.cookie))).json()).toEqual({ weeklyReport: false });
+    expect(await (await prefs.GET(req("/api/account/prefs/", "GET", undefined, ok.cookie))).json()).toEqual({ weeklyReport: false, practiceReminders: false });
   });
 });
 
@@ -166,6 +166,36 @@ describe("daily email job", () => {
     const count = email.outbox().length;
     await run();
     expect(email.outbox().length).toBe(count); // not twice in one week
+  });
+
+  it("sends a practice reminder only to opted-in parents, only after quiet days, at most once a week", async () => {
+    const f = await family("nudge@example.com");
+    await family("nudge-off@example.com");
+    await prefs.POST(req("/api/account/prefs/", "POST", { practiceReminders: true }, f.cookie));
+    const reminders = (to: string) => email.outbox().filter((m) => m.to === to && m.text.includes("last practised"));
+
+    await run();
+    expect(reminders("nudge@example.com").length).toBe(0); // practised today
+
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date(Date.now() + 4 * 86_400_000));
+    expect((await (await run()).json()).reminders).toBeGreaterThanOrEqual(1);
+    const mail = reminders("nudge@example.com").at(-1)!;
+    expect(mail.text).toContain("Maya");
+    expect(mail.text).not.toMatch(/accuracy|%/);
+    expect(mail.unsubscribeUrl).toContain("kind=reminders");
+    expect(reminders("nudge-off@example.com").length).toBe(0);
+
+    const count = email.outbox().length;
+    await run();
+    expect(email.outbox().length).toBe(count); // not twice in one week
+
+    // Unsubscribing from reminders leaves the weekly report as it was.
+    await prefs.POST(req("/api/account/prefs/", "POST", { weeklyReport: true }, f.cookie));
+    const { unsubscribeToken } = await import("@/server/auth");
+    const parentId = (await dbm.query<{ id: string }>("SELECT id FROM parents WHERE email = ?", ["nudge@example.com"]))[0].id;
+    expect((await unsub.POST(req(`/api/email/unsubscribe/?kind=reminders&token=${await unsubscribeToken(parentId)}`, "POST"))).status).toBe(200);
+    expect(await (await prefs.GET(req("/api/account/prefs/", "GET", undefined, f.cookie))).json()).toEqual({ weeklyReport: true, practiceReminders: false });
   });
 
   it("warns once when a trial is about to end, for confirmed parents only", async () => {

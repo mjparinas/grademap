@@ -6,7 +6,7 @@ import { getUnitRef } from "@/content";
 import type { Question } from "@/content/types";
 import { burstFrom, celebrate, floatText, replay } from "@/lib/juice";
 import { pick } from "@/content/random";
-import type { Mode } from "@/lib/model";
+import { dayKey, type Mode } from "@/lib/model";
 import { levelInfo, nextStep, unitLevel } from "@/lib/proficiency";
 import { go } from "@/lib/router";
 import { getItem } from "@/lib/shop";
@@ -27,6 +27,7 @@ import { Dialog, Page, ProgressBar } from "../ui";
 import { QuestionVisual } from "../visuals";
 import { makePlan, type Item, type Plan } from "./plans";
 import { useAllowed } from "./useAllowed";
+import { useNow } from "@/lib/useNow";
 
 const PRAISE = ["Great job!", "You got it!", "Super!", "Awesome!", "Way to go!", "Nailed it!", "Brilliant!"];
 const NUDGE = ["Almost! Try again.", "So close! Have another go.", "Good try! Look again."];
@@ -513,9 +514,23 @@ function FeedbackBar({
   );
 }
 
+/** Up to three friendly "what's next" lines. Nothing here is a loss or a warning: every line points forward. */
+function comingUp(d: ReturnType<typeof derivedFor>, plan: Plan, goal: number, now: number): string[] {
+  const today = dayKey(now);
+  const minutes = Math.floor((d.days[today]?.learnSeconds ?? 0) / 60);
+  const lines: string[] = [];
+  lines.push(minutes >= goal ? "🎯 You reached today's learning goal!" : `⏱ ${goal - minutes} more ${goal - minutes === 1 ? "minute" : "minutes"} to reach today's goal`);
+  lines.push(`⭐ ${d.levelNeed - d.levelXp} XP to Level ${d.level + 1}`);
+  if (plan.mode === "daily" || d.dailyDone.includes(today)) lines.push("☀️ A fresh Daily Challenge is waiting tomorrow");
+  else lines.push("☀️ Today's Daily Challenge is ready when you are");
+  return lines;
+}
+
 function Summary({ plan, results, startDerived }: { plan: Plan; results: Result[]; startDerived: ReturnType<typeof derivedFor> }) {
   const profile = useActiveProfile()!;
   const d = useDerived();
+  const goal = useChildSettings()?.dailyGoalMinutes ?? 15;
+  const ahead = comingUp(d, plan, goal, useNow());
   const stage = useRef<HTMLDivElement>(null);
   const total = results.length;
   const correct = results.filter((r) => r.correct).length;
@@ -603,6 +618,17 @@ function Summary({ plan, results, startDerived }: { plan: Plan; results: Result[
               </p>
               <p className="font-read text-base text-ink-soft">{nextStep(d.units[unit.key])}</p>
             </div>
+          </div>
+        )}
+
+        {total > 0 && (
+          <div className="card w-full p-4 text-left animate-rise-in" style={{ animationDelay: "1.8s" }}>
+            <h2 className="mb-1 text-lg font-bold">Coming up</h2>
+            <ul className="flex flex-col gap-1 font-read text-lg">
+              {ahead.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
           </div>
         )}
 

@@ -70,15 +70,20 @@ export function Hub() {
   const little = band === "little";
   const classwork = useClasswork();
 
+  // Welcome-back and streak copy is always warm and forward-looking, never about something lost.
+  const returning = d.totals.answers > 0 && d.streak.current === 0 && d.activeDays > 0 && !d.streak.activeToday;
   const message = !d.totals.answers
     ? `${greeting(profile.name, new Date(now).getHours())} Tap the big button to start your first adventure!`
     : minutes >= goal
       ? `You hit today's goal! ${minutes} minutes of learning. Amazing!`
-      : d.streak.current > 1 && !d.streak.activeToday
-        ? d.streak.saved
-          ? `A rest-day shield kept your ${d.streak.current}-day streak safe. 🛡️ Play today to keep it going!`
-          : `Keep your ${d.streak.current}-day streak going! 🔥`
-        : `${greeting(profile.name, new Date(now).getHours())} ${goal - minutes} more minutes to reach today's goal.`;
+      : returning
+        ? `*Yawn* You're back, ${profile.name}! You've practised ${d.activeDays} ${d.activeDays === 1 ? "day" : "days"} so far. Let's start a new streak! 🔥`
+        : d.streak.current > 1 && !d.streak.activeToday
+          ? d.streak.saved
+            ? `A rest-day shield kept your ${d.streak.current}-day streak safe. 🛡️ Play today to keep it going!`
+            : `Day ${d.streak.current + 1} of your streak is waiting for you! 🔥`
+          : `${greeting(profile.name, new Date(now).getHours())} ${goal - minutes} more minutes to reach today's goal.`;
+  const mood = minutes >= goal ? "cheer" : returning ? "sleepy" : "wave";
 
   const gameDesc = !games.enabled
     ? "Turned off"
@@ -100,6 +105,7 @@ export function Hub() {
       done: dailyDone,
     },
     { id: "practice", title: little ? "Lessons" : "Practice", desc: "Pick a subject and topic", icon: "📚", colour: "#4f8ef7", dark: "#2f6fd6", href: "#/practice" },
+    { id: "trail", title: "Trail Map", desc: "See how far you've come", icon: "🧭", colour: "#f08a4b", dark: "#c46a2c", href: "#/map" },
     ...(little
       ? []
       : [
@@ -132,8 +138,8 @@ export function Hub() {
       <div className="flex items-center gap-3">
         {/* Smaller on the narrowest phones, hidden on phones held sideways, so the big button stays in view. */}
         <BuddyButton name={"your buddy"}>
-          <Critter id={profile.companion} mood="wave" size={little ? 130 : 104} className="narrow:hidden short:hidden" />
-          <Critter id={profile.companion} mood="wave" size={72} className="hidden narrow:block short:hidden" />
+          <Critter id={profile.companion} mood={mood} size={little ? 130 : 104} className="narrow:hidden short:hidden" />
+          <Critter id={profile.companion} mood={mood} size={72} className="hidden narrow:block short:hidden" />
         </BuddyButton>
         <SpeechBubble className="flex-1">
           <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>

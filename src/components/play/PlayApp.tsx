@@ -21,6 +21,7 @@ import { Session } from "./Session";
 import { Shop } from "./Shop";
 import { FirstRun, Picker } from "./Start";
 import { Toasts } from "./Toasts";
+import { TrailMap } from "./TrailMap";
 import { TrophyRoom } from "./Trophies";
 
 const MODES: Mode[] = ["practice", "adventure", "review", "speed", "daily", "challenge"];
@@ -30,6 +31,8 @@ function Screen() {
   switch (path[0]) {
     case "practice":
       return path[1] ? <UnitList key={path[1]} subject={path[1] as SubjectId} /> : <SubjectPicker />;
+    case "map":
+      return <TrailMap />;
     case "speed":
       return <SpeedPicker />;
     case "session": {

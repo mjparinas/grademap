@@ -129,6 +129,8 @@ const PARENT_COLUMNS: [string, string][] = [
   ["unsub_token", "TEXT"],
   ["last_weekly_at", "INTEGER"],
   ["trial_notice_at", "INTEGER"],
+  ["practice_reminders", "INTEGER NOT NULL DEFAULT 0"],
+  ["last_nudge_at", "INTEGER"],
 ];
 
 /** Which province's curriculum a class assigns units from. Classes made before Ontario are BC. */
