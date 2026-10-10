@@ -1,3 +1,4 @@
+import { MANITOBA } from "./manitoba/framework";
 import { ONTARIO } from "./ontario/framework";
 import type { FrameworkId, GradeId, SubjectId } from "./types";
 
@@ -173,6 +174,7 @@ export const FRAMEWORKS: Framework[] = [
     },
   },
   ONTARIO,
+  MANITOBA,
 ];
 
 export const DEFAULT_FRAMEWORK: FrameworkId = "ca-bc";

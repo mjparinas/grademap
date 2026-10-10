@@ -38,6 +38,18 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "8": () => import("./ontario/g8"),
     "9": () => import("./ontario/g9"),
   },
+  "ca-mb": {
+    k: () => import("./manitoba/k"),
+    "1": () => import("./manitoba/g1"),
+    "2": () => import("./manitoba/g2"),
+    "3": () => import("./manitoba/g3"),
+    "4": () => import("./manitoba/g4"),
+    "5": () => import("./manitoba/g5"),
+    "6": () => import("./manitoba/g6"),
+    "7": () => import("./manitoba/g7"),
+    "8": () => import("./manitoba/g8"),
+    "9": () => import("./manitoba/g9"),
+  },
 };
 
 /** What a child needs downloaded: a grade in a framework. */
@@ -80,12 +92,27 @@ export function mergeCourses(lists: Course[][]): Course[] {
     out[i] = {
       ...base,
       bigIdeas: { ...base.bigIdeas, ...course.bigIdeas },
-      units: [...base.units, ...course.units],
+      units: mergeUnits(base.units, course.units),
       shares: { ...base.shares, ...course.shares },
       order: { ...base.order, ...course.order },
     };
   }
   return out.map(applyShares);
+}
+
+/** Joins two unit lists. A unit with the same id is the same unit, with the standards of every framework that uses it. */
+function mergeUnits(a: Unit[], b: Unit[]): Unit[] {
+  const out = [...a];
+  for (const unit of b) {
+    const i = out.findIndex((u) => u.id === unit.id);
+    if (i < 0) {
+      out.push(unit);
+      continue;
+    }
+    if (out[i].generate !== unit.generate) throw new Error(`Two different units share the id "${unit.id}"`);
+    out[i] = { ...out[i], standards: { ...out[i].standards, ...unit.standards } };
+  }
+  return out;
 }
 
 function applyShares(course: Course): Course {

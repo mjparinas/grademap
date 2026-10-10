@@ -1,0 +1,363 @@
+{
+ "k/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+ ],
+ "1/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+ ],
+ "2/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems."
+ ],
+ "3/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems."
+ ],
+ "4/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Shape and Space: Describe and analyze position and motion of objects and shapes.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems."
+ ],
+ "5/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Shape and Space: Describe and analyze position and motion of objects and shapes.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems.",
+  "Statistics and Probability: Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+ ],
+ "6/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Shape and Space: Describe and analyze position and motion of objects and shapes.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems.",
+  "Statistics and Probability: Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+ ],
+ "7/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Shape and Space: Describe and analyze position and motion of objects and shapes.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems.",
+  "Statistics and Probability: Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+ ],
+ "8/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Shape and Space: Describe and analyze position and motion of objects and shapes.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems.",
+  "Statistics and Probability: Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+ ],
+ "9/math": [
+  "Number: Develop number sense.",
+  "Patterns and Relations: Use patterns to describe the world and solve problems.",
+  "Patterns and Relations: Represent algebraic expressions in multiple ways.",
+  "Shape and Space: Use direct or indirect measurement to solve problems.",
+  "Shape and Space: Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them.",
+  "Shape and Space: Describe and analyze position and motion of objects and shapes.",
+  "Statistics and Probability: Collect, display, and analyze data to solve problems.",
+  "Statistics and Probability: Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+ ],
+ "k/science": [
+  "What is matter?",
+  "What patterns can we see in the sky?",
+  "What are living things like?"
+ ],
+ "1/science": [
+  "What is matter and how is it used?",
+  "What is energy?",
+  "What are seasonal changes and how do they affect various organisms?"
+ ],
+ "2/science": [
+  "How does temperature affect matter?",
+  "In what ways does the environment provide the necessities of life?",
+  "Where do living organisms come from and what do they need to survive?"
+ ],
+ "3/science": [
+  "What makes natural and human-made structures strong and stable?",
+  "What are forces and what do they do?",
+  "What kinds of organisms are there and how do they survive?"
+ ],
+ "4/science": [
+  "How is energy detected, stored, and used?",
+  "How does energy move through ecosystems?",
+  "How is soil formed and what is its role in the environment?"
+ ],
+ "5/science": [
+  "How do chemical and physical systems work?",
+  "How do weather and climate systems work?",
+  "How do life systems work?"
+ ],
+ "6/science": [
+  "What causes events to happen?",
+  "How are time and the motion of the Solar System related?",
+  "How are organisms similar and different from each other?"
+ ],
+ "7/science": [
+  "What is matter made of?",
+  "What is the role of gravity on Earth and in the Solar System?",
+  "How does energy move on Earth, in ecosystems, and through space?"
+ ],
+ "8/science": [
+  "How do the nature of the particles that make up matter influence the properties of materials?",
+  "How does solar energy travel to Earth, and what effects does it have on the planet?",
+  "How are organisms organized at the cellular level?"
+ ],
+ "9/science": [
+  "What is matter made of?",
+  "How is electrical energy created and distributed?",
+  "How can genetics help explain evolution?"
+ ],
+ "k/social": [
+  "Kindergarten Social Studies: Being Together",
+  "Cluster 1: Me",
+  "Cluster 2: The People Around Me",
+  "Cluster 3: The World Around Me"
+ ],
+ "1/social": [
+  "Grade 1 Social Studies: Connecting and Belonging",
+  "Cluster 1: Belong",
+  "Cluster 2: My Environment",
+  "Cluster 3: Connecting with Others"
+ ],
+ "2/social": [
+  "Grade 2 Social Studies: Communities in Canada",
+  "Cluster 1: Our Local Community",
+  "Cluster 2: Communities in Canada",
+  "Cluster 3: The Canadian Community"
+ ],
+ "3/social": [
+  "Grade 3 Social Studies: Communities of the World",
+  "Cluster 1: Connecting with Canadians",
+  "Cluster 2: Exploring the World",
+  "Cluster 3: Communities of the World",
+  "Cluster 4: Exploring an Ancient Society"
+ ],
+ "4/social": [
+  "Grade 4 Social Studies: Manitoba, Canada, and the North: Places and Stories",
+  "Cluster 1: Geography of Canada",
+  "Cluster 2: Living in Canada",
+  "Cluster 3: Living in Manitoba",
+  "Cluster 4: History of Manitoba",
+  "Cluster 5: Canada’s North"
+ ],
+ "5/social": [
+  "Grade 5 Social Studies: People and Stories of Canada to 1867",
+  "Cluster 1: First Peoples",
+  "Cluster 2: Early European Colonization (1600 to 1763)",
+  "Cluster 3: Fur Trade",
+  "Cluster 4: From British Colony to Confederation (1763 to 1867)"
+ ],
+ "6/social": [
+  "Grade 6 Social Studies: Canada: A Country of Change (1867 to Present)",
+  "Cluster 1: Building a Nation (1867 to 1914)",
+  "Cluster 2: An Emerging Nation (1914 to 1945)",
+  "Cluster 3: Shaping Contemporary Canada (1945 to Present)",
+  "Cluster 4: Canada Today: Democracy, Diversity, and the Influence of the Past"
+ ],
+ "7/social": [
+  "Grade 7 Social Studies: People and Places in the World",
+  "Cluster 1: World Geography",
+  "Cluster 2: Global Quality of Life",
+  "Cluster 3: Ways of Life in Asia, Africa, or Australasia",
+  "Cluster 4: Human Impact in Europe or the Americas"
+ ],
+ "8/social": [
+  "Grade 8 Social Studies: World History: Societies of the Past",
+  "Cluster 1: Understanding Societies Past and Present",
+  "Cluster 2: Early Societies in Mesopotamia, Egypt, or the Indus Valley",
+  "Cluster 3: Ancient Societies of Greece and Rome",
+  "Cluster 4: Transition to the Modern World (Circa 500 to 1400)",
+  "Cluster 5: Shaping the Modern World (Circa 1400 to 1850)"
+ ],
+ "9/social": [
+  "Grade 9 Social Studies: Canada in the Contemporary World",
+  "Cluster 1: Diversity and Pluralism in Canada",
+  "Cluster 2: Democracy and Governance in Canada",
+  "Cluster 3: Canada in the Global Context",
+  "Cluster 4: Canada: Opportunities and Challenges"
+ ],
+ "k/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing: Learners will develop and apply the understanding of the system of language (knowledge and skills) and language comprehension for reading and writing.",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B2 Construct Meaning: Learners will understand and apply a variety of comprehension strategies to construct the meaning of text and consolidate new information.",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information: Learners will use a range of multimodal forms of communication (e.g., visual, multimedia, oral and written texts) to share, clarify, and extend ideas/ information for different purposes and audiences.",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "1/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing: Learners will develop and apply the understanding of the system of language (knowledge and skills) and language comprehension for reading and writing.",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B2 Construct Meaning: Learners will understand and apply a variety of comprehension strategies to construct the meaning of text and consolidate new information.",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information: Learners will use a range of multimodal forms of communication (e.g., visual, multimedia, oral and written texts) to share, clarify, and extend ideas/ information for different purposes and audiences.",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "2/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing:",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information: Learners will use a range of multimodal forms of communication (e.g., visual, multimedia, oral and written texts) to share, clarify, and extend ideas/ information for different purposes and audiences.",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "3/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing: Learners will develop and apply the understanding of the system of language (knowledge and skills) and language comprehension for reading and writing.",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information: Learners will use a range of multimodal forms of communication (e.g., visual, multimedia, oral and written texts) to share, clarify, and extend ideas/ information for different purposes and audiences.",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "4/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing:",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information:",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "5/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing: Learners will develop and apply the understanding of the system of language (knowledge and skills) and language comprehension for reading and writing.",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B2 Construct Meaning: Learners will understand and apply a variety of comprehension strategies to construct the meaning of text and consolidate new information.",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information: Learners will use a range of multimodal forms of communication (e.g., visual, multimedia, oral and written texts) to share, clarify, and extend ideas/ information for different purposes and audiences.",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "6/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing: Learners will develop and apply the understanding of the system of language (knowledge and skills) and language comprehension for reading and writing.",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B2 Construct Meaning: Learners will understand and apply a variety of comprehension strategies to construct the meaning of text and consolidate new information.",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information: Learners will use a range of multimodal forms of communication (e.g., visual, multimedia, oral and written texts) to share, clarify, and extend ideas/ information for different purposes and audiences.",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "7/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing: Learners will develop and apply the understanding of the system of language (knowledge and skills) and language comprehension for reading and writing.",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B2 Construct Meaning: Learners will understand and apply a variety of comprehension strategies to construct the meaning of text and consolidate new information.",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish: Learners will apply knowledge of editing to communicate the text clearly and coherently to an audience, using a variety of media, tools and strategies to publish text.",
+  "D1 Share Ideas and Information: Learners will use a range of multimodal forms of communication (e.g., visual, multimedia, oral and written texts) to share, clarify, and extend ideas/ information for different purposes and audiences.",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "8/language": [
+  "A1 Oral Language Communication: Learners will apply listening and speaking skills to receive, exchange and develop ideas for various purposes and audiences.",
+  "A2 Language as the Foundation for Reading and Writing:",
+  "B1 Acquire New Information: Learners will activate, acquire and build background knowledge through inquiry of diverse topics and engagement with multimodal forms of text (e.g., visual, oral, print, digital, experts, Elders).",
+  "B2 Construct Meaning: Learners will understand and apply a variety of comprehension strategies to construct the meaning of text and consolidate new information.",
+  "B3 Think Critically about Multimodal Text and Respond: Learners will recognize, analyze, and respond critically to inequities, bias, and viewpoints in texts and ideas.",
+  "C1 Generate Ideas, Create Plan and Draft/Prototype: Learners will generate ideas, conduct research, evaluate sources, and design a plan to compose multimodal texts (visual, multimedia, oral, written) for a range of purposes and audiences.",
+  "C2 Enhance the Clarity and Artistry of Multimodal Texts: Learners will apply knowledge and understanding of the variables of writing to enhance the clarity, precision and effectiveness of their creations and reflect critically on created text.",
+  "C3 Edit and Publish:",
+  "D1 Share Ideas and Information:",
+  "D2 Assess and Set Goals: Learners will use metacognition (the ability to think about one’s own thinking) to assess their language skills as listeners, speakers, readers, writers, viewers and representers, supporting their grow as independent learners. Learners will set goals and monitor progress."
+ ],
+ "9/language": [
+  "A1 Learners engage in oral language communication as a recursive process of listening, speaking, and interacting to construct meaning, exchange ideas and perspectives, and expand their understanding of themselves, others, and the world.",
+  "A2 Learners build and apply foundational knowledge and skills, including letter knowledge, sound awareness, word structures, vocabulary knowledge, and language conventions, to engage as active readers, writers, and communicators.",
+  "B1 Learners draw on their knowledge, experiences, and awareness of text cues and conventions to establish purpose, anticipate meaning, and prepare for engagement with texts.",
+  "B2 Learners actively construct meaning when reading, viewing, and listening to texts by applying a range of comprehension strategies. They make connections, infer meaning, and monitor understanding to build knowledge and deepen understanding across a variety of contexts and text forms.",
+  "B3 Learners analyze ideas, information, viewpoints, and perspectives within and across texts to build understanding. Learners use evidence from texts to develop, support, and evaluate interpretations.",
+  "B4 Learners reflect on, extend, and integrate new learning to develop deeper understandings. They respond to texts by sharing interpretations, perspectives, and insights that expand, challenge, and/or refine their thinking.",
+  "C1 Learners generate and develop ideas, conduct research, evaluate sources, organize information, and select appropriate forms and modes to compose texts for a range of purposes and audiences.",
+  "C2 Learners apply the key qualities of writing to revise, refine, and enhance texts for different purposes, contexts, and audiences.",
+  "C3 Learners proofread, edit, and refine texts by applying editing strategies to improve accuracy and clarity. They publish their work using appropriate tools, modes, and platforms to communicate for different purposes, contexts, and audiences.",
+  "D1 Learners organize and communicate ideas for others by making intentional choices about content, communication mode, and style for different purposes and contexts.",
+  "D2 Learners use descriptive feedback and criteria to reflect on their learning, set goals, and monitor progress to inform next steps."
+ ],
+ "4/core-french": [
+  "Oral Communication: La communication orale Listen in order to understand the communicated message. Communicate orally and interact spontaneously, keeping in mind the message, fluency and accuracy.",
+  "Reading: La lecture Read a variety of texts, for various purposes, and demonstrate understanding of text, orally, in writing or visually.",
+  "Writing: L'écriture Plan and write coherent texts to communicate the message.",
+  "Culture: La culture Demonstrate a general knowledge of both francophone cultures and the advantages of learning French. Apply knowledge of francophone cultures to interactions with others (intercultural)."
+ ],
+ "5/core-french": [
+  "Oral Communication: La communication orale Listen in order to understand the communicated message. Communicate orally and interact spontaneously, keeping in mind the message, fluency and accuracy.",
+  "Reading: La lecture Read a variety of texts, for various purposes, and demonstrate understanding of text, orally, in writing or visually.",
+  "Writing: L'écriture Plan and write coherent texts to communicate the message.",
+  "Culture: La culture Demonstrate a general knowledge of both francophone cultures and the advantages of learning French. Apply knowledge of francophone cultures to interactions with others (intercultural)."
+ ],
+ "6/core-french": [
+  "Oral Communication: La communication orale Listen in order to understand the communicated message. Communicate orally and interact spontaneously, keeping in mind the message, fluency and accuracy.",
+  "Reading: La lecture Read a variety of texts, for various purposes, and demonstrate understanding of text, orally, in writing or visually.",
+  "Writing: L'écriture Plan and write coherent texts to communicate the message.",
+  "Culture: La culture Demonstrate a general knowledge of both francophone cultures and the advantages of learning French. Apply knowledge of francophone cultures to interactions with others (intercultural)."
+ ],
+ "7/core-french": [
+  "Oral Communication: La communication orale Listen in order to understand the communicated message. Communicate orally and interact spontaneously, keeping in mind the message, fluency and accuracy.",
+  "Reading: La lecture Read a variety of texts, for various purposes, and demonstrate understanding of text, orally, in writing or visually.",
+  "Writing: L'écriture Plan and write coherent texts to communicate the message.",
+  "Culture: La culture Demonstrate a general knowledge of both francophone cultures and the advantages of learning French. Apply knowledge of francophone cultures to interactions with others (intercultural)."
+ ],
+ "8/core-french": [
+  "Oral Communication: La communication orale Listen in order to understand the communicated message. Communicate orally and interact spontaneously, keeping in mind the message, fluency and accuracy.",
+  "Reading: La lecture Read a variety of texts, for various purposes, and demonstrate understanding of text, orally, in writing or visually.",
+  "Writing: L'écriture Plan and write coherent texts to communicate the message.",
+  "Culture: La culture Demonstrate a general knowledge of both francophone cultures and the advantages of learning French. Apply knowledge of francophone cultures to interactions with others (intercultural)."
+ ],
+ "9/core-french": [
+  "Oral Communication: La communication orale Listen in order to understand the communicated message. Communicate orally and interact spontaneously, keeping in mind the message, fluency and accuracy.",
+  "Reading: La lecture Read a variety of texts, for various purposes, and demonstrate understanding of text, orally, in writing or visually.",
+  "Writing: L'écriture Plan and write coherent texts to communicate the message.",
+  "Culture: La culture Demonstrate a general knowledge of both francophone cultures and the advantages of learning French. Apply knowledge of francophone cultures to interactions with others (intercultural)."
+ ]
+}
