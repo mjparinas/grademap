@@ -179,9 +179,13 @@
   html {
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
+    /* No elastic bounce (iPad Safari, installed app) when the page doesn't overflow.
+       Real scrolling still works; this only stops the rubber-band at the edges. */
+    overscroll-behavior: none;
   }
 
   body {
+    overscroll-behavior: none;
     @apply bg-paper text-ink font-display;
     min-height: 100dvh;
     background-image:
