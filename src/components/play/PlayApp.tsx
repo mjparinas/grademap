@@ -22,6 +22,7 @@ import { Shop } from "./Shop";
 import { FirstRun, Picker } from "./Start";
 import { Toasts } from "./Toasts";
 import { LessonScreen } from "./LessonScreen";
+import { StickerBook } from "./StickerBook";
 import { Room } from "./Room";
 import { TrailMap } from "./TrailMap";
 import { TrophyRoom } from "./Trophies";
@@ -37,6 +38,8 @@ function Screen() {
       return <LessonScreen key={query.get("scope") ?? ""} unitKey={query.get("scope") ?? ""} />;
     case "map":
       return <TrailMap />;
+    case "stickers":
+      return <StickerBook />;
     case "room":
       return <Room />;
     case "speed":
