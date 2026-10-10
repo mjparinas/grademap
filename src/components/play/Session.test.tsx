@@ -78,14 +78,15 @@ const start = () => render(<Session mode="practice" scope="math-1" />);
 
 describe("Session answer flow", () => {
   it("marks French prompts, choices, and story content with their language", () => {
+    const base = question(1);
+    if (base.kind !== "choice") throw new Error("Expected a choice question");
     const french: Question = {
-      ...question(1),
+      ...base,
       prompt: "Choisis le bon mot.",
       lang: "fr",
       choicesLang: "fr",
       visualLang: "fr",
       visual: { type: "story", lines: ["Bonjour!"] },
-      choices: question(1).choices,
     };
     h.plan = makePlan({ next: () => ({ question: french, unitKey: "immersion-2:u1", difficulty: 2 }) });
     start();
