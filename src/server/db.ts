@@ -120,6 +120,19 @@ const SCHEMA = [
     created_at INTEGER NOT NULL,
     PRIMARY KEY (class_id, unit_key)
   )`,
+  // Students a teacher added to a class. Each one has their own hidden family record (a profile
+  // and its events), owned by the class: it is deleted when the student is removed or the class closes.
+  `CREATE TABLE IF NOT EXISTS students (
+    id TEXT PRIMARY KEY,
+    class_id TEXT NOT NULL,
+    family_id TEXT NOT NULL,
+    parent_id TEXT NOT NULL,
+    profile_id TEXT NOT NULL,
+    login_code TEXT NOT NULL,
+    created_at INTEGER NOT NULL,
+    UNIQUE (class_id, login_code)
+  )`,
+  `CREATE INDEX IF NOT EXISTS students_class ON students (class_id)`,
 ];
 
 /** Columns added after the first release. SQLite has no "ADD COLUMN IF NOT EXISTS". */
@@ -131,10 +144,14 @@ const PARENT_COLUMNS: [string, string][] = [
   ["trial_notice_at", "INTEGER"],
   ["practice_reminders", "INTEGER NOT NULL DEFAULT 0"],
   ["last_nudge_at", "INTEGER"],
+  // 'parent' for ordinary accounts, 'student' for a class-owned student account (no email, no password).
+  ["role", "TEXT NOT NULL DEFAULT 'parent'"],
 ];
 
 /** Which province's curriculum a class assigns units from. Classes made before Ontario are BC. */
 const CLASS_COLUMNS: [string, string][] = [["framework", "TEXT NOT NULL DEFAULT 'ca-bc'"]];
+/** A due date a teacher can set on an assigned unit (ms since epoch). */
+const ASSIGNMENT_COLUMNS: [string, string][] = [["due_at", "INTEGER"]];
 const SESSION_COLUMNS: [string, string][] = [["user_agent", "TEXT"]];
 const FAMILY_COLUMNS: [string, string][] = [["billing_event_at", "INTEGER NOT NULL DEFAULT 0"]];
 
@@ -147,6 +164,7 @@ async function migrate(c: Client) {
   await addColumns(c, "sessions", SESSION_COLUMNS);
   await addColumns(c, "families", FAMILY_COLUMNS);
   await addColumns(c, "classes", CLASS_COLUMNS);
+  await addColumns(c, "class_assignments", ASSIGNMENT_COLUMNS);
   const have = new Set((await c.execute("PRAGMA table_info(parents)")).rows.map((r) => String(r.name)));
   for (const [name, type] of PARENT_COLUMNS) {
     if (!have.has(name)) await c.execute(`ALTER TABLE parents ADD COLUMN ${name} ${type}`);

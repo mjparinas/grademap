@@ -11,6 +11,7 @@ import { dayKey } from "@/lib/model";
 import { canUse, type Feature } from "@/lib/plan";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "@/lib/quests";
 import { unitLevel } from "@/lib/proficiency";
+import { signOutStudent } from "@/lib/account";
 import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
@@ -49,6 +50,7 @@ export function Hub() {
   const d = useDerived();
   const band = useBand();
   const family = useStore((s) => s.family);
+  const isStudent = Boolean(family.account?.student);
   const allowed = useAllowed();
   const [locked, setLocked] = useState(false);
   const now = useNow();
@@ -204,7 +206,7 @@ export function Hub() {
             <span className="text-sm font-semibold text-ink-soft">{classwork[0].className}</span>
           </h2>
           <ul className="flex flex-col gap-2.5">
-            {classwork.map(({ ref }) => {
+            {classwork.map(({ ref, dueAt }) => {
               const meta = getSubjectMeta(ref.course.subject);
               const done = unitLevel(d.units[ref.key]) >= 2;
               return (
@@ -217,7 +219,10 @@ export function Hub() {
                     <span className="text-3xl">{ref.unit.emoji}</span>
                     <span className="flex-1">
                       <span className="block font-read text-lg font-bold">{ref.unit.title}</span>
-                      <span className="block text-sm font-semibold text-ink-soft">{meta.title[band]}</span>
+                      <span className="block text-sm font-semibold text-ink-soft">
+                        {meta.title[band]}
+                        {dueAt && !done && dueAt > now ? ` · Try to finish by ${new Date(dueAt).toLocaleDateString("en-CA", { weekday: "short", month: "short", day: "numeric" })}` : ""}
+                      </span>
                     </span>
                     <LevelChip level={unitLevel(d.units[ref.key])} compact={little} />
                     <span className="text-xl">▶</span>
@@ -291,9 +296,15 @@ export function Hub() {
       )}
 
       <div className="flex justify-center pb-4">
-        <Link href="/parents/" className="btn h-12 px-4 text-base text-ink-soft">
-          🔒 Grown-ups
-        </Link>
+        {isStudent ? (
+          <button type="button" className="btn h-12 px-4 text-base text-ink-soft" onClick={() => void signOutStudent()}>
+            👋 I&apos;m done · Sign out
+          </button>
+        ) : (
+          <Link href="/parents/" className="btn h-12 px-4 text-base text-ink-soft">
+            🔒 Grown-ups
+          </Link>
+        )}
       </div>
 
       <MooseVisitor />
