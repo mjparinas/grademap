@@ -4,6 +4,7 @@ import { sendEmail } from "@/server/email";
 import { accountDeletedEmail } from "@/server/emailTemplates";
 import { getFamilyRow } from "@/server/family";
 import { cancelSubscriptions, stripeConfigured } from "@/server/stripe";
+import { removeStudentsOfOwner } from "@/server/students";
 
 /** Deletes the family's account and every piece of data stored on the server. */
 export async function DELETE(req: Request) {
@@ -26,6 +27,8 @@ export async function DELETE(req: Request) {
       return error(502, "We couldn't cancel your subscription just now, so your account was not deleted. Please try again in a moment.");
     }
   }
+  // Teacher accounts: every student account in their classes goes too.
+  await removeStudentsOfOwner((await query<{ id: string }>("SELECT id FROM parents WHERE family_id = ?", [f])).map((p) => p.id));
   await batch([
     { sql: "DELETE FROM auth_tokens WHERE parent_id IN (SELECT id FROM parents WHERE family_id = ?)", args: [f] },
     { sql: "DELETE FROM report_shares WHERE family_id = ?", args: [f] },

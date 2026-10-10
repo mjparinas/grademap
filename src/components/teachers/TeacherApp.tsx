@@ -7,7 +7,7 @@ import { FRAMEWORKS, getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, GRADE_ORDER } from "@/content/subjects";
 import type { FrameworkId, GradeId } from "@/content/types";
 import { APP_NAME } from "@/lib/brand";
-import { call, type ClassSummary, type StudentRow } from "@/lib/classroom";
+import { call, classInsights, type ClassSummary, type RosterEntry, type StudentRow } from "@/lib/classroom";
 import { levelInfo } from "@/lib/proficiency";
 
 // The teacher area: create a class, share its code, assign BC units and see each linked student's
@@ -144,7 +144,238 @@ function ClassList({ onOpen }: { onOpen: (id: string) => void }) {
 interface ClassDetail {
   class: { id: string; name: string; grade: GradeId; framework: FrameworkId; joinCode: string };
   assignments: string[];
+  due: Record<string, number>;
   students: StudentRow[];
+  roster: RosterEntry[];
+}
+
+/** A date input's value ("2026-10-14") as the end of that day, local time. */
+const endOfDay = (v: string) => new Date(`${v}T23:59:00`).getTime();
+const toInput = (t: number) => {
+  const d = new Date(t);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
+/** Add students by first name, share each one's login code, and print the cards. */
+function Roster({ data, onChange, onPrint }: { data: ClassDetail; onChange: (url: string, method: string, body?: unknown) => Promise<void>; onPrint: () => void }) {
+  const [names, setNames] = useState("");
+  const [busy, setBusy] = useState(false);
+  const { class: cls, roster, students } = data;
+  const byProfile = new Map(students.map((s) => [s.profileId, s]));
+  return (
+    <section className="mt-4 rounded-2xl border border-line bg-white p-5 print:hidden">
+      <h2 className="text-xl font-bold">Student logins</h2>
+      <p className="mt-1 font-read text-ink-soft">
+        Add students by first name or nickname. Each gets a code to sign in with at {APP_NAME} (no email or password). The class stores only that name, the class grade and practice results, and deletes it all when you remove the student or close the class.
+      </p>
+      {roster.length > 0 && (
+        <ul className="mt-3 divide-y divide-line">
+          {roster.map((r) => (
+            <li key={r.id} className="flex flex-wrap items-center gap-3 py-2">
+              <span className="min-w-32 flex-1 font-read font-bold">{byProfile.get(r.profileId)?.name ?? "Student"}</span>
+              <span className="font-mono text-xl font-bold tracking-widest" aria-label={`Login code ${r.loginCode.split("").join(" ")}`}>
+                {r.loginCode}
+              </span>
+              <button type="button" className="min-h-9 rounded-xl border border-line px-3 text-sm font-semibold" onClick={() => onChange(`/api/classes/students/?classId=${cls.id}&studentId=${r.id}`, "PATCH")}>
+                New code
+              </button>
+              <button
+                type="button"
+                className="min-h-9 rounded-xl border border-line px-3 text-sm font-semibold"
+                onClick={() => {
+                  if (window.confirm(`Remove ${byProfile.get(r.profileId)?.name ?? "this student"}? Their practice history is deleted and can’t be brought back.`)) void onChange(`/api/classes/students/?classId=${cls.id}&studentId=${r.id}`, "DELETE");
+                }}
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <form
+        className="mt-3 flex flex-col gap-2"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setBusy(true);
+          await onChange("/api/classes/students/", "POST", { classId: cls.id, names: names.split(/\n|,/).map((n) => n.trim()).filter(Boolean) });
+          setNames("");
+          setBusy(false);
+        }}
+      >
+        <label className="flex flex-col text-sm font-semibold">
+          First names, one per line
+          <textarea className="mt-1 min-h-24 rounded-xl border border-line px-3 py-2 font-read" value={names} onChange={(e) => setNames(e.target.value)} placeholder={"Maya\nSam\nAlex P."} maxLength={1200} />
+        </label>
+        <div className="flex flex-wrap gap-3">
+          <button disabled={busy || !names.trim()} className={`${btn} bg-[#25b47e] text-[#0f172a] disabled:opacity-50`}>
+            Add students
+          </button>
+          {roster.length > 0 && (
+            <button type="button" className={`${btn} border border-line`} onClick={onPrint}>
+              Print login cards
+            </button>
+          )}
+        </div>
+      </form>
+      <p className="mt-2 text-sm text-ink-soft">
+        Students sign in at {APP_NAME} with the class code <b className="font-mono">{cls.joinCode}</b> and their own code. Keep the cards somewhere private.
+      </p>
+    </section>
+  );
+}
+
+/** Which units to revisit and which students to check in with. Practice only, never a mark. */
+function Insights({ data, label }: { data: ClassDetail; label: (key: string) => string }) {
+  const [now] = useState(() => Date.now());
+  const { assignments, students } = data;
+  const insights = classInsights(students, assignments, label, now);
+  if (!students.length || !assignments.length) return null;
+  return (
+    <section className="mt-4 rounded-2xl border border-line bg-white p-5 print:hidden">
+      <h2 className="text-xl font-bold">What to look at next</h2>
+      {insights.focusUnits.length === 0 && insights.checkIn.length === 0 ? (
+        <p className="mt-2 font-read text-ink-soft">Nothing stands out. Everyone who has practised is doing fine on the assigned units.</p>
+      ) : (
+        <div className="mt-2 grid gap-4 sm:grid-cols-2">
+          <div>
+            <h3 className="font-bold">Worth a quick reteach</h3>
+            {insights.focusUnits.length === 0 ? (
+              <p className="font-read text-ink-soft">No unit is giving a lot of the class trouble.</p>
+            ) : (
+              <ul className="mt-1 font-read">
+                {insights.focusUnits.map((u) => (
+                  <li key={u.key}>
+                    <b>{label(u.key)}</b>: {u.needHand.length} of {u.started} who tried it {u.needHand.length === 1 ? "is" : "are"} finding it tricky ({pct(u.accuracy ?? 0)} right first try overall)
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div>
+            <h3 className="font-bold">Check in with</h3>
+            {insights.checkIn.length === 0 ? (
+              <p className="font-read text-ink-soft">Everyone is practising and doing fine.</p>
+            ) : (
+              <ul className="mt-1 font-read">
+                {insights.checkIn.map((s) => (
+                  <li key={s.profileId}>
+                    <b>{s.name}</b>: {s.reasons.join("; ")}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+      <p className="mt-3 text-sm text-ink-soft">A student is flagged as finding a unit tricky after at least 4 questions with under 60% right on the first try. This reflects practice, not a report-card mark.</p>
+    </section>
+  );
+}
+
+/** Words a teacher can paste into a newsletter, a message or an email. */
+function SendHome({ cls }: { cls: ClassDetail["class"] }) {
+  const [copied, setCopied] = useState(false);
+  const origin = typeof window === "undefined" ? "" : window.location.origin;
+  const framework = getFramework(cls.framework);
+  const text =
+    `Hello families,\n\n` +
+    `Our class is using ${APP_NAME} for extra ${framework.curriculumName} practice. It is optional. ` +
+    `To link your child, open ${origin}/play/, tap Grown-ups, go to Children, choose "Join a class" and enter the class code ${cls.joinCode}. ` +
+    `Linking is your choice and you can unlink at any time. I will only see your child's first name, grade and practice results on the units I assign.\n\n` +
+    `Thank you!`;
+  return (
+    <section className="mt-4 rounded-2xl border border-line bg-white p-5 print:hidden">
+      <h2 className="text-xl font-bold">Send home</h2>
+      <p className="mt-1 font-read text-ink-soft">A ready-made note for families who will link their own child with the class code. Students you add with login codes above don’t need it.</p>
+      <textarea readOnly className="mt-3 min-h-40 w-full rounded-xl border border-line px-3 py-2 font-read" value={text} aria-label="Note to families" onFocus={(e) => e.currentTarget.select()} />
+      <div className="mt-2 flex flex-wrap gap-3">
+        <button
+          type="button"
+          className={`${btn} border border-line`}
+          onClick={() => {
+            void navigator.clipboard?.writeText(text).then(() => setCopied(true));
+          }}
+        >
+          {copied ? "Copied" : "Copy note"}
+        </button>
+        <a className={`${btn} inline-flex items-center border border-line`} href={`mailto:?subject=${encodeURIComponent(`${cls.name} on ${APP_NAME}`)}&body=${encodeURIComponent(text)}`}>
+          Email it
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/** What prints: a login card for each student, or a one-page class summary. Hidden on screen. */
+function PrintSheet({ data, label, mode }: { data: ClassDetail; label: (key: string) => string; mode: "cards" | "summary" }) {
+  const { class: cls, roster, students, assignments } = data;
+  const byProfile = new Map(students.map((s) => [s.profileId, s]));
+  const levelLabel = (level: number) => (level < 0 ? "Not started" : levelInfo(cls.framework, cls.grade, level)?.label ?? "");
+  const [now] = useState(() => Date.now());
+  const insights = classInsights(students, assignments, label, now);
+  if (mode === "cards") {
+    return (
+      <div className="hidden print:grid print:grid-cols-2 print:gap-3">
+        {roster.map((r) => (
+          <div key={r.id} className="break-inside-avoid rounded-xl border-2 border-dashed border-black p-4">
+            <p className="text-lg font-bold">{byProfile.get(r.profileId)?.name}</p>
+            <p>
+              Go to <b>{typeof window === "undefined" ? "" : window.location.host}/play</b> and tap “My teacher gave me a code”.
+            </p>
+            <p className="mt-2">
+              Class code: <b className="font-mono text-xl tracking-widest">{cls.joinCode}</b>
+            </p>
+            <p>
+              My code: <b className="font-mono text-xl tracking-widest">{r.loginCode}</b>
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="hidden print:block">
+      <h1 className="text-2xl font-bold">
+        {cls.name} · {GRADE_LABEL[cls.grade]} · {getFramework(cls.framework).curriculumName}
+      </h1>
+      <p className="text-sm">
+        Practice summary printed {new Date(now).toLocaleDateString("en-CA", { dateStyle: "long" })}. This reflects practice in {APP_NAME}, not a report-card mark.
+      </p>
+      <table className="mt-3 w-full border-collapse text-left text-sm">
+        <thead>
+          <tr>
+            <th className="border border-black p-1">Student</th>
+            {assignments.map((k) => (
+              <th key={k} className="border border-black p-1">{label(k)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {students.map((s) => (
+            <tr key={s.profileId}>
+              <th scope="row" className="border border-black p-1">{s.name}</th>
+              {s.units.map((u) => (
+                <td key={u.key} className="border border-black p-1">
+                  {levelLabel(u.level)}
+                  {u.attempts > 0 ? ` (${pct(u.accuracy)}, ${u.attempts} q)` : ""}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {insights.focusUnits.length > 0 && (
+        <p className="mt-3 text-sm">
+          <b>Worth a quick reteach:</b> {insights.focusUnits.map((u) => label(u.key)).join(", ")}.
+        </p>
+      )}
+      {insights.checkIn.length > 0 && (
+        <p className="mt-1 text-sm">
+          <b>Check in with:</b> {insights.checkIn.map((s) => s.name).join(", ")}.
+        </p>
+      )}
+    </div>
+  );
 }
 
 function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
@@ -153,6 +384,18 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
   const [pick, setPick] = useState("");
   const [err, setErr] = useState("");
   const [confirmClose, setConfirmClose] = useState(false);
+  const [due, setDue] = useState("");
+  const [printMode, setPrintMode] = useState<"cards" | "summary" | null>(null);
+
+  // Print once the sheet is on the page, then go back to the normal view.
+  useEffect(() => {
+    if (!printMode) return;
+    const t = setTimeout(() => {
+      window.print();
+      setPrintMode(null);
+    }, 50);
+    return () => clearTimeout(t);
+  }, [printMode]);
 
   const load = useCallback(
     () =>
@@ -186,6 +429,8 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
 
   return (
     <>
+      {printMode && <PrintSheet data={data} label={label} mode={printMode} />}
+      <div className="print:hidden">
       <button type="button" className="mb-3 font-semibold underline" onClick={onBack}>
         ← All classes
       </button>
@@ -208,12 +453,23 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
         <p className="mt-1 text-sm text-ink-soft">If the code was shared too widely. Families already linked stay linked; the old code stops working.</p>
       </section>
 
+      <Roster data={data} onChange={change} onPrint={() => setPrintMode("cards")} />
+
       <section className="mt-4 rounded-2xl border border-line bg-white p-5">
         <h2 className="text-xl font-bold">Assigned units</h2>
         <ul className="mt-2 flex flex-wrap gap-2">
           {assignments.map((k) => (
             <li key={k} className="flex items-center gap-2 rounded-full bg-black/5 py-1 pl-3 pr-1 font-read">
               {getUnitRef(k)?.unit.emoji} {label(k)}
+              <label className="flex items-center gap-1 text-sm text-ink-soft">
+                <span className="sr-only">Due date for {label(k)}</span>
+                <input
+                  type="date"
+                  className="min-h-9 rounded-lg border border-line bg-white px-1"
+                  value={data.due[k] ? toInput(data.due[k]) : ""}
+                  onChange={(e) => void change("/api/classes/assignments/", "PATCH", { classId: id, unitKey: k, dueAt: e.target.value ? endOfDay(e.target.value) : null })}
+                />
+              </label>
               <button type="button" aria-label={`Remove ${label(k)}`} className="min-h-9 min-w-9 rounded-full font-bold" onClick={() => change(`/api/classes/assignments/?classId=${id}&unitKey=${encodeURIComponent(k)}`, "DELETE")}>
                 ✕
               </button>
@@ -240,13 +496,18 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
               ))}
             </select>
           </label>
+          <label className="flex flex-col text-sm font-semibold">
+            Due (optional)
+            <input type="date" className="mt-1 min-h-11 rounded-xl border border-line bg-white px-3" value={due} onChange={(e) => setDue(e.target.value)} />
+          </label>
           <button
             type="button"
             disabled={!pick}
             className={`${btn} bg-[#4f8ef7] text-[#0f172a] disabled:opacity-50`}
             onClick={async () => {
-              await change("/api/classes/assignments/", "POST", { classId: id, unitKey: pick });
+              await change("/api/classes/assignments/", "POST", { classId: id, unitKey: pick, dueAt: due ? endOfDay(due) : undefined });
               setPick("");
+              setDue("");
             }}
           >
             Assign
@@ -295,7 +556,15 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
           </div>
         )}
         <p className="mt-3 text-sm text-ink-soft">This reflects practice in {APP_NAME}, not a report-card mark. You decide proficiency.</p>
+        {students.length > 0 && assignments.length > 0 && (
+          <button type="button" className={`${btn} mt-3 border border-line`} onClick={() => setPrintMode("summary")}>
+            Print class summary
+          </button>
+        )}
       </section>
+
+      <Insights data={data} label={label} />
+      <SendHome cls={cls} />
 
       {err && (
         <p role="alert" className="mt-3 text-nudge-dark">
@@ -316,6 +585,7 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
           </button>
         )}
       </section>
+      </div>
     </>
   );
 }
@@ -325,8 +595,9 @@ export function TeacherApp() {
   const [classId, setClassId] = useState<string | null>(null);
 
   useEffect(() => {
-    call("/api/auth/me/")
-      .then(() => setSignedIn(true))
+    // A class student's login is not a teacher's: only a real account counts.
+    call<{ family?: { account?: { student?: boolean } } }>("/api/auth/me/")
+      .then((r) => setSignedIn(!r.family?.account?.student))
       .catch(() => setSignedIn(false));
   }, []);
 

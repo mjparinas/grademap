@@ -47,6 +47,29 @@ export async function signIn(email: string, password: string) {
   await syncNow();
 }
 
+/**
+ * A student signs in with the class code and their own code. This device then becomes that student's:
+ * anything already on it is cleared first, so nobody's practice mixes with another child's.
+ */
+export async function signInStudent(classCode: string, studentCode: string) {
+  const state = useStore.getState();
+  if (state.family.account) throw new Error("A grown-up is signed in on this device. Sign out in the grown-ups area first.");
+  const { family } = await post<{ family: FamilyInfo }>("/api/students/login/", { classCode, studentCode });
+  await state.wipeDevice();
+  useStore.getState().setSync({ cursor: 0 });
+  adopt(family);
+  await syncNow();
+  const first = useStore.getState().profiles.find((p) => !p.deleted);
+  if (first) useStore.getState().setActive(first.id);
+}
+
+/** Ends a class sign-in and clears the child's data from this device, so the next student starts clean. */
+export async function signOutStudent() {
+  await syncNow().catch(() => {});
+  await post("/api/auth/logout/").catch(() => {});
+  await useStore.getState().wipeDevice();
+}
+
 export async function forgotPassword(email: string): Promise<string> {
   const { message } = await post<{ message: string }>("/api/auth/forgot/", { email });
   return message;

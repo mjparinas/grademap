@@ -59,12 +59,27 @@ export interface Classwork {
   classId: string;
   className: string;
   unitKeys: string[];
+  /** Due dates the teacher set (ms since epoch), by unit key. Units without one are not listed. */
+  due: Record<string, number>;
+}
+
+/** Due dates a teacher set on this class's assigned units. */
+export async function assignmentDue(classId: string): Promise<Record<string, number>> {
+  const rows = await query<{ unit_key: string; due_at: number | null }>("SELECT unit_key, due_at FROM class_assignments WHERE class_id = ? AND due_at IS NOT NULL", [classId]);
+  return Object.fromEntries(rows.map((r) => [r.unit_key, Number(r.due_at)]));
+}
+
+/** A due date from the browser: a time within the next year or the last month, or null for none. */
+export function cleanDueAt(v: unknown, now = Date.now()): number | null | undefined {
+  if (v === null) return null;
+  if (typeof v !== "number" || !Number.isFinite(v)) return undefined;
+  return v > now - 30 * 86_400_000 && v < now + 366 * 86_400_000 ? Math.round(v) : undefined;
 }
 
 /** What each of a family's linked children has been assigned. Sent only to that family's own devices. */
 export async function familyClasswork(familyId: string): Promise<Classwork[]> {
-  const rows = await query<{ profile_id: string; class_id: string; name: string; unit_key: string | null }>(
-    `SELECT m.profile_id, m.class_id, c.name, a.unit_key FROM class_members m
+  const rows = await query<{ profile_id: string; class_id: string; name: string; unit_key: string | null; due_at: number | null }>(
+    `SELECT m.profile_id, m.class_id, c.name, a.unit_key, a.due_at FROM class_members m
      JOIN classes c ON c.id = m.class_id AND c.closed_at IS NULL
      LEFT JOIN class_assignments a ON a.class_id = m.class_id
      WHERE m.family_id = ? ORDER BY m.joined_at, a.created_at, a.unit_key`,
@@ -73,8 +88,9 @@ export async function familyClasswork(familyId: string): Promise<Classwork[]> {
   const out = new Map<string, Classwork>();
   for (const r of rows) {
     const k = `${r.profile_id}/${r.class_id}`;
-    const entry = out.get(k) ?? { profileId: r.profile_id, classId: r.class_id, className: r.name, unitKeys: [] };
+    const entry = out.get(k) ?? { profileId: r.profile_id, classId: r.class_id, className: r.name, unitKeys: [], due: {} };
     if (r.unit_key) entry.unitKeys.push(r.unit_key);
+    if (r.unit_key && r.due_at != null) entry.due[r.unit_key] = Number(r.due_at);
     out.set(k, entry);
   }
   return [...out.values()];

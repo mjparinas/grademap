@@ -34,7 +34,7 @@ const ctx = await browser.newContext({ ...devices["iPad (gen 7)"], reducedMotion
 const page = await ctx.newPage();
 
 console.log("Public pages");
-for (const path of ["/", "/pricing/", "/help/", "/contact/", "/privacy/", "/terms/", "/curriculum/", "/curriculum/bc/", "/curriculum/bc/grade-3/math/", "/report-cards/bc/", "/guides/bc/", "/guides/bc/grade-4/", "/guides/bc/grade-4/math/", "/guides/bc/grade-4/math/worksheet/", "/guides/bc/kindergarten/language/worksheet/", "/guides/bc/core-competencies/", "/guides/bc/fsa/", "/compare/", "/compare/ixl/", "/account/reset/?token=x", "/account/verify/?token=x", "/account/unsubscribe/?token=x"]) {
+for (const path of ["/", "/pricing/", "/help/", "/contact/", "/privacy/", "/terms/", "/accessibility/", "/curriculum/", "/curriculum/bc/", "/curriculum/bc/grade-3/math/", "/report-cards/bc/", "/guides/bc/", "/guides/bc/grade-4/", "/guides/bc/grade-4/math/", "/guides/bc/grade-4/math/worksheet/", "/guides/bc/kindergarten/language/worksheet/", "/guides/bc/core-competencies/", "/guides/bc/fsa/", "/compare/", "/compare/ixl/", "/account/reset/?token=x", "/account/verify/?token=x", "/account/unsubscribe/?token=x"]) {
   await page.goto(BASE + path);
   await scan(page, path);
 }
@@ -121,7 +121,9 @@ for (let i = 0; Date.now() < deadline && !done; i++) {
     const pick = choices.nth((i + j) % n);
     if (await pick.isDisabled()) continue;
     await pick.click({ force: true });
-    await page.waitForTimeout(450);
+    // Wait for the feedback bar rather than a fixed pause: on a slow runner it can take longer than 450 ms.
+    await page.waitForFunction(() => /🤔|✓/.test(document.querySelector("[role=status]")?.textContent ?? ""), null, { timeout: 4000 }).catch(() => {});
+    await page.waitForTimeout(450); // and let the bar finish sliding in, so its buttons are on screen
     const text = await bar.innerText().catch(() => "");
     if (text.includes("🤔")) {
       // A miss: "try again" must be an icon and words, not just orange.

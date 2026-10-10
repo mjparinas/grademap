@@ -104,12 +104,28 @@ function Shell({ children, active }: { children: ReactNode; active: string }) {
   );
 }
 
+/** A class account has no parent area: the school manages it, and billing never applies. */
+function ClassAccountNotice() {
+  return (
+    <div className="mx-auto flex min-h-dvh max-w-md flex-col items-center justify-center gap-4 p-6 text-center">
+      <h1 className="text-3xl font-bold">This is a class account</h1>
+      <p className="font-read text-lg text-ink-soft">
+        Your teacher set this up, so there is no grown-ups area here. Ask your teacher for anything you need. A family can also make its own free account to see progress at home.
+      </p>
+      <a href="/play/" className="btn btn-good min-h-14 px-6 text-xl">
+        Back to learning
+      </a>
+    </div>
+  );
+}
+
 export function ParentApp() {
   const ready = useReady();
   const [unlocked, setUnlocked] = useState(false);
   const [billing, setBilling] = useState<BillingInfo | null>(null);
   const { path } = useRoute();
   const profiles = useProfiles();
+  const isStudent = useStore((s) => Boolean(s.family.account?.student));
 
   useEffect(() => {
     if (ready) return;
@@ -123,6 +139,7 @@ export function ParentApp() {
   }, [ready]);
 
   if (!ready) return <LoadingScreen />;
+  if (isStudent) return <ClassAccountNotice />;
   if (!unlocked) return <Gate onPass={() => setUnlocked(true)} />;
 
   const section = path[0] ?? "";
@@ -147,7 +164,7 @@ export function ParentApp() {
       page = <AccountPage onBilling={setBilling} />;
       break;
     case "report-cards":
-      page = <ReportCardsPage />;
+      page = <ReportCardsPage childId={path[1]} />;
       break;
     case "privacy":
       page = <PrivacyPage />;

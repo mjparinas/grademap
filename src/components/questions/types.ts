@@ -7,6 +7,8 @@ export interface QuestionProps<Q> {
   onAttempt: (correct: boolean, el?: Element | null) => void;
   /** A small mistake that doesn't end the attempt (e.g. a wrong basket). */
   onSlip: (el?: Element | null) => void;
+  /** Read a button's words aloud when it is tapped. Only given when the child has read-aloud on. */
+  onSpeak?: (text: string) => void;
 }
 
 export const isLocked = (status: Status) => status === "correct" || status === "revealed";

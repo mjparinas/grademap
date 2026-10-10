@@ -6,7 +6,7 @@ import { sounds } from "@/lib/sound";
 import type { SortQuestion as Q } from "@/content/types";
 import { isLocked, type QuestionProps } from "./types";
 
-export function SortQuestion({ q, status, onAttempt, onSlip }: QuestionProps<Q>) {
+export function SortQuestion({ q, status, onAttempt, onSlip, onSpeak }: QuestionProps<Q>) {
   const [sorted, setSorted] = useState<Record<string, string>>({});
   const remaining = q.items.filter((i) => !sorted[i.id]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -17,6 +17,7 @@ export function SortQuestion({ q, status, onAttempt, onSlip }: QuestionProps<Q>)
 
   const drop = (binId: string) => {
     if (!selected || locked) return;
+    onSpeak?.(q.bins.find((b) => b.id === binId)?.label ?? "");
     const el = binRefs.current[binId];
     if (selected.bin !== binId) {
       replay(el, "animate-shake");
@@ -45,7 +46,10 @@ export function SortQuestion({ q, status, onAttempt, onSlip }: QuestionProps<Q>)
               <button
                 type="button"
                 data-testid="sort-item"
-                onClick={() => setSelectedId(item.id)}
+                onClick={() => {
+                  setSelectedId(item.id);
+                  onSpeak?.(item.label);
+                }}
                 aria-pressed={isSel}
                 className={`btn min-h-20 px-4 font-read text-xl transition-transform sm:text-2xl ${
                   isSel ? "btn-soft -translate-y-2 scale-105 ring-4 ring-[color:var(--c)]/50" : ""

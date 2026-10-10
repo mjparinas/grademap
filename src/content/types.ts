@@ -173,6 +173,23 @@ export interface GenerateOptions {
   difficulty?: 1 | 2 | 3;
 }
 
+/**
+ * A short "how it works" a child can open before practising: a few steps and one worked example.
+ * Practice only; it never changes scoring. Keep steps short, in kid-facing words.
+ */
+export interface Lesson {
+  /** 2 to 4 short steps. Kindergarten and Grade 1 steps stay under 80 characters. */
+  steps: string[];
+  example: {
+    question: string;
+    /** The working, one line per step. */
+    work: string[];
+    answer: string;
+    /** A picture to show beside the example. */
+    visual?: Visual;
+  };
+}
+
 export interface Unit {
   id: string;
   title: string;
@@ -183,6 +200,8 @@ export interface Unit {
   parentNote: string;
   /** The learning standard this unit practises, per framework. */
   standards: Partial<Record<FrameworkId, string>>;
+  /** An optional short lesson. Added per grade in ./lessons, so it can be shared by every province that uses the unit. */
+  lesson?: Lesson;
   /** Returns 6–10 questions. Must only use the helpers in ../random (never Math.random). */
   generate: (opts?: GenerateOptions) => Question[];
 }

@@ -7,6 +7,8 @@ import { useActiveProfile, useStore } from "@/lib/store";
 export interface Assigned {
   ref: UnitRef;
   className: string;
+  /** When the teacher would like it done (ms since epoch), if they said. */
+  dueAt?: number;
 }
 
 /**
@@ -25,7 +27,7 @@ export function useClasswork(): Assigned[] {
         const ref = getUnitRef(key);
         if (!ref || seen.has(key)) continue;
         seen.add(key);
-        out.push({ ref, className: c.className });
+        out.push({ ref, className: c.className, dueAt: c.due?.[key] });
       }
     }
     return out;

@@ -52,6 +52,17 @@ export default function TermsPage() {
         </ul>
       </Section>
 
+      <Section title="Teachers and classes">
+        <ul>
+          <li>Teacher tools are for people who work at a school or teach students. If you add students to a class, you confirm that you are allowed to and that your school’s rules and privacy laws allow it.</li>
+          <li>Add a student by first name or nickname only. Don’t type surnames, student numbers, email addresses or other details into a name.</li>
+          <li>Keep student login cards private, and ask for a new code if one is shared by mistake.</li>
+          <li>Classes are free for now. If that changes we will tell teachers well before it does.</li>
+          <li>Removing a student, closing a class or deleting your account deletes the students’ accounts and practice history. This can’t be undone.</li>
+          <li>What we do with students’ information is described in the privacy policy under “Schools and classes”.</li>
+        </ul>
+      </Section>
+
       <Section title="What you can and can’t do">
         <p>Please use {APP_NAME} only for its intended purpose: learning at home. You agree not to:</p>
         <ul>
