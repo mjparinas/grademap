@@ -16,6 +16,26 @@ import { courses as on6 } from "./ontario/g6";
 import { courses as on7 } from "./ontario/g7";
 import { courses as on8 } from "./ontario/g8";
 import { courses as on9 } from "./ontario/g9";
+import { courses as abK } from "./alberta/k";
+import { courses as ab1 } from "./alberta/g1";
+import { courses as ab2 } from "./alberta/g2";
+import { courses as ab3 } from "./alberta/g3";
+import { courses as ab4 } from "./alberta/g4";
+import { courses as ab5 } from "./alberta/g5";
+import { courses as ab6 } from "./alberta/g6";
+import { courses as ab7 } from "./alberta/g7";
+import { courses as ab8 } from "./alberta/g8";
+import { courses as ab9 } from "./alberta/g9";
+import { courses as skK } from "./saskatchewan/k";
+import { courses as sk1 } from "./saskatchewan/g1";
+import { courses as sk2 } from "./saskatchewan/g2";
+import { courses as sk3 } from "./saskatchewan/g3";
+import { courses as sk4 } from "./saskatchewan/g4";
+import { courses as sk5 } from "./saskatchewan/g5";
+import { courses as sk6 } from "./saskatchewan/g6";
+import { courses as sk7 } from "./saskatchewan/g7";
+import { courses as sk8 } from "./saskatchewan/g8";
+import { courses as sk9 } from "./saskatchewan/g9";
 import { mergeCourses } from "./index";
 import { courses as g8 } from "./grades/g8";
 import { courses as g9 } from "./grades/g9";
@@ -26,7 +46,7 @@ import type { Course, GradeId, SubjectId } from "./types";
 // into the first download. ESLint enforces this; the apps use ./index.
 
 /** Every course with at least one unit. */
-export const COURSES: Course[] = mergeCourses([k, g1, g2, g3, g4, g5, g6, g7, g8, g9, onK, on1, on2, on3, on4, on5, on6, on7, on8, on9]).filter(
+export const COURSES: Course[] = mergeCourses([k, g1, g2, g3, g4, g5, g6, g7, g8, g9, onK, on1, on2, on3, on4, on5, on6, on7, on8, on9, abK, ab1, ab2, ab3, ab4, ab5, ab6, ab7, ab8, ab9, skK, sk1, sk2, sk3, sk4, sk5, sk6, sk7, sk8, sk9]).filter(
   (c) => c.units.length > 0,
 );
 

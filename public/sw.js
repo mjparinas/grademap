@@ -95,3 +95,28 @@ self.addEventListener("fetch", (event) => {
       ),
   );
 });
+
+// Notifications for grown-ups. The push carries no data: the text is fixed here, so nothing
+// about a child ever passes through a push service.
+self.addEventListener("push", (event) => {
+  event.waitUntil(
+    self.registration.showNotification("Your weekly report is ready", {
+      body: "See how this week went.",
+      icon: "/icon-192.png",
+      tag: "weekly-report",
+      data: { url: "/parents/#/reports" },
+    }),
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = event.notification.data?.url || "/parents/";
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((windows) => {
+      const open = windows.find((w) => new URL(w.url).pathname.startsWith("/parents"));
+      if (open) return open.focus().then(() => open.navigate(url).catch(() => undefined));
+      return self.clients.openWindow(url);
+    }),
+  );
+});

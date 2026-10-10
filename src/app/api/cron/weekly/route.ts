@@ -2,11 +2,12 @@ import { loadChildReport, familyProfileIds } from "@/server/reportData";
 import { secretsMatch, unsubscribeToken } from "@/server/auth";
 import { query, run } from "@/server/db";
 import { sendEmail } from "@/server/email";
-import { inactiveClassEmail, reminderEmail, trialEndingEmail, weeklyEmail, type ReminderChild, type WeeklyChild } from "@/server/emailTemplates";
+import { inactiveClassEmail, reminderEmail, trialEndingEmail, trialRecapEmail, weeklyEmail, type ReminderChild, type TrialChild, type WeeklyChild } from "@/server/emailTemplates";
+import { pushConfigured, pushToParent } from "@/server/push";
 import { deleteInactiveClass } from "@/server/students";
 
 // Runs once a day (see vercel.json). Vercel sends `Authorization: Bearer $CRON_SECRET`.
-// Every day: a "trial ends soon" notice to confirmed parents, once. On Sundays: the weekly report
+// Every day: a one-time trial recap 4 to 10 days before the trial ends, and a "trial ends soon" notice to confirmed parents, once. On Sundays: the weekly report
 // to parents who opted in (with a month summary on the first Sunday of the month). Every day: a gentle practice reminder, to opted-in parents only, at most once a week.
 
 const DAY = 86_400_000;
@@ -21,7 +22,7 @@ export async function GET(req: Request) {
   if (!secret || !secretsMatch(req.headers.get("authorization") ?? "", `Bearer ${secret}`)) return new Response("Unauthorized", { status: 401 });
   const origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "") || new URL(req.url).origin;
   const now = Date.now();
-  const result = { trialNotices: 0, weekly: 0, reminders: 0, inactiveClassWarnings: 0, inactiveClassesDeleted: 0, studentsDeleted: 0 };
+  const result = { trialNotices: 0, trialRecaps: 0, weekly: 0, reminders: 0, inactiveClassWarnings: 0, inactiveClassesDeleted: 0, pushes: 0, studentsDeleted: 0 };
 
   // Warn teachers after 11 months without a sign-in. Only mark a warning as sent when email
   // delivery succeeds, so a missing mail provider cannot silently bypass the warning.
@@ -65,16 +66,51 @@ export async function GET(req: Request) {
     }
   }
 
+  // What each child did during the trial (first name and totals only).
+  const trialChildren = async (familyId: string): Promise<TrialChild[]> => {
+    const out: TrialChild[] = [];
+    for (const id of await familyProfileIds(familyId)) {
+      const r = await loadChildReport(familyId, id, 30, now);
+      if (!r) continue;
+      const t = r.report.totals;
+      out.push({ name: r.profile.name, answers: t.answers, activeDays: t.activeDays, minutes: Math.round(t.minutes), strength: r.report.strengths[0]?.ref.unit.title });
+    }
+    return out;
+  };
+
+  // Mid-trial recap, once, 4 to 10 days before the trial ends, only when a child has practised.
+  const recaps = await query<{ id: string; email: string; family_id: string; trial_ends_at: number }>(
+    `SELECT p.id, p.email, p.family_id, f.trial_ends_at FROM parents p JOIN families f ON f.id = p.family_id
+     WHERE p.email_verified_at IS NOT NULL AND p.trial_recap_at IS NULL AND p.trial_notice_at IS NULL AND f.plan = 'trial'
+       AND f.subscription_status IS NULL AND f.trial_ends_at > ? AND f.trial_ends_at <= ?`,
+    [now + 3 * DAY, now + 10 * DAY],
+  );
+  for (const t of recaps) {
+    try {
+      const children = await trialChildren(t.family_id);
+      if (!children.some((c) => c.answers > 0)) continue;
+      const daysLeft = Math.max(1, Math.ceil((Number(t.trial_ends_at) - now) / DAY));
+      const sent = await sendEmail(trialRecapEmail(t.email, origin, daysLeft, children));
+      if (sent.ok) {
+        await run("UPDATE parents SET trial_recap_at = ? WHERE id = ?", [now, t.id]);
+        result.trialRecaps++;
+      }
+    } catch (e) {
+      console.error("[trial recap] failed for one family", (e as Error).message);
+    }
+  }
+
   // Trial ending within 3 days, not subscribed, not told yet.
-  const trials = await query<{ id: string; email: string; trial_ends_at: number }>(
-    `SELECT p.id, p.email, f.trial_ends_at FROM parents p JOIN families f ON f.id = p.family_id
+  const trials = await query<{ id: string; email: string; family_id: string; trial_ends_at: number }>(
+    `SELECT p.id, p.email, p.family_id, f.trial_ends_at FROM parents p JOIN families f ON f.id = p.family_id
      WHERE p.email_verified_at IS NOT NULL AND p.trial_notice_at IS NULL AND f.plan = 'trial'
        AND f.subscription_status IS NULL AND f.trial_ends_at > ? AND f.trial_ends_at <= ?`,
     [now, now + 3 * DAY],
   );
   for (const t of trials) {
     const daysLeft = Math.max(1, Math.ceil((Number(t.trial_ends_at) - now) / DAY));
-    const sent = await sendEmail(trialEndingEmail(t.email, origin, daysLeft));
+    const children = await trialChildren(t.family_id).catch(() => []);
+    const sent = await sendEmail(trialEndingEmail(t.email, origin, daysLeft, children));
     if (sent.ok) {
       await run("UPDATE parents SET trial_notice_at = ? WHERE id = ?", [now, t.id]);
       result.trialNotices++;
@@ -144,6 +180,26 @@ export async function GET(req: Request) {
         }
       } catch (e) {
         console.error("[weekly] failed for one family", (e as Error).message);
+      }
+    }
+  }
+
+  // Notification addresses of accounts that no longer exist (a removed co-parent) are dropped.
+  await run("DELETE FROM push_subscriptions WHERE parent_id NOT IN (SELECT id FROM parents)");
+
+  // Sundays: wake the browsers a parent allowed. The notification text is fixed; nothing about a child is sent.
+  if (pushConfigured() && new Date(now).getUTCDay() === 0) {
+    const targets = await query<{ id: string }>(
+      `SELECT id FROM parents WHERE role != 'student' AND (last_push_at IS NULL OR last_push_at < ?)
+         AND id IN (SELECT parent_id FROM push_subscriptions)`,
+      [now - 5 * DAY],
+    );
+    for (const t of targets) {
+      try {
+        await run("UPDATE parents SET last_push_at = ? WHERE id = ?", [now, t.id]);
+        if ((await pushToParent(t.id)) > 0) result.pushes++;
+      } catch (e) {
+        console.error("[push] failed for one parent", (e as Error).message);
       }
     }
   }

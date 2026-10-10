@@ -10,7 +10,8 @@ import { sounds } from "@/lib/sound";
 import { stopSpeaking } from "@/lib/speech";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useBand } from "../band";
-import { Critter, SpeechBubble } from "../Critter";
+import { SpeechBubble } from "../Critter";
+import { Companion } from "./Companion";
 import { Page, ProgressBar } from "../ui";
 import { Bubbles } from "./games/Bubbles";
 import { Catch } from "./games/Catch";
@@ -185,7 +186,7 @@ export function GameScreen({ id }: { id: string }) {
     const newBest = phase === "over" && finalScore > bestBefore && finalScore > 0;
     return (
       <Page className="items-center justify-center gap-5 text-center">
-        <Critter id={profile.companion} mood={phase === "over" ? "cheer" : "wave"} size={130} />
+        <Companion mood={phase === "over" ? "cheer" : "wave"} size={130} />
         <h1 className="text-4xl font-bold">
           {info.icon} {info.title}
         </h1>

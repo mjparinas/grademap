@@ -21,6 +21,7 @@ import { TRIAL_DAYS } from "./plan";
 import { celebrate, setCalmCheck } from "./juice";
 import { setHapticsCheck } from "./haptics";
 import { effectiveGoal, STRETCH_QUEST, STRETCH_REWARD } from "./goal";
+import { growthStage } from "./buddy";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "./quests";
 import { getRoomItem, isRoomOwned } from "./room";
 import { getItem, isUnlocked, STARTER } from "./shop";
@@ -284,7 +285,14 @@ export const useStore = create<State>()((set, get) => ({
     }
 
     if (after.level > before.level) {
-      toasts.unshift({ kind: "level", title: `Level ${after.level}!`, subtitle: "You levelled up!", icon: "⬆️" });
+      const grown = growthStage(after.level);
+      const grew = grown.stage > growthStage(before.level).stage;
+      toasts.unshift({
+        kind: "level",
+        title: `Level ${after.level}!`,
+        subtitle: grew ? `Your buddy grew into a ${grown.name}!` : "You levelled up!",
+        icon: grew ? "🌟" : "⬆️",
+      });
     }
 
     // Make a Wish: a little shower of stars.
