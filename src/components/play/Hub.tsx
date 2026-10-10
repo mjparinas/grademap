@@ -281,6 +281,24 @@ export function Hub() {
         </ul>
       </section>
 
+      {refresher && (
+        <Link
+          href={`#/session?mode=practice&scope=${encodeURIComponent(refresher.key)}`}
+          className="card flex items-center gap-3 p-4"
+          style={{ borderColor: getSubjectMeta(refresher.course.subject).colour }}
+          data-testid="refresher"
+        >
+          <Critter id={getSubjectMeta(refresher.course.subject).mascot} mood="wave" size={64} />
+          <span className="flex-1">
+            <span className="block text-sm font-semibold text-ink-soft">A quick refresher?</span>
+            <span className="block text-xl font-bold">
+              {getCritter(getSubjectMeta(refresher.course.subject).mascot).name} remembers you were great at {refresher.unit.title}.
+            </span>
+          </span>
+          <span className="text-2xl">▶</span>
+        </Link>
+      )}
+
       {suggested && (
         <Link
           href={`#/session?mode=practice&scope=${encodeURIComponent(suggested.key)}`}
