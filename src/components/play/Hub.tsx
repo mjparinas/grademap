@@ -24,6 +24,7 @@ import { suggestions } from "./plans";
 import { useAllowed } from "./useAllowed";
 import { useClasswork } from "./useClasswork";
 import { LevelChip } from "./Practice";
+import { InstallChip } from "./InstallChip";
 
 interface Tile {
   id: string;
@@ -306,6 +307,8 @@ export function Hub() {
           </Link>
         )}
       </div>
+
+      {!isStudent && <InstallChip little={little} />}
 
       <MooseVisitor />
 
