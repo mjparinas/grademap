@@ -28,6 +28,8 @@ const config = {
   jsonReporter: { fileName: "reports/mutation/mutation.json" },
   tempDirName: ".stryker-tmp",
   // Reuses earlier results for unchanged code and tests; `npm run test:mutation -- --force` redoes everything.
+  // Mutants in module-level code (the trophy and sticker lists) aren't tied to tests, so new tests for
+  // them only show up with --force.
   incremental: true,
   incrementalFile: "reports/mutation/stryker-incremental.json",
   thresholds: { high: 85, low: 70, break: null },
