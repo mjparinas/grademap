@@ -1,3 +1,4 @@
+import { APP_NAME } from "@/lib/brand";
 import { FRAMEWORKS } from "./frameworks";
 import { ALBERTA_GUIDES } from "./alberta/guides";
 import { ONTARIO_GUIDES } from "./ontario/guides";
@@ -271,8 +272,8 @@ const BC_GUIDES: FrameworkGuides = {
         a: "There are three: Communication, Thinking, and Personal and Social. Each has smaller parts. Communication includes Communicating and Collaborating. Thinking includes Creative Thinking and Critical and Reflective Thinking. Personal and Social includes Positive Personal and Cultural Identity, Personal Awareness and Responsibility, and Social Awareness and Responsibility.",
       },
       {
-        q: "Does Gradelings measure Core Competencies?",
-        a: "No. Gradelings practises subject skills in math, language arts, science and social studies and shows how they match the report card scale. Core Competencies grow through conversation, projects, teamwork and play, so we suggest home activities rather than scores.",
+        q: `Does ${APP_NAME} measure Core Competencies?`,
+        a: `No. ${APP_NAME} practises subject skills in math, language arts, science and social studies and shows how they match the report card scale. Core Competencies grow through conversation, projects, teamwork and play, so we suggest home activities rather than scores.`,
       },
       {
         q: "How can I help my child with their self-assessment?",
@@ -285,20 +286,20 @@ const BC_GUIDES: FrameworkGuides = {
     browse: ["5", "k"],
     title: "Core French and French Immersion in BC: a guide for parents",
     intro:
-      "Many BC families wonder how Core French and French Immersion differ, when each starts, and how to help at home if you don't speak French. Both follow the BC curriculum, and Gradelings practises both as optional subjects you can switch on for each child.",
+      `Many BC families wonder how Core French and French Immersion differ, when each starts, and how to help at home if you don't speak French. Both follow the BC curriculum, and ${APP_NAME} practises both as optional subjects you can switch on for each child.`,
     compare: [
       { title: "What it is", core: "French as one school subject, taught a few times a week alongside classes in English.", immersion: "A program where much of the school day, including subjects such as math and science, is taught in French." },
       { title: "When it starts", core: "Core French starts in Grade 5 in BC.", immersion: "Early French Immersion usually begins in Kindergarten or Grade 1. Some districts also offer late immersion, often in Grade 6." },
       { title: "Who it suits", core: "Every child can learn some French. No earlier French is needed.", immersion: "Families who want their child to become fluent. Programs and entry points differ by district, so check with yours." },
       { title: "Name in the curriculum", core: "BC Core French", immersion: "Français langue seconde – immersion" },
-      { title: "In Gradelings", core: "Grades 5 to 9. Prompts are in English, with French words and sentences to read, choose and build.", immersion: "Kindergarten to Grade 9. Prompts and stories are in French, with English hints for parents." },
+      { title: `In ${APP_NAME}`, core: `Grades 5 to 9. Prompts are in English, with French words and sentences to read, choose and build.`, immersion: `Kindergarten to Grade 9. Prompts and stories are in French, with English hints for parents.` },
     ],
     sections: [
       { title: "What Core French children learn", body: "Core French builds everyday communication: greetings, numbers, family, school, food, weather, hobbies and describing people and places. In the upper grades children start to write short texts, use common verbs and ask and answer questions. The aim is confidence with simple, real conversations." },
       { title: "What French Immersion children learn", body: "In immersion, children learn to listen, speak, read and write in French, and learn other subjects in French too. Younger children start with songs, stories and routines, then move on to sentences, paragraphs and longer texts as the grades go on. English reading and writing are taught as well. How much is in French in each grade depends on the school district." },
-      { title: "How report cards describe French", body: "French is reported on the same four-level scale as other subjects: Emerging, Developing, Proficient and Extending. Teachers look at listening, speaking, reading and writing together. Gradelings shows practice, not a report card mark, so ask your child's teacher what the level means for your child." },
+      { title: `How report cards describe French`, body: `French is reported on the same four-level scale as other subjects: Emerging, Developing, Proficient and Extending. Teachers look at listening, speaking, reading and writing together. ${APP_NAME} shows practice, not a report card mark, so ask your child's teacher what the level means for your child.` },
       { title: "Helping if you don't speak French", body: "You don't need French to help. Ask your child to teach you a word each day, listen while they read aloud, and celebrate effort over accuracy. Mistakes are a normal part of learning a language." },
-      { title: "How Gradelings fits in", body: "French is off by default. A parent can switch on Immersion, Core French or both for each child in Settings, under Subjects. French is not counted toward the Grade Champion trophy, and French lessons are read aloud with a French voice from your device. You can pick that voice in Settings." },
+      { title: `How ${APP_NAME} fits in`, body: `French is off by default. A parent can switch on Immersion, Core French or both for each child in Settings, under Subjects. French is not counted toward the Grade Champion trophy, and French lessons are read aloud with a French voice from your device. You can pick that voice in Settings.` },
     ],
     atHome: [
       "Pick one new French word each day and use it at dinner or on the way to school.",
@@ -311,8 +312,8 @@ const BC_GUIDES: FrameworkGuides = {
       { q: "When does Core French start in BC?", a: "Core French begins in Grade 5. Your school or district can tell you how much time it gets each week." },
       { q: "Can my child start French Immersion later?", a: "Some districts offer late immersion, often starting in Grade 6, and some have limited spaces in other grades. Entry rules differ, so ask your district office." },
       { q: "Will French Immersion hurt my child's English?", a: "English reading and writing are still taught in immersion, and research has generally found that immersion students do well in English. If you are worried, talk with your child's teacher." },
-      { q: "Do French marks count toward the Grade Champion trophy in Gradelings?", a: "No. French is a separate, optional set of subjects. Children earn their own French trophies instead." },
-      { q: "Does Gradelings replace French class?", a: "No. It gives short, kind practice that matches the topics in the BC curriculum. It doesn't replace a teacher, and its levels are not a report card mark." },
+      { q: `Do French marks count toward the Grade Champion trophy in ${APP_NAME}?`, a: `No. French is a separate, optional set of subjects. Children earn their own French trophies instead.` },
+      { q: `Does ${APP_NAME} replace French class?`, a: `No. It gives short, kind practice that matches the topics in the BC curriculum. It doesn't replace a teacher, and its levels are not a report card mark.` },
     ],
   },
   assessment: {
@@ -356,8 +357,8 @@ const BC_GUIDES: FrameworkGuides = {
         a: "Results use Emerging, On Track and Extending. On Track means your child is meeting expectations for the grade in that area. Emerging means they're still building the skill. Extending means they're going beyond. Talk with your child's teacher about what the result means for your child.",
       },
       {
-        q: "Can Gradelings help my child get ready?",
-        a: "Gradelings practises the numeracy and language arts skills taught in Grades 4 and 7 with kind feedback and no timers unless you want them. It isn't a copy of the FSA and doesn't predict a result.",
+        q: `Can ${APP_NAME} help my child get ready?`,
+        a: `${APP_NAME} practises the numeracy and language arts skills taught in Grades 4 and 7 with kind feedback and no timers unless you want them. It isn't a copy of the FSA and doesn't predict a result.`,
       },
     ],
   },

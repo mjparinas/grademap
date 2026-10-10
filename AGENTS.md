@@ -8,9 +8,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# GradeMap: guide for agents
+# Gradelings: guide for agents
 
-GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 9. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
+Gradelings is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 9. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
 
 ## Commands
 
@@ -70,7 +70,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - giving kind, encouraging feedback;
   - making it as compelling as a good video game.
   - Research is in `docs/research/`.
-- **Name:** "GradeMap" is a working name. It is set once in `src/lib/brand.ts`; never hard-code it elsewhere. The name was chosen because it works across provinces and countries.
+- **Name:** "Gradelings" is a working name. It is set once in `src/lib/brand.ts`; never hard-code it elsewhere. The name was chosen because it works across provinces and countries.
 - **Platform:** a web-first installable app (PWA) built with Next.js. Android is a Trusted Web Activity that wraps `/play/` (`android/`, `docs/ANDROID.md`), not Capacitor. Don't add features that only work in a native shell.
 
 ### Money
@@ -234,13 +234,13 @@ Tests are duplicated across screen sizes only where layout can break:
   - **Linked by a parent:** a parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that.
   - **Added by the teacher:** the teacher types first names or nicknames (`src/server/students.ts`, `POST /api/classes/students/`). Each student gets a six-character login code and signs in at `/play/` with the class code plus their own code (`/api/students/login/`). There is no email, password or birth year. Each student has a hidden family record (`parents.role = 'student'`, a `students` row, plan `premium` so there is never a paywall).
   - **A student session is deliberately narrow:** `getSession(req)` returns `null` for student sessions unless a route passes `{ student: true }` (only `/api/sync/` and `/api/auth/me/` do). Sync keeps a student's name, grade and province fixed and refuses new or deleted profiles. `/parents/` shows a "class account" notice. Signing in clears the device first and sign-out clears it again, so devices can be shared.
-  - **Deleting:** removing a student, closing a class and deleting a teacher account each delete the student accounts at once (`removeStudent`, `removeClassStudents`, `removeStudentsOfOwner`). Keep it that way when you add tables that hold student data. Retention for *inactive* classes is not decided; ask before adding any.
+  - **Deleting:** removing a student, closing a class and deleting a teacher account each delete the student accounts at once (`removeStudent`, `removeClassStudents`, `removeStudentsOfOwner`). Classes with no sign-in for 11 months get a warning email; at 12 months the class, assignments and class-account student data are deleted. Parent-linked children are unlinked, while their family data stays. Keep student deletion complete when adding tables that hold student data.
   - **The teacher sees** first name, avatar, grade, and level, accuracy and attempts on the units they assigned, plus "What to look at next" (`classInsights` in `src/lib/classroom.ts`: reteach units and students to check in with). Due dates are optional on assignments and reach children through sync as soft "Try to finish by" text, never as a warning. Teachers can print login cards and a class summary, and copy a "send home" note.
 - Closing a class, leaving it, removing a child and deleting an account all remove the links.
 - Teacher screens are labelled as practice, not a report-card mark. `/teachers/` is `noindex` and disallowed in `robots.ts`.
 - **Assigned units reach the child through sync** (`classwork` in the sync response, with `due` dates, kept on the device so it works offline). `/play/` shows them as "From your teacher" on the home screen and marks them in the unit list; assigned units open even on the free plan.
 - **School approval papers** live in `docs/school/` (PIA pack, data agreement, letter home, accessibility conformance). They are drafts for the owner; facts in them must stay true to the code, so update them when student data, providers or retention change. The public `/accessibility/` page and the "Schools and classes" section of `/privacy/` say the same things.
-- **Not built yet:** a school or teacher plan, co-teachers on one class, automatic deletion of inactive classes, and a lawyer's review of `/privacy/`, `/terms/` and the data agreement.
+- **Not built yet:** a school or teacher plan, co-teachers on one class, and a lawyer's review of `/privacy/`, `/terms/` and the data agreement.
 
 ### Public pages and SEO
 - **Every framework gets the full set of public pages**, generated from content so a new grade or unit appears automatically:

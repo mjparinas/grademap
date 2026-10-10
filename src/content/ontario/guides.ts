@@ -1,3 +1,4 @@
+import { APP_NAME } from "@/lib/brand";
 import type { FrameworkGuides } from "../guides";
 
 // Parent guides for Ontario. Sources: the Ontario Curriculum (Mathematics 2020, Language 2023,
@@ -10,21 +11,21 @@ export const ONTARIO_GUIDES: FrameworkGuides = {
     browse: ["4", "1"],
     title: "Core French and French Immersion in Ontario: a guide for parents",
     intro:
-      "Many Ontario families wonder how Core French and French Immersion differ, when each starts, and how to help at home if you don't speak French. Both follow the Ontario French as a Second Language (FSL) curriculum, and Gradelings practises both as optional subjects you can switch on for each child.",
+      `Many Ontario families wonder how Core French and French Immersion differ, when each starts, and how to help at home if you don't speak French. Both follow the Ontario French as a Second Language (FSL) curriculum, and ${APP_NAME} practises both as optional subjects you can switch on for each child.`,
     compare: [
       { title: "What it is", core: "French as one school subject, taught every week alongside classes in English.", immersion: "A program where a large share of the school day, including other subjects, is taught in French." },
       { title: "When it starts", core: "Core French is taught in English-language schools from Grade 4 to Grade 8.", immersion: "Early French Immersion usually begins in Grade 1, and some boards also start in Kindergarten or later, in Grade 4 or Grade 7. Entry points differ by school board." },
       { title: "Who it suits", core: "Every child can learn some French. No earlier French is needed.", immersion: "Families who want their child to become fluent. Programs and entry points differ by board, so check with yours." },
       { title: "Name in the curriculum", core: "Core French (French as a Second Language)", immersion: "French Immersion (French as a Second Language)" },
-      { title: "In Gradelings", core: "Grades 4 to 9. Prompts are in English, with French words and sentences to read, choose and build.", immersion: "Grades 1 to 9. Prompts and stories are in French, with English hints for parents." },
+      { title: `In ${APP_NAME}`, core: `Grades 4 to 9. Prompts are in English, with French words and sentences to read, choose and build.`, immersion: `Grades 1 to 9. Prompts and stories are in French, with English hints for parents.` },
     ],
     sections: [
       { title: "What Core French children learn", body: "Core French builds everyday communication: greetings, numbers, family, school, food, weather, hobbies and describing people and places. In the upper grades children start to write short texts, use common verbs and ask and answer questions. The aim is confidence with simple, real conversations." },
       { title: "What French Immersion children learn", body: "In immersion, children learn to listen, speak, read and write in French, and learn other subjects in French too. Younger children start with songs, stories and routines, then move on to sentences, paragraphs and longer texts. English reading and writing are taught as well. How much is in French in each grade depends on the school board." },
-      { title: "How report cards describe French", body: "French is reported with the same Levels 1 to 4 as other subjects. In Grades 1 to 6 the levels appear as letter grades, and in Grades 7 to 9 as percentages. Teachers look at listening, speaking, reading and writing together. Gradelings shows practice, not a report card mark, so ask your child's teacher what the level means for your child." },
+      { title: `How report cards describe French`, body: `French is reported with the same Levels 1 to 4 as other subjects. In Grades 1 to 6 the levels appear as letter grades, and in Grades 7 to 9 as percentages. Teachers look at listening, speaking, reading and writing together. ${APP_NAME} shows practice, not a report card mark, so ask your child's teacher what the level means for your child.` },
       { title: "French in secondary school", body: "In Grade 9 and beyond, students can take French as a second language courses for credit. French is also one of the options students use to meet diploma requirements, so ask your school's guidance counsellor about the pathway that suits your child." },
       { title: "Helping if you don't speak French", body: "You don't need French to help. Ask your child to teach you a word each day, listen while they read aloud, and celebrate effort over accuracy. Mistakes are a normal part of learning a language." },
-      { title: "How Gradelings fits in", body: "French is off by default. A parent can switch on Immersion, Core French or both for each child in Settings, under Subjects. French is not counted toward the Grade Champion trophy, and French lessons are read aloud with a French voice from your device. You can pick that voice in Settings." },
+      { title: `How ${APP_NAME} fits in`, body: `French is off by default. A parent can switch on Immersion, Core French or both for each child in Settings, under Subjects. French is not counted toward the Grade Champion trophy, and French lessons are read aloud with a French voice from your device. You can pick that voice in Settings.` },
     ],
     atHome: [
       "Pick one new French word each day and use it at dinner or on the way to school.",
@@ -37,8 +38,8 @@ export const ONTARIO_GUIDES: FrameworkGuides = {
       { q: "When does Core French start in Ontario?", a: "Core French is taught from Grade 4 in English-language schools. Your school or board can tell you how much time it gets each week." },
       { q: "Can my child start French Immersion later?", a: "Some boards offer middle or late immersion, often starting in Grade 4 or Grade 7, and some have limited spaces. Entry rules differ, so ask your school board." },
       { q: "Will French Immersion hurt my child's English?", a: "English reading and writing are still taught in immersion, and research has generally found that immersion students do well in English. If you are worried, talk with your child's teacher." },
-      { q: "Do French marks count toward the Grade Champion trophy in Gradelings?", a: "No. French is a separate, optional set of subjects. Children earn their own French trophies instead." },
-      { q: "Does Gradelings replace French class?", a: "No. It gives short, kind practice that matches the topics in the Ontario curriculum. It doesn't replace a teacher, and its levels are not a report card mark." },
+      { q: `Do French marks count toward the Grade Champion trophy in ${APP_NAME}?`, a: `No. French is a separate, optional set of subjects. Children earn their own French trophies instead.` },
+      { q: `Does ${APP_NAME} replace French class?`, a: `No. It gives short, kind practice that matches the topics in the Ontario curriculum. It doesn't replace a teacher, and its levels are not a report card mark.` },
     ],
   },
   competencies: {
@@ -134,8 +135,8 @@ export const ONTARIO_GUIDES: FrameworkGuides = {
         a: "Kindergarten families receive written communications of learning, which describe how a child is growing in areas such as belonging, self-regulation and problem solving, instead of the rating scale used in Grades 1 to 8.",
       },
       {
-        q: "Does Gradelings measure learning skills?",
-        a: "No. Gradelings practises subject skills and shows how they match the four Ontario levels. Learning skills grow through routines, conversation and teamwork, so we suggest home activities rather than scores.",
+        q: `Does ${APP_NAME} measure learning skills?`,
+        a: `No. ${APP_NAME} practises subject skills and shows how they match the four Ontario levels. Learning skills grow through routines, conversation and teamwork, so we suggest home activities rather than scores.`,
       },
       {
         q: "How can I help if my child gets a Needs Improvement?",
@@ -184,8 +185,8 @@ export const ONTARIO_GUIDES: FrameworkGuides = {
         a: "Results use Levels 1 to 4, and Level 3 is the provincial standard. Level 2 approaches the standard and Level 4 surpasses it. Talk with your child's teacher about what the result means for your child.",
       },
       {
-        q: "Can Gradelings help my child get ready?",
-        a: "Gradelings practises the math and language skills taught in Grades 3 and 6 with kind feedback and no timers unless you want them. It isn't a copy of the EQAO assessments and doesn't predict a result.",
+        q: `Can ${APP_NAME} help my child get ready?`,
+        a: `${APP_NAME} practises the math and language skills taught in Grades 3 and 6 with kind feedback and no timers unless you want them. It isn't a copy of the EQAO assessments and doesn't predict a result.`,
       },
     ],
   },

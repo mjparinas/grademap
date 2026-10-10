@@ -1,6 +1,6 @@
 # Accessibility conformance report (WCAG 2.2 A and AA)
 
-Product: GradeMap (kids' app `/play/`, parent area `/parents/`, teacher area `/teachers/`, public pages)
+Product: Gradelings (kids' app `/play/`, parent area `/parents/`, teacher area `/teachers/`, public pages)
 Standard: WCAG 2.2 levels A and AA. Districts often ask for 2.1 AA; 2.2 includes every 2.1 criterion.
 Date: October 10, 2026
 Method: **self-assessed, automated testing only so far.** No assistive-technology testing has been done by a person yet.

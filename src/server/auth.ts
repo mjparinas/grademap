@@ -47,6 +47,13 @@ export async function createSession(parentId: string, familyId: string, req?: Re
     now,
     (req?.headers.get("user-agent") ?? "").slice(0, 200),
   ]);
+  // A class stays active while its teacher or a linked family signs in. Student sign-ins are
+  // associated with their class in the student login route.
+  await run(
+    `UPDATE classes SET last_activity_at = ?, inactive_warning_at = NULL
+     WHERE closed_at IS NULL AND (owner_parent_id = ? OR id IN (SELECT class_id FROM class_members WHERE family_id = ?))`,
+    [now, parentId, familyId],
+  );
   // Expired sessions and rate-limit counters are cleaned up now and then, so the tables stay small.
   if (Math.random() < 0.05) {
     await run("DELETE FROM sessions WHERE expires_at < ?", [now]).catch(() => {});

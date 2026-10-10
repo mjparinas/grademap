@@ -181,3 +181,18 @@ export function accountDeletedEmail(to: string, origin: string): Email {
     body: ["Your account, your children's progress on our servers and any shared report links have been deleted, and any subscription was cancelled.", `If you didn't do this, write to ${CONTACT_EMAIL} straight away.`],
   });
 }
+
+export function inactiveClassEmail(to: string, origin: string, className: string, deleteDate: string): Email {
+  return layout({
+    to,
+    origin,
+    subject: `Your ${APP_NAME} class “${className}” will be deleted in 1 month`,
+    heading: "Your class will be deleted in 1 month",
+    body: [
+      `“${className}” has had no sign-ins for at least 11 months. ${APP_NAME} will delete the class and its class-account students on ${deleteDate}.`,
+      "To keep the class, sign in to your teacher account before that date. This resets the inactivity period.",
+      "Deleting the class removes its assignments and class-account student profiles, settings, practice history and sessions. Children linked by a parent are unlinked; their family data is kept.",
+    ],
+    button: { label: `Sign in to ${APP_NAME}`, url: `${origin}/teachers/` },
+  });
+}

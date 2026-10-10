@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { allUnitRefs, loadGrade } from "@/content";
 import { makePlan } from "@/components/play/plans";
-import { pickNext } from "./adaptive";
+import { pickNext, unitWeight } from "./adaptive";
 import { derive, xpForLevel } from "./derive";
 import { dayKey, defaultChildSettings, type AppEvent } from "./model";
 import { unitLevel } from "./proficiency";
@@ -126,14 +126,10 @@ describe("adaptive", () => {
     const t = Date.now();
     const strong = Array.from({ length: 30 }, (_, i) => answer(true, t + i));
     const d = derive(strong);
-    const counts = new Map<string, number>();
-    for (let i = 0; i < 2000; i++) {
-      const p = pickNext({ grade: "2", framework: "ca-bc", derived: d, subjects: ["math"], recent: [], mode: "adventure" });
-      counts.set(p!.ref.key, (counts.get(p!.ref.key) ?? 0) + 1);
-    }
+    const options = { grade: "2" as const, framework: "ca-bc" as const, derived: d, subjects: ["math" as const], recent: [], mode: "adventure" as const };
     const others = allUnitRefs("2", "ca-bc").filter((r) => r.course.subject === "math" && r.key !== UNIT);
-    const avgOther = others.reduce((s, r) => s + (counts.get(r.key) ?? 0), 0) / others.length;
-    expect(counts.get(UNIT) ?? 0).toBeLessThan(avgOther);
+    const avgOtherWeight = others.reduce((s, r) => s + unitWeight(options, r), 0) / others.length;
+    expect(unitWeight(options, allUnitRefs("2", "ca-bc").find((r) => r.key === UNIT)!)).toBeLessThan(avgOtherWeight);
     const again = pickNext({ grade: "2", framework: "ca-bc", derived: d, subjects: ["math"], recent: [UNIT, UNIT], mode: "adventure" });
     expect(again).toBeDefined();
   });
