@@ -8,6 +8,7 @@ import { useStore } from "@/lib/store";
 import { syncNow } from "@/lib/sync";
 import { Dialog } from "../ui";
 import { PageTitle, Panel } from "./common";
+import { PushToggle } from "./PushToggle";
 
 function AuthForm({ onDone }: { onDone: () => void }) {
   const [mode, setMode] = useState<"signup" | "signin" | "forgot">("signup");
@@ -271,6 +272,7 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
               hint="A friendly note to you, never to your child, after a few quiet days. At most once a week."
               verified={account.verified !== false}
             />
+            <PushToggle />
             {sync.error && <p className="mt-2 text-sm text-nudge-dark">{sync.error}</p>}
             <div className="mt-4 flex flex-wrap gap-2">
               <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2 font-bold text-[#0f172a]" onClick={() => void syncNow()}>
