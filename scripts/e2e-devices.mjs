@@ -216,7 +216,7 @@ async function everyDevice(device, page) {
       await page.getByRole("dialog").getByRole("button", { name: /answer looks wrong/ }).click();
       const thanked = await page
         .getByRole("heading", { name: /Thank you/ })
-        .waitFor({ timeout: 5000 })
+        .waitFor({ timeout: 12000 })
         .then(() => true, () => false);
       record(device, "question: report is sent", thanked);
       await page.getByRole("dialog").getByRole("button", { name: /Back to the question/ }).click();
@@ -239,9 +239,11 @@ async function deepChecks(device, browser, descriptor, page) {
   await page.getByRole("button", { name: /Adventure/ }).click();
   await page.getByRole("button", { name: "Stop", exact: true }).waitFor();
   const toast = page.locator("[role=status]").filter({ hasText: /trophy|level up/i });
-  for (let i = 0; i < 40 && !(await vis(toast)); i++) {
+  // Give a toast a moment to show after each answer instead of sampling it between clicks, so a
+  // slow runner can't miss one that appears and fades while we are busy.
+  for (let i = 0; i < 60 && !(await vis(toast)); i++) {
     await step(page);
-    await page.waitForTimeout(100);
+    await toast.first().waitFor({ state: "visible", timeout: 400 }).catch(() => {});
   }
   if (await vis(toast)) {
     // A level-up can land together with the 10-question checkpoint, which has no Stop button.

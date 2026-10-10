@@ -90,7 +90,7 @@ export default function PrivacyPage() {
             <strong>Vercel Web Analytics and Speed Insights</strong>, to count anonymous page views and measure how fast our public website loads, such as which pages are visited, from which country and how quickly they appear. It sets no cookies and builds no profile of a visitor. It is switched off in the kids’ app, the parent area, shared reports and account pages, so nothing a child does is measured.
           </li>
           <li>
-            <strong>Our hosting and database providers</strong>, which store the account and progress data described above on our behalf.
+            <strong>Our hosting and database providers</strong>, which store the account and progress data described above on our behalf. Our servers and database are in Montréal, Canada. Some service providers above, such as Stripe, Resend and Sentry, may process limited information outside Canada.
           </li>
         </ul>
         <p>
