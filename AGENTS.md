@@ -216,7 +216,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Easier reading options** (per child, off by default): roomy text and high contrast, next to the calm options.
 - **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email (on the first Sunday of the month it also carries a short month summary: practice days, minutes, questions, and a comparison with the month before only when it went up). Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
 - **Share a report:** a parent can create a read-only link (30 days, revocable) to one child's report. It is served from `/shared/{token}/`, never indexed.
-- **"Is it working?" panel** on Reports (`src/lib/growth.ts`): units started and Proficient-or-higher now against 30, 90 or 180 days ago, and which units moved up a level. Computed from events and unit keys only.
+- **"Is it working?" panel** on Reports (`src/lib/progressSince.ts`): units started and Proficient-or-higher now against 30, 90 or 180 days ago, and which units moved up a level. Computed from events and unit keys only.
 - **Weekly goal and notes:** a parent can set a weekly "days practised" goal per child and send one of four fixed kind notes (`src/lib/familyGoal.ts`). Both live in the child's synced settings; progress is computed from events. The note shows once on the child's home screen and expires after 3 days. No free text, no push to children.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 

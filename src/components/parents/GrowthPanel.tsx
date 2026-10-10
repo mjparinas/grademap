@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { getUnitRef } from "@/content";
 import { getFramework } from "@/content/frameworks";
-import { growthSince } from "@/lib/growth";
+import { growthSince } from "@/lib/progressSince";
 import type { Profile } from "@/lib/model";
 import { eventsFor, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";

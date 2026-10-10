@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { derive } from "./derive";
-import { growthSince } from "./growth";
+import { growthSince } from "./progressSince";
 import type { AppEvent } from "./model";
 
 const DAY = 86_400_000;
