@@ -1,5 +1,5 @@
 // Working name: change it here and it updates across the site and the install manifest.
-export const APP_NAME = "GradeMap";
+export const APP_NAME = "Gradelings";
 export const MASCOT_NAME = "Ollie";
 
 // Used by the privacy policy and terms. Replace both before launch (see docs/DEPLOY.md).
