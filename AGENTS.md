@@ -54,7 +54,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Kindergarten sizing.
   - An arcade game's play area fitting the screen.
   - Toasts not blocking taps.
-- **`e2e.mjs`:** the full playthrough on an iPad-sized screen plus a phone. It covers every mode and game, the parent area, sign-up, two-device sync, and offline progress uploading on reconnect.
+- **`e2e.mjs`:** the full playthrough on an iPad-sized screen plus a phone. It covers every mode and game, the parent area, sign-up, two-device sync, and offline progress uploading on reconnect. CI runs it as two halves, `--part modes` and `--part sync --offline`; with no `--part` it runs everything.
 - **`e2e-classroom.mjs`:** a teacher (made through the API, email confirmed straight in the database file) adds a student; the student signs in with codes, sees the assignment, opens a lesson, practises and signs out; the teacher sees the results.
 - **`e2e-offline.mjs`:** stops the server so only the service worker can answer. Playwright's `setOffline()` doesn't cut off service worker requests, so it can't prove the cache works.
 - **WebKit:** iPhone and iPad profiles run in WebKit when it's installed, otherwise in Chromium at the same size, pixel ratio and touch settings.
