@@ -74,13 +74,14 @@ jobs:
           compression-level: 1
           retention-days: 1
 
-  browser:
+  # Device layouts run in the Playwright image: WebKit's system libraries take longer to install
+  # on each run than the image takes to pull. The image tag must match the Playwright version in
+  # package-lock.json, so bump both together.
+  devices:
     name: Browser · ${{ matrix.name }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    # Browsers and their system libraries come preinstalled. The tag must match the Playwright
-    # version in package-lock.json, so bump both together.
     container:
       image: mcr.microsoft.com/playwright:v1.56.1-noble
       options: --ipc=host
@@ -89,15 +90,10 @@ jobs:
       matrix:
         include:
           # 14 device layouts, split over four machines. iPhones and iPads run in real WebKit.
-          - { name: "devices 1/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 1/4" }
-          - { name: "devices 2/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 2/4" }
-          - { name: "devices 3/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 3/4" }
-          - { name: "devices 4/4", serve: true, run: "node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard 4/4" }
-          - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000 e2e-shots/a11y" }
-          - { name: "playthrough and sync", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline" }
-          - { name: "classroom", serve: true, run: "node scripts/e2e-classroom.mjs http://localhost:3000 e2e-shots/classroom" }
-          # Starts and stops its own server, so only the service worker can answer.
-          - { name: "offline", serve: false, run: "node scripts/e2e-offline.mjs" }
+          - { name: "devices 1/4", shard: "1/4" }
+          - { name: "devices 2/4", shard: "2/4" }
+          - { name: "devices 3/4", shard: "3/4" }
+          - { name: "devices 4/4", shard: "4/4" }
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
@@ -107,6 +103,43 @@ jobs:
         with:
           name: next-build
       - run: tar -xf next-build.tar
+      - name: Run
+        run: scripts/ci-with-server.sh node scripts/e2e-devices.mjs http://localhost:3000 e2e-shots/devices --shard ${{ matrix.shard }}
+      - uses: actions/upload-artifact@v6
+        if: failure()
+        with:
+          name: screenshots-devices-${{ strategy.job-index }}
+          path: e2e-shots
+          retention-days: 7
+
+  # The Chromium-only checks run on the plain runner, where installing Chromium is quicker than
+  # pulling the Playwright image.
+  browser:
+    name: Browser · ${{ matrix.name }}
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: "accessibility", serve: true, run: "node scripts/e2e-a11y.mjs http://localhost:3000 e2e-shots/a11y" }
+          # The playthrough is split in two so neither half is the slowest job.
+          - { name: "playthrough modes", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --part modes" }
+          - { name: "sync and offline", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --part sync --offline" }
+          - { name: "classroom", serve: true, run: "node scripts/e2e-classroom.mjs http://localhost:3000 e2e-shots/classroom" }
+          # Starts and stops its own server, so only the service worker can answer.
+          - { name: "offline", serve: false, run: "node scripts/e2e-offline.mjs" }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+      - uses: actions/download-artifact@v7
+        with:
+          name: next-build
+      - run: tar -xf next-build.tar
+      - uses: ./.github/actions/browsers
+        with:
+          browsers: chromium
       - name: Run
         run: |
           if [ "${{ matrix.serve }}" = "true" ]; then
@@ -136,7 +169,7 @@ jobs:
 
   passed:
     name: CI passed
-    needs: [typecheck, lint, unit, audit, build, browser]
+    needs: [typecheck, lint, unit, audit, build, devices, browser]
     if: always()
     runs-on: ubuntu-latest
     steps:
