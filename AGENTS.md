@@ -149,6 +149,11 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Challenge:** 10 questions at difficulty 3, a 300 s time limit (420 s for little kids) and no retries.
   - Passing takes 8 out of 10, and passing is the only way to reach Extending.
 
+### Lessons ("how it works")
+- A unit can carry an optional `lesson` (2 to 4 short steps and one worked example; `Lesson` in `src/content/types.ts`). Lessons are written once per grade in `src/content/lessons/<grade>.ts`, keyed `subject/unit-id`, and attached by `withLessons` in each BC grade's `index.ts`, so a unit shared by BC and Ontario has the lesson in both and each grade's lessons stay in that grade's download.
+- Children open one from the unit dialog ("How it works") or, for little kids, automatically before their first practice of a unit. It never changes scoring. The public unit page shows it under "How we explain it".
+- **Coverage today:** every math unit that BC and Ontario share (a test enforces this). Not yet: BC-only and Ontario-only math units, and other subjects. Add a lesson when you add a math unit; `lessons.test.ts` checks length and structure.
+
 ### Feedback
 - **A wrong answer gets a hint and another try.** A second miss shows the answer with an explanation.
 - **Only first-try answers count** toward accuracy, stars and proficiency. Stars never go down.
@@ -198,7 +203,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Sections:**
   - Overview.
   - Reports: 7/14/30/90 days, with charts, strengths, next steps, a table of every unit and a print view.
-  - Report cards.
+  - Report cards, with a printable conversation sheet for each child (`src/lib/conference.ts`): where practice stands per subject in the province's own scale, what to ask the teacher and a two-week plan. It says it is practice, not a report-card mark.
   - Children: up to 4; a birth year suggests a grade; a curriculum can be picked per child.
   - Settings per child.
   - Account & sync, Subscription, and Privacy (JSON export, erase device, delete account).
@@ -212,11 +217,17 @@ Tests are duplicated across screen sizes only where layout can break:
 - **A teacher is an ordinary account** that creates classes (`classes`, `class_members`, `class_assignments`). No billing change: classes are free for now.
 - **Each class follows one province** (`classes.framework`, BC or Ontario, chosen when the class is created). Assignments must be units of that province, and a child can only join a class of their own province.
 - **Public teacher pages** live under `/for-teachers/` (hub, province, grade), generated from content; `TEACHER_FRAMEWORK_IDS` in `src/components/site/teachers.ts` lists the provinces the teacher area supports. `/teachers/` itself stays noindex.
-- **Students join by code, and the parent decides.** A parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that, and the teacher only sees first name, avatar, grade, and level, accuracy and attempts on the units they assigned.
-- Closing a class, leaving it, removing a child and deleting an account all remove the links. Retention rules for school use are not decided; ask before adding any.
+- **Two ways students join, and the school or parent decides.**
+  - **Linked by a parent:** a parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that.
+  - **Added by the teacher:** the teacher types first names or nicknames (`src/server/students.ts`, `POST /api/classes/students/`). Each student gets a six-character login code and signs in at `/play/` with the class code plus their own code (`/api/students/login/`). There is no email, password or birth year. Each student has a hidden family record (`parents.role = 'student'`, a `students` row, plan `premium` so there is never a paywall).
+  - **A student session is deliberately narrow:** `getSession(req)` returns `null` for student sessions unless a route passes `{ student: true }` (only `/api/sync/` and `/api/auth/me/` do). Sync keeps a student's name, grade and province fixed and refuses new or deleted profiles. `/parents/` shows a "class account" notice. Signing in clears the device first and sign-out clears it again, so devices can be shared.
+  - **Deleting:** removing a student, closing a class and deleting a teacher account each delete the student accounts at once (`removeStudent`, `removeClassStudents`, `removeStudentsOfOwner`). Keep it that way when you add tables that hold student data. Retention for *inactive* classes is not decided; ask before adding any.
+  - **The teacher sees** first name, avatar, grade, and level, accuracy and attempts on the units they assigned, plus "What to look at next" (`classInsights` in `src/lib/classroom.ts`: reteach units and students to check in with). Due dates are optional on assignments and reach children through sync as soft "Try to finish by" text, never as a warning. Teachers can print login cards and a class summary, and copy a "send home" note.
+- Closing a class, leaving it, removing a child and deleting an account all remove the links.
 - Teacher screens are labelled as practice, not a report-card mark. `/teachers/` is `noindex` and disallowed in `robots.ts`.
-- **Assigned units reach the child through sync** (`classwork` in the sync response, kept on the device so it works offline). `/play/` shows them as "From your teacher" on the home screen and marks them in the unit list; assigned units open even on the free plan.
-- **Not built yet:** teacher-created (parentless) students, a school or teacher plan, and classroom wording in `/privacy/` and `/terms/`.
+- **Assigned units reach the child through sync** (`classwork` in the sync response, with `due` dates, kept on the device so it works offline). `/play/` shows them as "From your teacher" on the home screen and marks them in the unit list; assigned units open even on the free plan.
+- **School approval papers** live in `docs/school/` (PIA pack, data agreement, letter home, accessibility conformance). They are drafts for the owner; facts in them must stay true to the code, so update them when student data, providers or retention change. The public `/accessibility/` page and the "Schools and classes" section of `/privacy/` say the same things.
+- **Not built yet:** a school or teacher plan, co-teachers on one class, automatic deletion of inactive classes, and a lawyer's review of `/privacy/`, `/terms/` and the data agreement.
 
 ### Public pages and SEO
 - **Every framework gets the full set of public pages**, generated from content so a new grade or unit appears automatically:

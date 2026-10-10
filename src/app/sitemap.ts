@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/contact/", priority: 0.4 },
     { path: "/privacy/", priority: 0.3 },
     { path: "/terms/", priority: 0.3 },
+    { path: "/accessibility/", priority: 0.3 },
     ...FRAMEWORKS.map((f) => ({ path: `/report-cards/${f.slug}/`, priority: 0.9 })),
     ...allGuidePaths(),
     ...allTeacherPaths(),

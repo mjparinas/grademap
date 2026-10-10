@@ -29,7 +29,7 @@ export default function PrivacyPage() {
           {APP_NAME} is used by children, but it is set up and paid for by a parent or guardian. By creating an account or adding a child, you confirm that you are that child’s parent or legal guardian (or have their permission) and agree to this policy on their behalf. Children are never asked to create accounts, enter an email address or buy anything. Your agreement is our consent to collect a child’s information, and you can withdraw it at any time by deleting the child’s profile or your account.
         </p>
         <p>
-          {APP_NAME} is built for families. Where a school or teacher uses {APP_NAME} with a class, that use is covered by a separate agreement with us, and the school stays responsible for its own duties, including those of public schools in British Columbia under the Freedom of Information and Protection of Privacy Act (FIPPA). Teachers should not enrol students through a family account.
+          {APP_NAME} is built for families. Where a school or teacher uses {APP_NAME} with a class, see “Schools and classes” below. A teacher should not enrol students through a family account.
         </p>
       </Section>
 
@@ -57,6 +57,24 @@ export default function PrivacyPage() {
         </p>
         <p>
           <strong>Automatically:</strong> our servers keep ordinary technical logs (such as IP address, browser type and the time of a request) for security and to keep the service running. To block repeated guessing of passwords, we also keep a short-lived counter of sign-in, sign-up and reset attempts for each IP address. On our public pages only (not the kids’ app, the parent area or shared reports) we count anonymous page views; see “Who we share it with” below. We use no advertising trackers.
+        </p>
+      </Section>
+
+      <Section title="Schools and classes">
+        <p>
+          A teacher can use {APP_NAME} with a class in two ways. A parent can link their own child to a class with the class code, which is the parent’s choice and can be undone at any time. Or the teacher can add students by first name or nickname, and each student signs in with two short codes. Students added by a teacher have no email address and no password.
+        </p>
+        <p>
+          <strong>What we keep about a student a teacher added:</strong> the first name or nickname the teacher typed, the class’s grade and curriculum, an avatar, comfort settings and practice results. Nothing else: no email, birth year, surname, photo, voice or free text. These accounts have no parent area and no billing, and a student’s sign-in works only for their own play.
+        </p>
+        <p>
+          <strong>Who sees it:</strong> the teacher who owns the class sees each student’s first name, avatar, grade and practice results on the units they assigned. Nobody else, including other teachers and other students, sees it. We send no email to student accounts, show no ads and never use their information for anything but running {APP_NAME}.
+        </p>
+        <p>
+          <strong>Deleting it:</strong> when a teacher removes a student, closes a class or deletes their account, the related students’ accounts and practice history are deleted from our live systems straight away. A student’s device is cleared when they sign out.
+        </p>
+        <p>
+          <strong>Responsibility:</strong> a school or teacher decides whether to use {APP_NAME} with students and is responsible for telling families and getting any consent its own rules require, including the duties of public schools in British Columbia under the Freedom of Information and Protection of Privacy Act (FIPPA) and of Ontario schools under their own privacy laws. For those uses we handle students’ information only to run the service for the school. If a breach affects a school’s students we will tell the school promptly so it can meet its own duties. Schools or districts that need a signed data agreement or privacy answers for a privacy impact assessment can email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
         </p>
       </Section>
 
