@@ -120,7 +120,7 @@ export function weekDays(start: string): string[] {
   return Array.from({ length: 7 }, (_, i) => dayKey(base + i * 86_400_000));
 }
 
-const activeDay = (d: DayStat) => d.sessions > 0 || d.answers >= 5;
+export const activeDay = (d: DayStat) => d.sessions > 0 || d.answers >= 5;
 
 function weeklyPool(band: AgeBand): WeeklyQuest[] {
   const little = band === "little";
