@@ -99,6 +99,8 @@ export interface Derived {
   gamesPlayed: Record<string, number>;
   owned: string[];
   questsClaimed: Record<string, string[]>;
+  /** The goal the child chose for each day (the last pick wins). */
+  goalPicks: Record<string, { level: "easy" | "regular" | "stretch"; minutes: number }>;
   dailyDone: string[];
 }
 
@@ -153,6 +155,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
     gamesPlayed: {},
     owned: [],
     questsClaimed: {},
+    goalPicks: {},
     dailyDone: [],
     secrets: [],
   };
@@ -299,6 +302,9 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
           d.coins -= e.cost;
           spent += e.cost;
         }
+        break;
+      case "goal":
+        d.goalPicks[e.day] = { level: e.level, minutes: e.minutes };
         break;
       case "quest": {
         const claimed = (d.questsClaimed[e.day] ??= []);

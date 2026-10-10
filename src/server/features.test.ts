@@ -172,6 +172,31 @@ describe("daily email job", () => {
     expect(email.outbox().length).toBe(count); // not twice in one week
   });
 
+  it("adds a month summary to the weekly email on the first Sunday of the month only", async () => {
+    const { monthLine } = await import("@/server/emailTemplates");
+    expect(monthLine("Maya", { minutes: 240, answers: 900, previousAnswers: 700, activeDays: 12 })).toBe("Your month: Maya practised on 12 days, 240 min in all, 900 questions, up from 700 the month before. 🎉");
+    expect(monthLine("Maya", { minutes: 60, answers: 100, previousAnswers: 700, activeDays: 1 })).not.toContain("up from");
+    expect(monthLine("Maya", { minutes: 0, answers: 0, previousAnswers: 5, activeDays: 0 })).toContain("start again");
+
+    const f = await family("month@example.com");
+    await prefs.POST(req("/api/account/prefs/", "POST", { weeklyReport: true }, f.cookie));
+    const sundayWhere = (ok: (date: number) => boolean) => {
+      const d = new Date();
+      d.setUTCHours(12, 0, 0, 0);
+      while (d.getUTCDay() !== 0 || !ok(d.getUTCDate())) d.setUTCDate(d.getUTCDate() + 1);
+      return d;
+    };
+    const monthly = () => email.outbox().filter((m) => m.to === "month@example.com" && m.text.includes("Your month:")).length;
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(sundayWhere((date) => date > 7));
+    await run();
+    expect(monthly()).toBe(0);
+    await dbm.run("UPDATE parents SET last_weekly_at = NULL WHERE email = ?", ["month@example.com"]);
+    vi.setSystemTime(sundayWhere((date) => date <= 7));
+    await run();
+    expect(monthly()).toBe(1);
+  });
+
   it("sends a practice reminder only to opted-in parents, only after quiet days, at most once a week", async () => {
     const f = await family("nudge@example.com");
     await family("nudge-off@example.com");

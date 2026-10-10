@@ -8,7 +8,7 @@ import { deleteInactiveClass } from "@/server/students";
 
 // Runs once a day (see vercel.json). Vercel sends `Authorization: Bearer $CRON_SECRET`.
 // Every day: a "trial ends soon" notice to confirmed parents, once. On Sundays: the weekly report
-// to parents who opted in. Every day: a gentle practice reminder, to opted-in parents only, at most once a week.
+// to parents who opted in (with a month summary on the first Sunday of the month). Every day: a gentle practice reminder, to opted-in parents only, at most once a week.
 
 const DAY = 86_400_000;
 const YEAR = 365.25 * DAY;
@@ -116,6 +116,8 @@ export async function GET(req: Request) {
        WHERE weekly_report = 1 AND email_verified_at IS NOT NULL AND (last_weekly_at IS NULL OR last_weekly_at < ?)`,
       [now - 5 * DAY],
     );
+    // On the first Sunday of the month the weekly email also carries a short month summary.
+    const firstSunday = new Date(now).getUTCDate() <= 7;
     for (const p of parents) {
       // One family's bad data must never stop everyone else's email.
       try {
@@ -124,8 +126,10 @@ export async function GET(req: Request) {
           const r = await loadChildReport(p.family_id, id, 7, now);
           if (!r) continue;
           const t = r.report.totals;
+          const month = firstSunday ? (await loadChildReport(p.family_id, id, 30, now))?.report : undefined;
           children.push({
             name: r.profile.name,
+            month: month && { minutes: Math.round(month.totals.minutes), answers: month.totals.answers, previousAnswers: month.previous.answers, activeDays: month.totals.activeDays },
             minutes: Math.round(t.minutes),
             answers: t.answers,
             accuracy: t.answers ? Math.round((t.correct / t.answers) * 100) : null,
