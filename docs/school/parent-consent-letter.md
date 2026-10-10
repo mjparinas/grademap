@@ -6,7 +6,7 @@
 
 Dear families,
 
-This year our class is using **Gradelings** for extra practice in `[math, reading and writing, science and social studies]`. It is matched to the `[BC / Ontario]` curriculum. It is a practice tool, so it does not give report-card marks. I decide how your child is doing.
+This year our class is using **Gradelings** for extra practice in `[math, reading and writing, science and social studies]`. It is matched to the `[BC / Ontario / Alberta]` curriculum. It is a practice tool, so it does not give report-card marks. I decide how your child is doing.
 
 **What your child will do.** Sign in with two short codes on a card I give them, then practise questions I assign and play short learning games. There is no email address, no password and no chat. Your child never types free text, and the app has no ads.
 

@@ -6,7 +6,7 @@ import type { GradeId, SubjectId } from "@/content/types";
 import { coursesFor, gradesWithContent } from "./curriculum";
 
 // URLs for the parent guides. The competencies and assessment pages take their slug from the
-// province's guide copy (BC: core-competencies, fsa; Ontario: learning-skills, eqao).
+// province's guide copy (BC: core-competencies, fsa; Ontario: learning-skills, eqao; Alberta: competencies, pat).
 // Like the curriculum pages, they carry the framework
 // slug: /guides/bc/grade-3/math/ and so on.
 

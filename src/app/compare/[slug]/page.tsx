@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = competitorBySlug((await params).slug);
   if (!c) return {};
   return {
-    title: `${APP_NAME} vs ${c.name} for BC and Ontario families`,
+    title: `${APP_NAME} vs ${c.name} for BC, Ontario and Alberta families`,
     description: `${APP_NAME} compared with ${c.name}: price, curriculum match, how progress is shown and what kids see. A fair look at who each is best for.`,
     alternates: { canonical: guidePath.compare(c.slug) },
   };
@@ -31,7 +31,7 @@ export default async function ComparePage({ params }: Props) {
   const c = competitorBySlug((await params).slug);
   if (!c) notFound();
   const crumbs = [{ label: "Home", href: "/" }, { label: "Compare", href: guidePath.compareIndex() }, { label: `${APP_NAME} vs ${c.name}` }];
-  const title = `${APP_NAME} vs ${c.name} for BC and Ontario families`;
+  const title = `${APP_NAME} vs ${c.name} for BC, Ontario and Alberta families`;
 
   return (
     <SitePage>

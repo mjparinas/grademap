@@ -9,7 +9,7 @@ import { JsonLd } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `${APP_NAME} compared with IXL, Khan Academy and Prodigy`,
-  description: `A fair, plain comparison of ${APP_NAME} with other learning apps for BC and Ontario families: price, curriculum match, how progress is shown and what kids see.`,
+  description: `A fair, plain comparison of ${APP_NAME} with other learning apps for BC, Ontario and Alberta families: price, curriculum match, how progress is shown and what kids see.`,
   alternates: { canonical: guidePath.compareIndex() },
 };
 

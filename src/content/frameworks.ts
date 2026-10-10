@@ -1,4 +1,6 @@
+import { ALBERTA } from "./alberta/framework";
 import { ONTARIO } from "./ontario/framework";
+import { SASKATCHEWAN } from "./saskatchewan/framework";
 import type { FrameworkId, GradeId, SubjectId } from "./types";
 
 // Everything that differs between provinces/states lives here: names, which
@@ -173,6 +175,8 @@ export const FRAMEWORKS: Framework[] = [
     },
   },
   ONTARIO,
+  ALBERTA,
+  SASKATCHEWAN,
 ];
 
 export const DEFAULT_FRAMEWORK: FrameworkId = "ca-bc";

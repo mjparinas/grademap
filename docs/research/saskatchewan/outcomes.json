@@ -1,0 +1,2978 @@
+{
+ "k": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CRK.1",
+      "text": "Comprehend and respond to a variety of visual, oral, print, and multimedia texts that address identity (e.g., exploring interests), community (e.g., belonging), and social responsibility (e.g., contributing)."
+     },
+     {
+      "code": "CRK.2",
+      "text": "View and interpret the basic message of visuals and objects in a variety of texts including models, photographs, dramas, dance creations, and videos."
+     },
+     {
+      "code": "CRK.3",
+      "text": "Listen, comprehend, and respond to gain meaning in oral texts."
+     },
+     {
+      "code": "CRK.4",
+      "text": "Comprehend, retell, and respond to basic ideas in stories, poems, songs, and informational texts read to them."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CCK.1",
+      "text": "Compose and create various visual, multimedia, oral, and written texts that explore and present thoughts, ideas, and experiences."
+     },
+     {
+      "code": "CCK.2",
+      "text": "Use and construct symbols, pictures, and dramatizations to communicate feelings and ideas in a variety of ways."
+     },
+     {
+      "code": "CCK.3",
+      "text": "Use oral language to converse, engage in play, express ideas, and share personal experiences."
+     },
+     {
+      "code": "CCK.4",
+      "text": "Create messages using a combination of pictures, symbols, and letters."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "ARK.1",
+      "text": "Reflect on viewing, listening, emerging \"reading\", representing, speaking, and emerging \"writing\" experiences in the context of teacher-led discussions."
+     },
+     {
+      "code": "ARK.2",
+      "text": "Reflect and talk about new learning."
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Living Things in our Environment",
+    "outcomes": [
+     {
+      "code": "LTK.1",
+      "text": "Examine observable characteristics of plants, animals, and people in their local environment. (CP, SI)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Observing Forces and Energy",
+    "outcomes": [
+     {
+      "code": "FEK.1",
+      "text": "Examine the effects of physical forces, magnetic forces, light energy, sound energy, and heat energy, on objects in their environment. (SI)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Materials and Objects",
+    "outcomes": [
+     {
+      "code": "MOK.1",
+      "text": "Investigate observable characteristics of familiar objects and materials in their environment. (SI)"
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Exploring Our Natural Surroundings",
+    "outcomes": [
+     {
+      "code": "NSK.1",
+      "text": "Explore features of their natural surroundings (e.g., soil, water, landform, and weather conditions), including changes to those surroundings over time. (DM, SI)"
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "INK.1",
+      "text": "Demonstrate an understanding of similarities and differences among individuals in the classroom."
+     },
+     {
+      "code": "INK.2",
+      "text": "Describe the diversity of groups represented in the classroom."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DRK.1",
+      "text": "Describe the spatial relationships among people, places, and environments."
+     },
+     {
+      "code": "DRK.2",
+      "text": "Explore examples of promises made through actions and words, and why it is important to keep promises."
+     },
+     {
+      "code": "DRK.3",
+      "text": "Analyze ways in which place and physical systems influence daily life, including the influence of place on the daily life of First Nations and Métis people."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PAK.1",
+      "text": "Understand and respect the agreed-upon rules of the classroom, playground, and school, and recognize that rules and expectations are designed to promote a state of safety, self-regulation, peace, balance, and harmony."
+     },
+     {
+      "code": "PAK.2",
+      "text": "Recognize situations in which disagreement may be part of living, studying, and working together, and that resolution may be an avenue to progress to a state of peace, balance, and harmony."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RWK.1",
+      "text": "Examine ways of managing tasks and resources in families and schools."
+     },
+     {
+      "code": "RWK.2",
+      "text": "Develop and demonstrate stewardship of the environment in daily actions, in an effort to promote balance and harmony."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "NK",
+    "outcomes": [
+     {
+      "code": "NK.1",
+      "text": "Say the whole number sequence by 1s starting anywhere from 0 to 10 and from 10 to 0."
+     },
+     {
+      "code": "NK.2",
+      "text": "Recognize, at a glance, and name familiar arrangements of 1 to 5 objects, dots, or pictures."
+     },
+     {
+      "code": "NK.3",
+      "text": "Relate a numeral, 0 to 10, to its respective quantity."
+     },
+     {
+      "code": "NK.4",
+      "text": "Represent the partitioning of whole numbers (1 to 10) concretely and pictorially."
+     },
+     {
+      "code": "NK.5",
+      "text": "Compare quantities, 0 to 10, using one-to-one correspondence."
+     }
+    ]
+   },
+   {
+    "name": "PK",
+    "outcomes": [
+     {
+      "code": "PK.1",
+      "text": "Demonstrate an understanding of repeating patterns (two or three elements) by: identifying reproducing extending creating patterns using manipulatives, sounds, and actions."
+     }
+    ]
+   },
+   {
+    "name": "SSK",
+    "outcomes": [
+     {
+      "code": "SSK.1",
+      "text": "Use direct comparison to compare two objects based on a single attribute, such as: length including height mass volume capacity."
+     },
+     {
+      "code": "SSK.2",
+      "text": "Sort 3-D objects using a single attribute."
+     },
+     {
+      "code": "SSK.3",
+      "text": "Build and describe 3-D objects."
+     }
+    ]
+   }
+  ]
+ },
+ "1": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR1.1",
+      "text": "Comprehend and respond to a variety of grade-level texts (including contemporary and traditional visual, oral, written, and multimedia) that address: identity (e.g., All About Me) community (e.g., Friends and Family) social responsibility (e.g., Conservation) and relate to own feelings, ideas, and experiences."
+     },
+     {
+      "code": "CR1.2",
+      "text": "View and comprehend the explicit messages, feelings, and features in a variety of visual and multimedia texts (including pictures, photographs, simple graphs, diagrams, pictographs, icons, and illustrations)."
+     },
+     {
+      "code": "CR1.3",
+      "text": "Listen to and comprehend a variety of texts (including a book read aloud, a person speaking, and directions) to retell the sequence and key points (who, what, when, where, why, and how)."
+     },
+     {
+      "code": "CR1.4",
+      "text": "Read and comprehend grade-appropriate texts (including narratives, informational texts, scripts, and poems) by relating the sequence (i.e., beginning, middle, and end), the key points (who, what, when, where, and why), and the problems and solutions."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC1.1",
+      "text": "Compose and create a range of visual, multimedia, oral, and written texts that explore and present thoughts on: identity (e.g., Feelings) community (e.g., Neighbourhood) social responsibility (e.g., Plants and Trees)."
+     },
+     {
+      "code": "CC1.2",
+      "text": "Represent key ideas and events, in a logical sequence and with detail, in different ways (including dramatization, pictures, sounds, physical movement, charts, models, and drawings)."
+     },
+     {
+      "code": "CC1.3",
+      "text": "Speak clearly and audibly about ideas, experiences, preferences, questions, and conclusions in a logical sequence, using expression and dramatization when appropriate."
+     },
+     {
+      "code": "CC1.4",
+      "text": "Write and share stories and short informational texts about familiar events and experiences in a minimum of five sentences."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR1.1",
+      "text": "Identify, with teacher guidance, what good viewers, listeners, readers, representers, speakers, and writers do."
+     },
+     {
+      "code": "AR1.2",
+      "text": "Set and monitor, in consultation with the teacher, goals for more effective viewing, listening, reading, representing, speaking, and writing experiences. Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Needs and Characteristics of Living Things",
+    "outcomes": [
+     {
+      "code": "LT1.1",
+      "text": "Differentiate between living things according to observable characteristics, including appearance and behaviour. (CP, SI)"
+     },
+     {
+      "code": "LT1.2",
+      "text": "Analyze different ways in which plants, animals, and humans interact with various natural and constructed environments to meet their basic needs. (CP, DM, SI)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Using Objects and Materials",
+    "outcomes": [
+     {
+      "code": "OM1.1",
+      "text": "Investigate observable characteristics and uses of natural and constructed objects and materials in their environment. (CP, SI)"
+     },
+     {
+      "code": "OM1.2",
+      "text": "Examine methods of altering and combining materials to create objects that meet student- and/or teacher-specified criteria. (SI, TPS)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Using Our Senses",
+    "outcomes": [
+     {
+      "code": "SE1.1",
+      "text": "Investigate characteristics of the five traditional external senses (i.e., sight, sound, smell, touch, and taste) in humans and animals. (CP, SI)"
+     },
+     {
+      "code": "SE1.2",
+      "text": "Explore how humans and animals use their senses to interact with their environment. (CP, DM, SI)"
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Daily and Seasonal Changes",
+    "outcomes": [
+     {
+      "code": "DS1.1",
+      "text": "Compare and represent daily and seasonal changes of natural phenomena through observing, measuring, sequencing, and recording. (CP, SI)"
+     },
+     {
+      "code": "DS1.2",
+      "text": "Inquire into the ways in which plants, animals, and humans adapt to daily and seasonal changes by changing their appearance, behaviour, and/or location. (CP, DM, SI)"
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN1.1",
+      "text": "Describe the diversity of traditions, celebrations, or stories of individuals in the classroom and school."
+     },
+     {
+      "code": "IN1.2",
+      "text": "Discuss cultural diversity in the family and classroom, including exploration of similarities and differences."
+     },
+     {
+      "code": "IN1.3",
+      "text": "Assess ways in which relationships help to meet human needs."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR1.1",
+      "text": "Relate family events and stories of the recent or distant past to the student's place in present day family life."
+     },
+     {
+      "code": "DR1.2",
+      "text": "Describe kinship patterns of the past and present and describe according to traditional teachings (e.g., Medicine Wheel teachings)."
+     },
+     {
+      "code": "DR1.3",
+      "text": "Demonstrate awareness of humans' reliance on the natural environment to meet needs, and how location affects families in meeting needs and wants."
+     },
+     {
+      "code": "DR1.4",
+      "text": "Recognize globes and maps as representations of the surface of the Earth, and distinguish land and water masses on globes and maps."
+     },
+     {
+      "code": "DR1.5",
+      "text": "Identify and represent the orientation in space (where) and time (when) of significant places and events in the lives of students."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA1.1",
+      "text": "Analyze actions and practices in the family, classroom, and on the playground that support peace and harmony, including rules and decision-making processes."
+     },
+     {
+      "code": "PA1.2",
+      "text": "Analyze the causes of disharmony and ways of returning to harmony."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW1.1",
+      "text": "Describe the influence of physical, spiritual, emotional, and intellectual needs and wants on personal well-being."
+     },
+     {
+      "code": "RW1.2",
+      "text": "Discuss ways in which work may be managed and distributed in families, schools, and groups."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N1.1",
+      "text": "Say the number sequence, 0 to 100, by: 1s forward and backward between any two given numbers 2s to 20, forward starting at 0 5s and 10s to 100, forward starting at 0."
+     },
+     {
+      "code": "N1.2",
+      "text": "Recognize, at a glance, and name familiar arrangements of 1 to 10 objects, dots, and pictures."
+     },
+     {
+      "code": "N1.3",
+      "text": "Demonstrate an understanding of counting by: indicating that the last number said identifies \"how many\" showing that any set has only one count using the counting on strategy using parts or equal groups to count sets."
+     },
+     {
+      "code": "N1.4",
+      "text": "Represent and describe whole numbers to 20 concretely, pictorially, and symbolically."
+     },
+     {
+      "code": "N1.5",
+      "text": "Compare sets containing up to 20 elements to solve problems using: referents (known quantity) one-to-one correspondence."
+     },
+     {
+      "code": "N1.6",
+      "text": "Estimate quantities to 20 by using referents."
+     },
+     {
+      "code": "N1.7",
+      "text": "Demonstrate, concretely, physically, and pictorially, how whole numbers can be represented by a variety of equal groupings with and without singles."
+     },
+     {
+      "code": "N1.8",
+      "text": "Identify the number, up to 20, that is one more, two more, one less, and two less than a given number."
+     },
+     {
+      "code": "N1.9",
+      "text": "Demonstrate an understanding of addition of numbers with answers to 20 and the corresponding subtraction facts, concretely, pictorially, physically, and symbolically by: using familiar and mathematical language to describe additive and subtractive actions from their experience creating and solving problems in context that involve addition and subtraction modelling addition and subtraction using a variety of concrete and visual representations, and recording the process symbolically."
+     },
+     {
+      "code": "N1.10",
+      "text": "Describe and use mental mathematics strategies (memorization not intended), such as: counting on and counting back making 10 doubles using addition to subtract to determine basic addition facts to 18 and related subtraction facts."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P1.1",
+      "text": "Demonstrate an understanding of repeating patterns (two to four elements) by: describing reproducing extending creating patterns using manipulatives, diagrams, sounds, and actions."
+     },
+     {
+      "code": "P1.2",
+      "text": "Translate repeating patterns from one form of representation to another."
+     },
+     {
+      "code": "P1.3",
+      "text": "Describe equality as a balance and inequality as an imbalance, concretely, physically, and pictorially (0 to 20)."
+     },
+     {
+      "code": "P1.4",
+      "text": "Record equalities using the equal symbol."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS1.1",
+      "text": "Demonstrate an understanding of measurement as a process of comparing by: identifying attributes that can be compared ordering objects making statements of comparison filling, covering, or matching."
+     },
+     {
+      "code": "SS1.2",
+      "text": "Sort 3-D objects and 2-D shapes using one attribute, and explain the sorting rule."
+     },
+     {
+      "code": "SS1.3",
+      "text": "Replicate composite 2-D shapes and 3-D objects."
+     },
+     {
+      "code": "SS1.4",
+      "text": "Compare 2-D shapes to parts of 3-D objects in the environment."
+     }
+    ]
+   }
+  ]
+ },
+ "2": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR2.1",
+      "text": "Comprehend and respond to a variety of grade-level texts (including contemporary and traditional visual, oral, written, and multimedia) that address: identity (e.g., Just Watch Me) community (e.g., People and Places) social responsibility (e.g., Friendship) and make connections to prior learning and experiences."
+     },
+     {
+      "code": "CR2.2",
+      "text": "View and explain (with support from the text) the key literal and inferential ideas (messages), important details, and how elements (such as colour, layout, medium, and special fonts) enhance meaning in grade-appropriate visual and multimedia texts."
+     },
+     {
+      "code": "CR2.3",
+      "text": "Listen and retell (with support from the text) the key literal and inferential ideas (messages) and important details heard in small- and large-group activities, and follow oral directions and demonstrations."
+     },
+     {
+      "code": "CR2.4",
+      "text": "Read and demonstrate comprehension of grade-appropriate literary and informational texts read silently and orally by relating and retelling key events and ideas in sequence with specific details and discussing how, why, and what if questions."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC2.1",
+      "text": "Compose and create a range of visual, multimedia, oral, and written texts that explore: identity (e.g., My Family and Friends) community (e.g., Our Community) social responsibility (e.g., TV Ads for Children) and make connections to own life."
+     },
+     {
+      "code": "CC2.2",
+      "text": "Use a variety of ways to represent understanding and to communicate ideas, procedures, stories, and feelings in a clear manner with essential details."
+     },
+     {
+      "code": "CC2.3",
+      "text": "Speak clearly and audibly in an appropriate sequence for a familiar audience and a specific purpose when recounting stories and experiences, giving directions, offering an opinion and providing reasons, and explaining information and directions."
+     },
+     {
+      "code": "CC2.4",
+      "text": "Write stories, poems, friendly letters, reports, and observations using appropriate and relevant details in clear and complete sentences and paragraphs of at least six sentences."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR2.1",
+      "text": "Reflect on and assess their viewing, listening, reading, speaking, writing, and other representing experiences and strategies by participating in discussions and relating work to a set of criteria (e.g., \"What did I learn?\")."
+     },
+     {
+      "code": "AR2.2",
+      "text": "Set personal goals as a result of group discussions (e.g., \"What did I do well?\", \"How could I be a better viewer, listener, reader, representer, speaker, and writer?\"). Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Animal Growth and Changes",
+    "outcomes": [
+     {
+      "code": "AN2.1",
+      "text": "Analyze the growth and development of familiar animals, including birds, fish, insects, reptiles, amphibians, and mammals, during their life cycles. (CP, SI)"
+     },
+     {
+      "code": "AN2.2",
+      "text": "Compare the growth and development of humans with that of familiar animals. (CP, SI)"
+     },
+     {
+      "code": "AN2.3",
+      "text": "Assess the interdependence of humans and animals in natural and constructed environments. (CP, DM)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Liquids and Solids",
+    "outcomes": [
+     {
+      "code": "LS2.1",
+      "text": "Investigate properties (e.g., colour, taste, smell, shape, and texture) of familiar liquids and solids. (SI)"
+     },
+     {
+      "code": "LS2.2",
+      "text": "Investigate interactions between liquids and solids, and technologies based on those interactions. (CP, SI, TPS)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Motion and Relative Position",
+    "outcomes": [
+     {
+      "code": "MP2.1",
+      "text": "Analyze methods of determining the position of objects relative to other objects. (SI)"
+     },
+     {
+      "code": "MP2.2",
+      "text": "Investigate factors, including friction, which affect the motion of natural and constructed objects, including self. (SI)"
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Air and Water in the Environment",
+    "outcomes": [
+     {
+      "code": "AW2.1",
+      "text": "Investigate properties of air and water (in all three states of matter) within their environment. (SI, TPS)"
+     },
+     {
+      "code": "AW2.2",
+      "text": "Assess the importance of air and water for the health and survival of living things, including self, and the environment. (CP, DM)"
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN2.1",
+      "text": "Determine characteristics of a community."
+     },
+     {
+      "code": "IN2.2",
+      "text": "Create a representation of the diversity of cultural groups in the local community."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR2.1",
+      "text": "Investigate stories of significant events and persons in the local community's history to describe the contribution of those who lived in the community in earlier times."
+     },
+     {
+      "code": "DR2.2",
+      "text": "Analyze the influence of the natural environment on the local community."
+     },
+     {
+      "code": "DR2.3",
+      "text": "Identify physical representations as constructed models of real things."
+     },
+     {
+      "code": "DR2.4",
+      "text": "Describe the influence of Treaty and First Nations people on the local community."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA2.1",
+      "text": "Analyze how decisions are made within the local community."
+     },
+     {
+      "code": "PA2.2",
+      "text": "Assess and practise various approaches to resolving conflicting interests within the community."
+     },
+     {
+      "code": "PA2.3",
+      "text": "Analyze rights and responsibilities of citizens in the school and local community."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW2.1",
+      "text": "Describe ways in which the local community meets needs and wants of its members."
+     },
+     {
+      "code": "RW2.2",
+      "text": "Analyze various worldviews regarding the natural environment."
+     },
+     {
+      "code": "RW2.3",
+      "text": "Contribute to initiating and guiding change in local and global communities regarding environmental, social, and economic sustainability."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N2.1",
+      "text": "Demonstrate understanding of whole numbers to 100 (concretely, pictorially, physically, orally, in writing, and symbolically) by: representing (including place value) describing skip counting differentiating between odd and even numbers estimating with referents comparing two numbers ordering three or more numbers."
+     },
+     {
+      "code": "N2.2",
+      "text": "Demonstrate understanding of addition (limited to 1 and 2-digit numerals) with answers to 100 and the corresponding subtraction by: representing strategies for adding and subtracting concretely, pictorially, and symbolically creating and solving problems involving addition and subtraction estimating using personal strategies for adding and subtracting with and without the support of manipulatives analyzing the effect of adding or subtracting zero analyzing the effect of the ordering of the quantities (addends, minuends, and subtrahends) in addition and subtraction statements."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P2.1",
+      "text": "Demonstrate understanding of repeating patterns (three to five elements) by: describing representing patterns in alternate modes extending comparing creating patterns using manipulatives, pictures, sounds, and actions."
+     },
+     {
+      "code": "P2.2",
+      "text": "Demonstrate understanding of increasing patterns by: describing reproducing extending creating patterns using manipulatives, pictures, sounds, and actions (numbers to 100)."
+     },
+     {
+      "code": "P2.3",
+      "text": "Demonstrate understanding of equality and inequality concretely and pictorially (0 to 100) by: relating equality and inequality to balance comparing sets recording equalities with an equal sign recording inequalities with a not equal sign solving problems involving equality and inequality."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS2.1",
+      "text": "Demonstrate understanding of non-standard units for linear measurement by: describing the choice and appropriate use of non-standard units estimating measuring comparing and analyzing measurements."
+     },
+     {
+      "code": "SS2.2",
+      "text": "Demonstrate understanding of non-standard units for measurement of mass by: describing the choice and appropriate use of non-standard units estimating measuring comparing and analyzing measurements."
+     },
+     {
+      "code": "SS2.3",
+      "text": "Describe, compare, and construct 3-D objects, including: cubes spheres cones cylinders pyramids."
+     },
+     {
+      "code": "SS2.4",
+      "text": "Describe, compare, and construct 2-D shapes, including triangles squares rectangles circles."
+     },
+     {
+      "code": "SS2.5",
+      "text": "Demonstrate understanding of the relationship between 2-D shapes and 3-D objects."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP2.1",
+      "text": "Demonstrate understanding of concrete graphs and pictographs."
+     }
+    ]
+   }
+  ]
+ },
+ "3": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR3.1",
+      "text": "Comprehend and respond to a variety of grade-level texts (including contemporary and traditional visual, oral, written, and multimedia) that address: identity (e.g., Spreading My Wings) community (e.g., Hand in Hand) social responsibility (e.g., All Together) and make comparison with personal experiences."
+     },
+     {
+      "code": "CR3.2",
+      "text": "View and respond to grade-appropriate visual and multimedia texts (including videos, cartoons, illustrations, diagrams, charts, maps, and posters) explaining reactions and connections as well as visual features that convey humour, emotion, and mood."
+     },
+     {
+      "code": "CR3.3",
+      "text": "Listen to and understand information, identify main ideas and supporting details, compare different ideas and points of view, and explain connections made between texts heard."
+     },
+     {
+      "code": "CR3.4",
+      "text": "Read fluently and demonstrate comprehension of grade-appropriate fiction, script, poetry, and non-fiction from various cultures (including First Nations and Métis) and countries (including Canada) and explain reactions and connections to texts read."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC3.1",
+      "text": "Compose and create a range of visual, multimedia, oral, and written texts that explore: identity (e.g., Spreading My Wings) community (e.g., Helping Others) social responsibility (e.g., Communities Around the World) and make connections across areas of study."
+     },
+     {
+      "code": "CC3.2",
+      "text": "Communicate ideas and information pertaining to topics, problems, questions, or issues by creating easy-to-follow representations with a clear purpose."
+     },
+     {
+      "code": "CC3.3",
+      "text": "Speak to present ideas and information appropriately in informal (e.g., interacting appropriately with others to share ideas and opinions, complete tasks, and discuss concerns or problems) and some formal situations (e.g., giving oral explanations, delivering short, simple reports, demonstrating and describing basic procedures) for different audiences and purposes."
+     },
+     {
+      "code": "CC3.4",
+      "text": "Write to communicate ideas, information, and experiences pertaining to a topic by creating easy-to-follow writing (including a short report, a procedure, a letter, a story, a short script, and a poem) with a clear purpose, correct paragraph structure, and interesting detail."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR3.1",
+      "text": "Reflect on and assess their viewing, listening, reading, speaking, writing, and other representing experiences and the selected strategies they have used (e.g., using class-generated criteria)."
+     },
+     {
+      "code": "AR3.2",
+      "text": "Set personal goals to view, listen, read, speak, write, and use other forms of representing more effectively and discuss a plan for achieving them. Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Plant Growth and Changes",
+    "outcomes": [
+     {
+      "code": "PL3.1",
+      "text": "Investigate the growth and development of plants, including the conditions necessary for germination. (CP, SI)"
+     },
+     {
+      "code": "PL3.2",
+      "text": "Analyze the interdependence among plants, individuals, society, and the environment. (CP, DM, SI)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Structures and Materials",
+    "outcomes": [
+     {
+      "code": "SM3.1",
+      "text": "Investigate properties of materials and methods of joinery used in structures. (CP, TPS)"
+     },
+     {
+      "code": "SM3.2",
+      "text": "Assess the function and characteristics of strong, stable, and balanced natural and human-built structures. (CP, TPS)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Magnetism and Static Electricity",
+    "outcomes": [
+     {
+      "code": "ME3.1",
+      "text": "Investigate the characteristics of contact (e.g., push, pull, and friction) and non-contact (e.g., magnetic and static electric) forces. (SI)"
+     },
+     {
+      "code": "ME3.2",
+      "text": "Assess effects of practical applications of magnetic and static electric forces on individuals and society. (CP, TPS)"
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Exploring Soils",
+    "outcomes": [
+     {
+      "code": "ES3.1",
+      "text": "Investigate the characteristics, including soil composition and ability to absorb water, of different types of soils in their environment. (SI)"
+     },
+     {
+      "code": "ES3.2",
+      "text": "Analyze the interdependence between soil and living things, including the importance of soil for individuals, society, and all components of the environment. (CP, DM)"
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN3.1",
+      "text": "Analyze daily life in a diversity of communities."
+     },
+     {
+      "code": "IN3.2",
+      "text": "Analyze the cultures and traditions in communities studied."
+     },
+     {
+      "code": "IN3.3",
+      "text": "Illustrate examples of interdependence of communities."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR3.1",
+      "text": "Use various model representations of the Earth."
+     },
+     {
+      "code": "DR3.2",
+      "text": "Assess the degree to which the geography and related environmental and climatic factors influence ways of living on and with the land."
+     },
+     {
+      "code": "DR3.3",
+      "text": "Compare the beliefs of various communities around the world regarding living on and with the land."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA3.1",
+      "text": "Compare how decisions are made in the local community and communities studied."
+     },
+     {
+      "code": "PA3.2",
+      "text": "Demonstrate awareness that divergent viewpoints may lead to conflict as part of group interactions, and assess various means of conflict resolution."
+     },
+     {
+      "code": "PA3.3",
+      "text": "Make generalizations about the purpose and intent of documents that define the rights of children."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW3.1",
+      "text": "Appraise the ways communities meet their members' needs and wants."
+     },
+     {
+      "code": "RW3.2",
+      "text": "Analyze the creation and distribution of wealth in communities studied."
+     },
+     {
+      "code": "RW3.3",
+      "text": "Evaluate the ways in which technologies have impacted daily life."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N3.1",
+      "text": "Demonstrate understanding of whole numbers to 1000 (concretely, pictorially, physically, orally, in writing, and symbolically) including: representing (including place value) describing estimating with referents comparing two numbers ordering three or more numbers."
+     },
+     {
+      "code": "N3.2",
+      "text": "Demonstrate understanding of addition of whole numbers with answers to 1000 and their corresponding subtractions (limited to 1, 2, and 3-digit numerals) including: representing strategies for adding and subtracting concretely, pictorially, and symbolically solving situational questions involving addition and subtraction estimating using personal strategies for adding and subtracting."
+     },
+     {
+      "code": "N3.3",
+      "text": "Demonstrate understanding of multiplication to 5 x 5 and the corresponding division statements including: representing and explaining using repeated addition or subtraction, equal grouping, and arrays creating and solving situational questions modelling processes using concrete, physical, and visual representations, and recording the process symbolically relating multiplication and division. Note: The focus of this outcome is for the students to become familiar with multiplication and division and strategies for mentally determining products and quotients. It is not intended that students memorize the basic facts."
+     },
+     {
+      "code": "N3.4",
+      "text": "Demonstrate understanding of fractions concretely, pictorially, physically, and orally including: representing observing and describing situations comparing relating to quantity."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P3.1",
+      "text": "Demonstrate understanding of increasing and decreasing patterns including: observing and describing extending comparing creating patterns using manipulatives, pictures, sounds, and actions. Note: It is intended that decreasing patterns will not go past zero."
+     },
+     {
+      "code": "P3.2",
+      "text": "Demonstrate understanding of equality by solving one-step addition and subtraction equations involving symbols representing an unknown quantity."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS3.1",
+      "text": "Demonstrate understanding of the passage of time including: relating common activities to standard and non-standard units describing relationships between units solving situational questions."
+     },
+     {
+      "code": "SS3.2",
+      "text": "Demonstrate understanding of measuring mass in g and kg by: selecting and justifying referents for g and kg modelling and describing the relationship between g and kg estimating mass using referents measuring and recording mass."
+     },
+     {
+      "code": "SS3.3",
+      "text": "Demonstrate understanding of linear measurement (cm and m) including: selecting and justifying referents generalizing the relationship between cm and m estimating length and perimeter using referents measuring and recording length, width, height, and perimeter."
+     },
+     {
+      "code": "SS3.4",
+      "text": "Demonstrate understanding of 3-D objects by analyzing characteristics including faces, edges, and vertices."
+     },
+     {
+      "code": "SS3.5",
+      "text": "Demonstrate understanding of 2-D shapes (regular and irregular) including triangles, quadrilaterals, pentagons, hexagons, and octagons including: describing comparing sorting."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP3.1",
+      "text": "Demonstrate understanding of first-hand data using tally marks, charts, lists, bar graphs, and line plots (abstract pictographs), through: collecting, organizing, and representing solving situational questions."
+     }
+    ]
+   }
+  ]
+ },
+ "4": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR4.1",
+      "text": "Comprehend and respond to a variety of grade-level texts (including contemporary and traditional visual, oral, written, and multimedia texts) that address: identity (e.g., Expressing Myself) community (e.g., Building Community) social responsibility (e.g., Preserving a Habitat) and support response with evidence from text and from own experiences."
+     },
+     {
+      "code": "CR4.2",
+      "text": "View and respond to visual and multimedia texts (including graphs, charts, diagrams, maps, multimedia DVD, websites, television programs, advertisements, posters), explaining the creator's technique and the impact on viewers."
+     },
+     {
+      "code": "CR4.3",
+      "text": "Listen, summarize, paraphrase, and evaluate what was listened to and draw conclusions."
+     },
+     {
+      "code": "CR4.4",
+      "text": "Read for various purposes and demonstrate comprehension of grade-appropriate fiction (including stories and novels), scripts, poetry, and non-fiction (including magazines, reports, instructions, and procedures) from various cultures including First Nations and Métis and countries (including Canada)."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC4.1",
+      "text": "Compose and create a range of visual, multimedia, oral, and written texts that explore: identity (e.g., Expressing Myself) community (e.g., Celebrating and Honouring Others) social responsibility (e.g., Within My Circle) through personal experiences and inquiry."
+     },
+     {
+      "code": "CC4.2",
+      "text": "Create a variety of clear representations that communicate straightforward ideas and information relevant to the topic and purpose, including short, illustrated reports, dramatizations, posters, and other visuals such as displays and drawings."
+     },
+     {
+      "code": "CC4.3",
+      "text": "Speak to present and express a range of ideas and information in formal and informal speaking situations (including giving oral explanations, delivering brief reports or speeches, demonstrating and describing procedures) for differing audiences and purposes."
+     },
+     {
+      "code": "CC4.4",
+      "text": "Use a writing process to produce descriptive, narrative, and expository compositions that focus on a central idea, have a logical order, explain point of view, and give reasons or evidence."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR4.1",
+      "text": "Reflect on and assess own viewing, listening, reading, speaking, writing, and other representing experiences, the selected strategies employed (e.g., using class-generated criteria), and explore possible ways to improve."
+     },
+     {
+      "code": "AR4.2",
+      "text": "Set and pursue personal goals to improve viewing, listening, reading, speaking, writing, and other representing tasks more effectively. Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Habitats and Communities",
+    "outcomes": [
+     {
+      "code": "HC4.1",
+      "text": "Investigate the interdependence of plants and animals, including humans, within habitats and communities."
+     },
+     {
+      "code": "HC4.2",
+      "text": "Analyze the structures and behaviours of plants and animals that enable them to exist in various habitats."
+     },
+     {
+      "code": "HC4.3",
+      "text": "Assess the effects of natural and human activities on habitats and communities, and propose actions to maintain or restore habitats."
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Light",
+    "outcomes": [
+     {
+      "code": "LI4.1",
+      "text": "Investigate the characteristics and physical properties of natural and artificial sources of light in the environment."
+     },
+     {
+      "code": "LI4.2",
+      "text": "Analyze how light interacts with different objects and materials to create phenomena such as shadows, reflection, refraction, and dispersion."
+     },
+     {
+      "code": "LI4.3",
+      "text": "Assess personal, societal, and environmental impacts of light-related technological innovations including optical devices."
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Sound",
+    "outcomes": [
+     {
+      "code": "SO4.1",
+      "text": "Explore natural and artificial sources of sound in the environment and how those sounds are detected by humans and animals."
+     },
+     {
+      "code": "SO4.2",
+      "text": "Draw conclusions about the characteristics and physical properties of sound, including pitch and loudness, based on observation."
+     },
+     {
+      "code": "SO4.3",
+      "text": "Assess personal, societal, and environmental impacts of sound-related technologies."
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Rocks, Minerals, and Erosion",
+    "outcomes": [
+     {
+      "code": "RM4.1",
+      "text": "Investigate physical properties of rocks and minerals, including those found in the local environment."
+     },
+     {
+      "code": "RM4.2",
+      "text": "Assess how human uses of rocks and minerals impact self, society, and the environment."
+     },
+     {
+      "code": "RM4.3",
+      "text": "Analyze how weathering, erosion, and fossils provide evidence to support human understanding of the formation of landforms on Earth."
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN4.1",
+      "text": "Analyze how First Nations and Métis people have shaped and continue to shape Saskatchewan."
+     },
+     {
+      "code": "IN4.2",
+      "text": "Describe the origins of the cultural diversity in Saskatchewan communities."
+     },
+     {
+      "code": "IN4.3",
+      "text": "Determine the influence Saskatchewan people and programs have had on a national scale."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR4.1",
+      "text": "Correlate the impact of the land on the lifestyles and settlement patterns of the people of Saskatchewan."
+     },
+     {
+      "code": "DR4.2",
+      "text": "Explain the relationship of First Nations and Métis peoples with the land."
+     },
+     {
+      "code": "DR4.3",
+      "text": "Analyze the implications of the Treaty relationship in Saskatchewan."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA4.1",
+      "text": "Analyze the relationship between governance institutions in Saskatchewan and the quality of life of people in the province."
+     },
+     {
+      "code": "PA4.2",
+      "text": "Demonstrate an understanding of the provincial system of government."
+     },
+     {
+      "code": "PA4.3",
+      "text": "Demonstrate an understanding of the First Nations system of governance."
+     },
+     {
+      "code": "PA4.4",
+      "text": "Demonstrate an understanding of the Métis governance system."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW4.1",
+      "text": "Analyze the strategies Saskatchewan people have developed to meet the challenges presented by the natural environment."
+     },
+     {
+      "code": "RW4.2",
+      "text": "Investigate the importance of agriculture to the economy and culture of Saskatchewan."
+     },
+     {
+      "code": "RW4.3",
+      "text": "Assess the impact of Saskatchewan resources and technological innovations on the provincial, national, and global communities."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N4.1",
+      "text": "Demonstrate an understanding of whole numbers to 10 000 (pictorially, physically, orally, in writing, and symbolically) by: representing describing comparing two numbers ordering three or more numbers."
+     },
+     {
+      "code": "N4.2",
+      "text": "Demonstrate an understanding of addition of whole numbers with answers to 10 000 and their corresponding subtractions (limited to 3 and 4-digit numerals) by: using personal strategies for adding and subtracting estimating sums and differences solving problems involving addition and subtraction."
+     },
+     {
+      "code": "N4.3",
+      "text": "Demonstrate an understanding of multiplication of whole numbers (limited to numbers less than or equal to 10) by: applying mental mathematics strategies explaining the results of multiplying by 0 and 1"
+     },
+     {
+      "code": "N4.4",
+      "text": "Demonstrate an understanding of multiplication (2- or 3-digit by 1-digit) by: using personal strategies for multiplication, with and without concrete materials using arrays to represent multiplication connecting concrete representations to symbolic representations estimating products solving problems."
+     },
+     {
+      "code": "N4.5",
+      "text": "Demonstrate an understanding of division (1-digit divisor and up to 2-digit dividend) to solve problems by: using personal strategies for dividing with and without concrete materials estimating quotients explaining the results of dividing by 1 solving problems involving division of whole numbers relating division to multiplication."
+     },
+     {
+      "code": "N4.6",
+      "text": "Demonstrate an understanding of fractions less than or equal to one by using concrete and pictorial representations to: name and record fractions for the parts of a whole or a set compare and order fractions model and explain that for different wholes, two identical fractions may not represent the same quantity provide examples of where fractions are used."
+     },
+     {
+      "code": "N4.7",
+      "text": "Demonstrate an understanding of decimal numbers in tenths and hundredths (pictorially, orally, in writing, and symbolically) by: describing representing relating to fractions."
+     },
+     {
+      "code": "N4.8",
+      "text": "Demonstrate an understanding of addition and subtraction of decimals limited to hundredths (concretely, pictorially, and symbolically) by: using compatible numbers estimating sums and differences using mental math strategies solving problems."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P4.1",
+      "text": "Demonstrate an understanding of patterns and relations by: identifying and describing patterns and relations in a chart, table or diagram reproducing patterns and relations in a chart, table, or diagram using manipulatives creating charts, tables, or diagrams to represent patterns and relations solving problems involving patterns and relations"
+     },
+     {
+      "code": "P4.2",
+      "text": "Demonstrate an understanding of equations involving symbols to represent an unknown value by: writing an equation to represent a problem solving one step equations."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS4.1",
+      "text": "Demonstrate an understanding of time by: reading and recording time using digital and analog clocks (including 24 hour clocks) reading and recording calendar dates in a variety of formats."
+     },
+     {
+      "code": "SS4.2",
+      "text": "Demonstrate an understanding of area of regular and irregular 2-D shapes by: recognizing that area is measured in square units selecting and justifying referents for the units cm� or m� estimating area by using referents for cm� or m� determining and recording area (cm� or m�) constructing different rectangles for a given area (cm� or m�) in order to demonstrate that many different rectangles may have the same area."
+     },
+     {
+      "code": "SS4.3",
+      "text": "Demonstrate an understanding of rectangular and triangular prisms by: identifying common attributes comparing constructing models."
+     },
+     {
+      "code": "SS4.4",
+      "text": "Demonstrate an understanding of line symmetry by: identifying symmetrical 2-D shapes creating symmetrical 2-D shapes drawing one or more lines of symmetry in a 2-D shape."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP4.1",
+      "text": "Demonstrate an understanding of many-to-one correspondence by: comparing correspondences on graphs justifying the use of many-to-one correspondences interpreting data shown using a many-to-one correspondence creating bar graphs and pictographs using many-to-one correspondence."
+     }
+    ]
+   }
+  ]
+ },
+ "5": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR5.1",
+      "text": "Analyze and respond to a variety of grade-level texts (including contemporary and traditional visual, oral, written,and multimedia texts) that address: identity (e.g., Exploring Heritage) community (e.g., Teamwork) social responsibility (e.g. What is Fair?)"
+     },
+     {
+      "code": "CR5.2",
+      "text": "View and evaluate, critically, visual and multimedia texts identifying the persuasive techniques including promises, flattery, and comparisons used to influence or persuade an audience."
+     },
+     {
+      "code": "CR5.3",
+      "text": "Listen purposefully to a range of texts from a variety of cultural traditions (including oral traditions shared by First Nations and Métis Elders and Knowledge Keepers) to understand ideas and instructions, to evaluate the message heard and the required follow-up action, and to draw conclusions about speaker's verbal and non-verbal message(s), purpose, point of view, and techniques used in presentation."
+     },
+     {
+      "code": "CR5.4",
+      "text": "Read and demonstrate comprehension of a range of contemporary and classical grade-appropriate fiction, script, poetry, and non-fiction (including magazines, reports, instructions, and procedures) from various cultures including First Nations, Métis, and Inuit and countries (including Canada)."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC5.1",
+      "text": "Compose and create a range of visual, multimedia, oral, and written texts that explore identity (e.g., What Should I Do) community (e.g., This is Our Planet) social responsibility (e.g. Teamwork) and express personal thoughts shaped through inquiry."
+     },
+     {
+      "code": "CC5.2",
+      "text": "Demonstrate a variety of ways to communicate understanding and response including illustrated reports, dramatizations, posters, timelines, multimedia presentations, and summary charts."
+     },
+     {
+      "code": "CC5.3",
+      "text": "Speak to express and support a range of ideas and information in formal and informal speaking situations (e.g., giving oral presentations and reports, retelling a narrative, explaining a display to others, working in groups) for particular audiences and purposes."
+     },
+     {
+      "code": "CC5.4",
+      "text": "Use a writing process to experiment with and produce multi-paragraph narrative (including stories that contain dialogue), expository (including reports, explanations, letters, and requests), and persuasive (including letters) compositions that clearly develop topic and provide transitions for the reader."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR5.1",
+      "text": "Identify strengths in viewing, listening, reading, speaking, writing, and other forms of representing."
+     },
+     {
+      "code": "AR5.2",
+      "text": "Set goals to enhance the development and improvement of the skills and strategies in viewing, listening, reading, speaking, writing, and other forms of representing and take steps to achieve goals. Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Human Body Systems",
+    "outcomes": [
+     {
+      "code": "HB5.1",
+      "text": "Analyze personal and societal requirements for, and the impact of, maintaining a healthy human body. (CP, DM)"
+     },
+     {
+      "code": "HB5.2",
+      "text": "Investigate the structure, function, and major organs of one or more human body systems such as the digestive, excretory, respiratory, circulatory, nervous, muscular, and skeletal systems. (SI, TPS)"
+     },
+     {
+      "code": "HB5.3",
+      "text": "Assess how multiple human body systems function together to enable people to move, grow, and react to stimuli. (SI)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Properties and Changes of Materials",
+    "outcomes": [
+     {
+      "code": "MC5.1",
+      "text": "Investigate the characteristics and physical properties of materials in solid, liquid, and gaseous states of matter. (CP, SI)"
+     },
+     {
+      "code": "MC5.2",
+      "text": "Investigate how reversible and non-reversible changes, including changes of state, alter materials. (SI)"
+     },
+     {
+      "code": "MC5.3",
+      "text": "Assess how the production, use, and disposal of raw materials and manufactured products affects self, society, and the environment. (DM, SI)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Forces and Simple Machines",
+    "outcomes": [
+     {
+      "code": "FM5.1",
+      "text": "Analyze the effects of gravitational, magnetic, and mechanical forces, including friction, on the movement of objects. (CP, SI)"
+     },
+     {
+      "code": "FM5.2",
+      "text": "Investigate characteristics of simple machines, including levers, wheels and axles, pulleys, inclined planes, screws, and wedges, for moving and lifting loads. (SI, TPS)"
+     },
+     {
+      "code": "FM5.3",
+      "text": "Assess how natural and man-made forces and simple machines affect individuals, society, and the environment. (CP, DM, SI)"
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Weather",
+    "outcomes": [
+     {
+      "code": "WE5.1",
+      "text": "Measure and represent local weather, including temperature, wind speed and direction, amount of sunlight, precipitation, relative humidity, and cloud cover. (CP, SI, TPS)"
+     },
+     {
+      "code": "WE5.2",
+      "text": "Investigate local, national, and global weather conditions, including the role of air movement and solar energy transfer. (SI)"
+     },
+     {
+      "code": "WE5.3",
+      "text": "Analyze the impact of weather on society and the environment, including technologies that help humans address weather conditions. (DM)"
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN5.1",
+      "text": "Demonstrate an understanding of the Aboriginal heritage of Canada."
+     },
+     {
+      "code": "IN5.2",
+      "text": "Analyze the evolution of Canada as a multicultural nation."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR5.1",
+      "text": "Analyze the historic and contemporary relationship of people to land in Canada."
+     },
+     {
+      "code": "DR5.2",
+      "text": "Assess the impact of the environment on the lives of people living in Canada."
+     },
+     {
+      "code": "DR5.3",
+      "text": "Identify the European influence on pre-confederation Canadian society."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA5.1",
+      "text": "Describe Canada's political evolution."
+     },
+     {
+      "code": "PA5.2",
+      "text": "Explain the purposes and functions of governance structures in Canada, including First Nations systems and those patterned on the Westminster parliamentary system."
+     },
+     {
+      "code": "PA5.3",
+      "text": "Develop an understanding of the nature of the treaty relationship between First Nations and Canada's federal government."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW5.1",
+      "text": "Explain the importance of sustainable management of the environment to Canada's future."
+     },
+     {
+      "code": "RW5.2",
+      "text": "Hypothesize about economic changes that Canada may experience in the future."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N5.1",
+      "text": "Represent, compare, and describe whole numbers to 1 000 000 within the contexts of place value and the base ten system, and quantity."
+     },
+     {
+      "code": "N5.2",
+      "text": "Analyze models of, develop strategies for, and carry out multiplication of whole numbers."
+     },
+     {
+      "code": "N5.3",
+      "text": "Demonstrate, with and without concrete materials, an understanding of division (3-digit by 1-digit) and interpret remainders to solve problems."
+     },
+     {
+      "code": "N5.4",
+      "text": "Develop and apply personal strategies for estimation and computation including: front-end rounding compensation compatible numbers."
+     },
+     {
+      "code": "N5.5",
+      "text": "Demonstrate an understanding of fractions by using concrete and pictorial representations to: create sets of equivalent fractions compare fractions with like and unlike denominators."
+     },
+     {
+      "code": "N5.6",
+      "text": "Demonstrate understanding of decimals to thousandths by: describing and representing relating to fractions comparing and ordering."
+     },
+     {
+      "code": "N5.7",
+      "text": "Demonstrate an understanding of addition and subtraction of decimals (limited to thousandths)."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P5.1",
+      "text": "Represent, analyse, and apply patterns using mathematical language and notation."
+     },
+     {
+      "code": "P5.2",
+      "text": "Write, solve, and verify solutions of single-variable, one-step equations with whole number coefficients and whole number solutions."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS5.1",
+      "text": "Design and construct different rectangles given either perimeter or area, or both (whole numbers), and draw conclusions."
+     },
+     {
+      "code": "SS5.2",
+      "text": "Demonstrate understanding of measuring length (mm) by: selecting and justifying referents for the unit mm modelling and describing the relationship between mm, cm, and m units."
+     },
+     {
+      "code": "SS5.3",
+      "text": "Demonstrate an understanding of volume by: selecting and justifying referents for cm� or m� units estimating volume by using referents for cm� or m� measuring and recording volume (cm� or m�) constructing rectangular prisms for a given volume."
+     },
+     {
+      "code": "SS5.4",
+      "text": "Demonstrate understanding of capacity by: describing the relationship between mL and L selecting and justifying referents for mL or L units estimating capacity by using referents for mL or L measuring and recording capacity (mL or L)."
+     },
+     {
+      "code": "SS5.5",
+      "text": "Describe and provide examples of edges and faces of 3-D objects, and sides of 2-D shapes that are: parallel intersecting perpendicular vertical horizontal."
+     },
+     {
+      "code": "SS5.6",
+      "text": "Identify and sort quadrilaterals, including: rectangles squares trapezoids parallelograms rhombuses according to their attributes."
+     },
+     {
+      "code": "SS5.7",
+      "text": "Identify, create, and analyze single transformations of 2-D shapes (with and without the use of technology)."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP5.1",
+      "text": "Differentiate between first-hand and second-hand data."
+     },
+     {
+      "code": "SP5.2",
+      "text": "Construct and interpret double bar graphs to draw conclusions."
+     },
+     {
+      "code": "SP5.3",
+      "text": "Describe, compare, predict, and test the likelihood of outcomes in probability situations."
+     }
+    ]
+   }
+  ]
+ },
+ "6": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR6.1",
+      "text": "View, listen to, read, comprehend, and respond to a variety of texts that address identity (e.g., Growing Up), social responsibility (e.g., Going the Distance), and efficacy (e.g., Making Our Community More Peaceful)."
+     },
+     {
+      "code": "CR6.2",
+      "text": "Select and use appropriate strategies to construct meaning before (e.g., considering what they know and need to know about topic), during (e.g., making connections to prior knowledge and experiences), and after (e.g., drawing conclusions) viewing, listening, and reading."
+     },
+     {
+      "code": "CR6.3",
+      "text": "Use pragmatic (e.g., function and purpose of texts), textual (e.g., form/genre, sequence of ideas), syntactic (e.g., word order and emphasis on particular words), semantic/lexical/ morphological (e.g., capture particular aspect of intended meaning), graphophonic (e.g., sound-symbol patterns and relationships), and other cues (e.g., the speaker's non-verbal cues) to construct and confirm meaning. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CR6.4",
+      "text": "View, respond, and demonstrate comprehension of visual and multimedia grade-appropriate texts including traditional and contemporary texts from First Nations, Métis, and other cultures containing special features (e.g., the visual components of magazines, newspapers, websites, comic books, broadcast media, video, and advertising)."
+     },
+     {
+      "code": "CR6.5",
+      "text": "Listen purposefully to understand, respond, and analyze oral information and ideas from a range of texts including narratives, instructions, oral explanations and reports, and opinions."
+     },
+     {
+      "code": "CR6.6",
+      "text": "Read and demonstrate comprehension and interpretation of grade-appropriate texts including traditional and contemporary prose fiction, poetry, and plays from First Nations, Métis, and other cultures."
+     },
+     {
+      "code": "CR6.7",
+      "text": "Read independently and demonstrate comprehension of a variety of information texts with some specialized language including grade level instructional materials, non-fiction books, reports and articles from magazines and journals, reference materials, and written instructions."
+     },
+     {
+      "code": "CR6.8",
+      "text": "Read grade 6 appropriate texts to increase fluency (120-160 wcpm orally; 160-210 silently) and expression."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC6.1",
+      "text": "Create various visual, multimedia, oral, and written texts that explore identity (e.g., Your Choices), social responsibility (e.g., Looking for Answers), and efficacy (e.g., Systems for Living)."
+     },
+     {
+      "code": "CC6.2",
+      "text": "Select and use the appropriate strategies to communicate meaning before (e.g., identifying purpose and audience), during (e.g., acknowledging sources), and after (e.g., revising to enhance clarity) speaking, writing, and other representing activities."
+     },
+     {
+      "code": "CC6.3",
+      "text": "Use pragmatic (e.g., function and purpose), textual (e.g., paragraphs), syntactic (e.g., complete sentences with appropriate subordination and modification), semantic/lexical/morphological (e.g., figurative words), graphophonic (e.g., spelling strategies), and other cues (e.g., appropriate volume and intonation) to construct and to communicate meaning. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CC6.4",
+      "text": "Create and present a variety of representations that communicate ideas and information to inform or persuade and to entertain an audience, including illustrations, diagrams, posters, displays, and cartoons."
+     },
+     {
+      "code": "CC6.5",
+      "text": "Use oral language to interact appropriately with others in pairs, and small and large group situations (e.g., asking questions to explore others' ideas and viewpoints, discussing and comparing ideas and opinions, completing tasks and contributing to group success)."
+     },
+     {
+      "code": "CC6.6",
+      "text": "Use oral language appropriately to express a range of information and ideas in formal and informal situations including presenting an oral report based on research, a demonstration, and a short dramatization."
+     },
+     {
+      "code": "CC6.7",
+      "text": "Write to describe a place; to narrate an incident from own experience in a multi-paragraph composition and in a friendly letter; to explain and inform in multi-step directions and a short report explaining a problem and providing a solution; and, to persuade to support a viewpoint or stand."
+     },
+     {
+      "code": "CC6.8",
+      "text": "Experiment with a variety of text forms (e.g., a peer interview, presentation at an assembly, poem, letter to parents, short review, poster, tableau, graphic organizer) and techniques (e.g., surprise ending)."
+     },
+     {
+      "code": "CC6.9",
+      "text": "Prepare a teacher-guided inquiry report related to a stand on a topic, theme, or issue studied in English language arts."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR6.1",
+      "text": "Consider which viewing, listening, reading, representing, speaking, and writing strategies work best for each task and situation."
+     },
+     {
+      "code": "AR6.2",
+      "text": "Appraise own viewing, listening, reading, representing, speaking, and writing skills and strategies, and set goals for improvement."
+     },
+     {
+      "code": "AR6.3",
+      "text": "Appraise own and others' work for clarity. Units Going the Distance Growing Up Messages Peace And Conflict Taking Flight Tales - Heroes, Deeds, and Wonders Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Diversity of Living Things",
+    "outcomes": [
+     {
+      "code": "DL6.1",
+      "text": "Recognize, describe, and appreciate the diversity of living things in local and other ecosystems, and explore related careers. (CP, SI)"
+     },
+     {
+      "code": "DL6.2",
+      "text": "Examine how humans organize understanding of the diversity of living things. (CP, SI)"
+     },
+     {
+      "code": "DL6.3",
+      "text": "Analyze the characteristics and behaviours of vertebrates (i.e., mammals, birds, reptiles, amphibians, and fish) and invertebrates. (SI)"
+     },
+     {
+      "code": "DL6.4",
+      "text": "Examine and describe structures and behaviours that help: individual living organisms survive in their environments in the short term species of living organisms adapt to their environments in the long term. (CP, DM, SI)"
+     },
+     {
+      "code": "DL6.5",
+      "text": "Assess effects of micro-organisms on past and present society, and contributions of science and technology to human understanding of micro-organisms. (CP, DM, SI)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Understanding Electricity",
+    "outcomes": [
+     {
+      "code": "EL6.1",
+      "text": "Assess personal, societal, economic, and environmental impacts of electricity use in Saskatchewan and propose actions to reduce those impacts. (CP, DM)"
+     },
+     {
+      "code": "EL6.2",
+      "text": "Investigate the characteristics and applications of static electric charges, conductors, insulators, switches, and electromagnetism. (SI)"
+     },
+     {
+      "code": "EL6.3",
+      "text": "Explain and model the properties of simple series and parallel circuits. (SI, TPS)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Principles of Flight",
+    "outcomes": [
+     {
+      "code": "FL6.1",
+      "text": "Examine connections between human fascination with flight and technologies and careers based on the scientific principles of flight. (CP, DM, SI)"
+     },
+     {
+      "code": "FL6.2",
+      "text": "Investigate how the forces of thrust, drag, lift, and gravity act on living things and constructed devices that fly through the air. (SI)"
+     },
+     {
+      "code": "FL6.3",
+      "text": "Design a working prototype of a flying object that meets specified performance criteria. (TPS)"
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Our Solar System",
+    "outcomes": [
+     {
+      "code": "SS6.1",
+      "text": "Research and represent the physical characteristics of the major components of the solar system, including the sun, planets, moons, asteroids, and comets. (CP, SI)"
+     },
+     {
+      "code": "SS6.2",
+      "text": "Assess the efficacy of various methods of representing and interpreting astronomical phenomena, including phases, eclipses, and seasons. (CP, SI)"
+     },
+     {
+      "code": "SS6.3",
+      "text": "Evaluate past, current, and possible future contributions of space exploration programs including space probes and human spaceflight, which support living and working in the inner solar system. (DM, TPS)"
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN6.1",
+      "text": "Evaluate and represent personal beliefs and values by determining how culture and place influence them."
+     },
+     {
+      "code": "IN6.2",
+      "text": "Examine the social and cultural diversity that exists in the world, as exemplified in Canada and a selection of countries bordering the Atlantic Ocean."
+     },
+     {
+      "code": "IN6.3",
+      "text": "Develop an understanding that global interdependence impacts individual daily life in Canada and a selection of countries bordering the Atlantic Ocean."
+     },
+     {
+      "code": "IN6.4",
+      "text": "Explore aspects of cultural change over time, including: reasons for cultural change examples of cultural change how cultural change affects youth how youth respond to cultural change."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR6.1",
+      "text": "Analyze the impact of the diversity of natural environments on the ways of life in Canada and a selection of countries bordering the Atlantic Ocean."
+     },
+     {
+      "code": "DR6.2",
+      "text": "Analyze ways in which the land affects human settlement patterns and social organization, and ways in which human habitation affects land."
+     },
+     {
+      "code": "DR6.3",
+      "text": "Appraise the strategies human societies have used to orient themselves within time and place in the natural environment."
+     },
+     {
+      "code": "DR6.4",
+      "text": "Relate contemporary issues to their historical origins in Canada and a selection of countries bordering the Atlantic Ocean."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA6.1",
+      "text": "Examine the relationship between an individual's power and authority and the power and authority of others."
+     },
+     {
+      "code": "PA6.2",
+      "text": "Analyze the distribution of power and privilege in Canada and a selection of countries bordering the Atlantic Ocean."
+     },
+     {
+      "code": "PA6.3",
+      "text": "Explore the effects of injustice or abuse of power on its victims, including victims of the Holocaust."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW6.1",
+      "text": "Examine and analyze factors that contribute to quality of life, including material and non-material factors."
+     },
+     {
+      "code": "RW6.2",
+      "text": "Contribute to initiating and guiding change in local and global communities regarding environmental, social, and economic sustainability."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N6.1",
+      "text": "Demonstrate understanding of place value including: greater than one million less than one thousandth with and without technology."
+     },
+     {
+      "code": "N6.2",
+      "text": "Demonstrate understanding of factors and multiples (concretely, pictorially, and symbolically) including: determining factors and multiples of numbers less than 100 relating factors and multiples to multiplication and division determining and relating prime and composite numbers."
+     },
+     {
+      "code": "N6.3",
+      "text": "Demonstrate understanding of the order of operations on whole numbers (excluding exponents) with and without technology."
+     },
+     {
+      "code": "N6.4",
+      "text": "Extend understanding of multiplication and division to decimals (1-digit whole number multipliers and 1-digit natural number divisors)."
+     },
+     {
+      "code": "N6.5",
+      "text": "Demonstrate understanding of percent (limited to whole numbers to 100) concretely, pictorially, and symbolically."
+     },
+     {
+      "code": "N6.6",
+      "text": "Demonstrate understanding of integers concretely, pictorially, and symbolically."
+     },
+     {
+      "code": "N6.7",
+      "text": "Extend understanding of fractions to improper fractions and mixed numbers."
+     },
+     {
+      "code": "N6.8",
+      "text": "Demonstrate an understanding of ratio concretely, pictorially, and symbolically."
+     },
+     {
+      "code": "N6.9",
+      "text": "Research and present how First Nations and M�tis peoples, past and present, envision, represent, and use quantity in their lifestyles and worldviews."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P6.1",
+      "text": "Extend understanding of patterns and relationships in tables of values and graphs."
+     },
+     {
+      "code": "P6.2",
+      "text": "Extend understanding of preservation of equality concretely, pictorially, physically, and symbolically."
+     },
+     {
+      "code": "P6.3",
+      "text": "Extend understanding of patterns and relationships by using expressions and equations involving variables."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS6.1",
+      "text": "Demonstrate understanding of angles including: identifying examples classifying angles estimating the measure determining angle measures in degrees drawing angles applying angle relationships in triangles and quadrilaterals."
+     },
+     {
+      "code": "SS6.2",
+      "text": "Extend and apply understanding of perimeter of polygons, area of rectangles, and volume of right rectangular prisms (concretely, pictorially, and symbolically) including: relating area to volume comparing perimeter and area comparing area and volume generalizing strategies and formulae analyzing the effect of orientation solving situational questions."
+     },
+     {
+      "code": "SS6.3",
+      "text": "Demonstrate understanding of regular and irregular polygons including: classifying types of triangles comparing side lengths comparing angle measures differentiating between regular and irregular polygons analyzing for congruence."
+     },
+     {
+      "code": "SS6.4",
+      "text": "Demonstrate understanding of the first quadrant of the Cartesian plane and ordered pairs with whole number coordinates."
+     },
+     {
+      "code": "SS6.5",
+      "text": "Demonstrate understanding of single, and combinations of, transformations of 2-D shapes (with and without the use of technology) including: identifying describing performing."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP6.1",
+      "text": "Extend understanding of data analysis to include: line graphs graphs of discrete data data collection through questionnaires, experiments, databases, and electronic media interpolation and extrapolation."
+     },
+     {
+      "code": "SP6.2",
+      "text": "Demonstrate understanding of probability by: determining sample space differentiating between experimental and theoretical probability determining the theoretical probability determining the experimental probability comparing experimental and theoretical probabilities."
+     }
+    ]
+   }
+  ]
+ },
+ "7": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR7.1",
+      "text": "View, listen to, read, comprehend, and respond to a variety of texts that address identity (e.g., Thinking for Oneself), social responsibility (e.g., Participating and Giving Our Personal Best), and efficacy (e.g., Doing Our Part for Planet Earth)."
+     },
+     {
+      "code": "CR7.2",
+      "text": "Select and use appropriate strategies to construct meaning before (e.g., formulating questions), during (e.g., recognizing organizational structure), and after (e.g., making judgements supported by evidence) viewing, listening, and reading."
+     },
+     {
+      "code": "CR7.3",
+      "text": "Use pragmatic (e.g., author's purpose and point of view), textual (e.g., how author organized text), syntactic (e.g., main and subordinate ideas), semantic/lexical/morphological (e.g., figurative language and specific word meanings by their context, common affixes, and allusions), graphophonic (e.g., word patterns), and other cues (e.g., non-verbal cues, headings, charts, and diagrams) to construct and confirm meaning when viewing, listening, and reading. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CR7.4",
+      "text": "View and demonstrate comprehension and interpretation of visual and multimedia texts with specific features (e.g., circle graphs) and complex ideas including the visual components of media such as magazines, newspapers, websites, reference books, graphic novels, broadcast media, videos, and promotional materials."
+     },
+     {
+      "code": "CR7.5",
+      "text": "Listen critically to understand and analyze oral information and ideas from a wide range of texts (e.g., complex instructions, oral explanations and reports, opinions or viewpoints, messages presented in the media)."
+     },
+     {
+      "code": "CR7.6",
+      "text": "Read and demonstrate comprehension and interpretation (including thoughtful and critical response to content and craft) of grade-appropriate texts including traditional and contemporary prose fiction, poetry, and plays from First Nations, Métis, and other cultures."
+     },
+     {
+      "code": "CR7.7",
+      "text": "Read independently and demonstrate comprehension of a variety of specialized information texts including non-fiction books, grade-level instructional materials, articles, reports, reference materials, instructions, advertising and promotional materials, and websites."
+     },
+     {
+      "code": "CR7.8",
+      "text": "Read Grade 7 appropriate texts to increase fluency (130-170 wcpm orally; 170-220 silently) and expression."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC7.1",
+      "text": "Create various visual, oral, written, and multimedia (including digital) texts that explore identity (e.g., Exploring Thoughts, Feelings, and Ideas), social responsibility (e.g., Taking Action), and efficacy (e.g., Building a Better World)."
+     },
+     {
+      "code": "CC7.2",
+      "text": "Create and present a teacher-guided inquiry project related to a topic, theme, or issue studied in English language arts."
+     },
+     {
+      "code": "CC7.3",
+      "text": "Select and use the appropriate strategies to communicate meaning before (e.g., planning and organizing ideas to fit format), during (e.g. using transition words), and after (e.g., revising to eliminate unnecessary repetition) speaking, writing, and other representing activities."
+     },
+     {
+      "code": "CC7.4",
+      "text": "Use pragmatic (e.g., use language that demonstrates respect for others), textual (e.g., use common organizational patterns within texts), syntactical (e.g., ensure agreement of subjects, verbs, and pronouns), semantic/lexical/morphological (e.g., avoid overused and misused words), graphophonic (e.g., enunciate clearly), and other cues (e.g., use appropriate gestures and facial expressions) to construct and to communicate meaning. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CC7.5",
+      "text": "Create and present a variety of representations including visual and multimedia presentations such as displays, illustrations, and videos, and enhance communication with appropriate graphic organizers, charts, circle graphs, timelines, maps, and sound effects."
+     },
+     {
+      "code": "CC7.6",
+      "text": "Use oral language to interact purposefully and appropriately with others in pairs, small groups, and large group situations (e.g., contributing to sustaining dialogue, expressing support for others and their viewpoints, discussing and analyzing ideas and opinions, completing a variety of tasks, and contributing to group consensus building)."
+     },
+     {
+      "code": "CC7.7",
+      "text": "Use oral language to express effectively information and ideas of some complexity in formal and informal situations (e.g., a procedural description based on personal experience, a demonstration, a persuasive speech, a dramatization)."
+     },
+     {
+      "code": "CC7.8",
+      "text": "Write to describe a person; to narrate an imaginary incident or story; to explain and inform in a news story, a factual account, and a business letter; to persuade in a letter and in interpretation of a text."
+     },
+     {
+      "code": "CC7.9",
+      "text": "Experiment with a variety of text forms (e.g., meeting, presentation to adults, descriptive poem, opinion piece, a review, front page of a newspaper, short script) and techniques (e.g., dialogue, figurative language)."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR7.1",
+      "text": "Set and achieve short-term and long-term goals to improve viewing, listening, reading, representing, speaking, and writing strategies."
+     },
+     {
+      "code": "AR7.2",
+      "text": "Appraise own and others' work for clarity and correctness. Units Doing Our Part for Planet Earth Finding the Courage Lighten Up! On the Funny Side Mysteries, Uncanny Incidents, and Unusual Happenings Participating and Giving Our Personal Best Voices Through the Ages - Reconstructing the Past Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Interactions within Ecosystems",
+    "outcomes": [
+     {
+      "code": "IE7.1",
+      "text": "Relate key aspects of Indigenous knowledge to their understanding of ecosystems. (CP)"
+     },
+     {
+      "code": "IE7.2",
+      "text": "Observe, illustrate, and analyze living organisms within local ecosystems as part of interconnected food webs, populations, and communities. (SI)"
+     },
+     {
+      "code": "IE7.3",
+      "text": "Evaluate biogeochemical cycles (water, carbon, and nitrogen) as representations of energy flow and the cycling of matter through ecosystems. (CP, SI)"
+     },
+     {
+      "code": "IE7.4",
+      "text": "Analyze how ecosystems change in response to natural and human influences, and propose actions to reduce the impact of human behaviour on a specific ecosystem. (DM, CP)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Mixtures and Solutions",
+    "outcomes": [
+     {
+      "code": "MS7.1",
+      "text": "Distinguish between pure substances and mixtures (mechanical mixtures and solutions) using the particle model of matter. (SI, CP)"
+     },
+     {
+      "code": "MS7.2",
+      "text": "Investigate methods of separating the components of mechanical mixtures and solutions, and analyze the impact of industrial and agricultural applications of those methods. (SI, TPS)"
+     },
+     {
+      "code": "MS7.3",
+      "text": "Investigate the properties and applications of solutions, including solubility and concentration. (SI, DM)"
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Heat and Temperature",
+    "outcomes": [
+     {
+      "code": "HT7.1",
+      "text": "Assess the impact of past and current heating and cooling technologies related to food, clothing, and shelter on self, society, and the environment. (TPS, DM, CP)"
+     },
+     {
+      "code": "HT7.2",
+      "text": "Explain how understanding differences between states of matter and the effect of heat on changes in state provide evidence for the particle theory. (SI)"
+     },
+     {
+      "code": "HT7.3",
+      "text": "Investigate principles and applications of heat transfer via the processes of conduction, convection, and radiation. (SI)"
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Earth's Crust and Resources",
+    "outcomes": [
+     {
+      "code": "EC7.1",
+      "text": "Analyze societal and environmental impacts of historical and current catastrophic geological events, and scientific understanding of movements and forces within Earth's crust. (SI)"
+     },
+     {
+      "code": "EC7.2",
+      "text": "Identify locations and processes used to extract Earth's geological resources and examine the impacts of those locations and processes on society and the environment. (SI, DM, CP)"
+     },
+     {
+      "code": "EC7.3",
+      "text": "Investigate the characteristics and formation of the surface geology of Saskatchewan, including soil, and identify correlations between surface geology and past, present, and possible future land uses. (DM, SI)"
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN7.1",
+      "text": "Investigate examples of conflict, cooperation, and interdependence between Canada and circumpolar and Pacific Rim countries."
+     },
+     {
+      "code": "IN7.2",
+      "text": "Examine the effects of globalization on the lives of people in Canada and in circumpolar and Pacific Rim countries."
+     },
+     {
+      "code": "IN7.3",
+      "text": "Analyze the relationship of technology to globalization."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR7.1",
+      "text": "Analyze and use various types of maps (that provide differing perspectives and information for differing purposes) in order to situate current issues in Canada, and in a selection of Pacific Rim and northern circumpolar countries."
+     },
+     {
+      "code": "DR7.2",
+      "text": "Appraise the impact of human habitation on the natural environment in Canada, and in a selection of Pacific Rim and northern circumpolar countries."
+     },
+     {
+      "code": "DR7.3",
+      "text": "Analyze the relationship between current and historical events and the physical and social environments in Pacific and northern Canada and in a selection of Pacific Rim and circumpolar countries."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA7.1",
+      "text": "Compare the sources of power for individuals, nations, and regions in a selection of Pacific Rim and circumpolar countries."
+     },
+     {
+      "code": "PA7.2",
+      "text": "Investigate the structures and processes of democratic government in Canada."
+     },
+     {
+      "code": "PA7.3",
+      "text": "Compare the strengths and weaknesses of oligarchy, dictatorship, and democracy as systems of government."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW7.1",
+      "text": "Explain the role of barter, trade, and sharing in traditional economies in Canada and the circumpolar and Pacific Rim countries."
+     },
+     {
+      "code": "RW7.2",
+      "text": "Investigate the influence of resources upon economic conditions of peoples in circumpolar and Pacific Rim countries."
+     },
+     {
+      "code": "RW7.3",
+      "text": "Assess the ecological stewardship of economies of Canada and the circumpolar and Pacific Rim countries."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N7.1",
+      "text": "Demonstrate an understanding of division through the development and application of divisibility strategies for 2, 3, 4, 5, 6, 8, 9, and 10, and through an analysis of division involving zero."
+     },
+     {
+      "code": "N7.2",
+      "text": "Expand and demonstrate understanding of the addition, subtraction, multiplication, and division of decimals to greater numbers of decimal places, and the order of operations."
+     },
+     {
+      "code": "N7.3",
+      "text": "Demonstrate an understanding of the relationships between positive decimals, positive fractions (including mixed numbers, proper fractions and improper fractions), and whole numbers."
+     },
+     {
+      "code": "N7.4",
+      "text": "Expand and demonstrate an understanding of percent to include fractional percents between 1% and 100%."
+     },
+     {
+      "code": "N7.5",
+      "text": "Develop and demonstrate an understanding of adding and subtracting positive fractions and mixed numbers, with like and unlike denominators, concretely, pictorially, and symbolically (limited to positive sums and differences)."
+     },
+     {
+      "code": "N7.6",
+      "text": "Demonstrate an understanding of addition and subtraction of integers, concretely, pictorially, and symbolically."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P7.1",
+      "text": "Demonstrate an understanding of the relationships between oral and written patterns, graphs and linear relations."
+     },
+     {
+      "code": "P7.2",
+      "text": "Demonstrate an understanding of equations and expressions by: distinguishing between equations and expressions evaluating expressions verifying solutions to equations."
+     },
+     {
+      "code": "P7.3",
+      "text": "Demonstrate an understanding of one- and two-step linear equations of the form ax/b + c = d (where a, b, c, and d are whole numbers, c \\u2264 d and b \\u2260 0) by modeling the solution of the equations concretely, pictorially, physically, and symbolically and explaining the solution in terms of the preservation of equality."
+     },
+     {
+      "code": "P7.4",
+      "text": "Demonstrate an understanding of linear equations of the form x + a = b (where a and b are integers) by modeling problems as a linear equation and solving the problems concretely, pictorially, and symbolically."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS7.1",
+      "text": "Demonstrate an understanding of circles including circumference and central angles."
+     },
+     {
+      "code": "SS7.2",
+      "text": "Develop and apply formulas for determining the area of: triangles parallelograms circles."
+     },
+     {
+      "code": "SS7.3",
+      "text": "Demonstrate an understanding of 2-D relationships involving lines and angles."
+     },
+     {
+      "code": "SS7.4",
+      "text": "Demonstrate an understanding of the Cartesian plane and ordered pairs with integral coordinates."
+     },
+     {
+      "code": "SS7.5",
+      "text": "Expand and demonstrate an understanding of transformations (translations, rotations, and reflections) of 2-D shapes in all four quadrants of the Cartesian plane."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP7.1",
+      "text": "Demonstrate an understanding of the measures of central tendency and range for sets of data."
+     },
+     {
+      "code": "SP7.2",
+      "text": "Demonstrate an understanding of circle graphs."
+     },
+     {
+      "code": "SP7.3",
+      "text": "Demonstrate an understanding of theoretical and experimental probabilities for two independent events where the combined sample space has 36 or fewer elements."
+     }
+    ]
+   }
+  ]
+ },
+ "8": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR8.1",
+      "text": "View, listen to, read, comprehend, and respond to a variety of texts that address identity (e.g., Becoming Myself), social responsibility (e.g., In Search of Justice), and efficacy (e.g., Building a Better World)."
+     },
+     {
+      "code": "CR8.2",
+      "text": "Select and use appropriate strategies to construct meaning before (e.g., previewing and anticipating message), during (e.g., making inferences based on text and prior knowledge), and after (e.g., paraphrasing and summarizing) viewing, listening, and reading."
+     },
+     {
+      "code": "CR8.3",
+      "text": "Use pragmatic (e.g., intended audience and tone), textual (e.g., how author organized text to achieve unity and coherence), syntactic (e.g., variety of sentence structures), semantic/lexical/morphological (e.g., imagery), graphophonic (e.g., stress, pitch, and juncture of a word), and other cues (e.g., layout and accompanying graphics) to construct and to confirm meaning. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CR8.4",
+      "text": "View critically and demonstrate comprehension of a variety of visual and multimedia texts including videos, television broadcasts, informational presentations, dramatic presentations, websites, and news programs to locate and interpret key messages and details, to develop conclusions, opinions, and understanding, and to evaluate the effectiveness of the text."
+     },
+     {
+      "code": "CR8.5",
+      "text": "Listen critically to understand, gather information, follow directions, form an opinion, and analyze oral presentations for diverse opinions, presenter's point of view, values, and biases, stereotypes, or prejudices."
+     },
+     {
+      "code": "CR8.6",
+      "text": "Read and demonstrate comprehension and interpretation of grade-appropriate texts including traditional and contemporary prose fiction, poetry, and plays from First Nations, Métis, and other cultures to evaluate the purpose, message, point of view, craft, values, and biases, stereotypes, or prejudices."
+     },
+     {
+      "code": "CR8.7",
+      "text": "Read independently and demonstrate comprehension of a variety of information texts including understanding the main ideas and supporting evidence, explaining connections between new ideas and information and previous thoughts, and recognizing any biases or false reasoning."
+     },
+     {
+      "code": "CR8.8",
+      "text": "Read Grade 8 appropriate texts to increase fluency (140-180 wcpm orally; 180-230 silently) and expression."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC8.1",
+      "text": "Create various visual, oral, written, and multimedia (including digital) texts that explore identity (e.g., Telling One's Life Story), social responsibility (e.g., Examining the Influence of Popular Culture), and efficacy (e.g., Creating Turning Points)."
+     },
+     {
+      "code": "CC8.2",
+      "text": "Create and present a group inquiry project related to a topic, theme, or issue studied in English language arts."
+     },
+     {
+      "code": "CC8.3",
+      "text": "Select and use the appropriate strategies to communicate meaning before (e.g., plan, organize, and sequence ideas to fit purpose, point of view, and format), during (e.g., use and maintain appropriate point of view for audience and purpose), and after (e.g., revise final drafts and presentations to ensure that the format and patterns within that format contribute to the effectiveness of the composition) speaking, writing, and other representing activities."
+     },
+     {
+      "code": "CC8.4",
+      "text": "Use pragmatic (e.g., use appropriate language register), textual (e.g., use artistic devices such as figurative language), syntactical (e.g., combine sentences to form compound and complex sentences for variety, interest, and effect), semantic/lexical/ morphological (e.g., use words to capture a particular aspect of meaning), graphophonic (e.g., correctly pronounce words with proper emphasis), and other cues (e.g, arrange and balance words and visuals as well as fonts) to construct and to communicate meaning. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CC8.5",
+      "text": "Create and present a variety of visual and multimedia presentations including an illustrated report, a role play that ends with a tableau, a dramatization, presentation software, a newscast with adequate detail, clarity, and organization to explain (e.g., an important concept), to persuade (e.g., an opinion on an issue, a mini-debate), and to entertain (e.g., a humourous incident)."
+     },
+     {
+      "code": "CC8.6",
+      "text": "Use oral language to interact purposefully, confidently, and respectfully in a variety of situations including one-to-one, small group, and large group discussions (expressing feelings and viewpoints and contributing to group harmony)."
+     },
+     {
+      "code": "CC8.7",
+      "text": "Use oral language to effectively express information and ideas of complexity in formal and informal situations (e.g., to debate a point, to participate in a meeting, to give a dramatic reading of a poem or play excerpt)."
+     },
+     {
+      "code": "CC8.8",
+      "text": "Write to describe a landscape scene; to narrate a personal story or anecdote and a historical narrative; to explain and inform in a presentation of findings, a biography, a documented research report, and a résumé and covering letter; and to persuade in a mini-debate and a review."
+     },
+     {
+      "code": "CC8.9",
+      "text": "Experiment with a variety of text forms (e.g., Reader's Theatre, role play, humourous instructions, an electronic presentation, a dramatization, a mini-debate) and techniques (e.g., imagery, music, graphics and statistics in a multimedia presentation)."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR8.1",
+      "text": "Use information gathered in self-assessment and teacher's assessment to develop and work on goals for improving viewing, listening, reading, representing, speaking, and writing."
+     },
+     {
+      "code": "AR8.2",
+      "text": "Appraise own and others' work for clarity, correctness, and variety. Units Adventure and Adventurers An Eye on Our Natural and Technological Environment Becoming Myself Burning Questions Is It Fair? In Search of Justice Timeless Narratives of the First Nations and Greek Peoples Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Cells, Tissues, Organs, and Systems",
+    "outcomes": [
+     {
+      "code": "CS8.1",
+      "text": "Analyze the characteristics of cells, and compare structural and functional characteristics of plant and animal cells."
+     },
+     {
+      "code": "CS8.2",
+      "text": "Demonstrate proficiency in the use of a compound light microscope to observe plant and animal cells."
+     },
+     {
+      "code": "CS8.3",
+      "text": "Distinguish structural and functional relationships among cells, tissues, organs, and organ systems in humans and how this knowledge is important to various careers."
+     },
+     {
+      "code": "CS8.4",
+      "text": "Analyze how the interdependence of organ systems contributes to the healthy functioning of the human body."
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Optics and Vision",
+    "outcomes": [
+     {
+      "code": "OP8.1",
+      "text": "Identify and describe, through experimentation, sources and properties of visible light including: rectilinear propagation reflection refraction."
+     },
+     {
+      "code": "OP8.2",
+      "text": "Explore properties and applications of optics-related technologies, including concave and convex mirrors and lenses."
+     },
+     {
+      "code": "OP8.3",
+      "text": "Compare the nature and properties of human vision with optical devices and vision in other living organisms."
+     },
+     {
+      "code": "OP8.4",
+      "text": "Evaluate the impact of electromagnetic radiation-based technologies on self and community."
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Forces, Fluids, and Density",
+    "outcomes": [
+     {
+      "code": "FD8.1",
+      "text": "Investigate and represent the density of solids, liquids, and gases based on the particle theory of matter."
+     },
+     {
+      "code": "FD8.2",
+      "text": "Examine the effects of forces in and on objects in fluids, including the buoyant force."
+     },
+     {
+      "code": "FD8.3",
+      "text": "Investigate and describe physical properties of fluids (liquids and gases), including viscosity and compressibility."
+     },
+     {
+      "code": "FD8.4",
+      "text": "Identify and interpret the scientific principles underlying the functioning of natural and constructed fluid systems."
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Water Systems on Earth",
+    "outcomes": [
+     {
+      "code": "WS8.1",
+      "text": "Analyze the impact of natural and human-induced changes to the characteristics and distribution of water in local, regional, and national ecosystems."
+     },
+     {
+      "code": "WS8.2",
+      "text": "Examine how wind, water, and ice have shaped and continue to shape the Canadian landscape."
+     },
+     {
+      "code": "WS8.3",
+      "text": "Analyze natural factors and human practices that affect productivity and species distribution in marine and fresh water environments."
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN8.1",
+      "text": "Investigate the meaning of culture and the origins of Canadian cultural diversity."
+     },
+     {
+      "code": "IN8.2",
+      "text": "Appraise the influence of immigration as a factor in Canadian cultural diversity."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR8.1",
+      "text": "Develop an understanding of the significance of land on the evolution of Canadian identity."
+     },
+     {
+      "code": "DR8.2",
+      "text": "Describe the influence of the treaty relationship on Canadian identity."
+     },
+     {
+      "code": "DR8.3",
+      "text": "Assess how historical events in Canada have affected the present Canadian identity"
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA8.1",
+      "text": "Contemplate the implications of Canadian citizenship on the life of Canadians."
+     },
+     {
+      "code": "PA8.2",
+      "text": "Examine the role of power and authority in the application of diverse decision-making processes in a variety of contexts."
+     },
+     {
+      "code": "PA8.3",
+      "text": "Present the evolution of a piece of legislation, from its first conception to its implementation."
+     },
+     {
+      "code": "PA8.4",
+      "text": "Assess the impact of citizens' willingness and ability to actively engage in the Canadian political processes."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW8.1",
+      "text": "Analyze the social and environmental consequences of living in the Canadian mixed market economy based on consumerism."
+     },
+     {
+      "code": "RW8.2",
+      "text": "Assess the implications of personal consumer choices."
+     },
+     {
+      "code": "RW8.3",
+      "text": "Critique the approaches of Canada and Canadians to environmental stewardship and sustainability."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N8.1",
+      "text": "Demonstrate understanding of the square and principle square root of whole numbers concretely or pictorially and symbolically."
+     },
+     {
+      "code": "N8.2",
+      "text": "Expand and demonstrate understanding of percents greater than or equal to 0% (including fractional and decimal percents) concretely, pictorially, and symbolically."
+     },
+     {
+      "code": "N8.3",
+      "text": "Demonstrate understanding of rates, ratios, and proportional reasoning concretely, pictorially, and symbolically."
+     },
+     {
+      "code": "N8.4",
+      "text": "Demonstrate understanding of multiplying and dividing positive fractions and mixed numbers, concretely, pictorially, and symbolically."
+     },
+     {
+      "code": "N8.5",
+      "text": "Demonstrate understanding of multiplication and division of integers concretely, pictorially, and symbolically."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P8.1",
+      "text": "Demonstrate understanding of linear relations concretely, pictorially (including graphs), physically, and symbolically."
+     },
+     {
+      "code": "P8.2",
+      "text": "Model and solve problems using linear equations of the form: $ax = b$ $x/a = b, a \\u2260 0$ $ax + b = c$ $x/a + b = c, a \\u2260 0$ $a(x + b) = c$ concretely, pictorially, and symbolically, where a, b, and c are integers."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS8.1",
+      "text": "Demonstrate understanding of the Pythagorean Theorem concretely or pictorially and symbolically and by solving problems."
+     },
+     {
+      "code": "SS8.2",
+      "text": "Demonstrate understanding of the surface area of 3-D objects limited to right prisms and cylinders (concretely, pictorially, and symbolically) by: analyzing views sketching and constructing 3-D objects, nets, and top, side, and front views generalizing strategies and formulae analyzing the effect of orientation solving problems."
+     },
+     {
+      "code": "SS8.3",
+      "text": "Demonstrate understanding of volume limited to right prisms and cylinders (concretely, pictorially, or symbolically) by: relating area to volume generalizing strategies and formulae analyzing the effect of orientation solving problems."
+     },
+     {
+      "code": "SS8.4",
+      "text": "Demonstrate an understanding of tessellation by: explaining the properties of shapes that make tessellating possible creating tessellations identifying tessellations in the environment."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP8.1",
+      "text": "Analyze the modes of displaying data and the reasonableness of conclusions."
+     },
+     {
+      "code": "SP8.2",
+      "text": "Demonstrate understanding of the probability of independent events concretely, pictorially, orally, and symbolically."
+     }
+    ]
+   }
+  ]
+ },
+ "9": {
+  "language": [
+   {
+    "name": "Comprehend and Respond",
+    "outcomes": [
+     {
+      "code": "CR9.1a",
+      "text": "View, listen to, read, comprehend, and respond to a variety of texts that address identity (e.g., The Search for Self), social responsibility (e.g., Our Shared Narratives), and efficacy (e.g., Doing the Right Thing)."
+     },
+     {
+      "code": "CR9.1b",
+      "text": "View, listen to, read, comprehend, and respond to a variety of texts that address identity (e.g., Exploring Loyalty, Love, and Relationships), social responsibility (e.g., Equal Opportunity), and efficacy (e.g., Surviving and Conquering)."
+     },
+     {
+      "code": "CR9.2a",
+      "text": "Select and use appropriate strategies to construct meaning before (e.g., formulating focus questions), during (e.g., adjusting rate to the specific purpose and difficulty of the text), and after (e.g., analyzing and evaluating) viewing, listening, and reading. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CR9.2b",
+      "text": "Select and use appropriate strategies to construct meaning before (e.g., formulating focus questions), during (e.g., adjusting rate to the specific purpose and difficulty of the text), and after (e.g., analyzing and evaluating) viewing, listening, and reading. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CR9.3a",
+      "text": "Use pragmatic (e.g., language suitable for intended audience), textual (e.g., author's thesis or argument, how author organized text to achieve unity, coherence, and effect), syntactic (e.g., parallel structures), semantic/lexical/morphological (e.g., connotation and denotation), graphophonic (e.g., common spellings and variants for effect or dialect), and other cues (e.g., fonts, colour) to construct and to confirm meaning. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CR9.3b",
+      "text": "Use pragmatic (e.g., language suitable for intended audience), textual (e.g., author's thesis or argument, how author organized text to achieve unity, coherence, and effect), syntactic (e.g., parallel structures), semantic/lexical/morphological (e.g., connotation and denotation), graphophonic (e.g., common spellings and variants for effect or dialect), and other cues (e.g., fonts, colour) to construct and to confirm meaning. NOTE: Italicized text refers to those indicators that are emphasized at this grade level."
+     },
+     {
+      "code": "CR9.4a",
+      "text": "View and demonstrate comprehension and evaluation of visual and multimedia texts including illustrations, maps, charts, graphs, pamphlets, photography, art works, video clips, and dramatizations to glean ideas suitable for identified audience and purpose."
+     },
+     {
+      "code": "CR9.4b",
+      "text": "View and demonstrate comprehension of visual and multimedia texts to synthesize and summarize ideas from multiple visual and multimedia sources."
+     },
+     {
+      "code": "CR9.5a",
+      "text": "Listen purposefully to understand, analyze, and evaluate oral information and ideas from a range of texts including conversations, discussions, interviews, and speeches."
+     },
+     {
+      "code": "CR9.5b",
+      "text": "Listen purposefully to understand, analyze, and evaluate oral information and ideas from a range of texts including directions and train of thought, main points, and presentation techniques."
+     },
+     {
+      "code": "CR9.6a",
+      "text": "Read and demonstrate comprehension and interpretation of grade-level appropriate texts including traditional and contemporary prose fiction, poetry, and plays from First Nations, Métis, and other cultures to develop an insightful interpretation and response."
+     },
+     {
+      "code": "CR9.6b",
+      "text": "Read and demonstrate comprehension and interpretation of grade-level appropriate texts including traditional and contemporary prose fiction, poetry, and plays from First Nations, Métis, and other cultures to develop an insightful interpretation and response."
+     },
+     {
+      "code": "CR9.7a",
+      "text": "Read independently and demonstrate comprehension of a variety of information texts including expository essays, historical accounts, news articles, and scientific writing."
+     },
+     {
+      "code": "CR9.7b",
+      "text": "Read independently and demonstrate comprehension of a variety of information texts including expository essays, historical accounts, news articles, and scientific writing."
+     },
+     {
+      "code": "CR9.8a",
+      "text": "Read Grade 9 appropriate texts to increase fluency and expression (150+wcpm orally; 215-260 silently)."
+     },
+     {
+      "code": "CR9.8b",
+      "text": "Read Grade 9 appropriate texts to increase fluency and expression (150+wcpm orally; 215-260 silently)."
+     }
+    ]
+   },
+   {
+    "name": "Compose and Create",
+    "outcomes": [
+     {
+      "code": "CC9.1a",
+      "text": "Create various visual, multimedia, oral, and written texts that explore identity (e.g., The Search for Self), social responsibility (e.g., Our Shared Narratives), and efficacy (e.g., Doing the Right Thing)."
+     },
+     {
+      "code": "CC9.1b",
+      "text": "Create various visual, multimedia, oral, and written texts that explore identity (e.g., Exploring Loyalty, Love, and Relationships), social responsibility (e.g., Equal Opportunity), and efficacy (e.g., Surviving and Conquering)."
+     },
+     {
+      "code": "CC9.2a",
+      "text": "Create and present an individual researched inquiry project related to a topic, theme, or issue studied in English language arts."
+     },
+     {
+      "code": "CC9.2b",
+      "text": "Create and present an individual researched inquiry project related to a topic, theme, or issue studied in English language arts."
+     },
+     {
+      "code": "CC9.3a",
+      "text": "Select and use appropriate strategies to communicate meaning before (e.g., considering and valuing own observations, experiences, ideas, and opinions as sources for ideas), during (e.g., shaping and reshaping drafts with audience and purpose in mind), and after (e.g., ensuring that all parts support the main idea or thesis) speaking, writing, and other representing activities."
+     },
+     {
+      "code": "CC9.3b",
+      "text": "Select and use appropriate strategies to communicate meaning before (e.g., considering and valuing own observations, experiences, ideas, and opinions as sources for ideas), during (e.g., shaping and reshaping drafts with audience and purpose in mind), and after (e.g., ensuring that all parts support the main idea or thesis) speaking, writing, and other representing activities."
+     },
+     {
+      "code": "CC9.4a",
+      "text": "Use pragmatic (e.g., inclusive language that supports people across cultures, genders, ages, and abilities), textual (e.g., strong leads, coherent body, and effective endings), syntactic (e.g., subordination to show more precisely the relationships between ideas), semantic/lexical/morphological (e.g., both the denotative and connotative meaning of words), graphophonic (e.g., knowledge of spelling patterns and rules to identify, analyze, and correct spelling errors), and other cues (e.g., combine print and visuals to enhance presentations) to construct and to communicate meaning."
+     },
+     {
+      "code": "CC9.4b",
+      "text": "Use pragmatic (e.g., inclusive language that supports people across cultures, genders, ages, and abilities), textual (e.g., strong leads, coherent body, and effective endings), syntactic (e.g., subordination to show more precisely the relationships between ideas), semantic/lexical/morphological (e.g., both the denotative and connotative meaning of words), graphophonic (e.g., knowledge of spelling patterns and rules to identify, analyze, and correct spelling errors), and other cues (e.g., combine print and visuals to enhance presentations) to construct and to communicate meaning."
+     },
+     {
+      "code": "CC9.5a",
+      "text": "Create and present a variety of visual and multimedia presentations to best represent message for an intended audience and purpose."
+     },
+     {
+      "code": "CC9.5b",
+      "text": "Create and present a variety of visual and multimedia presentations including addressing various audiences for one proposal."
+     },
+     {
+      "code": "CC9.6a",
+      "text": "Use oral language to interact purposefully, confidently, and appropriately in a variety of situations including participating in one-to-one, small group, and large group discussions (e.g., prompting and supporting others, solving problems, resolving conflicts, building consensus, articulating and explaining personal viewpoint, discussing preferences, speaking to extend current understanding, and celebrating special events and accomplishments)."
+     },
+     {
+      "code": "CC9.6b",
+      "text": "Use oral language to interact purposefully, confidently, and appropriately in a variety of situations including participating in one-to-one, small group, and large group discussions (e.g., prompting and supporting others, solving problems, resolving conflicts, building consensus, articulating and explaining personal viewpoint, discussing preferences, speaking to extend current understanding, and celebrating special events and accomplishments)."
+     },
+     {
+      "code": "CC9.7a",
+      "text": "Use oral language intentionally to express a range of information and ideas in formal and informal situations including dramatic readings of poems, monologues, scenes from plays, and stories and presenting reasoned arguments of opposing viewpoints."
+     },
+     {
+      "code": "CC9.7b",
+      "text": "Use oral language intentionally to express a range of information and ideas in formal and informal situations including dramatic readings of poems, monologues, scenes from plays, and stories and presenting reasoned arguments of opposing viewpoints."
+     },
+     {
+      "code": "CC9.8a",
+      "text": "Write to describe (a profile of a character), to narrate (a narrative essay), to explain and inform (a researched report), and to persuade (a review)."
+     },
+     {
+      "code": "CC9.8b",
+      "text": "Write to describe (a description of a scene), to narrate (a personal essay), to explain and inform (a multi-paragraph letter), and to persuade (a letter to the editor)."
+     },
+     {
+      "code": "CC9.9a",
+      "text": "Experiment with a variety of text forms (e.g., debates, meetings, presentations to unfamiliar audiences, poetry, précis, short script, advice column, video documentary, comic strip) and techniques (e.g., tone, persona, point of view, imagery, dialogue, figurative language)."
+     },
+     {
+      "code": "CC9.9b",
+      "text": "Experiment with a variety of text forms (e.g., debates, meetings, presentations to unfamiliar audiences, poetry, précis, short script, advice column, video documentary, comic strip) and techniques (e.g., tone, persona, point of view, imagery, dialogue, figurative language)."
+     }
+    ]
+   },
+   {
+    "name": "Assess and Reflect on Language Abilities",
+    "outcomes": [
+     {
+      "code": "AR9.1a",
+      "text": "Assess personal strengths and needs as a viewer, listener, reader, representer, speaker, and writer and contributions to the community of learners, and develop goals based on assessment and work toward them."
+     },
+     {
+      "code": "AR9.1b",
+      "text": "Assess personal strengths and needs as a viewer, listener, reader, representer, speaker, and writer and contributions to the community of learners, and develop goals based on assessment and work toward them."
+     },
+     {
+      "code": "AR9.2a",
+      "text": "Assess own and others' work for clarity, correctness, and impact."
+     },
+     {
+      "code": "AR9.2b",
+      "text": "Assess own and others' work for clarity, correctness, and impact. Units All That I Am - The Search for Self Conflicts, Issues, and Choices - Doing the Right Thing Exploring Love, Loyalty, and Relationships Indigenous and Norse Narratives Our Shared Linguistic and Cultural Roots Surviving and Conquering Communicative Environmental and Technological Imaginative and Literary Personal and Philosophical Social, Cultural, and Historical"
+     }
+    ]
+   }
+  ],
+  "science": [
+   {
+    "name": "Life Science: Reproduction and Human Development",
+    "outcomes": [
+     {
+      "code": "RE9.1",
+      "text": "Examine the process of and influences on the transfer of genetic information and the impact of that understanding on society past and present."
+     },
+     {
+      "code": "RE9.2",
+      "text": "Observe and describe the significance of cellular reproductive processes, including mitosis and meiosis."
+     },
+     {
+      "code": "RE9.3",
+      "text": "Describe the processes and implications of sexual and asexual reproduction in plants and animals."
+     },
+     {
+      "code": "RE9.4",
+      "text": "Analyze the process of human reproduction, including the influence of reproductive and contraceptive technologies."
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Atoms and Elements",
+    "outcomes": [
+     {
+      "code": "AE9.1",
+      "text": "Distinguish between physical and chemical properties of common substances, including those found in household, commercial, industrial, and agricultural applications."
+     },
+     {
+      "code": "AE9.2",
+      "text": "Analyze historical explanations of the structure of matter up to and including: Dalton model Thomson model Rutherford model Bohr model of the atom."
+     },
+     {
+      "code": "AE9.3",
+      "text": "Demonstrate an understanding of the classification of pure substances (elements and compounds), including the development and nature of the Periodic Table."
+     }
+    ]
+   },
+   {
+    "name": "Physical Science: Characteristics of Electricity",
+    "outcomes": [
+     {
+      "code": "CE9.1",
+      "text": "Demonstrate and analyze characteristics of static electric charge and current electricity, including historical and cultural understanding."
+     },
+     {
+      "code": "CE9.2",
+      "text": "Analyze the relationships that exist among voltage, current, and resistance in series and parallel circuits."
+     },
+     {
+      "code": "CE9.3",
+      "text": "Assess operating principles, costs, and efficiencies of devices that produce or use electrical energy."
+     },
+     {
+      "code": "CE9.4",
+      "text": "Critique impacts of past, current, and possible future methods of small and large scale electrical energy production and distribution in Saskatchewan."
+     }
+    ]
+   },
+   {
+    "name": "Earth and Space Science: Exploring our Universe",
+    "outcomes": [
+     {
+      "code": "EU9.1",
+      "text": "Inquire into the motion and characteristics of astronomical bodies in our solar system and the universe."
+     },
+     {
+      "code": "EU9.2",
+      "text": "Analyze scientific explanations of the formation and evolution of our solar system and the universe."
+     },
+     {
+      "code": "EU9.3",
+      "text": "Examine how various cultures, past and present, including First Nations and Métis, understand and represent astronomical phenomenon."
+     },
+     {
+      "code": "EU9.4",
+      "text": "Analyze human capabilities for exploring and understanding the universe, including technologies and programs that support such exploration."
+     }
+    ]
+   }
+  ],
+  "social": [
+   {
+    "name": "Interactions and Interdependence",
+    "outcomes": [
+     {
+      "code": "IN9.1",
+      "text": "Explain what constitutes a society."
+     },
+     {
+      "code": "IN9.2",
+      "text": "Compare the factors that shape worldviews in a society, including time and place, culture, language, religion, gender identity, socio-economic situation, and education."
+     },
+     {
+      "code": "IN9.3",
+      "text": "Analyze the ways a worldview is expressed in the daily life of a society."
+     },
+     {
+      "code": "IN9.4",
+      "text": "Determine the influence of worldview on the choices, decisions, and interactions in a society."
+     }
+    ]
+   },
+   {
+    "name": "Dynamic Relationships",
+    "outcomes": [
+     {
+      "code": "DR9.1",
+      "text": "Examine the challenges involved in obtaining information about societies of the past."
+     },
+     {
+      "code": "DR9.2",
+      "text": "Synthesize the significance of key historical events in societies studied."
+     },
+     {
+      "code": "DR9.3",
+      "text": "Assess the relationship of the natural environment in the development of a society."
+     },
+     {
+      "code": "DR9.4",
+      "text": "Determine the influence of societies of the past on contemporary life in Canada."
+     }
+    ]
+   },
+   {
+    "name": "Power and Authority",
+    "outcomes": [
+     {
+      "code": "PA9.1",
+      "text": "Examine concepts of power and authority in the governance of the societies studied."
+     },
+     {
+      "code": "PA9.2",
+      "text": "Analyze the impact of empire-building and territorial expansion on indigenous populations and other groups in the societies studied."
+     },
+     {
+      "code": "PA9.3",
+      "text": "Investigate the roles and responsibilities of members of the societies studied and those of citizens in contemporary Canada."
+     }
+    ]
+   },
+   {
+    "name": "Resources and Wealth",
+    "outcomes": [
+     {
+      "code": "RW9.1",
+      "text": "Compare differing perspectives regarding the acquisition and distribution of resources and wealth in the societies studied."
+     },
+     {
+      "code": "RW9.2",
+      "text": "Appraise the significance of trade and transportation in the development of the societies studied."
+     },
+     {
+      "code": "RW9.3",
+      "text": "Determine the influence of technologies of past societies studied on contemporary society."
+     }
+    ]
+   }
+  ],
+  "math": [
+   {
+    "name": "Number",
+    "outcomes": [
+     {
+      "code": "N9.1",
+      "text": "Demonstrate (concretely, pictorially, and symbolically) understanding of powers with integral bases (excluding base 0) and whole number exponents including: representing using powers evaluating powers powers with an exponent of zero solving situational questions."
+     },
+     {
+      "code": "N9.2",
+      "text": "Demonstrate understanding of rational numbers including: comparing and ordering relating to other types of numbers solving situational questions."
+     },
+     {
+      "code": "N9.3",
+      "text": "Extend understanding of square roots to include the square root of positive rational numbers."
+     }
+    ]
+   },
+   {
+    "name": "Patterns and Relations",
+    "outcomes": [
+     {
+      "code": "P9.1",
+      "text": "Demonstrate understanding of linear relations including: graphing analyzing interpolating and extrapolating solving situational questions."
+     },
+     {
+      "code": "P9.2",
+      "text": "Model and solve situational questions using linear equations of the form: $ax = b$ $x/a = b, a \\u2260 0$ $ax + b = c$ $x/a + b = c, a \\u2260 0$ $ax = b + cx$ $a(x + b) = c$ $ax + b = cx + d$ $a(bx + c) = d(ex + f)$ $a/x = b, x \\u2260 0$ where a, b, c, d, e, and f are rational numbers."
+     },
+     {
+      "code": "P9.3",
+      "text": "Demonstrate understanding of single variable linear inequalities with rational coefficients including: solving inequalities verifying comparing graphing."
+     },
+     {
+      "code": "P9.4",
+      "text": "Demonstrate understanding of polynomials (limited to polynomials of degree less than or equal to 2) including: modeling generalizing strategies for addition, subtraction, multiplication, and division analyzing relating to context comparing for equivalency."
+     }
+    ]
+   },
+   {
+    "name": "Shape and Space",
+    "outcomes": [
+     {
+      "code": "SS9.1",
+      "text": "Demonstrate understanding of circle properties including: perpendicular line segments from the centre of a circle to a chord bisect the chord inscribed angles subtended by the same arc have the same measure the measure of a central angle is twice the measure of an inscribed angle subtending the same arc tangents to a circle are perpendicular to the radius ending at the point of tangency."
+     },
+     {
+      "code": "SS9.2",
+      "text": "Extend understanding of area to surface area of right rectangular prisms, right cylinders, right triangular prisms, to composite 3-D objects."
+     },
+     {
+      "code": "SS9.3",
+      "text": "Demonstrate understanding of similarity of 2-D shapes."
+     },
+     {
+      "code": "SS9.4",
+      "text": "Demonstrate understanding of line and rotation symmetry."
+     }
+    ]
+   },
+   {
+    "name": "Statistics and Probability",
+    "outcomes": [
+     {
+      "code": "SP9.1",
+      "text": "Demonstrate understanding of the effect of: bias use of language ethics cost time and timing privacy cultural sensitivity and population or sample on data collection."
+     },
+     {
+      "code": "SP9.2",
+      "text": "Demonstrate an understanding of the collection, display, and analysis of data through a project."
+     },
+     {
+      "code": "SP9.3",
+      "text": "Demonstrate an understanding of the role of probability in society."
+     },
+     {
+      "code": "SP9.4",
+      "text": "Research and present how First Nations and Métis peoples, past and present, envision, represent, and make use of probability and statistics."
+     }
+    ]
+   }
+  ]
+ }
+}

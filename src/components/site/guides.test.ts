@@ -35,7 +35,12 @@ describe("guide pages", () => {
       for (const grade of GRADE_ORDER.filter((x) => f.grades.includes(x))) expect(g.gradeNotes[grade]?.overview.length).toBeGreaterThan(40);
       expect(g.competencies.items.length).toBeGreaterThan(0);
       expect(g.assessment.faqs.length).toBeGreaterThan(0);
-      expect(g.french?.faqs.length ?? 0, `French guide for ${f.id}`).toBeGreaterThan(0);
+      // A province whose framework has no French subjects (Saskatchewan, for now) has no French guide.
+      if (f.subjects.some((s) => s === "immersion" || s === "core-french")) {
+        expect(g.french?.faqs.length ?? 0, `French guide for ${f.id}`).toBeGreaterThan(0);
+      } else {
+        expect(g.french, `no French guide for ${f.id}`).toBeUndefined();
+      }
     }
   });
 
