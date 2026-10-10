@@ -27,6 +27,20 @@ export function Panel({ title, children, className = "" }: { title?: string; chi
   );
 }
 
+export function Switch({ label, help, value, onChange }: { label: string; help?: string; value: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <button type="button" role="switch" aria-checked={value} onClick={() => onChange(!value)} className="flex w-full items-center justify-between gap-4 rounded-xl bg-paper px-4 py-3 text-left">
+      <span>
+        <span className="block font-semibold">{label}</span>
+        {help && <span className="block text-sm text-ink-soft">{help}</span>}
+      </span>
+      <span className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${value ? "bg-good" : "bg-ink/20"}`} aria-hidden="true">
+        <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-all ${value ? "left-7" : "left-1"}`} />
+      </span>
+    </button>
+  );
+}
+
 export function Avatar({ p, size = 48 }: { p: Profile; size?: number }) {
   return (
     <span className="flex shrink-0 items-center justify-center rounded-2xl p-0.5" style={{ background: p.colour, width: size, height: size }}>

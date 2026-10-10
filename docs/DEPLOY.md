@@ -39,7 +39,7 @@ Turso offers Canadian locations only on its Fly provider (its AWS list has none)
 
 ## 3. Hosting (Vercel)
 
-1. Import `mjparinas/grademap`; the Next.js preset needs no changes (`npm run build`, `npm start`).
+1. Import `mjparinas/gradelings`; the Next.js preset needs no changes (`npm run build`, `npm start`).
 2. Add the variables above to the Production environment. Use a separate set (test Stripe keys, a staging Turso database, `ALLOW_DEV_BILLING=1` if you want fake billing) for Preview.
 3. Add the domain, and set `NEXT_PUBLIC_SITE_URL` to match it. Redeploy so the build picks it up.
 4. Region: `vercel.json` pins functions to `yul1` (Montréal), next to Turso's Montréal location. Change both together if your users are elsewhere. Sentry (US or EU only) and Resend are not Canadian-hosted; they are listed as service providers in `/privacy/`.

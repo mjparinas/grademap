@@ -52,3 +52,6 @@ next-env.d.ts
 /android/.gradle/
 /android/*.aab
 /android/*.apk
+
+# Piper read-aloud files, written by scripts/fetch-piper.mjs
+/public/piper/

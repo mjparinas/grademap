@@ -301,7 +301,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Ollie the Otter is the guide.
   - Each subject has its own guide: Hoot the owl (math), Ruby the fox (reading), Bolt the beaver (science) and Juniper the bear (social studies).
   - Seven more critters can be unlocked in the shop.
-- **Read-aloud uses the device's own voices** (Web Speech API, `src/lib/speech.ts`), so it's free and works offline.
+- **Read-aloud uses the device's own voices by default** (Web Speech API, `src/lib/speech.ts`), so it's free and works offline.
   - Installed voices are ranked by quality, and locale only breaks ties between similar voices:
     - first, "Natural", "Neural" and "Premium" voices;
     - then "Enhanced" and Google voices;
@@ -310,8 +310,14 @@ Tests are duplicated across screen sizes only where layout can break:
   - Apple's novelty voices are never offered.
   - Cloud voices (Edge's Natural voices, Google voices) are skipped when offline, with a retry on an on-device voice if one fails.
   - Parents can pick a voice with a preview in Settings. The choice is saved per device in `localStorage`, not synced, because every device has different voices.
-  - Pitch stays at 1; raising it makes good voices sound processed.
-  - A cloud neural voice (Azure, Google or OpenAI, with a shared audio cache) is the option if device voices aren't good enough. It's not built; ask the owner before adding one, because it has a running cost.
+ - Pitch stays at 1; raising it makes good voices sound processed.
+- **Optional Piper voice** (`src/lib/piper.ts`, `public/piper-worker.js`): a parent can download a neural voice in Settings (Kristin for English, Siwis for French, listed in `src/lib/piper-manifest.json` with file hashes). It runs on the device in a web worker (WebAssembly and ONNX Runtime), so it costs nothing to run and works offline once downloaded.
+ - Off by default; the choice is per device in `localStorage`, and the files live in their own Cache Storage, so a parent can remove them.
+ - When it's on, read-aloud uses it; if it fails, the device voice takes over. A device-voice preview in Settings always uses the device voice.
+ - We host every file ourselves. The site serves them from `/piper/{version}/`. The engine is copied from `node_modules`; the voices come from our GitHub release `piper-voices-{version}` (copied unchanged from rhasspy/piper-voices). `scripts/fetch-piper.mjs` downloads them, checks the sha256 and puts them in `public/piper/` (gitignored) on `prebuild` and, optionally, on `dev`. Don't commit the voice files to git or Git LFS (about 127 MB).
+ - Never replace or delete a release's assets. To change a voice, upload a new `piper-voices-{n}` release, update the manifest's hashes and bump `version`.
+ - Show each voice's credit line; the French voice is CC BY 4.0.
+ - A cloud neural voice (Azure, Google or OpenAI, with a shared audio cache) is the option if device voices aren't good enough. It's not built; ask the owner before adding one, because it has a running cost.
 - **"Juice it or lose it":**
   - Squash-and-stretch buttons and synthesized sounds with slight pitch variation (no audio files).
   - Bursts, floating "+XP" text, screen thumps and confetti.
