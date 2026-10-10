@@ -6,8 +6,8 @@ import { pushConfigured, saveSubscription, validEndpoint, vapidPublicKey } from 
 export async function GET(req: Request) {
   const session = await getSession(req);
   if (!session) return error(401, "Not signed in");
-  const subscribed = new URL(req.url).searchParams.get("endpoint");
-  const rows = subscribed && validEndpoint(subscribed) ? await query("SELECT id FROM push_subscriptions WHERE parent_id = ? AND endpoint = ?", [session.parentId, subscribed]) : [];
+  const endpoint = new URL(req.url).searchParams.get("endpoint");
+  const rows = endpoint && validEndpoint(endpoint) ? await query("SELECT id FROM push_subscriptions WHERE parent_id = ? AND endpoint = ?", [session.parentId, endpoint]) : [];
   return json({ configured: pushConfigured(), publicKey: pushConfigured() ? vapidPublicKey() : "", subscribed: rows.length > 0 });
 }
 

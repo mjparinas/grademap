@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, type CSSProperties } from "react";
 import { allUnitRefs, getUnitRef } from "@/content";
 import { getSubjectMeta } from "@/content/subjects";
-import { weakest } from "@/lib/adaptive";
+import { refresherUnit, weakest } from "@/lib/adaptive";
 import { gameTime } from "@/lib/gametime";
 import { effectiveGoal } from "@/lib/goal";
 import { dayKey } from "@/lib/model";
@@ -18,7 +18,7 @@ import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
 import { useBand } from "../band";
-import { Critter, SpeechBubble } from "../Critter";
+import { Critter, SpeechBubble, getCritter } from "../Critter";
 import { Dialog, Page, ProgressBar } from "../ui";
 import { GoalChip } from "./GoalPicker";
 import { Hud } from "./Hud";
@@ -79,6 +79,7 @@ export function Hub() {
   const next = nextUp(d, unitKeys);
   const nextRef = next ? getUnitRef(next.key) : undefined;
   const nextInfo = next ? levelInfo(profile.framework, profile.grade, next.level) : undefined;
+  const refresher = refresherUnit({ grade: profile.grade, framework: profile.framework, derived: d, subjects, allowed, now });
   const classwork = useClasswork();
 
   // Welcome-back and streak copy is always warm and forward-looking, never about something lost.
@@ -220,7 +221,7 @@ export function Hub() {
               const done = unitLevel(d.units[ref.key]) >= 2;
               return (
                 <li key={ref.key}>
-                  <Link
+                  <a
                     href={`#/session?mode=practice&scope=${encodeURIComponent(ref.key)}`}
                     className={`flex min-h-14 items-center gap-3 rounded-2xl border-2 p-2.5 ${done ? "bg-good-soft" : "bg-paper"}`}
                     style={{ borderColor: meta.colour }}
@@ -235,7 +236,7 @@ export function Hub() {
                     </span>
                     <LevelChip level={unitLevel(d.units[ref.key])} compact={little} />
                     <span className="text-xl">▶</span>
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -289,8 +290,26 @@ export function Hub() {
         </ul>
       </section>
 
+      {refresher && (
+        <a
+          href={`#/session?mode=practice&scope=${encodeURIComponent(refresher.key)}`}
+          className="card flex items-center gap-3 p-4"
+          style={{ borderColor: getSubjectMeta(refresher.course.subject).colour }}
+          data-testid="refresher"
+        >
+          <Critter id={getSubjectMeta(refresher.course.subject).mascot} mood="wave" size={64} />
+          <span className="flex-1">
+            <span className="block text-sm font-semibold text-ink-soft">A quick refresher?</span>
+            <span className="block text-xl font-bold">
+              {getCritter(getSubjectMeta(refresher.course.subject).mascot).name} remembers you were great at {refresher.unit.title}.
+            </span>
+          </span>
+          <span className="text-2xl">▶</span>
+        </a>
+      )}
+
       {next && nextRef && (
-        <Link
+        <a
           href={`#/session?mode=practice&scope=${encodeURIComponent(next.key)}`}
           className="card flex items-center gap-3 p-4"
           style={{ borderColor: getSubjectMeta(nextRef.course.subject).colour }}
@@ -304,11 +323,11 @@ export function Hub() {
             </span>
           </span>
           <span className="text-2xl">▶</span>
-        </Link>
+        </a>
       )}
 
       {suggested && suggested.key !== next?.key && (
-        <Link
+        <a
           href={`#/session?mode=practice&scope=${encodeURIComponent(suggested.key)}`}
           className="card flex items-center gap-3 p-4"
           style={{ borderColor: getSubjectMeta(suggested.course.subject).colour }}
@@ -319,7 +338,7 @@ export function Hub() {
             <span className="block text-xl font-bold">{getUnitRef(suggested.key)?.unit.title}</span>
           </span>
           <span className="text-2xl">▶</span>
-        </Link>
+        </a>
       )}
 
       <div className="flex justify-center pb-4">
