@@ -1,7 +1,9 @@
 /** Helpers for the "Add to Home Screen" nudge shown in the parent area. */
 
 export const INSTALL_SNOOZE_DAYS = 30;
+export const KIDS_SNOOZE_DAYS = 7;
 const KEY = "grademap.install.dismissed";
+const KIDS_KEY = "grademap.install.kids.dismissed";
 
 /** The event Chromium browsers fire when the app can be installed. It isn't in lib.dom yet. */
 export type InstallPromptEvent = Event & {
@@ -50,26 +52,35 @@ export function isStandalone(): boolean {
   return window.matchMedia?.("(display-mode: standalone)").matches || (navigator as Navigator & { standalone?: boolean }).standalone === true;
 }
 
-export function isSnoozed(now = Date.now()): boolean {
+/** Phones and tablets only; on a computer the browser's own install button is enough. */
+export function isMobile(ua = navigator.userAgent, touchPoints = navigator.maxTouchPoints): boolean {
+  return /Android|iPhone|iPad|iPod|Mobile/.test(ua) || isIos(ua, touchPoints);
+}
+
+export function isSnoozed(now = Date.now(), key = KEY, days = INSTALL_SNOOZE_DAYS): boolean {
   try {
-    const t = Number(localStorage.getItem(KEY));
-    return t > 0 && now - t < INSTALL_SNOOZE_DAYS * 86_400_000;
+    const t = Number(localStorage.getItem(key));
+    return t > 0 && now - t < days * 86_400_000;
   } catch {
     return false;
   }
 }
 
-export function snooze(now = Date.now()) {
+export function snooze(now = Date.now(), key = KEY) {
   try {
-    localStorage.setItem(KEY, String(now));
+    localStorage.setItem(key, String(now));
   } catch {
     // Private mode; the nudge just comes back next visit.
   }
 }
 
 /** Which nudge to show right now, if any. */
-export function installKind(): InstallKind {
-  if (isStandalone() || isSnoozed()) return null;
+export function installKind(kids = false): InstallKind {
+  if (!isMobile() || isStandalone()) return null;
+  if (kids ? isSnoozed(Date.now(), KIDS_KEY, KIDS_SNOOZE_DAYS) : isSnoozed()) return null;
   if (deferred) return "prompt";
   return isIos() ? "ios" : null;
 }
+
+/** The kids' home screen asks more gently and comes back sooner than the parent area does. */
+export const snoozeKids = (now = Date.now()) => snooze(now, KIDS_KEY);
