@@ -221,7 +221,7 @@ export function Hub() {
               const done = unitLevel(d.units[ref.key]) >= 2;
               return (
                 <li key={ref.key}>
-                  <Link
+                  <a
                     href={`#/session?mode=practice&scope=${encodeURIComponent(ref.key)}`}
                     className={`flex min-h-14 items-center gap-3 rounded-2xl border-2 p-2.5 ${done ? "bg-good-soft" : "bg-paper"}`}
                     style={{ borderColor: meta.colour }}
@@ -236,7 +236,7 @@ export function Hub() {
                     </span>
                     <LevelChip level={unitLevel(d.units[ref.key])} compact={little} />
                     <span className="text-xl">▶</span>
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -309,7 +309,7 @@ export function Hub() {
       )}
 
       {next && nextRef && (
-        <Link
+        <a
           href={`#/session?mode=practice&scope=${encodeURIComponent(next.key)}`}
           className="card flex items-center gap-3 p-4"
           style={{ borderColor: getSubjectMeta(nextRef.course.subject).colour }}
@@ -323,11 +323,11 @@ export function Hub() {
             </span>
           </span>
           <span className="text-2xl">▶</span>
-        </Link>
+        </a>
       )}
 
       {suggested && suggested.key !== next?.key && (
-        <Link
+        <a
           href={`#/session?mode=practice&scope=${encodeURIComponent(suggested.key)}`}
           className="card flex items-center gap-3 p-4"
           style={{ borderColor: getSubjectMeta(suggested.course.subject).colour }}
@@ -338,7 +338,7 @@ export function Hub() {
             <span className="block text-xl font-bold">{getUnitRef(suggested.key)?.unit.title}</span>
           </span>
           <span className="text-2xl">▶</span>
-        </Link>
+        </a>
       )}
 
       <div className="flex justify-center pb-4">
