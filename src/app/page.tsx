@@ -10,6 +10,7 @@ import { DEFAULT_FRAMEWORK, FRAMEWORKS, getFramework } from "@/content/framework
 import { GRADE_LABEL, SUBJECTS, isCoreSubject } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
+import { TEACHER_FRAMEWORKS, TEACHER_SIGNUP, teacherPath } from "@/components/site/teachers";
 import { JsonLd, ORG_JSON_LD, SITE_URL, absolute } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -121,6 +122,13 @@ export default function Home() {
             . More provinces and states are coming.
           </p>
           <p className="mt-3 text-sm text-ink-soft">No card needed · No ads · Works offline</p>
+          <p className="mt-3 font-read text-ink-soft">
+            Teacher?{" "}
+            <Link href={TEACHER_SIGNUP} className="font-semibold text-[#2f6fd6] underline">
+              Create a free teacher account
+            </Link>
+            .
+          </p>
         </div>
         <div className="relative mx-auto grid max-w-md grid-cols-3 items-end gap-2" aria-hidden="true">
           <Critter id="hoot" mood="wave" size={120} className="justify-self-center" />
@@ -219,6 +227,33 @@ export default function Home() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Teachers */}
+      <section aria-labelledby="teachers" className="my-8 rounded-3xl bg-[#e8f1ff] p-6 sm:p-10">
+        <div className="grid items-center gap-6 md:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2 id="teachers" className="text-3xl font-bold sm:text-4xl">
+              Teaching a class?
+            </h2>
+            <p className="mt-3 font-read text-lg text-ink-soft">
+              Create a class, assign {TEACHER_FRAMEWORKS.map((f) => f.curriculumName).join(" and ")} units and see how each student is practising. Families join with a code and choose what is shared. Classes are free for now.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href={TEACHER_SIGNUP} className="btn btn-good min-h-12 px-5 text-lg">
+                Create a free teacher account
+              </Link>
+              <Link href={teacherPath.hub()} className="btn min-h-12 px-5 text-lg">
+                See how classes work
+              </Link>
+            </div>
+          </div>
+          <ul className="grid gap-2 font-read text-ink">
+            <li className="rounded-2xl bg-white p-3">📋 Assign units in a few taps</li>
+            <li className="rounded-2xl bg-white p-3">📈 See level, accuracy and attempts</li>
+            <li className="rounded-2xl bg-white p-3">🔒 Parents decide what is shared</li>
+          </ul>
         </div>
       </section>
 

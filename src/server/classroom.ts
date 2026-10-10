@@ -1,7 +1,8 @@
 import "server-only";
 import { randomInt } from "node:crypto";
-import { getUnitRef, loadGrade, parseUnitKey } from "@/content";
-import type { GradeId } from "@/content/types";
+import { getCourse, loadGrade, parseUnitKey } from "@/content";
+import { FRAMEWORKS } from "@/content/frameworks";
+import type { FrameworkId, GradeId } from "@/content/types";
 import { unitLevel } from "@/lib/proficiency";
 import { query } from "./db";
 import { loadChildReport } from "./reportData";
@@ -28,6 +29,7 @@ export interface ClassRow {
   owner_parent_id: string;
   name: string;
   grade: GradeId;
+  framework: FrameworkId;
   join_code: string;
   created_at: number;
   closed_at: number | null;
@@ -37,12 +39,14 @@ export async function ownedClass(id: string, parentId: string): Promise<ClassRow
   return (await query<ClassRow>("SELECT * FROM classes WHERE id = ? AND owner_parent_id = ? AND closed_at IS NULL", [id, parentId]))[0];
 }
 
-/** A unit key that exists in this class's grade. */
-export async function validUnit(key: string, grade: GradeId): Promise<boolean> {
+export const isFramework = (v: unknown): v is FrameworkId => FRAMEWORKS.some((f) => f.id === v);
+
+/** A unit key that exists in this class's grade and province. */
+export async function validUnit(key: string, grade: GradeId, framework: FrameworkId): Promise<boolean> {
   const parsed = parseUnitKey(key);
   if (!parsed || parsed.grade !== grade) return false;
-  await loadGrade(grade);
-  return !!getUnitRef(key);
+  await loadGrade(grade, framework);
+  return !!getCourse(grade, parsed.subject, framework)?.units.some((u) => u.id === parsed.unitId);
 }
 
 export async function assignmentKeys(classId: string): Promise<string[]> {

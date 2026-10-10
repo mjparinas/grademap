@@ -4,6 +4,7 @@ import { FRAMEWORKS } from "@/content/frameworks";
 import { GUIDE_FRAMEWORKS } from "@/content/guides";
 import { APP_NAME } from "@/lib/brand";
 import { TRIAL_DAYS } from "@/lib/plan";
+import { teacherPath, TEACHER_SIGNUP } from "./teachers";
 
 export function SiteHeader() {
   return (
@@ -22,6 +23,9 @@ export function SiteHeader() {
           </Link>
           <Link href="/parents/" className="hidden rounded-lg px-2 py-1 hover:bg-black/5 sm:inline">
             Parents
+          </Link>
+          <Link href={teacherPath.hub()} className="hidden rounded-lg px-2 py-1 hover:bg-black/5 sm:inline">
+            Teachers
           </Link>
           <Link href="/play/" className="btn btn-good h-11 px-4 text-base">
             Play free
@@ -82,6 +86,16 @@ export function SiteFooter() {
             <li>
               <Link className="text-ink-soft hover:underline" href="/parents/">
                 Parent area
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href={teacherPath.hub()}>
+                For teachers
+              </Link>
+            </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href={TEACHER_SIGNUP}>
+                Teacher sign in
               </Link>
             </li>
             <li>

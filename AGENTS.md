@@ -210,6 +210,8 @@ Tests are duplicated across screen sizes only where layout can break:
 
 ### Classroom mode (`/teachers/`)
 - **A teacher is an ordinary account** that creates classes (`classes`, `class_members`, `class_assignments`). No billing change: classes are free for now.
+- **Each class follows one province** (`classes.framework`, BC or Ontario, chosen when the class is created). Assignments must be units of that province, and a child can only join a class of their own province.
+- **Public teacher pages** live under `/for-teachers/` (hub, province, grade), generated from content; `TEACHER_FRAMEWORK_IDS` in `src/components/site/teachers.ts` lists the provinces the teacher area supports. `/teachers/` itself stays noindex.
 - **Students join by code, and the parent decides.** A parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that, and the teacher only sees first name, avatar, grade, and level, accuracy and attempts on the units they assigned.
 - Closing a class, leaving it, removing a child and deleting an account all remove the links. Retention rules for school use are not decided; ask before adding any.
 - Teacher screens are labelled as practice, not a report-card mark. `/teachers/` is `noindex` and disallowed in `robots.ts`.

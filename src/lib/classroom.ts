@@ -4,6 +4,7 @@ export interface ClassSummary {
   id: string;
   name: string;
   grade: string;
+  framework: string;
   joinCode: string;
   students: number;
 }

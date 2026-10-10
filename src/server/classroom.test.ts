@@ -61,6 +61,20 @@ async function parentWithChild(email: string, profileId: string, grade = "2") {
 }
 
 describe("classroom mode", () => {
+  it("keeps a class to its own province's units and children", async () => {
+    const teacher = await account_("on-teacher@example.com");
+    const post = (body: unknown) => classes.POST(req("/api/classes/", "POST", body, teacher));
+    expect((await post({ name: "Room 3", grade: "2", framework: "nowhere" })).status).toBe(400);
+    const { class: cls } = await (await post({ name: "Room 3", grade: "2", framework: "ca-on" })).json();
+    expect(cls.framework).toBe("ca-on");
+    const assign = (unitKey: string) => assignments.POST(req("/api/classes/assignments/", "POST", { classId: cls.id, unitKey }, teacher));
+    expect((await assign("2/math/numbers-to-200")).status).toBe(200);
+    expect((await assign("2/math/tens-and-ones")).status).toBe(400);
+    // A child set up for British Columbia can't be linked to an Ontario class.
+    const parent = await parentWithChild("on-parent@example.com", "kid-bc");
+    expect((await join_.POST(req("/api/classes/join/", "POST", { code: cls.joinCode, profileId: "kid-bc" }, parent))).status).toBe(409);
+  });
+
   it("lets a teacher see a linked child's results on assigned units only, and nothing else", async () => {
     const teacher = await account_("teacher@example.com");
     const created = await (await classes.POST(req("/api/classes/", "POST", { name: "Room 12", grade: "2" }, teacher))).json();
