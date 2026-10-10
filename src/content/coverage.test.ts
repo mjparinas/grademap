@@ -23,6 +23,8 @@ const FRENCH_GRADES: Record<FrameworkId, { immersion: GradeId[]; "core-french": 
   "ca-on": { immersion: range("1", "9"), "core-french": range("4", "9") },
   // Alberta: French Immersion from Kindergarten; the French as a Second Language program starts in Grade 4.
   "ca-ab": { immersion: range("k", "9"), "core-french": range("4", "9") },
+  // Saskatchewan French is not built yet (see docs/research/saskatchewan/README.md).
+  "ca-sk": { immersion: [], "core-french": [] },
 };
 
 const units = (framework: FrameworkId, grade: GradeId, subject: string) =>
