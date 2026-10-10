@@ -156,7 +156,7 @@ function forSpeech(text: string, language: SpeechLanguage = "en"): string {
     .trim();
 }
 
-function utter(text: string, option: VoiceOption | undefined, onFail?: () => void, language: SpeechLanguage = "en") {
+function utter(text: string, option: VoiceOption | undefined, onFail?: () => void, language: SpeechLanguage = "en", onDone?: () => void) {
   const synth = window.speechSynthesis;
   const u = new SpeechSynthesisUtterance(forSpeech(text, language));
   const voice = option ? synth.getVoices().find((v) => v.voiceURI === option.uri) : undefined;
@@ -165,15 +165,16 @@ function utter(text: string, option: VoiceOption | undefined, onFail?: () => voi
   // A touch slower than normal for young listeners; natural pitch (raising it makes good voices sound processed).
   u.rate = 0.92;
   u.pitch = 1;
-  if (onFail) {
-    u.onerror = (e) => {
-      if (e.error !== "interrupted" && e.error !== "canceled") onFail();
-    };
-  }
+  u.onend = () => onDone?.();
+  u.onerror = (e) => {
+    if (e.error === "interrupted" || e.error === "canceled") return;
+    if (onFail) onFail();
+    else onDone?.();
+  };
   synth.speak(u);
 }
 
-function queue(text: string, voiceUri: string | null | undefined, language: SpeechLanguage) {
+function queue(text: string, voiceUri: string | null | undefined, language: SpeechLanguage, onDone?: () => void) {
   const offline = navigator.onLine === false;
   // English and French each have their own ranked list and saved choice.
   const list = language === "fr" ? rankedFr : ranked;
@@ -181,26 +182,54 @@ function queue(text: string, voiceUri: string | null | undefined, language: Spee
   const choice = chooseVoice(list, preferred, offline);
   // A cloud voice can fail on a flaky connection: try again with the best on-device voice.
   const fallback = choice?.online ? chooseVoice(list, null, true) : undefined;
-  utter(text, choice, fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback, undefined, language) : undefined, language);
+  utter(text, choice, fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback, undefined, language, onDone) : undefined, language, onDone);
 }
 
 export function speak(text: string, voiceUri?: string | null, language: SpeechLanguage = "en") {
   if (!canSpeak()) return;
   watch();
-  window.speechSynthesis.cancel();
+  cancelAll();
   queue(text, voiceUri, language);
 }
 
-/** Speaks pieces one after another, each in its own language (e.g. an English question about a French word). */
-export function speakSegments(segments: readonly { text: string; lang: SpeechLanguage }[]) {
+/** One piece of speech. `pause` is a gap of silence (ms) before it, which the speech engine has no way to ask for itself. */
+export interface SpeechPiece {
+  text: string;
+  lang: SpeechLanguage;
+  pause?: number;
+}
+
+// Bumped whenever speech is cancelled, so a sequence that is waiting on a pause or an utterance stops.
+let run = 0;
+let pauseTimer: ReturnType<typeof setTimeout> | undefined;
+
+function cancelAll() {
+  run++;
+  clearTimeout(pauseTimer);
+  window.speechSynthesis.cancel();
+}
+
+/** Speaks pieces one after another, each in its own language, with optional pauses between them. */
+export function speakSegments(segments: readonly SpeechPiece[]) {
   if (!canSpeak() || segments.length === 0) return;
   watch();
-  window.speechSynthesis.cancel();
-  for (const s of segments) queue(s.text, undefined, s.lang);
+  cancelAll();
+  const id = run;
+  let i = 0;
+  const next = () => {
+    if (id !== run || i >= segments.length) return;
+    const piece = segments[i++];
+    const go = () => {
+      if (id === run) queue(piece.text, undefined, piece.lang, next);
+    };
+    if (piece.pause) pauseTimer = setTimeout(go, piece.pause);
+    else go();
+  };
+  next();
 }
 
 export function stopSpeaking() {
-  if (canSpeak()) window.speechSynthesis.cancel();
+  if (canSpeak()) cancelAll();
 }
 
 /** A short sample for the voice picker. */

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { tagCoreFrench } from "@/content/french";
 import type { Question } from "@/content/types";
-import { readAloudSegments } from "./readaloud";
+import { PAUSE_BEFORE_OPTIONS, PAUSE_BETWEEN_OPTIONS, readAloudSegments } from "./readaloud";
 
 const choice = (prompt: string, extra: Partial<Question> = {}): Question =>
   ({
@@ -19,13 +19,19 @@ const choice = (prompt: string, extra: Partial<Question> = {}): Question =>
 describe("read-aloud languages", () => {
   it("reads an all-French Immersion question in one French segment", () => {
     const segs = readAloudSegments(choice("Quel mot commence comme « lune »?", { lang: "fr" }));
-    expect(segs).toHaveLength(1);
-    expect(segs[0].lang).toBe("fr");
+    expect(segs[0].text).toContain("lune");
+    expect(segs.every((x) => x.lang === "fr")).toBe(true);
+  });
+
+  it("pauses after the question and between each option", () => {
+    const segs = readAloudSegments(choice("Pick one."));
+    expect(segs.map((x) => x.text)).toEqual(["Pick one.", "bonjour", "merci"]);
+    expect(segs.map((x) => x.pause)).toEqual([undefined, PAUSE_BEFORE_OPTIONS, PAUSE_BETWEEN_OPTIONS]);
   });
 
   it("switches voices inside a Core French prompt marked with « »", () => {
     const segs = readAloudSegments(choice("What does «bonjour» mean?"));
-    expect(segs.map((s) => s.lang)).toEqual(["en", "fr", "en"]);
+    expect(segs.slice(0, 3).map((s) => s.lang)).toEqual(["en", "fr", "en"]);
     expect(segs[1].text).toBe("bonjour");
   });
 
