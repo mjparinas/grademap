@@ -23,6 +23,7 @@ const FRENCH_GRADES: Record<FrameworkId, { immersion: GradeId[]; "core-french": 
   "ca-on": { immersion: range("1", "9"), "core-french": range("4", "9") },
   // Saskatchewan French is not built yet (see docs/research/saskatchewan/README.md).
   "ca-sk": { immersion: [], "core-french": [] },
+  "ca-mb": { immersion: range("k", "9"), "core-french": range("4", "9") },
 };
 
 const units = (framework: FrameworkId, grade: GradeId, subject: string) =>

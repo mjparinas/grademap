@@ -91,16 +91,6 @@ export interface UnitRef {
   unit: Unit;
 }
 
-/** Joins two unit lists. A unit both lists have (same id) appears once, with the standards from both. */
-function mergeUnits(a: Unit[], b: Unit[]): Unit[] {
-  const out = [...a];
-  for (const u of b) {
-    const i = out.findIndex((x) => x.id === u.id);
-    out[i < 0 ? out.length : i] = i < 0 ? u : { ...out[i], standards: { ...out[i].standards, ...u.standards } };
-  }
-  return out;
-}
-
 /** Joins two share maps. A unit shared by several frameworks keeps the standards from each. */
 function mergeShares(a: Course["shares"], b: Course["shares"]): Course["shares"] {
   const out = { ...a };
