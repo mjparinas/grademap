@@ -8,6 +8,7 @@
 //   this worker took control of the page.
 // - /api/ is never cached: progress is saved in IndexedDB and synced by the app.
 const CACHE = "grademap-v3";
+const PRESERVED_CACHES = new Set(["transformers-cache", "kokoro-voices"]);
 const SHELLS = ["/play/", "/parents/", "/"];
 const EXTRAS = ["/manifest.webmanifest", "/icon.svg", "/icon-192.png", "/icon-512.png"];
 
@@ -40,7 +41,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && !PRESERVED_CACHES.has(k)).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });

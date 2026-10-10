@@ -77,6 +77,12 @@ describe("read-aloud voice ranking", () => {
     expect(chooseVoice(ranked, "Ava (Premium)", false)?.name).toBe(ranked[0].name);
     expect(chooseVoice([], null, false)).toBeUndefined();
   });
+
+  it("never falls back to a network voice when no local voice is playable", () => {
+    const ranked = rankVoices(CHROME_WINDOWS);
+    expect(chooseVoice(ranked, null, true)?.online).toBe(false);
+    expect(chooseVoice([ranked[0]], null, true)).toBeUndefined();
+  });
 });
 
 describe("French voices", () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import {
   canSpeak,
   chooseVoice,
@@ -13,9 +13,11 @@ import {
   type VoiceOption,
   type VoiceQuality,
 } from "@/lib/speech";
+import { disableLocalVoice, enableLocalVoice, getLocalVoiceSnapshot, isLocalVoiceEnabled, subscribeLocalVoice } from "@/lib/localVoice";
 import { Panel } from "./common";
 
 const NONE: VoiceOption[] = [];
+const LOCAL_VOICE_OFF = { state: "off" as const, progress: null, error: null };
 
 const QUALITY: Record<VoiceQuality, { label: string; className: string }> = {
   natural: { label: "Sounds natural", className: "bg-good-soft text-good-dark" },
@@ -85,12 +87,42 @@ function Tips({ open }: { open: boolean }) {
 export function VoicePicker() {
   const options = useSyncExternalStore(subscribeVoices, getVoiceOptions, () => NONE);
   const preferred = useSyncExternalStore(subscribeVoices, getVoicePreference, () => null);
-  const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+  const localVoice = useSyncExternalStore(subscribeLocalVoice, getLocalVoiceSnapshot, () => LOCAL_VOICE_OFF);
+  const optedIn = useSyncExternalStore(subscribeLocalVoice, isLocalVoiceEnabled, () => false);
+  const offline = optedIn || (typeof navigator !== "undefined" && navigator.onLine === false);
   const best = chooseVoice(options, null, offline);
   const current = chooseVoice(options, preferred, offline);
 
+  useEffect(() => {
+    if (optedIn && localVoice.state === "off") void enableLocalVoice().catch(() => undefined);
+  }, [optedIn, localVoice.state]);
+
   return (
     <Panel title="🗣️ Read-aloud voice (this device)">
+      <div className="mb-4 rounded-xl border border-line p-3">
+        <button
+          type="button"
+          role="switch"
+          aria-checked={optedIn}
+          onClick={() => {
+            if (optedIn) disableLocalVoice();
+            else void enableLocalVoice().catch(() => undefined);
+          }}
+          className="flex w-full items-center justify-between gap-4 text-left"
+        >
+          <span>
+            <span className="block font-semibold">Download an offline neural voice</span>
+            <span className="block text-sm text-ink-soft">Parent choice for this device. English only; about 100 MB. Speech stays on this device. Turning it off keeps the download for later.</span>
+          </span>
+          <span className={`relative h-8 w-14 shrink-0 rounded-full ${optedIn ? "bg-good" : "bg-ink/20"}`} aria-hidden="true">
+            <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow ${optedIn ? "left-7" : "left-1"}`} />
+          </span>
+        </button>
+        {optedIn && localVoice.state === "loading" && <p className="mt-2 text-sm text-ink-soft" aria-live="polite">Downloading the offline voice… {localVoice.progress === null ? "Preparing" : `${localVoice.progress}%`}</p>}
+        {optedIn && localVoice.state === "ready" && <p className="mt-2 text-sm text-good-dark">Offline English voice is ready on this device. French continues to use the device&apos;s French voice.</p>}
+        {optedIn && localVoice.state === "error" && <p className="mt-2 text-sm text-nudge-dark" role="alert">Could not download the offline voice. Check your connection and try again. {localVoice.error}</p>}
+        {optedIn && localVoice.state === "ready-to-download" && <p className="mt-2 text-sm text-ink-soft">Ready to download. Connect to the internet to get the voice files.</p>}
+      </div>
       {!canSpeak() ? (
         <p className="text-ink-soft">This browser can&apos;t read aloud.</p>
       ) : options.length === 0 ? (
@@ -101,7 +133,7 @@ export function VoicePicker() {
       ) : (
         <div className="flex flex-col gap-3">
           <label className="flex flex-col gap-1">
-            <span className="font-semibold">Voice</span>
+            <span className="font-semibold">{optedIn ? "Device voice if the offline model is unavailable" : "Voice"}</span>
             <select
               value={preferred && options.some((o) => o.uri === preferred) ? preferred : ""}
               onChange={(e) => {
@@ -111,7 +143,7 @@ export function VoicePicker() {
               className="rounded-xl border-2 border-line bg-white px-3 py-2.5 text-base"
             >
               <option value="">Automatic: {best ? describe(best) : "best available"}</option>
-              {options.map((o) => (
+              {options.filter((o) => !offline || !o.online).map((o) => (
                 <option key={o.uri} value={o.uri}>
                   {describe(o)}
                 </option>
@@ -142,7 +174,7 @@ export function VoicePicker() {
 function FrenchVoice() {
   const options = useSyncExternalStore((l) => subscribeVoices(l), () => getVoiceOptions("fr"), () => NONE);
   const preferred = useSyncExternalStore(subscribeVoices, () => getVoicePreference("fr"), () => null);
-  const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+  const offline = isLocalVoiceEnabled() || (typeof navigator !== "undefined" && navigator.onLine === false);
   const best = chooseVoice(options, null, offline);
   const current = chooseVoice(options, preferred, offline);
   return (

@@ -1,9 +1,10 @@
 "use client";
 
-// Read-aloud with the device's own voices (Web Speech API), so it works offline
-// and costs nothing. Voice quality varies hugely between devices, so we rank the
-// installed voices and pick the most natural one; parents can choose another in
-// Settings (saved per device, because every device has different voices).
+import { getLocalVoiceSnapshot, isLocalVoiceEnabled, shouldUseLocalVoice, speakWithLocalVoice, stopLocalVoice } from "./localVoice";
+
+// Read-aloud defaults to the device's own voices (Web Speech API), so it works
+// offline and costs nothing. Parents can opt in to a cached local neural English
+// model; French and the fallback continue to use installed device voices.
 
 /** English is the app's language; French is for French Immersion and Core French questions. */
 export type SpeechLanguage = "en" | "fr";
@@ -73,7 +74,7 @@ export function chooseVoice(ranked: readonly VoiceOption[], preferredUri: string
   const playable = (o: VoiceOption) => !(offline && o.online);
   const preferred = preferredUri ? ranked.find((o) => o.uri === preferredUri) : undefined;
   if (preferred && playable(preferred)) return preferred;
-  return ranked.find(playable) ?? ranked[0];
+  return ranked.find(playable);
 }
 
 // ---- Browser state ----
@@ -141,7 +142,8 @@ export function setVoicePreference(uri: string | null, language: SpeechLanguage 
 /** The voice read-aloud will use right now (for showing in Settings). */
 export function currentVoice(language: SpeechLanguage = "en"): VoiceOption | undefined {
   watch();
-  return chooseVoice(language === "fr" ? rankedFr : ranked, getVoicePreference(language), typeof navigator !== "undefined" && navigator.onLine === false);
+  const offline = isLocalVoiceEnabled() || (typeof navigator !== "undefined" && navigator.onLine === false);
+  return chooseVoice(language === "fr" ? rankedFr : ranked, getVoicePreference(language), offline);
 }
 
 /** Turn on-screen symbols into words a speech engine reads naturally. */
@@ -175,11 +177,28 @@ function utter(text: string, option: VoiceOption | undefined, onFail?: () => voi
 }
 
 function queue(text: string, voiceUri: string | null | undefined, language: SpeechLanguage, onDone?: () => void) {
-  const offline = navigator.onLine === false;
+  const localModel = shouldUseLocalVoice(language, isLocalVoiceEnabled(), getLocalVoiceSnapshot().state);
+  const offline = isLocalVoiceEnabled() || navigator.onLine === false;
+  if (localModel) {
+    const sequence = run;
+    void speakWithLocalVoice(forSpeech(text, language)).then((played) => {
+      if (sequence !== run) return;
+      if (played) onDone?.();
+      else queueWithNativeVoice(text, voiceUri, language, onDone, true);
+    }).catch(() => {
+      if (sequence === run) queueWithNativeVoice(text, voiceUri, language, onDone, true);
+    });
+    return;
+  }
+  queueWithNativeVoice(text, voiceUri, language, onDone, offline);
+}
+
+function queueWithNativeVoice(text: string, voiceUri: string | null | undefined, language: SpeechLanguage, onDone: (() => void) | undefined, offline: boolean) {
   // English and French each have their own ranked list and saved choice.
   const list = language === "fr" ? rankedFr : ranked;
   const preferred = voiceUri !== undefined ? voiceUri : getVoicePreference(language);
   const choice = chooseVoice(list, preferred, offline);
+  if (!choice) return;
   // A cloud voice can fail on a flaky connection: try again with the best on-device voice.
   const fallback = choice?.online ? chooseVoice(list, null, true) : undefined;
   utter(text, choice, fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback, undefined, language, onDone) : undefined, language, onDone);
@@ -207,6 +226,7 @@ function cancelAll() {
   run++;
   clearTimeout(pauseTimer);
   window.speechSynthesis.cancel();
+  stopLocalVoice();
 }
 
 /** Speaks pieces one after another, each in its own language, with optional pauses between them. */
