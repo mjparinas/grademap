@@ -1,5 +1,6 @@
 import type { Course } from "../types";
 import { units as g3_science } from "../ontario/g3-science";
+import { units as sk_science_3 } from "./g3-science";
 import { reuse, share, sk } from "./kit";
 import { SK_OUTCOMES as O } from "./outcomes";
 
@@ -55,8 +56,8 @@ export const courses: Course[] = [
       "structures-3": sk("SM3.2", "natural and built structures and what they are for"),
       "strong-stable": sk("SM3.1, SM3.2", "materials, joins and what makes a structure strong and stable"),
       "forces-3": sk("ME3.1", "contact and non-contact forces"),
-    })],
-    order: { "ca-sk": ["plant-parts", "plant-life", "structures-3", "strong-stable", "forces-3"] },
+    }), ...sk_science_3],
+    order: { "ca-sk": ["plant-parts", "plant-life", "structures-3", "strong-stable", "forces-3", ...sk_science_3.map((u) => u.id)] },
   },
   {
     grade: "3",

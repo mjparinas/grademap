@@ -1,6 +1,7 @@
 import type { Course } from "../types";
 import { units as g9_language } from "../ontario/g9-language";
 import { units as g9_science } from "../ontario/g9-science";
+import { units as sk_science_9 } from "./g9-science";
 import { units as sk_social_9 } from "./g9-social";
 import { reuse, share, sk } from "./kit";
 import { SK_OUTCOMES as O } from "./outcomes";
@@ -57,13 +58,13 @@ export const courses: Course[] = [
       "static-charges-9": sk("CE9.1", "static electric charge"),
       "circuits-9": sk("CE9.2", "voltage, current and resistance in circuits"),
       "electrical-energy-9": sk("CE9.3, CE9.4", "electrical devices, energy costs and efficiency"),
-    })],
+    }), ...sk_science_9],
     shares: {
       "cells-from-cells": share("RE9.2", "mitosis, meiosis and cellular reproduction"),
       "reproduction": share("RE9.1, RE9.3", "genetic information, and sexual and asexual reproduction"),
       "electric-current": share("CE9.1, CE9.2", "current electricity"),
     },
-    order: { "ca-sk": ["cells-from-cells", "reproduction", "atoms-9", "periodic-table-9", "compounds-9", "static-charges-9", "circuits-9", "electric-current", "electrical-energy-9"] },
+    order: { "ca-sk": ["cells-from-cells", "reproduction", "atoms-9", "periodic-table-9", "compounds-9", "static-charges-9", "circuits-9", "electric-current", "electrical-energy-9", ...sk_science_9.map((u) => u.id)] },
   },
   {
     grade: "9",

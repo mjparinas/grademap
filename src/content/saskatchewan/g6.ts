@@ -1,6 +1,7 @@
 import type { Course } from "../types";
 import { units as g6_math } from "../ontario/g6-math";
 import { units as g6_science } from "../ontario/g6-science";
+import { units as sk_science_6 } from "./g6-science";
 import { units as g6_social } from "../ontario/g6-social";
 import { reuse, share, sk } from "./kit";
 import { SK_OUTCOMES as O } from "./outcomes";
@@ -66,11 +67,11 @@ export const courses: Course[] = [
       "flight-6": sk("FL6.2", "thrust, drag, lift and gravity in flight"),
       "earth-moon-sun-6": sk("SS6.2", "phases of the moon, eclipses and seasons"),
       "weight-and-space-tech-6": sk("SS6.3", "space exploration and its technologies"),
-    })],
+    }), ...sk_science_6],
     shares: {
       "solar-system": share("SS6.1", "the sun, planets, moons and other parts of the solar system"),
     },
-    order: { "ca-sk": ["classifying-life-6", "biodiversity-6", "static-electricity-6", "circuits-6", "flight-6", "solar-system", "earth-moon-sun-6", "weight-and-space-tech-6"] },
+    order: { "ca-sk": ["classifying-life-6", "biodiversity-6", "static-electricity-6", "circuits-6", "flight-6", "solar-system", "earth-moon-sun-6", "weight-and-space-tech-6", ...sk_science_6.map((u) => u.id)] },
   },
   {
     grade: "6",

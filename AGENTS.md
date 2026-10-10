@@ -96,7 +96,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Framework `ca-sk`, slug `saskatchewan`**, Kindergarten to Grade 9 in math, language, science and social studies. Standards are outcomes cited by code, checked by `content.test.ts` against `docs/research/saskatchewan/outcomes.json` (record: `docs/research/saskatchewan/README.md`).
 - **Scoring:** no single provincial scale, so one four-level scheme (Beginning, Approaching, Meeting, Exemplary) with the usual kid labels. Same "practice, not a report-card mark" rule.
 - **French is not built** for Saskatchewan (no French guide; the guides test only requires one where a framework has French).
-- **Shared units:** BC units via `share(...)`, Ontario units via `reuse(...)`, plus Saskatchewan-only units in `src/content/saskatchewan/`. Known gaps are listed in the research README.
+- **Shared units:** BC units via `share(...)`, Ontario units via `reuse(...)`, plus Saskatchewan-only units in `src/content/saskatchewan/`. Known gaps (French, partly covered outcomes, review needs) are listed in the research README.
 - **First Nations, Métis and treaty content** is light and needs partner review.
 
 ### Ontario

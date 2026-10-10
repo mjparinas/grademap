@@ -1,5 +1,6 @@
 import type { Course } from "../types";
 import { units as g4_science } from "../ontario/g4-science";
+import { units as sk_science_4 } from "./g4-science";
 import { units as sk_social_4 } from "./g4-social";
 import { reuse, share, sk } from "./kit";
 import { SK_OUTCOMES as O } from "./outcomes";
@@ -57,8 +58,8 @@ export const courses: Course[] = [
       "food-webs-4": sk("HC4.1", "how plants and animals depend on each other in food chains and webs"),
       "light-4": sk("LI4.1–LI4.3", "sources of light, how light interacts with materials, and light technologies"),
       "sound-4": sk("SO4.1–SO4.3", "sources and properties of sound, and sound technologies"),
-    })],
-    order: { "ca-sk": ["habitats-4", "food-webs-4", "light-4", "sound-4"] },
+    }), ...sk_science_4],
+    order: { "ca-sk": ["habitats-4", "food-webs-4", "light-4", "sound-4", ...sk_science_4.map((u) => u.id)] },
   },
   {
     grade: "4",

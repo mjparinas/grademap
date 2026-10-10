@@ -2,6 +2,7 @@ import type { Course } from "../types";
 import { units as g8_math } from "../ontario/g8-math";
 import { units as g8_language } from "../ontario/g8-language";
 import { units as g8_science } from "../ontario/g8-science";
+import { units as sk_science_8 } from "./g8-science";
 import { units as sk_social_8 } from "./g8-social";
 import { reuse, share, sk } from "./kit";
 import { SK_OUTCOMES as O } from "./outcomes";
@@ -61,12 +62,12 @@ export const courses: Course[] = [
       "viscosity-flow-8": sk("FD8.3", "viscosity and other properties of fluids"),
       "pressure-pascal-8": sk("FD8.3, FD8.4", "pressure and compressibility in fluids"),
       "hydraulics-pneumatics-8": sk("FD8.4", "how hydraulic and pneumatic systems work"),
-    })],
+    }), ...sk_science_8],
     shares: {
       "cells-and-life": share("CS8.1", "plant and animal cells and their parts"),
       "light-and-radiation": share("OP8.1, OP8.4", "light, its properties and electromagnetic radiation"),
     },
-    order: { "ca-sk": ["cells-and-life", "light-and-radiation", "density-buoyancy-8", "viscosity-flow-8", "pressure-pascal-8", "hydraulics-pneumatics-8"] },
+    order: { "ca-sk": ["cells-and-life", "light-and-radiation", "density-buoyancy-8", "viscosity-flow-8", "pressure-pascal-8", "hydraulics-pneumatics-8", ...sk_science_8.map((u) => u.id)] },
   },
   {
     grade: "8",
