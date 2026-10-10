@@ -148,8 +148,12 @@ const PARENT_COLUMNS: [string, string][] = [
   ["role", "TEXT NOT NULL DEFAULT 'parent'"],
 ];
 
-/** Which province's curriculum a class assigns units from. Classes made before Ontario are BC. */
-const CLASS_COLUMNS: [string, string][] = [["framework", "TEXT NOT NULL DEFAULT 'ca-bc'"]];
+/** Which province's curriculum a class assigns units from, and its inactivity-retention state. */
+const CLASS_COLUMNS: [string, string][] = [
+  ["framework", "TEXT NOT NULL DEFAULT 'ca-bc'"],
+  ["last_activity_at", "INTEGER NOT NULL DEFAULT 0"],
+  ["inactive_warning_at", "INTEGER"],
+];
 /** A due date a teacher can set on an assigned unit (ms since epoch). */
 const ASSIGNMENT_COLUMNS: [string, string][] = [["due_at", "INTEGER"]];
 const SESSION_COLUMNS: [string, string][] = [["user_agent", "TEXT"]];
@@ -164,6 +168,8 @@ async function migrate(c: Client) {
   await addColumns(c, "sessions", SESSION_COLUMNS);
   await addColumns(c, "families", FAMILY_COLUMNS);
   await addColumns(c, "classes", CLASS_COLUMNS);
+  // Existing classes start their inactivity period from creation until a later sign-in.
+  await c.execute("UPDATE classes SET last_activity_at = created_at WHERE last_activity_at = 0");
   await addColumns(c, "class_assignments", ASSIGNMENT_COLUMNS);
   const have = new Set((await c.execute("PRAGMA table_info(parents)")).rows.map((r) => String(r.name)));
   for (const [name, type] of PARENT_COLUMNS) {
