@@ -1,6 +1,7 @@
 import { error, getSession, json, newId, rateLimited, sameOrigin } from "@/server/auth";
-import { assignmentKeys, classProgress, isFramework, MAX_CLASSES, newJoinCode, ownedClass } from "@/server/classroom";
+import { assignmentDue, assignmentKeys, classProgress, isFramework, MAX_CLASSES, newJoinCode, ownedClass } from "@/server/classroom";
 import { query, run } from "@/server/db";
+import { classRoster, removeClassStudents } from "@/server/students";
 import { GRADE_ORDER } from "@/content/subjects";
 
 // A teacher's classes. Ownership is always checked against the signed-in account.
@@ -18,7 +19,9 @@ export async function GET(req: Request) {
     return json({
       class: { id: cls.id, name: cls.name, grade: cls.grade, framework: cls.framework, joinCode: cls.join_code },
       assignments: await assignmentKeys(cls.id),
+      due: await assignmentDue(cls.id),
       students: await classProgress(cls.id),
+      roster: await classRoster(cls.id),
     });
   }
   const rows = await query<{ id: string; name: string; grade: string; framework: string; join_code: string; students: number }>(
@@ -87,6 +90,7 @@ export async function DELETE(req: Request) {
   const id = new URL(req.url).searchParams.get("id") ?? "";
   const cls = await ownedClass(id, session.parentId);
   if (!cls) return error(404, "Class not found");
+  await removeClassStudents(id);
   await run("DELETE FROM class_members WHERE class_id = ?", [id]);
   await run("DELETE FROM class_assignments WHERE class_id = ?", [id]);
   await run("UPDATE classes SET closed_at = ?, join_code = ? WHERE id = ?", [Date.now(), `X${id.slice(0, 10)}`, id]);

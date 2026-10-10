@@ -27,7 +27,7 @@ const isId = (v: unknown): v is string => typeof v === "string" && v.length > 0 
 
 export async function POST(req: Request) {
   if (!sameOrigin(req)) return error(403, "Bad origin");
-  const session = await getSession(req);
+  const session = await getSession(req, { student: true });
   if (!session) return error(401, "Not signed in");
   const family = session.familyId;
   // The app syncs every couple of minutes and after changes; this is far above that.
@@ -59,10 +59,22 @@ export async function POST(req: Request) {
     }
   }
 
-  for (const p of incomingProfiles) {
-    if (!p || !isId(p.id) || typeof p.updatedAt !== "number") continue;
-    const row = owner.get(p.id);
+  for (const incoming of incomingProfiles) {
+    if (!incoming || !isId(incoming.id) || typeof incoming.updatedAt !== "number") continue;
+    const row = owner.get(incoming.id);
     if (row && row.family_id !== family) continue;
+    let p = incoming;
+    if (session.student) {
+      // A class account has exactly the child the teacher made. The child can change what they
+      // wear, but not their name, grade or province, and can't add or delete anyone.
+      if (!row) continue;
+      try {
+        const kept = JSON.parse(row.data) as Profile;
+        p = { ...incoming, name: kept.name, grade: kept.grade, framework: kept.framework, birthYear: undefined, deleted: false, resetAt: kept.resetAt };
+      } catch {
+        continue;
+      }
+    }
     mine.add(p.id);
     if (!row || p.updatedAt > Number(row.updated_at)) {
       gone.set(p.id, { deleted: Boolean(p.deleted), resetAt: p.resetAt ?? 0 });
@@ -139,6 +151,6 @@ export async function POST(req: Request) {
     profiles: profiles.map((r) => JSON.parse(r.data)),
     settings: settings.map((r) => JSON.parse(r.data)),
     classwork: await familyClasswork(family),
-    family: famRow ? toFamilyInfo(famRow, session.email, session.verified) : undefined,
+    family: famRow ? toFamilyInfo(famRow, session.email, session.verified, session.student) : undefined,
   });
 }

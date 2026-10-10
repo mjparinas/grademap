@@ -123,6 +123,11 @@ export function SiteFooter() {
                 Terms of use
               </Link>
             </li>
+            <li>
+              <Link className="text-ink-soft hover:underline" href="/accessibility/">
+                Accessibility
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -12,6 +12,7 @@ import { sounds } from "@/lib/sound";
 import { useDerived, useProfiles, useStore } from "@/lib/store";
 import type { Profile } from "@/lib/model";
 import { Critter, CritterSvg, CRITTERS, SpeechBubble } from "../Critter";
+import { signInStudent } from "@/lib/account";
 import { Page } from "../ui";
 
 export const AVATAR_COLOURS = ["#ff9636", "#4f8ef7", "#25b47e", "#e9559a", "#8b5cf6", "#06b6d4", "#f5b301", "#ef4444"];
@@ -58,10 +59,64 @@ export function FirstRun() {
           Let&apos;s go! →
         </button>
         <GrownUpsLink />
+        <button type="button" className="text-base font-semibold text-ink-soft underline" onClick={() => setStep(-1)}>
+          My teacher gave me a code
+        </button>
       </Page>
     );
   }
+  if (step === -1) return <ClassSignIn onBack={() => setStep(0)} />;
   return <NewChild onDone={() => {}} first />;
+}
+
+/** A student signs in with the class code and their own code from the teacher. */
+export function ClassSignIn({ onBack }: { onBack: () => void }) {
+  const [classCode, setClassCode] = useState("");
+  const [studentCode, setStudentCode] = useState("");
+  const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
+  const clean = (v: string) => v.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6);
+  const field = "mt-1 min-h-16 w-full rounded-2xl border-2 border-line bg-white px-4 text-center font-mono text-3xl font-bold uppercase tracking-[0.3em]";
+  return (
+    <Page className="items-center justify-center gap-5 text-center">
+      <Critter id="ollie" mood="wave" size={110} />
+      <h1 className="text-3xl font-bold">Sign in to your class</h1>
+      <form
+        className="flex w-full max-w-sm flex-col gap-4 text-left"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setBusy(true);
+          setErr("");
+          try {
+            await signInStudent(classCode, studentCode);
+          } catch (x) {
+            setErr((x as Error).message);
+            setBusy(false);
+          }
+        }}
+      >
+        <label className="block text-lg font-bold">
+          Class code
+          <input className={field} value={classCode} onChange={(e) => setClassCode(clean(e.target.value))} autoComplete="off" autoCapitalize="characters" spellCheck={false} inputMode="text" maxLength={6} required />
+        </label>
+        <label className="block text-lg font-bold">
+          My code
+          <input className={field} value={studentCode} onChange={(e) => setStudentCode(clean(e.target.value))} autoComplete="off" autoCapitalize="characters" spellCheck={false} inputMode="text" maxLength={6} required />
+        </label>
+        {err && (
+          <p role="alert" className="rounded-2xl bg-white p-3 text-center font-read text-lg text-nudge-dark">
+            {err}
+          </p>
+        )}
+        <button className="btn btn-good min-h-16 text-2xl" disabled={busy || classCode.length < 6 || studentCode.length < 6}>
+          {busy ? "Signing in…" : "Let's go! →"}
+        </button>
+      </form>
+      <button type="button" className="text-base font-semibold text-ink-soft underline" onClick={onBack}>
+        ← Back
+      </button>
+    </Page>
+  );
 }
 
 /** Name, grade and avatar. Used on first run, from the picker, and in the parent area. */

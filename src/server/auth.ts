@@ -15,6 +15,8 @@ export interface SessionInfo {
   familyId: string;
   email: string;
   verified: boolean;
+  /** A class-owned student account. Students can sync and play, and nothing else. */
+  student: boolean;
 }
 
 export async function hashPassword(password: string): Promise<string> {
@@ -102,16 +104,23 @@ export function readCookieToken(req: Request): string {
   return token ? sha(token) : "";
 }
 
-export async function getSession(req: Request): Promise<SessionInfo | null> {
+/**
+ * The signed-in account for this request. A student session is only returned when the route says it
+ * accepts one (`{ student: true }`: syncing and checking who is signed in), so a child's login can
+ * never reach billing, classes, sharing or any parent or teacher action.
+ */
+export async function getSession(req: Request, opts: { student?: boolean } = {}): Promise<SessionInfo | null> {
   const token = readCookie(req, COOKIE);
   if (!token) return null;
-  const rows = await query<{ parent_id: string; family_id: string; expires_at: number; email: string; email_verified_at: number | null }>(
-    `SELECT s.parent_id, s.family_id, s.expires_at, p.email, p.email_verified_at FROM sessions s JOIN parents p ON p.id = s.parent_id WHERE s.token_hash = ?`,
+  const rows = await query<{ parent_id: string; family_id: string; expires_at: number; email: string; email_verified_at: number | null; role: string }>(
+    `SELECT s.parent_id, s.family_id, s.expires_at, p.email, p.email_verified_at, p.role FROM sessions s JOIN parents p ON p.id = s.parent_id WHERE s.token_hash = ?`,
     [sha(token)],
   );
   const row = rows[0];
   if (!row || Number(row.expires_at) < Date.now()) return null;
-  return { parentId: row.parent_id, familyId: row.family_id, email: row.email, verified: Boolean(row.email_verified_at) };
+  const student = row.role === "student";
+  if (student && !opts.student) return null;
+  return { parentId: row.parent_id, familyId: row.family_id, email: row.email, verified: Boolean(row.email_verified_at), student };
 }
 
 export async function endSession(req: Request): Promise<void> {
