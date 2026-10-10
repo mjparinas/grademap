@@ -7,7 +7,7 @@ import { speakSegments, type SpeechLanguage, type SpeechPiece } from "./speech";
 export type Segment = SpeechPiece;
 
 /** Silence (ms) between the question and the first option, and between one option and the next. */
-export const PAUSE_BEFORE_OPTIONS = 800;
+export const PAUSE_BEFORE_OPTIONS = 600;
 export const PAUSE_BETWEEN_OPTIONS = 500;
 
 /** Splits a prompt on « French » quotations, which Core French uses to mark French inside English text. */
