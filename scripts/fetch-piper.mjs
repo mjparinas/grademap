@@ -1,6 +1,6 @@
 // Puts the Piper read-aloud files in public/piper/{version}/ so the site serves them itself:
-// the speech engine is copied from node_modules, and the voices are downloaded from a pinned
-// commit of rhasspy/piper-voices and checked by sha256. Files already in place are kept, so
+// the speech engine is copied from node_modules, and the voices are downloaded from our own
+// GitHub release (`piper-voices-{version}`, copied from rhasspy/piper-voices) and checked by sha256. Files already in place are kept, so
 // it only downloads once. Runs before `next dev` and `next build` (see package.json).
 //
 //   node scripts/fetch-piper.mjs             fails if a voice can't be downloaded
@@ -37,7 +37,7 @@ for (const [lang, voice] of Object.entries(manifest.voices)) {
     const dest = path.join(OUT, name);
     if (!(fs.existsSync(dest) && sha256(dest) === hash)) {
       try {
-        const res = await fetch(manifest.voiceSource + voice.path + name);
+        const res = await fetch(manifest.voiceSource + name);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const bytes = Buffer.from(await res.arrayBuffer());
         const got = createHash("sha256").update(bytes).digest("hex");

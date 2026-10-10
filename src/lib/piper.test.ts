@@ -33,7 +33,7 @@ describe("Piper files", () => {
       expect(Object.keys(v.files).sort()).toEqual([`${v.id}.onnx`, `${v.id}.onnx.json`]);
       for (const hash of Object.values(v.files)) expect(hash).toMatch(/^[0-9a-f]{64}$/);
     }
-    expect(manifest.voiceSource).toMatch(/^https:\/\/huggingface\.co\/rhasspy\/piper-voices\/resolve\/[0-9a-f]{40}\/$/);
+    expect(manifest.voiceSource).toBe(`https://github.com/mjparinas/gradelings/releases/download/piper-voices-${manifest.version}/`);
   });
 
   it("copies engine files that exist in node_modules", () => {

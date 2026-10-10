@@ -314,7 +314,8 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Optional Piper voice** (`src/lib/piper.ts`, `public/piper-worker.js`): a parent can download a neural voice in Settings (Kristin for English, Siwis for French, listed in `src/lib/piper-manifest.json` with file hashes). It runs on the device in a web worker (WebAssembly and ONNX Runtime), so it costs nothing to run and works offline once downloaded.
  - Off by default; the choice is per device in `localStorage`, and the files live in their own Cache Storage, so a parent can remove them.
  - When it's on, read-aloud uses it; if it fails, the device voice takes over. A device-voice preview in Settings always uses the device voice.
- - The voice files are served from our own origin (`/piper/{version}/`), not fetched from HuggingFace at runtime. `scripts/fetch-piper.mjs` downloads and checks them into `public/piper/` (gitignored) on `prebuild` and, optionally, on `dev`. Changing a voice means updating the manifest and its hashes and bumping `version`.
+ - We host every file ourselves. The site serves them from `/piper/{version}/`. The engine is copied from `node_modules`; the voices come from our GitHub release `piper-voices-{version}` (copied unchanged from rhasspy/piper-voices). `scripts/fetch-piper.mjs` downloads them, checks the sha256 and puts them in `public/piper/` (gitignored) on `prebuild` and, optionally, on `dev`. Don't commit the voice files to git or Git LFS (about 127 MB).
+ - Never replace or delete a release's assets. To change a voice, upload a new `piper-voices-{n}` release, update the manifest's hashes and bump `version`.
  - Show each voice's credit line; the French voice is CC BY 4.0.
  - A cloud neural voice (Azure, Google or OpenAI, with a shared audio cache) is the option if device voices aren't good enough. It's not built; ask the owner before adding one, because it has a running cost.
 - **"Juice it or lose it":**

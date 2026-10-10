@@ -106,7 +106,7 @@ jobs:
           key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**', 'next.config.ts') }}
           restore-keys: |
             next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
-      # The Piper voices (about 130 MB from HuggingFace), so each run doesn't download them again.
+      # The Piper voices (about 130 MB from our piper-voices release), so each run doesn't download them again.
       - uses: actions/cache@v6
         with:
           path: public/piper
