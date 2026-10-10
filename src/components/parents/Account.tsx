@@ -7,6 +7,7 @@ import * as localdb from "@/lib/localdb";
 import { useStore } from "@/lib/store";
 import { syncNow } from "@/lib/sync";
 import { Dialog } from "../ui";
+import { FamilyMembersPanel } from "./FamilyMembers";
 import { PageTitle, Panel } from "./common";
 import { PushToggle } from "./PushToggle";
 
@@ -297,7 +298,8 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
           </ul>
         </Panel>
         {account && <SecurityPanel />}
-        {account && (
+        {account && <FamilyMembersPanel verified={account.verified !== false} onLeft={() => router.push("/play/")} />}
+        {account && !account.coParent && (
           <Panel title="Delete account">
             <p className="mb-3 font-read text-ink-soft">Permanently deletes your account and all progress stored on our servers, and clears this device.</p>
             <button type="button" className="rounded-xl border border-[#e57a12] px-4 py-2 font-semibold text-nudge-dark" onClick={() => setConfirmDelete(true)}>

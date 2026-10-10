@@ -76,6 +76,8 @@ export function SubscriptionPage({ billing, onBilling }: { billing: BillingInfo 
         <Panel title={subscribed ? "Manage" : "Choose a plan"}>
           {inAndroidApp ? (
             <p className="font-read">Memberships can&apos;t be changed in this app. Your plan shows here once it is active on your account.</p>
+          ) : family.account?.coParent ? (
+            <p className="font-read">Billing is managed by the person who invited you. You can see the plan here.</p>
           ) : !family.account ? (
             <p className="font-read">
               To subscribe, first <a className="font-bold text-[#2f6fd6] underline" href="#/account">create a free account</a> so your membership works on every device.

@@ -149,3 +149,29 @@ export async function listDevices(): Promise<DeviceSession[]> {
 export async function signOutDevices(id?: string) {
   await post(`/api/auth/sessions/${id ? `?id=${encodeURIComponent(id)}` : ""}`, undefined, "DELETE");
 }
+
+export interface FamilyMembers {
+  members: { id: string; email: string; role: "owner" | "coparent"; you: boolean }[];
+  invites: { email: string }[];
+  owner: boolean;
+}
+
+export async function listFamilyMembers(): Promise<FamilyMembers> {
+  const res = await fetch("/api/family/members/", { credentials: "same-origin" });
+  if (!res.ok) throw new Error("Couldn't load your family.");
+  return (await res.json()) as FamilyMembers;
+}
+
+export async function inviteCoParent(email: string) {
+  await post("/api/family/invites/", { email });
+}
+
+export async function removeFamilyMember(target: { id: string } | { inviteEmail: string }) {
+  await post("/api/family/members/", target, "DELETE");
+}
+
+/** A co-parent leaves the family. Their progress stays with the family; this device is cleared. */
+export async function leaveFamily(parentId: string) {
+  await post("/api/family/members/", { id: parentId }, "DELETE");
+  await useStore.getState().wipeDevice();
+}

@@ -340,6 +340,104 @@ describe("report a problem", () => {
   });
 });
 
+describe("other adults in the family", () => {
+  const call = async (mod: string, method: string, path: string, body?: unknown, cookie?: string) => {
+    const m = (await import(mod)) as Record<string, (r: Request) => Promise<Response>>;
+    return m[method](req(path, method, body, cookie));
+  };
+  const invite = (address: string, cookie: string) => call("@/app/api/family/invites/route", "POST", "/api/family/invites/", { email: address }, cookie);
+  const inviteToken = (address: string) => tokenIn(email.outbox().filter((m) => m.to === address && m.subject.includes("invited you")).at(-1)!.text);
+
+  it("lets the owner invite someone who then sees the family but can't touch billing or deletion", async () => {
+    const owner = await family("owner-a@example.com");
+    expect((await invite("partner-a@example.com", owner.cookie)).status).toBe(200);
+    expect(email.outbox().at(-1)!.text).toContain("/account/join/?token=");
+
+    expect((await call("@/app/api/family/join/route", "POST", "/api/family/join/", { token: "nope", password: "correct horse" })).status).toBe(400);
+    expect((await call("@/app/api/family/join/route", "POST", "/api/family/join/", { token: inviteToken("partner-a@example.com"), password: "short" })).status).toBe(400);
+    const joined = await call("@/app/api/family/join/route", "POST", "/api/family/join/", { token: inviteToken("partner-a@example.com"), password: "correct horse" });
+    expect(joined.status).toBe(200);
+    expect((await joined.json()).family.account.coParent).toBe(true);
+    const partner = (joined.headers.get("set-cookie") ?? "").split(";")[0];
+    // The link works once.
+    expect((await call("@/app/api/family/join/route", "POST", "/api/family/join/", { token: inviteToken("partner-a@example.com"), password: "correct horse" })).status).toBe(400);
+
+    // They see the same children and progress.
+    const synced = await (await sync.POST(req("/api/sync/", "POST", { cursor: 0 }, partner))).json();
+    expect(synced.profiles.map((p: { id: string }) => p.id)).toEqual(owner.ids);
+    expect(synced.events.length).toBeGreaterThan(0);
+    expect(synced.family.account.coParent).toBe(true);
+    // They can sign in later and still aren't the owner.
+    const again = await login.POST(req("/api/auth/login/", "POST", { email: "partner-a@example.com", password: "correct horse" }));
+    expect((await again.json()).family.account.coParent).toBe(true);
+
+    // No billing, no deleting the account, no inviting more people.
+    const { POST: checkout } = (await import("@/app/api/billing/checkout/route")) as Mod;
+    expect((await checkout(req("/api/billing/checkout/", "POST", { interval: "month" }, partner))).status).toBe(403);
+    const { POST: portal } = (await import("@/app/api/billing/portal/route")) as Mod;
+    expect((await portal(req("/api/billing/portal/", "POST", {}, partner))).status).toBe(403);
+    expect((await call("@/app/api/account/route", "DELETE", "/api/account/", { password: "correct horse" }, partner)).status).toBe(403);
+    expect((await invite("third@example.com", partner)).status).toBe(403);
+    expect((await call("@/app/api/family/members/route", "DELETE", "/api/family/members/", { id: owner.ids[0] }, partner)).status).toBe(403);
+
+    // The members list shows both adults.
+    const list = await (await call("@/app/api/family/members/route", "GET", "/api/family/members/", undefined, owner.cookie)).json();
+    expect(list.members.map((m: { role: string }) => m.role)).toEqual(["owner", "coparent"]);
+    expect(list.owner).toBe(true);
+
+    // The owner removes them; their login stops working but the children's data stays.
+    const partnerId = list.members.find((m: { role: string }) => m.role === "coparent").id;
+    expect((await call("@/app/api/family/members/route", "DELETE", "/api/family/members/", { id: partnerId }, owner.cookie)).status).toBe(200);
+    expect((await sync.POST(req("/api/sync/", "POST", { cursor: 0 }, partner))).status).toBe(401);
+    expect((await sync.POST(req("/api/sync/", "POST", { cursor: 0 }, owner.cookie))).status).toBe(200);
+  });
+
+  it("deletes open invitations with the account", async () => {
+    const owner = await family("owner-e@example.com");
+    await invite("pending-e@example.com", owner.cookie);
+    expect((await dbm.query("SELECT 1 FROM family_invites WHERE family_id = ?", [owner.familyId])).length).toBe(1);
+    expect((await call("@/app/api/account/route", "DELETE", "/api/account/", { password: "correct horse" }, owner.cookie)).status).toBe(200);
+    expect((await dbm.query("SELECT 1 FROM family_invites WHERE family_id = ?", [owner.familyId])).length).toBe(0);
+  });
+
+  it("limits invitations: two adults, no existing accounts, confirmed owners only", async () => {
+    const owner = await family("owner-b@example.com");
+    await family("already@example.com");
+    expect((await invite("already@example.com", owner.cookie)).status).toBe(409);
+    expect((await invite("not an email", owner.cookie)).status).toBe(400);
+    expect((await invite("b1@example.com", owner.cookie)).status).toBe(200);
+    expect((await invite("b2@example.com", owner.cookie)).status).toBe(200);
+    expect((await invite("b3@example.com", owner.cookie)).status).toBe(409);
+    // Cancelling frees a place; re-inviting the same address replaces its link.
+    expect((await call("@/app/api/family/members/route", "DELETE", "/api/family/members/", { inviteEmail: "b2@example.com" }, owner.cookie)).status).toBe(200);
+    expect((await invite("b3@example.com", owner.cookie)).status).toBe(200);
+    const first = inviteToken("b1@example.com");
+    expect((await invite("b1@example.com", owner.cookie)).status).toBe(200);
+    expect((await call("@/app/api/family/join/route", "POST", "/api/family/join/", { token: first, password: "correct horse" })).status).toBe(400);
+
+    const unconfirmed = await family("owner-c@example.com", { verified: false });
+    expect((await invite("c1@example.com", unconfirmed.cookie)).status).toBe(403);
+  });
+
+  it("lets a co-parent leave, and sends them no trial or billing emails", async () => {
+    const owner = await family("owner-d@example.com");
+    await invite("partner-d@example.com", owner.cookie);
+    const joined = await call("@/app/api/family/join/route", "POST", "/api/family/join/", { token: inviteToken("partner-d@example.com"), password: "correct horse" });
+    const partner = (joined.headers.get("set-cookie") ?? "").split(";")[0];
+    expect((await prefs.POST(req("/api/account/prefs/", "POST", { weeklyReport: true }, partner))).status).toBe(200);
+
+    await dbm.run("UPDATE families SET trial_ends_at = ? WHERE id = ?", [Date.now() + 2 * 86_400_000, owner.familyId]);
+    await cron.GET(new Request("http://localhost/api/cron/weekly/", { headers: { authorization: "Bearer cron-secret" } }));
+    const trialMail = (to: string) => email.outbox().filter((m) => m.to === to && m.subject.includes("free trial"));
+    expect(trialMail("owner-d@example.com").length).toBeGreaterThan(0);
+    expect(trialMail("partner-d@example.com").length).toBe(0);
+
+    const me = (await (await call("@/app/api/family/members/route", "GET", "/api/family/members/", undefined, partner)).json()).members.find((m: { you: boolean }) => m.you);
+    expect((await call("@/app/api/family/members/route", "DELETE", "/api/family/members/", { id: me.id }, partner)).status).toBe(200);
+    expect((await sync.POST(req("/api/sync/", "POST", { cursor: 0 }, partner))).status).toBe(401);
+  });
+});
+
 describe("weekly report notifications", () => {
   const pair = generateKeyPairSync("ec", { namedCurve: "prime256v1" });
   const jwk = pair.privateKey.export({ format: "jwk" }) as { x: string; y: string; d: string };

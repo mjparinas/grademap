@@ -133,6 +133,17 @@ const SCHEMA = [
     UNIQUE (class_id, login_code)
   )`,
   `CREATE INDEX IF NOT EXISTS students_class ON students (class_id)`,
+  // Another adult (a partner, grandparent or tutor) invited to see a family's reports. Only a hash of the link is stored.
+  `CREATE TABLE IF NOT EXISTS family_invites (
+    token_hash TEXT PRIMARY KEY,
+    family_id TEXT NOT NULL,
+    email TEXT NOT NULL,
+    invited_by TEXT NOT NULL,
+    created_at INTEGER NOT NULL,
+    expires_at INTEGER NOT NULL,
+    used_at INTEGER
+  )`,
+  `CREATE INDEX IF NOT EXISTS family_invites_family ON family_invites (family_id)`,
   // Browsers a parent allowed to get a "your weekly report is ready" notification. Only the push address is kept.
   `CREATE TABLE IF NOT EXISTS push_subscriptions (
     id TEXT PRIMARY KEY,

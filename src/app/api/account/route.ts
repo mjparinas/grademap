@@ -11,6 +11,7 @@ export async function DELETE(req: Request) {
   if (!sameOrigin(req)) return error(403, "Bad origin");
   const session = await getSession(req);
   if (!session) return error(401, "Not signed in");
+  if (session.coParent) return error(403, "Only the account owner can do this.");
   const f = session.familyId;
   // Deleting is permanent, so it asks for the password again.
   if (await rateLimited(`delete:${session.parentId}:${clientIp(req)}`, 5, 60 * 60_000)) return error(429, "Too many attempts. Try again later.");
@@ -31,6 +32,7 @@ export async function DELETE(req: Request) {
   await removeStudentsOfOwner((await query<{ id: string }>("SELECT id FROM parents WHERE family_id = ?", [f])).map((p) => p.id));
   await batch([
     { sql: "DELETE FROM auth_tokens WHERE parent_id IN (SELECT id FROM parents WHERE family_id = ?)", args: [f] },
+    { sql: "DELETE FROM family_invites WHERE family_id = ?", args: [f] },
     { sql: "DELETE FROM push_subscriptions WHERE parent_id IN (SELECT id FROM parents WHERE family_id = ?)", args: [f] },
     { sql: "DELETE FROM report_shares WHERE family_id = ?", args: [f] },
     // Classroom mode: unlink this family's children, and remove any classes this account's teachers owned.

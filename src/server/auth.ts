@@ -15,6 +15,8 @@ export interface SessionInfo {
   familyId: string;
   email: string;
   verified: boolean;
+  /** An adult the account owner invited: sees and syncs the family's progress, but can't change billing or delete the account. */
+  coParent: boolean;
   /** A class-owned student account. Students can sync and play, and nothing else. */
   student: boolean;
 }
@@ -127,7 +129,7 @@ export async function getSession(req: Request, opts: { student?: boolean } = {})
   if (!row || Number(row.expires_at) < Date.now()) return null;
   const student = row.role === "student";
   if (student && !opts.student) return null;
-  return { parentId: row.parent_id, familyId: row.family_id, email: row.email, verified: Boolean(row.email_verified_at), student };
+  return { parentId: row.parent_id, familyId: row.family_id, email: row.email, verified: Boolean(row.email_verified_at), coParent: row.role === "coparent", student };
 }
 
 export async function endSession(req: Request): Promise<void> {
