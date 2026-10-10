@@ -3,14 +3,16 @@
 import { onColour } from "@/lib/contrast";
 import Link from "next/link";
 import { useState, type CSSProperties } from "react";
-import { getUnitRef } from "@/content";
+import { allUnitRefs, getUnitRef } from "@/content";
 import { getSubjectMeta } from "@/content/subjects";
 import { weakest } from "@/lib/adaptive";
 import { gameTime } from "@/lib/gametime";
+import { effectiveGoal } from "@/lib/goal";
 import { dayKey } from "@/lib/model";
 import { canUse, type Feature } from "@/lib/plan";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "@/lib/quests";
-import { unitLevel } from "@/lib/proficiency";
+import { nextUp } from "@/lib/nextup";
+import { levelInfo, unitLevel } from "@/lib/proficiency";
 import { signOutStudent } from "@/lib/account";
 import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
@@ -19,12 +21,15 @@ import { useBand } from "../band";
 import { SpeechBubble } from "../Critter";
 import { Companion } from "./Companion";
 import { Dialog, Page, ProgressBar } from "../ui";
+import { GoalChip } from "./GoalPicker";
 import { Hud } from "./Hud";
 import { BuddyButton, MooseVisitor } from "./Secrets";
 import { suggestions } from "./plans";
 import { useAllowed } from "./useAllowed";
 import { useClasswork } from "./useClasswork";
+import { ParentNote } from "./ParentNote";
 import { LevelChip } from "./Practice";
+import { InstallChip } from "./InstallChip";
 
 interface Tile {
   id: string;
@@ -58,7 +63,7 @@ export function Hub() {
   const today = dayKey(now);
   const dayStat = d.days[today];
   const minutes = Math.floor((dayStat?.learnSeconds ?? 0) / 60);
-  const goal = settings?.dailyGoalMinutes ?? 15;
+  const goal = effectiveGoal(settings, d, today).minutes;
   const subjects = settings?.enabledSubjects ?? ["math", "language", "science", "social"];
   const games = gameTime(settings, d, now);
   const weak = weakest({ grade: profile.grade, framework: profile.framework, derived: d, subjects }, 10).length;
@@ -71,6 +76,10 @@ export function Hub() {
   const weekClaimed = d.questsClaimed[monday] ?? [];
   const suggested = suggestions(profile.grade, profile.framework, d, subjects, allowed, 1)[0];
   const little = band === "little";
+  const unitKeys = allUnitRefs(profile.grade, profile.framework).filter((r) => subjects.includes(r.course.subject) && allowed(r)).map((r) => r.key);
+  const next = nextUp(d, unitKeys);
+  const nextRef = next ? getUnitRef(next.key) : undefined;
+  const nextInfo = next ? levelInfo(profile.framework, profile.grade, next.level) : undefined;
   const classwork = useClasswork();
 
   // Welcome-back and streak copy is always warm and forward-looking, never about something lost.
@@ -148,9 +157,7 @@ export function Hub() {
           <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>
           <div className="mt-2 flex items-center gap-2">
             <ProgressBar value={minutes} max={goal} className="flex-1" label="Minutes learned today" />
-            <span className="text-sm font-semibold whitespace-nowrap text-ink-soft">
-              ⏱ {minutes}/{goal} min
-            </span>
+            <GoalChip minutes={minutes} goal={goal} />
           </div>
         </SpeechBubble>
       </div>
@@ -173,6 +180,8 @@ export function Hub() {
         </span>
         <span className="text-4xl narrow:hidden">▶</span>
       </button>
+
+      {!isStudent && <ParentNote />}
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
         {tiles.map((t, i) => {
@@ -281,7 +290,25 @@ export function Hub() {
         </ul>
       </section>
 
-      {suggested && (
+      {next && nextRef && (
+        <Link
+          href={`#/session?mode=practice&scope=${encodeURIComponent(next.key)}`}
+          className="card flex items-center gap-3 p-4"
+          style={{ borderColor: getSubjectMeta(nextRef.course.subject).colour }}
+          data-testid="next-up"
+        >
+          <span className="text-4xl">{nextRef.unit.emoji}</span>
+          <span className="flex-1">
+            <span className="block text-sm font-semibold text-ink-soft">Almost there · {nextRef.unit.title}</span>
+            <span className="block text-xl font-bold">
+              {next.questions} right {next.questions === 1 ? "answer" : "answers"} to grow {nextInfo ? `into ${nextInfo.icon} ${nextInfo.kidLabel}` : "to the next level"}
+            </span>
+          </span>
+          <span className="text-2xl">▶</span>
+        </Link>
+      )}
+
+      {suggested && suggested.key !== next?.key && (
         <Link
           href={`#/session?mode=practice&scope=${encodeURIComponent(suggested.key)}`}
           className="card flex items-center gap-3 p-4"
@@ -307,6 +334,8 @@ export function Hub() {
           </Link>
         )}
       </div>
+
+      {!isStudent && <InstallChip little={little} />}
 
       <MooseVisitor />
 

@@ -20,6 +20,7 @@ import {
 import { TRIAL_DAYS } from "./plan";
 import { celebrate, setCalmCheck } from "./juice";
 import { setHapticsCheck } from "./haptics";
+import { effectiveGoal, STRETCH_QUEST, STRETCH_REWARD } from "./goal";
 import { growthStage } from "./buddy";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "./quests";
 import { getItem, isUnlocked, STARTER } from "./shop";
@@ -239,6 +240,14 @@ export const useStore = create<State>()((set, get) => ({
       if (!claimed.includes(q.id) && q.progress(after.days[day]) >= q.target) {
         questEvents.push({ type: "quest", quest: q.id, day, reward: q.reward, id: newId(), t: now + 50, profileId: profile.id });
         toasts.push({ kind: "quest", title: "Quest complete!", subtitle: `${q.title} · +${q.reward} coins`, icon: q.icon });
+      }
+    }
+    // Finishing a stretch goal earns a small bonus, once a day.
+    {
+      const goal = effectiveGoal(state.settings[profile.id], after, day);
+      if (goal.level === "stretch" && !claimed.includes(STRETCH_QUEST) && (after.days[day]?.learnSeconds ?? 0) >= goal.minutes * 60) {
+        questEvents.push({ type: "quest", quest: STRETCH_QUEST, day, reward: STRETCH_REWARD, id: newId(), t: now + 55, profileId: profile.id });
+        toasts.push({ kind: "quest", title: "Stretch goal reached!", subtitle: `You went the extra mile · +${STRETCH_REWARD} coins`, icon: "🚀" });
       }
     }
     // Weekly quests add up the week's days and are claimed under the Monday's date.

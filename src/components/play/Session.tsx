@@ -6,6 +6,7 @@ import { getUnitRef } from "@/content";
 import type { Question } from "@/content/types";
 import { burstFrom, celebrate, floatText, replay } from "@/lib/juice";
 import { pick } from "@/content/random";
+import { effectiveGoal } from "@/lib/goal";
 import { dayKey, type Mode } from "@/lib/model";
 import { levelInfo, nextStep, unitLevel } from "@/lib/proficiency";
 import { go } from "@/lib/router";
@@ -537,8 +538,9 @@ function comingUp(d: ReturnType<typeof derivedFor>, plan: Plan, goal: number, no
 function Summary({ plan, results, startDerived }: { plan: Plan; results: Result[]; startDerived: ReturnType<typeof derivedFor> }) {
   const profile = useActiveProfile()!;
   const d = useDerived();
-  const goal = useChildSettings()?.dailyGoalMinutes ?? 15;
-  const ahead = comingUp(d, plan, goal, useNow());
+  const now = useNow();
+  const goal = effectiveGoal(useChildSettings(), d, dayKey(now)).minutes;
+  const ahead = comingUp(d, plan, goal, now);
   const stage = useRef<HTMLDivElement>(null);
   const total = results.length;
   const correct = results.filter((r) => r.correct).length;

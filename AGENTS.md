@@ -165,7 +165,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **The tone is soft:** a gentle "try again" sound, not a buzzer, and encouraging messages. Never shame a child.
 
 ### Timers and the learn-to-play loop
-- **Daily goal timer:** 10 minutes for little kids, 15 for everyone else. A session timer appears in timed modes, and the elapsed timer is optional (`showTimer`).
+- **Daily goal timer:** 10 minutes for little kids, 15 for everyone else. A child can tap the minutes on the home screen to pick Easy (about two thirds), Regular (the parent's goal) or Stretch (a third more) for the day (`src/lib/goal.ts`, a `goal` event). Finishing a Stretch goal earns +15 coins once a day. Parents can turn the choice off in Settings. A session timer appears in timed modes, and the elapsed timer is optional (`showTimer`).
 - **Learning earns arcade time,** Pomodoro-style. The default is 20 minutes of learning for 5 minutes of games, with a cap of 20 game minutes a day.
   - Parents can change all of these, turn games off, or allow free play (`src/lib/gametime.ts`).
 - **Learning time is counted per answer, capped at 60 seconds,** so leaving the app open doesn't earn time.
@@ -195,6 +195,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Streaks:** a day counts if the child finishes a session or gives at least 5 answers. Every 7 practice days earns a rest-day shield (up to 2) that covers a missed day, so one slip doesn't erase a long streak. Shields are computed in `derive`, never stored.
 - **Shop unlocks:** some items need a level or trophy as well as coins (`unlock` in `src/lib/shop.ts`).
 - **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
+- **"Almost there" card:** the home screen shows the started unit closest to its next level ("2 right answers to grow into 🌳 Tree", `questionsToNextLevel`, `src/lib/nextup.ts`). Units that need a Challenge for the next level are skipped.
 - **Buddy growth:** the child's buddy is dressed for their level (`src/lib/buddy.ts`): Cub, then Explorer (bow tie) at level 5, Adventurer (cape) at 15, Hero (medal) at 30 and Legend (crown) at 50. It is read from the level, so nothing is stored. The Shop shows the next stage, and a level-up toast says when the buddy grew. Use `<Companion>` (not `<Critter id={profile.companion}>`) wherever the child's own buddy appears.
 - **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
@@ -214,8 +215,9 @@ Tests are duplicated across screen sizes only where layout can break:
   - Account & sync, Subscription, and Privacy (JSON export, erase device, delete account).
 - **Calm and focus options** (per child, all off by default, in Settings): calm motion, quiet sounds, hide timers, hold trophy pop-ups until after the lesson, and shorter sessions (5 questions). They change presentation only; scoring is unchanged. They exist for children who find motion, noise or time pressure hard, including many with ADHD. Never make health claims about them.
 - **Easier reading options** (per child, off by default): roomy text and high contrast, next to the calm options.
-- **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email. Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
+- **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email (on the first Sunday of the month it also carries a short month summary: practice days, minutes, questions, and a comparison with the month before only when it went up). Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
 - **Share a report:** a parent can create a read-only link (30 days, revocable) to one child's report. It is served from `/shared/{token}/`, never indexed.
+- **Weekly goal and notes:** a parent can set a weekly "days practised" goal per child and send one of four fixed kind notes (`src/lib/familyGoal.ts`). Both live in the child's synced settings; progress is computed from events. The note shows once on the child's home screen and expires after 3 days. No free text, no push to children.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 
 ### Classroom mode (`/teachers/`)
