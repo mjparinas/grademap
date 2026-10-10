@@ -115,7 +115,7 @@ function expression(d: Level, multOnly = false): Expr {
       return { text: `${a} − ${b} + ${c}`, value: a - b + c, trap: a - (b + c) };
     }
     case "a+bxc-d": {
-      const a = randInt(2, 15), b = randInt(2, 9), c = randInt(2, 9), d2 = randInt(1, 10);
+      const a = randInt(2, 15), b = randInt(2, 9), c = randInt(2, 9), d2 = randInt(1, Math.min(10, a + b * c - 1));
       return { text: `${a} + ${b} × ${c} − ${d2}`, value: a + b * c - d2, trap: (a + b) * c - d2 };
     }
     default: {
