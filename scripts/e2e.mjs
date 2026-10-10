@@ -6,7 +6,7 @@
 //
 //   npm run build && npm start            # in one terminal (offline needs a production build)
 //   npm i --no-save playwright && npx playwright install chromium
-//   node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline [--speed] [--part modes|sync]
+//   node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline [--speed] [--part modes|parents|sync]
 import fs from "node:fs";
 import { chromium } from "playwright";
 import { EDGE_VOICES, enterPin, installFakeVoices, newChild, spoken, step, vis } from "./helpers.mjs";
@@ -14,12 +14,15 @@ const BASE = process.argv[2] || "http://localhost:3100";
 const OUT = process.argv[3] || "e2e-shots";
 const OFFLINE = process.argv.includes("--offline");
 const SPEED = process.argv.includes("--speed");
-// --part modes|sync runs half of the playthrough, so CI can use two machines. With no --part
-// it runs everything, as before. "sync" seeds a little progress instead of replaying every mode.
+// --part modes|parents|sync runs a third of the playthrough, so CI can use three machines. With
+// no --part it runs everything, as before. "modes" plays the lessons, "parents" covers the parent
+// area, read-aloud voices and arcade, and "sync" seeds a little progress instead of replaying
+// every mode.
 const PART = process.argv.includes("--part") ? process.argv[process.argv.indexOf("--part") + 1] : "all";
-if (!["all", "modes", "sync"].includes(PART)) throw new Error(`--part must be modes or sync, not "${PART}"`);
-const MODES = PART !== "sync";
-const SYNC = PART !== "modes";
+if (!["all", "modes", "parents", "sync"].includes(PART)) throw new Error(`--part must be modes, parents or sync, not "${PART}"`);
+const MODES = PART === "all" || PART === "modes";
+const PARENTS = PART === "all" || PART === "parents";
+const SYNC = PART === "all" || PART === "sync";
 fs.mkdirSync(OUT, { recursive: true });
 
 const errors = [];
@@ -188,6 +191,8 @@ async function eventsWaiting(page) {
     await tile(page, /Shop/);
     await shot(page, "19-shop", true);
 
+  }
+  if (PARENTS) {
     // Parent area: PIN, free play, reports
     await page.goto(`${BASE}/parents/`);
     await enterPin(page, true);
@@ -248,7 +253,8 @@ async function eventsWaiting(page) {
       await page.waitForTimeout(400);
     }
 
-  } else {
+  }
+  if (PART === "sync") {
     // Sync part only: just enough history for the second device to have something to download.
     await page.getByRole("button", { name: /Adventure/ }).click({ force: true });
     await page.waitForTimeout(400);
