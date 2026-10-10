@@ -1,0 +1,81 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 2 science: air and weather (SCI.2.E.3), and plants, animals and energy from food (SCI.2.E.7 to SCI.2.E.9).
+
+const AIR: Q[] = [
+  ["What is all around us that we cannot see, but can feel when it moves?", "air", ["sand", "snow"], "Air is a mixture of gases. We feel it as wind."],
+  ["What do we call air that is moving?", "wind", ["fog", "frost"], "Wind is air on the move."],
+  ["The layer of air around Earth is called the…", "atmosphere", ["ocean", "mountain"], "The atmosphere is a blanket of air around Earth."],
+  ["Which tool tells us how hot or cold the air is?", "thermometer", ["ruler", "clock"], "A thermometer measures temperature."],
+  ["Which tool shows which way the wind is blowing?", "wind vane", ["thermometer", "scale"], "A wind vane points to where the wind comes from."],
+  ["Which tool measures how much rain has fallen?", "rain gauge", ["wind vane", "compass"], "A rain gauge collects rain in a tube with marks."],
+  ["What is weather?", "what the air outside is like today", ["a kind of rock", "a place to swim"], "Weather can be sunny, rainy, snowy or windy."],
+  ["Which kind of weather has water falling from clouds?", "precipitation", ["sunshine", "calm"], "Rain, snow and hail are precipitation."],
+  ["Which of these is precipitation?", "snow", ["wind", "sunshine"], "Snow falls from clouds."],
+  ["Which of these falls from clouds as precipitation?", "rain", ["clouds only", "warm air"], "Rain falls from clouds."],
+  ["What do we feel on a day when the air is moving fast?", "strong wind", ["calm air", "still air"], "Fast-moving air is strong wind."],
+  ["Clouds are made of tiny drops of…", "water", ["sand", "paint"], "Clouds are tiny drops of water or ice floating in the air."],
+  ["Which weather would be best for flying a kite?", "windy", ["calm and still", "a thick fog"], "A kite needs moving air."],
+  ["On a cold winter day in Manitoba, what do we wear outside?", "a warm coat and mittens", ["a swimsuit", "sandals"], "We dress for the weather."],
+  ["In which season is the air usually warmest?", "summer", ["winter", "spring"], "Summer has the warmest weather."],
+  ["In which season is the air usually coldest?", "winter", ["summer", "autumn"], "Winter has the coldest weather in Manitoba."],
+  ["What can air do to a pinwheel?", "make it spin", ["make it melt", "make it sink"], "Moving air pushes on the blades."],
+  ["You blow up a balloon. What is inside it?", "air", ["nothing at all", "water"], "Air takes up space and fills the balloon."],
+  ["Does air take up space?", "yes", ["no", "only on windy days"], "Air fills a balloon, so it takes up space."],
+  ["Which clothing is best for a rainy day?", "a raincoat and boots", ["a sun hat", "a swimsuit"], "Rain gear keeps us dry."],
+  ["A thermometer reads 30 degrees on a summer day. How does the air feel?", "hot", ["cold", "frozen"], "Higher temperatures feel warmer.", true],
+  ["A thermometer reads below zero. What might we see outside?", "snow or ice", ["flowers in bloom", "a sunny beach"], "Water freezes when it is very cold.", true],
+  ["Why do we check the weather before we go out?", "to know what to wear", ["to find the time", "to pick a book"], "The weather helps us dress and plan.", true],
+  ["Which sentence is a weather observation?", "The sky is grey and it is raining.", ["I like to read.", "My shoes are blue."], "A weather observation tells about the air outside.", true],
+  ["How can we find out which way the wind is blowing?", "Watch a flag or a wind vane", ["Count the clouds", "Smell the air"], "A flag blows away from where the wind comes.", true],
+  ["Which of these can be measured with a thermometer?", "how warm the air is", ["how fast the wind is", "how much it rained"], "Temperature is how warm or cold something is.", true],
+];
+
+const FOOD: Q[] = [
+  ["Where do plants get the energy they need to grow?", "from the Sun", ["from meat", "from the dark"], "Plants use sunlight to make their food."],
+  ["Which of these do plants need to grow?", "sunlight, water and air", ["candy", "snow only"], "Plants use light, water and air."],
+  ["Which of these is a plant eater?", "rabbit", ["wolf", "eagle"], "A plant eater is called a herbivore."],
+  ["Which of these eats only plants?", "deer", ["lion", "shark"], "Deer eat grass, leaves and twigs."],
+  ["Which of these eats other animals?", "wolf", ["rabbit", "cow"], "A meat eater is called a carnivore."],
+  ["Which of these eats both plants and animals?", "bear", ["rabbit", "cow"], "An animal that eats both is an omnivore."],
+  ["What do we call an animal that eats only plants?", "herbivore", ["carnivore", "omnivore"], "Herb means plant."],
+  ["What do we call an animal that eats only other animals?", "carnivore", ["herbivore", "omnivore"], "Carn means meat."],
+  ["What do we call an animal that eats both plants and animals?", "omnivore", ["herbivore", "carnivore"], "Omni means all."],
+  ["A grasshopper eats grass. What gives the grasshopper its energy?", "the plant it eats", ["the moon", "a rock"], "Animals get energy from the food they eat."],
+  ["A frog eats a grasshopper. Where does the frog get its energy?", "from the grasshopper", ["from the Sun directly", "from the water only"], "The frog gets energy from the food it eats."],
+  ["Which comes first in a food chain?", "a plant", ["a wolf", "an eagle"], "Food chains begin with plants that use the Sun's light."],
+  ["Which food chain is in the right order? Grass, rabbit, fox", "grass → rabbit → fox", ["fox → rabbit → grass", "rabbit → grass → fox"], "The arrow shows who gets the energy."],
+  ["In the chain grass → bison, what does the bison eat?", "grass", ["fox", "berries"], "The arrow points to the animal that eats."],
+  ["On the prairie, what does a bison eat?", "grass", ["fish", "meat"], "Bison are plant eaters."],
+  ["What does a polar bear eat near Hudson Bay?", "seals", ["grass", "leaves"], "Polar bears are carnivores."],
+  ["Which animal eats seeds?", "chickadee", ["wolf", "shark"], "Many small birds eat seeds."],
+  ["Do all animals depend on plants, directly or indirectly?", "yes", ["no", "only birds"], "Even meat eaters eat animals that ate plants."],
+  ["A wolf eats a deer. Who ate the plants?", "the deer", ["the wolf", "the Sun"], "The deer ate plants first."],
+  ["What happens to a plant that gets no light?", "it does not grow well", ["it grows faster", "it turns into an animal"], "Plants need light to make food."],
+  ["Which of these is NOT food for a plant eater?", "a fish", ["clover", "a leaf"], "A plant eater eats plants.", true],
+  ["Which pair is a plant and a plant eater?", "clover and a rabbit", ["wolf and a fox", "a fish and a bear"], "The rabbit eats the clover.", true],
+  ["Why can we say the Sun is important to all animals?", "Plants use its light, and animals eat plants", ["Animals live inside it", "Animals drink its heat"], "Energy flows from the Sun to plants to animals.", true],
+  ["A gardener plants a seed. What does the seedling need most?", "light, water and air", ["music", "a fence"], "Those are the things plants need.", true],
+  ["Which is a plant eater and a food for other animals?", "a mouse", ["a hawk", "a wolf"], "A mouse eats seeds, and owls eat mice.", true],
+  ["Squirrels bury nuts in autumn. Why?", "for food in winter", ["to grow bigger ears", "to build a nest"], "Animals store food for the cold season.", true],
+];
+
+export const airAndWeather = bankUnit({
+  id: "mb-air-and-weather",
+  title: "Air and Weather",
+  emoji: "🌬️",
+  blurb: "Feel the air, watch the wind and read the weather.",
+  parentNote: "The atmosphere and its characteristics: air takes up space, wind is moving air, and weather can be observed and measured with simple tools.",
+  standards: ["SCI.2.E.3, SCI.2.C.2", "characteristics of the atmosphere, and measuring weather"],
+  items: AIR,
+});
+
+export const foodAndEnergy = bankUnit({
+  id: "mb-food-and-energy",
+  title: "Plants, Animals and Energy",
+  emoji: "🌱",
+  blurb: "Where do plants and animals get the energy they need?",
+  parentNote: "Animals get energy by eating plants or other animals, plants capture energy from the Sun, and all animals depend on plants.",
+  standards: ["SCI.2.E.7, SCI.2.E.8, SCI.2.E.9", "how animals get energy, how plants capture energy from the Sun, and animals' dependence on plants"],
+  items: FOOD,
+});

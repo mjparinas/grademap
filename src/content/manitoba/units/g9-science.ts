@@ -1,0 +1,83 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 9 science units written for Manitoba outcomes that BC and Ontario units do not cover:
+// making electricity (SCI.9.E.12 to E.14) and evolution and natural selection (SCI.9.E.20, E.23 to E.28).
+
+const POWER: Q[] = [
+  ["What does a generator do?", "changes motion into electrical energy", ["stores heat in water", "makes magnets from wire"], "A turning coil in a magnetic field produces electric current."],
+  ["Which source produces most of Manitoba's electricity?", "falling water (hydro)", ["coal", "nuclear fission"], "Manitoba Hydro uses rivers such as the Nelson and Winnipeg."],
+  ["In a hydroelectric station, flowing water turns a…", "turbine", ["battery", "thermometer"], "The turbine spins the generator."],
+  ["What is a renewable energy source?", "one that is naturally replaced, such as wind", ["one that can only be used once", "one found only underground"], "Wind, water and sunlight are renewable."],
+  ["Which of these is a non-renewable energy source?", "coal", ["wind", "falling water"], "Fossil fuels take millions of years to form."],
+  ["Wind turbines change…", "kinetic energy of wind into electrical energy", ["heat into sound", "light into water"], "Moving air turns the blades."],
+  ["Solar panels (photovoltaic cells) change…", "light energy into electrical energy", ["sound into heat", "wind into light"], "Sunlight knocks electrons loose to make a current."],
+  ["Electricity from a power plant reaches homes by…", "transmission lines and transformers", ["trucks carrying batteries", "radio waves"], "Transformers raise the voltage for travel and lower it for use."],
+  ["Why is electricity sent over long distances at very high voltage?", "less energy is lost as heat", ["so it travels slower", "so it becomes direct current"], "Higher voltage means lower current for the same power, so less heat loss.", true],
+  ["A downside of fossil fuel power plants is that they…", "release carbon dioxide", ["use no fuel", "make no electricity"], "Burning fuels adds greenhouse gases to the air."],
+  ["A challenge of building large hydro dams is that they can…", "flood land and change river ecosystems", ["use no water", "cost nothing"], "Reservoirs affect land, wildlife and nearby communities."],
+  ["Nuclear power plants use…", "heat from splitting atoms", ["wind", "tides"], "Fission releases heat that turns water into steam."],
+  ["An advantage of nuclear power is that it…", "does not release greenhouse gases while operating", ["makes no waste", "needs no safety rules"], "However, it makes radioactive waste that must be stored carefully.", true],
+  ["Wind and solar power are sometimes limited because…", "wind does not always blow and the Sun does not always shine", ["they pollute heavily", "they use fuel oil"], "Energy storage and other sources help fill the gaps."],
+  ["Which choice reduces your household electricity use?", "turning off lights when you leave a room", ["leaving the TV on", "opening the fridge often"], "Using less energy lowers costs and pollution."],
+  ["You should never touch a power line that has fallen to the ground because…", "it may still be live and can shock you", ["it is always safe", "it is only dangerous when raining"], "Stay far away and call for help."],
+  ["Which item keeps people safe from electric shock in a bathroom outlet?", "a ground fault circuit interrupter (GFCI)", ["a longer cord", "an extra plug"], "A GFCI cuts power when it senses current leaking."],
+  ["A fuse or circuit breaker protects a circuit by…", "stopping the current when it is too high", ["raising voltage", "storing charge"], "It prevents overheating and fires."],
+  ["Why should you keep electrical devices away from water?", "water can conduct electricity and cause shock", ["water is a perfect insulator", "water stops current"], "Impure water carries current easily."],
+  ["What should you do if you see a frayed electrical cord?", "stop using it and tell an adult", ["tape it and keep using it", "wrap it around your hand"], "Damaged insulation can expose live wires."],
+  ["A kite should never be flown near…", "power lines", ["a grassy field", "an open beach"], "A kite string can conduct electricity."],
+  ["Why do plugs have a third (ground) prong?", "to give stray current a safe path to the ground", ["to hold the plug in better", "to make the plug heavier"], "It protects against shock if a fault happens."],
+  ["Which of these devices uses alternating current (AC) from the wall?", "a household lamp", ["a flashlight battery", "a watch battery"], "Batteries provide direct current (DC).", true],
+  ["Direct current flows…", "in one direction only", ["back and forth rapidly", "only through water"], "Batteries supply DC."],
+  ["Alternating current changes direction…", "many times each second", ["never", "once an hour"], "Household electricity in Canada alternates 60 times per second (60 Hz)."],
+  ["Which source uses a turbine that is spun by steam from heated water?", "a coal plant", ["a solar panel", "a wind farm"], "Many power plants boil water to make steam that turns turbines.", true],
+];
+
+const EVOLUTION: Q[] = [
+  ["A trait that helps an organism survive and reproduce in its environment is called an…", "adaptation", ["accident", "mutation only"], "Adaptations make an organism better suited to its environment."],
+  ["Variation within a species means…", "individuals have different traits", ["all individuals are identical", "no individuals reproduce"], "Variation gives natural selection something to work on."],
+  ["Natural selection is when…", "individuals with helpful traits survive and reproduce more", ["the strongest always win", "nature chooses on purpose"], "Helpful traits become more common over many generations."],
+  ["Which of these must be true for natural selection to occur?", "traits vary and can be inherited", ["every organism is the same", "traits cannot be passed on"], "Without inheritance, change could not build up."],
+  ["A selective pressure is…", "an environmental factor that affects survival", ["a school rule", "a type of fossil"], "Predators, climate and food supply are selective pressures."],
+  ["Peppered moths became darker near polluted, sooty cities because…", "darker moths were less visible to birds and survived more often", ["moths wished to change colour", "pollution painted them"], "Birds ate light moths on dark trees more often.", true],
+  ["Bacteria can become resistant to antibiotics when…", "some bacteria survive the drug and multiply", ["all bacteria change on purpose", "the drug creates new bacteria"], "Resistant bacteria pass on their resistance."],
+  ["Artificial selection occurs when…", "humans choose which organisms reproduce", ["wind chooses seeds", "predators choose prey"], "Dog breeds and crop varieties came from artificial selection."],
+  ["Which is an example of artificial selection?", "farmers breeding cows that give more milk", ["fish living in a cave", "a bird growing a longer beak by exercise"], "People select for traits they want."],
+  ["A difference between natural and artificial selection is that…", "in natural selection, the environment does the selecting", ["in natural selection, humans choose", "only artificial selection involves traits"], "In artificial selection, people choose."],
+  ["A new species can form when…", "populations become separated and adaptations build up over time", ["one animal changes in a day", "two species are identical"], "Over many generations, groups may become too different to breed together."],
+  ["Fossils give evidence of evolution because they…", "show what organisms looked like long ago", ["are alive today", "are made in laboratories only"], "Layers of rock show a record of changes over time."],
+  ["Older fossils are usually found in…", "deeper rock layers", ["higher layers", "water only"], "Rock layers settle in order, with the oldest at the bottom (unless disturbed)."],
+  ["Scientists estimate the age of rocks using…", "radiometric dating", ["guessing from colour", "counting grains of sand"], "Radioactive elements decay at steady, known rates.", true],
+  ["Which came first on Earth?", "single-celled organisms", ["mammals", "flowering plants"], "Simple life appeared billions of years before complex animals."],
+  ["Roughly how old is Earth?", "about 4.5 billion years", ["about 4500 years", "about 4.5 million years"], "Life appeared early in Earth's history."],
+  ["Mutations are…", "changes in an organism's genetic material", ["new fossils", "kinds of food"], "Some mutations help, some harm, and most have no effect."],
+  ["Only mutations in sex cells can be passed to offspring because…", "they are the cells that join to make offspring", ["body cells never change", "mutations don't exist"], "A mutation in a body cell, such as skin, is not inherited.", true],
+  ["If a climate becomes colder, the selective pressures on a population of animals will…", "change", ["stay exactly the same", "disappear"], "Different traits may help in the new conditions."],
+  ["Which statement about adaptation is best?", "Populations adapt over many generations, not individuals in one lifetime", ["An individual grows a new trait because it needs it", "Adaptations happen overnight"], "Individuals don't choose to change; populations change over time.", true],
+  ["Sexual reproduction increases variation because…", "offspring get a new mix of genes from two parents", ["offspring are clones", "no genes are involved"], "Mixing genes produces new combinations."],
+  ["Camouflage in an animal is an adaptation that helps it…", "avoid being seen", ["be louder", "grow faster"], "Camouflage is helpful for predators and prey alike."],
+  ["Thick fur in an arctic fox is an adaptation for…", "staying warm in cold climates", ["swimming in the ocean", "climbing trees"], "Fur is a structural adaptation."],
+  ["A cactus's thick stem that stores water is an adaptation to…", "dry climates", ["cold lakes", "ocean tides"], "It helps the plant survive long periods without rain."],
+  ["Why do scientists compare similar bone structures in different animals?", "to find evidence of shared ancestors", ["to name the animals", "to make fossils"], "Similar structures can show common ancestry.", true],
+  ["Sexual selection is when…", "traits that help attract mates become more common", ["traits that help with digestion are lost", "animals avoid all mates"], "Bright feathers on some birds are an example.", true],
+];
+
+export const units = [
+  bankUnit({
+    id: "mb-making-electricity",
+    title: "Making Electricity",
+    emoji: "🔌",
+    blurb: "Generators, power sources and staying safe with electricity.",
+    parentNote: "Practises how electricity is generated and carried, including Manitoba's hydroelectric stations, the advantages and drawbacks of different sources, AC and DC, and electrical safety.",
+    standards: ["SCI.9.E.8, SCI.9.E.12, SCI.9.E.13, SCI.9.E.14", "alternating and direct current, generating electricity, hydroelectricity and electrical safety"],
+    items: POWER,
+  }),
+  bankUnit({
+    id: "mb-evolution-and-selection",
+    title: "Evolution & Selection",
+    emoji: "🦎",
+    blurb: "Variation, adaptation and how populations change over time.",
+    parentNote: "Practises variation, adaptation, natural and artificial selection, mutations, the evidence for evolution from fossils and rock layers, and how new species can form.",
+    standards: ["SCI.9.E.19, SCI.9.E.20, SCI.9.E.23, SCI.9.E.24, SCI.9.E.25, SCI.9.E.26, SCI.9.E.27, SCI.9.E.28", "mutations, adaptation, evidence for evolution, natural and artificial selection"],
+    items: EVOLUTION,
+  }),
+];
