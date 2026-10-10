@@ -6,7 +6,7 @@ import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 // moods and pointer-following eyes. Ollie the Otter is the main guide; each
 // subject has its own guide; the rest can be unlocked in the shop.
 
-export type Mood = "happy" | "cheer" | "think" | "oops" | "wave";
+export type Mood = "happy" | "cheer" | "think" | "oops" | "wave" | "sleepy";
 
 type Ears = "round" | "small" | "pointy" | "long" | "tufts" | "none";
 type Nose = "button" | "beak" | "bill" | "snout";
@@ -112,6 +112,14 @@ function Eyes({ mood, c }: { mood: Mood; c: CritterDef }) {
       <g stroke={INK} strokeWidth="5" strokeLinecap="round" fill="none">
         <path d="M71 89 Q80 78 89 89" />
         <path d="M111 89 Q120 78 129 89" />
+      </g>
+    );
+  }
+  if (mood === "sleepy") {
+    return (
+      <g stroke={INK} strokeWidth="5" strokeLinecap="round" fill="none">
+        <path d="M71 87 Q80 95 89 87" />
+        <path d="M111 87 Q120 95 129 87" />
       </g>
     );
   }
@@ -340,6 +348,12 @@ export function CritterSvg({ id, mood = "happy" }: { id: string; mood?: Mood }) 
         <NoseLayer c={c} />
         <Mouth mood={mood} c={c} />
         <TopExtras c={c} />
+        {mood === "sleepy" && (
+          <g fill={INK} fontFamily="var(--font-fredoka, sans-serif)" fontWeight="700" opacity="0.55">
+            <text x="150" y="52" fontSize="26">z</text>
+            <text x="166" y="32" fontSize="18">z</text>
+          </g>
+        )}
         {mood === "think" && (
           <g fill="#4f8ef7">
             <circle cx="160" cy="40" r="5" />
@@ -357,6 +371,7 @@ const MOOD_MOTION: Record<Mood, string> = {
   think: "animate-float",
   cheer: "animate-cheer",
   oops: "",
+  sleepy: "animate-float",
 };
 
 /** A mascot that floats, reacts to answers and watches your finger. */

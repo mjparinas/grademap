@@ -64,6 +64,16 @@ describe("derive", () => {
     expect(d.streak.current).toBe(3);
     expect(d.streak.best).toBe(3);
     expect(d.streak.activeToday).toBe(true);
+    expect(d.streak.daysPracticed).toBe(4); // the gap doesn't take earlier days away
+  });
+
+  it("keeps days practised after a streak breaks", () => {
+    const now = new Date("2026-10-08T15:00:00").getTime();
+    const events: AppEvent[] = [];
+    for (const back of [5, 6, 7]) for (let i = 0; i < 5; i++) events.push(answer(true, now - back * DAY + i));
+    const d = derive(events, now);
+    expect(d.streak.current).toBe(0);
+    expect(d.streak.daysPracticed).toBe(3);
   });
 
   it("levels up along the XP curve", () => {

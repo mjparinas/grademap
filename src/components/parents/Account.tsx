@@ -96,15 +96,17 @@ function AuthForm({ onDone }: { onDone: () => void }) {
   );
 }
 
-function WeeklyReportToggle({ verified }: { verified: boolean }) {
+type EmailPref = "weeklyReport" | "practiceReminders";
+
+function EmailToggle({ pref, title, hint, verified }: { pref: EmailPref; title: string; hint: string; verified: boolean }) {
   const [on, setOn] = useState<boolean | null>(null);
   const [error, setError] = useState("");
   useEffect(() => {
     void fetch("/api/account/prefs/", { credentials: "same-origin" })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { weeklyReport?: boolean } | null) => setOn(d?.weeklyReport ?? null))
+      .then((d: Partial<Record<EmailPref, boolean>> | null) => setOn(d?.[pref] ?? null))
       .catch(() => setOn(null));
-  }, []);
+  }, [pref]);
   if (on === null) return null;
   async function toggle() {
     setError("");
@@ -112,18 +114,18 @@ function WeeklyReportToggle({ verified }: { verified: boolean }) {
       method: "POST",
       credentials: "same-origin",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ weeklyReport: !on }),
+      body: JSON.stringify({ [pref]: !on }),
     }).catch(() => null);
-    const data = (await res?.json().catch(() => ({}))) as { weeklyReport?: boolean; error?: string } | undefined;
-    if (res?.ok) setOn(Boolean(data?.weeklyReport));
+    const data = (await res?.json().catch(() => ({}))) as (Partial<Record<EmailPref, boolean>> & { error?: string }) | undefined;
+    if (res?.ok) setOn(Boolean(data?.[pref]));
     else setError(data?.error ?? "You’re offline. Try again when connected.");
   }
   return (
     <div className="mt-3">
       <button type="button" role="switch" aria-checked={on} onClick={() => void toggle()} className="flex w-full items-center justify-between gap-4 rounded-xl bg-paper px-4 py-3 text-left">
         <span>
-          <span className="block font-semibold">Weekly progress email</span>
-          <span className="block text-sm text-ink-soft">{verified ? "A short summary every Sunday. Unsubscribe any time." : "Confirm your email first to turn this on."}</span>
+          <span className="block font-semibold">{title}</span>
+          <span className="block text-sm text-ink-soft">{verified ? hint : "Confirm your email first to turn this on."}</span>
         </span>
         <span className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${on ? "bg-good" : "bg-ink/20"}`} aria-hidden="true">
           <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-all ${on ? "left-7" : "left-1"}`} />
@@ -193,7 +195,13 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
               <dd className="font-semibold">{pending ?? "…"} events</dd>
             </dl>
             {account.verified === false && <VerifyNotice />}
-            <WeeklyReportToggle verified={account.verified !== false} />
+            <EmailToggle pref="weeklyReport" title="Weekly progress email" hint="A short summary every Sunday. Unsubscribe any time." verified={account.verified !== false} />
+            <EmailToggle
+              pref="practiceReminders"
+              title="Practice reminders"
+              hint="A friendly note to you, never to your child, after a few quiet days. At most once a week."
+              verified={account.verified !== false}
+            />
             {sync.error && <p className="mt-2 text-sm text-nudge-dark">{sync.error}</p>}
             <div className="mt-4 flex flex-wrap gap-2">
               <button type="button" className="rounded-xl bg-[#4f8ef7] px-4 py-2 font-bold text-[#0f172a]" onClick={() => void syncNow()}>

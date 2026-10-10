@@ -116,6 +116,31 @@ export function weeklyEmail(to: string, origin: string, children: WeeklyChild[],
   });
 }
 
+export interface ReminderChild {
+  name: string;
+  /** Whole days since the last practice. */
+  daysQuiet: number;
+}
+
+/** A gentle, parent-only nudge. Warm and brief, never guilt: a child's name and a day count, nothing else. */
+export function reminderEmail(to: string, origin: string, children: ReminderChild[], unsubToken: string): Email {
+  const names = children.map((c) => c.name);
+  const who = names.length === 1 ? names[0] : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
+  const lines = children.map((c) => `${c.name} last practised ${c.daysQuiet} days ago. A short session today, even 10 minutes, picks the momentum right back up.`);
+  const q = encodeURIComponent(unsubToken);
+  return layout({
+    to,
+    origin,
+    unsubscribeUrl: `${origin}/api/email/unsubscribe/?kind=reminders&token=${q}`,
+    unsubscribePage: `${origin}/account/unsubscribe/?kind=reminders&token=${q}`,
+    subject: `A good day for a little ${APP_NAME} with ${who}`,
+    heading: "A good day for a short session",
+    body: [...lines, "Every bit counts, and there's no streak to lose. Their favourite lessons are always waiting."],
+    button: { label: `Open ${APP_NAME}`, url: `${origin}/play/` },
+    footnote: "You asked for practice reminders. We send at most one a week, and only after a few quiet days.",
+  });
+}
+
 export function questionReportEmail(to: string, p: { unitKey: string; prompt: string; reason: string }, origin: string): Email {
   return layout({
     to,

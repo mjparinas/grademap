@@ -43,6 +43,13 @@ export function Hud() {
   const setActive = useStore((s) => s.setActive);
   const title = getItem(profile.title);
   const trophies = Object.keys(d.trophies).length;
+  // A broken streak is never shown as 0: the flame sleeps and the total days practised stays, so progress is never lost.
+  const resting = d.streak.current === 0 && d.streak.daysPracticed > 0;
+  const streakLabel = resting
+    ? `${d.streak.daysPracticed} ${d.streak.daysPracticed === 1 ? "day" : "days"} practised. Ready for a new streak?`
+    : d.streak.current > 0
+      ? `${d.streak.current} day streak. ${d.streak.daysPracticed} days practised in total.`
+      : "Practise today to start a streak";
 
   return (
     <header className="flex flex-wrap items-center justify-between gap-2">
@@ -80,10 +87,11 @@ export function Hud() {
           className={`flex h-16 items-center gap-1 rounded-2xl px-3 text-xl font-bold shadow-[0_4px_0_var(--color-line)] ${
             d.streak.activeToday ? "bg-nudge-soft text-nudge-dark" : "bg-white text-ink-soft"
           }`}
-          aria-label={`${d.streak.current} day streak`}
+          aria-label={streakLabel}
+          title={streakLabel}
         >
-          <span className={d.streak.activeToday ? "animate-wiggle" : "grayscale"}>🔥</span>
-          {d.streak.current}
+          <span className={d.streak.activeToday ? "animate-wiggle" : resting ? "" : "grayscale"}>{resting ? "😴" : "🔥"}</span>
+          {resting ? d.streak.daysPracticed : d.streak.current > 0 ? d.streak.current : <span className="text-base">Go!</span>}
         </span>
         <button type="button" className="btn h-16 gap-1 px-3 text-xl" onClick={() => go("/trophies")} aria-label={`${trophies} trophies`}>
           🏆 {trophies}

@@ -2,11 +2,11 @@ import { loadChildReport, familyProfileIds } from "@/server/reportData";
 import { unsubscribeToken } from "@/server/auth";
 import { query, run } from "@/server/db";
 import { sendEmail } from "@/server/email";
-import { trialEndingEmail, weeklyEmail, type WeeklyChild } from "@/server/emailTemplates";
+import { reminderEmail, trialEndingEmail, weeklyEmail, type ReminderChild, type WeeklyChild } from "@/server/emailTemplates";
 
 // Runs once a day (see vercel.json). Vercel sends `Authorization: Bearer $CRON_SECRET`.
 // Every day: a "trial ends soon" notice to confirmed parents, once. On Sundays: the weekly report
-// to parents who opted in.
+// to parents who opted in. Every day: a gentle practice reminder, to opted-in parents only, at most once a week.
 
 const DAY = 86_400_000;
 export const maxDuration = 300;
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
   if (!secret || req.headers.get("authorization") !== `Bearer ${secret}`) return new Response("Unauthorized", { status: 401 });
   const origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "") || new URL(req.url).origin;
   const now = Date.now();
-  const result = { trialNotices: 0, weekly: 0 };
+  const result = { trialNotices: 0, weekly: 0, reminders: 0 };
 
   // Trial ending within 3 days, not subscribed, not told yet.
   const trials = await query<{ id: string; email: string; trial_ends_at: number }>(
@@ -31,6 +31,34 @@ export async function GET(req: Request) {
     if (sent.ok) {
       await run("UPDATE parents SET trial_notice_at = ? WHERE id = ?", [now, t.id]);
       result.trialNotices++;
+    }
+  }
+
+  // A child who practised in the last 30 days but not in the last 3 gets one friendly nudge to the parent.
+  const nudgeParents = await query<{ id: string; email: string; family_id: string }>(
+    `SELECT id, email, family_id FROM parents
+     WHERE practice_reminders = 1 AND email_verified_at IS NOT NULL AND (last_nudge_at IS NULL OR last_nudge_at < ?)`,
+    [now - 6 * DAY],
+  );
+  for (const p of nudgeParents) {
+    try {
+      const quiet: ReminderChild[] = [];
+      for (const id of await familyProfileIds(p.family_id)) {
+        const r = await loadChildReport(p.family_id, id, 30, now);
+        if (!r) continue;
+        const days = r.report.days;
+        const last = days.findLastIndex((d) => d.answers > 0);
+        const daysQuiet = last < 0 ? -1 : days.length - 1 - last;
+        if (daysQuiet >= 3) quiet.push({ name: r.profile.name, daysQuiet });
+      }
+      if (!quiet.length) continue;
+      const sent = await sendEmail(reminderEmail(p.email, origin, quiet, await unsubscribeToken(p.id)));
+      if (sent.ok) {
+        await run("UPDATE parents SET last_nudge_at = ? WHERE id = ?", [now, p.id]);
+        result.reminders++;
+      }
+    } catch (e) {
+      console.error("[reminders] failed for one family", (e as Error).message);
     }
   }
 

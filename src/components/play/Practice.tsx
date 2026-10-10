@@ -2,7 +2,7 @@
 
 import { onColour } from "@/lib/contrast";
 import { useState, type CSSProperties } from "react";
-import { coursesForGrade, unitKey } from "@/content";
+import { coursesForGrade, getUnitRef, unitKey } from "@/content";
 import { getSubjectMeta } from "@/content/subjects";
 import type { SubjectId } from "@/content/types";
 import { canUse } from "@/lib/plan";
@@ -87,11 +87,50 @@ export function SubjectPicker() {
   );
 }
 
+/** Level, next step and the Practice / Challenge buttons for one unit. Shared by the lesson list and the trail map. */
+export function UnitDialog({ unitKey: key, onClose, onLocked }: { unitKey: string | null; onClose: () => void; onLocked: () => void }) {
+  const d = useDerived();
+  const family = useStore((s) => s.family);
+  const ref = key ? getUnitRef(key) : undefined;
+  const stat = key ? d.units[key] : undefined;
+  return (
+    <Dialog open={!!ref} title={ref ? `${ref.unit.emoji} ${ref.unit.title}` : ""} onClose={onClose}>
+      {ref && key && (
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-center">
+            <LevelChip level={unitLevel(stat)} />
+          </div>
+          <p className="font-read text-lg text-ink-soft">{nextStep(stat)}</p>
+          {stat && (
+            <p className="text-sm text-ink-soft">
+              {stat.firstTry} of {stat.attempts} right on the first try
+            </p>
+          )}
+          <button type="button" className="btn btn-good min-h-16 text-2xl" onClick={() => go("/session", { mode: "practice", scope: key })}>
+            ▶ Practice
+          </button>
+          <button
+            type="button"
+            className="btn min-h-14 text-xl"
+            onClick={() => {
+              if (!canUse(family, "challenge")) {
+                onClose();
+                onLocked();
+              } else go("/session", { mode: "challenge", scope: key });
+            }}
+          >
+            🛡️ Challenge <span className="text-sm text-ink-soft">(10 hard questions, no hints)</span>
+          </button>
+        </div>
+      )}
+    </Dialog>
+  );
+}
+
 export function UnitList({ subject }: { subject: SubjectId }) {
   const profile = useActiveProfile()!;
   const d = useDerived();
   const band = useBand();
-  const family = useStore((s) => s.family);
   const allowed = useAllowed();
   const course = coursesForGrade(profile.grade).find((c) => c.subject === subject);
   const meta = getSubjectMeta(subject);
@@ -108,9 +147,6 @@ export function UnitList({ subject }: { subject: SubjectId }) {
     if (band === "little") go("/session", { mode: "practice", scope: key });
     else setSelected(key);
   };
-
-  const sel = selected ? course.units.find((u) => unitKey(course.grade, subject, u.id) === selected) : undefined;
-  const selStat = selected ? d.units[selected] : undefined;
 
   return (
     <Page style={subjectVars(meta)} className="gap-6">
@@ -158,36 +194,7 @@ export function UnitList({ subject }: { subject: SubjectId }) {
         })}
       </div>
 
-      <Dialog open={!!sel} title={sel ? `${sel.emoji} ${sel.title}` : ""} onClose={() => setSelected(null)}>
-        {sel && selected && (
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-center">
-              <LevelChip level={unitLevel(selStat)} />
-            </div>
-            <p className="font-read text-lg text-ink-soft">{nextStep(selStat)}</p>
-            {selStat && (
-              <p className="text-sm text-ink-soft">
-                {selStat.firstTry} of {selStat.attempts} right on the first try
-              </p>
-            )}
-            <button type="button" className="btn btn-good min-h-16 text-2xl" onClick={() => go("/session", { mode: "practice", scope: selected })}>
-              ▶ Practice
-            </button>
-            <button
-              type="button"
-              className="btn min-h-14 text-xl"
-              onClick={() => {
-                if (!canUse(family, "challenge")) {
-                  setSelected(null);
-                  setLocked(true);
-                } else go("/session", { mode: "challenge", scope: selected });
-              }}
-            >
-              🛡️ Challenge <span className="text-sm text-ink-soft">(10 hard questions, no hints)</span>
-            </button>
-          </div>
-        )}
-      </Dialog>
+      <UnitDialog unitKey={selected} onClose={() => setSelected(null)} onLocked={() => setLocked(true)} />
 
       <Dialog open={locked} title="Ask a grown-up" onClose={() => setLocked(false)}>
         <p className="mb-5 font-read text-lg text-ink-soft">This lesson opens with a family membership. A grown-up can turn it on in the grown-ups area.</p>

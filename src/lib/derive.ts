@@ -44,7 +44,13 @@ export interface Derived {
   trophies: Record<string, number>;
   units: Record<string, UnitStat>;
   days: Record<string, DayStat>;
-  streak: { current: number; best: number; activeToday: boolean };
+  streak: {
+    current: number;
+    best: number;
+    activeToday: boolean;
+    /** Days with real practice, in total. Never goes down, so there is always something to be proud of. */
+    daysPracticed: number;
+  };
   totals: {
     answers: number;
     correct: number;
@@ -101,7 +107,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
     trophies: {},
     units: {},
     days: {},
-    streak: { current: 0, best: 0, activeToday: false },
+    streak: { current: 0, best: 0, activeToday: false, daysPracticed: 0 },
     totals: {
       answers: 0,
       correct: 0,
@@ -277,9 +283,11 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
   const days = Object.keys(d.days).sort();
   let best = 0;
   let cur = 0;
+  let daysPracticed = 0;
   let prev: string | null = null;
   for (const k of days) {
     if (!active(d.days[k])) continue;
+    daysPracticed++;
     cur = prev && dayKey(new Date(`${prev}T12:00:00`).getTime() + 86_400_000) === k ? cur + 1 : 1;
     best = Math.max(best, cur);
     prev = k;
@@ -290,6 +298,7 @@ export function derive(events: AppEvent[], now = Date.now()): Derived {
     current: prev === today || prev === yesterday ? cur : 0,
     best,
     activeToday: active(d.days[today]),
+    daysPracticed,
   };
   return d;
 }
