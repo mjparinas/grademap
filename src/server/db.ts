@@ -142,6 +142,7 @@ const PARENT_COLUMNS: [string, string][] = [
   ["unsub_token", "TEXT"],
   ["last_weekly_at", "INTEGER"],
   ["trial_notice_at", "INTEGER"],
+  ["trial_recap_at", "INTEGER"],
   ["practice_reminders", "INTEGER NOT NULL DEFAULT 0"],
   ["last_nudge_at", "INTEGER"],
   // 'parent' for ordinary accounts, 'student' for a class-owned student account (no email, no password).

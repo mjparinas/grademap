@@ -214,6 +214,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Calm and focus options** (per child, all off by default, in Settings): calm motion, quiet sounds, hide timers, hold trophy pop-ups until after the lesson, and shorter sessions (5 questions). They change presentation only; scoring is unchanged. They exist for children who find motion, noise or time pressure hard, including many with ADHD. Never make health claims about them.
 - **Easier reading options** (per child, off by default): roomy text and high contrast, next to the calm options.
 - **Account email:** parents confirm their email (needed before real Stripe checkout and weekly email), can reset a forgotten password, and can opt in to a weekly progress email. Email goes through Resend (`src/server/email.ts`); without keys it is skipped. Never put a child's information in an email beyond first name and practice totals.
+- **Trial emails:** a confirmed parent gets one mid-trial recap 4 to 10 days before the trial ends (only if a child has practised), then the existing "trial ends soon" notice repeats the recap. First names and practice totals only, framed as practice, not a mark.
 - **Share a report:** a parent can create a read-only link (30 days, revocable) to one child's report. It is served from `/shared/{token}/`, never indexed.
 - **Strengths need real mastery:** at least 8 attempts and 75% accuracy.
 
