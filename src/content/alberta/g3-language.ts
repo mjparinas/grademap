@@ -27,6 +27,18 @@ const ORAL: Item[] = [
   hq("What is one way oral traditions and written books are alike?", "both can keep and share knowledge", ["both need electricity", "both are only for adults", "both must be silent"], "Different ways of recording knowledge can all be valuable.", "📖"),
   hq("Why is it a mistake to say that every Nation has the same stories?", "each First Nation, Métis community and Inuit community has its own", ["because stories do not exist", "because all stories are written", "because they are all the same"], "There are many different peoples with their own languages and teachings.", "🗺️"),
   hq("The Blackfoot, Cree, Dene and Nakoda (Stoney) peoples all live in Alberta. What does this tell us?", "Alberta is home to many distinct First Nations", ["there is only one Nation", "all use the same language", "they live in the same place"], "Many Nations have their own cultures and languages.", "🏔️"),
+  q("Oral traditions are passed down by…", "speaking, from person to person", ["only printing", "only email", "only television"], "Knowledge is shared out loud, often for many generations.", "🗣️"),
+  q("An Elder visits and sits at the front. How can you show respect when they arrive?", "greet them kindly and listen carefully", ["ignore them", "ask them to hurry", "race to the front"], "Kind greetings and careful listening show respect.", "🙂"),
+  q("Why do many communities share stories with children?", "to help them learn their language, history and values", ["to keep them awake", "to stop them asking questions", "because there are no books"], "Stories teach and connect people.", "👧"),
+  q("When a storyteller pauses, a good listener…", "waits quietly", ["fills in the words", "starts talking", "gets up"], "Pauses are part of telling a story well.", "⏸️"),
+  q("A storyteller invites you to ask questions at the end. What is a good question?", "What did you want us to remember?", ["Can I go now?", "Is this almost over?", "Why is it so long?"], "Thoughtful questions show you were listening.", "❓"),
+  q("Which is an oral tradition?", "a song passed down in a family or community", ["a store receipt", "a road sign", "a text from a friend"], "Songs can carry teachings and history.", "🎶"),
+  q("Elders are often respected because they…", "carry knowledge and experience", ["know every word of every language", "are the youngest", "can read minds"], "Elders have lived long and learned much.", "🧓"),
+  q("Which is a kind way to thank a Knowledge Keeper?", "say thank you and tell what you learned", ["walk out without a word", "ask for more homework", "take their things"], "Showing thanks is a way to show respect.", "💐"),
+  q("Why can listening to a story be a way of learning?", "you hear ideas, feelings and lessons told in the speaker's own voice", ["you do not need to think", "you can't remember it", "it never teaches anything"], "Storytelling is a way to learn.", "👂"),
+  q("Some stories are meant to be told only at certain times, or only by certain people. What should we do?", "respect the rules of the community that owns them", ["tell them anyway", "change the rules", "ignore the rules"], "The community decides who can share its stories.", "🤝"),
+  hq("Why can a story told out loud change a little each time it is told?", "each telling is shared in a living voice for a particular audience", ["the story is broken", "somebody wants to trick people", "the words are not important"], "Oral traditions are living, and storytellers care for the teachings they carry.", "🎙️"),
+  hq("Which sentence respects that First Nations, Métis and Inuit peoples are living cultures?", "Many communities share oral traditions today.", ["They did this long ago and stopped.", "These stories are only in museums.", "All Nations tell the same stories."], "Use the present tense for living cultures.", "🌿"),
 ];
 
 // ---------- Speaking and listening ----------
@@ -88,6 +100,18 @@ const CONNECT: Item[] = [
   hq("Which connection helps you understand a character the most?", "I felt brave like her when I rode a bike for the first time.", ["I like the cover.", "The book is blue.", "It has a lot of words."], "A feeling you share helps you understand the character.", "🚲"),
   hq("A text-to-text connection is when a story reminds you of…", "another book, poem or play you have read", ["a lunch you ate", "a game you played", "a place you visited"], "A text-to-text connection is between two texts.", "📖"),
   hq("You read about a character who helps a neighbour shovel snow. How might you connect it to your community?", "I help my neighbours too, by raking leaves.", ["I do not like winter.", "The story is short.", "The author is kind."], "Linking a story to your community shows what you understand.", "🏘️"),
+  q("A story says “Lena felt nervous on the first day of school.” You felt that way too. This is a…", "connection to your feelings", ["new title", "end of the story", "mistake"], "You share a feeling with the character.", "🎒"),
+  q("Which question helps you make a text-to-text connection?", "Does this remind me of another book?", ["Who painted the cover?", "How many pages are there?", "What is the price?"], "Thinking of other books helps you compare.", "📚"),
+  q("A book about the Rocky Mountains reminds you of your family trip. This is a connection to…", "a place you have been", ["a different language", "a rule", "a number"], "Places can make strong connections.", "🏔️"),
+  q("Why do connections help you remember a story?", "they link new ideas to things you already know", ["they make the book shorter", "they hide the ending", "they stop you reading"], "Linked ideas are easier to remember.", "🧠"),
+  q("You read about a boy who learns to skate. You are learning to skate too. You can say…", "I know how it feels to wobble on the ice.", ["I do not like books.", "This is a cover.", "Skating is cold."], "Share how the story matches your own life.", "⛸️"),
+  q("A poem about the wind makes you think of flying a kite. What did you just do?", "made a connection", ["lost your place", "changed the poem", "skipped a line"], "A memory linked to the poem is a connection.", "🪁"),
+  q("A play has a character who shares with a friend. This reminds you of when you shared snacks. This is a…", "text-to-self connection", ["map", "title", "chapter"], "A connection to your own life is text-to-self.", "🍎"),
+  q("What can you do if a story is about something you know nothing about?", "use pictures and words to learn, and ask questions", ["stop reading", "pretend you know", "skip the book"], "Reading and asking questions build new knowledge.", "🔍"),
+  q("An information book says bison eat grass. You have seen bison eating. How does this help?", "it helps you understand the facts", ["it changes the facts", "it makes the book longer", "it hides the page"], "What you have seen helps you picture it.", "🦬"),
+  q("Which is a good sentence starter for a connection?", "This reminds me of…", ["Turn the page…", "The end…", "Once upon a time…"], "Sentence starters help you share your thinking.", "💬"),
+  hq("Two classmates make different connections to the same poem. What does this show?", "readers bring their own experiences to a text", ["one of them read wrong", "poems have no meaning", "the poem is broken"], "Each person's life gives them different ideas.", "🤔"),
+  hq("Which connection gives the most help understanding why a character is excited?", "I felt just as excited when I got to visit my cousins.", ["I like the colour red.", "The book has many pages.", "I read it on Tuesday."], "A shared feeling helps you understand.", "🎉"),
 ];
 
 // ---------- Ideas for writing ----------
@@ -109,6 +133,18 @@ const IDEAS: Item[] = [
   hq("Why do writers use strong, exact words?", "they paint a clearer picture for the reader", ["so the story is shorter", "so no one understands", "to fill the page"], "Exact words help readers imagine.", "🎨"),
   hq("You can turn a photograph of a snowy field into a poem by…", "describing what you see and feel", ["copying a poem you know", "writing the date only", "drawing a map"], "Use details and feelings from the image.", "📷"),
   hq("Which is the best way to keep a list of writing ideas?", "a notebook or idea jar you add to often", ["a single word", "your memory only", "a blank page"], "Many writers collect ideas for later.", "📓"),
+  q("A writer keeps a notebook to write down…", "ideas, words and things they notice", ["only spelling tests", "only answers", "only phone numbers"], "A notebook is a good place to save ideas.", "📓"),
+  q("Which question can help you find a writing idea?", "What is something I will never forget?", ["What is on the lunch menu?", "How many chairs are in the room?", "What time is it?"], "Memories can be rich ideas.", "💭"),
+  q("Walking around the school yard, you notice a gust of leaves. This could inspire…", "a poem about autumn", ["a math question", "a phone number", "a tax form"], "Things you notice can become writing.", "🍂"),
+  q("Looking at a family photo can give you ideas for…", "a story about a special day", ["a spelling bee", "a weather map", "a bus route"], "Photos help you remember details.", "📷"),
+  q("Which of these is a good way to plan a story?", "decide who, where and what happens", ["write the last word first", "pick random letters", "close the book"], "Planning characters, setting and events helps you write.", "📝"),
+  q("What is a draft?", "a first try at writing that you can improve", ["the final copy", "a window breeze", "a title"], "Drafts are for ideas, and you can fix them later.", "✏️"),
+  q("When you revise, you…", "make your writing clearer and better", ["only fix the spelling", "throw the page away", "make the font bigger"], "Revising changes ideas, words and order.", "🔍"),
+  q("Which sentence is more interesting?", "The enormous moose crashed through the icy creek.", ["The moose went.", "A thing happened.", "It was a day."], "Strong words make pictures in the reader's mind.", "🫎"),
+  q("You talk with a friend about a game and get a great writing idea. This shows that ideas can come from…", "conversations", ["only books", "only the weather", "only dictionaries"], "People can inspire your writing.", "💬"),
+  q("A good ending for a story…", "wraps up what happened", ["introduces many new characters", "has no words", "ends in the middle of a word"], "An ending lets the reader feel finished.", "🏁"),
+  hq("You want to write about your pet but it is too big a topic. How can you make it smaller?", "pick one funny thing it did", ["write about every pet in the world", "write the dictionary", "skip the details"], "Narrowing a topic helps you add details.", "🐶"),
+  hq("Why do writers often read their work aloud while revising?", "they can hear what sounds clear or confusing", ["to scare the cat", "to hide mistakes", "because writing is always loud"], "Reading aloud helps you hear mistakes and awkward places.", "📢"),
 ];
 
 const ordered = order("Put these steps of writing in order.", "Plan first, then draft, revise, edit and share.", [

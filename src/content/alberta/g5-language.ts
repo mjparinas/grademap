@@ -67,6 +67,19 @@ const SPELLING: Item[] = [
   { prompt: "Which word is spelled correctly?", right: "government", wrong: ["goverment", "govermant", "govenment"], hint: "Sound it out: gov-ern-ment. The 'n' is easy to forget.", hard: true },
   { prompt: "Which spelling is correct?", right: "colour", wrong: ["colur", "coulour", "culor"], hint: "In Canada we keep the 'u' in 'colour', 'honour' and 'harbour'.", hard: true },
   { prompt: "The word 'unhappy' has a prefix. Which is it?", right: "un-", wrong: ["-happy", "-py", "hap-"], hint: "A prefix comes at the start of a word and changes its meaning.", hard: true },
+  { prompt: "Which is the plural of 'box'?", right: "boxes", wrong: ["boxs", "boxies", "boxen"], hint: "Add 'es' to words that end in x, s, ch or sh." },
+  { prompt: "Which is the plural of 'child'?", right: "children", wrong: ["childs", "childrens", "childes"], hint: "Some plurals are irregular. 'Child' becomes 'children'." },
+  { prompt: "Which is the plural of 'tooth'?", right: "teeth", wrong: ["tooths", "teeths", "toothes"], hint: "Some words change their vowels in the plural, like foot and feet." },
+  { prompt: "Add 'ing' to 'run'. Which is correct?", right: "running", wrong: ["runing", "runeing", "runnin"], hint: "A short word with one vowel and one final consonant doubles the consonant." },
+  { prompt: "Add 'ed' to 'carry'. Which is correct?", right: "carried", wrong: ["carryed", "carred", "carryied"], hint: "When a word ends in a consonant plus 'y', change the 'y' to 'i' before 'ed'." },
+  { prompt: "Which word completes the sentence? ___ coming to my house later.", right: "They're", wrong: ["Their", "There", "Thier"], hint: "'They're' is a short form of 'they are'." },
+  { prompt: "Which word completes the sentence? Please put the books over ___.", right: "there", wrong: ["their", "they're", "thare"], hint: "'There' tells where. 'Their' shows belonging." },
+  { prompt: "Which is the Canadian spelling?", right: "honour", wrong: ["honor", "onour", "honnour"], hint: "In Canada we keep the 'u' in 'honour', 'colour' and 'neighbour'." },
+  { prompt: "Which is the Canadian spelling of the unit of length with 100 centimetres?", right: "metre", wrong: ["meter", "meetre", "metr"], hint: "Canadian spelling uses 're' at the end of 'metre' and 'centre'." },
+  { prompt: "Which word is spelled correctly?", right: "friend", wrong: ["freind", "frend", "friand"], hint: "Think: a friend is there 'till the end'. The 'ie' comes before the 'nd'." },
+  { prompt: "Which word is spelled correctly?", right: "beautiful", wrong: ["beutiful", "beautifull", "beatiful"], hint: "Say it in parts: beau-ti-ful. It has three vowels together at the start.", hard: true },
+  { prompt: "Add 'ly' to 'happy'. Which is correct?", right: "happily", wrong: ["happyly", "happly", "happilly"], hint: "Change the 'y' to 'i' before adding 'ly'.", hard: true },
+  { prompt: "Which word is spelled correctly?", right: "Wednesday", wrong: ["Wensday", "Wednsday", "Wendesday"], hint: "Say it as Wed-nes-day to remember the 'd' and the 'e'.", hard: true },
 ];
 
 // ---------- Working with others in discussion ----------

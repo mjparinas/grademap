@@ -136,7 +136,27 @@ const STEPS: Item[] = [
   q("A robot toy needs steps: forward, turn, forward. Which is the middle step?", "turn", ["forward", "stop"], "Follow the steps in order: first forward, next turn, last forward.", { emoji: "🤖", d: 3 }),
   q("An arrow points right. Where do you go?", "to the right", ["to the left", "up in the air"], "Arrows and signs give directions without words.", { d: 3 }),
   q("You skipped a step in a game. What can you do?", "go back and try again", ["quit forever", "hide"], "It is okay to try again and fix a step.", { d: 3 }),
+  q("The recipe says mix the dough, then…", "put it in the oven", ["throw it away", "paint it"], "Cooking follows steps in order.", { emoji: "🍪", d: 2 }),
+  q("A teacher says, “Line up quietly.” What do you do?", "stand in line and keep quiet", ["run to the door", "sing loudly"], "Listen to the instruction, then follow it.", { emoji: "🧍" }),
+  q("The school practises a fire drill. What do you do?", "walk calmly with your class", ["run off alone", "stay and play"], "Following safety steps helps everyone stay safe.", { emoji: "🔔" }),
+  q("A red light means…", "stop", ["go", "jump"], "Red means stop.", { emoji: "🔴" }),
+  q("Which is a safe way to cross the road?", "stop, look and listen first", ["run across", "close your eyes"], "Safety steps help us cross with a grown-up.", { emoji: "🚸" }),
+  q("Zoe plants a seed. What does she do first?", "digs a hole", ["picks a flower", "eats the seed"], "First dig, next plant, last water.", { emoji: "🌱" }),
+  q("A recipe says: wash the apple, then cut it. What is second?", "cut it", ["wash it", "eat it"], "Count the steps in order.", { emoji: "🍎", d: 2 }),
+  q("To put on boots, what goes on your feet first?", "socks", ["mittens", "a hat"], "Socks go on before boots.", { emoji: "🥾" }),
+  q("A robot dance is: step, step, spin. How many moves?", "3", ["2", "5"], "Count each move: step, step, spin.", { emoji: "🤖", d: 2 }),
+  q("Someone says, “Up, down, up.” What is the middle move?", "down", ["up", "spin"], "The middle move is the second one.", { d: 2 }),
+  q("Which step does not belong when you brush your teeth?", "jump on the bed", ["use a toothbrush", "rinse your mouth"], "Only steps that help brush your teeth belong.", { emoji: "🪥", d: 3 }),
+  q("Your friend gives clear steps. What should you do?", "listen to each one", ["skip them", "cover your ears"], "Listening helps us follow every step."),
+  q("Why do games have rules?", "so everyone plays fairly", ["to stop the fun", "so no one can play"], "Rules are instructions that keep a game fair.", { emoji: "🎲", d: 2 }),
+  q("Pictures show the steps. What do you do?", "look at them in order", ["look at the last one only", "tear them up"], "Follow pictures from the first to the last.", { d: 2 }),
 ];
+
+const STEPS_ORDER3 = order("Wash your hands. Tap the steps in order.", "Wet first, then soap, then dry.", [
+  ["wet your hands", "💧"],
+  ["rub with soap", "🧼"],
+  ["dry them", "🧻"],
+]);
 
 const STEPS_ORDER = order("Brush your teeth. Tap the steps in order.", "Think about what you do first, next and last.", [
   ["put paste on the brush", "🪥"],
@@ -185,6 +205,6 @@ export const units: Unit[] = [
     blurb: "Why instructions matter",
     standards: ab("KCS 1.1, KCS 1.2", "understanding the purpose of instructions, and following steps in the right order"),
     parentNote: "Instructions are the first idea behind computer coding. Cook, build or play a game together and say the steps out loud in order.",
-    generate: unitOf(STEPS, [STEPS_ORDER, STEPS_ORDER2]),
+    generate: unitOf(STEPS, [STEPS_ORDER, STEPS_ORDER2, STEPS_ORDER3]),
   },
 ];

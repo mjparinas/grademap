@@ -37,6 +37,12 @@ const GOVERNANCE: Item[] = [
   q(3, "In 1930, the Natural Resources Transfer Act gave Alberta control over what?", "its public lands and natural resources", ["its military", "its currency", "its criminal law"], "Before then, the federal government managed resources in the Prairie provinces."),
   q(3, "Why do citizens have a responsibility to vote?", "Their votes help decide who makes decisions and laws for them", ["Voting is the only way to pay taxes", "Elections are chosen at random", "Their vote has no effect"], "Participating in elections and staying informed is one way to take part in democracy."),
   q(3, "A municipality is created by a province and gets its powers from it. What does this mean?", "A province can change what a municipality is allowed to do", ["A city can ignore the province", "A city is a country", "The federal government governs every town"], "Municipal governments are not named in the Constitution; provincial law sets their powers."),
+  q(1, "What is the title of Alberta's head of government?", "Premier", ["Prime Minister", "Governor General", "Mayor"], "The Premier usually leads the party with the most seats in the Legislative Assembly."),
+  q(1, "Which level of government is led by a mayor and a council?", "municipal", ["federal", "provincial", "territorial"], "Cities, towns and counties have local councils."),
+  q(2, "Which is mainly a municipal responsibility?", "local public transit", ["national defence", "currency", "criminal law"], "Municipalities look after local services."),
+  q(2, "What is the role of the Governor General?", "to represent the Crown in Canada and give Royal Assent to bills", ["to lead the largest party", "to decide court cases", "to run city elections"], "The Governor General represents the King in Canada."),
+  q(2, "How many seats does a party usually need for a majority government?", "more than half of the seats", ["exactly 100", "a third of the seats", "all of the seats"], "A majority can pass laws without support from other parties."),
+  q(2, "What does an MLA do in Alberta?", "represents the people of a constituency and helps make provincial laws", ["leads a city council", "decides court cases", "commands the military"], "MLAs sit in the Legislative Assembly."),
 ];
 
 // ---------- 9.1 The Charter ----------
@@ -64,6 +70,12 @@ const CHARTER: Item[] = [
   q(3, "What was the Canadian Bill of Rights (1960)?", "a federal law protecting rights, but not part of the Constitution", ["the Constitution Act of 1867", "the same as the Charter", "an Alberta law about farming"], "The Charter later gave rights stronger protection because it is in the Constitution."),
   q(3, "Why is it important that judges are independent of the government?", "So decisions are fair and not affected by political pressure", ["So judges never make mistakes", "So judges can write laws", "So no one needs a lawyer"], "An independent court can decide cases, even those involving the government, without fear."),
   q(3, "The Youth Criminal Justice Act applies to young people aged 12 to 17. Why does Canada have a separate system for youth?", "Young people have less maturity, so the focus is on accountability and rehabilitation", ["Because youth never break laws", "Because adults do not need laws", "Because youth cannot be accused"], "The aim is to hold young people accountable in a way that fits their age and helps them avoid reoffending."),
+  q(1, "Which freedom lets a person practise any religion or none?", "freedom of conscience and religion", ["mobility rights", "language rights", "democratic rights"], "It is one of the fundamental freedoms."),
+  q(1, "Which Charter right allows citizens to vote and run for office?", "democratic rights", ["mobility rights", "language rights", "legal rights"], "Democratic rights are about taking part in elections."),
+  q(2, "Which body handles complaints about discrimination in Alberta?", "the Alberta Human Rights Commission", ["the Senate", "the Legislative Assembly", "a municipal council"], "It helps with complaints under the Alberta Human Rights Act."),
+  q(2, "What do minority language education rights allow?", "eligible parents' children to be taught in English or French where numbers warrant", ["every child to choose any language", "schools to stop teaching English", "teachers to skip the curriculum"], "These rights protect the official language minorities."),
+  q(2, "Which is a civic responsibility?", "serving on a jury when called", ["choosing which laws to follow", "avoiding all taxes", "skipping elections"], "Rights come with responsibilities."),
+  q(3, "A law limits a Charter right. Under Section 1, what must the government show?", "that the limit is reasonable and justified in a free and democratic society", ["that the limit is popular online", "that the Prime Minister agrees", "that no one is affected"], "Courts test limits using Section 1."),
 ];
 
 // ---------- 9.1 Treaties and rights of Indigenous peoples ----------
@@ -90,6 +102,14 @@ const TREATIES: Item[] = [
   q(3, "How is a modern land claim agreement different from the numbered treaties?", "It is negotiated in recent decades, often with self-government, between a Nation and governments", ["It was signed before 1800", "It involves no Indigenous people", "It ends the Constitution"], "Examples include the 1999 creation of Nunavut through the Nunavut Land Claims Agreement."),
   q(3, "Why do Indigenous peoples and the Crown sometimes disagree about what treaties mean?", "The oral understandings of Nations and the written text were not always the same", ["Treaties were never written", "Treaties have no meaning", "No one signed them"], "Many Nations rely on oral history, and courts today consider both the written text and the Nations' understanding."),
   q(3, "Which of these is an example of Indigenous self-government in Alberta?", "a Nation or settlement council making decisions for its own community", ["the federal Senate", "an Alberta school", "a municipal pool"], "Métis Settlements have their own councils, and First Nations have chiefs and councils."),
+  q(1, "Treaty 8 covers which part of Alberta?", "much of northern Alberta", ["southern Alberta", "only Edmonton", "only the Rocky Mountains"], "Treaty 8 was signed in 1899."),
+  q(1, "Which treaty area includes Edmonton?", "Treaty 6", ["Treaty 7", "Treaty 8", "Treaty 4"], "Treaty 6 was signed in 1876 and covers central Alberta."),
+  q(1, "Orange Shirt Day, on September 30, honours who?", "residential school survivors and the children who never returned home", ["treaty signers only", "Alberta's first Premier", "Canada's first Prime Minister"], "It is also the National Day for Truth and Reconciliation."),
+  q(2, "What does section 35 of the Constitution Act, 1982 do?", "recognizes and affirms existing Aboriginal and treaty rights", ["creates Alberta", "ends all treaties", "sets voting ages"], "It names First Nations, Inuit and Métis peoples."),
+  q(2, "Why do many people learn whose traditional territory they live on?", "to show respect and understand relationships with the land", ["to pay a tax", "to find a lawyer", "to change the map"], "Learning the history is part of reconciliation."),
+  q(2, "Why is it good to listen to Elders and knowledge keepers about treaties?", "They can share their Nations' understandings and histories", ["They write federal laws", "They run elections", "They set prices"], "Oral history is important in many Nations."),
+  q(3, "Which statement best describes treaties today?", "They are living agreements that governments and Nations continue to discuss and honour", ["They expired after one hundred years", "They apply only to people in cities", "They are only stories"], "Treaty rights are protected by the Constitution."),
+  q(3, "When a project could affect treaty lands, what must the Crown do?", "consult, and sometimes accommodate, the affected Nations", ["ignore the Nations if the project is useful", "ask only the neighbours", "wait until after construction"], "This is the duty to consult."),
 ];
 
 // ---------- 9.2 Economic systems ----------

@@ -75,6 +75,18 @@ const CYCLE: Item[] = [
   hq("When the Sun warms a lake, the lake does not run out of water. Why?", "water returns as precipitation and flows back in", ["lakes cannot evaporate", "the Sun cools water", "water is made new every day"], "The water cycle keeps water moving and returning.", "🏞️"),
   hq("Snow on a mountain melts in spring. Which change of state is this?", "solid to liquid", ["liquid to gas", "gas to liquid", "gas to solid"], "Melting turns solid snow into liquid water.", "🏔️"),
   hq("Which describes why we should not waste water?", "clean fresh water is limited in each place", ["water disappears forever", "rain only falls in cities", "water is made in taps"], "Respecting water helps everyone.", "🚿"),
+  q("Water vapour is…", "water as a gas in the air", ["water frozen solid", "water in a puddle", "water in a cup"], "You cannot see water vapour, but it is all around us.", "♨️"),
+  q("On a sunny day, wet laundry on a line dries. Where does the water go?", "into the air as water vapour", ["into the Sun", "into the line", "it disappears forever"], "The water evaporates into the air.", "👕"),
+  q("Clouds are made of…", "tiny drops of water or bits of ice", ["smoke", "cotton", "dust only"], "Water vapour cools and forms tiny drops.", "☁️"),
+  q("Snow that falls in winter is a kind of…", "precipitation", ["evaporation", "condensation", "vapour"], "Snow, rain, sleet and hail all fall from clouds.", "❄️"),
+  q("A glass of cold lemonade has drops on the outside. Where did the water come from?", "water vapour in the air that cooled", ["the lemonade leaked out", "the glass makes water", "the table"], "Water vapour condensed on the cold glass.", "🥤"),
+  q("Which step of the water cycle happens when rain runs into a river?", "collection", ["evaporation", "condensation", "melting"], "Water collects in rivers, lakes and the ground.", "🏞️"),
+  q("What happens to water in a pot on a hot stove?", "it evaporates faster", ["it turns to rock", "it gets colder", "it turns to soil"], "Heat makes water change to vapour more quickly.", "🍲"),
+  q("The Bow River and the North Saskatchewan River both begin with…", "water from melting snow and ice in the mountains", ["water made by factories", "rain that never falls", "oil"], "Mountain snow and glaciers feed rivers that flow across Alberta.", "🏔️"),
+  q("Which is NOT a part of the water cycle?", "growing a plant from a seed", ["evaporation", "condensation", "precipitation"], "The water cycle is about how water moves.", "🌱"),
+  q("Rain falls on soil and sinks down into the ground. This water is called…", "groundwater", ["water vapour", "a cloud", "a glacier"], "Some water soaks into the ground and is stored there.", "🕳️"),
+  hq("Why does the water cycle never run out?", "the same water moves around again and again", ["new water is made every night", "clouds make water from air only", "water in the oceans is used up"], "Earth's water changes form and moves, but it is not used up.", "🔁"),
+  hq("A pot lid has drops on its underside when you boil water. This is like which step?", "condensation", ["precipitation", "evaporation", "melting"], "Hot vapour cools on the lid and becomes liquid.", "🍳"),
 ];
 
 // ---------- Materials and how they change ----------
@@ -153,6 +165,18 @@ const MACHINES: Item[] = [
   hq("A simple machine can change a force's…", "strength or direction", ["colour", "taste", "weight of the Earth"], "Machines can make a force bigger or point it somewhere else.", "➡️"),
   hq("Many First Nations, Métis and Inuit peoples designed tools such as the paddle and the antler wedge. This shows…", "people have long used simple machines", ["machines were invented last year", "no tools were used", "only one community used tools"], "Simple machines have been used and improved for a very long time.", "🪓"),
   hq("You want to roll a heavy log. Which can help?", "put round logs underneath as rollers", ["wrap it in paper", "add water to it", "tie it with ribbon"], "Rolling reduces rubbing, like a wheel.", "🪵"),
+  q("A doorknob is a wheel and axle. Turning the knob…", "is easier than turning the small rod inside", ["is harder", "does nothing", "makes the door heavier"], "A bigger wheel makes turning easier.", "🚪"),
+  q("A flag pole uses a pulley to…", "lift the flag up high with a pull down", ["make the flag heavier", "melt the rope", "stop the wind"], "A pulley can change the direction of a pull.", "🚩"),
+  q("A knife blade is a kind of…", "wedge", ["wheel", "pulley", "spring"], "A wedge pushes things apart.", "🔪"),
+  q("A screw is like an inclined plane that…", "winds around a rod", ["is flat", "rolls on a floor", "hangs on a string"], "The slanted ridge winds around.", "🔩"),
+  q("A hammer's claw pulls out a nail by working as a…", "lever", ["ramp", "wheel", "pulley"], "It turns on the head, like a seesaw.", "🔨"),
+  q("Which of these is a wheel and axle?", "a skateboard wheel", ["a hill", "a rope", "a shovel"], "The wheel turns around an axle.", "🛹"),
+  q("The staircase in a building is like an…", "inclined plane", ["axle", "fulcrum", "pulley"], "It is a slanted way up.", "🪜"),
+  q("What is the fulcrum of a seesaw?", "the point it balances on", ["the seat", "the handle", "the ground"], "The fulcrum is the pivot point of a lever.", "🛝"),
+  q("A pair of tongs picks up food. They are…", "levers", ["wedges", "screws", "pulleys"], "Two levers join at one end.", "🥢"),
+  q("A can opener has a wheel and a lever. Together they…", "make the job easier", ["make the can heavier", "make the job impossible", "cool the can"], "Simple machines help us use less effort.", "🥫"),
+  q("An axe splits wood. Its blade is a…", "wedge", ["pulley", "wheel", "spring"], "A wedge pushes wood apart.", "🪓"),
+  hq("A longer ramp is less steep. Pushing a load up it takes…", "less force over a longer distance", ["more force over a shorter distance", "no force at all", "the same force over no distance"], "A gentle ramp is easier to push up, but it is longer.", "📏"),
 ];
 
 // ---------- Changes to Earth's surface ----------
@@ -173,6 +197,18 @@ const EARTH: Item[] = [
   hq("Slow changes and sudden changes both shape the land. Which pair is correct?", "weathering is slow; a landslide is fast", ["both are always slow", "both are always fast", "weathering is fast; erosion never happens"], "Weathering takes a long time; landslides happen quickly.", "⏳"),
   hq("Why can a river carry more soil after heavy rain?", "fast, deep water has more energy to move material", ["rain turns soil into water", "the river stops", "soil floats away on its own"], "Fast water picks up and carries more sediment.", "🌧️"),
   hq("Why do scientists study layers of rock in a cliff?", "the layers hold clues about Earth's past", ["to find out what to eat", "to paint pictures", "to count clouds"], "Layers were laid down over a long time.", "🔍"),
+  q("Wind and water carrying bits of rock and soil away is called…", "erosion", ["evaporation", "reflection", "migration"], "Erosion moves material from one place to another.", "💨"),
+  q("When rock breaks into smaller pieces, this is called…", "weathering", ["freezing", "growing", "melting only"], "Weathering breaks rock down.", "🪨"),
+  q("Water gets into a crack in a rock and freezes. The ice…", "pushes the crack wider", ["glues the rock", "turns it to soil at once", "makes the rock bigger"], "Ice takes up more space than water.", "🧊"),
+  q("The Badlands near Drumheller were shaped mostly by…", "wind and water over a long time", ["a single storm", "bulldozers", "volcanoes"], "Rain and rivers carved the soft rock.", "🏜️"),
+  q("Waves and flowing water can carry sand to a new place. This is…", "erosion", ["a volcano", "an earthquake", "a fossil"], "The sand is moved by water.", "🏖️"),
+  q("Which change happens slowly?", "a canyon being cut by a river", ["a landslide", "a volcano erupting", "an earthquake"], "Rivers can take thousands of years to carve rock.", "🏞️"),
+  q("Which change happens quickly?", "a rockslide", ["a mountain wearing down", "a valley forming", "a river carving a canyon"], "A rockslide happens in moments.", "🪨"),
+  q("Roots of trees can break up rock by…", "growing into cracks", ["eating the rock", "melting the rock", "painting it"], "Roots grow bigger and widen cracks.", "🌳"),
+  q("Which of these can protect land from erosion?", "plants with strong roots", ["bare soil", "heavy rain", "strong wind"], "Roots hold soil in place.", "🌿"),
+  q("Frost, rain and wind are all…", "forces that can change Earth's surface", ["kinds of rocks", "kinds of plants", "kinds of animals"], "Weather slowly changes land.", "🌦️"),
+  hq("Hoodoos are tall rock pillars shaped over a very long time. What shaped them?", "weathering and erosion", ["people carving them", "a single earthquake", "building machines"], "Hard rock caps protect the soft rock beneath while the rest wears away.", "🗿"),
+  hq("Why might a stream have rounded, smooth pebbles?", "water rolls them against each other for a long time", ["they were made smooth in a factory", "they grew round", "they melted"], "Tumbling in water wears the edges off.", "🪨"),
 ];
 
 // ---------- Soil ----------
@@ -193,6 +229,18 @@ const SOIL: Item[] = [
   hq("A gardener adds compost to soil. Why?", "it adds nutrients and helps hold water", ["to make it hard", "to remove plants", "to lower the temperature"], "Compost is rotted plant material.", "🧑‍🌾"),
   hq("Why do Alberta's prairies have some of the best farm soil?", "grasses added dark, rich humus over many years", ["there are no plants", "it is all clay", "it never rains"], "Prairie grasses have deep roots and added organic matter for thousands of years.", "🌾"),
   hq("Which action protects soil?", "planting grass or crops to cover bare ground", ["leaving land bare", "removing all roots", "burning everything"], "Plant cover helps stop wind and water erosion.", "🛡️"),
+  q("Which tool could you use to look closely at the parts of a handful of soil?", "a magnifying glass", ["a clock", "a ruler only", "a speaker"], "A hand lens helps you see small bits.", "🔎"),
+  q("If you rub soil between your fingers and it feels gritty, it probably has a lot of…", "sand", ["water", "sugar", "metal"], "Sand feels rough and gritty.", "🏖️"),
+  q("Clay soil feels…", "sticky and smooth when wet", ["dry and loose like flour", "like pebbles", "like air"], "Clay particles are very small and hold water.", "🧱"),
+  q("Which small animal helps break down dead leaves in soil?", "a beetle", ["a moose", "a whale", "a hawk"], "Small soil animals help dead plants rot.", "🪲"),
+  q("Why do plants need soil?", "roots hold on and take in water and nutrients", ["to make music", "to stay warm", "to look pretty"], "Soil gives plants support and food.", "🌱"),
+  q("An ant colony lives in soil. Soil is the ants'…", "habitat", ["rainfall", "cloud", "food chain"], "A habitat meets an animal's needs.", "🐜"),
+  q("Which of these can make soil healthier?", "adding compost from fruit and vegetable scraps", ["adding plastic", "adding paint", "adding glue"], "Compost adds nutrients.", "🍎"),
+  q("Soil that is packed down hard makes it difficult for roots to…", "grow", ["shine", "float", "sing"], "Roots need air spaces in the soil.", "🥾"),
+  q("Which of these is a living thing found in soil?", "a fungus", ["a pebble", "a drop of water", "a grain of sand"], "Fungi help break down dead material.", "🍄"),
+  q("Water poured on sand drains through quickly because…", "sand has large spaces between its grains", ["sand is sticky", "sand is a sponge", "sand is wet"], "Clay has tiny spaces, so it drains slowly.", "⏳"),
+  hq("A farmer's field has less topsoil each year. What could be happening?", "wind or water is carrying it away", ["more worms are growing", "the Moon is pulling it", "the soil is turning into sunshine"], "Topsoil is the richest layer, and erosion can remove it.", "🌬️"),
+  hq("Why does soil in a forest often look darker than soil on bare ground?", "fallen leaves rot and add humus", ["the forest makes paint", "the trees are dark", "forest soil is always wet"], "Humus is dark and rich.", "🌲"),
 ];
 
 // ---------- Fossils ----------
@@ -213,6 +261,18 @@ const FOSSILS: Item[] = [
   hq("Why do scientists study layers of rock?", "each layer holds clues about the past", ["layers are colourful", "layers keep rocks warm", "layers make noise"], "Fossils and rock layers tell stories about Earth's history.", "🔍"),
   hq("Fossils help us learn…", "what plants and animals lived long ago and where", ["what we will eat tomorrow", "how fast clouds move", "who won a game"], "They are evidence of past life.", "🦴"),
   hq("Why can erosion in Alberta's badlands show dinosaur bones?", "wind and water wear away the rock and uncover them", ["dinosaurs walk up through the ground", "bones grow", "farmers plant them"], "Erosion exposes buried fossils.", "🌬️"),
+  q("Which of these can be a fossil?", "a shell pressed into rock", ["a seashell you found this summer", "a rock", "a new leaf"], "Fossils are traces of life from long ago.", "🐚"),
+  q("Which place would be best to look for fossils?", "where layers of rock are exposed, such as a cliff", ["a snowy field", "a kitchen", "a playground"], "Eroded rock shows what is underneath.", "⛰️"),
+  q("A trace fossil can be…", "a footprint", ["a new bone", "a toy", "a rock"], "It shows where an animal once walked.", "👣"),
+  q("What can an old fossil leaf tell us about the past?", "what plants grew there long ago", ["what we will eat tomorrow", "what the weather will be next week", "nothing at all"], "Fossils are clues about ancient life.", "🍃"),
+  q("Why are fossils usually found in sedimentary rock?", "mud and sand buried the remains gently", ["lava made them", "it is the only kind of rock", "they melt rock"], "Sediment layers can cover a plant or animal and preserve it.", "🪨"),
+  q("Which of these lived in Alberta long ago?", "a duck-billed dinosaur", ["a kangaroo", "a penguin", "a polar bear"], "Many kinds of dinosaurs lived in what is now Alberta.", "🦕"),
+  q("A mould fossil is…", "an imprint left in rock", ["a green fuzzy mould", "a new bone", "a toy"], "The shape of the living thing is pressed into the rock.", "🐾"),
+  q("Which tool might a paleontologist use to carefully uncover a fossil?", "a small brush", ["a big hammer only", "a lawn mower", "a bucket of paint"], "Careful tools keep fossils from breaking.", "🖌️"),
+  q("A fossil bone is found in a field. What should you do?", "tell an adult and a museum or park staff", ["bury it again", "break it for a better look", "throw it away"], "Fossils belong to everyone, so experts should help.", "📣"),
+  q("Why do we often only find the hard parts of animals, such as bones and teeth, as fossils?", "soft parts rot away quickly", ["soft parts turn to gold", "hard parts grow back", "animals never had soft parts"], "Hard parts last longer.", "🦷"),
+  hq("Fossils of sea animals are found in the Rocky Mountains. What does this show?", "the rock was once under the sea", ["sea animals climbed the mountain", "the fossils were planted", "the mountains are made of shells only"], "Land has moved and risen over a very long time.", "🌊"),
+  hq("Which is the best way to tell which of two fossils is older?", "check which was in the lower rock layer", ["pick the bigger one", "pick the heavier one", "pick the one with more colour"], "Lower layers are usually older.", "🧱"),
 ];
 
 // ---------- Farming and the land ----------
@@ -233,6 +293,18 @@ const FARMING: Item[] = [
   hq("A farmer plants shelterbelts of trees around a field. How does it help?", "it slows the wind so soil does not blow away", ["it stops the sun", "it makes the soil harder", "it hides the field"], "Trees block the wind.", "🌲"),
   hq("Why is growing food for people important to protect soil?", "healthy soil grows healthy crops for many years", ["soil is not needed", "food grows without soil", "soil is only for gardens"], "Good soil is the base of farming.", "🧺"),
   hq("Which activity best connects people's responsibility and the land?", "using land carefully so it stays healthy for the future", ["using land without thinking", "taking everything at once", "never using land"], "Responsibility means looking after the land for future generations.", "🤲"),
+  q("Which of these is an animal that Alberta ranchers raise?", "a cow", ["a camel", "a polar bear", "a zebra"], "Cattle ranching is common across the province.", "🐄"),
+  q("What do farmers use a combine for?", "harvesting grain", ["planting trees", "building roads", "digging wells"], "A combine cuts and collects the crop.", "🚜"),
+  q("Mining coal or digging oil sands changes the land by…", "removing material from the ground", ["adding mountains", "making new rivers", "growing a forest at once"], "Companies must restore land after mining.", "⛏️"),
+  q("What does it mean to reclaim land?", "to make it healthy again after it was used", ["to build a mall", "to pave it", "to paint it"], "Reclamation means returning land to a natural state.", "🌱"),
+  q("Cutting down a forest to build a farm affects the animals that lived there because…", "their habitat is lost", ["they get a bigger home", "they become plants", "they stop needing food"], "Animals need habitat.", "🌲"),
+  q("A dam on a river changes the land by…", "making a lake behind it", ["making a desert", "making a volcano", "making it taller"], "Water collects behind the dam.", "🏞️"),
+  q("Which land use needs the most flat, open space?", "growing wheat", ["a campsite", "a bird sanctuary", "a pond"], "Large fields are needed for crops.", "🌾"),
+  q("Parks and nature reserves are land set aside to…", "protect wildlife and let people enjoy nature", ["build factories", "grow cars", "make parking lots"], "Protected areas keep habitats safe.", "🏞️"),
+  q("Planting native grasses on a hillside helps the land because…", "the roots hold the soil", ["they hide the hillside", "grass melts rock", "they make shade for fish"], "Roots hold soil in place.", "🌿"),
+  q("Why do cities spread onto farmland over time?", "more people need homes and workplaces", ["farmers do not like farms", "wind pushes them", "land shrinks"], "Growing cities need space.", "🏙️"),
+  hq("A rancher moves cattle to a new pasture every few weeks. Why?", "the grass has time to grow back", ["cows like new fences", "to waste time", "the grass is blue"], "Rotating where animals graze protects the land.", "🐄"),
+  hq("Which choice best balances using land and caring for it?", "farming in a way that protects soil and water", ["clearing all the trees", "leaving land empty forever", "dumping waste in ditches"], "Stewardship means using land carefully so it lasts.", "🤝"),
 ];
 
 // ---------- Senses and responding ----------
@@ -292,6 +364,18 @@ const PROTECT: Item[] = [
   hq("Beavers build dams that create ponds. Which animals might use the pond?", "ducks, fish and frogs", ["only camels", "only penguins", "no animals"], "A pond becomes a habitat for other living things.", "🦫"),
   hq("Which is a good way to help pollinators near your home?", "plant flowers that bloom at different times", ["cover the yard with pavement", "spray all flowers", "cut all the flowers"], "Pollinators need food all season long.", "🌼"),
   hq("Why can a fence or road split an animal's home range?", "animals may not be able to get to food, water or mates", ["animals like fences", "roads are food", "fences help flying animals"], "Habitat that is cut in pieces is harder to use.", "🚧"),
+  q("A bird sanctuary is a place where…", "birds are protected", ["birds are sold", "cars park", "people play loud music"], "A sanctuary keeps animals safe.", "🕊️"),
+  q("If you see a baby bird alone on the ground, what is the best thing to do?", "leave it alone and tell an adult", ["take it home", "feed it bread", "poke it"], "Its parents are often nearby.", "🐦"),
+  q("Why should you not pull plants up by the roots on a hike?", "they may not grow back", ["roots are heavy", "it makes the trail longer", "plants like it"], "Leave plants where they grow.", "🌱"),
+  q("Which is a good way to save a tree's life?", "plant a new tree when one is cut", ["carve your name on it", "peel off the bark", "tie a rope tightly around it"], "Planting trees helps forests.", "🌳"),
+  q("Why is it helpful to take your litter home from a picnic?", "it keeps nature clean and safe for animals", ["litter is a gift for birds", "it makes trees grow", "the wind will pick it up"], "Leave places as clean as you found them.", "🧺"),
+  q("A species at risk is an animal or plant that…", "may disappear if it is not protected", ["lives in cities only", "is the biggest", "is found everywhere"], "Special programs help protect these species.", "🛡️"),
+  q("A wildlife officer tells hikers to keep their food stored securely in a campsite. Why?", "so bears and other animals are not attracted", ["so food stays warm", "so campers cook faster", "because bears love tents"], "Protecting food keeps people and animals safe.", "🏕️"),
+  q("A bee house in a garden can help…", "bees have a safe place to nest", ["bees have to leave the garden", "flowers stop growing", "bees cannot find food"], "Habitat for pollinators helps plants too.", "🐝"),
+  q("Which small action helps a pond habitat?", "keeping soap and paint out of it", ["throwing in rocks to scare fish", "pouring oil in", "adding litter"], "Clean water keeps pond life healthy.", "🐸"),
+  q("Why do some parks ask visitors to use a certain path?", "to protect the plants and animals around it", ["so people get lost", "to make the walk longer", "to hide the views"], "Staying on the path leaves habitat undisturbed.", "🥾"),
+  hq("A community plants wildflowers along a ditch. Who could this help?", "bees, butterflies and birds", ["only trucks", "nobody", "only buildings"], "Flowers give food to pollinators and shelter to other animals.", "🦋"),
+  hq("A local group counts the frogs in a pond every spring, with permission. What could they learn?", "whether the number of frogs is going up or down", ["what colour the pond is", "how deep the Sun goes", "the temperature of the Moon"], "Tracking changes tells us if the habitat is healthy.", "🐸"),
 ];
 
 // ---------- Computational thinking ----------

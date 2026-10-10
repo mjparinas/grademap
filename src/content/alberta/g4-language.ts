@@ -24,6 +24,18 @@ const LISTENING: Item[] = [
   hq("A speaker says, “We meet at the library at three.” Which reply checks that you understood?", "“So we meet at the library at three o'clock?”", ["“What is your favourite book?”", "“I like the park better.”", "“Is it time for lunch?”"], "Repeating the key details checks understanding.", "👂"),
   hq("Which is the best way to build on a classmate's idea?", "“I agree with Sam, and I would add…”", ["“Sam is wrong, so listen to me.”", "“I will say something unrelated.”", "“I do not need to listen.”"], "Building on others' ideas keeps a discussion going.", "🔗"),
   hq("Which word do you stress to ask for the blue book, not the red one? “Please pass me the blue book.”", "blue", ["pass", "book", "please"], "Stress the word that carries the important idea.", "📘"),
+  q("A classmate shares an idea you do not agree with. What is a respectful reply?", "“I understand your idea. Here is another way to see it.”", ["“That idea is dumb.”", "“Stop talking.”", "“I won't listen.”"], "You can disagree and still be kind.", "🤝"),
+  q("You are the speaker in a group talk. How can you invite others in?", "ask, “What do you think?”", ["keep talking without a pause", "turn your back", "say, “Nobody else can talk.”"], "Inviting others makes a good discussion.", "💬"),
+  q("A good listener keeps their eyes on the speaker and…", "thinks about what is being said", ["thinks about lunch only", "draws a picture of something else", "whispers to a friend"], "Active listening means thinking along with the speaker.", "🧠"),
+  q("Which sentence stem helps you ask a question about what you heard?", "“Can you tell me more about…?”", ["“I don't care about…”", "“Be quiet about…”", "“Stop talking about…”"], "Questions show you are interested.", "🙋"),
+  q("When you read “Wow!” in a story aloud, your voice should…", "show surprise or excitement", ["go flat and slow", "sound bored", "whisper"], "Expression shows the feeling in the words.", "🎉"),
+  q("How should you read a comma in a list, such as “apples, pears, plums”?", "with a very small pause after each item", ["without any pause", "with a long stop", "by shouting each word"], "A comma tells readers to take a tiny pause.", "📖"),
+  q("A listener says, “I heard you say the park is closed.” This is called…", "paraphrasing what you heard", ["interrupting", "ignoring", "forgetting"], "Saying it in your own words checks you understood.", "👂"),
+  q("A teammate is nervous about speaking. How can you help?", "listen kindly and say something encouraging", ["laugh", "talk over them", "look away"], "Kind responses build confidence.", "💛"),
+  q("Reading aloud, you see a question mark at the end of a sentence. Your voice should…", "go up a little", ["drop to a whisper", "go silent", "speed up"], "A question often ends on a rising tone.", "❓"),
+  q("Which clue in a text tells a reader to stress a word?", "the word is in italics or bold", ["the word is long", "the word is first on the page", "the word has a vowel"], "Text features can show which words matter.", "🔤"),
+  hq("Why does a speaker slow down when explaining something tricky?", "listeners get time to follow each step", ["to run out the clock", "to confuse the audience", "because they are tired"], "A steady pace helps people understand hard ideas.", "🐢"),
+  hq("In a discussion, two students say almost the same thing. What is a good way to add to it?", "“I agree, and I also think…”", ["“Repeat that.”", "“That was already said.”", "“I'll say nothing.”"], "Building on others' ideas moves the discussion forward.", "🔗"),
 ];
 
 const SHARING: Item[] = [
@@ -45,6 +57,18 @@ const SHARING: Item[] = [
   hq("Why is copying a classmate's writing and putting your name on it unfair?", "it takes credit for someone else's work", ["it makes the page look neat", "it is faster, so it is fine", "it helps the other person"], "Your name on work means you made it.", "⚖️"),
   hq("A source says one thing and another trusted source says something different. What is a good next step?", "check more trusted sources", ["pick the one you like", "stop researching", "make up an answer"], "Comparing sources helps find what is accurate.", "🔎"),
   hq("Which is the strongest password?", "a mix of random words, numbers and symbols", ["your first name", "1234", "the word “password”"], "Strong passwords are hard to guess and kept private.", "🔐"),
+  q("Where can you find a trusted answer about how bison live?", "a book from the school library", ["a random comment", "an ad for toys", "a chain message"], "Library books are checked by experts.", "📖"),
+  q("Why should you tell who made the picture you use?", "to give the creator credit", ["to make the page longer", "so no one sees it", "to hide the picture"], "Credit is a way of saying thank you.", "🎨"),
+  q("Which of these is OK to share online with a trusted adult's permission?", "a school project you made", ["your password", "your home address", "your locker combination"], "Ask an adult before sharing anything online.", "🧑‍🏫"),
+  q("A note says “Information from ‘Animals of the Prairie’ by Z. Okafor.” This is…", "giving credit to a source", ["a title", "a math question", "a rule"], "It names the book and the author.", "📝"),
+  q("What should you do before using a classmate's drawing in your poster?", "ask them for permission", ["use it and say nothing", "erase their name", "copy it exactly and sign it"], "Everyone owns their own work.", "🖍️"),
+  q("A sentence from a book is copied exactly into your report. What should you do?", "put it in quotation marks and name the source", ["leave it as if you wrote it", "change one word", "hide the book"], "Quotation marks show someone else's words.", "💬"),
+  q("A friend asks for your password “just to see.” You should…", "say no and tell a trusted adult if they keep asking", ["share it", "post it online", "write it on a poster"], "Passwords are private.", "🔐"),
+  q("Why is it a good idea to log out of a shared computer?", "so others cannot see or change your work", ["so it gets faster", "to waste time", "so the screen turns blue"], "Logging out protects your information.", "💻"),
+  q("An unfamiliar person online asks where you live. What should you do?", "not answer and tell a trusted adult", ["tell them quickly", "send a photo", "give your phone number"], "Keep personal details private.", "🚫"),
+  q("Which is an example of a digital folder name that is easy to understand?", "“Bison Report”", ["“zzz”", "“stuff3”", "“new new new”"], "Clear names help you find your work.", "📁"),
+  hq("You want to share a classmate's idea in your group. What is the fair thing to do?", "say it was their idea", ["act like it was yours", "hide it", "change their words and keep it"], "Credit goes to the person who thought of it.", "🌟"),
+  hq("A website is full of ads and has no author. Which of these should you do?", "check a more trusted source before using the facts", ["use it anyway", "share it with the class right away", "copy it all"], "Trusted sources show who made them and why.", "🛑"),
 ];
 
 export const units: Unit[] = [

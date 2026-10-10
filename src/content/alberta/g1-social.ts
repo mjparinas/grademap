@@ -75,6 +75,18 @@ const CULTURES: Item[] = [
   q("Why is it good to have many cultures in one community?", "we can learn from each other", ["it makes everyone fight", "it is boring"], "Many cultures mean many ideas, foods and stories.", { d: 3 }),
   q("Treaty 6, Treaty 7 and Treaty 8 are agreements that cover…", "parts of Alberta", ["only the ocean", "outer space"], "Treaties are agreements made between First Nations and the Crown.", { d: 3 }),
   q("Which is a French word you could learn?", "bonjour", ["salaam", "namaste"], "Bonjour means hello in French.", { emoji: "👋", d: 2 }),
+  q("Inuktitut is a language of the…", "Inuit", ["Romans", "Vikings"], "Inuktitut is spoken by many Inuit in the north of Canada today.", { emoji: "💬", d: 3 }),
+  q("The Blackfoot people have their own language. This means they…", "have their own words and stories", ["have no words", "speak only English"], "Many First Nations have languages that are used today.", { d: 2 }),
+  q("A family cooks food from their culture. They are sharing…", "a tradition", ["a thunderstorm", "a bus"], "Food can be part of a family's culture.", { emoji: "🍲" }),
+  q("A friend's name is hard to say. What can you do?", "ask them to help you say it", ["give them a new name", "skip it"], "Saying a name well shows respect."),
+  q("Some Alberta schools teach in French. This helps children…", "learn in two languages", ["forget English", "stop reading"], "Many children in Alberta learn French and English.", { emoji: "📚", d: 2 }),
+  q("Eid, Diwali, Christmas and Hanukkah are…", "special days for different families", ["names of animals", "kinds of weather"], "Families celebrate many special days.", { emoji: "🎉" }),
+  q("A song from a culture can help us…", "share stories and feelings", ["stop listening", "forget the past"], "Music is one way people share who they are.", { emoji: "🎶", d: 2 }),
+  q("Métis fiddlers play at gatherings in Alberta today. Today means…", "now, not just long ago", ["only long ago", "never"], "Métis culture is alive in Alberta now.", { emoji: "🎻", d: 2 }),
+  q("A family is new to Alberta. How can you be a good neighbour?", "say hello and welcome them", ["stay away", "tell them to leave"], "A friendly hello helps people feel at home.", { emoji: "👋" }),
+  q("People who move to Alberta from other countries are called…", "newcomers", ["only tourists", "only students"], "Newcomers bring new foods, songs and ideas.", { d: 2 }),
+  q("Cree and Dene are names of…", "First Nations", ["rivers", "mountains"], "Cree and Dene peoples have communities in Alberta today.", { d: 3 }),
+  q("Different cultures have different foods. This is…", "okay and interesting", ["wrong", "scary"], "Trying new foods can teach us about others.", { emoji: "🍽️" }),
 ];
 
 export const culturesUnit: Unit = {
@@ -159,6 +171,20 @@ const SYMBOLS: Item[] = [
   q("Alberta's provincial bird is the…", "great horned owl", ["penguin", "flamingo"], "The great horned owl is a bird of Alberta.", { emoji: "🦉", d: 3 }),
   q("When we stand for O Canada, we are showing…", "respect", ["we are sleepy", "we are lost"], "Standing and listening shows respect for a symbol.", { d: 2 }),
   q("Why do countries have flags?", "to show who they are", ["to keep the wind away", "to tell the weather"], "Flags are symbols that everyone can recognize.", { d: 3 }),
+  q("How many colours are on Canada's flag?", "2", ["5", "1"], "The flag is red and white.", { emoji: "🇨🇦", d: 2 }),
+  q("Which animal is on the Canadian nickel?", e("beaver", "🦫"), [e("kangaroo", "🦘"), e("giraffe", "🦒")], "The beaver is on the five-cent coin.", { d: 3 }),
+  q("Which bird is on the Canadian one-dollar coin?", "loon", ["penguin", "flamingo"], "The loon gives the coin its nickname, the loonie.", { emoji: "🪙", d: 3 }),
+  q("Red and white are Canada's…", "official colours", ["school colours", "rainbow colours"], "Red and white are on the flag.", { d: 2 }),
+  q("O Canada is Canada's…", "national anthem", ["bedtime song", "birthday song"], "An anthem is a song that stands for a country.", { emoji: "🎶" }),
+  q("Alberta's flag is mostly…", "blue", ["red", "green"], "Alberta's flag is blue with the provincial shield in the middle.", { d: 2 }),
+  q("Alberta's flag has a picture of…", "the provincial shield", ["a maple leaf", "a beaver"], "The shield shows mountains, hills, prairie and wheat.", { d: 3 }),
+  q("Alberta's provincial tree is the…", "lodgepole pine", ["palm tree", "cactus"], "Lodgepole pines grow in Alberta's forests.", { emoji: "🌲", d: 3 }),
+  q("Alberta's provincial fish is the…", "bull trout", ["goldfish", "shark"], "The bull trout lives in cold, clear Alberta waters.", { emoji: "🐟", d: 3 }),
+  q("A symbol can be a picture, a colour or a…", "song", ["sandwich", "nap"], "Songs like anthems can be symbols too.", { d: 2 }),
+  q("Which colour is NOT on Canada's flag?", "blue", ["red", "white"], "The flag has only red and white.", { emoji: "🇨🇦" }),
+  q("We fly a flag to show…", "pride in a place", ["it is lunch", "a storm is coming"], "Flags show who we are and where we belong.", { d: 2 }),
+  q("The beaver is known for being…", "hard-working", ["lazy", "noisy"], "Beavers work hard to build dams and lodges.", { emoji: "🦫", d: 2 }),
+  q("Which one is not a symbol of Canada?", "a skateboard", ["the flag", "O Canada"], "The flag and the anthem both stand for Canada."),
 ];
 
 export const symbolsUnit: Unit = {

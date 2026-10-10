@@ -187,7 +187,24 @@ const STEPS: Item[] = [
   q("You skip a step in a recipe. What might happen?", "the food may not turn out", ["it will taste perfect", "nothing can change"], "Missing a step changes the result.", { emoji: "🍪", d: 3 }),
   q("An instruction has 2 steps. If you do only 1, you have…", "not finished", ["finished", "done twice"], "Do every step to finish.", { d: 3 }),
   q("Someone says: go 3 steps forward, then 1 step back. Where do you end up?", "2 steps from the start", ["4 steps from the start", "right at the start"], "3 forward and 1 back leaves you 2 steps ahead.", { emoji: "👣", d: 3 }),
+  q("The steps are: open, pour, stir, drink. What is the third step?", "stir", ["pour", "drink"], "Count the steps in order.", { d: 2 }),
+  q("Mix, bake, eat. Which comes first?", "mix", ["bake", "eat"], "Mix the ingredients before you bake.", { emoji: "🍰" }),
+  q("Walk 2 steps forward, then 2 steps back. Where do you end up?", "where you started", ["2 steps ahead", "4 steps ahead"], "Going back cancels going forward.", { emoji: "👣", d: 3 }),
+  q("Stand, hop, hop, sit. How many steps is that?", "4", ["3", "5"], "Count each step.", { d: 2 }),
+  q("Why is it good to read all the steps before you start?", "so you know what to do", ["so you can skip them", "so it takes longer"], "Reading first helps you plan.", { d: 2 }),
+  q("Crack an egg, whisk, cook. Which step is first?", "crack the egg", ["whisk", "cook"], "You cannot whisk before the egg is cracked.", { emoji: "🥚" }),
+  q("Which is the right order?", "put on socks, then shoes", ["shoes, then socks", "shoes only"], "Socks go on before shoes.", { emoji: "🧦" }),
+  q("An arrow code is: ↑ ↑ →. How many times do you go up?", "2", ["1", "3"], "Count the up arrows.", { emoji: "⬆️", d: 3 }),
+  q("What is a good way to share steps with a friend?", "say them in order, slowly", ["say them fast and mixed up", "whisper them once"], "Clear, slow steps are easier to follow.", { d: 2 }),
+  q("You made a mistake in step 2. What is a good thing to do?", "go back and fix it", ["pretend it is fine", "stop and never try again"], "Mistakes are okay. We can try again.", { d: 3 }),
 ];
+
+const PLANT = order("Plant a seed. Put the steps in order.", "Dig first, then plant, cover and water.", [
+  ["Dig a small hole", "🕳️"],
+  ["Put in a seed", "🌰"],
+  ["Cover it with soil", "🪴"],
+  ["Water it", "💧"],
+]);
 
 const BRUSH = order("Put the steps in order. What comes first?", "Wet the brush, add paste, brush, then rinse.", [
   ["Wet the brush", "🚿"],
@@ -210,7 +227,7 @@ export const stepsUnit: Unit = {
   blurb: "Do each step in the right order!",
   parentNote: "Instructions have steps, and the order of the steps matters. Children follow and order simple steps, as a first look at the thinking behind coding.",
   standards: ab("1CS 1.1, 1CS 1.2, 1CS 1.3", "following instructions with one or more steps, and noticing that the order of the steps matters"),
-  generate: unitOf(STEPS, [BRUSH, SANDWICH]),
+  generate: unitOf(STEPS, [BRUSH, SANDWICH, PLANT]),
 };
 
 // ---------- Plants and animals in Alberta ----------
@@ -232,6 +249,19 @@ const HABITATS: Item[] = [
   q("Trees give animals…", "a home and food", ["television", "pizza"], "Birds nest in trees and squirrels eat their seeds.", { emoji: "🌲", d: 2 }),
   q("Why is it good to not drop litter in a park?", "animals can get hurt", ["it makes flowers grow", "litter is food"], "Litter can harm animals and plants.", { emoji: "🗑️", d: 3 }),
   q("A bee visits a flower for food. The flower gets…", "help making seeds", ["a haircut", "a home"], "Bees carry pollen from flower to flower.", { emoji: "🐝", d: 3 }),
+  q("Which animal lives in an Alberta lake or river?", e("trout", "🐟"), [e("bighorn sheep", "🐏"), e("pronghorn", "🦌")], "Trout are fish that live in cold water."),
+  q("A mountain goat has hooves that help it…", "climb steep rocks", ["fly high", "swim"], "Mountain goats are good climbers.", { emoji: "🐐" }),
+  q("A burrowing owl lives on the prairie. It nests…", "in a hole in the ground", ["at the top of a tall pine", "in a lake"], "These small owls nest underground.", { emoji: "🦉", d: 3 }),
+  q("Which plant lives in Alberta forests?", e("spruce tree", "🌲"), [e("palm tree", "🌴"), e("cactus", "🌵")], "Spruce trees grow in cool forests."),
+  q("Which plant often grows on the Alberta prairie?", e("grass", "🌾"), [e("palm tree", "🌴"), e("banana plant", "🍌")], "The prairie is a wide area of grass."),
+  q("A beaver's home in the water is called a…", "lodge", ["igloo", "hive"], "Beavers build lodges from sticks and mud.", { emoji: "🦫", d: 2 }),
+  q("Why do animals need shelter?", "to stay safe and warm", ["to watch TV", "to buy food"], "Shelter protects animals from weather and danger.", { emoji: "🏠" }),
+  q("What do animals need to drink?", "water", ["pop", "paint"], "All living things need water.", { emoji: "💧" }),
+  q("A farm field is a place where people grow…", "plants for food", ["toys", "tools"], "Farmers grow crops such as wheat and canola.", { emoji: "🌽" }),
+  q("Which of these is a living thing?", "an aspen tree", ["a rock", "a toy truck"], "Living things grow, need water and make more of their kind.", { emoji: "🌳" }),
+  q("A duck is near a pond. What does the pond give it?", "water and food", ["a car", "a phone"], "Ponds have plants and small animals for ducks to eat.", { emoji: "🦆", d: 2 }),
+  q("You find a baby bird on the ground. What should you do?", "leave it and tell a grown-up", ["take it home", "feed it bread"], "Wild animals do best with their own families and helpers.", { emoji: "🐦", d: 3 }),
+  q("A plant is kept in a dark closet for weeks. It will…", "get weak", ["grow tall and green", "make flowers"], "Plants need light to make food.", { emoji: "🪴", d: 3 }),
 ];
 
 const WHERE = sorter({

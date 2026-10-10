@@ -32,6 +32,17 @@ const WHERE: Item[] = [
   { prompt: "A historian says an event happened 'about 2500 BCE'. Roughly how many years ago is that, from 2025?", right: "about 4500 years", wrong: ["about 500 years", "about 1500 years", "about 2500 years"], hint: "Add 2500 and 2025 (there is no year 0).", hard: true },
   { prompt: "The Maya, Aztec and Inca peoples are not only in the past. Which statement is true?", right: "Descendants of these peoples live and speak their languages today", wrong: ["All of these peoples have disappeared", "They only exist in museums", "They lived only in Europe"], hint: "Maya peoples live today in Guatemala, Mexico and nearby countries, and Quechua is spoken in the Andes.", hard: true },
   { prompt: "Which two civilizations were both on the Nile?", right: "Egypt and Kush", wrong: ["Sumer and Rome", "Greece and Inca", "Maya and Aztec"], hint: "Egypt and Kush were neighbours along the same river.", hard: true },
+  { prompt: "Why did many people in ancient Egypt live in a strip beside the Nile?", right: "The river flooded and left rich soil for farming", wrong: ["The river was salty and kept animals away", "The land beside it was always frozen", "The river was the only place with mountains"], hint: "Rivers gave water and good soil for crops." },
+  { prompt: "Mohenjo-daro was a large city of which civilization?", right: "the Indus Valley", wrong: ["Egypt", "Rome", "the Inca"], hint: "Its ruins are in what is now Pakistan." },
+  { prompt: "On which continent is China?", right: "Asia", wrong: ["Africa", "Europe", "North America"], hint: "The Yellow River flows through East Asia." },
+  { prompt: "Ancient Rome began as a small city beside which river?", right: "the Tiber", wrong: ["the Nile", "the Thames", "the Yellow River"], hint: "The Tiber flows through Italy, where Rome began." },
+  { prompt: "Which civilization is matched with the correct continent?", right: "the Inca and South America", wrong: ["Sumer and Europe", "Kush and Asia", "Rome and North America"], hint: "The Inca lived along the Andes in South America." },
+  { prompt: "Which year comes right after 1 BCE?", right: "1 CE", wrong: ["2 BCE", "10 CE", "1 BCE again"], hint: "The BCE and CE system has no year 0, so 1 BCE is followed by 1 CE.", hard: true },
+  { prompt: "Which date is the most recent?", right: "200 CE", wrong: ["200 BCE", "1000 BCE", "1 BCE"], hint: "CE years come after all BCE years." },
+  { prompt: "Which is closer to today: 300 BCE or 300 CE?", right: "300 CE", wrong: ["300 BCE", "They are the same distance"], hint: "CE years count up toward today, so 300 CE is closer." },
+  { prompt: "Ur was a city of Sumer. Which present-day country is that area mostly in?", right: "Iraq", wrong: ["Egypt", "India", "Greece"], hint: "Mesopotamia lay between the Tigris and Euphrates, mostly in Iraq today." },
+  { prompt: "Why do historians use a timeline?", right: "It shows the order of events and how far apart they are", wrong: ["It shows only places on a map", "It shows the weather each year", "It changes every date to CE"], hint: "A timeline puts events in order." },
+  { prompt: "Which civilization built the rainforest city of Tikal?", right: "the Maya", wrong: ["the Inca", "the Greeks", "Kush"], hint: "Tikal is in present-day Guatemala. Maya peoples live there today." },
 ];
 
 const WHEN_ORDER: OrderQuestion = order("Put these events in order from earliest to latest.", "BCE years count down toward year 1. Then CE years count up.", [

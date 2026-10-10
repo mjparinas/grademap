@@ -88,6 +88,17 @@ const LEADERS: Item[] = [
   q("When people vote, what do they choose?", "a leader or a plan", ["the weather", "their age"], "Voting is one way people have a say."),
   q("Which place is where a province's laws are made?", "the Legislature building", ["a grocery store", "a hockey rink"], "In Alberta, it is in Edmonton.", { d: 3 }),
   q("Which of these is a leader of a province?", "a premier", ["a principal", "a bus driver"], "A principal leads a school.", { d: 2 }),
+  q("What does a mayor do?", "helps run a town or city", ["flies planes", "teaches every class"], "A mayor works with a council for the community.", { d: 2 }),
+  q("Who leads a school?", "the principal", ["the premier", "the prime minister"], "A principal leads a school."),
+  q("In an election, people mark a…", "ballot", ["calendar", "map"], "A ballot is how a person votes.", { d: 2 }),
+  q("A person who gets the most votes in an election…", "wins", ["loses", "is hidden"], "The most votes decide the winner.", { d: 2 }),
+  q("A town council meets to…", "talk about town decisions", ["practise swimming", "bake bread"], "Councils make choices for a community.", { d: 2 }),
+  q("Which leader works in Ottawa?", "the prime minister", ["the premier of Alberta", "a school principal"], "Ottawa is Canada's capital.", { d: 2 }),
+  q("Which leader works in Edmonton for all of Alberta?", "the premier", ["the prime minister", "a school principal"], "Edmonton is Alberta's capital.", { d: 3 }),
+  q("A good leader treats people…", "fairly", ["unfairly", "rudely"], "Fair leaders listen to everyone."),
+  q("What should leaders think about when they choose?", "what is fair for everyone", ["only what they like", "nothing at all"], "Leaders make choices for many people.", { d: 3 }),
+  q("A student who helps the class is showing…", "leadership", ["sleepiness", "bad weather"], "Anyone can be a leader by helping others.", { d: 2 }),
+  q("Where do people go to vote?", "a voting place", ["a swimming pool", "a bakery"], "Voting places are set up for elections.", { d: 2 }),
 ];
 
 // ---------- Heritage across Canada ----------
@@ -112,6 +123,16 @@ const HERITAGE: Item[] = [
   q("A new neighbour tells you about a holiday you do not know. What is a good response?", "“Tell me about it!”", ["“That is weird.”", "“I'm not listening.”"], "Be curious and kind.", { d: 2 }),
   q("Many Canadians trace their heritage to…", "countries all around the world", ["only one place", "nowhere"], "Canada is home to people from all over the world.", { d: 2 }),
   q("Treaty 6, Treaty 7 and Treaty 8 cover land in Alberta. A treaty is…", "an agreement between peoples", ["a kind of tree", "a type of boat"], "Treaties are promises made between First Nations and the Crown.", { d: 3 }),
+  q("Inuktitut is a language of the…", "Inuit", ["Romans", "Vikings"], "Many Inuit in northern Canada speak Inuktitut today.", { d: 3 }),
+  q("Some students learn in French. Why might a family choose this?", "to speak two languages", ["to avoid school", "to forget English"], "Learning two languages opens many doors.", { d: 2 }),
+  q("A grandparent teaches you a song from their childhood. This helps keep…", "heritage alive", ["the TV on", "the house cold"], "Songs and stories are passed down."),
+  q("Which is a living tradition?", "a family dance taught to children today", ["something no one remembers", "a broken toy"], "Living traditions are still shared today.", { d: 3 }),
+  q("Canada's official languages are English and…", "French", ["Spanish", "Cree"], "English and French are Canada's official languages."),
+  q("When we learn about heritage, we talk about communities in the…", "past and the present", ["past only", "future only"], "Communities are alive today.", { d: 3 }),
+  q("Newcomers bring new foods, music and ideas. This helps Canada…", "become more diverse", ["become less friendly", "lose its stories"], "Many peoples make communities richer.", { d: 2 }),
+  q("Dene communities are in northern Alberta. The Dene are…", "First Nations", ["Inuit only", "newcomers from Europe"], "Dene peoples are First Nations with communities today.", { d: 3 }),
+  q("The Siksika, Kainai and Piikani are part of the Blackfoot Confederacy. They are…", "First Nations in Alberta", ["towns in France", "kinds of fish"], "These First Nations have communities in Alberta today.", { d: 3 }),
+  q("A heritage fair has booths from many cultures. What can you do there?", "taste, listen and learn", ["tell everyone they are wrong", "stay away"], "Fairs are fun ways to learn about each other."),
 ];
 
 // ---------- Trade and transportation ----------

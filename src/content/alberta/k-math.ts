@@ -60,7 +60,33 @@ const TIME: Item[] = [
   q("A snowman is built, then the sun shines all day. What comes last?", "it melts", ["it grows taller", "it gets a bigger scarf"], "First we build, next the sun shines, last it melts.", { emoji: "⛄", d: 3 }),
   q("A baker mixes, bakes and then…", "eats the bread", ["makes the flour", "buys the oven"], "First mix, next bake, last eat.", { emoji: "🍞", d: 3 }),
   q("Rin drew a picture, then showed it to the class. What came first?", "drawing the picture", ["showing the class", "going home"], "First means before the other things.", { d: 3 }),
+  q("Today is Thursday. What day is tomorrow?", "Friday", ["Wednesday", "Monday"], "Tomorrow is the day after today. After Thursday comes Friday.", { d: 2 }),
+  q("Today is Sunday. What day was yesterday?", "Saturday", ["Monday", "Friday"], "Yesterday is the day before today. Before Sunday is Saturday.", { d: 2 }),
+  q("Today is Tuesday. What day was yesterday?", "Monday", ["Wednesday", "Friday"], "Yesterday is the day before today. Before Tuesday is Monday.", { d: 2 }),
+  q("Today is Saturday. What day is tomorrow?", "Sunday", ["Friday", "Monday"], "Tomorrow is the next day. After Saturday comes Sunday.", { d: 2 }),
+  q("You go to bed. What do you do just before?", "put on pyjamas", ["eat breakfast", "go to school"], "Bedtime comes at the end of the day.", { emoji: "🛏️" }),
+  q("You read a book. What do you do first?", "open the book", ["close the book", "put it away"], "You open a book before you read it.", { emoji: "📖" }),
+  q("Which happens last in a day?", "bedtime", ["waking up", "breakfast"], "A day starts with waking up and ends with bedtime.", { emoji: "🌙" }),
+  q("Which happens first in a day?", "waking up", ["bedtime", "a night snack"], "A day starts with waking up.", { emoji: "⏰" }),
+  q("You paint a picture. What do you do first?", "get your paints", ["hang it up", "say all done"], "First we get ready, next we paint, last we show it.", { emoji: "🎨" }),
+  q("A caterpillar becomes a butterfly. What comes next?", "it makes a chrysalis", ["it hatches from an egg", "it flies right away"], "First an egg, next a caterpillar, then a chrysalis, then a butterfly.", { emoji: "🐛", d: 3 }),
+  q("Yesterday it rained. Did the rain happen now or before?", "before", ["later", "right now"], "Yesterday is the day before today.", { d: 2 }),
+  q("Tomorrow is your party. Has it happened yet?", "not yet", ["yes, it is done", "it is happening now"], "Tomorrow has not come yet.", { emoji: "🎈", d: 2 }),
+  q("Which word means the day we are in right now?", "today", ["yesterday", "tomorrow"], "Today is now. Yesterday was before. Tomorrow is next."),
+  q("You put on a coat, then play in the snow. What came first?", "putting on the coat", ["playing in the snow", "going back inside"], "First means before the other things.", { emoji: "🧥", d: 3 }),
 ];
+
+const HANDS = order("Wash your hands. Tap the pictures in order.", "Turn on the water first, then soap, then dry.", [
+  ["turn on the water", "🚰"],
+  ["rub with soap", "🧼"],
+  ["dry your hands", "🧻"],
+]);
+
+const CHICK = order("A chick grows up. Tap the pictures in order.", "First an egg, next a chick, last a hen.", [
+  ["egg", "🥚"],
+  ["chick", "🐥"],
+  ["hen", "🐔"],
+]);
 
 const MORNING = order("Put the morning in order: first, next, last.", "Think about what you do when you wake up.", [
   ["wake up", "⏰"],
@@ -91,6 +117,6 @@ export const units: Unit[] = [
     blurb: "Before, after and the days",
     standards: ab("KT1.1", "putting events in order, and using first, next, today, yesterday and tomorrow"),
     parentNote: "Talk about the order of things at home: what you do first, next and last, and what happened yesterday or will happen tomorrow.",
-    generate: unitOf(TIME, [MORNING, GROW]),
+    generate: unitOf(TIME, [MORNING, GROW, HANDS, CHICK]),
   },
 ];

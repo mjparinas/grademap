@@ -111,6 +111,18 @@ const FRANCO: Item[] = [
   hq("Why was it good for French-speaking settlers to come to Alberta?", "they helped build farms, schools and churches", ["they closed all farms", "they stopped trade", "they took the mountains"], "Many communities were built by people of different languages.", "🌾"),
   hq("A francophone Albertan can often get services in…", "both English and French in some places", ["Greek only", "no language", "Latin only"], "Some Alberta services are offered in both languages.", "🏛️"),
   hq("Why is it important to respect different languages?", "everyone belongs in our community", ["only English matters", "languages are all the same", "no one speaks them"], "Many Albertans speak many languages.", "🤝"),
+  q("“Bonjour” is a French word for…", "hello", ["goodbye", "thank you", "snow"], "Bonjour is a friendly greeting.", "👋"),
+  q("“Merci” is a French word for…", "thank you", ["please", "hello", "good night"], "Merci is a way to show thanks.", "🙏"),
+  q("Voyageurs were people who…", "paddled canoes to carry furs and goods", ["flew planes", "drove trains", "built skyscrapers"], "Many voyageurs spoke French and travelled by canoe.", "🛶"),
+  q("Michif is a language spoken by some Métis people. It mixes…", "Cree and French", ["English and German", "Greek and Latin", "Spanish and Italian"], "Michif shows how cultures can blend.", "🗣️"),
+  q("Francophone Albertans are people who…", "speak French and live in Alberta", ["live in France", "only live in cities", "speak no language"], "Many francophone families have lived in Alberta for generations.", "🏘️"),
+  q("Which of these is a sign you might see in both official languages?", "a sign that says “Exit / Sortie”", ["a sign with only numbers", "a sign in Greek", "a blank sign"], "Many federal signs and labels use English and French.", "🚪"),
+  q("A cereal box in Canada has words in English and French because…", "Canada has two official languages", ["the cereal is French", "boxes need more words", "French makes it taste better"], "Many packages use both official languages.", "🥣"),
+  q("A French Catholic mission was set up in 1861 and later became…", "St. Albert", ["Banff", "Lethbridge", "Medicine Hat"], "St. Albert is one of Alberta's oldest communities.", "⛪"),
+  q("Why do many Alberta communities have French names?", "French-speaking people helped settle them", ["French was chosen at random", "they were moved from France", "no one chose the names"], "Names like Legal, Morinville and Beaumont show French influence.", "🏘️"),
+  q("A francophone festival might include…", "French music, food and dancing", ["only math tests", "no one", "only silent reading"], "Festivals share and celebrate culture.", "🎉"),
+  q("A Franco-Albertan student could go to a school where…", "all subjects are taught in French", ["only gym is taught", "no one speaks", "all classes are in Greek"], "French-language schools support French culture.", "🏫"),
+  hq("French-speaking Albertans have lived here for a long time. This means French is…", "part of Alberta's history and present", ["only found in books", "brand new", "not used today"], "Francophone communities are living communities today.", "🌟"),
 ];
 
 // ---------- Fairness, discrimination and racism ----------
@@ -288,6 +300,18 @@ const GIVING: Item[] = [
   hq("Why do charities often depend on volunteers?", "volunteers let more of the money go to the cause", ["volunteers are never needed", "charities have no goals", "volunteers are paid a lot"], "Volunteers help charities save money.", "🤝"),
   hq("Why is it nice to give without asking for something back?", "it shows you care about others", ["it is silly", "it hurts people", "it costs money only"], "Kindness is its own reward.", "💞"),
   hq("Which action helps a community most?", "everyone doing a little to help", ["only one person doing it all", "no one helping", "complaining"], "Many small acts add up.", "🌟"),
+  q("Which is a way to help a community garden?", "water the plants and pull weeds", ["pick all the vegetables", "stomp on the beds", "leave garbage"], "Volunteers keep gardens growing.", "🥕"),
+  q("Which is an example of giving time?", "helping an older neighbour carry groceries", ["buying a game", "sleeping late", "ignoring a neighbour"], "Your time is a gift.", "🛒"),
+  q("A coin drive collects money to help…", "people or animals in need", ["a toy shop", "a race track", "a candy factory"], "Charities use the money to help.", "🪙"),
+  q("Which person is a volunteer?", "a parent who coaches a team for free", ["a store clerk paid by the hour", "a taxi driver paid by the trip", "a bank worker"], "Volunteers are not paid for helping.", "⚽"),
+  q("Why do shelters ask for blankets and warm clothes in winter?", "winters in Alberta can be very cold", ["blankets are decorations", "it is summer", "shelters sell them"], "Warm things help people stay safe.", "🧣"),
+  q("A class collects books for children who have none. This is…", "giving to others", ["taking from others", "a test", "a trade"], "Sharing books helps others learn.", "📚"),
+  q("Giving can also feel good because it…", "helps us feel connected and proud", ["makes us sad forever", "costs a lot", "makes others unhappy"], "Helping others is rewarding.", "😊"),
+  q("A volunteer firefighter or search and rescue member…", "helps their community for free", ["is paid a huge salary", "makes things up", "only works at night"], "Many communities depend on volunteers.", "🚒"),
+  q("Which is a donation of time?", "picking up litter in a park", ["buying a toy", "playing a game", "watching TV"], "You give your time to help.", "🧤"),
+  q("Which is a donation of food?", "bringing canned soup to a food drive", ["eating dinner", "throwing away leftovers", "buying chips"], "Food banks share food.", "🍲"),
+  q("A person can help others by giving…", "time, money or things", ["only gold", "only toys", "nothing at all"], "There are many ways to give.", "🎁"),
+  hq("Why do food drives often take place before holidays?", "many families need extra help then", ["food is free then", "stores close", "because people forget"], "Communities try to help during busy, costly times.", "🎄"),
 ];
 
 const FOUNDING_ORDER = order("Put these in order from the smallest level of government to the biggest.", "A city is smallest, then the province, then the country.", [

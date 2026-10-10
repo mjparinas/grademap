@@ -36,6 +36,16 @@ const POWER: Item[] = [
   hq("After 1763, most French-speaking people in Quebec stayed. What is one reason Britain let them keep their language and religion?", "to keep peace in the colony", ["Britain did not care", "to move them away", "to teach English only"], "Britain needed people to accept British rule.", "🤝"),
   hq("Why can a change in power at one place affect Indigenous nations far away?", "trade, travel and settlement spread across wide areas", ["it cannot", "the change is only a picture", "all nations live in one town"], "Decisions of colonial governments touched many nations.", "🧭"),
   hq("Alberta became a province in 1905. Before that, its land was part of…", "Rupert's Land, then the North-West Territories", ["New France only", "Newfoundland", "the United States"], "The Hudson's Bay Company held Rupert's Land until 1870. Then Canada governed it as the North-West Territories.", "🗺️"),
+  q("A monarch is…", "a king or queen", ["a type of butterfly only", "a mayor", "a teacher"], "Britain and France were each ruled by a monarch.", "👑"),
+  q("What language was most commonly spoken in New France?", "French", ["English", "Japanese", "Russian"], "French settlers brought their language to the St. Lawrence.", "🗣️"),
+  q("What does it mean when a country “gives up” land in a treaty?", "it agrees that another country will control it", ["it digs it up", "it packs it in boxes", "it paints it"], "Treaties can move power from one place to another.", "📜"),
+  q("Which is a peaceful way people share power in Canada today?", "voting in elections", ["taking over a building", "hiding the ballot", "ignoring the law"], "Voters choose their representatives.", "🗳️"),
+  q("Rivers and lakes were like roads in early Canada because…", "canoes could travel them for trade and visits", ["trains drove on them", "they were paved", "cars used them"], "Many nations travelled and traded by canoe.", "🛶"),
+  q("What is trade?", "swapping or selling goods", ["a kind of boat", "a school rule", "a game"], "Furs, tools and food were all traded.", "🔄"),
+  q("When Canada became a country in 1867, it was still connected to…", "Britain", ["the Moon", "Spain", "Japan"], "Canada became a self-governing country within the British Empire.", "🍁"),
+  q("Which question about power would a historian ask?", "Who made the decisions, and who was left out?", ["What did people have for lunch?", "What colour was the sky?", "What was the best song?"], "Asking who held power helps us understand the past.", "🔍"),
+  hq("Why is it important to learn about the history of power and influence from many points of view?", "different people experienced the same events differently", ["all stories are the same", "history has only one side", "it saves time"], "Hearing many voices gives a fuller picture.", "👥"),
+  hq("Why might a leader far away have a hard time making good decisions for a colony?", "they may not understand what people there need", ["they know everything", "they live next door", "they have too little time off"], "Distance made it hard to understand local needs.", "🗺️"),
 ];
 
 // ---------- Jacques Cartier ----------
@@ -59,6 +69,16 @@ const CARTIER: Item[] = [
   hq("Why did trust break down between Cartier and the people of Stadacona?", "he took Chief Donnacona and others to France, and they did not return", ["he gave them gold", "he stayed in France", "he built them houses"], "Donnacona never came home.", "💔"),
   hq("Why can we say the land was not “discovered” by Cartier?", "people had lived there for thousands of years", ["no one lived there", "he had been there as a child", "the land was empty"], "Indigenous peoples had always known and used these lands.", "🌎"),
   hq("Why were journals by Cartier useful to later explorers?", "they described rivers, people and places", ["they listed hockey scores", "they were maps of Alberta", "they were written in code"], "Descriptions helped others plan journeys.", "📖"),
+  q("Cartier's ships set out from which French port?", "Saint-Malo", ["Lyon", "Paris", "Calais"], "Saint-Malo is a port on France's northwest coast.", "⚓"),
+  q("Cartier crossed which ocean to reach North America?", "the Atlantic Ocean", ["the Pacific Ocean", "the Arctic Ocean", "Lake Ontario"], "He sailed west from France.", "🌊"),
+  q("What made Cartier's ships move?", "wind in the sails", ["gas engines", "electricity", "jet power"], "Ships in the 1500s were powered by wind.", "⛵"),
+  q("What did Cartier call the hill near Hochelaga?", "Mont Royal", ["Mont Blanc", "Mont Tremblant", "Mont Louise"], "The name later became Montréal.", "⛰️"),
+  q("The people of Stadacona and Hochelaga grew crops such as…", "corn, beans and squash", ["bananas", "coffee beans", "pineapples"], "They were farmers as well as hunters and fishers.", "🌽"),
+  q("A journal from Cartier's voyage is useful to historians because…", "it records what he saw and did", ["it tells today's weather", "it is a recipe book", "it is a comic"], "Primary sources come from people who were there.", "📓"),
+  q("Why do historians also look for the voices of the people Cartier met?", "his journal tells only one side of the story", ["his journal is always wrong", "no one lived there", "they were not important"], "Many points of view give a fuller story.", "👥"),
+  q("The Gulf of St. Lawrence is…", "a large body of water by the mouth of the St. Lawrence River", ["a mountain range", "a prairie", "a desert"], "Cartier sailed into this gulf in 1534.", "🗺️"),
+  q("A voyage is…", "a long trip, especially by sea", ["a short nap", "a kind of food", "a map"], "Cartier made three voyages.", "🧭"),
+  hq("Why did Cartier's claim for France not mean the land belonged to France in the eyes of the people living there?", "they had lived there for generations and did not agree to it", ["they had no ideas", "they were visiting", "they agreed in writing"], "Claims by explorers did not ask the people already there.", "🤔"),
 ];
 
 // ---------- Samuel de Champlain and New France ----------
@@ -83,6 +103,16 @@ const CHAMPLAIN: Item[] = [
   hq("Champlain's alliances with some nations meant conflict with others. What does this show?", "alliances could bring both help and danger", ["every nation was friends with everyone", "there were no alliances", "all nations agreed"], "Nations had their own friends and rivals.", "⚖️"),
   hq("Why did the French build their capital on the river instead of far inland?", "the river was the main route for trade and ships", ["there was no river", "to be near the Rocky Mountains", "for warmer weather"], "The river linked France to the colony.", "🚢"),
   hq("New France had few farmers compared with the fur trade. Which statement fits?", "the fur trade pulled many men away from farming", ["there were no furs", "there was no land", "no one traded"], "Fur trading drew people inland.", "🦫"),
+  q("What was the first building Champlain had built at Quebec called?", "the Habitation", ["the Parliament", "the Skyscraper", "the Mall"], "It was a small group of wooden buildings for living and trading.", "🏠"),
+  q("Port Royal, founded in 1605, is in which province today?", "Nova Scotia", ["Alberta", "Manitoba", "Saskatchewan"], "Acadia was along the Atlantic coast.", "🌊"),
+  q("The filles du roi were…", "young women who came from France to New France in the 1660s and 1670s", ["fur traders", "British soldiers", "priests"], "They helped the colony grow.", "👩"),
+  q("What were canoes often made from in the fur trade?", "birchbark and wood", ["steel", "plastic", "glass"], "Indigenous peoples designed light canoes that travel well on rivers.", "🛶"),
+  q("Who showed the French how to travel the rivers by canoe?", "Indigenous peoples", ["British sailors", "airplane pilots", "train drivers"], "Indigenous guides knew the routes.", "🧭"),
+  q("Coureurs des bois were…", "traders who travelled inland to buy furs", ["farmers who stayed home", "priests only", "kings"], "The name means “runners of the woods”.", "🌲"),
+  q("New France sent most of its furs to…", "France", ["Alberta", "Japan", "Brazil"], "Beaver fur was made into hats in Europe.", "🎩"),
+  q("Many farms in New France were long narrow strips along the river. Why?", "so each family had access to the river", ["to make the maps look pretty", "because rivers were square", "to keep farms small"], "The river was the main road and water source.", "🌾"),
+  q("What did French traders need from First Nations to do their work?", "knowledge, guides and trading partners", ["airplanes", "computers", "roads"], "Trade worked with Indigenous help.", "🤝"),
+  hq("Why did both First Nations and the French want to trade?", "each had goods the other wanted", ["only the French wanted goods", "no one needed anything", "they had to by law"], "Trade helped both sides.", "🔄"),
 ];
 
 // ---------- Treaty of Paris ----------
@@ -106,6 +136,16 @@ const PARIS: Item[] = [
   hq("Why did the Treaty of Paris matter to Indigenous nations?", "decisions about their lands were made without them", ["it gave them Paris", "it ended their trade", "it made no difference"], "The nations whose homelands were involved were not at the table.", "🪶"),
   hq("Why did Britain choose to let Quebec keep French civil law?", "to keep the peace and loyalty of the people", ["to move everyone away", "to teach French to the British", "because it had no laws"], "Britain wanted stability.", "🤝"),
   hq("The Plains of Abraham are named after…", "Abraham Martin, who once farmed the land", ["a general", "a king", "a mountain"], "The name came from a river pilot.", "🌾"),
+  q("In which year was the Treaty of Paris signed?", "1763", ["1608", "1534", "1905"], "It ended the Seven Years' War in North America.", "📅"),
+  q("Which country lost power in North America after 1763?", "France", ["Britain", "Mexico", "Italy"], "France gave up most of its colony.", "🇫🇷"),
+  q("What was the capital of New France?", "Quebec City", ["Edmonton", "Winnipeg", "Halifax"], "It was on the St. Lawrence River.", "🏰"),
+  q("A treaty is made when…", "two or more groups agree on terms", ["one group makes all the rules in secret", "people forget their words", "no one talks"], "Treaties are formal agreements.", "🤝"),
+  q("What does it mean to “cede” land?", "to give it up", ["to dig it", "to sell it back", "to hide it"], "France ceded most of New France to Britain.", "📜"),
+  q("The British king in 1763 was…", "George III", ["Henry VIII", "Napoleon", "Louis Riel"], "He was king when the treaty was signed.", "👑"),
+  q("The Royal Proclamation of 1763 is still talked about today because…", "it recognized Indigenous rights to land", ["it created hockey", "it built the railway", "it ended winter"], "It said the Crown had to make treaties before settling Indigenous lands.", "📜"),
+  q("The Treaty of Paris was a turning point because…", "control of the colony changed hands", ["nothing changed", "all the people left", "it created a new language"], "After 1763 Britain governed the colony.", "🔄"),
+  q("The French general at the Plains of Abraham was…", "the Marquis de Montcalm", ["Jacques Cartier", "Samuel de Champlain", "John A. Macdonald"], "Both Montcalm and Wolfe were hurt in the battle and died.", "⚔️"),
+  hq("Why might French-speaking people have been worried in 1763?", "they feared losing their language and way of life", ["they had too many holidays", "they liked all change", "they had no homes"], "The Quebec Act of 1774 later helped protect their language and religion.", "💭"),
 ];
 
 // ---------- United Empire Loyalists ----------
@@ -129,6 +169,16 @@ const LOYALISTS: Item[] = [
   hq("Joseph Brant, a Mohawk leader, led Haudenosaunee Loyalists who settled along the…", "Grand River", ["Peace River", "Bow River", "Red River"], "Six Nations of the Grand River is still a community today.", "🌊"),
   hq("The arrival of Loyalists changed life for the Indigenous peoples already living in those areas. Why?", "more settlers used the land", ["there was less snow", "no one arrived", "settlers left immediately"], "More settlement can change how land is used.", "🌎"),
   hq("Why is it fair to say Loyalists were not all the same?", "they came from different backgrounds, including Black and Indigenous people", ["they all came from one town", "they all spoke French", "they all were farmers in Ontario"], "Loyalist groups included people of many backgrounds.", "🤝"),
+  q("What is a refugee?", "a person who leaves home to find safety", ["a person who loves boats", "a visitor on holiday", "a fur trader"], "Many Loyalists had to flee their homes.", "🧳"),
+  q("What was the American Revolution?", "a war in which the thirteen colonies broke away from Britain", ["a trip to the Rocky Mountains", "a hockey tournament", "a flood"], "It created the United States.", "🗽"),
+  q("Upper Canada was in the area that is now…", "southern Ontario", ["Alberta", "Yukon", "Newfoundland"], "It was created in 1791.", "🗺️"),
+  q("Lower Canada was in the area that is now…", "southern Quebec", ["northern Ontario", "the Prairies", "Nunavut"], "It was mostly French-speaking.", "🗺️"),
+  q("Why were Upper and Lower Canada created separately in 1791?", "so English-speaking and French-speaking settlers could each follow familiar laws", ["to have two capital cities for fun", "because the rivers were too long", "because no one lived there"], "The Loyalists wanted British laws, and the French wanted to keep theirs.", "⚖️"),
+  q("A family of Loyalists reaches a new place in late fall. What do they need first?", "shelter", ["a swimming pool", "a TV", "a phone"], "Winters were hard, and they had to build quickly.", "🏠"),
+  q("Birchtown, Nova Scotia, was settled by…", "Black Loyalists", ["fur traders", "the Vikings", "pilots"], "It became one of the largest free Black communities in North America at the time.", "🏘️"),
+  q("Which city in New Brunswick was started by Loyalists?", "Fredericton", ["Edmonton", "Brandon", "Kamloops"], "Many Loyalists settled in what is now New Brunswick.", "🏙️"),
+  q("A Loyalist family left a farm in the thirteen colonies. What did they leave behind?", "their home and many belongings", ["the ocean", "the Sun", "the Moon"], "They gave up a lot to stay loyal to Britain.", "🧺"),
+  hq("Why did arrival of Loyalists change life for many First Nations?", "settlers needed land and the nations lost use of it", ["First Nations got more land", "nothing changed", "the Loyalists left"], "Settlement often took land that Indigenous peoples used.", "🌲"),
 ];
 
 // ---------- Rebellions of 1837 and responsible government ----------
@@ -152,6 +202,16 @@ const REBELLIONS: Item[] = [
   hq("Why did some reformers want change but not fight? ", "they hoped to win reform through votes and talk", ["they liked the governor", "they were too young", "they had no ideas"], "Many reformers used newspapers and elections.", "📰"),
   hq("The rebellions led to the Durham Report. What does this show?", "protest can lead to change even when it is stopped at first", ["rebels always win", "nothing changed", "reports are never read"], "Britain studied the problems.", "📜"),
   hq("Why do Canadians today see responsible government as a step toward democracy?", "voters choose the people who control the government", ["only the king decides", "judges choose the leaders", "leaders are chosen by birth"], "It is the idea behind elections today.", "🗳️"),
+  q("A petition is…", "a request signed by many people", ["a type of boat", "a battle", "a song"], "People can use petitions to ask leaders for change.", "✍️"),
+  q("Which is a peaceful way to ask for a change?", "sign a petition", ["break a window", "hide from leaders", "refuse to talk"], "Peaceful actions can bring change.", "📝"),
+  q("The governors of the colonies were appointed by…", "Britain", ["voters", "children", "farmers"], "Many people wanted elected leaders to have real power.", "👑"),
+  q("To reform something is to…", "make changes to improve it", ["destroy it", "hide it", "forget it"], "Reformers wanted a fairer government.", "🔧"),
+  q("What is the difference between a rebellion and an election?", "a rebellion fights those in power; an election chooses leaders by voting", ["they are the same", "elections use swords", "rebellions use ballots"], "Elections are a peaceful way to choose leaders.", "🗳️"),
+  q("The area of Lower Canada became part of which province?", "Quebec", ["Alberta", "Manitoba", "Nova Scotia"], "Lower Canada was mostly French-speaking.", "🗺️"),
+  q("Today, who holds the power in Canadian governments?", "elected representatives chosen by voters", ["only a governor chosen overseas", "only judges", "only the army"], "Responsible government means elected leaders are in charge.", "🏛️"),
+  q("Joseph Howe, from Nova Scotia, argued for…", "responsible government", ["building a railway to Alberta", "closing newspapers", "ending elections"], "He spoke up for more say for the people.", "📰"),
+  q("What did Lord Durham's report suggest?", "colonies should have more say in running themselves", ["colonies should leave Canada", "the colonies should end elections", "Lower Canada should get a new king"], "His 1839 report helped lead to responsible government.", "📄"),
+  hq("Why did rebels in both Upper and Lower Canada ask for change at the same time?", "they shared worries about who held power", ["they were on the same team", "they wanted holidays", "they lived next door"], "People in both colonies felt shut out of decisions.", "🤔"),
 ];
 
 // ---------- Confederation ----------
@@ -176,6 +236,16 @@ const CONFEDERATION: Item[] = [
   hq("Why do many Indigenous people see Confederation differently?", "their nations and lands were not part of the decisions", ["they weren't alive", "Confederation was only in the Arctic", "they all agree with each other"], "Different groups have different views of the same event.", "🌎"),
   hq("Dominion of Canada meant Canada was…", "a self-governing country within the British Empire", ["a French colony", "a US state", "an island"], "It had its own government but still linked to Britain.", "👑"),
   hq("Why was a railway important to Confederation?", "it would link the colonies and help trade", ["it was fast food", "it made snow", "it stopped trade"], "Railways connected people and goods.", "🚂"),
+  q("How many provinces were in Canada when it began in 1867?", "four", ["two", "seven", "ten"], "Ontario, Quebec, Nova Scotia and New Brunswick.", "🍁"),
+  q("Canada's capital city is…", "Ottawa", ["Edmonton", "Toronto", "Montréal"], "Ottawa is the national capital.", "🏛️"),
+  q("Confederation means…", "colonies joining together to form a country", ["breaking apart", "a kind of boat", "a type of food"], "Several colonies joined in 1867.", "🤝"),
+  q("The Canadian Pacific Railway helped connect Canada from…", "the east to the west coast", ["north to the pole", "ground to the Moon", "Alberta to Mexico"], "It linked far-apart parts of the country.", "🚂"),
+  q("Prince Edward Island joined Canada in…", "1873", ["1763", "1949", "2001"], "It had hosted the Charlottetown Conference.", "🏝️"),
+  q("Canada Day was once called…", "Dominion Day", ["Treaty Day", "Fur Day", "Loyalist Day"], "The name changed to Canada Day in 1982.", "🎆"),
+  q("The Charlottetown Conference in 1864 was a meeting about…", "uniting the colonies", ["building a stadium", "planting trees", "ending winter"], "Leaders talked about joining together.", "🏛️"),
+  q("Which two provinces were created together in 1905?", "Alberta and Saskatchewan", ["Ontario and Quebec", "BC and Manitoba", "PEI and Nova Scotia"], "Both joined Canada in 1905.", "🍁"),
+  q("Nunavut, created in 1999, is a…", "territory", ["province", "lake", "mountain"], "Nunavut was made as a homeland for Inuit and is a territory.", "🗺️"),
+  hq("Why is it fair to ask who was and was not included in the Confederation talks?", "decisions affected many people who had no say", ["everyone was at the table", "no one was affected", "it was held on a boat"], "Asking who was included helps us understand the past.", "🔍"),
 ];
 
 // ---------- The fur trade and natural resources ----------

@@ -292,6 +292,18 @@ const DESIGN: Item[] = [
   hq("A design must be light, strong and cheap. Which of these is a trade-off?", "making it stronger may make it heavier or cost more", ["making it cheaper always makes it stronger", "weight does not matter", "there are no trade-offs"], "Good designers balance what matters most.", "⚖️"),
   hq("A sensor turns on a light when it gets dark. Which sequence describes the algorithm?", "if it is dark, turn the light on", ["turn the light on forever", "if it is bright, turn the light off and on", "ignore the sensor"], "An 'if' step checks a condition.", "💡"),
   hq("Which result best shows that a new design is better than the old one?", "it did the job better in the same test", ["it looks bigger", "it has more colours", "its builder likes it more"], "Fair tests give evidence about which design is better.", "📊"),
+  q("A design must be safe. What does that mean?", "it will not hurt people when they use it", ["it is painted red", "it costs a lot", "it is very small"], "Safety is an important design requirement.", "🦺"),
+  q("A group builds a model car. Why do they test it more than once?", "to see if it works every time", ["to use up the materials", "because they forgot", "to make it slower"], "Repeated tests give more trustworthy results.", "🚗"),
+  q("Which question could guide a designer?", "Who will use this and what do they need?", ["What colour is my pen?", "What time is lunch?", "How tall is the door?"], "Good design starts with the user's needs.", "🧑‍🤝‍🧑"),
+  q("A designer changes one thing at a time when testing. Why?", "to know which change made the difference", ["to make it slower", "so there is less to write", "because changing two is not allowed"], "A fair test changes only one thing.", "⚖️"),
+  q("In a loop, instructions are…", "repeated", ["deleted", "skipped", "hidden"], "A loop repeats steps, so you do not write them again and again.", "🔁"),
+  q("A robot is told to go forward 2 steps, turn right, go forward 2 steps. If it ends up in the wrong place, what do you do?", "look for the bug and fix the instructions", ["blame the floor", "say the robot is bad", "give up on robots"], "Debugging means checking each step.", "🤖"),
+  q("Which material would be best to test a tall tower made of paper tubes?", "tape and paper", ["a bowl of water", "a pillow", "ice cream"], "Choose materials that fit the design.", "🗼"),
+  q("Why are drawings and labels useful in a design?", "others can see how it works", ["they make the model heavier", "they are required in every game", "they hide mistakes"], "Labelled sketches share your thinking.", "✏️"),
+  q("A sequence in a program is…", "steps done in order", ["steps done at random", "steps never done", "steps done backwards by accident"], "Order matters in an algorithm.", "📋"),
+  q("When designers test, they should record…", "what happened, honestly", ["only the good results", "nothing", "only their guess"], "Honest records help you improve.", "📓"),
+  q("After building a prototype of a bird feeder, the designer notices the seed spills. A good next step is…", "change the design so seed stays inside", ["throw out the seed", "stop designing", "paint it blue"], "Use what you learn from testing to make it better.", "🐦"),
+  hq("A team tests a boat, and it tips over. Which statement is a helpful improvement idea?", "make the bottom wider so it is more stable", ["make it taller", "add more weight on one side", "remove the bottom"], "A wide base helps boats stay steady.", "⛵"),
 ];
 
 // ---------- Evidence and data (4SM 1.1, 4SM 1.2) ----------

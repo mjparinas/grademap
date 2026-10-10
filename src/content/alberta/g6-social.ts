@@ -73,6 +73,16 @@ const ATHENS: Item[] = [
   { prompt: "How is Canada's voting right different from Athens'?", right: "Canadian citizens aged 18 and older, of any gender, can vote", wrong: ["Only men can vote in Canada", "Only landowners can vote in Canada"], hint: "Canada's voting rights are much wider than Athens'.", hard: true },
   { prompt: "Athenian generals were elected, not chosen by lot. Why might that make sense?", right: "Leading an army takes skill and experience", wrong: ["Generals did not need any skills", "Lots were too expensive"], hint: "Some jobs needed particular skills.", hard: true },
   { prompt: "The Greek word 'demokratia' is the root of which English word?", right: "Democracy", wrong: ["Diplomacy", "Dictator"], hint: "Demos means people and kratos means power." },
+  { prompt: "What was the agora in Athens?", right: "A public square for meeting, talking and trading", wrong: ["A hall for kings", "A prison"], hint: "Athenians gathered there to share news and ideas." },
+  { prompt: "The word 'democracy' comes from Greek words meaning…", right: "rule by the people", wrong: ["rule by one person", "rule by the army"], hint: "Demos means people and kratos means power." },
+  { prompt: "In Athens, who counted as a citizen?", right: "Mainly free men whose parents were Athenian", wrong: ["Anyone who lived in the city", "Anyone who paid a tax"], hint: "Many people who lived there were not citizens." },
+  { prompt: "Why did Athens' democracy depend on citizens taking part?", right: "Citizens had to show up to debate and vote", wrong: ["A king decided everything", "Officials chose for them"], hint: "There were no elected representatives for most decisions." },
+  { prompt: "Before its democracy, Athens was often ruled by…", right: "wealthy families and sometimes by tyrants", wrong: ["elected presidents", "Roman consuls"], hint: "Reforms moved power toward the citizens." },
+  { prompt: "In the Athenian Assembly, which skill helped a speaker persuade others?", right: "Public speaking", wrong: ["Sword fighting", "Weaving"], hint: "Citizens listened to speeches before they voted." },
+  { prompt: "Which group lived in Athens, but could not vote even if they were free?", right: "Foreign residents", wrong: ["Adult male citizens", "Jurors"], hint: "Voting was limited to citizens." },
+  { prompt: "Which idea from Athens do we still use in Canada?", right: "Citizens have a say in who governs", wrong: ["Only men may vote", "Ostracism is used in Parliament"], hint: "Canada's voting rights are wider, but the idea of citizen voice began there." },
+  { prompt: "Ostracism was meant to protect democracy from…", right: "a person who seemed too powerful or dangerous", wrong: ["bad weather", "foreign traders"], hint: "Citizens could vote to send someone away for ten years." },
+  { prompt: "Why is Athens called a direct democracy?", right: "Citizens voted themselves instead of electing people to vote for them", wrong: ["It had a king", "It elected a Senate"], hint: "Canada is a representative democracy.", hard: true },
 ];
 
 // ---------- Roman Republic ----------
@@ -97,6 +107,15 @@ const ROME: Item[] = [
   { prompt: "The Republic gave way to rule by emperors. Which leader became the first emperor, in 27 BCE?", right: "Augustus", wrong: ["Pericles", "Hannibal"], hint: "He was Julius Caesar's heir.", hard: true },
   { prompt: "Which of these is a difference between Athens and the Roman Republic?", right: "Rome had a Senate and elected officials, while Athens' Assembly decided directly", wrong: ["Rome had no laws", "Athens had two consuls"], hint: "Athens was direct. Rome had more elected officials.", hard: true },
   { prompt: "Is Canada a republic?", right: "No. The King is Canada's head of state", wrong: ["Yes. Canada has an elected president", "Yes. Canada has two consuls"], hint: "Canada is a parliamentary democracy and a constitutional monarchy." },
+  { prompt: "Roman officials served short terms. Why?", right: "So no one could hold power for too long", wrong: ["So they could rest", "So they were paid every week"], hint: "Short terms limited power." },
+  { prompt: "Who chose the consuls in the Roman Republic?", right: "Citizens voting in assemblies", wrong: ["The emperor", "Foreign kings"], hint: "Rome elected its officials." },
+  { prompt: "What did the Twelve Tables help ordinary Romans do?", right: "Know their rights and the rules", wrong: ["Become senators automatically", "Avoid all taxes"], hint: "Written laws could be read by anyone." },
+  { prompt: "The Roman Republic lasted about 500 years. Which dates fit?", right: "509 BCE to 27 BCE", wrong: ["27 BCE to 476 CE", "509 CE to 27 CE"], hint: "It began with the end of the kings and ended when Augustus became emperor.", hard: true },
+  { prompt: "Which general's rise to power helped end the Republic?", right: "Julius Caesar", wrong: ["Cleisthenes", "Pericles"], hint: "Caesar became very powerful, and later the Republic gave way to emperors.", hard: true },
+  { prompt: "How was Roman voting different from Canada's today?", right: "Only male citizens voted, and wealthier citizens' votes often counted for more", wrong: ["Women voted but men did not", "Everyone aged 18 voted equally"], hint: "Voting was limited and not equal." },
+  { prompt: "Which Roman ideas do we still see in Canada?", right: "Written laws and elected officials", wrong: ["Two kings", "Lifelong consuls"], hint: "Many modern governments borrowed these ideas." },
+  { prompt: "Why did the Republic have checks and balances?", right: "To keep any one person or group from taking over", wrong: ["To make elections longer", "To raise more taxes"], hint: "Each part of government limited the others." },
+  { prompt: "Which group in the Republic held a Senate seat?", right: "Experienced leaders, mostly from wealthy families", wrong: ["Enslaved workers", "Foreign soldiers"], hint: "At first, senators were mostly patricians." },
 ];
 
 // ---------- Haudenosaunee Confederacy ----------
@@ -120,6 +139,15 @@ const HAUDENOSAUNEE: Item[] = [
   { prompt: "The Haudenosaunee Confederacy began long before Europeans came to this part of North America. What does this show?", right: "Indigenous peoples had complex governments of their own", wrong: ["Indigenous peoples had no laws", "Governments only began in Europe"], hint: "Democratic ideas developed in many places.", hard: true },
   { prompt: "What does the 'longhouse' picture show about the Confederacy?", right: "Nations living and working together like families under one roof", wrong: ["A house for one family", "A building for an army"], hint: "The idea of a shared house is a symbol of unity.", hard: true },
   { prompt: "Which statement is most accurate?", right: "Haudenosaunee peoples are living nations with their own governments today", wrong: ["All Indigenous nations govern the same way", "The Haudenosaunee Confederacy is only history"], hint: "Each Indigenous nation has its own traditions of governance.", hard: true },
+  { prompt: "In a consensus decision, what happens if people disagree?", right: "They keep talking until they find agreement", wrong: ["The loudest voice wins", "The meeting ends and nothing is decided"], hint: "Consensus means working toward agreement." },
+  { prompt: "Which of these is a Haudenosaunee nation?", right: "Seneca", wrong: ["Siksika", "Haida"], hint: "Seneca, Cayuga, Oneida, Onondaga, Mohawk and Tuscarora belong to the Confederacy." },
+  { prompt: "How many nations are in the Haudenosaunee Confederacy today?", right: "Six", wrong: ["Three", "Ten"], hint: "Five original nations were joined by the Tuscarora." },
+  { prompt: "What is a wampum belt?", right: "A belt of shell beads that records agreements and stories", wrong: ["A belt used only for clothing", "A coin of the Crown"], hint: "Wampum helps to remember important agreements." },
+  { prompt: "Why do some people call the Confederacy the 'Six Nations'?", right: "Six nations belong to it", wrong: ["It has six chiefs only", "It began in the year 6"], hint: "The Tuscarora joined the original five." },
+  { prompt: "Do all First Nations govern themselves in exactly the same way?", right: "No. Each Nation has its own governing traditions", wrong: ["Yes. All use the Great Law", "Yes. All use consensus the same way"], hint: "First Nations are many different peoples." },
+  { prompt: "The Great Law asks leaders to think about…", right: "the well-being of the people, including those to come", wrong: ["only their own clan today", "only trade"], hint: "Many Haudenosaunee people speak of caring for future generations." },
+  { prompt: "How do Haudenosaunee peoples share their history today?", right: "Through speaking, teaching and wampum, and also in schools and online", wrong: ["Only in museums", "It cannot be shared"], hint: "Living nations keep sharing their histories." },
+  { prompt: "Why can consensus take longer than a quick vote?", right: "Everyone's concerns are heard and talked through", wrong: ["Nobody takes part", "Leaders refuse to meet"], hint: "The time is part of reaching wide agreement." },
 ];
 
 // ---------- Provincial and federal governments ----------
@@ -187,6 +215,16 @@ const CHARTER: Item[] = [
   { prompt: "Who must follow the Charter?", right: "Governments and public institutions", wrong: ["Only the prime minister", "Only teachers"], hint: "It limits what governments can do to people.", hard: true },
   { prompt: "Section 33 of the Charter, the notwithstanding clause, lets a government…", right: "pass a law that overrides some Charter rights for up to five years", wrong: ["cancel the Constitution", "end elections"], hint: "It is rarely used and can be renewed.", hard: true },
   { prompt: "A student gives a peaceful speech about a school rule. Which freedom is this?", right: "Freedom of expression", wrong: ["Mobility rights", "Language rights"], hint: "Expression is sharing thoughts and opinions." },
+  { prompt: "Which Charter right lets you follow a religion, or none, as you choose?", right: "Freedom of conscience and religion", wrong: ["Mobility rights", "Language rights"], hint: "It is one of the fundamental freedoms." },
+  { prompt: "A French-speaking family wants French-language schooling for their child. Which rights apply?", right: "Minority language education rights", wrong: ["Mobility rights", "Democratic rights"], hint: "The Charter protects schooling in English or French where numbers warrant." },
+  { prompt: "Which freedom lets reporters share stories?", right: "Freedom of the press and other media", wrong: ["Freedom to travel", "The right to vote"], hint: "It is part of freedom of expression." },
+  { prompt: "Which rights say a government cannot treat you worse because of your religion?", right: "Equality rights", wrong: ["Mobility rights", "Democratic rights"], hint: "Equality rights protect against discrimination." },
+  { prompt: "Which is a democratic right?", right: "Voting for your Member of Parliament", wrong: ["Choosing your own tax rate", "Writing the laws alone"], hint: "Democratic rights are about voting and running for office." },
+  { prompt: "A person born in Alberta moves to Nova Scotia for a job. Which right allows this?", right: "Mobility rights", wrong: ["Language rights", "Legal rights"], hint: "Citizens can live and work anywhere in Canada." },
+  { prompt: "If you are arrested, you have the right to know why. This is a…", right: "legal right", wrong: ["democratic right", "language right"], hint: "Legal rights keep the justice system fair." },
+  { prompt: "Using freedom of expression, a student should also…", right: "respect others and avoid hurtful speech", wrong: ["say whatever hurts", "ignore classmates' rights"], hint: "Rights come with responsibilities." },
+  { prompt: "What does Canada's Constitution do?", right: "Sets out the basic rules for how Canada is governed", wrong: ["Lists the traffic laws", "Chooses sports teams"], hint: "The Charter is part of it." },
+  { prompt: "Which Charter freedom lets people gather peacefully to share ideas?", right: "Peaceful assembly", wrong: ["Mobility", "Equality"], hint: "Fundamental freedoms include assembly and association." },
 ];
 
 // ---------- Civic participation ----------
@@ -253,6 +291,17 @@ const DISCRIMINATION: Item[] = [
   { prompt: "Canada's Truth and Reconciliation Commission looked at the harm of…", right: "the residential school system for Indigenous children", wrong: ["the building of the Rocky Mountain trail", "the first elections"], hint: "Reconciliation means building respectful relationships.", hard: true },
   { prompt: "Which action best builds a more inclusive school?", right: "Learning about different cultures and including everyone in activities", wrong: ["Staying only in your own group", "Making rules that apply to some students only"], hint: "Everyone belongs.", hard: true },
   { prompt: "Why do the Charter's equality rights matter?", right: "They say governments cannot discriminate unfairly against people", wrong: ["They stop people from voting", "They remove freedom of speech"], hint: "Section 15 of the Charter protects equality.", hard: true },
+  { prompt: "A child is left out at recess. What does an upstander do?", right: "Invites the child to join and tells a teacher if needed", wrong: ["Ignores it", "Joins in leaving them out"], hint: "Upstanders help in a safe, kind way." },
+  { prompt: "A new student speaks with an accent. Which is a fair way to act?", right: "Be curious and kind and include them", wrong: ["Make fun of the accent", "Avoid them"], hint: "Respect helps everyone feel welcome." },
+  { prompt: "Why can a stereotype be harmful, even if it sounds positive?", right: "It treats people as a group instead of as individuals", wrong: ["It is never repeated", "It is always true"], hint: "Every person is different." },
+  { prompt: "Which is an example of discrimination?", right: "Refusing to rent a home to a family because of their religion", wrong: ["Choosing the home you like best", "Asking everyone for a deposit"], hint: "It is unfair treatment because of a group." },
+  { prompt: "Who can contact the Alberta Human Rights Commission about unfair treatment?", right: "Anyone who feels they were treated unfairly", wrong: ["Only lawyers", "No one"], hint: "Albertans can ask for help or information." },
+  { prompt: "In 2006, the Government of Canada apologized for what?", right: "The Chinese head tax", wrong: ["Building highways", "The fur trade"], hint: "An apology acknowledges harm." },
+  { prompt: "Why is an apology for past wrongs important?", right: "It acknowledges harm and helps rebuild trust", wrong: ["It erases the past", "It is required by the weather"], hint: "It is one step toward making things right." },
+  { prompt: "Why is it important to learn about past unfairness?", right: "To help stop it from happening again", wrong: ["To blame kids today", "To change history"], hint: "Learning helps us build a fairer future." },
+  { prompt: "Treating someone unfairly because of a disability is…", right: "discrimination", wrong: ["inclusion", "equality"], hint: "Human rights laws protect people with disabilities." },
+  { prompt: "Which describes an inclusive classroom?", right: "Everyone's ideas and backgrounds are valued", wrong: ["Only popular kids decide", "Differences are hidden"], hint: "Inclusion means everyone belongs." },
+  { prompt: "You see a hurtful stereotype online. What is a good first step?", right: "Do not share it, and tell a trusted adult", wrong: ["Share it to show others", "Reply with an insult"], hint: "Not spreading it and getting help are both useful." },
 ];
 
 export const units: Unit[] = [

@@ -196,6 +196,21 @@ const DAYNIGHT: Item[] = [
   q("Earth's trip around the Sun takes…", "one year", ["one day", "one week"], "One year equals one trip around the Sun.", { d: 2 }),
   q("Which is longer: a day or a year?", "a year", ["a day", "They are the same"], "A year has about 365 days."),
   q("Your shadow is longest in…", "the early morning and late afternoon", ["the middle of the night", "the middle of the day only"], "When the Sun is low, shadows are long.", { d: 3 }),
+  q("The Sun is a…", "star", ["planet", "moon"], "The Sun is a star. Earth is a planet.", { d: 2 }),
+  q("Earth is a…", "planet", ["star", "moon"], "Earth is a planet that goes around the Sun.", { emoji: "🌍" }),
+  q("Which one moves around the Sun?", "Earth", ["a cloud", "a school bus"], "Earth travels around the Sun.", { emoji: "🌍" }),
+  q("At noon in Alberta, the Sun is…", "high in the sky", ["not up yet", "under the ground"], "The Sun is highest in the middle of the day.", { emoji: "☀️", d: 2 }),
+  q("In Alberta, the Sun seems to set in the…", "west", ["east", "north"], "The Sun appears to rise in the east and set in the west.", { d: 3 }),
+  q("One spin of Earth makes one…", "day", ["year", "month"], "One spin takes about 24 hours."),
+  q("One trip of Earth around the Sun makes one…", "year", ["day", "week"], "One year is one trip around the Sun."),
+  q("What do we feel from the Sun?", "heat", ["cold", "nothing"], "The Sun warms Earth.", { emoji: "☀️" }),
+  q("Why should we never look straight at the Sun?", "it can hurt our eyes", ["it is too small", "it makes us sleepy"], "Always protect your eyes from the Sun.", { d: 2 }),
+  q("In summer in Alberta, long days mean…", "more hours of daylight", ["fewer hours of daylight", "a bigger Moon"], "Summer days have more daylight than winter days.", { d: 3 }),
+  q("In winter in Alberta, the daylight is…", "shorter", ["longer", "gone"], "Winter days have fewer hours of daylight.", { d: 3 }),
+  q("You shine a flashlight on a spinning globe. The lit side is like…", "day", ["night", "winter"], "The lit side faces the Sun, so it is day.", { emoji: "🔦", d: 2 }),
+  q("How many hours are in one day?", "24", ["12", "60"], "One day is 24 hours.", { d: 2 }),
+  q("After the Sun sets, the sky becomes…", "dark", ["bright", "green"], "Night is dark because our side of Earth faces away from the Sun.", { emoji: "🌆" }),
+  q("A day has a time of light and a time of…", "dark", ["rain", "snow"], "Day is light and night is dark."),
 ];
 
 // ---------- Instructions ----------

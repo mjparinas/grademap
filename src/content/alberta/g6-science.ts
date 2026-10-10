@@ -29,6 +29,17 @@ const PARTICLES: Item[] = [
   { prompt: "A pot of water boils on a stove. Where do the bubbles come from?", right: "Water changing to gas (water vapour)", wrong: ["Air melting", "Water changing to ice"], hint: "Boiling is fast evaporation throughout the liquid.", hard: true },
   { prompt: "Why does water vapour form drops on the cold bathroom mirror?", right: "The vapour loses heat and condenses into liquid", wrong: ["The mirror makes water", "The vapour freezes into ice"], hint: "Cooling a gas can change it to a liquid.", hard: true },
   { prompt: "A student heats a metal rod. How could the particle model explain what happens?", right: "The particles vibrate faster and push slightly farther apart", wrong: ["The particles melt first", "The particles shrink"], hint: "Heated particles move more.", hard: true },
+  { prompt: "Which state of matter fills its whole container?", right: "Gas", wrong: ["Liquid", "Solid"], hint: "Gas particles spread out in every direction." },
+  { prompt: "Which state of matter has a definite volume but no definite shape?", right: "Liquid", wrong: ["Solid", "Gas"], hint: "A liquid takes the shape of its container but keeps its volume." },
+  { prompt: "Why does a puddle dry up faster on a warm day than on a cool day?", right: "Warmer particles move faster and escape as vapour more quickly", wrong: ["Cool air makes more water", "The puddle gets bigger when it is warm"], hint: "Heat gives particles more movement energy." },
+  { prompt: "Butter left on a warm counter gets soft and runny. What is happening?", right: "Heated particles move faster, so the solid is starting to melt", wrong: ["The particles are disappearing", "The butter is freezing"], hint: "Heating a solid can make it a liquid." },
+  { prompt: "What happens to a liquid that is cooled enough?", right: "It freezes into a solid", wrong: ["It melts", "It evaporates"], hint: "Slower particles can lock into place." },
+  { prompt: "Small drops form on a cold window when steam touches it. This is…", right: "condensation", wrong: ["melting", "freezing"], hint: "A gas cooled into a liquid is condensation." },
+  { prompt: "Water vapour is…", right: "water as a gas", wrong: ["water as a solid", "tiny bits of ice"], hint: "Evaporating liquid water forms water vapour." },
+  { prompt: "A cup of water sits on a sunny windowsill. After days, there is less water. Where did it go?", right: "Into the air as water vapour", wrong: ["It melted into the cup", "It disappeared and no longer exists"], hint: "Matter is not lost. It changed state.", hard: true },
+  { prompt: "Which of these has particles moving the fastest?", right: "Steam", wrong: ["Ice", "Cold water"], hint: "Gas particles move faster than the particles in a liquid or solid." },
+  { prompt: "In which of these do particles only vibrate in fixed places?", right: "A block of ice", wrong: ["A cup of water", "Steam"], hint: "Particles in a solid stay in place and vibrate." },
+  { prompt: "A sealed bag holds 50 g of ice. The ice melts. What will the bag hold?", right: "50 g of water", wrong: ["less than 50 g of water", "more than 50 g of water"], hint: "Mass stays the same in a phase change.", hard: true },
 ];
 
 // ---------- Temperature and thermometers (6M 1.2) ----------
@@ -52,6 +63,17 @@ const THERMOMETERS: Item[] = [
   { prompt: "Water is at 40 °C. What is its state of matter?", right: "Liquid", wrong: ["Solid", "Gas"], hint: "It is above freezing and below boiling.", hard: true },
   { prompt: "A student wants to design a tool to measure temperature. Which idea uses a property of matter?", right: "A liquid that expands in a thin tube", wrong: ["A bigger ruler", "A louder bell"], hint: "Expansion and contraction are the basis of many thermometers.", hard: true },
   { prompt: "Water's temperature changes from 90 °C to 70 °C. What happened?", right: "It cooled by 20 degrees", wrong: ["It heated by 20 degrees", "It froze"], hint: "Subtract 70 from 90.", hard: true },
+  { prompt: "Which temperature is the coldest?", right: "−15 °C", wrong: ["0 °C", "5 °C"], hint: "Negative temperatures are below zero, and the bigger the negative number, the colder." },
+  { prompt: "Which is warmer: −5 °C or −10 °C?", right: "−5 °C", wrong: ["−10 °C", "They are the same"], hint: "−5 °C is closer to zero, so it is warmer." },
+  { prompt: "A thermometer reads 22 °C. What does this probably describe?", right: "A comfortable classroom", wrong: ["A pot of boiling water", "A frozen pond"], hint: "Room temperature is about 20 °C." },
+  { prompt: "To read a liquid thermometer well, where should your eyes be?", right: "Level with the top of the liquid", wrong: ["Far above it", "Below the bulb"], hint: "Looking straight on helps you read the scale correctly." },
+  { prompt: "What is the part at the bottom of a liquid thermometer that holds most of the liquid?", right: "The bulb", wrong: ["The scale", "The cap"], hint: "The liquid in the bulb expands and rises up the tube." },
+  { prompt: "The temperature rises from 12 °C to 19 °C. By how much did it rise?", right: "7 degrees", wrong: ["5 degrees", "31 degrees"], hint: "Subtract 12 from 19." },
+  { prompt: "Why is a thermometer better than a finger for finding temperature?", right: "It gives a number that everyone can read the same way", wrong: ["It makes water hotter", "It weighs the water"], hint: "Fingers can feel hot or cold differently, but a scale is the same for everyone." },
+  { prompt: "A thermometer in a glass of ice water reads 0 °C. What does this tell you?", right: "The water is at its freezing point", wrong: ["The water is boiling", "There is no water"], hint: "0 °C is the freezing point of water." },
+  { prompt: "Which is closest to a very hot summer day in Alberta?", right: "30 °C", wrong: ["5 °C", "60 °C"], hint: "Hot days are often around 30 °C." },
+  { prompt: "What do the small lines on a thermometer scale show?", right: "Steps of one or more degrees", wrong: ["Hours of the day", "Grams of water"], hint: "Each line is a step on the Celsius scale." },
+  { prompt: "Why wait a short time before reading a thermometer in a liquid?", right: "So the thermometer reaches the same temperature as the liquid", wrong: ["So it can cool the liquid", "So it melts"], hint: "The liquid inside needs time to settle.", hard: true },
 ];
 
 // ---------- Expansion, contraction and water (6M 1.3) ----------
@@ -75,6 +97,16 @@ const EXPANSION: Item[] = [
   { prompt: "Water pipes can burst in very cold weather. Why?", right: "The water inside expands as it freezes", wrong: ["The water contracts as it freezes", "The pipes get hotter"], hint: "Water is unusual because it expands when it freezes.", hard: true },
   { prompt: "A metal lid is stuck on a glass jar. Running hot water over the lid may help. Why?", right: "The metal expands more quickly and loosens", wrong: ["The jar turns to liquid", "The lid disappears"], hint: "Heating makes the metal expand.", hard: true },
   { prompt: "A solid block of ice and a block of liquid water have the same mass. Which has the greater volume?", right: "The ice", wrong: ["The liquid water", "They have the same volume"], hint: "Water expands as it freezes.", hard: true },
+  { prompt: "A metal ring is heated. What happens to the hole in its centre?", right: "It gets slightly larger", wrong: ["It gets smaller", "It stays exactly the same"], hint: "The whole ring expands, including the hole.", hard: true },
+  { prompt: "A jar of juice is frozen. Why should you leave space at the top?", right: "Juice expands as it freezes", wrong: ["Juice shrinks when frozen", "Ice needs air to breathe"], hint: "Water-based liquids take up more space as ice." },
+  { prompt: "A balloon is warmed in the sun. What happens to the air inside?", right: "It expands and the balloon gets bigger", wrong: ["It contracts and the balloon shrinks", "It turns into water"], hint: "Heated gas takes up more space." },
+  { prompt: "Why can a balloon shrink when it goes outside on a very cold day?", right: "The cold air inside contracts", wrong: ["The balloon runs out of colour", "Air particles disappear"], hint: "Cooling makes the particles take up less space." },
+  { prompt: "Liquid in a thermometer rises as it warms. Which idea explains this?", right: "Expansion", wrong: ["Contraction", "Condensation"], hint: "Heated liquids expand." },
+  { prompt: "Ice cubes float in a glass of water. What does this show?", right: "Ice is less dense than liquid water", wrong: ["Ice is heavier than water", "Ice has no mass"], hint: "Water expands as it freezes." },
+  { prompt: "Why is one end of a big steel bridge built to slide slightly?", right: "So the bridge can expand and contract with temperature", wrong: ["So the bridge can float", "So the beams can be painted"], hint: "Steel changes size with the temperature." },
+  { prompt: "When most materials are cooled, their particles…", right: "move closer together and take up less space", wrong: ["move apart", "stop existing"], hint: "Cooling slows particles down." },
+  { prompt: "A pond freezes over in winter. What is under the ice?", right: "Liquid water where fish can survive", wrong: ["Solid ice all the way to the bottom", "Nothing, because the pond is dry"], hint: "The ice on top acts like a blanket.", hard: true },
+  { prompt: "Why do some roads in Alberta get cracks in winter and spring?", right: "Water in cracks freezes and expands, widening them", wrong: ["Cars melt the road", "The road grows heavier"], hint: "Freezing water pushes cracks wider." },
 ];
 
 // ---------- Forces and interactions (6E 1.1, 6E 1.3) ----------
@@ -141,6 +173,16 @@ const SHAPES: Item[] = [
   { prompt: "A student bends the same ruler too far, and it stays bent. What does this show?", right: "The force was large enough to cause a permanent change", wrong: ["The ruler gained mass", "The ruler became elastic"], hint: "Too much force can exceed the elastic limit.", hard: true },
   { prompt: "Which test would show whether a material is elastic?", right: "Stretch it and see if it returns to its original shape", wrong: ["Weigh it", "Colour it"], hint: "Elastic materials return.", hard: true },
   { prompt: "A plastic bag is stretched and stays thin and long. What does this show?", right: "Plasticity, a permanent change in shape", wrong: ["Elasticity", "Friction"], hint: "It does not return to its shape.", hard: true },
+  { prompt: "A diving board bends when a person steps on it, then bounces back. Which property is shown?", right: "Elasticity", wrong: ["Plasticity", "Density"], hint: "It returns to its shape." },
+  { prompt: "Which object is best made from an elastic material?", right: "A hair tie", wrong: ["A brick", "A window"], hint: "A hair tie must stretch and return." },
+  { prompt: "Which material is a poor choice for a trampoline mat?", right: "Dry clay", wrong: ["Strong stretchy fabric", "Springs"], hint: "A trampoline needs to spring back." },
+  { prompt: "A thumb is pressed into soft clay and taken away. The dent stays. This is…", right: "a permanent change", wrong: ["a temporary change", "an elastic change"], hint: "The clay keeps its new shape." },
+  { prompt: "A stress ball is squeezed and returns to shape when let go. This change is…", right: "temporary", wrong: ["permanent", "a state change"], hint: "It goes back to its shape." },
+  { prompt: "A foam mattress topper slowly returns to shape after someone gets up. This change is…", right: "temporary", wrong: ["permanent", "a phase change"], hint: "The foam is elastic." },
+  { prompt: "Why are bungee cords made of an elastic material?", right: "They stretch to slow a jumper and then return to length", wrong: ["They stay stretched forever", "They melt in the air"], hint: "Elastic materials spring back." },
+  { prompt: "A hockey stick bends when a player shoots, then straightens. Why does this help?", right: "Its elasticity stores and releases energy", wrong: ["Plasticity keeps it bent", "It melts a little"], hint: "The stick returns to its shape and passes energy to the puck." },
+  { prompt: "What can happen if a spring is stretched far beyond its limit?", right: "It may stay stretched out of shape", wrong: ["It becomes shorter", "It turns into a rubber band"], hint: "Past its limit, the change can become permanent.", hard: true },
+  { prompt: "Which job needs a material that keeps its new shape?", right: "Moulding a clay bowl", wrong: ["Making a bouncy ball", "Making a spring"], hint: "Plastic materials keep the shape they are given." },
 ];
 
 // ---------- Energy resources (6E 2.1, 6E 2.2) ----------

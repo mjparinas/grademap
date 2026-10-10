@@ -206,9 +206,20 @@ const ANGLE_BANK: Item[] = [
   q("The corner of a slice of pizza at the pointy tip is usually…", "smaller than a right angle", ["bigger than a right angle", "a right angle", "a straight line"], "A pointy tip is a narrow angle.", "🍕"),
   hq("The corner of a stop sign (a regular octagon) is…", "bigger than a right angle", ["smaller than a right angle", "exactly a right angle"], "It opens wider than a square corner.", "🛑", { type: "shape", shape: "octagon" }),
   hq("A rectangle's four angles are…", "all right angles", ["all smaller than a right angle", "all bigger than a right angle", "two right angles and two others"], "Every corner of a rectangle is square.", "▭", { type: "shape", shape: "rectangle" }),
+  q("The hands of a clock at 12 o'clock lie on top of each other. The angle between them is…", "very small", ["a right angle", "very wide", "a straight line"], "The hands are almost together, so there is hardly any opening.", "🕛"),
+  q("A pair of scissors is opened a little. The angle between the blades is…", "smaller than a right angle", ["bigger than a right angle", "exactly a right angle"], "Open only a little means a narrow angle.", "✂️"),
+  q("Which is the best way to compare two angles drawn on paper?", "trace one and lay it on top of the other", ["count the pages", "smell the paper", "guess by their colour"], "If one fits inside the other, it is the smaller angle.", "📝"),
+  q("A laptop is opened so the screen stands straight up from the keyboard. The angle is about…", "a right angle", ["a very narrow angle", "a straight line"], "Straight up from flat makes a square corner.", "💻"),
+  q("Two angles open the same amount. They are…", "equal", ["one bigger", "one smaller", "impossible to compare"], "Angles that open the same amount are equal, even if the sides are different lengths.", "⚖️"),
+  q("Does a longer side make an angle bigger?", "No, the angle is how wide it opens", ["Yes, always", "Yes, if it is red", "Only on Fridays"], "The size of an angle is how much the sides open, not how long they are.", "📏"),
+  q("A paper corner fits exactly in the corner of a window. The window corner is…", "a right angle", ["smaller than a right angle", "bigger than a right angle"], "If a square corner fits exactly, the angle is a right angle.", "🪟"),
+  q("A tent door is open wide, almost flat to the ground. The angle at the hinge is…", "bigger than a right angle", ["smaller than a right angle", "a point"], "A wide opening is a bigger angle.", "⛺"),
+  q("How many right angles does a square have?", "4", ["0", "2", "3"], "Every corner of a square is a square corner.", "⬜"),
+  hq("A triangle has one right angle. Its other two angles are…", "smaller than a right angle", ["bigger than a right angle", "also right angles"], "A triangle cannot fit two right angles. The others must be narrower.", "📐"),
+  hq("A hand fan opens from closed to a wide half circle. The angle…", "gets bigger as it opens", ["gets smaller as it opens", "stays the same", "disappears"], "Opening wider makes a larger angle.", "🪭"),
 ];
 
-const ANGLE_BANK_FN = ANGLE_BANK.slice(0, 11).map((b) => () => textChoice(b.prompt, b.right as string, b.wrong as string[], b.hint, b.emoji ? { type: "emoji", emoji: b.emoji } : undefined));
+const ANGLE_BANK_FN = ANGLE_BANK.map((b) => () => textChoice(b.prompt, b.right as string, b.wrong as string[], b.hint, b.emoji ? { type: "emoji", emoji: b.emoji } : undefined));
 
 // ---------- Slides, flips and turns ----------
 
@@ -229,6 +240,18 @@ const MOVES: Item[] = [
   hq("A triangle is turned a quarter turn. Does it change size?", "No, it stays the same size", ["Yes, it gets bigger", "Yes, it gets smaller"], "Turning does not change the size.", "🔺"),
   hq("Which move could you do by tracing a shape and flipping the tracing paper over?", "reflection", ["translation", "rotation"], "Flipping the paper makes a mirror image.", "📄"),
   hq("A square slides to the right, then slides down. Which moves are these?", "two translations", ["a reflection and a rotation", "two rotations", "two reflections"], "Each slide is a translation.", "⬜"),
+  q("A sled glides straight down a hill. Which move is it?", "translation", ["reflection", "rotation"], "It slides in a line without turning.", "🛷"),
+  q("A skater spins around on one spot. Which move is it?", "rotation", ["translation", "reflection"], "She turns around a point.", "⛸️"),
+  q("A letter “M” is flipped upside down. It now looks like…", "a “W”", ["an “N”", "an “H”", "an “O”"], "A flip over a line makes a mirror image. M flipped upside down looks like W.", "🔤"),
+  q("A windmill's blades go round and round. Which move is it?", "rotation", ["translation", "reflection"], "The blades turn around the middle.", "🌬️"),
+  q("An elevator goes straight up. Which move is it?", "translation", ["reflection", "rotation"], "It slides in a straight line.", "🛗"),
+  q("Which words match the three moves?", "slide, flip, turn", ["jump, hop, skip", "stretch, shrink, bend", "add, take away, share"], "A slide is a translation, a flip is a reflection and a turn is a rotation.", "🔄"),
+  q("A heart shape is folded in half. The two halves are…", "mirror images", ["slides of each other", "different sizes"], "The fold line works like a mirror.", "❤️"),
+  q("A shape is turned all the way around, a full turn. It ends up…", "looking just like it started", ["twice as big", "flipped over", "a different shape"], "A full turn brings the shape back to where it began.", "🔁"),
+  q("A bus moves along a straight road. Which move is it?", "translation", ["rotation", "reflection"], "It slides along a line.", "🚌"),
+  q("Your hand and its reflection in a mirror are…", "mirror images", ["identical slides", "different sizes"], "A mirror shows a flip.", "🖐️"),
+  hq("A shape is flipped and then flipped back over the same line. Where does it end up?", "back where it started", ["upside down", "bigger", "one square to the right"], "Two flips over the same line undo each other.", "🪞"),
+  hq("Which move keeps the shape facing the same way?", "translation", ["reflection", "rotation"], "A slide moves the shape without flipping or turning it.", "➡️"),
 ];
 
 // ---------- Length and perimeter ----------
