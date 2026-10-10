@@ -87,8 +87,8 @@ Tests are duplicated across screen sizes only where layout can break:
   - Each unit carries `standards[frameworkId]`. Each course carries `bigIdeas[frameworkId]`.
 - **No BC-specific wording in UI code.** Read names from the framework, such as `curriculumName` and the level labels.
   - Public URLs are `/curriculum/{framework-slug}/{grade-slug}/{subject}/{unit}/`, `/guides/{framework-slug}/...` and `/report-cards/{framework-slug}/`.
-- **Adding a province or state** means adding a `Framework` and its standards, not new screens (`docs/ADDING_A_PROVINCE.md`). BC content follows the BC curriculum; Ontario follows the Ontario curriculum; any other province or state follows its own official curriculum, with its own spelling rules (Canadian spelling in every Canadian province).
-- **Frameworks now: British Columbia (`ca-bc`, slug `bc`), Ontario (`ca-on`, slug `ontario`) and Saskatchewan (`ca-sk`, slug `saskatchewan`, no French).** BC and Ontario cover Kindergarten to Grade 9 in math, language, science, social studies and the two French subjects. A parent picks the province per child (when adding the child, in Children and in Settings). Progress is shared between provinces for shared unit ids.
+- **Adding a province or state** means adding a `Framework` and its standards, not new screens (`docs/ADDING_A_PROVINCE.md`). BC content follows the BC curriculum; Ontario follows the Ontario curriculum; Alberta follows the Alberta curriculum; any other province or state follows its own official curriculum, with its own spelling rules (Canadian spelling in every Canadian province).
+- **Frameworks now: British Columbia (`ca-bc`, slug `bc`), Ontario (`ca-on`, slug `ontario`), Alberta (`ca-ab`, slug `alberta`) and Saskatchewan (`ca-sk`, slug `saskatchewan`, no French).** BC, Ontario and Alberta cover Kindergarten to Grade 9 in math, language, science, social studies and the two French subjects. A parent picks the province per child (when adding the child, in Children and in Settings). Progress is shared between provinces for shared unit ids.
 - **Whenever you create or change content, apply it to every framework.** If you add a unit, grade, subject, guide, trophy, quest or page for one province, add the matching one for every other province and state in the same change, or say plainly in the PR which framework is still missing and why. If you change how a grade works (its units, French, scoring, wording), check that grade in every framework, because grade changes apply across regions. `src/content/coverage.test.ts` fails when a framework is missing a grade, a core subject, Big Ideas or French in a grade its province teaches; extend its tables when you add a framework.
 - **All sales, call-to-action and marketing copy says "Kindergarten to Grade 9"** and names both provinces. Prefer reading the grade range and province names from `FRAMEWORKS` over typing them. When the range changes, search the repo for the old range (`README.md`, pricing, help FAQs, metadata, manifest, share image, guides, compare pages, terms, plan features) and update every hit.
 
@@ -107,6 +107,15 @@ Tests are duplicated across screen sizes only where layout can break:
 - **First Nations, Métis and Inuit content** is deliberately light and needs partner review before launch. Don't add more without that.
 - **French as a second language:** Core French from Grade 4 and French Immersion from Grade 1 (Kindergarten immersion varies by board, so there is none). Extended French is not built.
 - **Parent guides:** the hub, a guide for each grade, subject help pages and printable sheets, a learning skills guide (`/guides/ontario/learning-skills/`) and an EQAO guide (`/guides/ontario/eqao/`). Check EQAO details against eqao.com before launch.
+
+### Alberta
+- **Standards** are the learning outcomes in the Alberta programs of study: the new K–6 curriculum (math, English language arts and literature, science, social studies, French immersion language arts and literature) and the existing Grades 7–9 programs (Mathematics 2007, English language arts 2000, Science 2003, Social Studies 2005). The Grades 7–9 math and social studies are being replaced from September 2027, and the draft is only in pilot, so Grades 7–9 follow the programs in force. Source and checking record: `docs/research/alberta/`.
+- **How standards are cited** (`ab()` in `src/content/alberta/kit.ts`, checked by `src/content/alberta/alberta.test.ts` against `docs/research/alberta/outcomes.json`): K–6 math and science by outcome code (`4N1.1`, `3ES 1.2`); Grades 7–9 math by strand and number (`N5`, `PR2`); Grades 7–9 science by unit (`Unit A: Interactions and Ecosystems`); K–6 language, social studies and French immersion by the official grade snapshot line; Grades 7–9 social studies by issue code (`7.1`) and language arts by general outcome. The full K–6 language and social outcomes are only on the New LearnAlberta site, which could not be read automatically.
+- **Report card:** Alberta has no provincial scale. The framework uses four plain practice steps (Beginning, Approaching, Meeting, Exceeding) with the usual 🌱 🌿 🌳 ⭐ kid labels, and every report still says this is practice, not a report-card mark. Provincial Achievement Tests (Grades 6 and 9) and early literacy and numeracy screening are the "provincial assessments"; the schedule is changing, so the guides tell parents to check alberta.ca.
+- **Shared units:** an Alberta course reuses a BC or Ontario unit with Alberta standards text (`Course.shares`) only where it truly fits the Alberta grade. An Alberta child therefore downloads Ontario's file for the grade too (`EXTRA_DEPENDS` in `src/content/index.ts`). Alberta grade placement often differs (for example decimals and percent in Grade 4, integers in Grade 6, Colonial Canada and Confederation in Grade 4 social studies, ancient civilizations in Grade 5, democracy in Grade 6), so those grades have more Alberta-written units.
+- **French:** Immersion from Kindergarten to Grade 9 and Core French (the French as a Second Language program) from Grade 4 to Grade 9, in `src/content/alberta/french.ts`. Immersion Grades 7–9 has no checked citation yet.
+- **First Nations, Métis and Inuit content** is deliberately light and needs partner review before launch. Don't add more without that.
+- **Parent guides:** the hub, a guide for each grade, competencies (`/guides/alberta/competencies/`), the Provincial Achievement Tests page (`/guides/alberta/pat/`) and a French guide.
 
 ### Scoring follows the report card
 - **BC uses the four-level Provincial Proficiency Scale:** Emerging, Developing, Proficient, Extending.
@@ -161,7 +170,7 @@ Tests are duplicated across screen sizes only where layout can break:
   - Passing takes 8 out of 10, and passing is the only way to reach Extending.
 
 ### Lessons ("how it works")
-- A unit can carry an optional `lesson` (2 to 4 short steps and one worked example; `Lesson` in `src/content/types.ts`). Lessons are written once per grade in `src/content/lessons/<grade>.ts`, keyed `subject/unit-id`, and attached by `withLessons` in each BC grade's `index.ts`, so a unit shared by BC and Ontario has the lesson in both and each grade's lessons stay in that grade's download.
+- A unit can carry an optional `lesson` (2 to 4 short steps and one worked example; `Lesson` in `src/content/types.ts`). Lessons are written once per grade in `src/content/lessons/<grade>.ts`, keyed `subject/unit-id`, and attached by `withLessons` in each BC grade's `index.ts`, so a unit shared by BC, Ontario and Alberta has the lesson in all and each grade's lessons stay in that grade's download.
 - Children open one from the unit dialog ("How it works") or, for little kids, automatically before their first practice of a unit. It never changes scoring. The public unit page shows it under "How we explain it".
 - **Coverage today:** every math unit that BC and Ontario share (a test enforces this). Not yet: BC-only and Ontario-only math units, and other subjects. Add a lesson when you add a math unit; `lessons.test.ts` checks length and structure.
 
@@ -234,7 +243,7 @@ Tests are duplicated across screen sizes only where layout can break:
 
 ### Classroom mode (`/teachers/`)
 - **A teacher is an ordinary account** that creates classes (`classes`, `class_members`, `class_assignments`). No billing change: classes are free for now.
-- **Each class follows one province** (`classes.framework`, BC or Ontario, chosen when the class is created). Assignments must be units of that province, and a child can only join a class of their own province.
+- **Each class follows one province** (`classes.framework`, BC, Ontario or Alberta, chosen when the class is created). Assignments must be units of that province, and a child can only join a class of their own province.
 - **Public teacher pages** live under `/for-teachers/` (hub, province, grade), generated from content; `TEACHER_FRAMEWORK_IDS` in `src/components/site/teachers.ts` lists the provinces the teacher area supports. `/teachers/` itself stays noindex.
 - **Two ways students join, and the school or parent decides.**
   - **Linked by a parent:** a parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that.
@@ -251,7 +260,7 @@ Tests are duplicated across screen sizes only where layout can break:
 ### Public pages and SEO
 - **Every framework gets the full set of public pages**, generated from content so a new grade or unit appears automatically:
   - curriculum pages for the province, each grade, each subject and each unit, with sample questions;
-  - parent guides: a hub, a guide for each grade (Kindergarten to Grade 9), a help page and printable worksheet for each grade and subject, the province's competencies/learning-skills page, its provincial assessment page (BC: FSA; Ontario: EQAO) and its French guide;
+  - parent guides: a hub, a guide for each grade (Kindergarten to Grade 9), a help page and printable worksheet for each grade and subject, the province's competencies/learning-skills page, its provincial assessment page (BC: FSA; Ontario: EQAO; Alberta: PAT) and its French guide;
   - a report-card page.
   - They are all in the sitemap (`allGuidePaths`, `allCurriculumPaths`).
 - **The guide copy is per province** (`src/content/guides.ts`, `src/content/ontario/guides.ts`): grade notes for every grade, competencies, assessment and French. Don't hard-code BC names in the shared page components; read slugs and labels from the framework's guide copy.
