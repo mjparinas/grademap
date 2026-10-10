@@ -170,7 +170,8 @@ function linearRelations(opts?: { difficulty?: Level }): Question[] {
     return typed(`The table shows a linear relation. What number goes in place of the ?`, String(m * hide + b), `Look at how y changes each time x goes up by 1. It changes by ${m}, so y = ${m * hide + b} when x = ${hide}.`, "integer", { visual });
   };
   const matchEq = (): Question => {
-    const m = randInt(2, 5), b = randInt(1, 6);
+    const m = randInt(2, 5);
+    let b = randInt(1, 6);
     if (m === b) b += 1;
     const visual: Visual = { type: "table", headers: ["x", "y"], rows: [1, 2, 3, 4].map((x) => [x, m * x + b]) };
     return textQ(
