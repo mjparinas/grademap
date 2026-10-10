@@ -3,17 +3,16 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { coursesForGrade, getUnitRef, loadGrade } from "@/content";
-import { getFramework } from "@/content/frameworks";
+import { FRAMEWORKS, getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, GRADE_ORDER } from "@/content/subjects";
-import type { GradeId } from "@/content/types";
+import type { FrameworkId, GradeId } from "@/content/types";
 import { APP_NAME } from "@/lib/brand";
 import { call, type ClassSummary, type StudentRow } from "@/lib/classroom";
 import { levelInfo } from "@/lib/proficiency";
 
 // The teacher area: create a class, share its code, assign BC units and see each linked student's
-// practice results. It talks to the server only (no kids' store), so it stays light.
+// practice results. Each class follows one province (BC or Ontario). It talks to the server only (no kids' store), so it stays light.
 
-const FRAMEWORK = "ca-bc" as const;
 const pct = (v: number) => `${Math.round(v * 100)}%`;
 const btn = "min-h-11 rounded-xl px-4 font-bold";
 
@@ -68,6 +67,7 @@ function ClassList({ onOpen }: { onOpen: (id: string) => void }) {
   const [classes, setClasses] = useState<ClassSummary[] | null>(null);
   const [name, setName] = useState("");
   const [grade, setGrade] = useState<GradeId>("3");
+  const [framework, setFramework] = useState<FrameworkId>("ca-bc");
   const [err, setErr] = useState("");
 
   const load = useCallback(() => {
@@ -81,7 +81,7 @@ function ClassList({ onOpen }: { onOpen: (id: string) => void }) {
     e.preventDefault();
     setErr("");
     try {
-      const { class: c } = await call<{ class: ClassSummary }>("/api/classes/", "POST", { name, grade });
+      const { class: c } = await call<{ class: ClassSummary }>("/api/classes/", "POST", { name, grade, framework });
       setName("");
       onOpen(c.id);
     } catch (x) {
@@ -99,7 +99,7 @@ function ClassList({ onOpen }: { onOpen: (id: string) => void }) {
             <button type="button" onClick={() => onOpen(c.id)} className="w-full rounded-2xl border border-line bg-white p-4 text-left">
               <span className="block text-xl font-bold">{c.name}</span>
               <span className="block font-read text-ink-soft">
-                {GRADE_LABEL[c.grade as GradeId]} · {c.students} {c.students === 1 ? "student" : "students"} · code <b className="font-mono tracking-widest">{c.joinCode}</b>
+                {GRADE_LABEL[c.grade as GradeId]} · {getFramework(c.framework as FrameworkId).region} · {c.students} {c.students === 1 ? "student" : "students"} · code <b className="font-mono tracking-widest">{c.joinCode}</b>
               </span>
             </button>
           </li>
@@ -120,6 +120,16 @@ function ClassList({ onOpen }: { onOpen: (id: string) => void }) {
             ))}
           </select>
         </label>
+        <label className="flex flex-col text-sm font-semibold">
+          Province
+          <select className="mt-1 min-h-11 rounded-xl border border-line bg-white px-3" value={framework} onChange={(e) => setFramework(e.target.value as FrameworkId)}>
+            {FRAMEWORKS.map((f) => (
+              <option key={f.id} value={f.id}>
+                {f.region}
+              </option>
+            ))}
+          </select>
+        </label>
         <button className={`${btn} bg-[#25b47e] text-[#0f172a]`}>Create class</button>
       </form>
       {err && (
@@ -132,7 +142,7 @@ function ClassList({ onOpen }: { onOpen: (id: string) => void }) {
 }
 
 interface ClassDetail {
-  class: { id: string; name: string; grade: GradeId; joinCode: string };
+  class: { id: string; name: string; grade: GradeId; framework: FrameworkId; joinCode: string };
   assignments: string[];
   students: StudentRow[];
 }
@@ -147,7 +157,7 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
   const load = useCallback(
     () =>
       call<ClassDetail>(`/api/classes/?id=${encodeURIComponent(id)}`)
-        .then((d) => loadGrade(d.class.grade).then(() => d))
+        .then((d) => loadGrade(d.class.grade, d.class.framework).then(() => d))
         .then((d) => {
           setData(d);
           setReady(true);
@@ -162,7 +172,7 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
   if (!data || !ready) return <p className="font-read">{err || "Loading…"}</p>;
   const { class: cls, assignments, students } = data;
   const label = (key: string) => getUnitRef(key)?.unit.title ?? key;
-  const levelLabel = (level: number) => (level < 0 ? "Not started" : levelInfo(FRAMEWORK, cls.grade, level)?.label ?? "");
+  const levelLabel = (level: number) => (level < 0 ? "Not started" : levelInfo(cls.framework, cls.grade, level)?.label ?? "");
 
   const change = async (url: string, method: string, body?: unknown) => {
     setErr("");
@@ -181,7 +191,7 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
       </button>
       <h1 className="text-3xl font-bold">{cls.name}</h1>
       <p className="font-read text-ink-soft">
-        {GRADE_LABEL[cls.grade]} · {getFramework(FRAMEWORK).curriculumName}
+        {GRADE_LABEL[cls.grade]} · {getFramework(cls.framework).curriculumName}
       </p>
 
       <section className="mt-4 rounded-2xl border border-line bg-white p-5">
@@ -216,7 +226,7 @@ function ClassPage({ id, onBack }: { id: string; onBack: () => void }) {
             Add a unit
             <select className="mt-1 min-h-11 max-w-full rounded-xl border border-line bg-white px-3" value={pick} onChange={(e) => setPick(e.target.value)}>
               <option value="">Choose a unit…</option>
-              {coursesForGrade(cls.grade, FRAMEWORK).map((course) => (
+              {coursesForGrade(cls.grade, cls.framework).map((course) => (
                 <optgroup key={course.subject} label={course.subject}>
                   {course.units.map((u) => {
                     const key = `${course.grade}/${course.subject}/${u.id}`;

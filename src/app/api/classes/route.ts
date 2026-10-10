@@ -1,5 +1,5 @@
 import { error, getSession, json, newId, rateLimited, sameOrigin } from "@/server/auth";
-import { assignmentKeys, classProgress, MAX_CLASSES, newJoinCode, ownedClass } from "@/server/classroom";
+import { assignmentKeys, classProgress, isFramework, MAX_CLASSES, newJoinCode, ownedClass } from "@/server/classroom";
 import { query, run } from "@/server/db";
 import { GRADE_ORDER } from "@/content/subjects";
 
@@ -16,17 +16,17 @@ export async function GET(req: Request) {
     const cls = await ownedClass(id, session.parentId);
     if (!cls) return error(404, "Class not found");
     return json({
-      class: { id: cls.id, name: cls.name, grade: cls.grade, joinCode: cls.join_code },
+      class: { id: cls.id, name: cls.name, grade: cls.grade, framework: cls.framework, joinCode: cls.join_code },
       assignments: await assignmentKeys(cls.id),
       students: await classProgress(cls.id),
     });
   }
-  const rows = await query<{ id: string; name: string; grade: string; join_code: string; students: number }>(
-    `SELECT c.id, c.name, c.grade, c.join_code, (SELECT COUNT(*) FROM class_members m WHERE m.class_id = c.id) AS students
+  const rows = await query<{ id: string; name: string; grade: string; framework: string; join_code: string; students: number }>(
+    `SELECT c.id, c.name, c.grade, c.framework, c.join_code, (SELECT COUNT(*) FROM class_members m WHERE m.class_id = c.id) AS students
      FROM classes c WHERE c.owner_parent_id = ? AND c.closed_at IS NULL ORDER BY c.created_at`,
     [session.parentId],
   );
-  return json({ classes: rows.map((r) => ({ id: r.id, name: r.name, grade: r.grade, joinCode: r.join_code, students: Number(r.students) })) });
+  return json({ classes: rows.map((r) => ({ id: r.id, name: r.name, grade: r.grade, framework: r.framework, joinCode: r.join_code, students: Number(r.students) })) });
 }
 
 export async function POST(req: Request) {
@@ -36,9 +36,11 @@ export async function POST(req: Request) {
   // Teachers see children's first names and results, so the account's email has to be confirmed first.
   if (!session.verified) return error(403, "Please confirm your email first. Classes show children's progress, so we only allow them for confirmed accounts.");
   if (await rateLimited(`class:${session.parentId}`, 20, 60 * 60_000)) return error(429, "Too many classes created. Try again later.");
-  const body = (await req.json().catch(() => null)) as { name?: unknown; grade?: unknown } | null;
+  const body = (await req.json().catch(() => null)) as { name?: unknown; grade?: unknown; framework?: unknown } | null;
   const name = typeof body?.name === "string" ? body.name.trim().slice(0, 60) : "";
   const grade = String(body?.grade ?? "");
+  const framework = body?.framework === undefined ? "ca-bc" : body.framework;
+  if (!isFramework(framework)) return error(400, "Choose a province.");
   if (!name) return error(400, "Give the class a name.");
   if (!(GRADE_ORDER as string[]).includes(grade)) return error(400, "Choose a grade.");
   const mine = await query<{ n: number }>("SELECT COUNT(*) AS n FROM classes WHERE owner_parent_id = ? AND closed_at IS NULL", [session.parentId]);
@@ -48,8 +50,8 @@ export async function POST(req: Request) {
   for (let attempt = 0; attempt < 5; attempt++) {
     const code = newJoinCode();
     try {
-      await run("INSERT INTO classes (id, owner_parent_id, name, grade, join_code, created_at) VALUES (?, ?, ?, ?, ?, ?)", [id, session.parentId, name, grade, code, Date.now()]);
-      return json({ class: { id, name, grade, joinCode: code, students: 0 } });
+      await run("INSERT INTO classes (id, owner_parent_id, name, grade, framework, join_code, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)", [id, session.parentId, name, grade, framework, code, Date.now()]);
+      return json({ class: { id, name, grade, framework, joinCode: code, students: 0 } });
     } catch {
       // Join code collision: try another.
     }
