@@ -69,7 +69,7 @@ Turso offers Canadian locations only on its Fly provider (its AWS list has none)
 
 `GET /api/health/` returns 200 when the app and database answer (one `SELECT 1`) and 503 otherwise. It is public, uncached and reveals nothing beyond pass/fail.
 
-- **Built in:** `.github/workflows/uptime.yml` pings it every 15 minutes (with 3 tries), opens a single "Site is down" issue labelled `uptime` on failure and closes it when the site recovers. It does nothing until you set the repository variable `UPTIME_URL` (Settings > Secrets and variables > Actions > Variables) to the site origin, e.g. `https://grademap.example`. GitHub can delay scheduled runs, so it is a safety net, not a precise monitor.
+- **Built in:** `.github/workflows/uptime.yml` pings it every 15 minutes (with 3 tries), opens a single "Site is down" issue labelled `uptime` on failure and closes it when the site recovers. It does nothing until you set the repository variable `UPTIME_URL` (Settings > Secrets and variables > Actions > Variables) to the site origin, e.g. `https://www.gradelings.com` (the host that answers directly; redirects aren't followed, so a redirecting origin reads as down). GitHub can delay scheduled runs, so it is a safety net, not a precise monitor.
 - **Free external alternatives** (not set up): UptimeRobot (5-minute checks), Better Stack, or Vercel's own monitoring. Point any of them at `https://<your domain>/api/health/`; they can email or text you faster than GitHub issues do.
 
 ## 6. Launch checklist
