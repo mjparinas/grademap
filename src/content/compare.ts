@@ -41,12 +41,12 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "How progress is shown",
         them: "SmartScore rises as kids answer correctly in a row and falls on mistakes. Common Sense Media notes that some children find this stressful.",
-        us: "Wrong answers get a hint and another try. Only first-try answers count towards accuracy, and stars never go down. Progress is reported in your province's report-card levels (BC: Emerging, Developing, Proficient and Extending; Ontario: Levels 1 to 4).",
+        us: "Wrong answers get a hint and another try. Only first-try answers count towards accuracy, and stars never go down. Progress is reported in your province's report-card levels (BC: Emerging, Developing, Proficient and Extending; Ontario: Levels 1 to 4; Alberta: four practice steps, since the province has no single scale).",
       },
       {
         topic: "Report card language",
         them: "Reports are organized around skills and scores.",
-        us: "Reports use the words on your province's report card (BC or Ontario), with a plain-language “at home” note for each level.",
+        us: "Reports use the words on your province's report card (BC, Ontario or Alberta), with a plain-language “at home” note for each level.",
       },
       {
         topic: "Games and offline use",
@@ -56,7 +56,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["You want the widest range of skills and grades in one place.", "Your child likes working towards a score."],
     chooseUs: [
-      "You want practice that follows the BC or Ontario curriculum and speaks the language of your child's report card.",
+      "You want practice that follows the BC, Ontario or Alberta curriculum and speaks the language of your child's report card.",
       "You'd like a gentler feel, with hints, retries and no scores that go down.",
       "You have more than one child and want one price.",
     ],
@@ -67,12 +67,12 @@ export const COMPETITORS: Competitor[] = [
     ],
     faqs: [
       {
-        q: "Is Gradelings a good alternative to IXL for BC and Ontario families?",
-        a: "It can be, depending on what you want. IXL has a much larger skill library. Gradelings is smaller and built around the BC and Ontario curricula, their report-card levels, a gentler hint-and-retry style and one family price.",
+        q: "Is Gradelings a good alternative to IXL for BC, Ontario and Alberta families?",
+        a: "It can be, depending on what you want. IXL has a much larger skill library. Gradelings is smaller and built around the BC, Ontario and Alberta curricula, their report-card levels, a gentler hint-and-retry style and one family price.",
       },
       {
         q: "Does Gradelings have a SmartScore?",
-        a: "No. Gradelings shows each unit on your province's report-card scale (BC: Emerging, Developing, Proficient, Extending; Ontario: Levels 1 to 4) based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.",
+        a: "No. Gradelings shows each unit on your province's report-card scale (BC: Emerging, Developing, Proficient, Extending; Ontario: Levels 1 to 4; Alberta: four practice steps) based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.",
       },
     ],
   },
@@ -95,12 +95,12 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "Curriculum",
         them: "Course order follows US standards. A 2015 mapping linked some Grade 4 to 6 content to Ontario and BC, but it hasn't been updated for the current BC curriculum, as far as we could find.",
-        us: "Every unit is matched to a BC Curriculum learning standard or an Ontario Curriculum expectation, with the Big Ideas or strands listed for parents.",
+        us: "Every unit is matched to a BC Curriculum learning standard, an Ontario Curriculum expectation or an Alberta learning outcome, with the Big Ideas or strands listed for parents.",
       },
       {
         topic: "Parent guidance",
         them: "Learning is largely self-directed, with limited guidance for parents.",
-        us: "Reports for parents in your province's report-card levels, strengths and next steps, and a guide to the BC and Ontario report cards.",
+        us: "Reports for parents in your province's report-card levels, strengths and next steps, and a guide to the BC, Ontario and Alberta report cards.",
       },
       {
         topic: "Games",
@@ -110,7 +110,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["Budget is the main concern.", "Your child likes watching video lessons and working independently."],
     chooseUs: [
-      "You want practice that lines up with what your child's BC or Ontario teacher is covering.",
+      "You want practice that lines up with what your child's BC, Ontario or Alberta teacher is covering.",
       "You want to see progress in the language of your child's report card.",
       "You want a kids' app with learning games and parent controls.",
     ],
@@ -153,7 +153,7 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "Curriculum",
         them: "Canadian content follows the Ontario curriculum, with no BC alignment found.",
-        us: "Matched to the BC Curriculum and the Ontario Curriculum.",
+        us: "Matched to the BC, Ontario and Alberta curricula.",
       },
       {
         topic: "Subjects",
@@ -163,7 +163,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["Your child will only practise inside a big, story-driven game.", "You want a free math option to try."],
     chooseUs: [
-      "You want BC- or Ontario-matched practice in four subjects.",
+      "You want BC-, Ontario- or Alberta-matched practice in four subjects.",
       "You don't want your child to see ads or purchase offers.",
       "You want clear reports in your province's report-card language.",
     ],

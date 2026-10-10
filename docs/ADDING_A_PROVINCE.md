@@ -6,7 +6,7 @@ Everything that differs by jurisdiction lives in a `Framework` (`src/content/fra
 2. **Official standards.** Save the official expectations under `docs/research/<name>/` with their source and date, and write a README like `docs/research/ontario/README.md`.
 3. **Courses.** For each grade add `src/content/<name>/g<N>.ts` exporting `courses`. A course lists:
    - `units`: units written for this jurisdiction. Give them ids that do not clash with BC ids.
-   - `shares`: BC (or other) unit ids to reuse. Each gives the new standards text for that unit. Share only after sampling the unit's questions and confirming they fit the new curriculum.
+   - `shares`: BC (or other) unit ids to reuse. A framework can also share another framework's own units (Alberta shares some Ontario units); list that dependency in `EXTRA_DEPENDS` in `src/content/index.ts` so the other framework's file is downloaded too. Each gives the new standards text for that unit. Share only after sampling the unit's questions and confirming they fit the new curriculum.
    - `order`: the unit order for this framework.
    - `bigIdeas`: strand headings.
 4. **Register the grade.** Add the grade loader to `src/content/index.ts` and `all.ts`. Each grade and framework is its own download.

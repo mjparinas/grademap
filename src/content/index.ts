@@ -38,7 +38,28 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "8": () => import("./ontario/g8"),
     "9": () => import("./ontario/g9"),
   },
+  "ca-ab": {
+    k: () => import("./alberta/k"),
+    "1": () => import("./alberta/g1"),
+    "2": () => import("./alberta/g2"),
+    "3": () => import("./alberta/g3"),
+    "4": () => import("./alberta/g4"),
+    "5": () => import("./alberta/g5"),
+    "6": () => import("./alberta/g6"),
+    "7": () => import("./alberta/g7"),
+    "8": () => import("./alberta/g8"),
+    "9": () => import("./alberta/g9"),
+  },
 };
+
+/**
+ * Frameworks whose extra content another framework reuses. Alberta lists some Ontario-written units under
+ * `shares`, so an Alberta child downloads Ontario's file for the grade too (those units stay hidden unless
+ * they carry Alberta standards).
+ */
+const EXTRA_DEPENDS: Partial<Record<FrameworkId, FrameworkId[]>> = { "ca-ab": ["ca-on"] };
+
+const withDepends = (framework: FrameworkId): FrameworkId[] => [framework, ...(EXTRA_DEPENDS[framework] ?? [])];
 
 /** What a child needs downloaded: a grade in a framework. */
 export interface ContentTarget {
@@ -174,10 +195,12 @@ export function loadGrade(grade: GradeId, framework: FrameworkId = DEFAULT_FRAME
       loadPart(`base:${grade}`, grade, LOADERS[grade], () => rebuild(grade), (c) => base.set(grade, c)),
     );
   }
-  const extra = EXTRA_LOADERS[framework]?.[grade];
-  const id = targetId(grade, framework);
-  if (extra && !extras.has(id)) {
-    parts.push(loadPart(id, grade, extra, () => rebuild(grade), (c) => extras.set(id, c)));
+  for (const f of withDepends(framework)) {
+    const extra = EXTRA_LOADERS[f]?.[grade];
+    const id = targetId(grade, f);
+    if (extra && !extras.has(id)) {
+      parts.push(loadPart(id, grade, extra, () => rebuild(grade), (c) => extras.set(id, c)));
+    }
   }
   return Promise.all(parts).then(() => undefined);
 }
@@ -190,11 +213,11 @@ export function loadGrades(targets: Iterable<ContentTarget>): Promise<void> {
 
 export function isGradeLoaded(grade: GradeId, framework: FrameworkId = DEFAULT_FRAMEWORK): boolean {
   if (!base.has(grade)) return false;
-  return !EXTRA_LOADERS[framework]?.[grade] || extras.has(targetId(grade, framework));
+  return withDepends(framework).every((f) => !EXTRA_LOADERS[f]?.[grade] || extras.has(targetId(grade, f)));
 }
 
 export function gradeLoadFailed(grade: GradeId, framework: FrameworkId = DEFAULT_FRAMEWORK): boolean {
-  return failed.has(`base:${grade}`) || failed.has(targetId(grade, framework));
+  return failed.has(`base:${grade}`) || withDepends(framework).some((f) => failed.has(targetId(grade, f)));
 }
 
 /** For useSyncExternalStore: called whenever a grade starts, finishes or fails loading. */

@@ -16,11 +16,13 @@ const range = (from: GradeId, to: GradeId) => GRADE_ORDER.slice(GRADE_ORDER.inde
 /**
  * The grades each framework offers the two French subjects in. These follow each province's
  * French as a second language requirements (BC: second language from Grade 5; Ontario: Core French
- * from Grade 4). Adding a framework means adding its row here.
+ * from Grade 4; Alberta: French as a Second Language from Grade 4). Adding a framework means adding its row here.
  */
 const FRENCH_GRADES: Record<FrameworkId, { immersion: GradeId[]; "core-french": GradeId[] }> = {
   "ca-bc": { immersion: range("k", "9"), "core-french": range("5", "9") },
   "ca-on": { immersion: range("1", "9"), "core-french": range("4", "9") },
+  // Alberta: French Immersion from Kindergarten; the French as a Second Language program starts in Grade 4.
+  "ca-ab": { immersion: range("k", "9"), "core-french": range("4", "9") },
 };
 
 const units = (framework: FrameworkId, grade: GradeId, subject: string) =>

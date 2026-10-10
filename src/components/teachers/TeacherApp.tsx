@@ -11,7 +11,7 @@ import { call, classInsights, type ClassSummary, type RosterEntry, type StudentR
 import { levelInfo } from "@/lib/proficiency";
 
 // The teacher area: create a class, share its code, assign BC units and see each linked student's
-// practice results. Each class follows one province (BC or Ontario). It talks to the server only (no kids' store), so it stays light.
+// practice results. Each class follows one province (BC, Ontario or Alberta). It talks to the server only (no kids' store), so it stays light.
 
 const pct = (v: number) => `${Math.round(v * 100)}%`;
 const btn = "min-h-11 rounded-xl px-4 font-bold";

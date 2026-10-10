@@ -10,7 +10,7 @@ The Provider supplies GradeMap, a practice and learning service, to the School's
 
 ## 2. Roles
 
-The School decides to use the service and which students use it, and is responsible for its own duties under the *Freedom of Information and Protection of Privacy Act* (BC) `[or the applicable Ontario Act]`, including notice to families and any consent it requires. The Provider handles student information only to provide the service to the School and for no other purpose.
+The School decides to use the service and which students use it, and is responsible for its own duties under the *Freedom of Information and Protection of Privacy Act* (BC) `[or the applicable Ontario or Alberta Act]`, including notice to families and any consent it requires. The Provider handles student information only to provide the service to the School and for no other purpose.
 
 ## 3. What information
 
@@ -49,7 +49,7 @@ The classroom tools are `[free for the School at the date of signing / priced as
 
 ## 11. Contact, law and changes
 
-Privacy contact: `[CONTACT_EMAIL]`. This agreement is governed by the laws of `[British Columbia / Ontario]` and Canada. Changes must be agreed in writing.
+Privacy contact: `[CONTACT_EMAIL]`. This agreement is governed by the laws of `[British Columbia / Ontario / Alberta]` and Canada. Changes must be agreed in writing.
 
 **Schedule A: service providers.** Copy the table in [pia-pack.md](pia-pack.md), section 6, current at signing.
 

@@ -63,7 +63,7 @@ export const HELP: HelpSection[] = [
     faqs: [
       {
         q: "Which curriculum and grades does it follow?",
-        a: `Kindergarten to Grade 9 in math, English language arts, science and social studies, matched to the BC Curriculum. Ontario is also available for math, language, science, social studies and French (Core French and French Immersion), Kindergarten to Grade 9, and parents can switch a child’s province in Children. Every unit shows the learning standard it practises. More provinces and states are planned.`,
+        a: `Kindergarten to Grade 9 in math, English language arts, science and social studies, matched to the BC Curriculum. Ontario and Alberta (the new K–6 curriculum and the Grades 7–9 programs of study) are also available for math, language, science, social studies and French (Core French and French Immersion), Kindergarten to Grade 9, and parents can switch a child’s province in Children. Every unit shows the learning standard it practises. More provinces and states are planned.`,
       },
       {
         q: "What is Adventure mode?",
@@ -79,7 +79,7 @@ export const HELP: HelpSection[] = [
       },
       {
         q: "How are the report levels worked out?",
-        a: `In BC, levels use the Provincial Proficiency Scale: Emerging, Developing, Proficient and Extending. In Ontario, they follow the Level 1 to 4 achievement chart. Only first-try answers count. Proficient needs at least 75% over at least 8 recent answers, and Extending also needs 90% over 16 answers and a passed Challenge. Reports show practice in the app. They are not a report-card mark; your child’s teacher decides proficiency.`,
+        a: `In BC, levels use the Provincial Proficiency Scale: Emerging, Developing, Proficient and Extending. In Ontario, they follow the Level 1 to 4 achievement chart. Alberta has no provincial report-card scale, so Alberta reports use four plain steps: Beginning, Approaching, Meeting and Exceeding. Only first-try answers count. Proficient needs at least 75% over at least 8 recent answers, and Extending also needs 90% over 16 answers and a passed Challenge. Reports show practice in the app. They are not a report-card mark; your child’s teacher decides proficiency.`,
       },
       {
         q: "How does earning game time work?",

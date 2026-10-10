@@ -1,10 +1,10 @@
 # Privacy Impact Assessment pack
 
-For a school or district that is completing a PIA (BC: FIPPA s. 69; Ontario boards: their own privacy review). Written from the code as of October 2026. **(confirm)** marks a fact that depends on a provider and has not been confirmed in writing.
+For a school or district that is completing a PIA (BC: FIPPA s. 69; Ontario and Alberta boards: their own privacy review). Written from the code as of October 2026. **(confirm)** marks a fact that depends on a provider and has not been confirmed in writing.
 
 ## 1. The service
 
-GradeMap is a web app (installable, with an Android wrapper) for practice and games matched to the BC and Ontario curricula, Kindergarten to Grade 9. In a school it is a practice aid. Its levels reflect practice, not a report-card mark; the teacher decides proficiency. There are no ads, no tracking and no sale of data.
+GradeMap is a web app (installable, with an Android wrapper) for practice and games matched to the BC, Ontario and Alberta curricula, Kindergarten to Grade 9. In a school it is a practice aid. Its levels reflect practice, not a report-card mark; the teacher decides proficiency. There are no ads, no tracking and no sale of data.
 
 ## 2. Who uses it and how accounts work
 
