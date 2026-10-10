@@ -27,10 +27,11 @@ export async function POST(req: Request) {
   const profileId = typeof body?.profileId === "string" ? body.profileId : "";
   const owns = await query<{ data: string }>("SELECT data FROM profiles WHERE id = ? AND family_id = ?", [profileId, session.familyId]);
   if (!owns.length) return error(404, "That child isn’t synced to your account yet. Sync, then try again.");
-  const cls = (await query<{ id: string; name: string; grade: string }>("SELECT id, name, grade FROM classes WHERE join_code = ? AND closed_at IS NULL", [code]))[0];
+  const cls = (await query<{ id: string; name: string; grade: string; framework: string }>("SELECT id, name, grade, framework FROM classes WHERE join_code = ? AND closed_at IS NULL", [code]))[0];
   if (!cls) return error(404, "We couldn’t find a class with that code. Check it with the teacher.");
-  const grade = (JSON.parse(owns[0].data) as { grade?: string }).grade;
-  if (grade !== cls.grade) return error(409, "This class is for a different grade than your child’s profile.");
+  const child = JSON.parse(owns[0].data) as { grade?: string; framework?: string };
+  if (child.grade !== cls.grade) return error(409, "This class is for a different grade than your child’s profile.");
+  if ((child.framework ?? "ca-bc") !== cls.framework) return error(409, "This class follows a different province’s curriculum than your child’s profile.");
   const size = await query<{ n: number }>("SELECT COUNT(*) AS n FROM class_members WHERE class_id = ?", [cls.id]);
   if (Number(size[0].n) >= MAX_STUDENTS) return error(409, "This class is full.");
   await run("INSERT OR IGNORE INTO class_members (class_id, profile_id, family_id, joined_at) VALUES (?, ?, ?, ?)", [cls.id, profileId, session.familyId, Date.now()]);

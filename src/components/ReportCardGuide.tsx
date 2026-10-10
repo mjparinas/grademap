@@ -25,7 +25,7 @@ export function ReportCardGuide({ framework, grade = "2", headingLevel = 2 }: { 
             <div key={l.id} className="rounded-2xl border border-line bg-white p-4" style={{ borderLeft: `8px solid ${l.colour}` }}>
               <p className="flex items-center gap-2 text-xl font-bold">
                 <span aria-hidden="true">{l.icon}</span> {l.label}
-                <span className="ml-auto rounded-full bg-black/5 px-2 py-0.5 text-xs font-semibold text-ink-soft">Level {i + 1} of 4</span>
+                <span className="ml-auto rounded-full bg-black/5 px-2 py-0.5 text-xs font-semibold text-ink-soft">{l.marks ?? `Level ${i + 1} of 4`}</span>
               </p>
               <p className="mt-1 font-read text-sm">
                 <b>Official meaning:</b> {l.description}

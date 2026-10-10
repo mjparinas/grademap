@@ -1,5 +1,5 @@
 import { allUnitRefs, type UnitRef } from "@/content";
-import type { GradeId, SubjectId } from "@/content/types";
+import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import type { Derived } from "./derive";
 
 // Picks the next unit for Adventure and Review. Units the child finds hard,
@@ -15,6 +15,7 @@ export interface Pick {
 
 export interface PickOptions {
   grade: GradeId;
+  framework: FrameworkId;
   derived: Derived;
   subjects: SubjectId[];
   /** Unit keys asked most recently, newest last. */
@@ -64,7 +65,7 @@ export function difficultyFor(mastery: number, mode: PickOptions["mode"]): 1 | 2
 }
 
 export function candidates(opts: PickOptions): UnitRef[] {
-  return allUnitRefs(opts.grade).filter(
+  return allUnitRefs(opts.grade, opts.framework).filter(
     (r) =>
       opts.subjects.includes(r.course.subject) &&
       (!opts.subject || r.course.subject === opts.subject) &&

@@ -1,3 +1,4 @@
+import { isCoreSubject } from "@/content/subjects";
 import { allUnitRefs } from "@/content";
 import { getFramework, type ProficiencyLevel } from "@/content/frameworks";
 import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
@@ -52,9 +53,11 @@ export interface SubjectSummary {
   counts: number[];
 }
 
-export function subjectSummaries(d: Derived, grade: GradeId): SubjectSummary[] {
+export function subjectSummaries(d: Derived, grade: GradeId, framework: FrameworkId): SubjectSummary[] {
   const bySubject = new Map<SubjectId, number[]>();
-  for (const ref of allUnitRefs(grade)) {
+  for (const ref of allUnitRefs(grade, framework)) {
+    // French is opt-in: only show it once the child has started it.
+    if (!isCoreSubject(ref.course.subject) && !d.units[ref.key]) continue;
     const list = bySubject.get(ref.course.subject) ?? [];
     list.push(unitLevel(d.units[ref.key]));
     bySubject.set(ref.course.subject, list);
@@ -73,7 +76,7 @@ export function subjectSummaries(d: Derived, grade: GradeId): SubjectSummary[] {
 }
 
 /** Units in the child's grade at or above `level`. */
-export function unitsAtLeast(d: Derived, grade: GradeId, level: number, subject?: SubjectId): number {
-  return allUnitRefs(grade).filter((r) => (!subject || r.course.subject === subject) && unitLevel(d.units[r.key]) >= level)
+export function unitsAtLeast(d: Derived, grade: GradeId, framework: FrameworkId, level: number, subject?: SubjectId): number {
+  return allUnitRefs(grade, framework).filter((r) => (subject ? r.course.subject === subject : isCoreSubject(r.course.subject)) && unitLevel(d.units[r.key]) >= level)
     .length;
 }

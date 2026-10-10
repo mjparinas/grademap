@@ -5,8 +5,10 @@ import { query, run } from "./db";
 
 const scryptAsync = promisify(scrypt) as (pw: string, salt: Buffer, len: number) => Promise<Buffer>;
 
-const COOKIE = "gm_session";
-const SESSION_DAYS = 180;
+// In production the cookie carries the __Host- prefix: browsers then refuse it unless it is Secure,
+// has Path=/ and no Domain, so a sibling subdomain can't plant or overwrite it.
+const COOKIE = process.env.NODE_ENV === "production" ? "__Host-gm_session" : "gm_session";
+const SESSION_DAYS = 90;
 
 export interface SessionInfo {
   parentId: string;
@@ -31,18 +33,58 @@ export async function verifyPassword(password: string, stored: string): Promise<
 
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
 
-export async function createSession(parentId: string, familyId: string): Promise<{ token: string; maxAge: number }> {
+export async function createSession(parentId: string, familyId: string, req?: Request): Promise<{ token: string; maxAge: number }> {
   const token = randomBytes(32).toString("base64url");
   const now = Date.now();
   const maxAge = SESSION_DAYS * 86_400;
-  await run("INSERT INTO sessions (token_hash, parent_id, family_id, expires_at, created_at) VALUES (?, ?, ?, ?, ?)", [
+  await run("INSERT INTO sessions (token_hash, parent_id, family_id, expires_at, created_at, user_agent) VALUES (?, ?, ?, ?, ?, ?)", [
     sha(token),
     parentId,
     familyId,
     now + maxAge * 1000,
     now,
+    (req?.headers.get("user-agent") ?? "").slice(0, 200),
   ]);
+  // Expired sessions and rate-limit counters are cleaned up now and then, so the tables stay small.
+  if (Math.random() < 0.05) {
+    await run("DELETE FROM sessions WHERE expires_at < ?", [now]).catch(() => {});
+    await run("DELETE FROM rate_limits WHERE reset_at < ?", [now]).catch(() => {});
+  }
   return { token, maxAge };
+}
+
+export interface SessionSummary {
+  id: string;
+  createdAt: number;
+  device: string;
+  current: boolean;
+}
+
+/** A short, readable label for a User-Agent string. */
+export function deviceLabel(ua: string): string {
+  const os = /iPhone|iPad/.test(ua) ? "iPhone/iPad" : /Android/.test(ua) ? "Android" : /Windows/.test(ua) ? "Windows" : /Mac OS X|Macintosh/.test(ua) ? "Mac" : /CrOS/.test(ua) ? "Chromebook" : /Linux/.test(ua) ? "Linux" : "Unknown device";
+  const browser = /Edg\//.test(ua) ? "Edge" : /Firefox\//.test(ua) ? "Firefox" : /Chrome\//.test(ua) ? "Chrome" : /Safari\//.test(ua) ? "Safari" : "";
+  return browser ? `${browser} on ${os}` : os;
+}
+
+const sessionId = (tokenHash: string) => tokenHash.slice(0, 16);
+
+export async function listSessions(req: Request, parentId: string): Promise<SessionSummary[]> {
+  const token = readCookie(req, COOKIE);
+  const mine = token ? sha(token) : "";
+  const rows = await query<{ token_hash: string; created_at: number; user_agent: string | null }>(
+    "SELECT token_hash, created_at, user_agent FROM sessions WHERE parent_id = ? AND expires_at > ? ORDER BY created_at DESC LIMIT 50",
+    [parentId, Date.now()],
+  );
+  return rows.map((r) => ({ id: sessionId(r.token_hash), createdAt: Number(r.created_at), device: deviceLabel(r.user_agent ?? ""), current: r.token_hash === mine }));
+}
+
+/** Signs out one session by its short id, or every session except this one when no id is given. */
+export async function revokeSessions(req: Request, parentId: string, id?: string): Promise<number> {
+  const token = readCookie(req, COOKIE);
+  const mine = token ? sha(token) : "";
+  if (id) return run("DELETE FROM sessions WHERE parent_id = ? AND substr(token_hash, 1, 16) = ? AND token_hash != ?", [parentId, id.slice(0, 16), mine]);
+  return run("DELETE FROM sessions WHERE parent_id = ? AND token_hash != ?", [parentId, mine]);
 }
 
 function readCookie(req: Request, name: string): string | undefined {
@@ -52,6 +94,12 @@ function readCookie(req: Request, name: string): string | undefined {
     if (k === name) return decodeURIComponent(v.join("="));
   }
   return undefined;
+}
+
+/** The hash of this request's session token, or "" when there is none. */
+export function readCookieToken(req: Request): string {
+  const token = readCookie(req, COOKIE);
+  return token ? sha(token) : "";
 }
 
 export async function getSession(req: Request): Promise<SessionInfo | null> {
@@ -72,13 +120,14 @@ export async function endSession(req: Request): Promise<void> {
 }
 
 export function sessionCookie(token: string, maxAge: number): string {
-  const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
-  return `${COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure}`;
+  return `${COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secureFlag()}`;
 }
 
 export function clearCookie(): string {
-  return `${COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`;
+  return `${COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secureFlag()}`;
 }
+
+const secureFlag = () => (process.env.NODE_ENV === "production" ? "; Secure" : "");
 
 export function newId(): string {
   return randomUUID();
@@ -147,8 +196,30 @@ export function appOrigin(req: Request): string {
   return configured || new URL(req.url).origin;
 }
 
+/**
+ * The caller's address, for rate limits. Never the first X-Forwarded-For entry: a client can write
+ * anything there. Vercel's own header is trusted when present; otherwise the entry added by the last
+ * trusted proxy is used (TRUSTED_PROXY_HOPS, default 1, counted from the right).
+ */
 export function clientIp(req: Request): string {
-  return req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "local";
+  const vercel = req.headers.get("x-vercel-forwarded-for")?.split(",")[0].trim();
+  if (vercel) return vercel;
+  const chain = (req.headers.get("x-forwarded-for") ?? "").split(",").map((p) => p.trim()).filter(Boolean);
+  const hops = Math.max(1, Number(process.env.TRUSTED_PROXY_HOPS) || 1);
+  return chain[Math.max(0, chain.length - hops)] ?? req.headers.get("x-real-ip") ?? "local";
+}
+
+/** Timing-safe string comparison for shared secrets. */
+export function secretsMatch(a: string, b: string): boolean {
+  const x = createHash("sha256").update(a).digest();
+  const y = createHash("sha256").update(b).digest();
+  return timingSafeEqual(x, y);
+}
+
+/** A password check that takes the same time whether or not the account exists. */
+const DUMMY_HASH = `scrypt$${"00".repeat(16)}$${"00".repeat(64)}`;
+export async function burnPasswordCheck(password: string): Promise<void> {
+  await verifyPassword(password, DUMMY_HASH);
 }
 
 export function json(data: unknown, init: ResponseInit & { cookie?: string } = {}): Response {

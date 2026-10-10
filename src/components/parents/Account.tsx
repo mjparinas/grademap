@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { deleteAccount, forgotPassword, refreshAccount, resendVerification, signIn, signOut, signUp, type BillingInfo } from "@/lib/account";
+import { changePassword, deleteAccount, forgotPassword, listDevices, signOutDevices, type DeviceSession, refreshAccount, resendVerification, signIn, signOut, signUp, type BillingInfo } from "@/lib/account";
 import * as localdb from "@/lib/localdb";
 import { useStore } from "@/lib/store";
 import { syncNow } from "@/lib/sync";
@@ -136,6 +136,74 @@ function EmailToggle({ pref, title, hint, verified }: { pref: EmailPref; title: 
   );
 }
 
+function SecurityPanel() {
+  const [devices, setDevices] = useState<DeviceSession[] | null>(null);
+  const [current, setCurrent] = useState("");
+  const [next, setNext] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const load = () => void listDevices().then(setDevices, () => setDevices(null));
+  useEffect(load, []);
+  const run = async (fn: () => Promise<void>, done: string) => {
+    setError("");
+    setMessage("");
+    try {
+      await fn();
+      setMessage(done);
+      load();
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
+  return (
+    <Panel title="🔒 Security">
+      <form
+        className="flex max-w-md flex-col gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void run(async () => {
+            await changePassword(current, next);
+            setCurrent("");
+            setNext("");
+          }, "Password changed. Other devices were signed out.");
+        }}
+      >
+        <h3 className="font-semibold">Change password</h3>
+        <input type="password" autoComplete="current-password" required placeholder="Current password" value={current} onChange={(e) => setCurrent(e.target.value)} className="rounded-xl border-2 border-line px-3 py-2" aria-label="Current password" />
+        <input type="password" autoComplete="new-password" required minLength={8} placeholder="New password (8+ characters)" value={next} onChange={(e) => setNext(e.target.value)} className="rounded-xl border-2 border-line px-3 py-2" aria-label="New password" />
+        <button type="submit" className="self-start rounded-xl border border-line px-4 py-2 font-semibold">
+          Change password
+        </button>
+      </form>
+      <h3 className="mt-4 font-semibold">Devices signed in</h3>
+      {devices && (
+        <ul className="mt-1 flex flex-col gap-1.5 text-sm">
+          {devices.map((d) => (
+            <li key={d.id} className="flex items-center justify-between gap-3 rounded-xl bg-paper px-3 py-2">
+              <span>
+                {d.device}
+                {d.current && <b> (this device)</b>} · since {new Date(d.createdAt).toLocaleDateString("en-CA")}
+              </span>
+              {!d.current && (
+                <button type="button" className="font-semibold underline" onClick={() => void run(() => signOutDevices(d.id), "Signed out.")}>
+                  Sign out
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      {devices && devices.length > 1 && (
+        <button type="button" className="mt-2 rounded-xl border border-line px-4 py-2 font-semibold" onClick={() => void run(() => signOutDevices(), "Every other device was signed out.")}>
+          Sign out everywhere else
+        </button>
+      )}
+      {message && <p className="mt-2 font-semibold">{message}</p>}
+      {error && <p className="mt-2 font-semibold text-nudge-dark">{error}</p>}
+    </Panel>
+  );
+}
+
 function VerifyNotice() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -170,6 +238,7 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
   const sync = useStore((s) => s.sync);
   const [pending, setPending] = useState<number | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -225,6 +294,7 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
             <li>Changes to names, grades and settings sync too. The most recent change wins.</li>
           </ul>
         </Panel>
+        {account && <SecurityPanel />}
         {account && (
           <Panel title="Delete account">
             <p className="mb-3 font-read text-ink-soft">Permanently deletes your account and all progress stored on our servers, and clears this device.</p>
@@ -235,14 +305,15 @@ export function AccountPage({ onBilling }: { onBilling: (b: BillingInfo | null) 
         )}
       </div>
       <Dialog open={confirmDelete} title="Delete everything?" onClose={() => setConfirmDelete(false)}>
-        <p className="mb-4 font-read text-ink-soft">This can&apos;t be undone.</p>
+        <p className="mb-3 font-read text-ink-soft">This can&apos;t be undone. Type your password to confirm.</p>
+        <input type="password" autoComplete="current-password" aria-label="Password" value={deletePassword} onChange={(e) => setDeletePassword(e.target.value)} className="mb-4 w-full rounded-xl border-2 border-line px-3 py-2 text-lg" />
         {error && <p className="mb-2 text-nudge-dark">{error}</p>}
         <div className="flex flex-col gap-3">
           <button
             type="button"
             className="btn btn-nudge min-h-14 text-xl"
             onClick={() =>
-              void deleteAccount()
+              void deleteAccount(deletePassword)
                 .then(() => router.push("/play/"))
                 .catch((e: Error) => setError(e.message))
             }

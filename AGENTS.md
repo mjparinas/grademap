@@ -10,20 +10,20 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # GradeMap: guide for agents
 
-GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 7. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
+GradeMap is curriculum-matched practice, learning games and parent reports for Kindergarten to Grade 9. It launches with the BC Curriculum and is built to add other provinces and US states. This file records the product and design decisions already made, and why. Follow them. If a task seems to need one changed, raise it with the owner first; don't quietly work around it.
 
 ## Commands
 
 ```bash
 npm run dev                 # http://localhost:3000
-npm test                    # content checks for every unit + logic tests (~20 s)
+npm test                    # content checks for every unit + logic tests + province parity checks (~20 s)
 npm run lint
 npx tsc --noEmit            # run `npx next typegen` first in a fresh checkout (PageProps/LayoutProps)
 npm run build && npm start  # offline/service worker only works in a production build
 node scripts/e2e.mjs http://localhost:3000 e2e-shots --offline   # full playthrough + sync
 node scripts/e2e-devices.mjs http://localhost:3000                # layout on 14 phones/tablets
 node scripts/e2e-offline.mjs                                      # real offline (starts its own server)
-node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA on public, kids' and parent screens
+node scripts/e2e-a11y.mjs http://localhost:3000                   # axe-core WCAG 2.2 A/AA, plus colour-blind checks (screenshots in e2e-shots/a11y)
 ```
 
 Before you push, run tests, lint and typecheck. For UI or flow changes, also run the e2e scripts.
@@ -60,14 +60,14 @@ Tests are duplicated across screen sizes only where layout can break:
 ## Product decisions
 
 ### Positioning
-- **Audience:** parents of children in Kindergarten to Grade 7. Kids use the app; parents choose it, configure it and pay.
+- **Audience:** parents of children in Kindergarten to Grade 9. Kids use the app; parents choose it, configure it and pay.
 - **We differentiate on clarity, kindness and usability, not price.** IXL is expensive and hard to use, and Khan Academy is free. We win by:
   - speaking the language of the report card;
   - giving kind, encouraging feedback;
   - making it as compelling as a good video game.
   - Research is in `docs/research/`.
 - **Name:** "GradeMap" is a working name. It is set once in `src/lib/brand.ts`; never hard-code it elsewhere. The name was chosen because it works across provinces and countries.
-- **Platform:** a web-first installable app (PWA) built with Next.js. Android comes later by wrapping `/play/`, as a Trusted Web Activity or with Capacitor. Don't add features that only work in a native shell.
+- **Platform:** a web-first installable app (PWA) built with Next.js. Android is a Trusted Web Activity that wraps `/play/` (`android/`, `docs/ANDROID.md`), not Capacitor. Don't add features that only work in a native shell.
 
 ### Money
 - **No ads, ever. No tracking pixels. Never sell data.** Kids can never buy anything; coins are earned only by learning.
@@ -78,12 +78,24 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Payments:** Stripe Checkout and the Billing Portal, called over raw HTTPS with no SDK (`src/server/stripe.ts`).
   - Until Stripe keys are set, billing runs in a simulated dev mode (`ALLOW_DEV_BILLING=1` turns it on in production for staging).
 
-### Not tied to BC
+### Not tied to BC: every framework, every grade
 - **Everything that differs by province or state lives in a `Framework`** (`src/content/frameworks.ts`): grades, report-card scale, report-card guide and slug.
   - Each unit carries `standards[frameworkId]`. Each course carries `bigIdeas[frameworkId]`.
 - **No BC-specific wording in UI code.** Read names from the framework, such as `curriculumName` and the level labels.
-  - Public URLs are `/curriculum/{framework-slug}/{grade-slug}/{subject}/{unit}/` and `/report-cards/{framework-slug}/`.
-- **Adding a province or state** means adding a `Framework` and its standards, not new screens.
+  - Public URLs are `/curriculum/{framework-slug}/{grade-slug}/{subject}/{unit}/`, `/guides/{framework-slug}/...` and `/report-cards/{framework-slug}/`.
+- **Adding a province or state** means adding a `Framework` and its standards, not new screens (`docs/ADDING_A_PROVINCE.md`). BC content follows the BC curriculum; Ontario follows the Ontario curriculum; any other province or state follows its own official curriculum, with its own spelling rules (Canadian spelling in every Canadian province).
+- **Frameworks now: British Columbia (`ca-bc`, slug `bc`) and Ontario (`ca-on`, slug `ontario`).** Both cover Kindergarten to Grade 9 in math, language, science, social studies and the two French subjects. A parent picks the province per child (when adding the child, in Children and in Settings). Progress is shared between provinces for shared unit ids.
+- **Whenever you create or change content, apply it to every framework.** If you add a unit, grade, subject, guide, trophy, quest or page for one province, add the matching one for every other province and state in the same change, or say plainly in the PR which framework is still missing and why. If you change how a grade works (its units, French, scoring, wording), check that grade in every framework, because grade changes apply across regions. `src/content/coverage.test.ts` fails when a framework is missing a grade, a core subject, Big Ideas or French in a grade its province teaches; extend its tables when you add a framework.
+- **All sales, call-to-action and marketing copy says "Kindergarten to Grade 9"** and names both provinces. Prefer reading the grade range and province names from `FRAMEWORKS` over typing them. When the range changes, search the repo for the old range (`README.md`, pricing, help FAQs, metadata, manifest, share image, guides, compare pages, terms, plan features) and update every hit.
+
+### Ontario
+- **Standards** are the expectations in the Ontario Curriculum, cited by code (for example "History A1.1"; Grades 7 and 8 name the subject because Geography and History reuse strand letters). `content.test.ts` checks every code against `docs/research/ontario/expectations.json`. Source and checking record: `docs/research/ontario/`.
+- **Subjects:** math, language, science and technology, social studies (Grades 1 to 6), geography and history (Grades 7 and 8), Grade 9 science (SNC1W) and geography (CGC1W), Kindergarten (the Kindergarten Program), plus French as a second language.
+- **Report card:** Levels 1 to 4 (Growing Success). Grades 1 to 6 show letter grades, Grades 7 to 9 show percentage ranges, Kindergarten shows neither. The same kid labels (🌱 🌿 🌳 ⭐) and the same "practice, not a report-card mark" rule apply.
+- **Shared units:** where a BC unit truly fits, an Ontario course reuses it with Ontario's standards text (`Course.shares`). Sample the questions before sharing.
+- **First Nations, Métis and Inuit content** is deliberately light and needs partner review before launch. Don't add more without that.
+- **French as a second language:** Core French from Grade 4 and French Immersion from Grade 1 (Kindergarten immersion varies by board, so there is none). Extended French is not built.
+- **Parent guides:** the hub, a guide for each grade, subject help pages and printable sheets, a learning skills guide (`/guides/ontario/learning-skills/`) and an EQAO guide (`/guides/ontario/eqao/`). Check EQAO details against eqao.com before launch.
 
 ### Scoring follows the report card
 - **BC uses the four-level Provincial Proficiency Scale:** Emerging, Developing, Proficient, Extending.
@@ -103,8 +115,21 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Reports must say this reflects practice, not a report-card mark.** The teacher decides proficiency.
 - **The report card explainer appears in two places:** the parent area and the public `/report-cards/{slug}/` page. Both use `ReportCardGuide`.
 
+### French
+- **Two opt-in subjects, off by default** (a parent turns them on per child in Settings > Subjects): `immersion` (Français langue seconde – immersion) and `core-french`.
+  - **BC:** Immersion from Kindergarten to Grade 9; Core French from Grade 5 to Grade 9 (BC requires a second language from Grade 5).
+  - **Ontario:** Immersion from Grade 1 to Grade 9; Core French from Grade 4 to Grade 9 (Ontario requires Core French from Grade 4).
+  - The grades each province offers are fixed in `FRENCH_GRADES` in `src/content/coverage.test.ts`. Adding a province means adding its French rule there.
+- **They never count toward "every unit in your grade" goals or the Grade Champion trophy** (`isCoreSubject`), and reports only list French units once a child has started them.
+- **Immersion prompts are in French and set `lang: "fr"`**, so read-aloud uses a French voice (`speak(text, uri, "fr")`). Hints stay in English for parents. Core French prompts are in English with French answers.
+- **BC Big Ideas are copied word for word from the official BC PDFs** (Immersion: `en_fral_k-9_elab.pdf`; Core French: `en_languages_5-10_core-french.pdf`). Competencies and content are still to be reviewed by a French teacher. Ontario French units cite the Ontario FSL curriculum.
+- **French read-aloud** (`src/lib/readaloud.ts`) speaks each part of a question in its own language: Immersion prompts are French; Core French prompts are English with French marked in « » (`tagCoreFrench`), and `choicesLang`/`visualLang` mark French choices and stories. Parents pick a separate French voice in Settings (`grademap.voice.fr`, per device). Hints are always read in the English voice.
+- **French trophies** live in their own `FRENCH_TROPHIES` list in `src/lib/trophies.ts` (category "French"), plus a French mastery trophy per grade; French still doesn't count toward Grade Champion.
+- **Parent guide:** each province has a French guide at `/guides/{framework-slug}/french/` that compares Core French and French Immersion for that province.
+- **Verify French against the official sources:** curriculum.gov.bc.ca (`/curriculum/fral/{grade}/core` and `/curriculum/core-french/{grade}`) for BC, and the Ministry's FSL curriculum for Ontario. Have a French teacher review the wording before launch.
+
 ### Ages
-- **Three age bands** (`ageBandFor`): little (K–1), middle (2–4) and big (5–7). The band changes copy, size and features:
+- **Three age bands** (`ageBandFor`): little (K–1), middle (2–4) and big (5–9). The band changes copy, size and features:
   - **Subject names:**
     - Language: "Letters & Words" (little), "Reading & Writing" (middle), "Language Arts" (big).
     - Social studies: "My World" (little), "Our World" (middle), "Social Studies" (big).
@@ -144,19 +169,24 @@ Tests are duplicated across screen sizes only where layout can break:
   - Session bonuses: +15 per session, +25 when perfect, +40 for the Daily Challenge, +30 for passing a Challenge.
   - Level *n* needs `80 + 40(n−1)` XP.
 - **Coins** come from correct answers, sessions, games, trophies and quests. They're spent in a pretend shop on critter companions, titles and confetti styles.
-- **Trophies:** 57 of them (`src/lib/trophies.ts`) in Xbox/PlayStation-style tiers.
+- **Trophies:** 186 in the list, about 115 visible to a child at any one grade (mastery trophies are per grade), including a French group kept in its own list (`src/lib/trophies.ts`), in Xbox/PlayStation-style tiers. Everything a child can do has a trophy: every subject (a practice ladder for each of math, language, science, social studies and both French subjects), every mode, every arcade game, streaks, levels, shop, and mastery for every grade and subject.
 
   | Tier | Points | Coins |
   | --- | --- | --- |
   | Bronze | 15 | 10 |
   | Silver | 30 | 25 |
   | Gold | 90 | 60 |
-  | Platinum ("Grade Champion") | 300 | 250 |
+  | Platinum (one per grade: "Grade Champion"; plus 365 days practised, a 365-day streak, level 100) | 300 | 250 |
 
-  - A few trophies are secret.
+  - A few trophies are secret, including "Old School" (Konami code: arrow keys then B, A; on touch, eight swipes then two taps; `src/lib/konami.ts`).
   - Trophies pop up as **console-style toasts** that never take taps. A toast must never block the buttons underneath it.
-- **Daily quests:** 3 per day, seeded and claimed automatically.
-- **Streaks:** a day counts if the child finishes a session or gives at least 5 answers.
+- **Mastery trophies are per grade** (`grade-champion-4`, `master-math-4`, ...): only the child's current grade is shown and earned, so moving up gives new long goals. A trophy's optional `applies` hides it when the child's grade and curriculum have no such course (for example Core French before Grade 5 in BC), so nothing unearnable is shown. Trophies are not province-specific: they read the child's own `framework`, so a new framework needs no new trophies. When you add a subject, mode or game, add its trophy and quest in the same change. Old un-suffixed ids still count for points. Growth trophies (Emerging to Proficient, still Proficient after 30+ days away) and "days practised" (Journey) trophies are read from unit stats and day counts, never from loaded content.
+- **Daily quests:** 3 per day from a pool of about 30, seeded and claimed automatically. Little kids never get Speed Run or Review quests.
+- **Weekly quests:** 2 per week (Monday to Sunday), bigger rewards, also claimed automatically (stored as quest events keyed by the Monday's date, ids start `w-`).
+- **Streaks:** a day counts if the child finishes a session or gives at least 5 answers. Every 7 practice days earns a rest-day shield (up to 2) that covers a missed day, so one slip doesn't erase a long streak. Shields are computed in `derive`, never stored.
+- **Shop unlocks:** some items need a level or trophy as well as coins (`unlock` in `src/lib/shop.ts`).
+- **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
+- **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
 ### Arcade games
 - **Number Munchers** (math), **Word Ninja** (a Fruit Ninja-style game with Dolch sight words by grade), **Critter Catch** (science), **Bubble Pop** (phonics) and **Memory Match**.
@@ -180,10 +210,23 @@ Tests are duplicated across screen sizes only where layout can break:
 
 ### Classroom mode (`/teachers/`)
 - **A teacher is an ordinary account** that creates classes (`classes`, `class_members`, `class_assignments`). No billing change: classes are free for now.
+- **Each class follows one province** (`classes.framework`, BC or Ontario, chosen when the class is created). Assignments must be units of that province, and a child can only join a class of their own province.
+- **Public teacher pages** live under `/for-teachers/` (hub, province, grade), generated from content; `TEACHER_FRAMEWORK_IDS` in `src/components/site/teachers.ts` lists the provinces the teacher area supports. `/teachers/` itself stays noindex.
 - **Students join by code, and the parent decides.** A parent links a child under Children → "Join a class" and can leave at any time. Nothing about a child is shared before that, and the teacher only sees first name, avatar, grade, and level, accuracy and attempts on the units they assigned.
 - Closing a class, leaving it, removing a child and deleting an account all remove the links. Retention rules for school use are not decided; ask before adding any.
 - Teacher screens are labelled as practice, not a report-card mark. `/teachers/` is `noindex` and disallowed in `robots.ts`.
-- **Not built yet:** showing assigned units to the child in `/play/`, teacher-created (parentless) students, a school or teacher plan, and classroom wording in `/privacy/` and `/terms/`.
+- **Assigned units reach the child through sync** (`classwork` in the sync response, kept on the device so it works offline). `/play/` shows them as "From your teacher" on the home screen and marks them in the unit list; assigned units open even on the free plan.
+- **Not built yet:** teacher-created (parentless) students, a school or teacher plan, and classroom wording in `/privacy/` and `/terms/`.
+
+### Public pages and SEO
+- **Every framework gets the full set of public pages**, generated from content so a new grade or unit appears automatically:
+  - curriculum pages for the province, each grade, each subject and each unit, with sample questions;
+  - parent guides: a hub, a guide for each grade (Kindergarten to Grade 9), a help page and printable worksheet for each grade and subject, the province's competencies/learning-skills page, its provincial assessment page (BC: FSA; Ontario: EQAO) and its French guide;
+  - a report-card page.
+  - They are all in the sitemap (`allGuidePaths`, `allCurriculumPaths`).
+- **The guide copy is per province** (`src/content/guides.ts`, `src/content/ontario/guides.ts`): grade notes for every grade, competencies, assessment and French. Don't hard-code BC names in the shared page components; read slugs and labels from the framework's guide copy.
+- **Every public page that brings in visitors ends with a call to action** with a "Try it free" button to `/play/` (the shared `<SitePage cta>` block, or a page's own button where the wording needs to be specific, as on unit, guide and comparison pages). The header also carries a "Play free" button. `coverage.test.ts` fails when a public page has neither. Account, help, contact and legal pages are exempt.
+- **Pricing in call-to-action copy comes from `src/lib/plan.ts`**, never typed.
 
 ### Privacy
 - **We store very little about each child:**
@@ -316,8 +359,9 @@ Full guide: `docs/CONTENT_GUIDE.md`. The essentials:
 - **Before launch, BC teachers need to review all content.**
   - Several Big Ideas statements were written from memory; check them against curriculum.gov.bc.ca.
   - Check history dates in the Grade 4–5 social studies units.
+  - Grade 8–9 content (shared helpers in `src/content/grades/kit.ts`) uses the Big Ideas and content topics published on curriculum.gov.bc.ca, but the questions and unit detail still need teacher review. The Grade 9 Indigenous history unit should be reviewed with First Peoples partners.
 - **iOS Safari quirks** (safe areas, `100dvh`, read-aloud voices): the device layout tests now pass in real WebKit (Playwright's WebKit build, not Safari). A check on a real iPhone or iPad is still needed, especially for read-aloud voices.
 - **Deployment** is not done. Steps, env vars and the launch checklist are in `docs/DEPLOY.md`.
 - **Legal and content:** `/privacy/` and `/terms/` are drafts needing legal review; `LEGAL_NAME` and `CONTACT_EMAIL` in `src/lib/brand.ts` are placeholders.
-- **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI hasn't had a colour-blind simulation pass.
+- **Accessibility:** automated checks pass, but nobody has yet tried the app with a screen reader (VoiceOver, TalkBack, NVDA) or a keyboard-only run-through, and the kids' UI has only had a simulated colour-blind pass (`scripts/colour-blind.mjs`, run by `e2e-a11y.mjs`), not testing with colour-blind children.
 - **CSP on a real host:** production has no `'unsafe-inline'`, but the page-level policy lives in a `<meta>` tag that `scripts/csp-postbuild.mjs` writes into `.next/server/**/*.html` after the build. It is tested with `next start`, not yet on Vercel. After the first deploy, check that a prerendered page (e.g. `/play/`) still has the tag and loads with no console errors.

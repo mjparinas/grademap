@@ -8,13 +8,13 @@ import { APP_NAME } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Curriculum: what kids practise in each grade",
-  description: `Browse every unit ${APP_NAME} covers from Kindergarten to Grade 7, by curriculum, grade and subject, with sample questions and the learning standards each one matches.`,
+  description: `Browse every unit ${APP_NAME} covers from Kindergarten to Grade 9, by curriculum, grade and subject, with sample questions and the learning standards each one matches.`,
   alternates: { canonical: curriculumPath.index() },
 };
 
 export default function CurriculumIndex() {
   return (
-    <SitePage>
+    <SitePage cta>
       <Crumbs items={[{ label: "Home", href: "/" }, { label: "Curriculum" }]} />
       <h1 className="text-4xl font-bold">Curriculum</h1>
       <p className="mt-2 max-w-2xl font-read text-lg text-ink-soft">Pick a curriculum to see the units for each grade and subject, with sample questions.</p>

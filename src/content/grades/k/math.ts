@@ -1282,6 +1282,109 @@ const ROLE_PLAY: BankItem[] = [
     hint: "The cashier works at the store. They take the money and give you your things.",
     emoji: "🏪",
   },
+  {
+    prompt: "Which coin has a polar bear on it?",
+    right: { label: "toonie", coin: 200 },
+    wrong: [
+      { label: "dime", coin: 10 },
+      { label: "nickel", coin: 5 },
+    ],
+    hint: "The toonie is the big coin with a polar bear on it.",
+  },
+  {
+    prompt: "Which coin is silver and the smallest?",
+    right: { label: "dime", coin: 10 },
+    wrong: [
+      { label: "quarter", coin: 25 },
+      { label: "toonie", coin: 200 },
+    ],
+    hint: "The dime is silver and the smallest coin of all.",
+  },
+  {
+    prompt: "Which coin has a loon bird on it?",
+    right: { label: "loonie", coin: 100 },
+    wrong: [
+      { label: "nickel", coin: 5 },
+      { label: "quarter", coin: 25 },
+    ],
+    hint: "The loonie is gold and has a loon on it.",
+    emoji: "🐦",
+  },
+  {
+    prompt: "Which coin has a sailing ship on it?",
+    right: { label: "dime", coin: 10 },
+    wrong: [
+      { label: "loonie", coin: 100 },
+      { label: "quarter", coin: 25 },
+    ],
+    hint: "Look for the little ship. It is on the dime.",
+    emoji: "⛵",
+  },
+  {
+    prompt: "Which coin has a caribou on it?",
+    right: { label: "quarter", coin: 25 },
+    wrong: [
+      { label: "dime", coin: 10 },
+      { label: "toonie", coin: 200 },
+    ],
+    hint: "The quarter is a big silver coin with a caribou.",
+    emoji: "🦌",
+  },
+  {
+    prompt: "Which coin has a beaver on it?",
+    right: { label: "nickel", coin: 5 },
+    wrong: [
+      { label: "loonie", coin: 100 },
+      { label: "toonie", coin: 200 },
+    ],
+    hint: "The nickel is silver with a busy beaver on it.",
+  },
+  {
+    prompt: "Which one do you need to pay at a store?",
+    right: { label: "coins", emoji: "🪙" },
+    wrong: [
+      { label: "a spoon", emoji: "🥄" },
+      { label: "a sock", emoji: "🧦" },
+    ],
+    hint: "We pay with money. Coins are one kind of money.",
+  },
+  {
+    prompt: "Your coin rolls under the table. What do you do?",
+    right: { label: "pick it up", emoji: "🪙" },
+    wrong: [
+      { label: "leave it there", emoji: "🙈" },
+      { label: "throw it away", emoji: "🗑️" },
+    ],
+    hint: "Money is worth keeping. Pick it up and put it somewhere safe.",
+  },
+  {
+    prompt: "Which coin is gold and has 11 sides?",
+    right: { label: "loonie", coin: 100 },
+    wrong: [
+      { label: "dime", coin: 10 },
+      { label: "nickel", coin: 5 },
+    ],
+    hint: "The loonie is gold. Its edge has 11 sides.",
+  },
+  {
+    prompt: "Which coin has two colours?",
+    right: { label: "toonie", coin: 200 },
+    wrong: [
+      { label: "nickel", coin: 5 },
+      { label: "dime", coin: 10 },
+    ],
+    hint: "The toonie is silver on the outside and gold in the middle.",
+  },
+  {
+    prompt: "Who might give you coins for a piggy bank?",
+    right: { label: "a grown-up", emoji: "🧑" },
+    wrong: [
+      { label: "a tree", emoji: "🌳" },
+      { label: "a cloud", emoji: "☁️" },
+    ],
+    hint: "Grown-ups can give us money, like for a birthday or for helping out.",
+    emoji: "🐷",
+  },
 ];
 
 function coins({ difficulty = 2 }: GenerateOptions = {}): Question[] {

@@ -4,17 +4,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Critter } from "@/components/Critter";
 import { SitePage } from "@/components/site/SiteChrome";
-import { coursesFor, curriculumPath, gradesWithContent } from "@/components/site/curriculum";
+import { coursesFor, curriculumPath, gradesWithContent, subjectSeoTitle } from "@/components/site/curriculum";
 import { GAMES } from "@/components/play/games/types";
-import { DEFAULT_FRAMEWORK, getFramework } from "@/content/frameworks";
-import { GRADE_LABEL, SUBJECTS } from "@/content/subjects";
+import { DEFAULT_FRAMEWORK, FRAMEWORKS, getFramework } from "@/content/frameworks";
+import { GRADE_LABEL, SUBJECTS, isCoreSubject } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
+import { TEACHER_FRAMEWORKS, TEACHER_SIGNUP, teacherPath } from "@/components/site/teachers";
 import { JsonLd, ORG_JSON_LD, SITE_URL, absolute } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: `${APP_NAME} · Curriculum practice and learning games for Kindergarten to Grade 7` },
-  description: `Ad-free practice for Kindergarten to Grade 7 that follows the curriculum. An adaptive Adventure mode, learning games earned with focused practice, trophies, offline play, and progress reports in the same language as the report card. Free for ${TRIAL_DAYS} days.`,
+  title: { absolute: `${APP_NAME} · Curriculum practice and learning games for Kindergarten to Grade 9` },
+  description: `Ad-free practice for Kindergarten to Grade 9 that follows the curriculum. An adaptive Adventure mode, learning games earned with focused practice, trophies, offline play, and progress reports in the same language as the report card. Free for ${TRIAL_DAYS} days.`,
   alternates: { canonical: "/" },
 };
 
@@ -32,11 +33,11 @@ const FEATURES = [
 const FAQS = [
   {
     q: `Which grades does ${APP_NAME} cover?`,
-    a: "Kindergarten to Grade 7, in math, English language arts, science and social studies. The text, buttons and read-aloud adapt to the child's age: big pictures and spoken prompts for Kindergarten and Grade 1, more independence for older kids.",
+    a: "Kindergarten to Grade 9, in math, English language arts, science and social studies. The text, buttons and read-aloud adapt to the child's age: big pictures and spoken prompts for Kindergarten and Grade 1, more independence for older kids.",
   },
   {
-    q: "Is it matched to the BC curriculum?",
-    a: "Yes. Every unit is tagged with the BC curriculum learning standard it practises, and parent reports use the BC proficiency scale (Emerging, Developing, Proficient, Extending). More provinces are on the way.",
+    q: "Is it matched to our provincial curriculum?",
+    a: "Yes. Choose British Columbia or Ontario. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4). Ontario covers math, language, science, social studies and French (Core and Immersion) from Kindergarten to Grade 9. More provinces and states are on the way.",
   },
   {
     q: "Does it work without internet?",
@@ -92,7 +93,7 @@ export default function Home() {
       {/* Hero */}
       <section className="grid items-center gap-8 py-6 md:grid-cols-[1.1fr_1fr] md:py-12">
         <div>
-          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">Kindergarten to Grade 7 · {framework.curriculumName}</p>
+          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">{FRAMEWORKS.map((f) => f.region).join(" and ")} curriculum · Kindergarten to Grade 9</p>
           <h1 className="text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
             Practice that feels like play. <span className="text-[#4f8ef7]">Progress you can read.</span>
           </h1>
@@ -107,7 +108,27 @@ export default function Home() {
               See what&apos;s covered
             </Link>
           </div>
+          <p className="mt-4 max-w-xl font-read text-ink-soft">
+            Choose your province when you add a child:{" "}
+            {FRAMEWORKS.map((f, i) => (
+              <span key={f.id}>
+                {i > 0 && " and "}
+                <Link href={curriculumPath.framework(f)} className="font-semibold text-[#2f6fd6] underline">
+                  {f.region}
+                </Link>{" "}
+                ({f.subjects.map((s) => subjectSeoTitle(s).toLowerCase()).join(", ")}, up to {GRADE_LABEL[f.grades[f.grades.length - 1]]})
+              </span>
+            ))}
+            . More provinces and states are coming.
+          </p>
           <p className="mt-3 text-sm text-ink-soft">No card needed · No ads · Works offline</p>
+          <p className="mt-3 font-read text-ink-soft">
+            Teacher?{" "}
+            <Link href={TEACHER_SIGNUP} className="font-semibold text-[#2f6fd6] underline">
+              Create a free teacher account
+            </Link>
+            .
+          </p>
         </div>
         <div className="relative mx-auto grid max-w-md grid-cols-3 items-end gap-2" aria-hidden="true">
           <Critter id="hoot" mood="wave" size={120} className="justify-self-center" />
@@ -174,7 +195,7 @@ export default function Home() {
               <span className="text-xl font-bold">{GRADE_LABEL[g]}</span>
               <span className="text-sm text-ink-soft">{coursesFor(framework, g).reduce((n, c) => n + c.units.length, 0)} units</span>
               <span className="text-lg" aria-hidden="true">
-                {SUBJECTS.map((s) => s.emoji).join(" ")}
+                {SUBJECTS.filter((s) => isCoreSubject(s.id)).map((s) => s.emoji).join(" ")}
               </span>
             </Link>
           ))}
@@ -206,6 +227,33 @@ export default function Home() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Teachers */}
+      <section aria-labelledby="teachers" className="my-8 rounded-3xl bg-[#e8f1ff] p-6 sm:p-10">
+        <div className="grid items-center gap-6 md:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2 id="teachers" className="text-3xl font-bold sm:text-4xl">
+              Teaching a class?
+            </h2>
+            <p className="mt-3 font-read text-lg text-ink-soft">
+              Create a class, assign {TEACHER_FRAMEWORKS.map((f) => f.curriculumName).join(" and ")} units and see how each student is practising. Families join with a code and choose what is shared. Classes are free for now.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href={TEACHER_SIGNUP} className="btn btn-good min-h-12 px-5 text-lg">
+                Create a free teacher account
+              </Link>
+              <Link href={teacherPath.hub()} className="btn min-h-12 px-5 text-lg">
+                See how classes work
+              </Link>
+            </div>
+          </div>
+          <ul className="grid gap-2 font-read text-ink">
+            <li className="rounded-2xl bg-white p-3">📋 Assign units in a few taps</li>
+            <li className="rounded-2xl bg-white p-3">📈 See level, accuracy and attempts</li>
+            <li className="rounded-2xl bg-white p-3">🔒 Parents decide what is shared</li>
+          </ul>
         </div>
       </section>
 

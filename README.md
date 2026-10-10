@@ -1,6 +1,6 @@
 # GradeMap
 
-Curriculum-matched practice, learning games and parent reports for **Kindergarten to Grade 7**. It launches with the BC Curriculum, and other provinces and US states can be added. "GradeMap" is a working name; change it in `src/lib/brand.ts`.
+Curriculum-matched practice, learning games and parent reports for **Kindergarten to Grade 9**. It covers the BC and Ontario curricula, and other provinces and US states can be added. "GradeMap" is a working name; change it in `src/lib/brand.ts`.
 
 It's a web app first: it runs in any browser, installs to a tablet or phone home screen, and **works offline**. Progress, scores and trophies sync to the family account when the device is back online.
 
@@ -8,7 +8,7 @@ It's a web app first: it runs in any browser, installs to a tablet or phone home
 
 ### For kids (`/play/`)
 
-- **Age-adapted UI.** Kindergarten and Grade 1 get bigger buttons, shorter text, spoken prompts and simpler menus, and words like "Letters & Words" and "My World". Grades 2–4 and 5–7 get progressively more independence ("Language Arts", "Social Studies").
+- **Age-adapted UI.** Kindergarten and Grade 1 get bigger buttons, shorter text, spoken prompts and simpler menus, and words like "Letters & Words" and "My World". Grades 2–4 and 5–9 get progressively more independence ("Language Arts", "Social Studies").
 - **Modes:**
   - **Adventure:** one tap, endless and adaptive. It mixes subjects and favours units that are weak, untried or due for review.
   - **Practice:** pick a subject and unit.

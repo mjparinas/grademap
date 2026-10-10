@@ -1,5 +1,5 @@
 import { appOrigin, clientIp, createAuthToken, createSession, error, hashPassword, json, newId, rateLimited, sameOrigin, sessionCookie } from "@/server/auth";
-import { query, run } from "@/server/db";
+import { batch, query } from "@/server/db";
 import { sendEmail } from "@/server/email";
 import { verifyEmail } from "@/server/emailTemplates";
 import { getFamilyRow, toFamilyInfo } from "@/server/family";
@@ -23,20 +23,18 @@ export async function POST(req: Request) {
   const trialEndsAt = Math.min(maxTrial, Math.max(now, Number(body?.trialEndsAt) || maxTrial));
   const familyId = newId();
   const parentId = newId();
-  await run("INSERT INTO families (id, created_at, trial_ends_at, plan, updated_at) VALUES (?, ?, ?, 'trial', ?)", [
-    familyId,
-    now,
-    trialEndsAt,
-    now,
-  ]);
-  await run("INSERT INTO parents (id, family_id, email, password_hash, created_at) VALUES (?, ?, ?, ?, ?)", [
-    parentId,
-    familyId,
-    email,
-    await hashPassword(password),
-    now,
-  ]);
-  const { token, maxAge } = await createSession(parentId, familyId);
+  const hash = await hashPassword(password);
+  try {
+    // Both rows or neither, so a duplicate email can't leave an empty family behind.
+    await batch([
+      { sql: "INSERT INTO families (id, created_at, trial_ends_at, plan, updated_at) VALUES (?, ?, ?, 'trial', ?)", args: [familyId, now, trialEndsAt, now] },
+      { sql: "INSERT INTO parents (id, family_id, email, password_hash, created_at) VALUES (?, ?, ?, ?, ?)", args: [parentId, familyId, email, hash, now] },
+    ]);
+  } catch (e) {
+    if (/UNIQUE|constraint/i.test(String((e as Error).message))) return error(409, "That email already has an account. Try signing in.");
+    throw e;
+  }
+  const { token, maxAge } = await createSession(parentId, familyId, req);
   const family = toFamilyInfo((await getFamilyRow(familyId))!, email, false);
   // A failed email never blocks signup; the parent can ask for another from the Account page.
   await sendEmail(verifyEmail(email, appOrigin(req), await createAuthToken(parentId, "verify", 3 * 86_400_000)));

@@ -157,7 +157,7 @@ export function ParentApp() {
   }
   // Reports need each child's lessons; settings and billing still work if a download fails.
   return (
-    <ContentGate grades={profiles.map((p) => p.grade)} optional>
+    <ContentGate targets={profiles.map((p) => ({ grade: p.grade, framework: p.framework }))} optional>
       <Shell active={section}>{page}</Shell>
     </ContentGate>
   );

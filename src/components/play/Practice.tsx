@@ -13,6 +13,7 @@ import { useBand } from "../band";
 import { Critter, SpeechBubble } from "../Critter";
 import { Dialog, Page, ProgressBar, subjectVars } from "../ui";
 import { useAllowed } from "./useAllowed";
+import { useClasswork } from "./useClasswork";
 
 export function BackButton({ to = "/", label = "Back" }: { to?: string; label?: string }) {
   return (
@@ -41,7 +42,7 @@ export function SubjectPicker() {
   const settings = useChildSettings();
   const d = useDerived();
   const band = useBand();
-  const courses = coursesForGrade(profile.grade).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
+  const courses = coursesForGrade(profile.grade, profile.framework).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
   return (
     <Page className="gap-6">
       <header className="flex items-center gap-3">
@@ -132,8 +133,9 @@ export function UnitList({ subject }: { subject: SubjectId }) {
   const d = useDerived();
   const band = useBand();
   const allowed = useAllowed();
-  const course = coursesForGrade(profile.grade).find((c) => c.subject === subject);
+  const course = coursesForGrade(profile.grade, profile.framework).find((c) => c.subject === subject);
   const meta = getSubjectMeta(subject);
+  const assigned = new Set(useClasswork().map((a) => a.ref.key));
   const [selected, setSelected] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   if (!course) return null;
@@ -142,7 +144,7 @@ export function UnitList({ subject }: { subject: SubjectId }) {
   const start = (id: string) => {
     const key = unitKey(course.grade, subject, id);
     const ref = { key, course, unit: course.units.find((u) => u.id === id)! };
-    if (!allowed(ref)) return setLocked(true);
+    if (!allowed(ref) && !assigned.has(key)) return setLocked(true);
     // Little kids go straight in; older kids see their level and the Challenge option first.
     if (band === "little") go("/session", { mode: "practice", scope: key });
     else setSelected(key);
@@ -167,7 +169,7 @@ export function UnitList({ subject }: { subject: SubjectId }) {
           const key = unitKey(course.grade, subject, u.id);
           const level = unitLevel(d.units[key]);
           const isNext = u.id === nextUp?.id;
-          const open = allowed({ key, course, unit: u });
+          const open = allowed({ key, course, unit: u }) || assigned.has(key);
           return (
             <div key={u.id} className="animate-rise-in" style={{ animationDelay: `${i * 50}ms` }}>
               <button
@@ -182,6 +184,9 @@ export function UnitList({ subject }: { subject: SubjectId }) {
                   </span>
                 )}
                 {!open && <span className="absolute top-2 right-3 text-lg">🔒</span>}
+                {assigned.has(key) && !isNext && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#ffb020] px-3 py-0.5 text-sm font-bold whitespace-nowrap text-[#0f172a]">🍎 From your teacher</span>
+                )}
                 <span className="text-6xl leading-tight">{u.emoji}</span>
                 <span className="text-xl leading-tight font-bold sm:text-2xl">{u.title}</span>
                 <span className="font-read text-base leading-snug text-ink-soft">{u.blurb}</span>
@@ -211,7 +216,7 @@ export function SpeedPicker() {
   const settings = useChildSettings();
   const d = useDerived();
   const band = useBand();
-  const courses = coursesForGrade(profile.grade).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
+  const courses = coursesForGrade(profile.grade, profile.framework).filter((c) => (settings?.enabledSubjects ?? []).includes(c.subject));
   const options = [{ scope: "mix", title: "Mix it up", icon: "🎲", colour: "#7c4fe0", dark: "#5d34c4" }].concat(
     courses.map((c) => {
       const m = getSubjectMeta(c.subject);

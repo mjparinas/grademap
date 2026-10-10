@@ -9,7 +9,8 @@ import { weakest } from "@/lib/adaptive";
 import { gameTime } from "@/lib/gametime";
 import { dayKey } from "@/lib/model";
 import { canUse, type Feature } from "@/lib/plan";
-import { dailyQuests } from "@/lib/quests";
+import { dailyQuests, weekDays, weeklyQuests, weekStart } from "@/lib/quests";
+import { unitLevel } from "@/lib/proficiency";
 import { go } from "@/lib/router";
 import { useActiveProfile, useChildSettings, useDerived, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
@@ -17,8 +18,11 @@ import { useBand } from "../band";
 import { Critter, SpeechBubble } from "../Critter";
 import { Dialog, Page, ProgressBar } from "../ui";
 import { Hud } from "./Hud";
+import { BuddyButton, MooseVisitor } from "./Secrets";
 import { suggestions } from "./plans";
 import { useAllowed } from "./useAllowed";
+import { useClasswork } from "./useClasswork";
+import { LevelChip } from "./Practice";
 
 interface Tile {
   id: string;
@@ -54,23 +58,30 @@ export function Hub() {
   const goal = settings?.dailyGoalMinutes ?? 15;
   const subjects = settings?.enabledSubjects ?? ["math", "language", "science", "social"];
   const games = gameTime(settings, d, now);
-  const weak = weakest({ grade: profile.grade, derived: d, subjects }, 10).length;
+  const weak = weakest({ grade: profile.grade, framework: profile.framework, derived: d, subjects }, 10).length;
   const dailyDone = d.dailyDone.includes(today);
   const quests = dailyQuests(profile.id, today, band);
   const claimed = d.questsClaimed[today] ?? [];
-  const suggested = suggestions(profile.grade, d, subjects, allowed, 1)[0];
+  const monday = weekStart(now);
+  const weekly = weeklyQuests(profile.id, monday, band);
+  const weekStats = weekDays(monday).flatMap((k) => (d.days[k] ? [d.days[k]] : []));
+  const weekClaimed = d.questsClaimed[monday] ?? [];
+  const suggested = suggestions(profile.grade, profile.framework, d, subjects, allowed, 1)[0];
   const little = band === "little";
+  const classwork = useClasswork();
 
   // Welcome-back and streak copy is always warm and forward-looking, never about something lost.
-  const returning = d.totals.answers > 0 && d.streak.current === 0 && d.streak.daysPracticed > 0 && !d.streak.activeToday;
+  const returning = d.totals.answers > 0 && d.streak.current === 0 && d.activeDays > 0 && !d.streak.activeToday;
   const message = !d.totals.answers
     ? `${greeting(profile.name, new Date(now).getHours())} Tap the big button to start your first adventure!`
     : minutes >= goal
       ? `You hit today's goal! ${minutes} minutes of learning. Amazing!`
       : returning
-        ? `*Yawn* You're back, ${profile.name}! You've practised ${d.streak.daysPracticed} ${d.streak.daysPracticed === 1 ? "day" : "days"} so far. Let's start a new streak! 🔥`
+        ? `*Yawn* You're back, ${profile.name}! You've practised ${d.activeDays} ${d.activeDays === 1 ? "day" : "days"} so far. Let's start a new streak! 🔥`
         : d.streak.current > 1 && !d.streak.activeToday
-          ? `Day ${d.streak.current + 1} of your streak is waiting for you! 🔥`
+          ? d.streak.saved
+            ? `A rest-day shield kept your ${d.streak.current}-day streak safe. 🛡️ Play today to keep it going!`
+            : `Day ${d.streak.current + 1} of your streak is waiting for you! 🔥`
           : `${greeting(profile.name, new Date(now).getHours())} ${goal - minutes} more minutes to reach today's goal.`;
   const mood = minutes >= goal ? "cheer" : returning ? "sleepy" : "wave";
 
@@ -126,8 +137,10 @@ export function Hub() {
 
       <div className="flex items-center gap-3">
         {/* Smaller on the narrowest phones, hidden on phones held sideways, so the big button stays in view. */}
-        <Critter id={profile.companion} mood={mood} size={little ? 130 : 104} className="narrow:hidden short:hidden" />
-        <Critter id={profile.companion} mood={mood} size={72} className="hidden narrow:block short:hidden" />
+        <BuddyButton name={"your buddy"}>
+          <Critter id={profile.companion} mood={mood} size={little ? 130 : 104} className="narrow:hidden short:hidden" />
+          <Critter id={profile.companion} mood={mood} size={72} className="hidden narrow:block short:hidden" />
+        </BuddyButton>
         <SpeechBubble className="flex-1">
           <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>
           <div className="mt-2 flex items-center gap-2">
@@ -184,6 +197,38 @@ export function Hub() {
         })}
       </div>
 
+      {classwork.length > 0 && (
+        <section className="card p-4 sm:p-5" aria-label="From your teacher">
+          <h2 className="mb-3 flex items-center justify-between gap-2 text-xl font-bold sm:text-2xl">
+            <span>🍎 From your teacher</span>
+            <span className="text-sm font-semibold text-ink-soft">{classwork[0].className}</span>
+          </h2>
+          <ul className="flex flex-col gap-2.5">
+            {classwork.map(({ ref }) => {
+              const meta = getSubjectMeta(ref.course.subject);
+              const done = unitLevel(d.units[ref.key]) >= 2;
+              return (
+                <li key={ref.key}>
+                  <Link
+                    href={`#/session?mode=practice&scope=${encodeURIComponent(ref.key)}`}
+                    className={`flex min-h-14 items-center gap-3 rounded-2xl border-2 p-2.5 ${done ? "bg-good-soft" : "bg-paper"}`}
+                    style={{ borderColor: meta.colour }}
+                  >
+                    <span className="text-3xl">{ref.unit.emoji}</span>
+                    <span className="flex-1">
+                      <span className="block font-read text-lg font-bold">{ref.unit.title}</span>
+                      <span className="block text-sm font-semibold text-ink-soft">{meta.title[band]}</span>
+                    </span>
+                    <LevelChip level={unitLevel(d.units[ref.key])} compact={little} />
+                    <span className="text-xl">▶</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       <section className="card p-4 sm:p-5">
         <h2 className="mb-3 flex items-center justify-between text-xl font-bold sm:text-2xl">
           <span>🎯 Today&apos;s quests</span>
@@ -193,6 +238,29 @@ export function Hub() {
           {quests.map((q) => {
             const got = claimed.includes(q.id);
             const value = Math.min(q.target, q.progress(dayStat));
+            return (
+              <li key={q.id} className={`flex items-center gap-3 rounded-2xl p-2.5 ${got ? "bg-good-soft" : "bg-paper"}`}>
+                <span className="text-3xl">{got ? "✅" : q.icon}</span>
+                <div className="flex-1">
+                  <p className="font-read text-lg font-bold">{q.title}</p>
+                  <ProgressBar value={value} max={q.target} height={12} label={q.title} />
+                </div>
+                <span className="rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#7a5700]">🪙 {q.reward}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="card p-4 sm:p-5">
+        <h2 className="mb-3 flex items-center justify-between text-xl font-bold sm:text-2xl">
+          <span>🗓️ This week</span>
+          <span className="text-sm font-semibold text-ink-soft">New goals on Monday</span>
+        </h2>
+        <ul className="flex flex-col gap-2.5">
+          {weekly.map((q) => {
+            const got = weekClaimed.includes(q.id);
+            const value = Math.min(q.target, q.progress(weekStats));
             return (
               <li key={q.id} className={`flex items-center gap-3 rounded-2xl p-2.5 ${got ? "bg-good-soft" : "bg-paper"}`}>
                 <span className="text-3xl">{got ? "✅" : q.icon}</span>
@@ -227,6 +295,8 @@ export function Hub() {
           🔒 Grown-ups
         </Link>
       </div>
+
+      <MooseVisitor />
 
       <Dialog open={locked} title="Ask a grown-up" onClose={() => setLocked(false)}>
         <div className="mb-4 flex justify-center">

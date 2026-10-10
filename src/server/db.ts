@@ -109,6 +109,11 @@ const SCHEMA = [
     PRIMARY KEY (class_id, profile_id)
   )`,
   `CREATE INDEX IF NOT EXISTS class_members_family ON class_members (family_id)`,
+  // Stripe events already handled, so a redelivered webhook is a no-op.
+  `CREATE TABLE IF NOT EXISTS stripe_events (
+    id TEXT PRIMARY KEY,
+    created_at INTEGER NOT NULL
+  )`,
   `CREATE TABLE IF NOT EXISTS class_assignments (
     class_id TEXT NOT NULL,
     unit_key TEXT NOT NULL,
@@ -128,7 +133,20 @@ const PARENT_COLUMNS: [string, string][] = [
   ["last_nudge_at", "INTEGER"],
 ];
 
+/** Which province's curriculum a class assigns units from. Classes made before Ontario are BC. */
+const CLASS_COLUMNS: [string, string][] = [["framework", "TEXT NOT NULL DEFAULT 'ca-bc'"]];
+const SESSION_COLUMNS: [string, string][] = [["user_agent", "TEXT"]];
+const FAMILY_COLUMNS: [string, string][] = [["billing_event_at", "INTEGER NOT NULL DEFAULT 0"]];
+
+async function addColumns(c: Client, table: string, columns: [string, string][]) {
+  const have = new Set((await c.execute(`PRAGMA table_info(${table})`)).rows.map((r) => String(r.name)));
+  for (const [name, type] of columns) if (!have.has(name)) await c.execute(`ALTER TABLE ${table} ADD COLUMN ${name} ${type}`);
+}
+
 async function migrate(c: Client) {
+  await addColumns(c, "sessions", SESSION_COLUMNS);
+  await addColumns(c, "families", FAMILY_COLUMNS);
+  await addColumns(c, "classes", CLASS_COLUMNS);
   const have = new Set((await c.execute("PRAGMA table_info(parents)")).rows.map((r) => String(r.name)));
   for (const [name, type] of PARENT_COLUMNS) {
     if (!have.has(name)) await c.execute(`ALTER TABLE parents ADD COLUMN ${name} ${type}`);

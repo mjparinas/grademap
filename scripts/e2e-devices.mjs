@@ -247,15 +247,22 @@ async function deepChecks(device, browser, descriptor, page) {
     // A level-up can land together with the 10-question checkpoint, which has no Stop button.
     const keepGoing = page.getByRole("button", { name: /Keep going/ });
     if (await vis(keepGoing)) await keepGoing.click({ force: true });
-    await page.getByRole("button", { name: "Stop", exact: true }).waitFor();
-    const stopHit = await page.evaluate(() => {
-      // Answering can scroll a long question on a small screen; the header is at the top.
-      window.scrollTo({ top: 0 });
-      const stop = document.querySelector('button[aria-label="Stop"]');
-      const r = stop.getBoundingClientRect();
-      return document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)?.closest('button[aria-label="Stop"]') === stop;
-    });
-    record(device, "toast: Stop button still tappable under a toast", stopHit);
+    // The checkpoint screen can appear between waiting and measuring, so retry until Stop is on screen.
+    let stopHit = null;
+    for (let i = 0; i < 20 && stopHit === null; i++) {
+      const checkpoint = page.getByRole("button", { name: /Keep going/ });
+      if (await vis(checkpoint)) await checkpoint.click({ force: true });
+      stopHit = await page.evaluate(() => {
+        // Answering can scroll a long question on a small screen; the header is at the top.
+        window.scrollTo({ top: 0 });
+        const stop = document.querySelector('button[aria-label="Stop"]');
+        if (!stop) return null;
+        const r = stop.getBoundingClientRect();
+        return document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)?.closest('button[aria-label="Stop"]') === stop;
+      });
+      if (stopHit === null) await page.waitForTimeout(250);
+    }
+    record(device, "toast: Stop button still tappable under a toast", stopHit === true);
     await shot(page, device, "6-toast");
   } else record(device, "toast: a trophy toast appeared", false, "no toast seen");
 

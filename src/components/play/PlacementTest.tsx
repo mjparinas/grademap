@@ -1,27 +1,30 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AVAILABLE_GRADES, loadGrades } from "@/content";
+import { AVAILABLE_GRADES, loadGrades, type ContentTarget } from "@/content";
+import { getFramework } from "@/content/frameworks";
 import { getSubjectMeta } from "@/content/subjects";
-import type { GradeId, SubjectId } from "@/content/types";
+import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import { buildStage, gradesWithSubject, nextGrade, STAGE_SIZE, summarize, toEvent, MAX_STAGES, type Stage, type StageQuestion } from "@/lib/placement";
 import { go } from "@/lib/router";
-import { speak, stopSpeaking } from "@/lib/speech";
+import { speakQuestion } from "@/lib/readaloud";
+import { stopSpeaking } from "@/lib/speech";
 import { useActiveProfile, useChildSettings, useStore } from "@/lib/store";
 import { useBand } from "../band";
 import { Critter, SpeechBubble } from "../Critter";
 import { Dialog, Page, ProgressBar } from "../ui";
 import { QuestionVisual } from "../visuals";
-import { QuestionBody, readAloudText } from "./Session";
+import { QuestionBody } from "./Session";
 
 // The kids' side of the placement test. It looks like a calm lesson but gives no
 // right/wrong feedback and no retries; the result goes to the parent area.
 
 type Phase = "intro" | "loading" | "asking" | "done" | "error";
 
-const neighbours = (grade: GradeId): GradeId[] => {
-  const i = AVAILABLE_GRADES.indexOf(grade);
-  return [AVAILABLE_GRADES[i - 1], grade, AVAILABLE_GRADES[i + 1]].filter(Boolean);
+const neighbours = (grade: GradeId, framework: FrameworkId): ContentTarget[] => {
+  const grades = AVAILABLE_GRADES.filter((g) => getFramework(framework).grades.includes(g));
+  const i = grades.indexOf(grade);
+  return [grades[i - 1], grade, grades[i + 1]].filter(Boolean).map((g) => ({ grade: g, framework }));
 };
 
 export function PlacementTest({ subject }: { subject: SubjectId }) {
@@ -45,12 +48,12 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
   const q = stageQs[index]?.question;
 
   useEffect(() => {
-    if (phase === "asking" && q && settings?.autoRead) speak(readAloudText(q));
+    if (phase === "asking" && q && settings?.autoRead) speakQuestion(q);
     return stopSpeaking;
   }, [phase, q, settings?.autoRead]);
 
   async function startStage(grade: GradeId) {
-    const qs = buildStage(grade, subject);
+    const qs = buildStage(grade, subject, profile.framework);
     if (!qs.length) return false;
     current.current = { grade, correct: 0, missed: [] };
     setStageQs(qs);
@@ -63,7 +66,7 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
   async function begin() {
     setPhase("loading");
     try {
-      await loadGrades(neighbours(profile.grade));
+      await loadGrades(neighbours(profile.grade, profile.framework));
     } catch {
       return setPhase("error");
     }
@@ -76,10 +79,10 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
     stages.current = [...stages.current, { grade: c.grade, total: STAGE_SIZE, correct: c.correct, asked: stageQs.map((s) => s.unitKey), missed: c.missed }];
     setPhase("loading");
     // Make sure the grades either side are in before deciding where to go next. Offline, just work with what we have.
-    await loadGrades(neighbours(c.grade)).catch(() => {});
-    const next = nextGrade(stages.current, gradesWithSubject(subject));
+    await loadGrades(neighbours(c.grade, profile.framework)).catch(() => {});
+    const next = nextGrade(stages.current, gradesWithSubject(subject, profile.framework));
     if (next && (await startStage(next))) return setPhase("asking");
-    log([toEvent(summarize(subject, profile.grade, stages.current))]);
+    log([toEvent(summarize(subject, profile.grade, stages.current, profile.framework))]);
     setPhase("done");
   }
 
@@ -144,7 +147,7 @@ export function PlacementTest({ subject }: { subject: SubjectId }) {
           ✕
         </button>
         <ProgressBar value={index} max={STAGE_SIZE} className="flex-1" label={`Part ${part} of up to ${MAX_STAGES}`} />
-        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speak(readAloudText(q))}>
+        <button type="button" className="btn btn-soft h-14 w-14 shrink-0 text-2xl" aria-label="Read it to me" onClick={() => speakQuestion(q)}>
           🔊
         </button>
       </header>

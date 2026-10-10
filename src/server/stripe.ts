@@ -11,6 +11,8 @@ export function stripeConfigured(): boolean {
 
 /** Lets you click through the subscription flow without Stripe while developing. */
 export function devBillingAllowed(): boolean {
+  // Never on the real production deployment, even with the flag: it grants premium without payment.
+  if (process.env.VERCEL_ENV === "production") return false;
   return !stripeConfigured() && (process.env.NODE_ENV !== "production" || process.env.ALLOW_DEV_BILLING === "1");
 }
 
@@ -30,6 +32,22 @@ async function stripe<T>(path: string, params: Record<string, string>): Promise<
   const data = (await res.json()) as T & { error?: { message: string } };
   if (!res.ok) throw new Error(data.error?.message ?? `Stripe error ${res.status}`);
   return data;
+}
+
+/** Ends every live subscription for a customer, immediately. Throws if Stripe refuses. */
+export async function cancelSubscriptions(customer: string): Promise<number> {
+  const headers = { authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}` };
+  const res = await fetch(`https://api.stripe.com/v1/subscriptions?customer=${encodeURIComponent(customer)}&status=all&limit=100`, { headers });
+  const data = (await res.json()) as { data?: { id: string; status: string }[]; error?: { message: string } };
+  if (!res.ok) throw new Error(data.error?.message ?? `Stripe error ${res.status}`);
+  let cancelled = 0;
+  for (const sub of data.data ?? []) {
+    if (sub.status === "canceled" || sub.status === "incomplete_expired") continue;
+    const del = await fetch(`https://api.stripe.com/v1/subscriptions/${encodeURIComponent(sub.id)}`, { method: "DELETE", headers });
+    if (!del.ok) throw new Error(((await del.json()) as { error?: { message: string } }).error?.message ?? `Stripe error ${del.status}`);
+    cancelled++;
+  }
+  return cancelled;
 }
 
 export async function createCheckout(opts: {

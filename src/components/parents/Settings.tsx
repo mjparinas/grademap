@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getFramework } from "@/content/frameworks";
 import { getSubjectMeta, SUBJECTS } from "@/content/subjects";
 import type { SubjectId } from "@/content/types";
 import { defaultChildSettings, type ChildSettings } from "@/lib/model";
@@ -45,7 +46,7 @@ export function SettingsPage({ childId }: { childId?: string }) {
   const [newPin, setNewPin] = useState("");
   const [pinSaved, setPinSaved] = useState(false);
   if (!child) return <NoChildren />;
-  const s: ChildSettings = stored ?? defaultChildSettings(child.id, child.grade === "k" || child.grade === "1");
+  const s: ChildSettings = stored ?? defaultChildSettings(child.id, false, child.grade);
   const set = (patch: Partial<ChildSettings>) => update(child.id, patch);
   const focusOn = Boolean(s.calmMotion && s.quietSounds && s.hideTimers && s.quietToasts && s.shortSessions);
   const toggleSubject = (id: SubjectId) => {
@@ -113,7 +114,7 @@ export function SettingsPage({ childId }: { childId?: string }) {
         <Panel title="📚 Subjects">
           <p className="mb-3 text-sm text-ink-soft">Choose what shows up in lessons, Adventure and the Daily Challenge.</p>
           <div className="grid grid-cols-2 gap-2">
-            {SUBJECTS.map((sub) => (
+            {SUBJECTS.filter((sub) => getFramework(child.framework).subjects.includes(sub.id)).map((sub) => (
               <label key={sub.id} className="flex items-center gap-2 rounded-xl bg-paper px-3 py-2 font-semibold">
                 <input type="checkbox" checked={s.enabledSubjects.includes(sub.id)} onChange={() => toggleSubject(sub.id)} className="h-5 w-5 accent-[#4f8ef7]" />
                 {getSubjectMeta(sub.id).emoji} {sub.title.big}
@@ -125,6 +126,7 @@ export function SettingsPage({ childId }: { childId?: string }) {
         <Panel title="🔊 Sound & reading">
           <div className="flex flex-col gap-3">
             <Switch label="Sounds" value={s.sound} onChange={(v) => set({ sound: v })} help="Clicks, chimes and celebrations." />
+            <Switch label="Vibration" value={s.haptics !== false && !s.calmMotion} onChange={(v) => set({ haptics: v })} help="A light buzz on taps and answers. Works on Android phones and tablets; iPhones and iPads do not support it. Off whenever motion is calmed." />
             <Switch label="Read questions out loud" value={s.autoRead} onChange={(v) => set({ autoRead: v })} help="On by default for Kindergarten and Grade 1. Kids can always tap 🔊 to hear a question." />
           </div>
         </Panel>

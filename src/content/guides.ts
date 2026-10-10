@@ -1,3 +1,5 @@
+import { FRAMEWORKS } from "./frameworks";
+import { ONTARIO_GUIDES } from "./ontario/guides";
 import type { AgeBand, FrameworkId, GradeId, SubjectId } from "./types";
 
 // Parent-facing guide copy that differs by province. Like frameworks.ts, this is
@@ -7,14 +9,20 @@ export interface Competency {
   id: string;
   name: string;
   blurb: string;
-  /** The official sub-competencies. */
+  /** The official sub-competencies, if the framework has them. */
   parts: { name: string; blurb: string }[];
   atHome: string[];
 }
 
 export interface Assessment {
+  /** URL segment, e.g. "fsa" or "eqao". */
+  slug: string;
   /** Short name used in links and headings, e.g. "FSA". */
   short: string;
+  /** Who runs it and where the current dates are published, for the "dates change" note. */
+  source: string;
+  /** One line for the guides hub. */
+  hubBlurb: string;
   name: string;
   intro: string;
   /** Grades that write it. */
@@ -31,10 +39,44 @@ export interface GradeNote {
   lookFor: string;
 }
 
+export interface FrenchGuide {
+  title: string;
+  intro: string;
+  /** Finishes the meta description, e.g. when each program starts. */
+  metaTail: string;
+  /** Grades to link for "browse the French lessons". */
+  browse: GradeId[];
+  /** Core French and French Immersion side by side. */
+  compare: { title: string; core: string; immersion: string }[];
+  sections: { title: string; body: string }[];
+  atHome: string[];
+  faqs: { q: string; a: string }[];
+}
+
 export interface FrameworkGuides {
-  competencies: { title: string; intro: string; items: Competency[]; faqs: { q: string; a: string }[] };
+  /** Not every province has a French guide yet. */
+  french?: FrenchGuide;
+  competencies: {
+    /** URL segment, e.g. "core-competencies" or "learning-skills". */
+    slug: string;
+    /** Short name used in links and breadcrumbs, e.g. "Core Competencies". */
+    label: string;
+    /** One line for the guides hub. */
+    hubBlurb: string;
+    /** Meta description. */
+    description: string;
+    /** Sentence for grade pages, ending in a link to the guide. */
+    gradeLine: string;
+    /** Closing note on the guide page. */
+    closing: string;
+    title: string;
+    intro: string;
+    items: Competency[];
+    faqs: { q: string; a: string }[];
+  };
   assessment: Assessment;
-  gradeNotes: Record<GradeId, GradeNote>;
+  /** Only for grades the framework covers. */
+  gradeNotes: Partial<Record<GradeId, GradeNote>>;
 }
 
 /** Short home activities, by subject and age band. Not tied to a province. */
@@ -119,10 +161,57 @@ export const HOME_TIPS: Record<SubjectId, Record<AgeBand, string[]>> = {
       "Ask “Whose voice is missing from this story?” when reading about the past.",
     ],
   },
+  immersion: {
+    little: [
+      "Read French picture books together, even if you are learning too. Let your child tell you what is happening.",
+      "Sing French songs and nursery rhymes in the car or at bath time.",
+      "Name things around the house in French, and ask your child to teach you the words.",
+      "Clap the syllables in French words and play “What rhymes with chat?”",
+    ],
+    middle: [
+      "Read a short French book or comic together a few times a week, and talk about it in either language.",
+      "Ask your child to teach you one new French word or grammar rule a day.",
+      "Watch a French show with the French subtitles on, then retell the story.",
+      "Keep a short French journal: one or two sentences a day.",
+    ],
+    big: [
+      "Read French novels, comics or articles on topics your child enjoys.",
+      "Ask your child to explain a grammar rule to you, with an example.",
+      "Have your child write a short French note or message to a relative or pen pal.",
+      "Use a French dictionary or conjugation tool together when revising a draft.",
+    ],
+  },
+  "core-french": {
+    little: [
+      "Learn a few French words together, like bonjour, merci and au revoir.",
+      "Sing a French song and clap along.",
+      "Name colours and animals in French.",
+      "Greet each other in French at breakfast.",
+    ],
+    middle: [
+      "Learn a few French words together, like bonjour, merci and au revoir.",
+      "Label things around the house with French sticky notes.",
+      "Count in French while climbing the stairs.",
+      "Play a French game or watch a short French video together.",
+    ],
+    big: [
+      "Practise a few minutes a day: greetings, numbers, then simple sentences about yourself.",
+      "Say your answers out loud in French, even if you are not sure. Speaking is how it sticks.",
+      "Watch French videos with subtitles and spot words that look like English (cognates).",
+      "Look up a Francophone festival or community in Canada and share one thing you learned.",
+    ],
+  },
 };
 
 const BC_GUIDES: FrameworkGuides = {
   competencies: {
+    slug: "core-competencies",
+    label: "Core Competencies",
+    hubBlurb: "Communication, Thinking, and Personal and Social, in plain words.",
+    description:
+      "What the three BC Core Competencies mean (Communication, Thinking, and Personal and Social), how they show up on the report card, and simple ways to support them at home.",
+    gradeLine: "Core Competencies are part of every grade.",
+    closing: "Core Competencies grow through conversation, projects and play.",
     title: "BC Core Competencies on the report card, explained for parents",
     intro:
       "Alongside subjects like math and science, the BC curriculum has three Core Competencies: Communication, Thinking, and Personal and Social. They are the skills students use to learn anything. Students think about their own growth in them, usually with a short self-assessment, and teachers refer to them in report card comments.",
@@ -190,8 +279,46 @@ const BC_GUIDES: FrameworkGuides = {
       },
     ],
   },
+  french: {
+    metaTail: "Core French starts in Grade 5; French Immersion usually starts in Kindergarten or Grade 1.",
+    browse: ["5", "k"],
+    title: "Core French and French Immersion in BC: a guide for parents",
+    intro:
+      "Many BC families wonder how Core French and French Immersion differ, when each starts, and how to help at home if you don't speak French. Both follow the BC curriculum, and GradeMap practises both as optional subjects you can switch on for each child.",
+    compare: [
+      { title: "What it is", core: "French as one school subject, taught a few times a week alongside classes in English.", immersion: "A program where much of the school day, including subjects such as math and science, is taught in French." },
+      { title: "When it starts", core: "Core French starts in Grade 5 in BC.", immersion: "Early French Immersion usually begins in Kindergarten or Grade 1. Some districts also offer late immersion, often in Grade 6." },
+      { title: "Who it suits", core: "Every child can learn some French. No earlier French is needed.", immersion: "Families who want their child to become fluent. Programs and entry points differ by district, so check with yours." },
+      { title: "Name in the curriculum", core: "BC Core French", immersion: "Français langue seconde – immersion" },
+      { title: "In GradeMap", core: "Grades 5 to 9. Prompts are in English, with French words and sentences to read, choose and build.", immersion: "Kindergarten to Grade 9. Prompts and stories are in French, with English hints for parents." },
+    ],
+    sections: [
+      { title: "What Core French children learn", body: "Core French builds everyday communication: greetings, numbers, family, school, food, weather, hobbies and describing people and places. In the upper grades children start to write short texts, use common verbs and ask and answer questions. The aim is confidence with simple, real conversations." },
+      { title: "What French Immersion children learn", body: "In immersion, children learn to listen, speak, read and write in French, and learn other subjects in French too. Younger children start with songs, stories and routines, then move on to sentences, paragraphs and longer texts as the grades go on. English reading and writing are taught as well. How much is in French in each grade depends on the school district." },
+      { title: "How report cards describe French", body: "French is reported on the same four-level scale as other subjects: Emerging, Developing, Proficient and Extending. Teachers look at listening, speaking, reading and writing together. GradeMap shows practice, not a report card mark, so ask your child's teacher what the level means for your child." },
+      { title: "Helping if you don't speak French", body: "You don't need French to help. Ask your child to teach you a word each day, listen while they read aloud, and celebrate effort over accuracy. Mistakes are a normal part of learning a language." },
+      { title: "How GradeMap fits in", body: "French is off by default. A parent can switch on Immersion, Core French or both for each child in Settings, under Subjects. French is not counted toward the Grade Champion trophy, and French lessons are read aloud with a French voice from your device. You can pick that voice in Settings." },
+    ],
+    atHome: [
+      "Pick one new French word each day and use it at dinner or on the way to school.",
+      "Label a few household objects with sticky notes in French.",
+      "Listen to French songs or watch a short French video together and talk about what you noticed.",
+      "Ask your child to read a page aloud in French, then retell it to you in English.",
+      "Play a French game: count stairs, name colours, or spell a word out loud.",
+    ],
+    faqs: [
+      { q: "When does Core French start in BC?", a: "Core French begins in Grade 5. Your school or district can tell you how much time it gets each week." },
+      { q: "Can my child start French Immersion later?", a: "Some districts offer late immersion, often starting in Grade 6, and some have limited spaces in other grades. Entry rules differ, so ask your district office." },
+      { q: "Will French Immersion hurt my child's English?", a: "English reading and writing are still taught in immersion, and research has generally found that immersion students do well in English. If you are worried, talk with your child's teacher." },
+      { q: "Do French marks count toward the Grade Champion trophy in GradeMap?", a: "No. French is a separate, optional set of subjects. Children earn their own French trophies instead." },
+      { q: "Does GradeMap replace French class?", a: "No. It gives short, kind practice that matches the topics in the BC curriculum. It doesn't replace a teacher, and its levels are not a report card mark." },
+    ],
+  },
   assessment: {
+    slug: "fsa",
     short: "FSA",
+    source: "the Ministry of Education and Child Care",
+    hubBlurb: "The Grade 4 and Grade 7 Foundation Skills Assessment.",
     name: "Foundation Skills Assessment (FSA)",
     intro:
       "The Foundation Skills Assessment is an annual provincial check of literacy and numeracy that students in Grades 4 and 7 take in BC. For many students it is the first provincial assessment they write. It is separate from the report card and from class marks.",
@@ -266,11 +393,24 @@ const BC_GUIDES: FrameworkGuides = {
       overview: "Grade 7 is the last elementary year in many BC schools and prepares students for secondary school. Students take the Foundation Skills Assessment, and work on integers, the links between decimals, fractions, ratios and percents, two-step equations, circles and deeper analysis of what they read.",
       lookFor: "Look for comments on independence, study habits and confidence with the harder math and reading ahead.",
     },
+    "8": {
+      overview: "Grade 8 is the first year of secondary school in many BC districts. Students work with fraction operations, squares and roots, ratios and rates, linear equations, the Pythagorean theorem and surface area and volume, and they study cells, particles and plate tectonics.",
+      lookFor: "Look for comments on managing a heavier workload, showing steps in math and supporting an argument with evidence from a text.",
+    },
+    "9": {
+      overview: "Grade 9 builds towards the graduation years. Students work with rational numbers, exponent laws, polynomials, multi-step equations and linear relations, explore atoms, electric current and ecosystems, and study the Enlightenment, industrialization and Canada's story.",
+      lookFor: "Look for comments on planning ahead for course choices, explaining reasoning in math and weighing perspectives in social studies and English.",
+    },
   },
 };
 
-export const GUIDES: Record<FrameworkId, FrameworkGuides> = { "ca-bc": BC_GUIDES };
+/** Guides are written per jurisdiction. Frameworks without an entry have no guide pages yet. */
+export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES };
+
+export const GUIDE_FRAMEWORKS = FRAMEWORKS.filter((f) => GUIDES[f.id]);
 
 export function guidesFor(id: FrameworkId): FrameworkGuides {
-  return GUIDES[id];
+  const g = GUIDES[id];
+  if (!g) throw new Error(`No parent guides for ${id}`);
+  return g;
 }

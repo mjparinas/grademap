@@ -2201,6 +2201,22 @@ const PUNCTUATION: Item[] = [
   punct(3, "Jay asked, “Where is my backpack?”", ["Jay asked, “Where is my backpack”?", "Jay asked “Where, is my backpack?”", "Jay asked, Where is my backpack?”"], "Quotation marks go around the exact words spoken. The question mark belongs to the question, so it goes inside."),
   // Compound sentences
   punct(3, "Kenji wanted to play outside, but it was raining.", ["Kenji wanted to play outside but, it was raining.", "Kenji wanted, to play outside but it was raining.", "Kenji, wanted to play outside but it was raining."], "In a compound sentence, the comma goes before the joining word (and, but, so)."),
+  punct(3, "I wanted a snack, so I made toast.", ["I wanted a snack so, I made toast.", "I wanted, a snack so I made toast.", "I wanted a snack so I made, toast."], "In a compound sentence, the comma goes before the joining word (and, but, so)."),
+  // More commas
+  punct(1, "We saw ducks, geese and swans at the pond.", ["We saw, ducks geese and swans at the pond.", "We saw ducks geese and swans, at the pond.", "We saw ducks geese, and swans at the pond."], "Use commas to separate the items in a list: ducks, geese and swans."),
+  punct(1, "Lena, can you help me?", ["Lena can, you help me?", "Lena can you, help me?", "Lena can you help, me?"], "When you speak directly to someone by name, put a comma right after their name."),
+  punct(1, "Next, we mixed the batter.", ["Next we, mixed the batter.", "Next we mixed, the batter.", "Next we mixed the, batter."], "Put a comma right after an introductory word like next, first or finally."),
+  punct(2, "For example, plants need sunlight.", ["For example plants, need sunlight.", "For, example plants need sunlight.", "For example plants need, sunlight."], "Put a comma after an introductory phrase like “For example.”"),
+  punct(2, "You will need two tools: a hammer and a saw.", ["You will need: two tools a hammer and a saw.", "You will need two tools, a hammer: and a saw.", "You: will need two tools a hammer and a saw."], "A colon comes right before the list begins, after a complete sentence."),
+  // More apostrophes
+  punct(1, "the teacher's desk", ["the teachers desk", "the teachers' desk"], "For one owner, add 's to the end of the word.", "Which shows a desk that belongs to one teacher?"),
+  punct(2, "the women's coats", ["the womens' coats", "the womens coats", "the womans coats"], "“Women” is already plural and doesn't end in s, so add 's.", "Which shows coats that belong to the women?"),
+  punct(2, "the cats' bowls", ["the cat's bowls", "the cats bowls", "the cats's bowls"], "For a plural word that already ends in s, just add an apostrophe after the s.", "Which shows bowls that belong to several cats?"),
+  punct(1, "isn't", ["is'nt", "isnt'", "isnt"], "The apostrophe takes the place of the missing o in “not.”", "Which is the correct contraction for “is not”?"),
+  punct(2, "we're", ["w'ere", "were'", "we'are"], "The apostrophe replaces the missing a in “are”: we + are = we're.", "Which is the correct contraction for “we are”?"),
+  // More quotation marks
+  punct(3, "“I love this song,” said Maya.", ["“I love this song, said Maya.”", "I love this song,” said Maya.", "“I love this song” said, Maya."], "Put quotation marks around only the words that are spoken. The comma goes inside the closing quotation mark."),
+  punct(3, "Mom said, “Dinner is ready.”", ["Mom said “Dinner is ready”.", "Mom said, Dinner is ready.”", "Mom said “Dinner, is ready.”"], "Quotation marks go around the exact words spoken, and the period goes inside them."),
 ];
 
 /** Which rule an item practises, so each set mixes several rules. */

@@ -1,5 +1,6 @@
 "use client";
 
+import { Milestones } from "./Milestones";
 import { useMemo, useState } from "react";
 import { getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, getSubjectMeta, SUBJECTS } from "@/content/subjects";
@@ -19,7 +20,7 @@ export function ReportsPage({ childId }: { childId?: string }) {
   const settings = useChildSettings(child?.id);
   const [period, setPeriod] = useState(14);
   const report = useMemo(
-    () => (child ? buildReport(eventsFor(events, child), d, child.grade, period) : null),
+    () => (child ? buildReport(eventsFor(events, child), d, child.grade, child.framework, period) : null),
     [child, events, d, period],
   );
   if (!child || !report) return <NoChildren />;
@@ -51,6 +52,8 @@ export function ReportsPage({ childId }: { childId?: string }) {
       <div className="print:hidden">
         <ChildTabs base="reports" current={child} />
       </div>
+
+      <Milestones p={child} />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StatTile

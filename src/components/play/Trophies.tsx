@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { TIER_STYLE, TROPHIES, type Tier, type Trophy, type TrophyCategory } from "@/lib/trophies";
+import { TIER_STYLE, visibleTrophies, type Tier, type Trophy, type TrophyCategory } from "@/lib/trophies";
 import { useActiveProfile, useDerived } from "@/lib/store";
+import { CRITTERS, CritterSvg } from "../Critter";
 import { Page, ProgressBar } from "../ui";
 import { LevelBadge } from "./Hud";
 import { BackButton } from "./Practice";
 
 const TIERS: Tier[] = ["platinum", "gold", "silver", "bronze"];
-const CATEGORIES: TrophyCategory[] = ["Getting started", "Practice", "Streaks", "Mastery", "Modes", "Arcade", "Collector", "Secret"];
+const CATEGORIES: TrophyCategory[] = ["Getting started", "Practice", "Streaks", "Mastery", "Modes", "Arcade", "Collector", "Journey", "French", "Secret"];
 
 export function TrophyIcon({ trophy, earned, size = 64 }: { trophy: Trophy; earned: boolean; size?: number }) {
   const s = TIER_STYLE[trophy.tier];
@@ -33,9 +34,10 @@ export function TrophyRoom() {
   const profile = useActiveProfile()!;
   const d = useDerived();
   const [filter, setFilter] = useState<"all" | "earned" | "todo">("all");
-  const earned = TROPHIES.filter((t) => d.trophies[t.id]);
-  const pct = Math.round((earned.length / TROPHIES.length) * 100);
-  const ctx = { grade: profile.grade };
+  const ctx = { grade: profile.grade, framework: profile.framework };
+  const all = visibleTrophies(d, ctx);
+  const earned = all.filter((t) => d.trophies[t.id]);
+  const pct = Math.round((earned.length / all.length) * 100);
 
   return (
     <Page className="gap-5">
@@ -51,7 +53,7 @@ export function TrophyRoom() {
           <div className="flex-1">
             <p className="text-2xl font-bold">{profile.name}</p>
             <p className="text-white/70">
-              {d.trophyPoints} trophy points · {earned.length}/{TROPHIES.length} trophies
+              {d.trophyPoints} trophy points · {earned.length}/{all.length} trophies
             </p>
             <div className="mt-2 flex items-center gap-2">
               <div className="h-3 flex-1 overflow-hidden rounded-full bg-white/15">
@@ -66,12 +68,24 @@ export function TrophyRoom() {
                 <span className="flex h-11 w-11 items-center justify-center rounded-full text-xl" style={{ background: `radial-gradient(circle at 35% 30%, ${TIER_STYLE[tier].glow}, ${TIER_STYLE[tier].colour})` }}>
                   🏆
                 </span>
-                <span className="mt-1 text-lg font-bold">{earned.filter((t) => t.tier === tier).length}</span>
+                <span className="mt-1 text-lg font-bold leading-none">{earned.filter((t) => t.tier === tier).length}</span>
+                {/* The medal colours alone don't tell the tiers apart for everyone, so name them. */}
+                <span className="text-xs font-bold opacity-80">{TIER_STYLE[tier].label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {d.trophies["critter-party"] && (
+        <section className="card flex flex-wrap items-end justify-center gap-1 p-3" aria-label="Your critter party">
+          {CRITTERS.map((c, i) => (
+            <span key={c.id} className="block h-14 w-14 animate-wiggle motion-reduce:animate-none" style={{ animationDelay: `${i * 90}ms`, animationIterationCount: "infinite" }}>
+              <CritterSvg id={c.id} mood="cheer" />
+            </span>
+          ))}
+        </section>
+      )}
 
       <div className="flex gap-2" role="tablist">
         {(["all", "earned", "todo"] as const).map((f) => (
@@ -82,7 +96,7 @@ export function TrophyRoom() {
       </div>
 
       {CATEGORIES.map((cat) => {
-        const list = TROPHIES.filter((t) => t.category === cat).filter((t) =>
+        const list = all.filter((t) => t.category === cat).filter((t) =>
           filter === "all" ? true : filter === "earned" ? d.trophies[t.id] : !d.trophies[t.id],
         );
         if (!list.length) return null;

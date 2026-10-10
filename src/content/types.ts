@@ -2,10 +2,10 @@
 // units carry learning-standard text per framework (e.g. "ca-bc"), and the
 // scoring scheme and report-card language live with the framework.
 
-export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
-export type SubjectId = "math" | "language" | "science" | "social";
+export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+export type SubjectId = "math" | "language" | "science" | "social" | "immersion" | "core-french";
 /** A curriculum framework: a province, state or national standard set. */
-export type FrameworkId = "ca-bc";
+export type FrameworkId = "ca-bc" | "ca-on";
 /** UI and wording adapt to the child's age band. */
 export type AgeBand = "little" | "middle" | "big";
 
@@ -103,6 +103,12 @@ interface BaseQuestion {
   prompt: string;
   /** What read-aloud says, if different from the prompt (e.g. letter sounds). */
   speak?: string;
+  /** Set to "fr" when the prompt (and passage) is in French, so read-aloud uses a French voice. Hints stay in English. */
+  lang?: "fr";
+  /** Core French: the answer choices are French even though the prompt is English. */
+  choicesLang?: "fr";
+  /** Core French: the passage or story shown above is French even though the prompt is English. */
+  visualLang?: "fr";
   /** Shown after a miss, and again with the answer if they still need help. */
   hint: string;
   visual?: Visual;
@@ -188,4 +194,12 @@ export interface Course {
   /** Big Ideas (or equivalent) per framework, shown to parents. */
   bigIdeas: Partial<Record<FrameworkId, string[]>>;
   units: Unit[];
+  /**
+   * Units another framework's content already provides that this framework also uses as they
+   * are. The standards listed here are added to the unit, so progress carries over if a family
+   * switches between the two.
+   */
+  shares?: Record<string, { standards: Partial<Record<FrameworkId, string>> }>;
+  /** The order of unit ids a framework shows them in. Units it doesn't list come last. */
+  order?: Partial<Record<FrameworkId, string[]>>;
 }

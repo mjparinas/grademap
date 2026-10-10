@@ -19,7 +19,9 @@ GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This gui
 | `EMAIL_FROM` | For email | Sender, e.g. `GradeMap <hello@grademap.ca>`. The domain must be verified in Resend (add its SPF and DKIM DNS records). |
 | `CRON_SECRET` | For the daily job | Any long random string. Vercel sends it as `Authorization: Bearer …` to `/api/cron/weekly/`; the route refuses calls without it. |
 | `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` | Optional | Turns on error reports (server / browser). Off when unset. Reports are scrubbed of emails, cookies and request bodies before they leave (`src/lib/sentry-scrub.ts`). |
+| `ANDROID_CERT_SHA256` | For the Android app | Comma-separated SHA-256 fingerprints of the app's signing keys (Google's Play App Signing key first). Served at `/.well-known/assetlinks.json`. See `docs/ANDROID.md`. |
 | `ALLOW_DEV_BILLING` | Staging only | `1` lets a deployment without Stripe keys use the simulated billing. **Never set in production.** |
+| `TRUSTED_PROXY_HOPS` | Off Vercel | How many proxies in front of the app add an `X-Forwarded-For` entry (default 1). Rate limits use the entry that many places from the right, never the first one, which a client can forge. On Vercel the platform header is used and this is not needed. Simulated billing is also refused on the Vercel production environment, whatever `ALLOW_DEV_BILLING` says. |
 
 Billing is live only when `STRIPE_SECRET_KEY`, `STRIPE_PRICE_MONTHLY` and `STRIPE_PRICE_YEARLY` are all set (`src/server/stripe.ts`). In production without them, the simulated billing is off unless `ALLOW_DEV_BILLING=1`.
 

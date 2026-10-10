@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { devBilling, openBillingPortal, refreshAccount, startCheckout, type BillingInfo } from "@/lib/account";
 import { FREE_UNITS_PER_COURSE, isPremium, MAX_CHILDREN, PRICES, trialDaysLeft } from "@/lib/plan";
 import { useRoute } from "@/lib/router";
 import { useStore } from "@/lib/store";
+import { isAndroidApp } from "@/lib/twa";
 import { PageTitle, Panel } from "./common";
 
+const noSubscribe = () => () => {};
+
 const INCLUDED = [
-  "Every unit in every subject, Kindergarten to Grade 7",
+  "Every unit in every subject, Kindergarten to Grade 9",
   "Adventure, Review, Speed Run and Challenge modes",
   "The arcade games, with your learn-to-play timer",
   "Full progress reports over time",
@@ -21,6 +24,8 @@ export function SubscriptionPage({ billing, onBilling }: { billing: BillingInfo 
   const { query } = useRoute();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  // The server snapshot is false so the first render matches the static page.
+  const inAndroidApp = useSyncExternalStore(noSubscribe, isAndroidApp, () => false);
   const premium = isPremium(family);
   const subscribed = family.subscription && ["active", "trialing", "past_due"].includes(family.subscription.status);
   const checkout = query.get("checkout");
@@ -69,7 +74,9 @@ export function SubscriptionPage({ billing, onBilling }: { billing: BillingInfo 
         </Panel>
 
         <Panel title={subscribed ? "Manage" : "Choose a plan"}>
-          {!family.account ? (
+          {inAndroidApp ? (
+            <p className="font-read">Memberships can&apos;t be changed in this app. Your plan shows here once it is active on your account.</p>
+          ) : !family.account ? (
             <p className="font-read">
               To subscribe, first <a className="font-bold text-[#2f6fd6] underline" href="#/account">create a free account</a> so your membership works on every device.
             </p>

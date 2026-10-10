@@ -44,11 +44,11 @@ export function Hud() {
   const title = getItem(profile.title);
   const trophies = Object.keys(d.trophies).length;
   // A broken streak is never shown as 0: the flame sleeps and the total days practised stays, so progress is never lost.
-  const resting = d.streak.current === 0 && d.streak.daysPracticed > 0;
+  const resting = d.streak.current === 0 && d.activeDays > 0;
   const streakLabel = resting
-    ? `${d.streak.daysPracticed} ${d.streak.daysPracticed === 1 ? "day" : "days"} practised. Ready for a new streak?`
+    ? `${d.activeDays} ${d.activeDays === 1 ? "day" : "days"} practised. Ready for a new streak?`
     : d.streak.current > 0
-      ? `${d.streak.current} day streak. ${d.streak.daysPracticed} days practised in total.`
+      ? `${d.streak.current} day streak. ${d.activeDays} days practised in total.${d.streak.shields ? ` ${d.streak.shields} rest-day ${d.streak.shields === 1 ? "shield" : "shields"}.` : ""}`
       : "Practise today to start a streak";
 
   return (
@@ -90,8 +90,14 @@ export function Hud() {
           aria-label={streakLabel}
           title={streakLabel}
         >
-          <span className={d.streak.activeToday ? "animate-wiggle" : resting ? "" : "grayscale"}>{resting ? "😴" : "🔥"}</span>
-          {resting ? d.streak.daysPracticed : d.streak.current > 0 ? d.streak.current : <span className="text-base">Go!</span>}
+          <span className={d.streak.activeToday ? "animate-wiggle" : resting ? "" : "grayscale"}>{resting ? "😴" : d.streak.current >= 3 ? "🥞" : "🔥"}</span>
+          {resting ? d.activeDays : d.streak.current > 0 ? d.streak.current : <span className="text-base">Go!</span>}
+          {d.streak.current >= 7 && <span aria-hidden="true">🍁</span>}
+          {d.streak.shields > 0 && (
+            <span className="text-base" title={`${d.streak.shields} rest-day shield${d.streak.shields === 1 ? "" : "s"}`} aria-hidden="true">
+              🛡️{d.streak.shields}
+            </span>
+          )}
         </span>
         <button type="button" className="btn h-16 gap-1 px-3 text-xl" onClick={() => go("/trophies")} aria-label={`${trophies} trophies`}>
           🏆 {trophies}

@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { DEFAULT_FRAMEWORK } from "@/content/frameworks";
 import { ageBandFor } from "@/content/subjects";
 import type { FrameworkId, GradeId } from "@/content/types";
+import type { Classwork } from "./classroom";
 import { derive, type Derived } from "./derive";
 import * as localdb from "./localdb";
 import {
@@ -17,9 +18,10 @@ import {
   type Profile,
 } from "./model";
 import { TRIAL_DAYS } from "./plan";
-import { dailyQuests } from "./quests";
-import { getItem, STARTER } from "./shop";
-import { setCalmCheck } from "./juice";
+import { celebrate, setCalmCheck } from "./juice";
+import { setHapticsCheck } from "./haptics";
+import { dailyQuests, weekDays, weeklyQuests, weekStart } from "./quests";
+import { getItem, isUnlocked, STARTER } from "./shop";
 import { setQuietCheck, setSoundCheck } from "./sound";
 import { getTrophy, newlyEarned, TIER_STYLE } from "./trophies";
 
@@ -54,6 +56,8 @@ interface State {
   pin: { hash: string; salt: string } | null;
   events: AppEvent[];
   sync: SyncState;
+  /** Units teachers assigned, per linked child. Replaced on every sync; never edited on the device. */
+  classwork: Classwork[];
   toasts: Toast[];
 
   init: () => Promise<void>;
@@ -71,7 +75,7 @@ interface State {
   checkPin: (pin: string) => Promise<boolean>;
   setFamily: (patch: Partial<FamilyInfo>, fromServer?: boolean) => void;
   setSync: (patch: Partial<SyncState>) => void;
-  mergeRemote: (data: { events: AppEvent[]; profiles: Profile[]; settings: ChildSettings[]; family?: FamilyInfo }) => void;
+  mergeRemote: (data: { events: AppEvent[]; profiles: Profile[]; settings: ChildSettings[]; family?: FamilyInfo; classwork?: Classwork[] }) => void;
   pushToast: (t: Omit<Toast, "id">) => void;
   dismissToast: (id: string) => void;
   wipeDevice: () => Promise<void>;
@@ -97,6 +101,9 @@ export function eventsFor(events: AppEvent[], profile: Profile | undefined): App
   return events.filter((e) => e.profileId === profile.id && e.t > (profile.resetAt ?? 0));
 }
 
+/** Profiles saved before provinces existed have no framework; they are BC. */
+const withFramework = (p: Profile): Profile => (p.framework ? p : { ...p, framework: DEFAULT_FRAMEWORK });
+
 export function derivedFor(state: Pick<State, "events" | "profiles">, profileId: string | null): Derived {
   const profile = state.profiles.find((p) => p.id === profileId);
   const key = profileId ?? "";
@@ -120,11 +127,12 @@ export const useStore = create<State>()((set, get) => ({
   pin: null,
   events: [],
   sync: { cursor: 0, status: "signed-out", dirtyProfiles: [], dirtyFamily: false },
+  classwork: [],
   toasts: [],
 
   init: async () => {
     if (get().ready) return;
-    const [deviceId, profiles, activeId, settings, family, pin, sync, events] = await Promise.all([
+    const [deviceId, profiles, activeId, settings, family, pin, sync, classwork, events] = await Promise.all([
       localdb.getKV<string>("deviceId"),
       localdb.getKV<Profile[]>("profiles"),
       localdb.getKV<string | null>("activeId"),
@@ -132,6 +140,7 @@ export const useStore = create<State>()((set, get) => ({
       localdb.getKV<FamilyInfo>("family"),
       localdb.getKV<State["pin"]>("pin"),
       localdb.getKV<SyncState>("sync"),
+      localdb.getKV<Classwork[]>("classwork"),
       localdb.allEvents(),
     ]);
     const id = deviceId ?? newId();
@@ -141,12 +150,13 @@ export const useStore = create<State>()((set, get) => ({
     set({
       ready: true,
       deviceId: id,
-      profiles: profiles ?? [],
+      profiles: (profiles ?? []).map(withFramework),
       activeId: activeId ?? null,
       settings: settings ?? {},
       family: fam,
       pin: pin ?? null,
       sync: { ...get().sync, ...(sync ?? {}), status: fam.account ? "idle" : "signed-out" },
+      classwork: classwork ?? [],
       events,
     });
   },
@@ -168,7 +178,7 @@ export const useStore = create<State>()((set, get) => ({
       createdAt: now,
       updatedAt: now,
     };
-    const settings = { ...get().settings, [id]: defaultChildSettings(id, ageBandFor(grade) === "little") };
+    const settings = { ...get().settings, [id]: defaultChildSettings(id, ageBandFor(grade) === "little", grade) };
     const profiles = [...get().profiles, profile];
     set({ profiles, settings, activeId: id });
     save("profiles", profiles);
@@ -187,6 +197,10 @@ export const useStore = create<State>()((set, get) => ({
 
   removeProfile: (id) => {
     get().updateProfile(id, { deleted: true });
+    // Forget their history on this device too, so it can never be uploaded again.
+    set({ events: get().events.filter((e) => e.profileId !== id) });
+    void localdb.deleteProfileEvents(id);
+    deriveCache.delete(id);
     if (get().activeId === id) get().setActive(null);
   },
 
@@ -226,6 +240,16 @@ export const useStore = create<State>()((set, get) => ({
         toasts.push({ kind: "quest", title: "Quest complete!", subtitle: `${q.title} · +${q.reward} coins`, icon: q.icon });
       }
     }
+    // Weekly quests add up the week's days and are claimed under the Monday's date.
+    const monday = weekStart(now);
+    const weekClaimed = after.questsClaimed[monday] ?? [];
+    const thisWeek = weekDays(monday).flatMap((k) => (after.days[k] ? [after.days[k]] : []));
+    for (const q of weeklyQuests(profile.id, monday, ageBandFor(profile.grade))) {
+      if (!weekClaimed.includes(q.id) && q.progress(thisWeek) >= q.target) {
+        questEvents.push({ type: "quest", quest: q.id, day: monday, reward: q.reward, id: newId(), t: now + 60, profileId: profile.id });
+        toasts.push({ kind: "quest", title: "Weekly quest complete!", subtitle: `${q.title} · +${q.reward} coins`, icon: q.icon });
+      }
+    }
     if (questEvents.length) {
       events = [...events, ...questEvents];
       fresh.push(...questEvents);
@@ -234,7 +258,7 @@ export const useStore = create<State>()((set, get) => ({
 
     // Trophies can unlock other trophies (e.g. levels), so check until nothing new.
     for (let round = 0; round < 3; round++) {
-      const earned = newlyEarned(after, { grade: profile.grade });
+      const earned = newlyEarned(after, { grade: profile.grade, framework: profile.framework });
       if (!earned.length) break;
       const trophyEvents = earned.map(
         (t, i) => ({ type: "trophy", trophy: t.id, id: newId(), t: now + 100 + round * 10 + i, profileId: profile.id }) as AppEvent,
@@ -251,6 +275,9 @@ export const useStore = create<State>()((set, get) => ({
       toasts.unshift({ kind: "level", title: `Level ${after.level}!`, subtitle: "You levelled up!", icon: "⬆️" });
     }
 
+    // Make a Wish: a little shower of stars.
+    if (fresh.some((e) => e.type === "trophy" && e.trophy === "make-a-wish")) celebrate(["⭐", "🌟", "✨"]);
+
     set({ events });
     void localdb.putEvents(fresh);
     toasts.forEach((t) => get().pushToast(t));
@@ -265,6 +292,7 @@ export const useStore = create<State>()((set, get) => ({
       get().equip(itemId);
       return true;
     }
+    if (!isUnlocked(item, d.level, d.trophies)) return false;
     if (d.coins < item.cost) return false;
     get().log([{ type: "buy", item: itemId, cost: item.cost }]);
     get().equip(itemId);
@@ -304,13 +332,14 @@ export const useStore = create<State>()((set, get) => ({
     save("sync", { cursor: sync.cursor, lastSyncAt: sync.lastSyncAt, dirtyProfiles: sync.dirtyProfiles, dirtyFamily: sync.dirtyFamily });
   },
 
-  mergeRemote: ({ events, profiles, settings, family }) => {
+  mergeRemote: ({ events, profiles, settings, family, classwork }) => {
     const state = get();
     const known = new Set(state.events.map((e) => e.id));
     const newEvents = events.filter((e) => !known.has(e.id));
     // Last write wins for profiles and settings.
     const byId = new Map(state.profiles.map((p) => [p.id, p]));
-    for (const p of profiles) {
+    for (const raw of profiles) {
+      const p = withFramework(raw);
       const mine = byId.get(p.id);
       if (!mine || p.updatedAt > mine.updatedAt) byId.set(p.id, p);
     }
@@ -330,6 +359,10 @@ export const useStore = create<State>()((set, get) => ({
     save("profiles", mergedProfiles);
     save("settings", mergedSettings);
     if (family) save("family", get().family);
+    if (classwork) {
+      set({ classwork });
+      save("classwork", classwork);
+    }
   },
 
   pushToast: (t) => set({ toasts: [...get().toasts, { ...t, id: newId() }] }),
@@ -345,6 +378,7 @@ export const useStore = create<State>()((set, get) => ({
       family: newFamily(),
       pin: null,
       events: [],
+      classwork: [],
       sync: { cursor: 0, status: "signed-out", dirtyProfiles: [], dirtyFamily: false },
     });
   },
@@ -390,6 +424,7 @@ function activeSettings(): ChildSettings | undefined {
 setSoundCheck(() => activeSettings()?.sound ?? true);
 setQuietCheck(() => Boolean(activeSettings()?.quietSounds));
 setCalmCheck(() => Boolean(activeSettings()?.calmMotion));
+setHapticsCheck(() => activeSettings()?.haptics !== false && !activeSettings()?.calmMotion);
 
 // A "calm" class on the page stops CSS animations too (see globals.css).
 if (typeof document !== "undefined") {

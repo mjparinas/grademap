@@ -6,6 +6,8 @@ import { dayKey, type Profile } from "@/lib/model";
 import { subjectSummaries } from "@/lib/proficiency";
 import { useDerived, useProfiles, useStore } from "@/lib/store";
 import { useNow } from "@/lib/useNow";
+import { InstallNudge } from "./InstallNudge";
+import { Milestones } from "./Milestones";
 import { Avatar, NoChildren, PageTitle, Panel } from "./common";
 
 function ChildCard({ p }: { p: Profile }) {
@@ -46,7 +48,7 @@ function ChildCard({ p }: { p: Profile }) {
         </div>
       </dl>
       <ul className="mt-4 flex flex-col gap-2">
-        {subjectSummaries(d, p.grade).map((s) => {
+        {subjectSummaries(d, p.grade, p.framework).map((s) => {
           const level = scheme.levels[s.level];
           return (
             <li key={s.subject} className="flex items-center justify-between gap-2 text-sm">
@@ -77,6 +79,7 @@ export function Overview() {
   return (
     <>
       <PageTitle title="Overview" sub="How everyone is doing this week." />
+      <InstallNudge />
       {!account && (
         <Panel className="mb-5 border-[#4f8ef7]/40 bg-[#eef4ff]">
           <p className="font-read">
@@ -87,11 +90,18 @@ export function Overview() {
       {profiles.length === 0 ? (
         <NoChildren />
       ) : (
+        <>
+          {profiles.map((p) => (
+            <Milestones key={p.id} p={p} limit={3} />
+          ))}
         <div className="grid gap-5 lg:grid-cols-2">
           {profiles.map((p) => (
-            <ChildCard key={p.id} p={p} />
+            <div key={p.id}>
+              <ChildCard p={p} />
+            </div>
           ))}
         </div>
+        </>
       )}
     </>
   );
