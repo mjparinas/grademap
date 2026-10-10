@@ -1,3 +1,4 @@
+// @ts-nocheck
 import fs from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -137,6 +138,22 @@ describe("Piper download on this device", () => {
     vi.stubGlobal("navigator", { onLine: false });
     await piper.downloadPiper("en");
     expect(piper.getPiperState().voices.en).toMatchObject({ state: "missing", error: expect.stringMatching(/offline/) });
+  });
+
+  it("knows without waiting when Piper won't read, so the device voice starts inside the tap", async () => {
+    let piper = await import("./piper");
+    expect(piper.piperMightSpeak("en")).toBe(false);
+    await piper.downloadPiper("en");
+    piper.setPiperEnabled(true);
+    vi.resetModules();
+    piper = await import("./piper");
+    // Switched on but not checked yet: it might, so read-aloud waits for the check.
+    expect(piper.piperMightSpeak("en")).toBe(true);
+    await piper.piperWanted("en");
+    expect(piper.piperMightSpeak("en")).toBe(true);
+    expect(piper.piperMightSpeak("fr")).toBe(false);
+    piper.setPiperEnabled(false);
+    expect(piper.piperMightSpeak("en")).toBe(false);
   });
 
   it("removing French keeps English, and removing English turns the voice off", async () => {

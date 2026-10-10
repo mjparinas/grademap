@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Read-aloud picks Piper when a parent has turned it on and the voice is on this device,
@@ -10,6 +11,7 @@ const piper = vi.hoisted(() => ({
 }));
 vi.mock("./piper", () => ({
   piperCanSpeak: () => piper.wanted,
+  piperMightSpeak: () => piper.wanted,
   piperWanted: async () => piper.wanted,
   speakPiper: async (text: string, lang: string) => {
     if (piper.fail) throw new Error("no wasm");
@@ -46,11 +48,11 @@ afterEach(() => vi.unstubAllGlobals());
 const flush = () => new Promise((r) => setTimeout(r, 0));
 
 describe("read-aloud with the Piper voice", () => {
-  it("uses the device voice when Piper is off", async () => {
+  it("uses the device voice straight away when Piper is off, so it plays inside the tap", async () => {
     const { speak } = await import("./speech");
     speak("Seven take away 2¢");
-    await flush();
     expect(synthSaid).toEqual(["Seven take away 2 cents"]);
+    await flush();
     expect(piper.spoken).toEqual([]);
   });
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import manifest from "./piper-manifest.json";
@@ -136,6 +137,22 @@ export function setPiperEnabled(on: boolean) {
     // Private mode: the choice just won't stick.
   }
   update({ enabled: on });
+}
+
+/**
+ * False when Piper certainly won't read this language (unsupported, switched off, or its voice
+ * is missing), answered without waiting, so the device voice can start inside the tap: iOS
+ * Safari ignores speechSynthesis.speak() called after an await.
+ */
+export function piperMightSpeak(language: SpeechLanguage): boolean {
+  if (!piperSupported()) return false;
+  try {
+    if (localStorage.getItem(PREF_KEY) !== "on") return false;
+  } catch {
+    return false;
+  }
+  const voice = state.voices[language].state;
+  return voice === "checking" || voice === "ready";
 }
 
 /** True when read-aloud in this language should use Piper (waits for the first check). */

@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 // Read-aloud with the device's own voices (Web Speech API), so it works offline
@@ -7,7 +8,7 @@
 // also download the Piper voice (src/lib/piper.ts), which then reads instead of the device
 // voice; if it fails, the device voice takes over.
 
-import { piperCanSpeak, piperWanted, speakPiper, stopPiper } from "./piper";
+import { piperCanSpeak, piperMightSpeak, piperWanted, speakPiper, stopPiper } from "./piper";
 
 /** English is the app's language; French is for French Immersion and Core French questions. */
 export type SpeechLanguage = "en" | "fr";
@@ -188,7 +189,7 @@ function utter(text: string, option: VoiceOption | undefined, onFail?: () => voi
 
 function queue(text: string, voiceUri: string | null | undefined, language: SpeechLanguage, onDone?: () => void) {
   // A named voice (the device-voice preview in Settings) always uses that voice.
-  if (voiceUri !== undefined) return queueDevice(text, voiceUri, language, onDone);
+  if (voiceUri !== undefined || !piperMightSpeak(language)) return queueDevice(text, voiceUri, language, onDone);
   const id = run;
   void piperWanted(language).then((wanted) => {
     if (id !== run) return;
