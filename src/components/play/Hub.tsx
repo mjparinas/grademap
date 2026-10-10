@@ -7,6 +7,7 @@ import { getUnitRef } from "@/content";
 import { getSubjectMeta } from "@/content/subjects";
 import { weakest } from "@/lib/adaptive";
 import { gameTime } from "@/lib/gametime";
+import { effectiveGoal } from "@/lib/goal";
 import { dayKey } from "@/lib/model";
 import { canUse, type Feature } from "@/lib/plan";
 import { dailyQuests, weekDays, weeklyQuests, weekStart } from "@/lib/quests";
@@ -18,6 +19,7 @@ import { useNow } from "@/lib/useNow";
 import { useBand } from "../band";
 import { Critter, SpeechBubble } from "../Critter";
 import { Dialog, Page, ProgressBar } from "../ui";
+import { GoalChip } from "./GoalPicker";
 import { Hud } from "./Hud";
 import { BuddyButton, MooseVisitor } from "./Secrets";
 import { suggestions } from "./plans";
@@ -58,7 +60,7 @@ export function Hub() {
   const today = dayKey(now);
   const dayStat = d.days[today];
   const minutes = Math.floor((dayStat?.learnSeconds ?? 0) / 60);
-  const goal = settings?.dailyGoalMinutes ?? 15;
+  const goal = effectiveGoal(settings, d, today).minutes;
   const subjects = settings?.enabledSubjects ?? ["math", "language", "science", "social"];
   const games = gameTime(settings, d, now);
   const weak = weakest({ grade: profile.grade, framework: profile.framework, derived: d, subjects }, 10).length;
@@ -148,9 +150,7 @@ export function Hub() {
           <p className={`font-read font-bold leading-snug ${little ? "text-2xl sm:text-3xl narrow:text-xl" : "text-xl sm:text-2xl"} short:text-lg`}>{message}</p>
           <div className="mt-2 flex items-center gap-2">
             <ProgressBar value={minutes} max={goal} className="flex-1" label="Minutes learned today" />
-            <span className="text-sm font-semibold whitespace-nowrap text-ink-soft">
-              ⏱ {minutes}/{goal} min
-            </span>
+            <GoalChip minutes={minutes} goal={goal} />
           </div>
         </SpeechBubble>
       </div>

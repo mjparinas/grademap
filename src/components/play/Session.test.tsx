@@ -15,7 +15,7 @@ const h = vi.hoisted(() => ({
 }));
 
 vi.mock("@/lib/store", () => {
-  const derived = { xp: 0, coins: 0, units: {}, speedBest: {}, days: {}, dailyDone: [] as string[], level: 1, levelXp: 0, levelNeed: 80 };
+  const derived = { xp: 0, coins: 0, units: {}, speedBest: {}, days: {}, goalPicks: {}, dailyDone: [] as string[], level: 1, levelXp: 0, levelNeed: 80 };
   const useStore = Object.assign((select: (s: unknown) => unknown) => select({ log: h.log }), { getState: () => ({}) });
   return {
     useStore,
