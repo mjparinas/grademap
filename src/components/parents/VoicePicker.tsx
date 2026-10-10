@@ -67,7 +67,7 @@ function Tips({ open }: { open: boolean }) {
           <b>Android tablets and phones:</b> Settings → Accessibility → Text-to-speech output. Choose <i>Speech Services by Google</i>, then install the English voice data.
         </li>
         <li>
-          <b>Windows:</b> open GradeMap in Microsoft Edge. Its <i>Natural</i> voices are the most lifelike (they need internet).
+          <b>Windows:</b> open Gradelings in Microsoft Edge. Its <i>Natural</i> voices are the most lifelike (they need internet).
         </li>
         <li>
           <b>Mac:</b> System Settings → Accessibility → Spoken Content → System voice → Manage Voices, and download a <i>Premium</i> voice.
@@ -76,7 +76,7 @@ function Tips({ open }: { open: boolean }) {
           <b>Chromebook:</b> Settings → Accessibility → Text-to-Speech, and install the natural Google voices.
         </li>
       </ul>
-      <p className="mt-2 text-ink-soft">Then close and reopen GradeMap so it can see the new voice.</p>
+      <p className="mt-2 text-ink-soft">Then close and reopen Gradelings so it can see the new voice.</p>
     </details>
   );
 }
@@ -151,7 +151,7 @@ function FrenchVoice() {
       {options.length === 0 ? (
         <p className="text-sm text-ink-soft">
           No French voices found on this device yet, so French lessons will be read in an English voice. Add a French voice in your device&apos;s speech settings
-          (the same place as the English tips above, but choose French, ideally Canadian French), then reopen GradeMap.
+          (the same place as the English tips above, but choose French, ideally Canadian French), then reopen Gradelings.
         </p>
       ) : (
         <>

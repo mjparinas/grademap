@@ -12,11 +12,11 @@ This year our class is using **GradeMap** for extra practice in `[math, reading 
 
 **What is kept about your child.** A first name or nickname (`[for example: first name only]`), our class's grade, an avatar and practice results. Nothing else.
 
-**Who sees it.** Only me, as the teacher who runs the class, and only your child's first name, grade and results on the units I assign. The service runs in Montréal, Canada. Its full privacy policy is at `[https://grademap.ca/privacy/]`.
+**Who sees it.** Only me, as the teacher who runs the class, and only your child's first name, grade and results on the units I assign. The service runs in Montréal, Canada. Its full privacy policy is at `[https://gradelings.com/privacy/]`.
 
 **Your choices.** You may say no, and your child will do the same learning another way. You may ask to see or delete what is kept about your child at any time by contacting me or `[CONTACT_EMAIL]`. When the school year ends or I remove your child from the class, their information is deleted.
 
-**At home.** If you would like your child to use GradeMap at home, you can make your own free family account at `[https://grademap.ca/play/]`. That account is separate from the class login and belongs to you.
+**At home.** If you would like your child to use Gradelings at home, you can make your own free family account at `[https://gradelings.com/play/]`. That account is separate from the class login and belongs to you.
 
 Please return the slip below by `[date]`, or tell me you do not want your child to take part.
 

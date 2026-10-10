@@ -8,7 +8,7 @@ GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This gui
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Public origin, no trailing slash (e.g. `https://grademap.ca`). Used for canonical URLs, the sitemap, Open Graph and JSON-LD, and for the links inside emails (so a forged `Host` header can't redirect a reset link). Read at **build time**, so set it before the first production build. Defaults to the placeholder `https://grademap.ca`. |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Public origin, no trailing slash (e.g. `https://gradelings.com`). Used for canonical URLs, the sitemap, Open Graph and JSON-LD, and for the links inside emails (so a forged `Host` header can't redirect a reset link). Read at **build time**, so set it before the first production build. Defaults to `https://gradelings.com`. |
 | `DATABASE_URL` | Yes | Turso URL (`libsql://<db>-<org>.turso.io`). Without it the app falls back to a local SQLite file, which does not persist on serverless hosts. |
 | `DATABASE_AUTH_TOKEN` | Yes | Turso token for that database. |
 | `STRIPE_SECRET_KEY` | For billing | Live secret key (`sk_live_…`). |
@@ -16,7 +16,7 @@ GradeMap is a standard Next.js 16 app (Node runtime, no custom server). This gui
 | `STRIPE_PRICE_YEARLY` | For billing | Recurring Price id for C$119.99/year. |
 | `STRIPE_WEBHOOK_SECRET` | For billing | Signing secret of the webhook endpoint (`whsec_…`). |
 | `RESEND_API_KEY` | For email | Resend API key. Without it no email is sent (password reset and confirmation links won't arrive), so treat it as required in production. |
-| `EMAIL_FROM` | For email | Sender, e.g. `GradeMap <hello@grademap.ca>`. The domain must be verified in Resend (add its SPF and DKIM DNS records). |
+| `EMAIL_FROM` | For email | Sender, e.g. `Gradelings <hello@gradelings.com>`. The domain must be verified in Resend (add its SPF and DKIM DNS records). |
 | `CRON_SECRET` | For the daily job | Any long random string. Vercel sends it as `Authorization: Bearer …` to `/api/cron/weekly/`; the route refuses calls without it. |
 | `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` | Optional | Turns on error reports (server / browser). Off when unset. Reports are scrubbed of emails, cookies and request bodies before they leave (`src/lib/sentry-scrub.ts`). |
 | `ANDROID_CERT_SHA256` | For the Android app | Comma-separated SHA-256 fingerprints of the app's signing keys (Google's Play App Signing key first). Served at `/.well-known/assetlinks.json`. See `docs/ANDROID.md`. |

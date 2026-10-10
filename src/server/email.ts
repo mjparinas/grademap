@@ -1,7 +1,7 @@
 import "server-only";
 
 // Email goes out through Resend over plain HTTPS (no SDK). Set RESEND_API_KEY and EMAIL_FROM
-// (for example `GradeMap <hello@grademap.ca>`). Without a key, emails are logged in
+// (for example `Gradelings <hello@gradelings.com>`). Without a key, emails are logged in
 // development and skipped in production, so the rest of the app keeps working.
 
 export interface Email {

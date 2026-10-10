@@ -1,6 +1,6 @@
-# GradeMap
+# Gradelings
 
-Curriculum-matched practice, learning games and parent reports for **Kindergarten to Grade 9**. It covers the BC and Ontario curricula, and other provinces and US states can be added. "GradeMap" is a working name; change it in `src/lib/brand.ts`.
+Curriculum-matched practice, learning games and parent reports for **Kindergarten to Grade 9**. It covers the BC and Ontario curricula, and other provinces and US states can be added. "Gradelings" is a working name; change it in `src/lib/brand.ts`.
 
 It's a web app first: it runs in any browser, installs to a tablet or phone home screen, and **works offline**. Progress, scores and trophies sync to the family account when the device is back online.
 
@@ -70,7 +70,7 @@ With no configuration it uses a local SQLite file (`./data/grademap.db`) and **s
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Public address for canonical links and the sitemap (default `https://grademap.ca`). |
+| `NEXT_PUBLIC_SITE_URL` | Public address for canonical links and the sitemap (default `https://gradelings.com`). |
 | `DATABASE_URL` | libsql URL. Default `file:./data/grademap.db`; use a [Turso](https://turso.tech) URL in production. |
 | `DATABASE_AUTH_TOKEN` | Turso auth token. |
 | `STRIPE_SECRET_KEY` | Stripe secret key. Billing is simulated until this and both price IDs are set. |

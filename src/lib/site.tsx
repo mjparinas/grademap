@@ -1,7 +1,7 @@
 import { APP_NAME } from "./brand";
 
 /** The public site address, for canonical links, the sitemap and structured data. */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://grademap.ca").replace(/\/$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://gradelings.com").replace(/\/$/, "");
 
 export function absolute(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

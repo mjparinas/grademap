@@ -1,10 +1,10 @@
 // Working name: change it here and it updates across the site and the install manifest.
-export const APP_NAME = "GradeMap";
+export const APP_NAME = "Gradelings";
 export const MASCOT_NAME = "Ollie";
 
 // Used by the privacy policy and terms. Replace both before launch (see docs/DEPLOY.md).
-export const LEGAL_NAME = "GradeMap";
-export const CONTACT_EMAIL = "hello@grademap.ca";
+export const LEGAL_NAME = "Gradelings";
+export const CONTACT_EMAIL = "hello@gradelings.com";
 /** Postal address shown in the legal pages and required in marketing email under CASL. Empty until set; nothing is shown while it is empty. */
 export const MAILING_ADDRESS = "";
 /** Bump when the privacy policy or terms change. */
