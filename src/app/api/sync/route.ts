@@ -14,7 +14,7 @@ const PAGE = 2000;
 /** Most events one family can store; a real child makes a few thousand a year. */
 const MAX_FAMILY_EVENTS = 250_000;
 const MAX_JSON = 4000;
-const EVENT_TYPES = new Set(["answer", "session", "play", "game", "trophy", "secret", "buy", "quest", "placement"]);
+const EVENT_TYPES = new Set(["answer", "session", "play", "game", "trophy", "secret", "buy", "quest", "goal", "placement"]);
 
 interface SyncBody {
   cursor?: number;

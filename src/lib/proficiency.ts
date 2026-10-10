@@ -80,3 +80,19 @@ export function unitsAtLeast(d: Derived, grade: GradeId, framework: FrameworkId,
   return allUnitRefs(grade, framework).filter((r) => (subject ? r.course.subject === subject : isCoreSubject(r.course.subject)) && unitLevel(d.units[r.key]) >= level)
     .length;
 }
+
+/**
+ * How many more first-try answers, all right, until a unit moves up a level. Null when more practice alone
+ * won't do it (a Star also needs a passed Challenge) or it's already a Star.
+ */
+export function questionsToNextLevel(stat: UnitStat | undefined): { questions: number; level: number } | null {
+  if (!stat || stat.attempts === 0) return null;
+  const now = unitLevel(stat);
+  if (now >= 3) return null;
+  for (let n = 1; n <= 20; n++) {
+    const sim: UnitStat = { ...stat, attempts: stat.attempts + n, recent: [...stat.recent, ...Array<boolean>(n).fill(true)].slice(-20) };
+    const level = unitLevel(sim);
+    if (level > now) return { questions: n, level };
+  }
+  return null;
+}
