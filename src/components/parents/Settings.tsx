@@ -6,7 +6,7 @@ import { getSubjectMeta, SUBJECTS } from "@/content/subjects";
 import type { SubjectId } from "@/content/types";
 import { defaultChildSettings, type ChildSettings } from "@/lib/model";
 import { useStore } from "@/lib/store";
-import { ChildTabs, NoChildren, PageTitle, Panel, useChild } from "./common";
+import { ChildTabs, NoChildren, PageTitle, Panel, Switch, useChild } from "./common";
 import { VoicePicker } from "./VoicePicker";
 
 function Slider({ label, value, min, max, step = 1, unit, onChange, help }: { label: string; value: number; min: number; max: number; step?: number; unit: string; onChange: (v: number) => void; help?: string }) {
@@ -21,20 +21,6 @@ function Slider({ label, value, min, max, step = 1, unit, onChange, help }: { la
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} className="accent-[#4f8ef7]" />
       {help && <span className="text-sm text-ink-soft">{help}</span>}
     </label>
-  );
-}
-
-function Switch({ label, help, value, onChange }: { label: string; help?: string; value: boolean; onChange: (v: boolean) => void }) {
-  return (
-    <button type="button" role="switch" aria-checked={value} onClick={() => onChange(!value)} className="flex w-full items-center justify-between gap-4 rounded-xl bg-paper px-4 py-3 text-left">
-      <span>
-        <span className="block font-semibold">{label}</span>
-        {help && <span className="block text-sm text-ink-soft">{help}</span>}
-      </span>
-      <span className={`relative h-8 w-14 shrink-0 rounded-full transition-colors ${value ? "bg-good" : "bg-ink/20"}`} aria-hidden="true">
-        <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-all ${value ? "left-7" : "left-1"}`} />
-      </span>
-    </button>
   );
 }
 

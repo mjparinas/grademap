@@ -9,11 +9,13 @@
 // Checks, on a first visit with no reloads:
 //   1. a Grade 5 child's lessons work in a fresh tab with the server gone;
 //   2. adding a Kindergartener offline (never downloaded) shows the friendly screen;
-//   3. once the server is back, "Try again" loads Kindergarten.
+//   3. once the server is back, "Try again" loads Kindergarten;
+//   4. the Piper voice, downloaded in Settings, reads a question aloud with the server gone.
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
+import { enterPin } from "./helpers.mjs";
 
 const PORT = 4199;
 const BASE = `http://localhost:${PORT}`;
@@ -52,6 +54,15 @@ try {
   await waitForServer();
   browser = await chromium.launch();
   const ctx = await browser.newContext({ viewport: { width: 1180, height: 820 }, reducedMotion: "reduce" });
+  // Counts audio clips that start playing, so we know the Piper voice really made sound.
+  await ctx.addInitScript(() => {
+    window.__audioClips = 0;
+    const start = AudioBufferSourceNode.prototype.start;
+    AudioBufferSourceNode.prototype.start = function (...args) {
+      window.__audioClips++;
+      return start.apply(this, args);
+    };
+  });
   const page = await ctx.newPage();
   page.on("pageerror", (e) => errors.push(e.message));
 
@@ -63,6 +74,15 @@ try {
   await page.getByRole("button", { name: /Adventure/ }).waitFor();
   await page.waitForTimeout(5000); // let the worker take control and keep the lessons
 
+  // A parent downloads the offline voice and turns it on.
+  await page.goto(BASE + "/parents/#/settings");
+  await enterPin(page, true);
+  const piper = page.getByTestId("piper-en");
+  await piper.getByRole("button", { name: /Download voice/ }).click();
+  await piper.getByRole("switch", { name: /Use the offline voice/ }).waitFor({ timeout: 180000 });
+  await piper.getByRole("switch", { name: /Use the offline voice/ }).click();
+  console.log("✓ online: the Piper voice downloads and can be switched on");
+
   await stopServer();
   if (await fetch(BASE + "/").then(() => true, () => false)) throw new Error("server still answering");
 
@@ -73,6 +93,13 @@ try {
   await questionOnScreen(tab).waitFor({ timeout: 15000 });
   await tab.screenshot({ path: `${OUT}/offline-1-grade5-question.png` });
   console.log("✓ offline: Grade 5 lessons load from the cache");
+
+  const clipsBefore = await tab.evaluate(() => window.__audioClips);
+  await tab.getByRole("button", { name: "Read it to me" }).click();
+  await tab.waitForFunction((n) => window.__audioClips > n, clipsBefore, { timeout: 30000 });
+  await tab.getByRole("button", { name: "Stop", exact: true }).first().click({ force: true });
+  await tab.getByRole("dialog").getByRole("button", { name: "Stop", exact: true }).click({ force: true });
+  console.log("✓ offline: the Piper voice reads a question aloud");
 
   await tab.goto(BASE + "/play/");
   await tab.getByText("Ava").first().click({ force: true }); // opens the player picker

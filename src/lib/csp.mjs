@@ -28,10 +28,13 @@ const FETCH = [
 // hashed policy and block the inline scripts the hashes allow.
 export const HEADER_POLICY = ["frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'", "object-src 'none'"].join("; ");
 
-/** `next dev` needs eval and inline code for hot reloading. Never used in production. */
+/**
+ * `next dev` needs eval and inline code for hot reloading. Never used in production. As a header
+ * it also reaches the Piper worker, which loads its cached scripts from blob: URLs.
+ */
 export const DEV_POLICY = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:",
   "style-src 'self' 'unsafe-inline'",
   ...FETCH,
   "frame-ancestors 'none'",

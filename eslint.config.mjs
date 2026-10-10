@@ -31,6 +31,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Piper's speech engine, copied from node_modules by scripts/fetch-piper.mjs.
+    "public/piper/**",
   ]),
 ]);
 
