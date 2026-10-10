@@ -3,7 +3,7 @@ import { batch, query } from "@/server/db";
 import { sendEmail } from "@/server/email";
 import { accountDeletedEmail } from "@/server/emailTemplates";
 import { getFamilyRow } from "@/server/family";
-import { cancelSubscriptions, stripeConfigured } from "@/server/stripe";
+import { cancelSubscriptions, stripeCancellationConfigured } from "@/server/stripe";
 import { removeStudentsOfOwner } from "@/server/students";
 
 /** Deletes the family's account and every piece of data stored on the server. */
@@ -20,7 +20,7 @@ export async function DELETE(req: Request) {
   if (!stored[0] || password.length > 200 || !(await verifyPassword(password, stored[0].password_hash))) return error(403, "Please type your password to confirm.");
   // Stop billing first. If Stripe can't be reached, keep the account so the parent can try again.
   const family = await getFamilyRow(f);
-  if (family?.stripe_customer && stripeConfigured()) {
+  if (family?.stripe_customer && stripeCancellationConfigured()) {
     try {
       await cancelSubscriptions(family.stripe_customer);
     } catch {
