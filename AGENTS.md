@@ -203,6 +203,7 @@ Tests are duplicated across screen sizes only where layout can break:
 - **Shop unlocks:** some items need a level or trophy as well as coins (`unlock` in `src/lib/shop.ts`).
 - **Easter eggs** (`src/components/play/Secrets.tsx`, logged as `secret` events, shown as hidden trophies): Konami code (keys, or 8 swipes and 2 taps), tap your buddy 10 times, a polite moose that strolls past an idle home screen on about 1 day in 6, secret words typed on a keyboard, 11 right in a row, a lesson finished at 11:11. Never add anything that blocks taps or pushes late-night use.
 - **"Almost there" card:** the home screen shows the started unit closest to its next level ("2 right answers to grow into 🌳 Tree", `questionsToNextLevel`, `src/lib/nextup.ts`). Units that need a Challenge for the next level are skipped.
+- **"Quick refresher" card:** a unit the child reached Proficient in and hasn't touched for 14 days gets a card from that subject's guide ("Hoot remembers you were great at Fractions", `refresherUnit`). It opens normal practice; scoring is unchanged and nothing says anything was lost.
 - **Parent milestone cards** (`src/lib/milestones.ts`) appear on the Overview and Reports; they describe practice, not a report-card mark.
 
 ### Arcade games
