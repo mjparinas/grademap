@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { clearInstallPrompt, getInstallPrompt, installKind, onInstallChange, snoozeKids, type InstallKind } from "@/lib/install";
+import { bookmarkKeys, clearInstallPrompt, getInstallPrompt, installKind, onInstallChange, snoozeKids, type InstallKind } from "@/lib/install";
 import { APP_NAME } from "@/lib/brand";
 import { Dialog } from "../ui";
 
@@ -25,6 +25,7 @@ export function InstallChip({ little }: { little: boolean }) {
   };
   const add = async () => {
     if (kind === "ios") return setSteps(true);
+    if (kind === "bookmark") return dismiss();
     const event = getInstallPrompt();
     if (!event) return;
     await event.prompt();
@@ -36,15 +37,21 @@ export function InstallChip({ little }: { little: boolean }) {
     <section className="card flex items-center gap-3 p-3 sm:p-4" aria-label={`Put ${APP_NAME} on your home screen`}>
       <span className="text-4xl" aria-hidden="true">📲</span>
       <div className="min-w-0 flex-1">
-        <p className="text-lg font-bold">{little ? "Put me on your screen!" : `Put ${APP_NAME} on your home screen`}</p>
-        <p className="font-read text-sm text-ink-soft">Play with one tap, even without Wi-Fi.</p>
+        <p className="text-lg font-bold">
+          {kind === "bookmark" ? "Save this page!" : little ? "Put me on your screen!" : `Put ${APP_NAME} on your home screen`}
+        </p>
+        <p className="font-read text-sm text-ink-soft">
+          {kind === "bookmark" ? `Press ${bookmarkKeys()} (or ask a grown-up) to find us fast next time.` : "Play with one tap, even without Wi-Fi."}
+        </p>
       </div>
       <div className="flex shrink-0 flex-col gap-1.5">
-        <button type="button" onClick={add} className="btn btn-good min-h-12 px-4 text-base">
-          Add
-        </button>
+        {kind !== "bookmark" && (
+          <button type="button" onClick={add} className="btn btn-good min-h-12 px-4 text-base">
+            Add
+          </button>
+        )}
         <button type="button" onClick={dismiss} className="min-h-12 rounded-xl px-3 text-sm font-bold text-ink-soft">
-          Not now
+          {kind === "bookmark" ? "Got it" : "Not now"}
         </button>
       </div>
 

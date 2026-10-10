@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from "vitest";
-import { INSTALL_SNOOZE_DAYS, KIDS_SNOOZE_DAYS, isIos, isMobile, isSnoozed, snooze, snoozeKids } from "./install";
+import { INSTALL_SNOOZE_DAYS, KIDS_SNOOZE_DAYS, bookmarkKeys, isIos, isMobile, isSnoozed, snooze, snoozeKids } from "./install";
 
 describe("install nudge helpers", () => {
   beforeEach(() => localStorage.clear());
@@ -33,5 +33,10 @@ describe("install nudge helpers", () => {
     expect(isSnoozed(t, "grademap.install.dismissed")).toBe(false);
     expect(isSnoozed(t + 86_400_000, "grademap.install.kids.dismissed", KIDS_SNOOZE_DAYS)).toBe(true);
     expect(isSnoozed(t + 8 * 86_400_000, "grademap.install.kids.dismissed", KIDS_SNOOZE_DAYS)).toBe(false);
+  });
+
+  it("words the bookmark shortcut for the device", () => {
+    expect(bookmarkKeys("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)")).toBe("⌘D");
+    expect(bookmarkKeys("Mozilla/5.0 (Windows NT 10.0; Win64; x64)")).toBe("Ctrl+D");
   });
 });
