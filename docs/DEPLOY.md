@@ -42,7 +42,8 @@ Turso offers Canadian locations only on its Fly provider (its AWS list has none)
 2. Add the variables above to the Production environment. Use a separate set (test Stripe keys, a staging Turso database, `ALLOW_DEV_BILLING=1` if you want fake billing) for Preview.
 3. Add the domain, and set `NEXT_PUBLIC_SITE_URL` to match it. Redeploy so the build picks it up.
 4. Region: `vercel.json` pins functions to `yul1` (Montréal), next to Turso's Montréal location. Change both together if your users are elsewhere. Sentry (US or EU only) and Resend are not Canadian-hosted; they are listed as service providers in `/privacy/`.
-5. The daily email job is declared in `vercel.json` (`/api/cron/weekly/`, 15:00 UTC). Cron only runs on production deployments, and only once `CRON_SECRET` is set.
+5. Preview deployments are off: `ignoreCommand` in `vercel.json` skips every build except the `main` branch, so pull requests don't use up the daily deployment limit. To preview a branch, temporarily remove that line.
+6. The daily email job is declared in `vercel.json` (`/api/cron/weekly/`, 15:00 UTC). Cron only runs on production deployments, and only once `CRON_SECRET` is set.
 
 `trailingSlash: true` is on, so every API URL ends in `/`. Don't add redirect or rewrite rules at the host that strip the slash.
 

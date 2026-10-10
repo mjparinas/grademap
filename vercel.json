@@ -2,5 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "regions": ["yul1"],
-  "crons": [{ "path": "/api/cron/weekly/", "schedule": "0 15 * * *" }]
+  "crons": [{ "path": "/api/cron/weekly/", "schedule": "0 15 * * *" }],
+  "ignoreCommand": "[ \"$VERCEL_GIT_COMMIT_REF\" != \"main\" ]"
 }
