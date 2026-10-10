@@ -133,6 +133,14 @@ const SCHEMA = [
     UNIQUE (class_id, login_code)
   )`,
   `CREATE INDEX IF NOT EXISTS students_class ON students (class_id)`,
+  // Browsers a parent allowed to get a "your weekly report is ready" notification. Only the push address is kept.
+  `CREATE TABLE IF NOT EXISTS push_subscriptions (
+    id TEXT PRIMARY KEY,
+    parent_id TEXT NOT NULL,
+    endpoint TEXT NOT NULL UNIQUE,
+    created_at INTEGER NOT NULL
+  )`,
+  `CREATE INDEX IF NOT EXISTS push_subscriptions_parent ON push_subscriptions (parent_id)`,
 ];
 
 /** Columns added after the first release. SQLite has no "ADD COLUMN IF NOT EXISTS". */
@@ -143,6 +151,7 @@ const PARENT_COLUMNS: [string, string][] = [
   ["last_weekly_at", "INTEGER"],
   ["trial_notice_at", "INTEGER"],
   ["trial_recap_at", "INTEGER"],
+  ["last_push_at", "INTEGER"],
   ["practice_reminders", "INTEGER NOT NULL DEFAULT 0"],
   ["last_nudge_at", "INTEGER"],
   // 'parent' for ordinary accounts, 'student' for a class-owned student account (no email, no password).

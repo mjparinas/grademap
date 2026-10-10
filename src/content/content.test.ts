@@ -8,6 +8,12 @@ import type { Course, Question, Visual } from "./types";
 
 const RUNS = 120;
 
+// The official Saskatchewan outcomes (docs/research/saskatchewan). Unit standards cite them by code.
+const SK_OUTCOMES = JSON.parse(readFileSync(join(__dirname, "../../docs/research/saskatchewan/outcomes.json"), "utf8")) as Record<
+  string,
+  Record<string, { outcomes: { code: string }[] }[]>
+>;
+
 // The official Ontario expectations (docs/research/ontario). Unit standards cite them by code.
 const ONTARIO_EXPECTATIONS = JSON.parse(readFileSync(join(__dirname, "../../docs/research/ontario/expectations.json"), "utf8")) as Record<
   string,
@@ -246,7 +252,7 @@ describe("curriculum content", () => {
         const p = join(dir, f);
         return statSync(p).isDirectory() ? walk(p) : [p];
       });
-    const offenders = [...walk(join(__dirname, "grades")), ...walk(join(__dirname, "ontario"))].filter((f) => readFileSync(f, "utf8").includes("Math.random"));
+    const offenders = [...walk(join(__dirname, "grades")), ...walk(join(__dirname, "ontario")), ...walk(join(__dirname, "saskatchewan"))].filter((f) => readFileSync(f, "utf8").includes("Math.random"));
     expect(offenders).toEqual([]);
   });
 
@@ -288,6 +294,23 @@ describe("curriculum content", () => {
           const codes = citedCodes(standard);
           expect(codes.length, `${u.id}: "${standard}" cites no expectation`).toBeGreaterThan(0);
           for (const code of codes) expect(official.has(code), `${u.id} cites ${code}, which is not in Ontario ${course.grade}/${course.subject}`).toBe(true);
+        }
+      });
+
+      it("cites real Saskatchewan outcomes and no other province's wording", () => {
+        const official = new Set((SK_OUTCOMES[course.grade]?.[course.subject] ?? []).flatMap((st) => st.outcomes.map((o) => o.code)));
+        for (const u of course.units) {
+          const standard = u.standards["ca-sk"];
+          if (!standard) continue;
+          const codes = standard.split(" · ")[0].match(/[A-Z]{1,3}[K\d]\.\d+[ab]?/g) ?? [];
+          expect(codes.length, `${u.id}: "${standard}" cites no outcome`).toBeGreaterThan(0);
+          for (const code of codes) expect(official.has(code), `${u.id} cites ${code}, which is not in Saskatchewan ${course.grade}/${course.subject}`).toBe(true);
+          // Units borrowed from Ontario must not carry Ontario names into Saskatchewan classrooms.
+          if (/^(sk-)/.test(u.id) || u.standards["ca-bc"]) continue;
+          for (const q of [1, 2, 3].flatMap((d) => Array.from({ length: 12 }, () => u.generate({ difficulty: d as 1 | 2 | 3 })).flat())) {
+            const text = JSON.stringify(q);
+            expect(/Ontario|Queen's Park|EQAO|Upper Canada|Lower Canada/.test(text), `${u.id}: ${q.prompt}`).toBe(false);
+          }
         }
       });
 

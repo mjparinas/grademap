@@ -1,3 +1,4 @@
+import { createPublicKey, createVerify, generateKeyPairSync } from "node:crypto";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -336,5 +337,87 @@ describe("report a problem", () => {
     let last = 200;
     for (let i = 0; i < 22; i++) last = (await feedback.POST(r.clone())).status;
     expect(last).toBe(429);
+  });
+});
+
+describe("weekly report notifications", () => {
+  const pair = generateKeyPairSync("ec", { namedCurve: "prime256v1" });
+  const jwk = pair.privateKey.export({ format: "jwk" }) as { x: string; y: string; d: string };
+  const publicKey = Buffer.concat([Buffer.from([4]), Buffer.from(jwk.x, "base64url"), Buffer.from(jwk.y, "base64url")]).toString("base64url");
+  const endpoint = "https://fcm.googleapis.com/fcm/send/abc123";
+  const call = async (method: string, body?: unknown, cookie?: string, path = "/api/push/") => {
+    const m = (await import("@/app/api/push/route")) as Record<string, (r: Request) => Promise<Response>>;
+    return m[method](req(path, method, body, cookie));
+  };
+  const cronRun = () => cron.GET(new Request("http://localhost/api/cron/weekly/", { headers: { authorization: "Bearer cron-secret" } }));
+  afterEach(() => {
+    delete process.env.VAPID_PUBLIC_KEY;
+    delete process.env.VAPID_PRIVATE_KEY;
+    vi.unstubAllGlobals();
+  });
+
+  it("signs a VAPID token a push service can verify, and only accepts real push services", async () => {
+    process.env.VAPID_PUBLIC_KEY = publicKey;
+    process.env.VAPID_PRIVATE_KEY = jwk.d;
+    const push = await import("@/server/push");
+    const header = push.vapidAuthorization(endpoint);
+    const [, jwt] = /t=([^,]+), k=(.+)$/.exec(header)!;
+    const [h, c, sig] = jwt.split(".");
+    expect(JSON.parse(Buffer.from(c, "base64url").toString()).aud).toBe("https://fcm.googleapis.com");
+    const ok = createVerify("SHA256").update(`${h}.${c}`).verify({ key: createPublicKey({ key: { kty: "EC", crv: "P-256", x: jwk.x, y: jwk.y }, format: "jwk" }), dsaEncoding: "ieee-p1363" }, Buffer.from(sig, "base64url"));
+    expect(ok).toBe(true);
+    for (const good of [endpoint, "https://updates.push.services.mozilla.com/wpush/v2/x", "https://web.push.apple.com/x", "https://wns2-par02p.notify.windows.com/w/?token=x"]) expect(push.validEndpoint(good)).toBe(true);
+    for (const bad of ["http://fcm.googleapis.com/x", "https://evil.example.com/x", "https://fcm.googleapis.com.evil.com/x", "https://localhost/x", "https://169.254.169.254/x", "https://user@fcm.googleapis.com/x", "https://fcm.googleapis.com:8443/x", 42]) expect(push.validEndpoint(bad)).toBe(false);
+  });
+
+  it("stores a browser for a signed-in parent, and says whether it is on", async () => {
+    const f = await family("push-a@example.com");
+    expect((await call("GET", undefined, f.cookie)).status).toBe(200);
+    expect((await (await call("GET", undefined, f.cookie)).json()).configured).toBe(false);
+    expect((await call("POST", { endpoint }, f.cookie)).status).toBe(503); // not set up
+
+    process.env.VAPID_PUBLIC_KEY = publicKey;
+    process.env.VAPID_PRIVATE_KEY = jwk.d;
+    expect((await call("POST", { endpoint }, undefined)).status).toBe(401);
+    expect((await call("POST", { endpoint: "https://evil.example.com/x" }, f.cookie)).status).toBe(400);
+    expect((await call("POST", { endpoint }, f.cookie)).status).toBe(200);
+    const state = await (await call("GET", undefined, f.cookie, `/api/push/?endpoint=${encodeURIComponent(endpoint)}`)).json();
+    expect(state).toEqual({ configured: true, publicKey, subscribed: true });
+    expect((await call("DELETE", { endpoint }, f.cookie)).status).toBe(200);
+    expect((await (await call("GET", undefined, f.cookie, `/api/push/?endpoint=${encodeURIComponent(endpoint)}`)).json()).subscribed).toBe(false);
+  });
+
+  it("pushes on Sundays only, once, with no body, and forgets browsers that are gone", async () => {
+    process.env.VAPID_PUBLIC_KEY = publicKey;
+    process.env.VAPID_PRIVATE_KEY = jwk.d;
+    const f = await family("push-b@example.com");
+    const gone = "https://fcm.googleapis.com/fcm/send/gone";
+    await call("POST", { endpoint: "https://fcm.googleapis.com/fcm/send/live" }, f.cookie);
+    await call("POST", { endpoint: gone }, f.cookie);
+    const sent: { url: string; init: RequestInit }[] = [];
+    vi.stubGlobal("fetch", async (url: string, init: RequestInit) => {
+      sent.push({ url, init });
+      return new Response(null, { status: url === gone ? 410 : 201 });
+    });
+
+    vi.useFakeTimers({ toFake: ["Date"] });
+    const d = new Date();
+    d.setUTCDate(d.getUTCDate() + ((3 - d.getUTCDay() + 7) % 7 || 7)); // a Wednesday
+    vi.setSystemTime(d);
+    await cronRun();
+    expect(sent.length).toBe(0);
+
+    d.setUTCDate(d.getUTCDate() + 4); // the Sunday
+    vi.setSystemTime(d);
+    expect(new Date().getUTCDay()).toBe(0);
+    expect((await (await cronRun()).json()).pushes).toBeGreaterThanOrEqual(1);
+    expect(sent.map((s) => s.url).sort()).toEqual(["https://fcm.googleapis.com/fcm/send/gone", "https://fcm.googleapis.com/fcm/send/live"]);
+    expect((sent[0].init.headers as Record<string, string>).authorization).toMatch(/^vapid t=.+, k=/);
+    expect(sent[0].init.body).toBeUndefined();
+    expect((await dbm.query("SELECT endpoint FROM push_subscriptions WHERE parent_id = (SELECT id FROM parents WHERE email = ?)", ["push-b@example.com"])).map((r) => r.endpoint)).toEqual(["https://fcm.googleapis.com/fcm/send/live"]);
+
+    const n = sent.length;
+    await cronRun();
+    expect(sent.length).toBe(n); // not twice in one week
   });
 });

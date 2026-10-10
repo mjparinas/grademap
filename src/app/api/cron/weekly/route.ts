@@ -3,6 +3,7 @@ import { secretsMatch, unsubscribeToken } from "@/server/auth";
 import { query, run } from "@/server/db";
 import { sendEmail } from "@/server/email";
 import { inactiveClassEmail, reminderEmail, trialEndingEmail, trialRecapEmail, weeklyEmail, type ReminderChild, type TrialChild, type WeeklyChild } from "@/server/emailTemplates";
+import { pushConfigured, pushToParent } from "@/server/push";
 import { deleteInactiveClass } from "@/server/students";
 
 // Runs once a day (see vercel.json). Vercel sends `Authorization: Bearer $CRON_SECRET`.
@@ -21,7 +22,7 @@ export async function GET(req: Request) {
   if (!secret || !secretsMatch(req.headers.get("authorization") ?? "", `Bearer ${secret}`)) return new Response("Unauthorized", { status: 401 });
   const origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "") || new URL(req.url).origin;
   const now = Date.now();
-  const result = { trialNotices: 0, trialRecaps: 0, weekly: 0, reminders: 0, inactiveClassWarnings: 0, inactiveClassesDeleted: 0, studentsDeleted: 0 };
+  const result = { trialNotices: 0, trialRecaps: 0, weekly: 0, reminders: 0, inactiveClassWarnings: 0, inactiveClassesDeleted: 0, pushes: 0, studentsDeleted: 0 };
 
   // Warn teachers after 11 months without a sign-in. Only mark a warning as sent when email
   // delivery succeeds, so a missing mail provider cannot silently bypass the warning.
@@ -179,6 +180,26 @@ export async function GET(req: Request) {
         }
       } catch (e) {
         console.error("[weekly] failed for one family", (e as Error).message);
+      }
+    }
+  }
+
+  // Notification addresses of accounts that no longer exist (a removed co-parent) are dropped.
+  await run("DELETE FROM push_subscriptions WHERE parent_id NOT IN (SELECT id FROM parents)");
+
+  // Sundays: wake the browsers a parent allowed. The notification text is fixed; nothing about a child is sent.
+  if (pushConfigured() && new Date(now).getUTCDay() === 0) {
+    const targets = await query<{ id: string }>(
+      `SELECT id FROM parents WHERE role != 'student' AND (last_push_at IS NULL OR last_push_at < ?)
+         AND id IN (SELECT parent_id FROM push_subscriptions)`,
+      [now - 5 * DAY],
+    );
+    for (const t of targets) {
+      try {
+        await run("UPDATE parents SET last_push_at = ? WHERE id = ?", [now, t.id]);
+        if ((await pushToParent(t.id)) > 0) result.pushes++;
+      } catch (e) {
+        console.error("[push] failed for one parent", (e as Error).message);
       }
     }
   }
