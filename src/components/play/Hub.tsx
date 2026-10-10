@@ -23,6 +23,7 @@ import { BuddyButton, MooseVisitor } from "./Secrets";
 import { suggestions } from "./plans";
 import { useAllowed } from "./useAllowed";
 import { useClasswork } from "./useClasswork";
+import { ParentNote } from "./ParentNote";
 import { LevelChip } from "./Practice";
 import { InstallChip } from "./InstallChip";
 
@@ -173,6 +174,8 @@ export function Hub() {
         </span>
         <span className="text-4xl narrow:hidden">▶</span>
       </button>
+
+      {!isStudent && <ParentNote />}
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
         {tiles.map((t, i) => {
