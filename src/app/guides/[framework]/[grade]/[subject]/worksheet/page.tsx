@@ -7,8 +7,8 @@ import { breadcrumbJsonLd } from "@/components/site/jsonld";
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectSeoTitle, unitKey } from "@/components/site/curriculum";
 import { guidePath } from "@/components/site/guides";
-import { FRAMEWORKS } from "@/content/frameworks";
 import { hashSeed, withSeed } from "@/content/random";
+import { GUIDE_FRAMEWORKS } from "@/content/guides";
 import { GRADE_LABEL, getSubjectMeta, gradeSlug } from "@/content/subjects";
 import type { Course, Question } from "@/content/types";
 import { APP_NAME } from "@/lib/brand";
@@ -19,7 +19,7 @@ export const dynamicParams = false;
 const SHEET_QUESTIONS = 10;
 
 export function generateStaticParams() {
-  return FRAMEWORKS.flatMap((f) =>
+  return GUIDE_FRAMEWORKS.flatMap((f) =>
     gradesWithContent(f).flatMap((g) => coursesFor(f, g).map((c) => ({ framework: f.slug, grade: gradeSlug(g), subject: c.subject }))),
   );
 }

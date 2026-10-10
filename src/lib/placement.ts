@@ -1,7 +1,8 @@
 import { coursesForGrade, unitKey } from "@/content";
+import { DEFAULT_FRAMEWORK } from "@/content/frameworks";
 import { rand, sample } from "@/content/random";
 import { GRADE_LABEL, GRADE_ORDER } from "@/content/subjects";
-import type { GradeId, Question, SubjectId } from "@/content/types";
+import type { FrameworkId, GradeId, Question, SubjectId } from "@/content/types";
 import type { AppEvent, EventOf } from "./model";
 
 // The placement test: a short, adaptive check of where a child sits against
@@ -40,8 +41,8 @@ export function verdict(stage: Pick<Stage, "total" | "correct">): Verdict {
 }
 
 /** Grades that have lessons in this subject, lowest first. Only counts grades that have loaded. */
-export function gradesWithSubject(subject: SubjectId): GradeId[] {
-  return GRADE_ORDER.filter((g) => coursesForGrade(g).some((c) => c.subject === subject && c.units.length > 0));
+export function gradesWithSubject(subject: SubjectId, framework: FrameworkId = DEFAULT_FRAMEWORK): GradeId[] {
+  return GRADE_ORDER.filter((g) => coursesForGrade(g, framework).some((c) => c.subject === subject && c.units.length > 0));
 }
 
 /**
@@ -61,8 +62,8 @@ export function nextGrade(stages: Stage[], grades: GradeId[]): GradeId | undefin
 }
 
 /** Four questions from four different units of one grade, quick answer types first. */
-export function buildStage(grade: GradeId, subject: SubjectId): StageQuestion[] {
-  const course = coursesForGrade(grade).find((c) => c.subject === subject);
+export function buildStage(grade: GradeId, subject: SubjectId, framework: FrameworkId = DEFAULT_FRAMEWORK): StageQuestion[] {
+  const course = coursesForGrade(grade, framework).find((c) => c.subject === subject);
   if (!course) return [];
   const units = sample(course.units, Math.min(STAGE_SIZE, course.units.length));
   const out: StageQuestion[] = [];
@@ -97,12 +98,12 @@ export interface PlacementResult {
 const byGradeIndex = (a: Stage, b: Stage) => GRADE_ORDER.indexOf(a.grade) - GRADE_ORDER.indexOf(b.grade);
 
 /** Turns finished stages into a recommendation. Needs the tested grades to be loaded to order units. */
-export function summarize(subject: SubjectId, startGrade: GradeId, stages: Stage[]): PlacementResult {
+export function summarize(subject: SubjectId, startGrade: GradeId, stages: Stage[], framework: FrameworkId = DEFAULT_FRAMEWORK): PlacementResult {
   const sorted = [...stages].sort(byGradeIndex);
   const secure = sorted.filter((s) => verdict(s) === "strong");
   const mixed = sorted.filter((s) => verdict(s) === "partial");
   const lowest = sorted[0];
-  const all = gradesWithSubject(subject);
+  const all = gradesWithSubject(subject, framework);
 
   let placed: GradeId;
   if (secure.length) placed = secure[secure.length - 1].grade;
@@ -114,7 +115,7 @@ export function summarize(subject: SubjectId, startGrade: GradeId, stages: Stage
   }
 
   const startStage = sorted.find((s) => s.grade === placed);
-  const order = coursesForGrade(placed)
+  const order = coursesForGrade(placed, framework)
     .filter((c) => c.subject === subject)
     .flatMap((c) => c.units.map((u) => unitKey(c.grade, c.subject, u.id)));
   const correct = new Set((startStage?.asked ?? []).filter((k) => !startStage?.missed.includes(k)));

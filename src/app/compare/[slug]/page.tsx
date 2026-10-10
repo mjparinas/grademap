@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const c = competitorBySlug((await params).slug);
   if (!c) return {};
   return {
-    title: `${APP_NAME} vs ${c.name} for BC families`,
-    description: `${APP_NAME} compared with ${c.name}: price, BC curriculum match, how progress is shown and what kids see. A fair look at who each is best for.`,
+    title: `${APP_NAME} vs ${c.name} for BC and Ontario families`,
+    description: `${APP_NAME} compared with ${c.name}: price, curriculum match, how progress is shown and what kids see. A fair look at who each is best for.`,
     alternates: { canonical: guidePath.compare(c.slug) },
   };
 }
@@ -31,7 +31,7 @@ export default async function ComparePage({ params }: Props) {
   const c = competitorBySlug((await params).slug);
   if (!c) notFound();
   const crumbs = [{ label: "Home", href: "/" }, { label: "Compare", href: guidePath.compareIndex() }, { label: `${APP_NAME} vs ${c.name}` }];
-  const title = `${APP_NAME} vs ${c.name} for BC families`;
+  const title = `${APP_NAME} vs ${c.name} for BC and Ontario families`;
 
   return (
     <SitePage>
@@ -146,7 +146,7 @@ export default async function ComparePage({ params }: Props) {
 
       <section className="card mt-10 flex flex-col gap-2 p-6">
         <p className="text-xl font-bold">Try {APP_NAME} free for {TRIAL_DAYS} days</p>
-        <p className="font-read text-ink-soft">No card needed. Everything is on, and your child’s progress is reported in the BC report card levels.</p>
+        <p className="font-read text-ink-soft">No card needed. Everything is on, and your child’s progress is reported in your province’s report-card levels.</p>
         <Link href="/play/" className="btn btn-good min-h-14 w-fit px-8 text-xl">
           Try it free
         </Link>

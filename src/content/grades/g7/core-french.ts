@@ -20,6 +20,21 @@ const DIRECTIONS: FrItem[] = [
   ["The shop is between the bank and the pool. Which sentence is correct?", "Le magasin est entre la banque et la piscine.", ["Le magasin est derrière la banque et la piscine.", "Le magasin est loin de la banque et la piscine."], DIR_HINT],
   ["Someone asks “Où est la gare?” Which answer gives directions?", "Allez tout droit, puis tournez à gauche.", ["Je m'appelle Léo.", "J'aime les trains."], DIR_HINT],
   ["How do you ask “Where is the washroom?”", "Où sont les toilettes?", ["Qui sont les toilettes?", "Quand sont les toilettes?"], "“Où” means where."],
+  ["What does “au coin de la rue” mean?", "at the corner of the street", ["at the end of the street", "across the street"], DIR_HINT],
+  ["What does “Traversez la rue” mean?", "Cross the street", ["Turn around", "Stop here"], DIR_HINT],
+  ["What does “Continuez tout droit” mean?", "Keep going straight", ["Turn around", "Turn left"], DIR_HINT],
+  ["What does “Prenez la deuxième rue à droite” mean?", "Take the second street on the right", ["Take the first street on the left", "Take the second street on the left"], DIR_HINT],
+  ["What does “Faites demi-tour” mean?", "Turn around", ["Stop here", "Go straight"], DIR_HINT],
+  ["What does “au bout de la rue” mean?", "at the end of the street", ["at the beginning of the street", "far from the street"], DIR_HINT],
+  ["How do you say “Turn right at the corner”?", "Tournez à droite au coin.", ["Tournez à gauche au coin.", "Allez tout droit au coin."], DIR_HINT],
+  ["How do you say “The bank is across from the school”?", "La banque est en face de l'école.", ["La banque est derrière l'école.", "La banque est entre l'école."], DIR_HINT],
+  ["How do you say “The pool is far from the park”?", "La piscine est loin du parc.", ["La piscine est près du parc.", "La piscine est devant le parc."], "De + le becomes du: loin de + le parc = loin du parc."],
+  ["How do you say “The store is next to the pharmacy”?", "Le magasin est à côté de la pharmacie.", ["Le magasin est en face de la pharmacie.", "Le magasin est derrière la pharmacie."], DIR_HINT],
+  ["How do you say “Excuse me, where is the library?”", "Excusez-moi, où est la bibliothèque?", ["Excusez-moi, qui est la bibliothèque?", "Excusez-moi, quand est la bibliothèque?"], "“Où” means where."],
+  ["Which word means “north”?", "le nord", ["le sud", "l'est"], DIR_HINT],
+  ["Which word means “west”?", "l'ouest", ["l'est", "le sud"], DIR_HINT],
+  ["The sign says “Sortie”. What does it mean?", "exit", ["entrance", "parking"], DIR_HINT],
+  ["The sign says “Entrée”. What does it mean?", "entrance", ["exit", "closed"], DIR_HINT],
 ];
 
 // ---------- Les lieux ----------
@@ -39,6 +54,21 @@ const PLACES: FrItem[] = [
   ["What does “la rue” mean?", "the street", ["the city", "the park"], PLACE_HINT],
   ["What does “le magasin” mean?", "the store", ["the museum", "the school"], PLACE_HINT],
   ["How do you say “I go to the park”?", "Je vais au parc.", ["Je vais à le parc.", "Je vais de parc."], "À + le becomes au: à + le parc = au parc. À + les becomes aux."],
+  ["Where do you buy medicine?", "à la pharmacie", ["à la bibliothèque", "au musée"], PLACE_HINT, "💊"],
+  ["Where do you mail a letter?", "au bureau de poste", ["à la gare", "à la piscine"], PLACE_HINT, "📮"],
+  ["Where do you watch a movie on a big screen?", "au cinéma", ["à la banque", "à l'école"], PLACE_HINT, "🎬"],
+  ["Where do you play and see trees and swings?", "au parc", ["à la gare", "à l'hôpital"], PLACE_HINT, "🌳"],
+  ["Where do you keep your money safe?", "à la banque", ["à la boulangerie", "à l'école"], PLACE_HINT, "🏦"],
+  ["Where do you go to see a play or a show?", "au théâtre", ["à l'épicerie", "à la piscine"], PLACE_HINT, "🎭"],
+  ["Where do you buy a new book?", "à la librairie", ["à la boulangerie", "à la piscine"], "A “librairie” sells books. A “bibliothèque” lends them.", "📖"],
+  ["Where do you go to see animals from around the world?", "au zoo", ["à la banque", "à la bibliothèque"], PLACE_HINT, "🦁"],
+  ["What does “la mairie” mean?", "city hall", ["the post office", "the market"], PLACE_HINT],
+  ["What does “le marché” mean?", "the market", ["the park", "the bank"], PLACE_HINT],
+  ["What does “un quartier” mean?", "a neighbourhood", ["a village", "a street"], PLACE_HINT],
+  ["How do you say “I go to the bank”?", "Je vais à la banque.", ["Je vais au banque.", "Je vais de la banque."], "À + la stays à la: à la banque. À + le becomes au: au parc."],
+  ["How do you say “We go to the pool”?", "Nous allons à la piscine.", ["Nous allons au piscine.", "Nous allons de la piscine."], "À + la stays à la: à la piscine. À + le becomes au: au musée."],
+  ["How do you say “They go to the stores”?", "Ils vont aux magasins.", ["Ils vont au magasins.", "Ils vont à la magasins."], "À + les becomes aux: aux magasins."],
+  ["How do you say “I am at the museum”?", "Je suis au musée.", ["Je suis à le musée.", "Je suis du musée."], "À + le becomes au: à + le musée = au musée."],
 ];
 
 // ---------- Les comparaisons ----------
@@ -56,6 +86,21 @@ const COMPARE: FrItem[] = [
   ["Which sentence is correct?", "Mon frère est plus grand que moi.", ["Mon frère est plus grand de moi.", "Mon frère est plus grand comme moi."], "After plus… or moins… we use “que”: plus grand que moi."],
   ["“Bon” becomes which word in “This cake is better than that one”?", "meilleur", ["plus bon", "mieux"], "The comparative of “bon” is “meilleur”: Ce gâteau est meilleur que celui-là."],
   ["How do you say “She sings better than me”?", "Elle chante mieux que moi.", ["Elle chante meilleur que moi.", "Elle chante plus bien que moi."], "The comparative of the adverb “bien” is “mieux”."],
+  ["How do you say “Zoé is shorter than Léa”?", "Zoé est plus petite que Léa.", ["Zoé est aussi petite que Léa.", "Zoé est moins petite que Léa."], COMP_HINT],
+  ["How do you say “Noah is as strong as Ravi”?", "Noah est aussi fort que Ravi.", ["Noah est plus fort que Ravi.", "Noah est moins fort que Ravi."], COMP_HINT],
+  ["How do you say “The lake is less deep than the sea”?", "Le lac est moins profond que la mer.", ["Le lac est plus profond que la mer.", "Le lac est aussi profond que la mer."], COMP_HINT],
+  ["How do you say “My bag is heavier than your bag”?", "Mon sac est plus lourd que ton sac.", ["Mon sac est moins lourd que ton sac.", "Mon sac est aussi lourd que ton sac."], COMP_HINT],
+  ["How do you say “Anna reads better than Amir”?", "Anna lit mieux qu'Amir.", ["Anna lit meilleur qu'Amir.", "Anna lit plus bien qu'Amir."], "The comparative of the adverb “bien” is “mieux”. Before a vowel, que becomes qu'."],
+  ["How do you say “These cookies are better than the others”?", "Ces biscuits sont meilleurs que les autres.", ["Ces biscuits sont mieux que les autres.", "Ces biscuits sont plus bons que les autres."], "The comparative of “bon” is “meilleur”, and it agrees with the noun: meilleurs."],
+  ["Complète : Une voiture est ___ rapide qu'un vélo. (faster)", "plus", ["moins", "aussi"], COMP_HINT],
+  ["Complète : Un nuage est ___ lourd qu'une pierre. (less)", "moins", ["plus", "aussi"], COMP_HINT],
+  ["Complète : Ces deux sacs coûtent dix dollars. Ce sac est ___ cher que l'autre.", "aussi", ["plus", "moins"], COMP_HINT],
+  ["Complète : Mon frère court ___ vite que moi. (faster)", "plus", ["moins", "aussi"], COMP_HINT],
+  ["Which sentence is correct?", "Cette pomme est aussi sucrée que cette poire.", ["Cette pomme est aussi sucrée de cette poire.", "Cette pomme est aussi sucrée comme cette poire."], "After aussi… we use “que”: aussi sucrée que cette poire."],
+  ["Which sentence is correct?", "Mes amis sont plus drôles que moi.", ["Mes amis sont plus drôle que moi.", "Mes amis sont plus drôles de moi."], "The adjective agrees with the first person or thing, and “que” follows plus: plus drôles que moi."],
+  ["What does “Mon frère est moins fatigué que moi” mean?", "My brother is less tired than me", ["My brother is more tired than me", "My brother is as tired as me"], COMP_HINT],
+  ["What does “Il fait plus froid en janvier qu'en juin” mean?", "It is colder in January than in June", ["It is warmer in January than in June", "It is as cold in January as in June"], COMP_HINT],
+  ["What does “Elle est plus âgée que son frère” mean?", "She is older than her brother", ["She is younger than her brother", "She is as old as her brother"], COMP_HINT],
 ];
 
 // ---------- Décrire les autres ----------
@@ -75,6 +120,20 @@ const PERSONALITY: FrItem[] = [
   ["How do you say “Maya is brave”?", "Maya est courageuse.", ["Maya est courageux.", "Maya est courage."], PERS_HINT],
   ["Which word means “patient”?", "patient", ["pressé", "fâché"], PERS_HINT],
   ["Which question asks what someone is like?", "Comment est ton ami?", ["Où est ton ami?", "Qui est ton ami?"], "“Comment est…?” asks for a description."],
+  ["Mon père est ___. (generous)", "généreux", ["généreuse", "généreuses"], PERS_HINT],
+  ["Ma tante est ___. (generous)", "généreuse", ["généreux", "généreuses"], PERS_HINT],
+  ["Mes cousines sont ___. (funny)", "drôles", ["drôle", "drôl"], PERS_HINT],
+  ["Mon oncle est ___. (patient)", "patient", ["patiente", "patients"], PERS_HINT],
+  ["Ma grand-mère est ___. (kind)", "gentille", ["gentil", "gentils"], PERS_HINT],
+  ["Mes sœurs sont ___. (athletic)", "sportives", ["sportifs", "sportive"], PERS_HINT],
+  ["Mon ami est ___. (smart)", "intelligent", ["intelligente", "intelligents"], PERS_HINT],
+  ["Mon voisin est ___. (calm)", "calme", ["calmes", "calm"], PERS_HINT],
+  ["What does “Il est travailleur” mean?", "He is hardworking", ["He is lazy", "He is shy"], PERS_HINT],
+  ["What does “Elle est paresseuse” mean?", "She is lazy", ["She is hardworking", "She is brave"], PERS_HINT],
+  ["What does “Mon professeur est sévère” mean?", "My teacher is strict", ["My teacher is sleepy", "My teacher is new"], PERS_HINT],
+  ["How do you say “My brother is shy”?", "Mon frère est timide.", ["Mon frère est timides.", "Ma frère est timide."], PERS_HINT],
+  ["Which word is the opposite of “paresseux”?", "travailleur", ["timide", "drôle"], PERS_HINT],
+  ["Which question asks “What is your teacher like?”", "Comment est ton professeur?", ["Où est ton professeur?", "Qui est ton professeur?"], "“Comment est…?” asks for a description."],
 ];
 
 // ---------- Mots amis ----------
@@ -94,6 +153,21 @@ const COGNATES: FrItem[] = [
   ["Which strategy helps most when you meet a new French word?", "Look for words you recognize and use the picture or context", ["Skip the whole sentence", "Guess a different language"], COG_HINT],
   ["Which word is most likely a cognate of “animal”?", "animal", ["chat", "cheval"], COG_HINT],
   ["What does “la bibliothèque” mean?", "the library", ["the bookstore", "the notebook"], COG_HINT],
+  ["Which French word is a cognate of “chocolate”?", "chocolat", ["fromage", "pain"], COG_HINT],
+  ["Which French word is a cognate of “music”?", "musique", ["peinture", "danse"], COG_HINT],
+  ["Which French word is a cognate of “family”?", "famille", ["ami", "frère"], COG_HINT],
+  ["You see “aéroport” on a sign. What is it?", "an airport", ["a train station", "a harbour"], COG_HINT],
+  ["You see “cinéma” on a sign. What is it?", "a movie theatre", ["a circus", "a market"], COG_HINT],
+  ["You see “banque” on a sign. What is it?", "a bank", ["a bench", "a bakery"], COG_HINT],
+  ["What does “la monnaie” mean? (a faux ami)", "change, or coins", ["a monkey", "the moon"], "“La monnaie” is the small change in your pocket, not the word for all money."],
+  ["What does “la lecture” mean? (a faux ami)", "reading", ["a lecture", "a library"], "A lecture is “une conférence” or “un cours”. “La lecture” is reading."],
+  ["What does “attendre” mean? (a faux ami)", "to wait", ["to attend", "to attack"], "To attend is “assister à”. “Attendre” means to wait."],
+  ["What does “assister à” mean? (a faux ami)", "to attend", ["to assist", "to assure"], "“Assister à” means to be present at an event."],
+  ["What does “la veste” mean? (a faux ami)", "the jacket", ["the vest", "the west"], "A vest is “un gilet”. “La veste” is a jacket."],
+  ["What does “crier” mean? (a faux ami)", "to shout", ["to cry", "to creep"], "To cry with tears is “pleurer”. “Crier” means to shout."],
+  ["Which strategy helps when you read a story and meet a new word?", "Look at the pictures and the words around it", ["Stop reading", "Skip the whole book"], COG_HINT],
+  ["Which strategy helps when you listen to French?", "Listen for words you know and watch gestures", ["Cover your ears", "Wait for someone to speak English"], COG_HINT],
+  ["Which French word looks like “library” but means “bookstore”?", "librairie", ["bibliothèque", "bibliographie"], "A library is “une bibliothèque”. “Une librairie” sells books."],
 ];
 
 // ---------- Histoires ----------
@@ -124,6 +198,30 @@ const FRIDGE = {
   ],
 };
 
+const PICNIC = {
+  type: "passage" as const,
+  title: "Le pique-nique",
+  paragraphs: [
+    "C'est samedi. Priya et son père préparent un pique-nique. Ils mettent des sandwichs, des fraises et de l'eau dans un panier. Ils marchent jusqu'au parc. Soudain, il commence à pleuvoir! Ils mangent sous un grand arbre et rient ensemble.",
+  ],
+};
+
+const NEIGHBOUR = {
+  type: "passage" as const,
+  title: "Le nouveau voisin",
+  paragraphs: [
+    "Un nouveau garçon, Kenji, habite à côté de chez Noah. Il ne parle pas encore beaucoup de français. Noah lui montre le parc et l'école. Ils jouent au soccer. Le soir, Kenji dit : « Merci, Noah! Tu es mon premier ami. »",
+  ],
+};
+
+const HAT = {
+  type: "passage" as const,
+  title: "La tuque perdue",
+  paragraphs: [
+    "Ana perd sa tuque rouge dans la neige. Elle cherche dans la cour, puis près de l'école. Son ami Leo lui dit : « Regarde! Elle est sur la clôture! » Ana rit et remet sa tuque. Elle dit : « Merci, Leo! »",
+  ],
+};
+
 const STORIES: FrItem[] = [
   ["Who is the main character?", "Léo", ["Max", "A boy named Amir"], STORY_HINT, LEO],
   ["What is the problem in the story?", "Léo loses his dog", ["Léo is sick", "It is raining"], STORY_HINT, LEO],
@@ -137,6 +235,18 @@ const STORIES: FrItem[] = [
   ["Where do Amir and his mother go?", "To the grocery store", ["To the library", "To the pool"], STORY_HINT, FRIDGE],
   ["What do they buy?", "Bread, cheese and apples", ["Fish, milk and eggs", "Rice, carrots and juice"], STORY_HINT, FRIDGE],
   ["How does the story end?", "The family eats together", ["Amir goes to bed hungry", "The store is closed"], STORY_HINT, FRIDGE],
+  ["Who goes on the picnic?", "Priya and her father", ["Priya and her mother", "Priya and her friend"], STORY_HINT, PICNIC],
+  ["What food is in the basket?", "Sandwiches, strawberries and water", ["Cheese, apples and juice", "Soup, bread and milk"], STORY_HINT, PICNIC],
+  ["What is the problem?", "It starts to rain", ["They lose the basket", "The park is closed"], STORY_HINT, PICNIC],
+  ["How do they solve the problem?", "They eat under a big tree", ["They go home", "They cancel the picnic"], STORY_HINT, PICNIC],
+  ["Who is new in the neighbourhood?", "Kenji", ["Noah", "Amir"], STORY_HINT, NEIGHBOUR],
+  ["What does Noah show Kenji?", "The park and the school", ["The library and the pool", "The bakery and the museum"], STORY_HINT, NEIGHBOUR],
+  ["What do the boys play?", "Soccer", ["Hockey", "Basketball"], STORY_HINT, NEIGHBOUR],
+  ["Why is Kenji thankful?", "Noah is his first friend", ["Noah gives him a gift", "Noah gives him homework"], STORY_HINT, NEIGHBOUR],
+  ["What does Ana lose?", "Her red hat", ["Her blue scarf", "Her red mitten"], STORY_HINT, HAT],
+  ["Where does Ana look first?", "In the yard", ["At home", "In the gym"], STORY_HINT, HAT],
+  ["Who sees the hat?", "Leo", ["Ana", "Her teacher"], STORY_HINT, HAT],
+  ["Where is the hat?", "On the fence", ["In the snow", "In her bag"], STORY_HINT, HAT],
 ];
 
 // ---------- Le monde francophone ----------
@@ -154,6 +264,20 @@ const WORLD: FrItem[] = [
   ["Which of these places is in Canada and has a mostly French-speaking population?", "Québec", ["Texas", "Belgium"], WORLD_HINT, "🍁"],
   ["What is Québec's capital?", "Québec City", ["Montréal", "Ottawa"], "Montréal is the largest city. Québec City is the capital.", "🏰"],
   ["Why can a Canadian student use French when travelling?", "French is spoken in many countries and in parts of Canada", ["It is spoken only in France", "No one speaks it outside school"], WORLD_HINT, "✈️"],
+  ["Which country in Europe has French as one of its official languages?", "Switzerland", ["Portugal", "Norway"], WORLD_HINT, "🏔️"],
+  ["Which large Francophone African country has Kinshasa as its capital?", "The Democratic Republic of the Congo", ["Kenya", "Egypt"], WORLD_HINT, "🌍"],
+  ["Dakar is the capital of which country?", "Senegal", ["Haiti", "Belgium"], WORLD_HINT, "🌍"],
+  ["Port-au-Prince is the capital of which country?", "Haiti", ["Senegal", "Morocco"], WORLD_HINT, "🌴"],
+  ["Rabat is the capital of which country?", "Morocco", ["Senegal", "Belgium"], WORLD_HINT, "🌍"],
+  ["Martinique is an island in which sea?", "The Caribbean Sea", ["The Arctic Ocean", "The Baltic Sea"], "French is spoken on Martinique, a Caribbean island that is part of France.", "🏝️"],
+  ["Tahiti is an island where French is spoken. It is in the…", "Pacific Ocean", ["Atlantic Ocean", "Arctic Ocean"], "Tahiti is part of French Polynesia, where French and Tahitian are both spoken.", "🌺"],
+  ["The Eiffel Tower is in which city?", "Paris", ["Brussels", "Dakar"], WORLD_HINT, "🗼"],
+  ["The Atomium, a giant silver building, is in which Francophone city?", "Brussels", ["Paris", "Montréal"], WORLD_HINT, "🏛️"],
+  ["Is French an official language of the United Nations?", "Yes", ["No", "Only in Québec"], WORLD_HINT, "🌐"],
+  ["On which continent do most people who speak French live?", "Africa", ["Asia", "Australia"], WORLD_HINT, "🗺️"],
+  ["Cajun culture in Louisiana has roots in which community?", "Acadians from Atlantic Canada", ["Settlers from Brazil", "Travellers from Japan"], "Many Cajun families are descended from Acadians, who kept their French language and music alive.", "🎻"],
+  ["Which language is spoken in Haiti alongside French?", "Haitian Creole", ["Spanish", "Portuguese"], WORLD_HINT, "🗣️"],
+  ["What is the largest city in Québec?", "Montréal", ["Québec City", "Ottawa"], WORLD_HINT, "🏙️"],
 ];
 
 // ---------- Cultures et respect ----------
@@ -169,6 +293,22 @@ const CULTURE: FrItem[] = [
   ["Why is it important to name the source of an image or story?", "It credits the creator and shows respect", ["It makes the page longer", "It hides who made it"], CULT_HINT],
   ["A classmate from a Francophone community shares a family tradition. A respectful reaction is…", "to listen, ask questions and thank them", ["to joke about it", "to retell it as your own"], CULT_HINT],
   ["Which statement shows careful research?", "I used several trusted sources, including people from the community", ["I only used the first website I found", "I made up what I couldn't find"], CULT_HINT],
+  ["A classmate wears a traditional outfit for a cultural day. What is respectful?", "Ask about it with curiosity and thank them for sharing", ["Laugh at the colours", "Post photos without asking"], CULT_HINT],
+  ["Before posting a video of a friend's family dance, you should…", "ask the family for permission", ["change the music", "tag random people"], CULT_HINT],
+  ["Which is an example of plagiarism?", "Handing in an essay copied from a website", ["Quoting a book and naming the author", "Writing a summary in your own words"], CULT_HINT],
+  ["You use an idea from a book. How do you avoid plagiarism?", "Say whose idea it is and where you read it", ["Change the title", "Mix it with someone else's idea"], CULT_HINT],
+  ["What is a good way to learn about a Francophone tradition?", "Read or listen to people from that community", ["Make a guess", "Copy a movie"], CULT_HINT],
+  ["What does “giving credit” mean?", "Saying who created the work you use", ["Giving a prize", "Paying money"], CULT_HINT],
+  ["A company copies a community's traditional pattern for its products without asking or crediting. This is…", "cultural appropriation", ["cultural appreciation", "a school project"], CULT_HINT],
+  ["Which choice shows respect when you present about Métis culture?", "Use sources by Métis people and explain that every community is different", ["Say all Indigenous peoples are the same", "Use one cartoon as proof"], CULT_HINT],
+  ["You copy a paragraph and change three words. Is that okay?", "No, use your own words and cite the source", ["Yes, it is now yours", "Yes, if nobody notices"], CULT_HINT],
+  ["Why do we ask before using someone's drawing in a poster?", "It is their work, and they should decide", ["Drawings are always free", "It is faster"], CULT_HINT],
+  ["A traditional story belongs to a community. How do you share it responsibly?", "Credit the storyteller and share it only as they allow", ["Say you invented it", "Change the ending to be funnier"], CULT_HINT],
+  ["Which behaviour shows curiosity without disrespect?", "Asking, “Can you teach me about this tradition?”", ["Saying, “That's strange”", "Mimicking it for laughs"], CULT_HINT],
+  ["Which is the most trustworthy source of facts about a Francophone country?", "Its government or national museum website", ["A rumour", "A stranger's comment"], CULT_HINT],
+  ["A teammate says “I wrote this poem”, but you know it is from a book. What is a kind thing to do?", "Gently remind them to credit the author", ["Tell everyone loudly", "Say nothing and copy it too"], CULT_HINT],
+  ["What is the difference between inspiration and copying?", "Inspiration creates something new and credits the idea", ["They are the same thing", "Copying is always allowed with a friend"], CULT_HINT],
+  ["When you cite a website, what should you include?", "Its name and where you found it", ["Only your name", "Nothing"], CULT_HINT],
 ];
 
 export const course: Course = {

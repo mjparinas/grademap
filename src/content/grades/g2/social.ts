@@ -159,6 +159,220 @@ const CANADA_BANK: BankItem[] = [
     hint: "Learning about each other's cultures makes our communities stronger.",
     emoji: "🌍",
   },
+  {
+    prompt: "Which ocean is on the east side of Canada?",
+    right: { label: "the Atlantic Ocean", emoji: "🌊" },
+    wrong: [
+      { label: "the Pacific Ocean", emoji: "🌊" },
+      { label: "the Indian Ocean", emoji: "🌊" },
+    ],
+    hint: "Canada has the Pacific Ocean on the west, the Atlantic on the east and the Arctic Ocean in the north.",
+    emoji: "🗺️",
+  },
+  {
+    prompt: "Which ocean is on the west side of Canada?",
+    right: { label: "the Pacific Ocean", emoji: "🌊" },
+    wrong: [
+      { label: "the Atlantic Ocean", emoji: "🌊" },
+      { label: "the Southern Ocean", emoji: "🌊" },
+    ],
+    hint: "British Columbia is on the west coast, beside the Pacific Ocean.",
+    emoji: "🗺️",
+  },
+  {
+    prompt: "What is the capital city of Canada?",
+    right: { label: "Ottawa", emoji: "🏛️" },
+    wrong: [
+      { label: "Victoria", emoji: "🏛️" },
+      { label: "Winnipeg", emoji: "🏛️" },
+    ],
+    hint: "Ottawa is where the federal government meets. Each province has its own capital too.",
+  },
+  {
+    prompt: "What colours are on the Canadian flag?",
+    right: { label: "red and white", emoji: "🍁" },
+    wrong: [
+      { label: "blue and yellow", emoji: "🔵" },
+      { label: "green and orange", emoji: "🟢" },
+    ],
+    hint: "Canada's flag is red and white with a red maple leaf in the middle.",
+  },
+  {
+    prompt: "Which tree's leaf is on the Canadian flag?",
+    right: { label: "maple", emoji: "🍁" },
+    wrong: [
+      { label: "palm", emoji: "🌴" },
+      { label: "pine", emoji: "🌲" },
+    ],
+    hint: "The red leaf on the flag is a maple leaf.",
+  },
+  {
+    prompt: "People in Canada make maple syrup from the sap of…",
+    right: { label: "maple trees", emoji: "🍁" },
+    wrong: [
+      { label: "apple trees", emoji: "🍎" },
+      { label: "cactus plants", emoji: "🌵" },
+    ],
+    hint: "In early spring, sap is collected from maple trees and boiled into syrup.",
+  },
+  {
+    prompt: "Farms with lots of grain are most often found in…",
+    right: { label: "the Prairies", emoji: "🌾" },
+    wrong: [
+      { label: "the Arctic", emoji: "🧊" },
+      { label: "the middle of a big city", emoji: "🏙️" },
+    ],
+    hint: "Wide, flat land with good soil is great for growing wheat and other grains.",
+  },
+  {
+    prompt: "Which place in Canada has the most snow and ice all year?",
+    right: { label: "the Arctic", emoji: "🧊" },
+    wrong: [
+      { label: "the Prairies", emoji: "🌾" },
+      { label: "a coastal city", emoji: "🏙️" },
+    ],
+    hint: "The Arctic is far north, so it stays cold for most of the year.",
+  },
+  {
+    prompt: "A small community with farms and open fields is called a…",
+    right: { label: "rural community", emoji: "🚜" },
+    wrong: [
+      { label: "big city", emoji: "🏙️" },
+      { label: "space station", emoji: "🚀" },
+    ],
+    hint: "Rural means out in the country, where there are fewer people and more open land.",
+  },
+  {
+    prompt: "A community with many people, busy streets and lots of buses is an…",
+    right: { label: "urban community", emoji: "🏙️" },
+    wrong: [
+      { label: "rural community", emoji: "🚜" },
+      { label: "empty field", emoji: "🌾" },
+    ],
+    hint: "Urban means in a city, where lots of people live close together.",
+  },
+  {
+    prompt: "Which would you most likely see in a rural community?",
+    right: { label: "a barn and open fields", emoji: "🚜" },
+    wrong: [
+      { label: "skyscrapers", emoji: "🏙️" },
+      { label: "a subway station", emoji: "🚇" },
+    ],
+    hint: "Rural communities have more farms and open land than tall buildings.",
+  },
+  {
+    prompt: "Which would you most likely see in a big city?",
+    right: { label: "tall buildings and many buses", emoji: "🚌" },
+    wrong: [
+      { label: "a field of cows", emoji: "🐄" },
+      { label: "a hay barn", emoji: "🌾" },
+    ],
+    hint: "Cities are busy places with many buildings and lots of transportation.",
+  },
+  {
+    prompt: "Ravi's family celebrates Diwali. This is part of their…",
+    right: { label: "culture", emoji: "🪔" },
+    wrong: [
+      { label: "weather", emoji: "☁️" },
+      { label: "address", emoji: "📮" },
+    ],
+    hint: "Culture is the way a group of people live, including their celebrations, foods and languages.",
+  },
+  {
+    prompt: "Many communities in Canada hold festivals. What do festivals help us do?",
+    right: { label: "enjoy and learn about each other's cultures", emoji: "🎉" },
+    wrong: [
+      { label: "keep everyone apart", emoji: "🚧" },
+      { label: "make everyone the same", emoji: "👥" },
+    ],
+    hint: "Festivals let us share music, food and traditions with our neighbours.",
+  },
+  {
+    prompt: "Canada is a country. British Columbia is a…",
+    right: "province",
+    wrong: ["city", "continent"],
+    hint: "Canada has ten provinces and three territories. BC is one of the provinces.",
+    emoji: "🗺️",
+  },
+  {
+    prompt: "Yukon, Nunavut and the Northwest Territories are called…",
+    right: "territories",
+    wrong: ["oceans", "cities"],
+    hint: "Canada has three territories in the north and ten provinces.",
+    emoji: "🧭",
+  },
+  {
+    prompt: "Why do many people in Canada wear warm coats and boots in winter?",
+    right: { label: "Winters can be very cold in many places", emoji: "🧥" },
+    wrong: [
+      { label: "It is always hot", emoji: "☀️" },
+      { label: "Because they like swimming", emoji: "🏊" },
+    ],
+    hint: "Our clothes change with the weather. Many parts of Canada have cold, snowy winters.",
+  },
+  {
+    prompt: "Which animal lives in many forests and lakes across Canada?",
+    right: { label: "beaver", emoji: "🦫" },
+    wrong: [
+      { label: "kangaroo", emoji: "🦘" },
+      { label: "camel", emoji: "🐪" },
+    ],
+    hint: "The beaver is a national symbol of Canada. It builds dams in rivers and streams.",
+  },
+  {
+    prompt: "Which language do many people speak at home in Québec?",
+    right: { label: "French", emoji: "💬" },
+    wrong: [
+      { label: "Japanese", emoji: "💬" },
+      { label: "Italian", emoji: "💬" },
+    ],
+    hint: "Québec is a province where French is the main language, and people also speak English and many other languages.",
+  },
+  {
+    prompt: "Many people in Canada speak a language other than English or French at home. This shows our…",
+    right: { label: "many cultures", emoji: "🌍" },
+    wrong: [
+      { label: "same culture", emoji: "👥" },
+      { label: "weather", emoji: "☁️" },
+    ],
+    hint: "Canada is home to people from all over the world, so we hear many languages.",
+  },
+  {
+    prompt: "Indigenous peoples live in communities across Canada today. This means they…",
+    right: { label: "are part of our communities now, not only long ago", emoji: "🌲" },
+    wrong: [
+      { label: "only lived here long ago", emoji: "⏳" },
+      { label: "all live in one place", emoji: "📍" },
+    ],
+    hint: "First Nations, Métis and Inuit have strong, living communities today.",
+  },
+  {
+    prompt: "Which job would be common in a community near a big forest?",
+    right: { label: "forest worker or park ranger", emoji: "🌲" },
+    wrong: [
+      { label: "ship captain in a desert", emoji: "🚢" },
+      { label: "wheat farmer in a rainforest", emoji: "🌾" },
+    ],
+    hint: "The land around a community shapes the jobs people do.",
+  },
+  {
+    prompt: "A fishing boat is most likely to be found in a community…",
+    right: { label: "beside the ocean or a big lake", emoji: "⛵" },
+    wrong: [
+      { label: "in the middle of a dry field", emoji: "🌾" },
+      { label: "on top of a mountain", emoji: "🏔️" },
+    ],
+    hint: "People who fish need water nearby.",
+  },
+  {
+    prompt: "In winter, which sport can children play on frozen ponds in many parts of Canada?",
+    right: { label: "hockey", emoji: "🏒" },
+    wrong: [
+      { label: "surfing", emoji: "🏄" },
+      { label: "beach volleyball", emoji: "🏐" },
+    ],
+    hint: "Cold weather freezes ponds and rinks, so skating and hockey are popular.",
+  },
 ];
 
 function canada(): Question[] {
@@ -251,6 +465,214 @@ const CARING_BANK: BankItem[] = [
       { label: "nothing changes", emoji: "😐" },
     ],
     hint: "Local actions have global effects. When many people help, it makes a big difference!",
+  },
+  {
+    prompt: "A right is something every person is allowed to have. Which is a right?",
+    right: { label: "to be safe", emoji: "🛡️" },
+    wrong: [
+      { label: "to hurt others", emoji: "✊" },
+      { label: "to break things", emoji: "🔨" },
+    ],
+    hint: "Everyone has the right to be safe, be treated fairly and be cared for.",
+  },
+  {
+    prompt: "Which is a responsibility at home?",
+    right: { label: "helping to set the table", emoji: "🍽️" },
+    wrong: [
+      { label: "leaving toys all over the floor", emoji: "🧸" },
+      { label: "hiding when someone needs help", emoji: "🙈" },
+    ],
+    hint: "A responsibility is a job we do to help our family and community.",
+  },
+  {
+    prompt: "What does a doctor or nurse do?",
+    right: { label: "helps people stay healthy", emoji: "🩺" },
+    wrong: [
+      { label: "drives a school bus", emoji: "🚌" },
+      { label: "puts out fires", emoji: "🚒" },
+    ],
+    hint: "Doctors and nurses are helpers who look after our health.",
+  },
+  {
+    prompt: "What does a bus driver do?",
+    right: { label: "takes people safely where they need to go", emoji: "🚌" },
+    wrong: [
+      { label: "grows our food", emoji: "🚜" },
+      { label: "fixes teeth", emoji: "🦷" },
+    ],
+    hint: "Bus drivers help people get to school and work.",
+  },
+  {
+    prompt: "What does a garbage and recycling collector do?",
+    right: { label: "keeps our streets clean and takes away waste", emoji: "🚛" },
+    wrong: [
+      { label: "teaches reading", emoji: "📖" },
+      { label: "builds a house", emoji: "🏠" },
+    ],
+    hint: "Collectors are community helpers who take away garbage and recycling.",
+  },
+  {
+    prompt: "Your classmate drops all their crayons. A caring citizen would…",
+    right: { label: "help pick them up", emoji: "🖍️" },
+    wrong: [
+      { label: "laugh and walk away", emoji: "😆" },
+      { label: "kick them away", emoji: "🦶" },
+    ],
+    hint: "A caring citizen helps others when they can.",
+  },
+  {
+    prompt: "A new student joins your class. How can you help them feel welcome?",
+    right: { label: "say hello and invite them to play", emoji: "👋" },
+    wrong: [
+      { label: "ignore them", emoji: "🙅" },
+      { label: "say they can't sit with you", emoji: "🚫" },
+    ],
+    hint: "Welcoming others makes our community friendlier.",
+  },
+  {
+    prompt: "Why do we have rules on the playground?",
+    right: { label: "to keep everyone safe and fair", emoji: "📋" },
+    wrong: [
+      { label: "to stop all fun", emoji: "😠" },
+      { label: "just because", emoji: "🤷" },
+    ],
+    hint: "Rules help everyone play safely and fairly.",
+  },
+  {
+    prompt: "You find a lost mitten on the playground. What is a kind thing to do?",
+    right: { label: "give it to a teacher so the owner can find it", emoji: "🧤" },
+    wrong: [
+      { label: "keep it hidden", emoji: "🙈" },
+      { label: "throw it in the trash", emoji: "🗑️" },
+    ],
+    hint: "Being honest and helpful is part of being a good citizen.",
+  },
+  {
+    prompt: "Taking turns on the swings is a way to be…",
+    right: { label: "fair", emoji: "⚖️" },
+    wrong: [
+      { label: "bossy", emoji: "😤" },
+      { label: "sneaky", emoji: "🦊" },
+    ],
+    hint: "Fair means everyone gets a chance.",
+  },
+  {
+    prompt: "A community garden is a place where neighbours can…",
+    right: { label: "grow vegetables and flowers together", emoji: "🥕" },
+    wrong: [
+      { label: "park their cars", emoji: "🚗" },
+      { label: "keep their trash", emoji: "🗑️" },
+    ],
+    hint: "Working together on something is a great way to care for a community.",
+  },
+  {
+    prompt: "Which is a way to save water at home?",
+    right: { label: "turn off the tap while brushing your teeth", emoji: "🚰" },
+    wrong: [
+      { label: "leave the tap running all day", emoji: "💦" },
+      { label: "fill the tub for no reason", emoji: "🛁" },
+    ],
+    hint: "Water is precious. Using less helps people and nature all over the world.",
+  },
+  {
+    prompt: "Why is it important to put litter in a bin?",
+    right: { label: "It keeps parks and streams clean for animals and people", emoji: "🌳" },
+    wrong: [
+      { label: "It makes more garbage on the ground", emoji: "🗑️" },
+      { label: "Nobody cares about parks", emoji: "😐" },
+    ],
+    hint: "Litter can hurt animals and spoil places we enjoy.",
+  },
+  {
+    prompt: "What can you do with a clean empty cardboard box to help the Earth?",
+    right: { label: "recycle it or use it again", emoji: "📦" },
+    wrong: [
+      { label: "throw it in a river", emoji: "🏞️" },
+      { label: "burn it outside", emoji: "🔥" },
+    ],
+    hint: "Reuse and recycle help us use fewer new things.",
+    emoji: "♻️",
+  },
+  {
+    prompt: "A crossing guard helps children…",
+    right: { label: "cross the street safely", emoji: "🚸" },
+    wrong: [
+      { label: "bake a cake", emoji: "🎂" },
+      { label: "read a map in space", emoji: "🚀" },
+    ],
+    hint: "Crossing guards are community helpers who watch for traffic.",
+  },
+  {
+    prompt: "A person who brings letters and parcels to your home is a…",
+    right: { label: "mail carrier", emoji: "📬" },
+    wrong: [
+      { label: "dentist", emoji: "🦷" },
+      { label: "baker", emoji: "🍞" },
+    ],
+    hint: "Mail carriers help connect people in the community.",
+  },
+  {
+    prompt: "Voting is one way adults help decide things for their community. Who gets to vote?",
+    right: { label: "adult citizens of Canada", emoji: "🗳️" },
+    wrong: [
+      { label: "only kittens", emoji: "🐱" },
+      { label: "nobody", emoji: "🚫" },
+    ],
+    hint: "Adults who are citizens can vote for the people who make decisions for us.",
+  },
+  {
+    prompt: "In your classroom, you can help make a decision by…",
+    right: { label: "listening to others and sharing your idea politely", emoji: "🗣️" },
+    wrong: [
+      { label: "shouting your idea over everyone", emoji: "📢" },
+      { label: "refusing to listen", emoji: "🙉" },
+    ],
+    hint: "A good citizen listens and shares ideas respectfully.",
+  },
+  {
+    prompt: "Respecting others means…",
+    right: { label: "treating them kindly, even when they are different from us", emoji: "🤝" },
+    wrong: [
+      { label: "teasing people who are different", emoji: "😝" },
+      { label: "only playing with people who look like us", emoji: "👥" },
+    ],
+    hint: "Respect is one of the best things we can show in our community.",
+  },
+  {
+    prompt: "Zoe sees a classmate who is sad. A kind thing to do is…",
+    right: { label: "ask if they want to talk or play", emoji: "💛" },
+    wrong: [
+      { label: "pretend not to see", emoji: "🙈" },
+      { label: "tell them to go away", emoji: "🚫" },
+    ],
+    hint: "Kindness helps people feel they belong.",
+  },
+  {
+    prompt: "Our local park belongs to…",
+    right: { label: "everyone in the community", emoji: "🌳" },
+    wrong: [
+      { label: "only one person", emoji: "🧍" },
+      { label: "only people who are tall", emoji: "📏" },
+    ],
+    hint: "Public places like parks and libraries are for everyone to share and take care of.",
+  },
+  {
+    prompt: "What is a good way to help your community stay healthy?",
+    right: { label: "wash your hands and stay home when sick", emoji: "🧼" },
+    wrong: [
+      { label: "share your cold on purpose", emoji: "🤧" },
+      { label: "never wash your hands", emoji: "🙅" },
+    ],
+    hint: "Looking after our health also helps the people around us.",
+  },
+  {
+    prompt: "Adults pay taxes and use the money to pay for things like…",
+    right: { label: "roads, schools and parks", emoji: "🛣️" },
+    wrong: [
+      { label: "candy for every child", emoji: "🍬" },
+      { label: "a private rocket", emoji: "🚀" },
+    ],
+    hint: "Everyone shares the cost of things the whole community uses.",
   },
 ];
 

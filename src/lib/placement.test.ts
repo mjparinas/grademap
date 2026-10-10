@@ -5,7 +5,7 @@ import { withSeed } from "@/content/random";
 import type { GradeId } from "@/content/types";
 import { buildStage, gradesWithSubject, MAX_STAGES, nextGrade, STAGE_SIZE, summarize, verdict, type Stage } from "./placement";
 
-beforeAll(() => loadGrades(AVAILABLE_GRADES));
+beforeAll(() => loadGrades(AVAILABLE_GRADES.map((grade) => ({ grade, framework: "ca-bc" as const }))));
 
 const stage = (grade: GradeId, correct: number, missed: string[] = []): Stage => ({ grade, total: STAGE_SIZE, correct, asked: [], missed });
 

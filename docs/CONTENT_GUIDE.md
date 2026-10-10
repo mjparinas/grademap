@@ -88,3 +88,15 @@ The tests generate every unit 120 times at each difficulty and check structure, 
 - Keep wrong answers clearly wrong: for rhymes, group words in families (`familyQuestions`), and check that no distractor shares the sound or pattern being tested.
 - Use Canadian French where it differs (e.g. “tuque”, “soccer”) and Canadian English in hints.
 - Check Big Ideas and content against curriculum.gov.bc.ca before adding a grade.
+
+## Every province and state
+
+Content is never written for one place only. Before you finish a content change, check each framework in `src/content/frameworks.ts`:
+
+- A new unit, subject or grade has its Ontario (and any other framework's) counterpart, or the PR says which is missing and why. Where a unit truly fits more than one province, share it with `Course.shares` rather than copying it.
+- A change to a grade (units, French, wording, scoring) is checked in that grade for every framework.
+- Parent guide copy, the French guide and the grade notes exist for every framework and every grade from Kindergarten to Grade 9.
+- Each place follows its own official curriculum and uses Canadian spelling.
+- New public pages end with a call to action (`<SitePage cta>`).
+
+`npm test` runs `src/content/coverage.test.ts`, which fails when a framework is missing a grade, a core subject, Big Ideas, French in a grade its province teaches, or a public page's call to action.

@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps<"/curriculum/[frame
     description: `${GRADE_LABEL[grade]} ${name.toLowerCase()} in ${f.name}: ${course.units
       .slice(0, 5)
       .map((u) => u.title.toLowerCase())
-      .join(", ")} and more. Big Ideas, learning standards and free sample questions.`,
+      .join(", ")} and more. ${f.overviewLabel}, ${f.standardLabel.toLowerCase()}s and free sample questions.`,
     alternates: { canonical: curriculumPath.subject(f, grade, course.subject) },
   };
 }
@@ -47,7 +47,7 @@ export default async function SubjectPage({ params }: PageProps<"/curriculum/[fr
   ];
 
   return (
-    <SitePage>
+    <SitePage cta>
       <JsonLd
         data={[
           breadcrumbJsonLd(crumbs),
@@ -71,7 +71,7 @@ export default async function SubjectPage({ params }: PageProps<"/curriculum/[fr
       {bigIdeas.length > 0 && (
         <section aria-labelledby="big-ideas" className="mt-6 rounded-3xl p-5 sm:p-6" style={{ background: meta.colourSoft }}>
           <h2 id="big-ideas" className="text-2xl font-bold">
-            Big Ideas
+            {f.overviewLabel}
           </h2>
           <ul className="mt-2 flex list-disc flex-col gap-1 pl-5 font-read text-lg">
             {bigIdeas.map((b) => (
@@ -98,7 +98,7 @@ export default async function SubjectPage({ params }: PageProps<"/curriculum/[fr
               <p className="font-read text-ink-soft">{u.parentNote}</p>
               {u.standards[f.id] && (
                 <p className="text-sm">
-                  <b>Learning standard:</b> {u.standards[f.id]}
+                  <b>{f.standardLabel}:</b> {u.standards[f.id]}
                 </p>
               )}
             </li>

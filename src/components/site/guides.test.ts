@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { COMPETITORS } from "@/content/compare";
 import { FRAMEWORKS } from "@/content/frameworks";
-import { GUIDES } from "@/content/guides";
+import { GUIDES, GUIDE_FRAMEWORKS } from "@/content/guides";
 import { GRADE_ORDER } from "@/content/subjects";
 import { allCurriculumPaths } from "./curriculum";
 import { allGuidePaths } from "./guides";
@@ -20,7 +20,7 @@ describe("guide pages", () => {
   });
 
   it("has a worksheet and a help page for every course", () => {
-    for (const f of FRAMEWORKS) {
+    for (const f of GUIDE_FRAMEWORKS) {
       const subjects = paths.filter((p) => p.startsWith(`/guides/${f.slug}/`) && p.split("/").length === 6 && !p.endsWith("/worksheet/"));
       expect(subjects.length).toBeGreaterThan(0);
       for (const s of subjects) expect(paths).toContain(`${s}worksheet/`);
@@ -29,12 +29,13 @@ describe("guide pages", () => {
 
   it("has guide copy for every framework and grade", () => {
     for (const f of FRAMEWORKS) {
-      const g = GUIDES[f.id];
-      expect(g).toBeDefined();
-      for (const grade of GRADE_ORDER) expect(g.gradeNotes[grade].overview.length).toBeGreaterThan(40);
+      const g = GUIDES[f.id]!;
+      // Every province gets the full set of guides (see "Public pages and SEO" in AGENTS.md).
+      expect(g, `guides for ${f.id}`).toBeDefined();
+      for (const grade of GRADE_ORDER.filter((x) => f.grades.includes(x))) expect(g.gradeNotes[grade]?.overview.length).toBeGreaterThan(40);
       expect(g.competencies.items.length).toBeGreaterThan(0);
       expect(g.assessment.faqs.length).toBeGreaterThan(0);
-      expect(g.french.faqs.length).toBeGreaterThan(0);
+      expect(g.french?.faqs.length ?? 0, `French guide for ${f.id}`).toBeGreaterThan(0);
     }
   });
 

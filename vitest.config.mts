@@ -21,5 +21,7 @@ export default defineConfig({
       reporter: ["text-summary", "json-summary"],
       reportsDirectory: "coverage",
     },
+    // Sign-up and login hash passwords with scrypt, which can pass the 5 s default on a busy CI machine.
+    testTimeout: 20000,
   },
 });

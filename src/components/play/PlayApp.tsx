@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { ageBandFor } from "@/content/subjects";
-import type { GradeId, SubjectId } from "@/content/types";
+import type { FrameworkId, GradeId, SubjectId } from "@/content/types";
 import type { Mode } from "@/lib/model";
 import { PLACEMENT_SUBJECTS } from "@/lib/placement";
 import { useRoute } from "@/lib/router";
@@ -73,7 +73,7 @@ export function PlayApp() {
 
   const band = ageBandFor(active.grade);
   return (
-    <ContentGate grades={[active.grade]} onSwitch={profiles.length > 1 ? () => useStore.getState().setActive(null) : undefined}>
+    <ContentGate targets={[{ grade: active.grade, framework: active.framework }]} onSwitch={profiles.length > 1 ? () => useStore.getState().setActive(null) : undefined}>
       <Prefetch />
       <BandProvider value={band}>
         <div data-band={band} key={active.id}>
@@ -90,9 +90,16 @@ export function PlayApp() {
 function Prefetch() {
   const profiles = useProfiles();
   const active = useActiveProfile();
-  const grades = [...new Set([active?.grade, ...profiles.map((p) => p.grade)])].filter(Boolean).join(",");
+  const targets = [...new Set([active, ...profiles].filter(Boolean).map((p) => `${p!.framework}:${p!.grade}`))].join(",");
   useEffect(() => {
-    if (grades) prefetchGrades(grades.split(",") as GradeId[]);
-  }, [grades]);
+    if (targets) {
+      prefetchGrades(
+        targets.split(",").map((t) => {
+          const [framework, grade] = t.split(":");
+          return { framework: framework as FrameworkId, grade: grade as GradeId };
+        }),
+      );
+    }
+  }, [targets]);
   return null;
 }

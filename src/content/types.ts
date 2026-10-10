@@ -5,7 +5,7 @@
 export type GradeId = "k" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 export type SubjectId = "math" | "language" | "science" | "social" | "immersion" | "core-french";
 /** A curriculum framework: a province, state or national standard set. */
-export type FrameworkId = "ca-bc";
+export type FrameworkId = "ca-bc" | "ca-on";
 /** UI and wording adapt to the child's age band. */
 export type AgeBand = "little" | "middle" | "big";
 
@@ -194,4 +194,12 @@ export interface Course {
   /** Big Ideas (or equivalent) per framework, shown to parents. */
   bigIdeas: Partial<Record<FrameworkId, string[]>>;
   units: Unit[];
+  /**
+   * Units another framework's content already provides that this framework also uses as they
+   * are. The standards listed here are added to the unit, so progress carries over if a family
+   * switches between the two.
+   */
+  shares?: Record<string, { standards: Partial<Record<FrameworkId, string>> }>;
+  /** The order of unit ids a framework shows them in. Units it doesn't list come last. */
+  order?: Partial<Record<FrameworkId, string[]>>;
 }

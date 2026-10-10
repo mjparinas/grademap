@@ -76,6 +76,56 @@ const READINGS: Reading[] = [
       { prompt: "The tone of the last paragraph is best described as…", right: "tender and wistful", wrong: ["angry and bitter", "humorous and playful", "formal and distant"], hint: "“It is never quite hers,” “small again”: the narrator misses her but finds comfort." },
     ],
   },
+  {
+    level: 1,
+    title: "The Red Mitten",
+    paragraphs: [
+      "Every morning on his walk to school, Jay passed a small red mitten stuck on a fence post. Someone had placed it there so its owner could find it, but days turned into weeks and no one came for it.",
+      "Snow dusted the mitten, melted off, then dusted it again. Jay began to feel sorry for it, which he knew was silly. It was only wool. Still, he found himself wondering about the child who had lost it, and whether their hand was cold.",
+      "One Monday, the fence post was bare. Jay stopped, surprised by how empty the spot felt. Then a little girl in a bright pair of red mittens waved at him from across the street, and Jay found that he was waving back, grinning, all the way to school.",
+    ],
+    questions: [
+      { prompt: "What does the word “silly” show about how Jay views his feelings?", right: "He thinks it is odd to feel sorry for a piece of wool.", wrong: ["He is angry at the mitten's owner.", "He thinks the mitten is funny.", "He wants to keep the mitten."], hint: "Jay says it was “only wool.” He knows mittens can't feel, but he still cares." },
+      { prompt: "Why does the author describe the snow dusting, melting and dusting the mitten again?", right: "To show that a long time passes", wrong: ["To show that Jay dislikes winter", "To explain how snow forms", "To show the mitten is damaged"], hint: "Repeating the pattern shows days and weeks going by." },
+      { prompt: "Why is Jay most likely grinning at the end?", right: "He is glad the mitten seems to have found its owner.", wrong: ["He has won a race.", "He is pleased that school is starting.", "He found a new mitten."], hint: "The girl wearing red mittens suggests the lost mitten is back where it belongs." },
+      { prompt: "How does Jay change over the passage?", right: "He moves from simply noticing the mitten to caring about its owner.", wrong: ["He moves from caring to forgetting.", "He moves from happiness to anger.", "He moves from walking to running."], hint: "At first he passes the mitten. Later he wonders about the child and feels its absence." },
+      { prompt: "Which word best describes the mood of the passage?", right: "gentle and quiet", wrong: ["tense and frightening", "loud and exciting", "angry and bitter"], hint: "Think about the soft details: snow, wool and a small wave." },
+    ],
+  },
+  {
+    level: 2,
+    title: "Keeping the Night Sky",
+    paragraphs: [
+      "On a clear night far from any town, thousands of stars are visible to the naked eye. In a large city, you may be able to count only a few dozen. The reason is light pollution: electric light that shines upward or spills where it isn't needed, making the sky glow.",
+      "Light pollution is more than an inconvenience for stargazers. Many birds migrate at night and can become confused by bright buildings, sometimes flying into windows. Sea turtle hatchlings, which use moonlight on the water to find the ocean, may crawl toward streetlights instead. Researchers have also linked bright light at night to poorer sleep in people.",
+      "Fortunately, the problem can be fixed. Shields that aim lamps downward, warmer-coloured bulbs and timers that dim lights after midnight all help. Several communities have adopted “dark sky” rules, and many report lower energy bills as a bonus. Protecting the night, it turns out, can be both practical and affordable.",
+    ],
+    questions: [
+      { prompt: "Which sentence best states the central idea of the passage?", right: "Light pollution affects wildlife and people, but practical steps can reduce it.", wrong: ["Stars are visible only in cities.", "Streetlights should be banned.", "Birds migrate only in daylight."], hint: "The passage describes the problem, gives examples of harm, then offers solutions." },
+      { prompt: "What do the sea turtle hatchlings show about light pollution?", right: "Artificial light can mislead animals that rely on natural light.", wrong: ["Turtles prefer bright cities.", "Moonlight is harmful.", "Turtles cannot swim."], hint: "The hatchlings follow streetlights instead of moonlight on the water." },
+      { prompt: "Which detail best supports the claim that solutions can be affordable?", right: "Many communities report lower energy bills.", wrong: ["Shields aim lamps downward.", "Bulbs can be warmer in colour.", "Some birds fly into windows."], hint: "Lower bills mean the solutions save money." },
+      { prompt: "What is the author's main purpose?", right: "To inform readers about a problem and encourage solutions", wrong: ["To entertain with a story", "To describe one city's history", "To advertise a product"], hint: "The author explains the problem and ends with practical suggestions." },
+      { prompt: "What does the word “Fortunately” signal at the start of the third paragraph?", right: "A shift from describing problems to describing solutions", wrong: ["A return to the first idea", "A new problem", "A funny story"], hint: "“Fortunately” means good news is coming." },
+    ],
+  },
+  {
+    level: 3,
+    title: "Harbour at Dawn",
+    paragraphs: [
+      "Before the town has found its voice,\nthe harbour clears its throat in gulls.\nThe boats, still tethered to their sleep,\nrock slowly in their own small dreams.",
+      "",
+      "A man in orange boots walks down\nand counts the ropes the way you count\nthe names of those you hope to see,\nthen steps aboard and does not look back.",
+      "",
+      "Behind him, windows warm one by one.\nSomeone is learning, at a stove,\nthat waiting is a kind of work,\nas steady as the tide, and as unseen.",
+    ],
+    questions: [
+      { prompt: "Which technique is used in “the harbour clears its throat in gulls”?", right: "Personification", wrong: ["Simile", "Onomatopoeia", "Hyperbole"], hint: "A harbour can't clear its throat. A human action is given to a place." },
+      { prompt: "What does the simile “counts the ropes the way you count the names of those you hope to see” suggest?", right: "He is careful, and his thoughts are with people he cares about.", wrong: ["He is bored and counting slowly.", "He has lost his boat.", "He dislikes his work."], hint: "Counting names of loved ones is a careful, caring act. The poet compares the ropes to that." },
+      { prompt: "What does “does not look back” suggest about the man?", right: "He is determined to get to work, even if leaving is hard.", wrong: ["He has forgotten his boots.", "He is afraid of the harbour.", "He hates the town."], hint: "Think about how the poem pairs leaving with the people he hopes to see." },
+      { prompt: "Who is the “someone” at the stove most likely to be?", right: "A person at home who waits for the man to return", wrong: ["The man himself", "A gull", "The harbour master"], hint: "The windows are “behind him,” so the person is in the house he left." },
+      { prompt: "What is the central idea of the last stanza?", right: "Waiting for someone can be steady, quiet work of its own.", wrong: ["Fishing is easy.", "Stoves are dangerous.", "Tides are unreliable."], hint: "Waiting is compared to “a kind of work,” as steady as the tide." },
+    ],
+  },
 ];
 
 function closeReading(opts?: GenerateOptions): Question[] {
@@ -109,6 +159,18 @@ const DEVICES: Item[] = [
   dev(3, "The mountain stood, patient and unmoved, as the storm raged at its feet.", "Personification", ["Simile", "Irony", "Alliteration"], "The mountain is described as patient, a human feeling, so this is personification."),
   dev(3, "The audience gasped when the lights went out: the one thing the magician had promised would never happen.", "Situational irony", ["Verbal irony", "Foreshadowing", "Alliteration"], "The outcome is the opposite of what was promised. That's situational irony."),
   dev(3, "By midnight, the moon was a ghostly balloon drifting over the lake.", "Metaphor", ["Simile", "Onomatopoeia", "Flashback"], "The moon is said to BE a balloon, with no “like” or “as.”"),
+  dev(1, "The thunder boomed and the rain splashed onto the roof.", "Onomatopoeia", ["Simile", "Irony", "Symbolism"], "“Boomed” and “splashed” imitate real sounds."),
+  dev(1, "Her room was as tidy as a museum.", "Simile", ["Metaphor", "Personification", "Hyperbole"], "“As tidy as” compares two things using “as,” so it is a simile."),
+  dev(1, "The sunflowers bowed their heads at the end of the day.", "Personification", ["Simile", "Hyperbole", "Irony"], "Flowers can't bow. Giving human actions to plants is personification."),
+  dev(1, "I've told you a million times to close the door!", "Hyperbole", ["Simile", "Foreshadowing", "Alliteration"], "No one has said it a million times. The extreme exaggeration is hyperbole."),
+  dev(2, "Every time Ana feels hopeful, a bright yellow bird lands on her windowsill.", "Symbolism", ["Hyperbole", "Flashback", "Alliteration"], "The bird stands for something bigger than itself: hope."),
+  dev(2, "The pilot, who was afraid of flying, wrote a book called Fearless Skies.", "Irony", ["Simile", "Onomatopoeia", "Personification"], "Her fear is the opposite of what the title suggests. That surprising contrast is irony."),
+  dev(2, "Years later, standing by the lake, Dana could still hear her grandmother singing in the boat that summer long ago.", "Flashback", ["Foreshadowing", "Hyperbole", "Irony"], "The story jumps back to an earlier time. That is a flashback."),
+  dev(2, "The silent snow fell softly on the sleeping street.", "Alliteration", ["Onomatopoeia", "Hyperbole", "Irony"], "Several words begin with the same “s” sound: silent, snow, softly, sleeping."),
+  dev(3, "Her laughter was a wind chime in the quiet house.", "Metaphor", ["Simile", "Hyperbole", "Foreshadowing"], "Her laughter IS a wind chime, with no “like” or “as.”"),
+  dev(3, "The old bridge groaned under the weight of the trucks.", "Personification", ["Simile", "Hyperbole", "Irony"], "Bridges can't groan. A human sound is given to a thing."),
+  dev(3, "I was so embarrassed I could have melted into the floor.", "Hyperbole", ["Simile", "Foreshadowing", "Symbolism"], "No one can really melt. The exaggeration adds emphasis."),
+  dev(3, "Sam, who had never been late to school, won the prize for “Most Likely to Be Late.”", "Situational irony", ["Verbal irony", "Foreshadowing", "Alliteration"], "The result is the opposite of what we would expect."),
 ];
 
 const POINT_OF_VIEW: Item[] = [
@@ -116,6 +178,10 @@ const POINT_OF_VIEW: Item[] = [
   qe(1, "She slammed the door and wondered why nobody had warned her.", "Which point of view is used?", "Third person limited", ["First person", "Second person", "Third person omniscient"], "The narrator is outside the story and knows only one character's thoughts."),
   qe(2, "He was angry. Across town, his sister was planning a surprise. In the bakery, a stranger prepared to deliver the cake that would ruin it all.", "This narrator knows what several characters think and do. What is the point of view?", "Third person omniscient", ["First person", "Third person limited", "Second person"], "An all-knowing narrator who moves between characters is omniscient."),
   qe(2, "You open the box and your hands begin to tremble.", "Which point of view is used?", "Second person", ["First person", "Third person limited", "Third person omniscient"], "Speaking to “you” is second person."),
+  qe(1, "You walk into the kitchen and smell something burning.", "Which point of view is used?", "Second person", ["First person", "Third person limited", "Third person omniscient"], "Speaking directly to “you” is second person."),
+  qe(1, "We packed the car before sunrise, and my sister fell asleep before we left the driveway.", "Which point of view is used?", "First person", ["Second person", "Third person limited", "Third person omniscient"], "“We” and “my” tell you the narrator is part of the story."),
+  qe(2, "Kenji checked the clock again. He wished the bell would ring. He did not notice that his teacher was smiling at him.", "The narrator tells only Kenji's thoughts. What is the point of view?", "Third person limited", ["First person", "Second person", "Third person omniscient"], "The narrator is outside the story but stays with one character's thoughts."),
+  qe(2, "Maya crossed the bridge, thinking of home. Far away, a storm was gathering that neither she nor the village knew about.", "The narrator knows things the characters do not. What is the point of view?", "Third person omniscient", ["First person", "Second person", "Third person limited"], "An all-knowing narrator can tell what no single character knows."),
 ];
 
 // ---------- Argument & Media ----------
@@ -180,6 +246,23 @@ const GRAMMAR: Item[] = [
   q(3, "Choose the best word: “Neither of the answers __ correct.”", "is", ["are", "were", "be"], "“Neither” is singular, so it takes “is.”"),
   q(3, "Which sentence correctly uses a colon?", "Pack these: a jacket, boots and a hat.", ["Pack: these a jacket, boots and a hat.", "Pack these a jacket: boots and a hat.", "Pack, these: a jacket boots and a hat."], "A colon follows a complete statement and introduces a list or explanation."),
   q(3, "Which word is a gerund (a verb form used as a noun) in “Swimming is great exercise”?", "Swimming", ["is", "great", "exercise"], "“Swimming” names an activity and acts as the subject, so it is a gerund."),
+  q(1, "Which sentence ends with the correct punctuation?", "Would you like some water?", ["Would you like some water.", "Would you like some water,", "Would you like some water;"], "A direct question ends with a question mark."),
+  q(1, "Choose the correct word: “__ coat is on the hook?”", "Whose", ["Who's", "Whos", "Whose's"], "“Whose” asks about ownership. “Who's” means “who is.”"),
+  q(1, "Which sentence uses a comma correctly after an introductory phrase?", "After lunch, we played soccer.", ["After lunch we, played soccer.", "After, lunch we played soccer.", "After lunch we played, soccer."], "Put a comma after an introductory phrase."),
+  q(1, "Which word is an adverb in “The tired dog slept soundly”?", "soundly", ["tired", "dog", "slept"], "An adverb tells how something is done. Soundly tells how the dog slept."),
+  q(1, "Which sentence is correct?", "Mei and I went to the park.", ["Me and Mei went to the park.", "Mei and me went to the park.", "Myself and Mei went to the park."], "Use “I” when it is part of the subject. Try it alone: “I went to the park.”"),
+  q(2, "Which sentence contains a dependent clause?", "When the rain stopped, we went outside.", ["The rain stopped.", "We went outside.", "Rain fell all night."], "“When the rain stopped” has a subject and a verb but cannot stand alone."),
+  q(2, "Which sentence uses “less” or “fewer” correctly?", "There is less water in the jug.", ["There is fewer water in the jug.", "There are less apples in the bowl.", "There is fewer apples in the bowl."], "Use “fewer” for things you can count (apples) and “less” for amounts you can't count (water)."),
+  q(2, "Which sentence uses “who” or “whom” correctly?", "To whom did you give the book?", ["To who did you give the book?", "Whom is at the door?", "Whom gave you the book?"], "After a preposition such as “to,” use “whom.”"),
+  q(2, "Which sentence uses a hyphen correctly?", "She is a well-known author.", ["She is a well known-author.", "She is a well-known-author.", "She is a wellknown author."], "Join two words that act as one describing word before a noun with a hyphen."),
+  q(2, "Which sentence punctuates dialogue correctly?", "“I'll be there at noon,” said Zoe.", ["“I'll be there at noon”, said Zoe.", "“I'll be there at noon.” said Zoe.", "I'll be there at noon, “said Zoe.”"], "In Canadian English, the comma goes inside the closing quotation mark, and the speaker tag starts with a small letter."),
+  q(2, "Which sentence is in the past perfect tense?", "She had finished her essay before dinner.", ["She finished her essay at dinner.", "She is finishing her essay now.", "She will finish her essay soon."], "Past perfect uses “had” plus a past participle for an action completed before another."),
+  q(2, "Which sentence has a subject-verb agreement error?", "The list of rules are posted on the door.", ["The list of rules is posted on the door.", "The rules are posted on the door.", "Each rule is posted on the door."], "The subject is “list” (singular), so the verb should be “is.”"),
+  q(3, "Which sentence uses a conjunctive adverb correctly?", "The trail was closed; therefore, we took the bus.", ["The trail was closed, therefore we took the bus.", "The trail was closed therefore; we took the bus.", "The trail was closed; therefore we, took the bus."], "Use a semicolon before the conjunctive adverb and a comma after it."),
+  q(3, "Which sentence avoids a dangling modifier?", "While I was cooking, the smoke alarm went off.", ["While cooking, the smoke alarm went off.", "Cooking dinner, the alarm sounded loudly.", "Having finished, the lights were turned off."], "In the others, the opening phrase has no clear doer. Add a subject to fix it."),
+  q(3, "Which sentence uses “affect” or “effect” correctly?", "The weather will affect our plans.", ["The weather will effect our plans.", "The weather's affect on our plans was big.", "What a strong affect it had!"], "“Affect” is usually a verb meaning to influence. “Effect” is usually a noun meaning a result."),
+  q(3, "Which sentence uses the possessive correctly?", "The children's coats are by the door.", ["The childrens' coats are by the door.", "The childrens coats are by the door.", "The children coat's are by the door."], "“Children” is already plural, so add apostrophe + s."),
+  q(3, "Which sentence punctuates an appositive correctly?", "Ms. Chen, our principal, welcomed us.", ["Ms. Chen our principal, welcomed us.", "Ms. Chen, our principal welcomed us.", "Ms. Chen—our principal, welcomed us."], "Set off an appositive (extra renaming information) with a comma before and after."),
 ];
 
 // ---------- Word Study ----------

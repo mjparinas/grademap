@@ -180,6 +180,12 @@ const GOOD_SENTENCES = [
   "Look at that big whale!",
   "Ollie can swim fast.",
   "Do you like apples?",
+  "Zoe feeds the ducks.",
+  "What is your name?",
+  "The baby is sleeping.",
+  "I love my new boots!",
+  "We can build a fort.",
+  "Is it time for lunch?",
 ];
 
 const END_MARKS: { text: string; mark: "." | "?" | "!" }[] = [
@@ -194,9 +200,18 @@ const END_MARKS: { text: string; mark: "." | "?" | "!" }[] = [
   { text: "The bus is yellow", mark: "." },
   { text: "My dog is brown", mark: "." },
   { text: "We read a book at school", mark: "." },
+  { text: "Who is at the door", mark: "?" },
+  { text: "How old are you", mark: "?" },
+  { text: "Are we there yet", mark: "?" },
+  { text: "Wow, that rocket is fast", mark: "!" },
+  { text: "Stop, the light is red", mark: "!" },
+  { text: "Yay, we won the game", mark: "!" },
+  { text: "Jay has two cats", mark: "." },
+  { text: "The moon is bright tonight", mark: "." },
+  { text: "Lena likes to paint", mark: "." },
 ];
 
-const NAMES = ["maya", "kelowna", "monday", "canada", "ollie", "vancouver", "sam"];
+const NAMES = ["maya", "kelowna", "monday", "canada", "ollie", "vancouver", "sam", "friday", "amir", "toronto"];
 const PLAIN_WORDS = ["park", "dog", "apple", "school", "happy", "river", "chair", "jump"];
 
 function sentences(): Question[] {
@@ -366,6 +381,342 @@ const STORIES: Story[] = [
       hint: "Sam drew a picture of something on the way home. People often draw what they liked best!",
     },
     events: ["The class went to the aquarium.", "They saw jellyfish.", "A sea lion splashed them.", "Sam drew a picture."],
+  },
+  {
+    lines: [
+      "Priya and her dad went to the library on Saturday.",
+      "Priya picked a book about frogs.",
+      "She read it quietly in a cosy corner.",
+      "Then she borrowed the book to take home.",
+    ],
+    character: { label: "Priya", emoji: "👧" },
+    notCharacters: [
+      { label: "a librarian", emoji: "🧑‍🏫" },
+      { label: "a frog", emoji: "🐸" },
+    ],
+    setting: { label: "at the library", emoji: "📚" },
+    notSettings: [
+      { label: "at the park", emoji: "🌳" },
+      { label: "on a farm", emoji: "🐄" },
+    ],
+    think: {
+      prompt: "Why did Priya read quietly?",
+      right: { label: "Because she was in a library", emoji: "🤫" },
+      wrong: [
+        { label: "Because she was angry", emoji: "😠" },
+        { label: "Because the book was heavy", emoji: "📕" },
+      ],
+      hint: "Libraries are calm places where people read. We use quiet voices there.",
+    },
+    events: ["Priya went to the library.", "Priya picked a book.", "She read in a cosy corner.", "She borrowed the book."],
+  },
+  {
+    lines: [
+      "Leo's puppy Biscuit dug a hole in the yard.",
+      "Leo found Biscuit covered in mud.",
+      "Leo gave Biscuit a bath with soap and warm water.",
+      "Soon Biscuit was clean and fluffy.",
+    ],
+    character: { label: "Leo", emoji: "🧒" },
+    notCharacters: [
+      { label: "a gardener", emoji: "🧑‍🌾" },
+      { label: "a cat", emoji: "🐈" },
+    ],
+    setting: { label: "at Leo's home", emoji: "🏡" },
+    notSettings: [
+      { label: "on the moon", emoji: "🌙" },
+      { label: "in a store", emoji: "🛒" },
+    ],
+    think: {
+      prompt: "Why did Leo give Biscuit a bath?",
+      right: { label: "Biscuit was covered in mud", emoji: "🐕" },
+      wrong: [
+        { label: "Biscuit wanted to swim", emoji: "🏊" },
+        { label: "It was Biscuit's birthday", emoji: "🎂" },
+      ],
+      hint: "Look at the second sentence. What did Leo find?",
+    },
+    events: ["Biscuit dug a hole.", "Leo found Biscuit muddy.", "Leo gave Biscuit a bath.", "Biscuit was clean and fluffy."],
+  },
+  {
+    lines: [
+      "Amir and his sister made a lemonade stand.",
+      "They squeezed lemons and added sugar and water.",
+      "Neighbours stopped by to buy a cup.",
+      "At the end, they counted their coins.",
+    ],
+    character: { label: "Amir", emoji: "🧒" },
+    notCharacters: [
+      { label: "a baker", emoji: "🧑‍🍳" },
+      { label: "a lemon tree", emoji: "🍋" },
+    ],
+    setting: { label: "outside near their home", emoji: "🏘️" },
+    notSettings: [
+      { label: "under the sea", emoji: "🌊" },
+      { label: "inside a castle", emoji: "🏰" },
+    ],
+    think: {
+      prompt: "What did Amir and his sister do first?",
+      right: { label: "They made lemonade", emoji: "🍋" },
+      wrong: [
+        { label: "They counted coins", emoji: "🪙" },
+        { label: "They sold the cups", emoji: "🥤" },
+      ],
+      hint: "The story tells what happened in order. Find the first thing they did.",
+    },
+    events: ["They set up a stand.", "They made lemonade.", "Neighbours bought cups.", "They counted coins."],
+  },
+  {
+    lines: [
+      "Lena had a loose tooth.",
+      "She wiggled it with her tongue all day.",
+      "At dinner, the tooth came out in her apple!",
+      "Lena put it under her pillow and smiled.",
+    ],
+    character: { label: "Lena", emoji: "👧" },
+    notCharacters: [
+      { label: "a dentist", emoji: "🦷" },
+      { label: "a monkey", emoji: "🐒" },
+    ],
+    setting: { label: "at home", emoji: "🏡" },
+    notSettings: [
+      { label: "at a pool", emoji: "🏊" },
+      { label: "in a forest", emoji: "🌲" },
+    ],
+    think: {
+      prompt: "How did Lena feel at the end?",
+      right: { label: "happy", emoji: "😊" },
+      wrong: [
+        { label: "scared", emoji: "😨" },
+        { label: "bored", emoji: "😑" },
+      ],
+      hint: "The last sentence says Lena smiled.",
+    },
+    events: ["Lena had a loose tooth.", "She wiggled it.", "The tooth came out in an apple.", "She put it under her pillow."],
+  },
+  {
+    lines: [
+      "A little rabbit named Pip lived in a burrow.",
+      "One night, Pip heard a loud noise outside.",
+      "Pip peeked out and saw it was only the wind.",
+      "Pip hopped back in and fell asleep.",
+    ],
+    character: { label: "Pip the rabbit", emoji: "🐇" },
+    notCharacters: [
+      { label: "the wind", emoji: "💨" },
+      { label: "an owl", emoji: "🦉" },
+    ],
+    setting: { label: "in a burrow at night", emoji: "🌙" },
+    notSettings: [
+      { label: "at a busy mall", emoji: "🏬" },
+      { label: "on a beach at noon", emoji: "🏖️" },
+    ],
+    think: {
+      prompt: "What was the noise?",
+      right: { label: "The wind", emoji: "💨" },
+      wrong: [
+        { label: "A monster", emoji: "👹" },
+        { label: "A truck", emoji: "🚚" },
+      ],
+      hint: "Pip peeked out and saw what it was.",
+    },
+    events: ["Pip lived in a burrow.", "Pip heard a noise.", "Pip saw it was the wind.", "Pip fell asleep."],
+  },
+  {
+    lines: [
+      "Kenji's class had a pet fish named Bubbles.",
+      "Every morning, Kenji sprinkled in some fish food.",
+      "One day, Bubbles swam up to the top to say hello.",
+      "Kenji felt proud to be a good helper.",
+    ],
+    character: { label: "Kenji", emoji: "🧒" },
+    notCharacters: [
+      { label: "a mermaid", emoji: "🧜" },
+      { label: "a whale", emoji: "🐳" },
+    ],
+    setting: { label: "in a classroom", emoji: "🏫" },
+    notSettings: [
+      { label: "at a supermarket", emoji: "🛒" },
+      { label: "on a mountain", emoji: "🏔️" },
+    ],
+    think: {
+      prompt: "Why did Kenji feel proud?",
+      right: { label: "He took good care of the fish", emoji: "🐠" },
+      wrong: [
+        { label: "He won a race", emoji: "🏁" },
+        { label: "He ate the fish food", emoji: "🍽️" },
+      ],
+      hint: "Kenji fed Bubbles every morning. That is being a good helper.",
+    },
+    events: ["The class had a fish.", "Kenji fed the fish every morning.", "Bubbles swam up to say hello.", "Kenji felt proud."],
+  },
+  {
+    lines: [
+      "Noah and Zoe built a fort out of blankets.",
+      "They put pillows inside to make it soft.",
+      "Then it started to rain outside.",
+      "The two friends read stories in their cosy fort.",
+    ],
+    character: { label: "Noah and Zoe", emoji: "🧒" },
+    notCharacters: [
+      { label: "a builder", emoji: "👷" },
+      { label: "a raindrop", emoji: "💧" },
+    ],
+    setting: { label: "inside a blanket fort", emoji: "🏕️" },
+    notSettings: [
+      { label: "in a swimming pool", emoji: "🏊" },
+      { label: "at a bus stop", emoji: "🚏" },
+    ],
+    think: {
+      prompt: "Why did Noah and Zoe stay inside?",
+      right: { label: "It was raining", emoji: "🌧️" },
+      wrong: [
+        { label: "It was sunny", emoji: "☀️" },
+        { label: "They had no friends", emoji: "😢" },
+      ],
+      hint: "Read the third sentence to find what started outside.",
+    },
+    events: ["They built a fort.", "They added pillows.", "It started to rain.", "They read stories."],
+  },
+  {
+    lines: [
+      "Ana's grandmother taught her how to bake bread.",
+      "They mixed flour, water and yeast.",
+      "The dough rose in a warm bowl.",
+      "Ana's whole family ate fresh bread for dinner.",
+    ],
+    character: { label: "Ana", emoji: "👧" },
+    notCharacters: [
+      { label: "a farmer", emoji: "🧑‍🌾" },
+      { label: "a toaster", emoji: "🍞" },
+    ],
+    setting: { label: "in a kitchen", emoji: "🍳" },
+    notSettings: [
+      { label: "at a playground", emoji: "🛝" },
+      { label: "on a boat", emoji: "⛵" },
+    ],
+    think: {
+      prompt: "Who showed Ana how to bake?",
+      right: { label: "Her grandmother", emoji: "👵" },
+      wrong: [
+        { label: "Her teacher", emoji: "🧑‍🏫" },
+        { label: "A neighbour", emoji: "🧑" },
+      ],
+      hint: "The first sentence tells you who taught Ana.",
+    },
+    events: ["Ana learned to bake.", "They mixed the dough.", "The dough rose.", "The family ate the bread."],
+  },
+  {
+    lines: [
+      "Maya's team was playing soccer in the park.",
+      "Maya kicked the ball, but it rolled into a puddle.",
+      "Her teammate Ravi helped her dry the ball.",
+      "They both laughed and kept on playing.",
+    ],
+    character: { label: "Maya", emoji: "👧" },
+    notCharacters: [
+      { label: "a referee", emoji: "🧑‍⚖️" },
+      { label: "a goalpost", emoji: "🥅" },
+    ],
+    setting: { label: "at the park", emoji: "🌳" },
+    notSettings: [
+      { label: "at a restaurant", emoji: "🍽️" },
+      { label: "in a museum", emoji: "🏛️" },
+    ],
+    think: {
+      prompt: "How did Ravi show he was a good teammate?",
+      right: { label: "He helped Maya dry the ball", emoji: "🤝" },
+      wrong: [
+        { label: "He took the ball home", emoji: "🏠" },
+        { label: "He laughed at Maya in a mean way", emoji: "😝" },
+      ],
+      hint: "Look for what Ravi did to help.",
+    },
+    events: ["Maya's team played soccer.", "The ball rolled into a puddle.", "Ravi helped dry the ball.", "They kept playing."],
+  },
+  {
+    lines: [
+      "Sam found a feather on the trail.",
+      "It was blue with a black stripe.",
+      "Sam showed it to a park ranger.",
+      "The ranger said it came from a Steller's jay.",
+    ],
+    character: { label: "Sam", emoji: "🧑" },
+    notCharacters: [
+      { label: "a jay", emoji: "🐦" },
+      { label: "a tree", emoji: "🌲" },
+    ],
+    setting: { label: "on a trail", emoji: "🥾" },
+    notSettings: [
+      { label: "in a theatre", emoji: "🎭" },
+      { label: "at a bakery", emoji: "🥐" },
+    ],
+    think: {
+      prompt: "What did the ranger help Sam learn?",
+      right: { label: "Which bird the feather came from", emoji: "🐦" },
+      wrong: [
+        { label: "How to bake a cake", emoji: "🎂" },
+        { label: "How to count to ten", emoji: "🔢" },
+      ],
+      hint: "The last sentence tells what the ranger said.",
+    },
+    events: ["Sam found a feather.", "It was blue.", "Sam showed a ranger.", "The ranger named the bird."],
+  },
+  {
+    lines: [
+      "Jay was nervous about the school play.",
+      "Jay practised the lines in front of the mirror.",
+      "On the big night, Jay said every line clearly.",
+      "Everyone clapped, and Jay took a big bow.",
+    ],
+    character: { label: "Jay", emoji: "🧒" },
+    notCharacters: [
+      { label: "the audience", emoji: "👏" },
+      { label: "a mirror", emoji: "🪞" },
+    ],
+    setting: { label: "at school", emoji: "🏫" },
+    notSettings: [
+      { label: "at the beach", emoji: "🏖️" },
+      { label: "at the zoo", emoji: "🦁" },
+    ],
+    think: {
+      prompt: "What helped Jay do well in the play?",
+      right: { label: "Practising the lines", emoji: "🪞" },
+      wrong: [
+        { label: "Skipping the practice", emoji: "🙅" },
+        { label: "Staying home", emoji: "🏠" },
+      ],
+      hint: "Practice helps us get better. What did Jay do in front of the mirror?",
+    },
+    events: ["Jay felt nervous.", "Jay practised the lines.", "Jay said every line.", "Everyone clapped."],
+  },
+  {
+    lines: [
+      "A bear cub named Juniper woke up from a long winter sleep.",
+      "Juniper was very hungry.",
+      "Juniper found berries and fish near the river.",
+      "Soon the little cub felt strong again.",
+    ],
+    character: { label: "Juniper the bear cub", emoji: "🐻" },
+    notCharacters: [
+      { label: "a fish", emoji: "🐟" },
+      { label: "a hunter", emoji: "🧑" },
+    ],
+    setting: { label: "near a river in the forest", emoji: "🌲" },
+    notSettings: [
+      { label: "in a big city", emoji: "🏙️" },
+      { label: "at an airport", emoji: "✈️" },
+    ],
+    think: {
+      prompt: "Why did Juniper look for food?",
+      right: { label: "Juniper was hungry", emoji: "🍓" },
+      wrong: [
+        { label: "Juniper was playing a game", emoji: "🎮" },
+        { label: "Juniper wanted to go to school", emoji: "🏫" },
+      ],
+      hint: "The second sentence says how Juniper felt.",
+    },
+    events: ["Juniper woke up.", "Juniper felt hungry.", "Juniper found berries and fish.", "Juniper felt strong."],
   },
 ];
 

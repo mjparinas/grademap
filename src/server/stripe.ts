@@ -11,6 +11,8 @@ export function stripeConfigured(): boolean {
 
 /** Lets you click through the subscription flow without Stripe while developing. */
 export function devBillingAllowed(): boolean {
+  // Never on the real production deployment, even with the flag: it grants premium without payment.
+  if (process.env.VERCEL_ENV === "production") return false;
   return !stripeConfigured() && (process.env.NODE_ENV !== "production" || process.env.ALLOW_DEV_BILLING === "1");
 }
 

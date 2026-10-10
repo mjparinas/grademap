@@ -42,6 +42,18 @@ const ADJECTIVES: FrItem[] = [
   ["Complète : Les chats sont ___.", "noirs", ["noir", "noire", "noires"], ADJ_HINT],
   ["Complète : Les fleurs sont ___.", "jolies", ["joli", "jolie", "jolis"], ADJ_HINT],
   ["Complète : Le ciel est ___.", "gris", ["grise", "grises"], ADJ_HINT],
+  ["Complète : Un livre ___.", "intéressant", ["intéressante", "intéressants", "intéressantes"], ADJ_HINT],
+  ["Complète : Une histoire ___.", "amusante", ["amusant", "amusants", "amusantes"], ADJ_HINT],
+  ["Complète : Les maisons sont ___.", "grandes", ["grand", "grande", "grands"], ADJ_HINT],
+  ["Complète : Les garçons sont ___.", "contents", ["content", "contente", "contentes"], ADJ_HINT],
+  ["Complète : Les filles sont ___.", "contentes", ["content", "contente", "contents"], ADJ_HINT],
+  ["Complète : Le sac est ___.", "lourd", ["lourde", "lourds", "lourdes"], ADJ_HINT],
+  ["Complète : La lune est ___.", "ronde", ["rond", "ronds", "rondes"], ADJ_HINT],
+  ["Complète : Le chien est ___.", "gentil", ["gentille", "gentils", "gentilles"], ADJ_HINT],
+  ["Complète : La chatte est ___.", "gentille", ["gentil", "gentils", "gentilles"], ADJ_HINT],
+  ["Complète : Les ballons sont ___.", "bleus", ["bleu", "bleue", "bleues"], ADJ_HINT],
+  ["Complète : Les fleurs sont ___.", "violettes", ["violet", "violette", "violets"], ADJ_HINT],
+  ["Complète : La fenêtre est ___.", "ouverte", ["ouvert", "ouverts", "ouvertes"], ADJ_HINT],
 ];
 
 // ---------- L'ordre des mots ----------
@@ -53,6 +65,14 @@ const SENTENCE_CHOICES: FrItem[] = [
   ["Quelle phrase est dans le bon ordre?", "Mon ami joue au ballon.", ["Ami mon ballon joue au.", "Joue mon ami au ballon.", "Au ballon mon joue ami."], "Start with who, then the action, then the rest.", "⚽"],
   ["Quelle phrase est dans le bon ordre?", "Les enfants chantent.", ["Chantent les enfants.", "Enfants les chantent.", "Les chantent enfants."], "Say who first (les enfants), then what they do.", "🎤"],
   ["Quelle phrase est dans le bon ordre?", "Maya lit un livre.", ["Lit Maya un livre.", "Un Maya livre lit.", "Livre un lit Maya."], "Who? Maya. Does what? Lit. What? Un livre.", "📖"],
+  ["Quelle phrase est dans le bon ordre?", "Le chien court vite.", ["Court le vite chien.", "Vite chien le court.", "Chien court le vite."], "Start with who (le chien), then what he does (court), then how (vite).", "🐕"],
+  ["Quelle phrase est dans le bon ordre?", "Zoé boit du lait.", ["Boit Zoé lait du.", "Du lait Zoé boit.", "Lait du boit Zoé."], "Who? Zoé. Does what? Boit. What? Du lait.", "🥛"],
+  ["Quelle phrase est dans le bon ordre?", "Mon papa fait un gâteau.", ["Fait mon papa gâteau un.", "Un gâteau mon fait papa.", "Papa mon un fait gâteau."], "Start with who, then the action, then the rest.", "🎂"],
+  ["Quelle phrase est dans le bon ordre?", "Les oiseaux chantent le matin.", ["Chantent oiseaux les matin le.", "Le matin les chantent oiseaux.", "Oiseaux le chantent les matin."], "Say who first (les oiseaux), then what they do.", "🐦"],
+  ["Quelle phrase est dans le bon ordre?", "Nous mangeons une pomme.", ["Mangeons une nous pomme.", "Une pomme mangeons nous.", "Pomme nous une mangeons."], "Start with who (nous), then the verb (mangeons).", "🍎"],
+  ["Quelle phrase est dans le bon ordre?", "Ma sœur dessine un chat.", ["Dessine ma sœur un chat.", "Un chat ma dessine sœur.", "Sœur ma chat dessine un."], "Who? Ma sœur. Does what? Dessine. What? Un chat.", "🖍️"],
+  ["Quelle phrase est dans le bon ordre?", "Tu joues avec ton ami.", ["Joues tu ton avec ami.", "Avec ton ami tu joues.", "Ami ton joues avec tu."], "Start with who (tu), then the verb (joues).", "🤝"],
+  ["Quelle phrase est dans le bon ordre?", "Le soleil brille aujourd'hui.", ["Brille le soleil aujourd'hui.", "Aujourd'hui brille le soleil.", "Soleil le aujourd'hui brille."], "Start with what shines (le soleil), then the verb.", "☀️"],
 ];
 
 const WORD_ORDERS: { items: string[] }[] = [
@@ -61,6 +81,11 @@ const WORD_ORDERS: { items: string[] }[] = [
   { items: ["Maya", "lit", "un", "livre"] },
   { items: ["Les", "enfants", "chantent", "une", "chanson"] },
   { items: ["Léa", "mange", "une", "pomme"] },
+  { items: ["Zoé", "boit", "du", "lait"] },
+  { items: ["Le", "chien", "court", "vite"] },
+  { items: ["Ma", "sœur", "dessine", "un", "chat"] },
+  { items: ["Nous", "mangeons", "une", "pomme"] },
+  { items: ["Tu", "joues", "avec", "ton", "ami"] },
 ];
 
 function ordreDesMots(opts?: GenerateOptions): Question[] {
@@ -84,6 +109,20 @@ const CONTES: FrItem[] = [
   ["Qu'est-ce qu'un conte?", "Une histoire inventée", ["Un texte qui donne des faits", "Une recette", "Un horaire d'autobus"], TALE_HINT, "📚"],
   ["Quel texte est un conte?", "Il était une fois un petit dragon qui voulait voler.", ["Les dragons de mer vivent dans l'eau chaude.", "Pour faire un gâteau, il faut des œufs.", "Le bus arrive à huit heures."], TALE_HINT],
   ["Beaucoup de cultures racontent des contes. Pourquoi?", "Pour partager des idées et des leçons", ["Pour vendre des objets", "Pour donner la météo", "Pour compter jusqu'à dix"], "People of many cultures, including First Peoples and Francophone communities, share stories to pass on ideas, humour and lessons.", "🌍"],
+  ["Dans « Les trois petits cochons », qui souffle sur les maisons?", "Le loup", ["L'ours", "Le renard"], TALE_HINT, "🐺"],
+  ["Dans « Le Petit Chaperon rouge », de quelle couleur est le chaperon?", "rouge", ["bleu", "vert"], "The title tells us: it is the “Chaperon rouge”.", "🧣"],
+  ["Dans « Boucle d'or et les trois ours », combien d'ours y a-t-il?", "trois", ["deux", "quatre"], "The title tells us how many bears there are.", "🐻"],
+  ["Dans « Cendrillon », qui aide Cendrillon à aller au bal?", "Sa marraine la fée", ["Le loup", "Un pirate"], TALE_HINT, "✨"],
+  ["Dans « Le Chat botté », que porte le chat?", "Des bottes", ["Un chapeau de paille", "Des lunettes"], "The title says it: the cat wears boots.", "🐱"],
+  ["Dans « La Belle au bois dormant », que fait la princesse pendant cent ans?", "Elle dort", ["Elle chante", "Elle voyage"], "The title says it: the sleeping beauty sleeps.", "😴"],
+  ["Dans « Le vilain petit canard », le petit canard devient…", "un beau cygne", ["un gros chat", "un ours"], TALE_HINT, "🦢"],
+  ["Dans « Le Lièvre et la Tortue », qui gagne la course?", "La tortue", ["Le lièvre", "Le renard"], "The hare stops to nap, so the slow and steady tortoise wins.", "🐢"],
+  ["Dans « Les trois petits cochons », la première maison est faite de…", "paille", ["briques", "bois"], "The first pig builds with straw, the second with wood and the third with bricks.", "🌾"],
+  ["Quelle phrase finit souvent un conte?", "Ils vécurent heureux.", ["Il était une fois…", "Voici la météo."], TALE_HINT, "🏰"],
+  ["Dans « Le Petit Poucet », le héros est…", "très petit", ["très grand", "un roi"], "“Poucet” comes from “pouce”, the thumb. He is tiny!", "👦"],
+  ["Dans « Le Petit Chaperon rouge », que porte la petite fille à sa grand-mère?", "Un panier", ["Un ballon", "Un parapluie"], TALE_HINT, "🧺"],
+  ["Dans un conte, le personnage a souvent un problème. Que cherche-t-il?", "Une solution", ["Un autobus", "Un crayon"], TALE_HINT, "💡"],
+  ["Des communautés des Premières Nations racontent leurs histoires à voix haute. C'est…", "la tradition orale", ["un horaire", "une recette"], "Many communities share stories by telling them aloud from one generation to the next. This is called oral tradition.", "🗣️"],
   ["Dans un conte, un animal peut souvent…", "parler", ["payer un billet", "conduire un camion", "écrire un courriel"], TALE_HINT, "🦊"],
 ];
 
@@ -98,6 +137,12 @@ const MARKERS: FrItem[] = [
   ["Complète : Je mets mon livre ___ la table, tout en haut.", "sur", ["sous", "dans", "loin"], "“Sur” means on top of.", "📖"],
   ["Complète : Le chat dort ___ la boîte, à l'intérieur.", "dans", ["sur", "loin", "demain"], "“Dans” means inside.", "📦"],
   ["Complète : Hier, il pleuvait. Aujourd'hui, il y a du soleil. ___, il va neiger.", "Demain", ["Hier", "Enfin", "Ici"], "“Demain” means tomorrow.", "📅"],
+  ["Complète : ___, je me brosse les dents. Ensuite, je me couche.", "D'abord", ["Enfin", "Demain"], "“D'abord” tells us what comes first.", "🪥"],
+  ["Complète : D'abord, je mange. ___, je lave mes mains. Enfin, je joue.", "Ensuite", ["D'abord", "Hier"], "“Ensuite” tells us what comes next.", "🧼"],
+  ["Complète : D'abord, je fais la pâte. Ensuite, je la cuis. ___, je mange le gâteau.", "Enfin", ["D'abord", "Hier"], "“Enfin” tells us what comes last.", "🎂"],
+  ["Complète : Le chapeau est ___ la tête, tout en haut.", "sur", ["sous", "loin"], "“Sur” means on top of.", "🎩"],
+  ["Complète : Le chat se cache ___ le lit, tout en bas.", "sous", ["sur", "demain"], "“Sous” means below.", "🛏️"],
+  ["Complète : L'école est ___ de ma maison. Je marche trois minutes.", "près", ["loin", "tard"], "“Près” means close by.", "🏫"],
 ];
 
 const SEQUENCES = [
@@ -105,6 +150,12 @@ const SEQUENCES = [
   { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, je mets mes bottes.", "Ensuite, je mets mon manteau.", "Enfin, je sors jouer."] },
   { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, je prends une feuille.", "Ensuite, je dessine un arbre.", "Enfin, je colorie mon dessin."] },
   { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, on plante une graine.", "Ensuite, on l'arrose.", "Enfin, une fleur pousse."] },
+  { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, je prends mon bain.", "Ensuite, je mets mon pyjama.", "Enfin, je lis une histoire."] },
+  { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, on mélange la farine.", "Ensuite, on ajoute des œufs.", "Enfin, on fait cuire le gâteau."] },
+  { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, je trouve mon crayon.", "Ensuite, j'écris mon nom.", "Enfin, je range mon crayon."] },
+  { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, il pleut.", "Ensuite, le soleil sort.", "Enfin, un arc-en-ciel apparaît."] },
+  { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, je lave la pomme.", "Ensuite, je la coupe.", "Enfin, je la mange."] },
+  { prompt: "Remets les phrases dans l'ordre.", items: ["D'abord, j'ouvre mon sac.", "Ensuite, je sors mon livre.", "Enfin, je lis une page."] },
 ];
 
 function marqueurs(opts?: GenerateOptions): Question[] {
@@ -131,6 +182,18 @@ const BE_HAVE: FrItem[] = [
   ["Complète : Les enfants ___ à l'école.", "sont", ["est", "sommes", "êtes"], VERB_HINT],
   ["Complète : Léo ___ un livre.", "a", ["as", "ai", "ont"], VERB_HINT],
   ["Complète : Tu ___ gentil.", "es", ["est", "suis", "êtes"], VERB_HINT],
+  ["Complète : Ils ___ contents.", "sont", ["est", "sommes", "êtes"], VERB_HINT],
+  ["Complète : J'___ un frère.", "ai", ["as", "a", "ont"], VERB_HINT],
+  ["Complète : Elle ___ une bicyclette.", "a", ["as", "ai", "ont"], VERB_HINT],
+  ["Complète : Vous ___ un beau chat.", "avez", ["avons", "ont", "as"], VERB_HINT],
+  ["Complète : Nous ___ à la maison.", "sommes", ["êtes", "sont", "suis"], VERB_HINT],
+  ["Complète : Tu ___ à l'école.", "es", ["est", "suis", "sont"], VERB_HINT],
+  ["Complète : Zoé et Léo ___ amis.", "sont", ["est", "sommes", "êtes"], VERB_HINT],
+  ["Complète : Ils ___ faim.", "ont", ["a", "avons", "avez"], VERB_HINT],
+  ["Complète : Je ___ à la piscine.", "suis", ["es", "est", "sont"], VERB_HINT],
+  ["Complète : Amir ___ huit ans.", "a", ["as", "ai", "ont"], VERB_HINT],
+  ["Complète : Vous ___ ici.", "êtes", ["sommes", "sont", "es"], VERB_HINT],
+  ["Complète : Les filles ___ un ballon.", "ont", ["a", "avons", "avez"], VERB_HINT],
 ];
 
 export const course: Course = {

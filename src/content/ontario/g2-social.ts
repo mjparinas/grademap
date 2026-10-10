@@ -1,0 +1,377 @@
+import { pick } from "../random";
+import type { Unit } from "../types";
+import { on } from "./kit";
+import { order, q, sorter, unitOf, type Item } from "./k-g2-kit";
+
+// Ontario Grade 2 social studies (2023): A. Heritage and Identity, Changing Family and Community
+// Traditions; B. People and Environments, Global Communities. BC's needs-and-wants and
+// caring-citizens units are shared (see g2.ts); BC's Canada-regions unit is not, because it names
+// British Columbia. Expectations about First Nations, Métis and Inuit traditions and communities
+// (A1.1 and A1.4 in part, A3.4 and A3.7 in part, B3.7) are left for writing with Indigenous partners.
+
+// ---------- Families ----------
+
+const FAMILIES: Item[] = [
+  q("Which is true about families?", "Families come in many shapes and sizes", ["All families look the same", "Only big families are real"], "Some families have one parent, two parents, grandparents, guardians or foster parents, and many different mixes."),
+  q("Ravi lives with his grandmother and his aunt. Is that a family?", "Yes", ["No", "Only on holidays"], "A family is people who care for each other."),
+  q("Maya has two moms. Leo has a mom and a dad. Both are…", "families", ["not families", "classrooms"], "Families can have different kinds of parents or caregivers."),
+  q("A multigenerational family is one where…", "grandparents, parents and kids live together", ["only pets live", "only teachers live"], "Multigenerational means more than two generations.", { d: 2 }),
+  q("A blended family is one where…", "two families join together", ["a family has only one child", "everyone has the same name"], "Sometimes parents and children join to make a new, bigger family.", { d: 2 }),
+  q("Sam has foster parents. Foster parents are…", "adults who care for a child for a time", ["pretend families", "visitors who never help"], "Foster families take care of children who need a safe home.", { d: 2 }),
+  q("A friend is adopted. This means…", "their parents chose to make them part of the family", ["they are a visitor", "they live at school"], "Adoption is one way families form.", { d: 2 }),
+  q("Which is a good way to ask about a friend's family?", "“Who is in your family?”", ["“Your family is weird.”", "“You do not have a real family.”"], "Be curious and kind. Every family is real."),
+  q("Priya's family eats dinner together each Sunday. This is…", "a family routine", ["a school rule", "a game"], "Routines and traditions are part of family life.", { d: 2 }),
+  q("Families may speak different languages at home. This makes our community…", "richer and more interesting", ["confusing for no reason", "less friendly"], "Many languages mean many ways of sharing ideas and stories.", { d: 2 }),
+  q("Kenji's family has two homes because his parents live apart. Is that okay?", "Yes, families can live in different ways", ["No, it is wrong", "Only one home counts"], "Families arrange their lives in different ways, and all can be loving.", { d: 3 }),
+  q("What do all families need to do?", "Care for each other", ["Look alike", "Eat the same food"], "Caring for each other is what families share."),
+  q("Lena lives with her dad and her older sister. Is that a family?", "Yes", ["No", "Only on weekends"], "A family is people who care for each other."),
+  q("Amir has a stepmom. A stepmom is…", "the partner of a child's parent", ["a teacher at school", "a neighbour"], "Families can grow when parents have new partners.", { d: 2 }),
+  q("Which of these can be part of a family?", "grandparents, aunts, uncles and cousins", ["only parents", "only kids"], "Families can include many relatives."),
+  q("Noah has a guardian instead of parents. A guardian is…", "an adult who looks after a child", ["a kind of pet", "a school bus driver"], "Guardians care for children just like parents do.", { d: 2 }),
+  q("Zoe has a big family with five brothers and sisters. Leo has no siblings. Both are…", "families", ["not families", "teams"], "Families can be big or small."),
+  q("What can family members do for each other?", "Help, share and care", ["Never talk", "Be unkind"], "Caring is what families share."),
+  q("Which is a kind thing to say about a classmate's family?", "“I like meeting your family.”", ["“Your family is strange.”", "“That is not a real family.”"], "Be kind and curious about other families."),
+  q("Jay lives with his grandfather. Who looks after Jay at home?", "his grandfather", ["a stranger", "nobody"], "Grandparents often care for grandchildren.", { d: 2 }),
+  q("Families may have rules at home. Why?", "To keep everyone safe and get along", ["To make life boring", "To stop anyone eating"], "Family rules help everyone live together well.", { d: 2 }),
+  q("A family tradition is something a family…", "does together again and again", ["does once and forgets", "never talks about"], "A tradition might be a weekly walk or a birthday song.", { d: 2 }),
+  q("Ana's family speaks Spanish at home and English at school. This is…", "a good thing, because many languages are valuable", ["a problem to fix", "a secret"], "Speaking more than one language is a gift.", { d: 3 }),
+  q("Ravi's mom and dad take turns making dinner. This shows that family members…", "share jobs", ["do not help each other", "must do the same job"], "Sharing jobs helps everyone.", { d: 3 }),
+  q("Which family tradition might a family have?", "reading a book together at bedtime", ["never speaking", "forgetting birthdays"], "A tradition can be small and still special.", { d: 2 }),
+];
+
+// ---------- Traditions and Celebrations ----------
+
+const TRADITIONS: Item[] = [
+  q("What is a tradition?", "Something a family or group does again and again", ["Something you do only once", "A kind of weather"], "Traditions are practices passed from one time to the next."),
+  q("Diwali is called the festival of…", "lights", ["snow", "kites"], "Many families celebrate Diwali with lamps, lights, sweets and rangoli.", { emoji: "🪔" }),
+  q("Lunar New Year is celebrated with…", "family meals, lanterns and red decorations", ["only a long swim", "only skiing"], "Lunar New Year is an important celebration in many communities.", { emoji: "🏮" }),
+  q("Which celebration takes place on July 1?", "Canada Day", ["Remembrance Day", "Halloween"], "Canada Day marks the anniversary of Confederation in 1867.", { emoji: "🇨🇦" }),
+  q("Which day do many people in Canada remember those who served in wars?", "Remembrance Day (November 11)", ["Valentine's Day", "Canada Day"], "We pause at 11 a.m. on November 11 to remember.", { d: 2 }),
+  q("Eid al-Fitr is a celebration for many Muslim families. It comes at the end of…", "Ramadan", ["summer", "the school year"], "Families share meals, prayers, gifts and time together.", { d: 2 }),
+  q("Hanukkah is a Jewish celebration. A candleholder used then is called a…", "menorah (or hanukkiah)", ["trumpet", "snowman"], "Candles are lit for eight nights.", { emoji: "🕎", d: 2 }),
+  q("Kwanzaa is a celebration of African heritage. It begins on…", "December 26", ["July 1", "October 31"], "Kwanzaa is observed for seven days from December 26 to January 1.", { d: 3 }),
+  q("Many families in Canada share a big meal for Thanksgiving. It is held in…", "October", ["April", "July"], "Thanksgiving in Canada is on the second Monday of October.", { d: 2 }),
+  q("A recipe passed from grandmother to grandchild is a way to pass on…", "heritage", ["weather", "homework"], "Food, songs, stories and languages carry our heritage.", { d: 2 }),
+  q("Which of these is a way to pass on heritage?", "Teaching a song in your family language", ["Throwing away old photos", "Forgetting your stories"], "Songs, stories and language keep traditions alive.", { d: 2 }),
+  q("Your friend's family celebrates something you do not. What is a respectful question?", "“Can you tell me about it?”", ["“Why is that silly?”", "“Stop celebrating.”"], "Asking with respect helps us learn about each other."),
+  q("Families may change a tradition over time. One reason could be…", "they moved to a new place", ["the Sun is blue", "they forgot their names"], "Moving, new ideas and new people can change how we celebrate.", { d: 3 }),
+  q("Birthdays are celebrated by people all over the world. What is common?", "People mark growing another year", ["Everyone has the same cake", "Everyone sings the same song"], "Different cultures celebrate birthdays in different ways.", { d: 3 }),
+  q("Which is a celebration, not a regular day?", "a wedding", ["a Tuesday lunch", "a bus ride"], "A celebration is a special event.", { d: 2 }),
+  q("People often give thanks at Thanksgiving. What are they thankful for?", "food, family and friends", ["homework", "the cold"], "Thanksgiving is a time to be grateful.", { d: 2 }),
+  q("Which celebration is held on December 25 by many families?", "Christmas", ["Canada Day", "Diwali"], "Many families celebrate Christmas with food, music and gifts.", { d: 2 }),
+  q("Which is a celebration that many people enjoy in the fall, on October 31?", "Halloween", ["Canada Day", "Hanukkah"], "Halloween is on October 31.", { d: 2 }),
+  q("Vaisakhi is a spring festival celebrated by many Sikh families and others. It marks…", "a new year and the harvest", ["the first snow", "the end of school"], "Many communities hold parades and share food at Vaisakhi.", { d: 3 }),
+  q("Which festival do many families in Canada celebrate with colourful lamps and sweets?", "Diwali", ["Canada Day", "Remembrance Day"], "Diwali is celebrated by many Hindu, Sikh and Jain families.", { d: 2 }),
+  q("Which tradition might a family do to welcome the new year?", "share a special meal", ["stay in bed all day", "forget the date"], "Many cultures share food to celebrate a new year.", { d: 2 }),
+  q("Why do people hold parades on holidays?", "To celebrate together in the community", ["To make traffic", "To hide"], "Parades bring people together."),
+  q("A friend wears special clothes for a family celebration. How can you show respect?", "Say it looks nice and ask about it", ["Make fun of it", "Tell them to change"], "Be kind and curious."),
+  q("Which of these is a food tradition?", "making dumplings together for a holiday", ["skipping lunch", "forgetting the recipe"], "Food is a big part of many celebrations.", { d: 2 }),
+  q("Why is it good to share stories from the past with children?", "So traditions are not forgotten", ["So they get bored", "So they stop asking"], "Stories keep heritage alive.", { d: 2 }),
+  q("Many families celebrate on a certain day every year. The day is a…", "holiday", ["problem", "weather"], "A holiday is a special day."),
+  q("Some celebrations have special clothing. Which is an example?", "a kimono for a festival", ["a swimsuit for snow", "pajamas for school"], "Special clothes can be part of a tradition.", { d: 3 }),
+  q("A school puts on a celebration with food and dances from many cultures. This shows…", "respect for different traditions", ["only one tradition matters", "there is nothing to learn"], "Sharing traditions helps us learn from each other.", { d: 3 }),
+];
+
+// ---------- Then and Now ----------
+
+const GENERATIONS = order("Put the generations in order, from oldest to youngest.", "Great-grandparent, grandparent, parent, child.", [
+  ["great-grandparent", "👵"],
+  ["grandparent", "🧓"],
+  ["parent", "🧑"],
+  ["child", "🧒"],
+]);
+
+const OLDER_YOUNGER = order("Put the family from the youngest to the oldest.", "A baby is younger than a child, and a child is younger than a parent, then a grandparent.", [
+  ["baby", "👶"],
+  ["child", "🧒"],
+  ["parent", "🧑"],
+  ["grandparent", "🧓"],
+]);
+
+const THENNOW: Item[] = [
+  q("A generation is…", "people of about the same age in a family", ["a kind of food", "a tool"], "Your grandparents are one generation, your parents another, and you another."),
+  q("Which person is from an older generation than your parents?", "your grandparent", ["your sibling", "your classmate"], "Grandparents were born before parents."),
+  q("Long ago, how did families keep in touch when far apart?", "They wrote letters", ["They sent video chats", "They used text messages"], "Technology changes how we share news.", { d: 2 }),
+  q("Today, how can families far apart talk and see each other?", "Video calls", ["Pigeon post only", "They cannot"], "Technology has changed how we celebrate together.", { d: 2 }),
+  q("Which tells about the past?", "an old photo album", ["tomorrow's weather", "a new toy"], "Photos and stories help us learn about the past.", { emoji: "📷" }),
+  q("How can you learn what life was like when your grandparents were young?", "Ask them questions", ["Guess only", "Ask a pet"], "Interviews are a good way to learn about the past.", { d: 2 }),
+  q("A timeline shows…", "events in order of time", ["only colours", "only weather"], "Timelines show what happened first, next and last."),
+  q("Which came first? A rotary phone or a smartphone?", "rotary phone", ["smartphone", "They came together"], "Technology changes over time.", { d: 2 }),
+  q("Your family has made the same dish for many years. This is a…", "tradition", ["mistake", "storm"], "A tradition lasts across generations."),
+  q("A family moves to a new country. How might traditions change?", "They may add new foods and keep old ones", ["They must stop all traditions", "Nothing changes ever"], "Families often blend old and new ways.", { d: 3 }),
+  q("Long ago many clothes were made at home. Today many are…", "bought from stores", ["grown from seeds", "made by the Moon"], "Ways of living change over time.", { d: 2 }),
+  q("Past and present both describe time. “Present” means…", "now", ["long ago", "never"], "The present is today. The past is before now.", { d: 2 }),
+  q("A great-grandparent is a parent of your…", "grandparent", ["sibling", "neighbour"], "Great-grandparents are two generations before you.", { d: 3 }),
+  q("When does a family often use a family tree?", "to show who is related", ["to measure rain", "to tell time"], "A family tree shows relatives from different generations.", { d: 3 }),
+  q("Long ago, how did many people wash clothes?", "by hand", ["in a spaceship", "with a robot"], "Machines like washers came later.", { d: 2 }),
+  q("Which is a tool of the past?", "an oil lamp", ["a tablet", "a light bulb in a phone"], "Oil lamps were used long ago before electric lights.", { d: 2 }),
+  q("Which is a tool of the present?", "a smartphone", ["a quill pen", "a horse-drawn plow"], "Smartphones are used today.", { d: 2 }),
+  q("Your grandmother says she walked to school as a child. What does that tell you?", "how she travelled in the past", ["what school is like tomorrow", "what the weather is"], "Stories from older family members tell us about the past."),
+  q("What can an old photograph tell us?", "how people looked and what they wore", ["what they will eat tomorrow", "what the weather will be"], "Photos are a source about the past.", { emoji: "📷" }),
+  q("Which of these happened first?", "People wrote letters", ["People sent emails", "People sent video messages"], "Communication has changed over time.", { d: 2 }),
+  q("Your parent is older than you. Who is younger?", "you", ["your grandparent", "your parent"], "Younger means you were born later."),
+  q("The word “past” means…", "before now", ["now", "later today"], "The past is what happened before now."),
+  q("The word “future” means…", "time that has not happened yet", ["yesterday", "long ago"], "The future is what comes after now.", { d: 2 }),
+  q("A family tree shows…", "who is in a family and how they are related", ["what the weather will be", "a map of a town"], "Family trees go back through generations.", { d: 2 }),
+  q("What helps you learn about family history?", "asking an older relative", ["asking a toy", "looking at a cloud"], "Older relatives remember events and traditions."),
+  q("Long ago, many families had to make or grow things themselves. Today many things are…", "bought in stores", ["made by nobody", "impossible to find"], "Ways of getting things have changed over time.", { d: 3 }),
+  q("A timeline of your life could start with…", "the day you were born", ["your next birthday party", "next year"], "A timeline goes from earliest to latest.", { d: 2 }),
+];
+
+// ---------- Groups and Places We Come From ----------
+
+const GROUPS: Item[] = [
+  q("Our community has people from many cultures. This is called…", "diversity", ["a rule", "a map"], "Diverse means many different kinds of people."),
+  q("Which could be a group in a community?", "a soccer team", ["a puddle", "a hill"], "Groups are people who share an interest, a place or a background."),
+  q("People may come to Canada from other countries for…", "many different reasons", ["only one reason", "no reason"], "Families may move for safety, work, school or to join family.", { d: 2 }),
+  q("A newcomer family arrives in your town. What can you do?", "Welcome them kindly", ["Ignore them", "Laugh at their words"], "Welcoming new neighbours builds a strong community."),
+  q("A globe is…", "a model of the whole Earth", ["a model of the Moon", "a kind of ball game"], "A globe shows the shape of Earth with lands and oceans."),
+  q("You can find the place your grandparents came from on…", "a map or a globe", ["a clock", "a calendar"], "Maps and globes help us find places in the world.", { d: 2 }),
+  q("Your friend's family came from Jamaica. Where is Jamaica?", "In the Caribbean Sea", ["In the Arctic", "In the Sahara Desert"], "Jamaica is an island country in the Caribbean.", { d: 3 }),
+  q("Your classmate's family is from Poland. Poland is in…", "Europe", ["Asia", "South America"], "Poland is a country in central Europe.", { d: 3 }),
+  q("A friend's family is from India. India is in…", "Asia", ["Europe", "Africa"], "India is a large country in South Asia.", { d: 3 }),
+  q("A language is…", "words people use to talk and write", ["a kind of bird", "a kind of game"], "Many languages are spoken in our community."),
+  q("Why do many places in Canada have signs in more than one language?", "Because many people speak different languages", ["Because signs like colour", "Because it is a rule for pets"], "Canada has two official languages, English and French, and many other languages are spoken.", { d: 2 }),
+  q("Which could be a group in a school?", "a choir", ["a thunderstorm", "a pencil"], "People who share an activity form a group.", { d: 2 }),
+  q("People celebrate heritage by sharing…", "food, music and stories", ["homework", "traffic"], "Heritage is passed on through traditions.", { d: 2 }),
+  q("A neighbourhood has people who speak many languages. What can you do to include everyone?", "Smile and say hello, and learn a few words", ["Ignore people who speak another language", "Tell them to be quiet"], "Learning greetings in different languages shows respect.", { d: 2 }),
+  q("Which of these is a group in our community?", "a library book club", ["a rainstorm", "a mountain"], "Groups are people who do things together."),
+  q("People who share a language, food or holiday traditions may be part of one…", "cultural group", ["weather", "kind of animal"], "Culture is the way a group lives, eats and celebrates."),
+  q("A new student is shy and just moved here. How can you help?", "Invite them to play", ["Leave them alone all day", "Laugh at them"], "Kindness helps newcomers feel they belong."),
+  q("Your friend's family is from Nigeria. Nigeria is in…", "Africa", ["Europe", "South America"], "Nigeria is a country in West Africa.", { d: 3 }),
+  q("Your friend's family is from the Philippines. The Philippines is in…", "Asia", ["Africa", "Europe"], "The Philippines is a group of islands in Southeast Asia.", { d: 3 }),
+  q("Your friend's family is from Mexico. Mexico is in…", "North America", ["Europe", "Antarctica"], "Mexico is the country just south of the United States.", { d: 3 }),
+  q("Which could help you find where a country is?", "a globe", ["a spoon", "a clock"], "A globe or a map shows countries and oceans.", { d: 2 }),
+  q("Why do people like to join clubs and teams?", "To share interests and make friends", ["To feel alone", "To stop learning"], "Being in a group can be fun."),
+  q("The people in your community may have come from…", "many different places", ["only one place", "the Moon"], "Many families come from other countries or other parts of Canada.", { d: 2 }),
+  q("What is one way to learn about a classmate's culture?", "Ask them kindly and listen", ["Guess without asking", "Say theirs is not as good"], "Listening shows respect.", { d: 2 }),
+  q("In Canada, the two official languages are…", "English and French", ["Spanish and Italian", "English and Latin"], "Many other languages are spoken as well.", { d: 3 }),
+  q("People share food from their culture at a school fair. This shows…", "we can learn from each other", ["everyone must like the same food", "no one can eat"], "Sharing food is a friendly way to learn about cultures.", { d: 2 }),
+  q("A community centre often offers…", "classes, sports and meetings for everyone", ["only homework", "nothing"], "Community centres bring people together.", { d: 2 }),
+];
+
+// ---------- Globe and Continents ----------
+
+const GLOBE: Item[] = [
+  q("How many continents are there?", "7", ["3", "12"], "The seven continents are Africa, Antarctica, Asia, Australia (Oceania), Europe, North America and South America."),
+  q("Which continent do we live on in Canada?", "North America", ["Asia", "Europe"], "Canada is in North America."),
+  q("Which continent is the biggest?", "Asia", ["Europe", "Australia"], "Asia is the largest continent.", { d: 2 }),
+  q("Which continent is very cold and covered in ice at the South Pole?", "Antarctica", ["Africa", "Asia"], "Antarctica is at the South Pole.", { d: 2 }),
+  q("Egypt is on which continent?", "Africa", ["Europe", "South America"], "Egypt is in northeastern Africa.", { d: 2 }),
+  q("Brazil is on which continent?", "South America", ["Africa", "Asia"], "Brazil is the largest country in South America.", { d: 2 }),
+  q("Japan is on which continent?", "Asia", ["Africa", "Europe"], "Japan is a group of islands in East Asia.", { d: 2 }),
+  q("France is on which continent?", "Europe", ["Asia", "North America"], "France is in western Europe.", { d: 2 }),
+  q("Which line goes around the middle of Earth?", "the equator", ["the Arctic Circle", "the horizon"], "The equator is an imaginary line halfway between the poles."),
+  q("Is it usually warmer near the equator or near the poles?", "near the equator", ["near the poles", "It is always the same"], "The Sun's rays hit the equator most directly, so it is warmer there."),
+  q("Which two points are at the very top and bottom of Earth?", "the North Pole and South Pole", ["the equator and the oceans", "Canada and Mexico"], "The poles are the coldest places on Earth.", { d: 2 }),
+  q("The equator splits Earth into…", "two hemispheres", ["three oceans", "four seasons"], "The Northern Hemisphere and Southern Hemisphere.", { d: 2 }),
+  q("Which ocean is the largest?", "Pacific Ocean", ["Arctic Ocean", "Atlantic Ocean"], "The Pacific is the biggest and deepest ocean.", { d: 3 }),
+  q("Canada touches three oceans. One is the…", "Atlantic Ocean", ["Indian Ocean", "Southern Ocean"], "Canada touches the Atlantic, Pacific and Arctic oceans.", { d: 3 }),
+  q("On a map, N, S, E and W mean…", "north, south, east and west", ["no, so, easy and warm", "new, soft, early and wet"], "These are the cardinal directions."),
+  q("Going north on a map takes you toward the…", "North Pole", ["equator", "South Pole"], "North points to the top of most maps.", { d: 2 }),
+  q("If you travel east from Toronto, you could reach…", "Montreal", ["Vancouver", "Victoria"], "Montréal is east of Toronto. Vancouver and Victoria are far to the west.", { d: 3 }),
+  q("Which continent is Australia on?", "Oceania (Australia)", ["Europe", "Africa"], "Australia is both a country and a continent in the Southern Hemisphere.", { d: 2 }),
+  q("Which continent is Canada NOT on?", "Africa", ["North America", "the northern part of Earth"], "Canada is in North America.", { d: 2 }),
+  q("China is on which continent?", "Asia", ["Africa", "South America"], "China is in East Asia.", { d: 2 }),
+  q("Kenya is on which continent?", "Africa", ["Asia", "Europe"], "Kenya is in East Africa.", { d: 2 }),
+  q("Italy is on which continent?", "Europe", ["Africa", "Asia"], "Italy is in southern Europe.", { d: 2 }),
+  q("Mexico is on which continent?", "North America", ["South America", "Europe"], "Mexico is just south of the United States.", { d: 3 }),
+  q("Argentina is on which continent?", "South America", ["Africa", "Asia"], "Argentina is in the southern part of South America.", { d: 3 }),
+  q("What colour is water on most maps?", "blue", ["red", "purple"], "Blue usually shows oceans, lakes and rivers."),
+  q("On a globe, most of the surface is…", "water", ["land", "ice"], "About two-thirds of Earth is covered by water.", { d: 2 }),
+  q("Which direction is opposite to north?", "south", ["east", "west"], "North and south are opposite.", { d: 2 }),
+  q("Which direction is opposite to east?", "west", ["north", "south"], "East and west are opposite.", { d: 2 }),
+  q("The Northern Hemisphere is the half of Earth…", "north of the equator", ["south of the equator", "under the sea"], "Canada is in the Northern Hemisphere.", { d: 3 }),
+];
+
+const CONTINENT_SORT = sorter({
+  prompt: "Which continent is it in? Tap a place, then its basket.",
+  hint: "Think about a map: Egypt and Kenya are in Africa. Japan and India are in Asia. France and Italy are in Europe.",
+  bins: [
+    { id: "africa", label: "Africa", emoji: "🌍" },
+    { id: "asia", label: "Asia", emoji: "🌏" },
+    { id: "europe", label: "Europe", emoji: "🗼" },
+  ],
+  items: [
+    { label: "Egypt", emoji: "🏜️", bin: "africa" },
+    { label: "Kenya", emoji: "🦁", bin: "africa" },
+    { label: "Japan", emoji: "🗾", bin: "asia" },
+    { label: "India", emoji: "🪷", bin: "asia" },
+    { label: "France", emoji: "🥐", bin: "europe" },
+    { label: "Italy", emoji: "🍕", bin: "europe" },
+  ],
+});
+
+// ---------- Climate and Ways of Life ----------
+
+const CLIMATE: Item[] = [
+  q("Climate means…", "the usual weather in a place over many years", ["today's lunch", "the time of day"], "Climate is the weather that is typical over a long time."),
+  q("In a hot, sunny place, people often wear…", "light clothes", ["heavy snowsuits", "ski boots"], "People dress for their weather."),
+  q("A place with lots of rain and warmth, like a rainforest, has…", "many plants and trees", ["no plants at all", "only ice"], "Warm and wet places grow lots of plants."),
+  q("A desert gets very little…", "rain", ["sun", "sand"], "Deserts are dry places.", { emoji: "🏜️" }),
+  q("Why might a house in a rainy place have a steep roof?", "so rain runs off", ["to grow bananas", "for fun only"], "People build homes that suit the weather.", { d: 2 }),
+  q("Where might people wear thick coats most of the year?", "near the poles", ["near the equator", "in a rainforest"], "Polar regions have cold weather.", { d: 2 }),
+  q("People who live by the ocean often work as…", "fishers and port workers", ["only miners", "only skiers"], "Jobs often depend on the land and water nearby.", { emoji: "🎣" }),
+  q("In a place with deep winter snow, people might…", "plow roads and use snow tires", ["swim all winter", "use no coats"], "People adapt to their climate.", { d: 2 }),
+  q("People in dry places save water. Why?", "There is not much of it", ["It is too sweet", "It tastes like juice"], "Where water is scarce, people take special care of it.", { d: 3 }),
+  q("A photo shows people in light clothes, a beach and palm trees. The climate is probably…", "warm", ["freezing", "icy"], "We can find clues about climate in photos.", { d: 3 }),
+  q("A photo shows snow-covered mountains and people in parkas. The climate is probably…", "cold", ["hot", "dry desert"], "Snow and warm coats are clues about cold weather.", { d: 3 }),
+  q("In flat farming lands with lots of sun and rain, many people grow…", "crops", ["icebergs", "snowmen"], "Farmers grow food where the land and weather help plants grow.", { d: 2 }),
+  q("People who live in mountains sometimes build terraces. Why?", "To grow food on steep slopes", ["To keep rain away from houses only", "To make a swimming pool"], "Terraces are flat steps cut into a slope for farming.", { d: 3 }),
+  q("Which of these is a physical feature?", "a mountain", ["a school", "a store"], "Mountains, rivers and lakes are physical features.", { d: 2 }),
+  q("Which map symbol could show a river?", "a blue line", ["a red square", "a green circle"], "Maps often use blue for water.", { d: 2 }),
+  q("In a place with heavy snow, children often wear…", "boots, mittens and hats", ["sandals and shorts only", "swimsuits only"], "Clothes help us stay comfortable in the weather."),
+  q("In a hot, dry place, people may wear loose clothes and a hat to…", "stay cool and shaded", ["stay in the snow", "float"], "People dress for the weather.", { d: 2 }),
+  q("People in a rainy place often carry…", "umbrellas", ["snowshoes", "sand buckets"], "Umbrellas keep rain off.", { emoji: "☔" }),
+  q("A place with long, cold winters may have homes with…", "thick walls and good heating", ["open walls", "no roofs"], "Homes are built to suit the weather.", { d: 2 }),
+  q("Why do many hot places have homes with shady porches?", "To stay cool", ["To stay in the snow", "To grow ice"], "Shade helps people stay cool in hot weather.", { d: 2 }),
+  q("In a place with a lot of snow, what winter fun might people have?", "skating or skiing", ["sunbathing", "sandcastles"], "People enjoy activities that suit the weather.", { d: 2 }),
+  q("Farmers in warm, sunny places may grow…", "oranges or grapes", ["icebergs", "snowflakes"], "Some crops grow best with a lot of sun.", { d: 3 }),
+  q("A lake is a physical feature. A town is a…", "human-made feature", ["physical feature", "kind of weather"], "Features made by people are called human features, like roads and buildings.", { d: 3 }),
+  q("Which is a human-made feature?", "a bridge", ["a river", "a mountain"], "People build bridges.", { d: 2 }),
+  q("Which is a physical feature of a community?", "a lake", ["a school", "a road"], "Lakes, hills and rivers are natural.", { d: 2 }),
+  q("A community near a big lake could use the lake for…", "fishing, boating and swimming", ["skiing in July", "growing bananas"], "People use the land and water around them.", { d: 2 }),
+  q("In a snowy place, children might play on…", "a sled", ["a surfboard", "a camel"], "Sleds slide on snow.", { emoji: "🛷" }),
+  q("A photo shows a sandy desert with a few cactus plants. The place is probably…", "dry and hot", ["wet and cold", "snowy"], "Cactus plants live where there is little rain.", { d: 3 }),
+  q("Hot weather makes people want to drink…", "more water", ["less water", "snow"], "We drink more water when it is hot."),
+];
+
+// ---------- Communities Compared ----------
+
+const COMPARED: Item[] = [
+  q("A community is…", "a place where people live, work and play together", ["a kind of food", "a type of weather"], "Communities can be big cities or tiny villages."),
+  q("Two communities can be different. How might they differ?", "in size, climate and food", ["in nothing", "in the number of Moons"], "Communities can look and feel different."),
+  q("What do all communities need?", "food, water, shelter and clothing", ["TV and toys only", "snow"], "Everyone has basic needs."),
+  q("In a big city, how do many people get around?", "buses, trains and subways", ["only boats", "only horses"], "Cities often have public transit."),
+  q("In a small village, how might people travel?", "walking, bikes or a car", ["only a subway", "only an airplane"], "Villages are often small enough to walk.", { d: 2 }),
+  q("Two communities, one hot and one cold. How might homes differ?", "The cold one needs warm walls", ["Both need ice roofs", "Neither needs a roof"], "People build homes to suit their weather.", { d: 2 }),
+  q("A fishing village is by the sea. A farming town is in the plains. What is different?", "the main jobs", ["the number of Suns", "the colour of the sky only"], "Jobs often fit what the land and water offer.", { d: 2 }),
+  q("What is the same in every community?", "People need clean water", ["It always snows", "Everyone speaks English"], "Clean water is a basic need everywhere.", { d: 2 }),
+  q("Which could be a way your community is similar to a community far away?", "People go to school and play", ["Everyone owns a boat", "It has the same weather"], "Communities share many things, even when they look different.", { d: 3 }),
+  q("Which question helps you compare two communities?", "How do people get food there?", ["What is the Moon's name?", "How many cars can fly?"], "A good comparing question looks at needs and ways of living.", { d: 3 }),
+  q("A city has tall apartment buildings. Why do cities build up?", "Many people live close together", ["Buildings like clouds", "To block the Sun"], "Tall buildings use less land for more people.", { d: 3 }),
+  q("In a rural community, you might see…", "farms and open land", ["a skyscraper in every block", "a subway under every house"], "Rural means in the countryside.", { d: 2 }),
+  q("In an urban community, you might see…", "many people, buildings and busy streets", ["only farm fields", "only forest"], "Urban means in a town or city.", { d: 2 }),
+  q("Which is the same in a big city and a small town?", "People go to school and shop for food", ["Both have a subway", "Both have only farms"], "Communities share many things.", { d: 2 }),
+  q("Which is likely different between a city and a small town?", "how many people live there", ["that people need water", "that people need food"], "Cities usually have more people than small towns.", { d: 2 }),
+  q("A coastal community often has…", "a harbour or beach", ["a desert", "a glacier only"], "Coastal means next to the sea.", { d: 2 }),
+  q("A community in the mountains may have…", "steep roads and winter snow", ["a big ocean", "a flat desert"], "Land shapes how people live.", { d: 2 }),
+  q("Which place would have more cars and buses?", "a big city", ["a small farm", "a tiny village"], "Cities are busy with traffic."),
+  q("Which place is likely quieter and has more open space?", "a rural area", ["a downtown street", "a busy train station"], "Rural areas have fewer people and more land.", { d: 2 }),
+  q("What do people in all communities need to stay healthy?", "clean water and food", ["video games", "a boat"], "Everyone has basic needs."),
+  q("A bridge, a school and a library are all…", "things people build for the community", ["natural features", "kinds of weather"], "Communities build places people can use together.", { d: 2 }),
+  q("A community may have a market. What can people do there?", "buy and sell food and goods", ["learn to swim only", "fly planes"], "Markets help people get what they need.", { d: 2 }),
+  q("Which job is needed in almost every community?", "a teacher or a nurse", ["a spaceship pilot", "a polar explorer"], "Teachers, nurses and builders help every community.", { d: 3 }),
+  q("People in a farming community depend on…", "good soil and weather", ["only the ocean", "a tall building"], "Farming depends on the land.", { d: 3 }),
+  q("To compare two communities, you can make a list of how they are…", "the same and different", ["only the same", "only the colours"], "Comparing looks at similarities and differences.", { d: 2 }),
+  q("A small community may have one school. A large city may have…", "many schools", ["no schools", "one school only"], "Bigger cities need more of everything.", { d: 2 }),
+  q("Why do people live in communities?", "To share places, help each other and get what they need", ["To be alone", "To avoid everyone"], "Communities help people live together."),
+];
+
+// ---------- Social Studies Detectives ----------
+
+const DETECTIVES: Item[] = [
+  q("Which is a good question for investigating traditions?", "How did my grandparents celebrate?", ["How tall is the moon?", "What is 5 + 5?"], "Good questions are about the topic we are studying."),
+  q("Where could you find information about a community far away?", "A book, a map or a trusted website", ["A guess", "A rock"], "Different sources give different information."),
+  q("A photo from long ago is an example of a…", "primary source", ["a made-up story", "a dream"], "A primary source is a record made at the time or from someone who was there.", { d: 2 }),
+  q("An interview with your grandparent is a…", "primary source", ["rumour", "toy"], "Hearing from a person who lived it is a primary source.", { d: 2 }),
+  q("A class graph shows favourite celebrations. What can you tell from it?", "which one is chosen most", ["what the weather is", "how far away the Sun is"], "Graphs show information at a glance."),
+  q("You have a map of the world. You can find…", "oceans and continents", ["what you had for lunch", "who is tallest"], "Maps show where places are."),
+  q("A word to describe a story passed down from grandparents is…", "heritage", ["recess", "gym"], "Heritage means what is passed down to us.", { d: 2 }),
+  q("A round model of Earth is called a…", "globe", ["glove", "compass"], "A globe is a model of Earth.", { d: 2 }),
+  q("After collecting facts, what is next?", "Decide what they tell us", ["Forget them", "Burn them"], "We analyse what we learn and draw conclusions."),
+  q("When you share your results, you can use…", "pictures, words and maps", ["only silence", "only numbers you made up"], "People share what they learn in many ways.", { d: 2 }),
+  q("Which is a good source for learning about weather in another country?", "photos and weather reports", ["a made-up story", "a toy"], "Photos and reports give evidence about climate.", { d: 3 }),
+  q("Why do we compare more than one source?", "To check if the information agrees", ["To make more work", "To get lost"], "Using several sources makes our findings stronger.", { d: 3 }),
+  q("Which is a good question for finding out about a community?", "What jobs do people do here?", ["What is 2 + 2?", "What is your favourite colour?"], "A good inquiry question is about the topic we are studying."),
+  q("Where can you look to find out where a country is?", "a map or a globe", ["a lunch box", "a pencil case"], "Maps and globes show places."),
+  q("A good place to learn about your community's past is…", "a local museum or library", ["a random guess", "a toy store"], "Museums and libraries keep records of the past.", { d: 2 }),
+  q("You want to know how your grandparents celebrated. Who can you ask?", "your grandparents", ["a stranger on a bus", "your pencil"], "People who were there are good sources."),
+  q("A photo can be a source of information. What can you do with it?", "look for clues", ["eat it", "ignore it"], "We look carefully at the people, places and things.", { d: 2 }),
+  q("What does a map key (legend) tell you?", "what the symbols mean", ["what the weather is", "what time it is"], "A key explains the symbols on a map.", { d: 2 }),
+  q("A bar graph shows which pet the class likes best. The tallest bar means…", "most children chose it", ["fewest children chose it", "it is the heaviest"], "A taller bar means a bigger number.", { d: 2 }),
+  q("After you finish your investigation, what can you do?", "Share what you learned", ["Hide your notes", "Forget everything"], "Sharing helps others learn too."),
+  q("To organize facts about two communities, you could use…", "a chart with two columns", ["a drum", "a dice"], "A chart helps us compare.", { d: 3 }),
+  q("Which word means to look at things to see how they are the same and different?", "compare", ["jump", "paint"], "Comparing is an important tool in social studies.", { d: 2 }),
+  q("Which of these is a fact?", "Canada has ten provinces.", ["Winter is the best season.", "Pizza is the tastiest food."], "A fact can be checked. An opinion is what someone thinks.", { d: 3 }),
+  q("Which of these is an opinion?", "Fall is the prettiest season.", ["Canada has ten provinces.", "There are seven continents."], "An opinion tells what someone thinks or feels.", { d: 3 }),
+  q("When we plan an investigation, the first thing to do is…", "choose a question", ["write the end", "put the book away"], "Start with a clear question.", { d: 2 }),
+  q("Why do we write down what we find out?", "So we can remember and share it", ["So it disappears", "To make more mess"], "Notes help us share what we learned.", { d: 2 }),
+];
+
+// ---------- Units ----------
+
+export const units: Unit[] = [
+  {
+    id: "families-and-caring",
+    title: "Families Near & Far",
+    emoji: "🏠",
+    blurb: "Every kind of family",
+    standards: on("A1.2, A3.1", "different types of families, and how family structures and traditions compare"),
+    parentNote: "Families come in many forms (one parent, two parents, grandparents, blended, adoptive and foster families). What makes a family is caring for each other.",
+    generate: unitOf(FAMILIES),
+  },
+  {
+    id: "traditions-and-celebrations",
+    title: "Traditions & Celebrations",
+    emoji: "🎉",
+    blurb: "How we celebrate and pass it on",
+    standards: on("A1.2, A3.4, A3.6, A3.7", "traditions and celebrations in different families and communities, and how heritage is passed on"),
+    parentNote: "Well-known celebrations in Canada (such as Canada Day, Diwali, Lunar New Year, Eid, Hanukkah and Thanksgiving), and how food, songs, stories and language pass on heritage. First Nations, Métis and Inuit traditions are not covered here yet.",
+    generate: unitOf(TRADITIONS),
+  },
+  {
+    id: "then-and-now",
+    title: "Then & Now",
+    emoji: "📜",
+    blurb: "Generations and change over time",
+    standards: on("A1.1, A1.3, A2.4, A3.5", "how traditions and ways of life change over generations, and ordering events and people in time"),
+    parentNote: "Generations in a family, using photos, interviews and timelines, and how technology and traditions change from the past to the present.",
+    generate: unitOf(THENNOW, [(d) => pick([GENERATIONS, OLDER_YOUNGER])(d)]),
+  },
+  {
+    id: "groups-in-our-community",
+    title: "Groups in Our Community",
+    emoji: "🤝",
+    blurb: "Many cultures, languages and places",
+    standards: on("A3.2, A3.3", "groups and cultures in the community, and places of family significance on a globe or map"),
+    parentNote: "The many groups and languages in a community, why families move, welcoming newcomers, and finding the places families come from on a globe or map.",
+    generate: unitOf(GROUPS),
+  },
+  {
+    id: "globe-and-continents",
+    title: "Globe & Continents",
+    emoji: "🌍",
+    blurb: "Continents, oceans and directions",
+    standards: on("B3.1–B3.4", "continents, oceans, the equator, poles and hemispheres, cardinal directions, and where selected countries are"),
+    parentNote: "The seven continents, the oceans, the equator and poles, north, south, east and west, and where a few well-known countries are on a globe.",
+    generate: unitOf(GLOBE, [CONTINENT_SORT]),
+  },
+  {
+    id: "climate-and-ways-of-life",
+    title: "Climate & Ways of Life",
+    emoji: "🌦️",
+    blurb: "Weather, land and how people live",
+    standards: on("B1.2, B2.3, B3.5", "how climate and landforms shape the way communities live, and reading photos and maps for clues"),
+    parentNote: "How people dress, build, farm and work to suit their weather and land, and reading photos and maps for clues about climate.",
+    generate: unitOf(CLIMATE),
+  },
+  {
+    id: "communities-compared",
+    title: "Communities Compared",
+    emoji: "🏙️",
+    blurb: "City, village, rural and urban",
+    standards: on("B1.1, B3.8", "comparing our community with communities in other parts of the world"),
+    parentNote: "Comparing communities around the world: what they share (basic needs, school, play) and how they differ (size, climate, jobs, travel).",
+    generate: unitOf(COMPARED),
+  },
+  {
+    id: "social-studies-detectives",
+    title: "Social Studies Detectives",
+    emoji: "🕵️",
+    blurb: "Ask, gather, think and share",
+    standards: on("A2.1, A2.2, A2.4, A2.6, B2.1, B2.2, B2.4, B2.6", "asking questions, using sources, interpreting information and sharing results with the right words"),
+    parentNote: "The inquiry process: asking good questions, using people, photos, maps and graphs as sources, drawing conclusions and sharing results.",
+    generate: unitOf(DETECTIVES),
+  },
+];

@@ -112,7 +112,7 @@ export default async function UnitPage({ params }: Props) {
           <p className="mt-2 font-read text-lg">{unit.parentNote}</p>
           {unit.standards[f.id] && (
             <p className="mt-3 rounded-2xl bg-white p-4 font-read">
-              <b>{f.curriculumName} learning standard:</b> {unit.standards[f.id]}
+              <b>{f.curriculumName} {f.standardLabel.toLowerCase()}:</b> {unit.standards[f.id]}
             </p>
           )}
         </section>

@@ -1,0 +1,32 @@
+// Generated from docs/research/ontario/expectations.json (the Ontario Curriculum, Ministry of Education).
+// Overall expectations for Grade 7 Science and Technology and Social Studies, shown to parents as the course overview.
+// Social studies has two sets that both use strands A and B, so each line says Geography or History.
+
+export const G7_SCIENCE: string[] = [
+  "A1 STEM Investigation and Communication Skills: Use a scientific research process, a scientific experimentation process, and an engineering design process to conduct investigations, following appropriate health and safety procedures",
+  "A2 Coding and Emerging Technologies: Use coding in investigations and to model concepts, and assess the impact of coding and of emerging technologies on everyday life and in STEM-related fields",
+  "A3 Applications, Connections, and Contributions: Demonstrate an understanding of the practical applications of science and technology, and of contributions to science and technology from people with diverse lived experiences",
+  "B1 Relating Science and Technology to Our Changing World: Assess the impact of human activities and technologies on the environment, and analyse ways to mitigate negative impacts and contribute to environmental sustainability",
+  "B2 Exploring and Understanding Concepts: Demonstrate an understanding of interactions between and among biotic and abiotic components in the environment",
+  "C1 Relating Science and Technology to Our Changing World: Evaluate the environmental and social impacts of the use and disposal of various pure substances and mixtures",
+  "C2 Exploring and Understanding Concepts: Demonstrate an understanding of the nature of matter, including the properties of pure substances and mixtures, and describe these properties using particle theory",
+  "D1 Relating Science and Technology to Our Changing World: Analyse personal, social, economic, and environmental factors that should be considered when designing and building structures",
+  "D2 Exploring and Understanding Concepts: Demonstrate an understanding of the relationship between structural forms and the forces acting on them",
+  "E1 Relating Science and Technology to Our Changing World: Assess the benefits of technologies that reduce heat loss, and analyse various social and environmental impacts of the use of energy from renewable and non-renewable sources",
+  "E2 Exploring and Understanding Concepts: Demonstrate an understanding of heat as a form of energy that is associated with the movement of particles and is essential for many natural processes within Earth’s systems"
+];
+
+export const G7_SOCIAL: string[] = [
+  "Geography A1 Application: Interrelationships between People and the Physical Environment: Analyse some challenges and opportunities presented by the physical environment and ways in which people have responded to them (FOCUS ON: Spatial Significance; Interrelationships)",
+  "Geography A2 Inquiry: Investigating Physical Features and Processes: Use the geographic inquiry process to investigate the impact of natural events and/or human activities that change the physical environment, exploring the impact from a geographic perspective (FOCUS ON: Geographic Perspective)",
+  "Geography A3 Understanding Geographic Context: Patterns in the Physical Environment: Demonstrate an understanding of significant patterns in Earth’s physical features and of some natural processes and human activities that create and change those features (FOCUS ON: Patterns and Trends; Spatial Significance)",
+  "Geography B1 Application: Natural Resources and Sustainability: Analyse aspects of the extraction/harvesting and use of natural resources in different regions of the world, and assess ways of preserving these resources (FOCUS ON: Spatial Significance; Interrelationships)",
+  "Geography B2 Inquiry: Investigating Issues Related to Natural Resources: Use the geographic inquiry process to investigate issues related to the impact of the extraction/harvesting and/or use of natural resources around the world from a geographic perspective (FOCUS ON: Geographic Perspective)",
+  "Geography B3 Understanding Geographic Context: Using Natural Resources: Demonstrate an understanding of the sources and use of different types of natural resources and of some of the effects of the extraction/harvesting and use of these resources (FOCUS ON: Spatial Significance; Geographic Perspective)",
+  "History A1 Application: Colonial and Present-day Canada: Analyse aspects of the experiences of various groups and communities, including First Nations, Métis, and Inuit communities, in Canada between 1713 and 1800, and compare them to the lives of people in present-day Canada (FOCUS ON: Continuity and Change; Historical Perspective)",
+  "History A2 Inquiry: From New France to British North America: Use the historical inquiry process to investigate perspectives of different groups and communities, including First Nations, Métis, and/or Inuit communities, on some significant events, developments, and/or issues related to the shift in power in colonial Canada from France to Britain (FOCUS ON: Historical Significance; Historical Perspective)",
+  "History A3 Understanding Historical Context: Events and Their Consequences: Describe various significant people, events, and developments, including treaties, in Canada between 1713 and 1800, and explain their impact (FOCUS ON: Historical Significance; Cause and Consequence)",
+  "History B1 Application: Changes and Challenges: Analyse aspects of the lives of various groups and communities, including First Nations, Métis, and Inuit communities, in Canada between 1800 and 1850, and compare them to the lives of people in Canada in 1713–1800 (FOCUS ON: Continuity and Change; Historical Perspective)",
+  "History B2 Inquiry: Perspectives in British North America: Use the historical inquiry process to investigate perspectives of different groups and communities, including First Nations, Métis, and/or Inuit communities, on some significant events, developments, and/or issues that affected Canada and/or people in Canada between 1800 and 1850 (FOCUS ON: Historical Significance; Historical Perspective)",
+  "History B3 Understanding Historical Context: Events and Their Consequences: Describe various significant people, events, and developments, including treaties between Indigenous nations and imperial powers, in Canada between 1800 and 1850, and explain their impact (FOCUS ON: Historical Significance; Cause and Consequence)"
+];

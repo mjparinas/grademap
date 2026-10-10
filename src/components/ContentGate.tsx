@@ -2,7 +2,7 @@
 
 import { useEffect, type ReactNode } from "react";
 import { GRADE_LABEL } from "@/content/subjects";
-import type { GradeId } from "@/content/types";
+import type { ContentTarget } from "@/content";
 import { cacheLoadedScripts } from "@/lib/offline";
 import { useGradeContent } from "@/lib/useGradeContent";
 import { Critter } from "./Critter";
@@ -14,18 +14,18 @@ import { LoadingScreen } from "./ui";
  * with `optional`, the children render anyway under a notice (the parent area).
  */
 export function ContentGate({
-  grades,
+  targets,
   children,
   optional = false,
   onSwitch,
 }: {
-  grades: GradeId[];
+  targets: ContentTarget[];
   children: ReactNode;
   optional?: boolean;
   /** Offered on the offline screen, e.g. to pick another player. */
   onSwitch?: () => void;
 }) {
-  const { status, retry } = useGradeContent(grades);
+  const { status, retry } = useGradeContent(targets);
 
   useEffect(() => {
     if (status === "ready") cacheLoadedScripts();
@@ -34,7 +34,7 @@ export function ContentGate({
   if (status === "ready") return children;
   if (status === "loading") return <LoadingScreen />;
 
-  const names = [...new Set(grades)].map((g) => GRADE_LABEL[g]).join(" and ");
+  const names = [...new Set(targets.map((t) => t.grade))].map((g) => GRADE_LABEL[g]).join(" and ");
   if (optional) {
     return (
       <>

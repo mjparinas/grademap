@@ -5,8 +5,7 @@ import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/components/site/js
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectSeoTitle } from "@/components/site/curriculum";
 import { guidePath } from "@/components/site/guides";
-import { FRAMEWORKS } from "@/content/frameworks";
-import { guidesFor } from "@/content/guides";
+import { guidesFor, GUIDE_FRAMEWORKS } from "@/content/guides";
 import { GRADE_LABEL, getSubjectMeta, gradeSlug } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { JsonLd } from "@/lib/site";
@@ -14,10 +13,16 @@ import { JsonLd } from "@/lib/site";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return FRAMEWORKS.flatMap((f) => gradesWithContent(f).map((g) => ({ framework: f.slug, grade: gradeSlug(g) })));
+  return GUIDE_FRAMEWORKS.flatMap((f) => gradesWithContent(f).map((g) => ({ framework: f.slug, grade: gradeSlug(g) })));
 }
 
 type Props = PageProps<"/guides/[framework]/[grade]">;
+
+/** "math, English language arts and science" */
+function listOf(names: string[]): string {
+  const n = names.map((s) => (s.startsWith("English") ? s : s.toLowerCase()));
+  return n.length > 1 ? `${n.slice(0, -1).join(", ")} and ${n[n.length - 1]}` : n.join("");
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const r = resolve(await params);
@@ -25,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { framework: f, grade } = r;
   return {
     title: `What your child learns in ${GRADE_LABEL[grade]} in ${f.shortName}: a parent's guide`,
-    description: `${GRADE_LABEL[grade]} in ${f.name}: what is taught in math, English language arts, science and social studies, what to look for on the report card, and how to help at home. Matched to the ${f.curriculumName}.`,
+    description: `${GRADE_LABEL[grade]} in ${f.name}: what is taught in ${listOf(coursesFor(f, grade).map((c) => subjectSeoTitle(c.subject)))}, what to look for on the report card, and how to help at home. Matched to the ${f.curriculumName}.`,
     alternates: { canonical: guidePath.grade(f, grade) },
   };
 }
@@ -36,6 +41,7 @@ export default async function GradeGuide({ params }: Props) {
   const { framework: f, grade } = r;
   const label = GRADE_LABEL[grade];
   const note = guidesFor(f.id).gradeNotes[grade];
+  if (!note) notFound();
   const courses = coursesFor(f, grade);
   const grades = gradesWithContent(f);
   const i = grades.indexOf(grade);
@@ -53,7 +59,7 @@ export default async function GradeGuide({ params }: Props) {
     },
     {
       q: `How is ${label} reported in ${f.shortName}?`,
-      a: `${f.shortName} report cards use ${level.map((l) => l.label).join(", ")} instead of letter grades.${hasAssessment ? ` Students in ${label} also write the ${assessment.name}, which is separate from the report card.` : ""}`,
+      a: `${f.shortName} report cards describe learning with ${level.map((l) => l.label).join(", ")}.${hasAssessment ? ` Students in ${label} also write the ${assessment.name}, which is separate from the report card.` : ""}`,
     },
     {
       q: `How can I help my ${label} child at home?`,
@@ -150,9 +156,9 @@ export default async function GradeGuide({ params }: Props) {
           </p>
         )}
         <p className="mt-2 font-read text-lg">
-          Core Competencies are part of every grade.{" "}
+          {guidesFor(f.id).competencies.gradeLine}{" "}
           <Link href={guidePath.competencies(f)} className="font-semibold text-[#2f6fd6] underline">
-            Read about the {f.shortName} Core Competencies
+            Read about {guidesFor(f.id).competencies.label.toLowerCase()}
           </Link>
           .
         </p>

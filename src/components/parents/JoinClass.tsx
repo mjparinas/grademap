@@ -37,6 +37,7 @@ export function JoinClass() {
       setMessage({ ok: true, text: `Joined ${link.className}. The teacher can now see first name, grade and practice results for the units they assign.` });
       setCode("");
       void load();
+      void syncNow().catch(() => {}); // Brings the assigned units to the child’s devices.
     } catch (e) {
       setMessage({ ok: false, text: (e as Error).message });
     } finally {
@@ -48,6 +49,7 @@ export function JoinClass() {
     try {
       await call(`/api/classes/join/?classId=${encodeURIComponent(l.classId)}&profileId=${encodeURIComponent(l.profileId)}`, "DELETE");
       void load();
+      void syncNow().catch(() => {});
     } catch (e) {
       setMessage({ ok: false, text: (e as Error).message });
     }
@@ -56,7 +58,7 @@ export function JoinClass() {
   return (
     <Panel title="🏫 Join a class" className="mt-4">
       <p className="font-read text-ink-soft">
-        Got a class code from your child’s teacher? Linking shares only your child’s first name, grade and practice results on the units the teacher assigns. You can leave the class at any time.
+        Got a class code from your child’s teacher? Linking shares only your child’s first name, grade and practice results on the units the teacher assigns. Your child will also see those units on their home screen. You can leave the class at any time.
       </p>
       {!signedIn ? (
         <p className="mt-3 font-read">Sign in under “Account &amp; sync” first so the teacher can see progress.</p>

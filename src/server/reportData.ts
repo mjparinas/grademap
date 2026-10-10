@@ -1,5 +1,6 @@
 import "server-only";
 import { loadGrade } from "@/content";
+import { DEFAULT_FRAMEWORK } from "@/content/frameworks";
 import { derive } from "@/lib/derive";
 import type { AppEvent, Profile } from "@/lib/model";
 import { buildReport, type Report } from "@/lib/reports";
@@ -26,14 +27,15 @@ function wellFormed(e: AppEvent): boolean {
 export async function loadChildReport(familyId: string, profileId: string, days: number, now = Date.now()): Promise<ChildReport | null> {
   const rows = await query<{ data: string }>("SELECT data FROM profiles WHERE id = ? AND family_id = ?", [profileId, familyId]);
   if (!rows[0]) return null;
-  const profile = JSON.parse(rows[0].data) as Profile;
+  const stored = JSON.parse(rows[0].data) as Profile;
+  const profile: Profile = { ...stored, framework: stored.framework ?? DEFAULT_FRAMEWORK };
   if (profile.deleted) return null;
   const eventRows = await query<{ data: string }>("SELECT data FROM events WHERE profile_id = ? AND family_id = ? ORDER BY seq", [profileId, familyId]);
   const events = eventRows
     .map((r) => JSON.parse(r.data) as AppEvent)
     .filter((e) => e.t > (profile.resetAt ?? 0) && wellFormed(e));
-  await loadGrade(profile.grade);
-  const report = buildReport(events, derive(events, now), profile.grade, days, now);
+  await loadGrade(profile.grade, profile.framework);
+  const report = buildReport(events, derive(events, now), profile.grade, profile.framework, days, now);
   return { profile, report };
 }
 

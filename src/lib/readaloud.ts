@@ -1,13 +1,14 @@
 import type { Question } from "@/content/types";
-import { speakSegments, type SpeechLanguage } from "./speech";
+import { speakSegments, type SpeechLanguage, type SpeechPiece } from "./speech";
 
 // What read-aloud says for a question, split by language: an English prompt about a
 // French word is read by an English voice, and the French is read by a French voice.
 
-export interface Segment {
-  text: string;
-  lang: SpeechLanguage;
-}
+export type Segment = SpeechPiece;
+
+/** Silence (ms) between the question and the first option, and between one option and the next. */
+export const PAUSE_BEFORE_OPTIONS = 800;
+export const PAUSE_BETWEEN_OPTIONS = 500;
 
 /** Splits a prompt on « French » quotations, which Core French uses to mark French inside English text. */
 function promptSegments(text: string): Segment[] {
@@ -35,13 +36,15 @@ export function readAloudSegments(q: Question): Segment[] {
   parts.push(...(q.lang ? [{ text: said, lang: prompt }] : promptSegments(said)));
   if (q.kind === "choice") {
     const labels = q.choices.map((c) => c.speak ?? c.label).filter((s) => s !== "");
-    if (labels.length === q.choices.length) parts.push({ text: labels.join(", or "), lang: q.choicesLang ?? prompt });
+    if (labels.length === q.choices.length) {
+      labels.forEach((text, i) => parts.push({ text, lang: q.choicesLang ?? prompt, pause: i === 0 ? PAUSE_BEFORE_OPTIONS : PAUSE_BETWEEN_OPTIONS }));
+    }
   }
-  // Join neighbours that share a language so the voice doesn't stop and start mid-sentence.
+  // Join neighbours that share a language so the voice doesn't stop and start mid-sentence (but never across a pause).
   const merged: Segment[] = [];
   for (const p of parts) {
     const prev = merged[merged.length - 1];
-    if (prev && prev.lang === p.lang) prev.text = `${prev.text}. ${p.text}`;
+    if (prev && prev.lang === p.lang && !p.pause) prev.text = `${prev.text}. ${p.text}`;
     else merged.push({ ...p });
   }
   return merged;

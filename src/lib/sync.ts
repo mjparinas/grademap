@@ -1,5 +1,6 @@
 "use client";
 
+import type { Classwork } from "./classroom";
 import * as localdb from "./localdb";
 import type { AppEvent, ChildSettings, FamilyInfo, Profile } from "./model";
 import { useStore } from "./store";
@@ -19,6 +20,7 @@ interface SyncResponse {
   profiles: Profile[];
   settings: ChildSettings[];
   family?: FamilyInfo;
+  classwork?: Classwork[];
 }
 
 export function syncNow(): Promise<void> {

@@ -5,8 +5,7 @@ import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/components/site/js
 import { Crumbs, SitePage } from "@/components/site/SiteChrome";
 import { coursesFor, curriculumPath, gradesWithContent, resolve, subjectSeoTitle } from "@/components/site/curriculum";
 import { guidePath } from "@/components/site/guides";
-import { FRAMEWORKS } from "@/content/frameworks";
-import { HOME_TIPS } from "@/content/guides";
+import { HOME_TIPS, GUIDE_FRAMEWORKS } from "@/content/guides";
 import { GRADE_LABEL, ageBandFor, getSubjectMeta, gradeSlug } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { JsonLd } from "@/lib/site";
@@ -14,7 +13,7 @@ import { JsonLd } from "@/lib/site";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return FRAMEWORKS.flatMap((f) =>
+  return GUIDE_FRAMEWORKS.flatMap((f) =>
     gradesWithContent(f).flatMap((g) => coursesFor(f, g).map((c) => ({ framework: f.slug, grade: gradeSlug(g), subject: c.subject }))),
   );
 }

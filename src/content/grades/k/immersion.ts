@@ -19,6 +19,18 @@ const POLITE: FrItem[] = [
   ["Ton ami parle. Que fais-tu?", "J'écoute", ["Je crie", "Je cours"], "A good listener keeps quiet, looks at the speaker and listens.", "👂"],
   ["C'est le tour de ton amie. Que fais-tu?", "J'attends mon tour", ["Je parle en même temps", "Je pars"], "We take turns when we talk, so everyone can be heard.", "🗣️"],
   ["Tu vois ton enseignante le matin. Tu dis…", "Bonjour, Madame", ["Au revoir, Madame", "Bonne nuit, Madame"], "We greet people politely when we see them.", "🍎"],
+  ["Tu as fait une erreur. Que dis-tu?", "Pardon", ["Bonne nuit", "Bonjour"], "When we bump into someone by mistake, we say “pardon”.", "🙏"],
+  ["Tu veux passer devant quelqu'un. Que dis-tu?", "Excuse-moi", ["Au revoir", "Bonne nuit"], "To get someone's attention politely, we say “excuse-moi”.", "🚶"],
+  ["Ton amie te dit merci. Que réponds-tu?", "De rien", ["Bonne nuit", "Bonjour"], "“De rien” means you're welcome.", "💬"],
+  ["On te demande : « Comment ça va? » Tu réponds…", "Ça va bien, merci", ["Au revoir, Madame", "Bonne nuit"], "We can answer with “ça va bien” and add “merci”.", "😊"],
+  ["Tu quittes ton ami. Tu dis…", "À demain", ["Bonjour", "Merci"], "“À demain” means see you tomorrow.", "👋"],
+  ["Le soir, avant de dormir, ta maman te dit…", "Bonne nuit", ["Bonjour", "Au revoir"], "We say “bonne nuit” at bedtime.", "🛏️"],
+  ["Tu offres un jouet à ton ami. Tu dis…", "Tiens", ["Au revoir", "Bonne nuit"], "“Tiens” is what we say when we hand something to a friend.", "🎁"],
+  ["Quelqu'un te dit « Bonjour! » Que fais-tu?", "Je dis bonjour aussi", ["Je me sauve", "Je ferme les yeux"], "A friendly greeting gets a friendly answer.", "😀"],
+  ["Tu veux demander de l'aide. Tu dis…", "S'il te plaît", ["Au revoir", "Bonne nuit"], "To ask a friend politely, we say “s'il te plaît”.", "🆘"],
+  ["Un ami est triste. Que fais-tu?", "Je suis gentil", ["Je ris de lui", "Je pars en courant"], "We are kind when a friend feels sad.", "💛"],
+  ["Tu vois un monsieur au parc. Tu dis…", "Bonjour, Monsieur", ["Bonne nuit, Monsieur", "Merci, Madame"], "“Monsieur” is for a man.", "🌳"],
+  ["Tu as fini de manger. Tu dis à ton papa…", "Merci pour le repas", ["Bonne nuit", "Au revoir"], "We say thank you for a good meal.", "🍽️"],
 ];
 
 // ---------- Mes premiers mots ----------
@@ -109,6 +121,7 @@ const SYLLABLES: [string, string, number][] = [
   ["🐰", "lapin", 2], ["🏠", "maison", 2], ["🎈", "ballon", 2], ["☀️", "soleil", 2], ["⛵", "bateau", 2], ["🦆", "canard", 2], ["🐴", "cheval", 2],
   ["🦋", "papillon", 3], ["🐘", "éléphant", 3], ["🍫", "chocolat", 3], ["🍍", "ananas", 3], ["🦘", "kangourou", 3], ["☂️", "parapluie", 3],
   ["💻", "ordinateur", 4], ["🚁", "hélicoptère", 4], ["📺", "télévision", 4],
+  ["🐟", "poisson", 2], ["✏️", "crayon", 2], ["🐑", "mouton", 2], ["🎹", "piano", 3], ["🕷️", "araignée", 3], ["✋", "main", 1], ["🦖", "dinosaure", 3],
 ];
 
 function syllabes(opts?: { difficulty?: 1 | 2 | 3 }): Question[] {
@@ -175,6 +188,9 @@ const TALES: Tale[] = [
   { lines: ["Zoé lit un livre.", "Elle est dans sa chambre."], who: "Zoé", whoWrong: ["le livre", "la chambre"], where: "Dans sa chambre", whereWrong: ["Au parc", "Dans le jardin"], what: "Elle lit un livre", whatWrong: ["Elle nage", "Elle court"] },
   { lines: ["Kenji saute dans la neige.", "Il est dehors."], who: "Kenji", whoWrong: ["la neige", "le froid"], where: "Dehors", whereWrong: ["Dans la cuisine", "À l'école"], what: "Il saute dans la neige", whatWrong: ["Il dort", "Il mange un gâteau"] },
   { lines: ["Ana mange un gâteau.", "Elle est dans la cuisine."], who: "Ana", whoWrong: ["le gâteau", "la cuisine"], where: "Dans la cuisine", whereWrong: ["Au parc", "Dans le lac"], what: "Elle mange un gâteau", whatWrong: ["Elle dessine", "Elle nage"] },
+  { lines: ["Ravi plante une fleur.", "Il est dans le jardin."], who: "Ravi", whoWrong: ["la fleur", "le jardin"], where: "Dans le jardin", whereWrong: ["À l'école", "Dans la neige"], what: "Il plante une fleur", whatWrong: ["Il nage", "Il dort"] },
+  { lines: ["Lena chante une chanson.", "Elle est dans la classe."], who: "Lena", whoWrong: ["la chanson", "la classe"], where: "Dans la classe", whereWrong: ["Au parc", "Dans le lac"], what: "Elle chante une chanson", whatWrong: ["Elle mange", "Elle court"] },
+  { lines: ["Leo court vite.", "Il est dehors."], who: "Leo", whoWrong: ["le vent", "la cour"], where: "Dehors", whereWrong: ["Dans la cuisine", "Dans son lit"], what: "Il court vite", whatWrong: ["Il dort", "Il lit"] },
 ];
 
 const BOOK: FrItem[] = [
