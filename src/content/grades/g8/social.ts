@@ -215,6 +215,51 @@ const EXPLORATION_SORT: SortSet = {
   ],
 };
 
+// ---------- People on the Move ----------
+
+const MIGRATION: Item[] = [
+  q(1, "What is migration?", "People moving from one place to live in another", ["Animals sleeping through the winter", "A kind of trade route", "A type of crop"], "People migrate for many reasons, such as work, safety, family or land."),
+  q(1, "Which is a push factor, a reason that makes people leave a place?", "A famine that leaves no food", ["A new school nearby", "Fertile farmland elsewhere", "A well-paid job offer"], "Push factors drive people away. Pull factors, like jobs or land, attract them."),
+  q(1, "Which is a pull factor, a reason that attracts people to a place?", "Good farmland and trade opportunities", ["War and conflict", "Drought", "Disease spreading"], "Pull factors make a new place look better than home."),
+  q(1, "What is urbanization?", "The growth of towns and cities as more people live in them", ["Farmers moving to bigger farms", "Cities becoming smaller", "Forests growing back"], "Between about 1000 and 1750 CE, trade and crafts helped many towns and cities grow."),
+  q(2, "Why did many European towns grow after about 1000 CE?", "Trade, markets and crafts drew people in from the countryside.", ["Castles were abolished.", "The Church banned farming.", "Everyone had to move to cities."], "Towns offered work outside farming, and the growth of trade fed them."),
+  q(2, "What was one problem faced by crowded medieval and early modern cities?", "Disease spread quickly, because of poor sanitation and close living.", ["There were too many farms.", "Trade routes closed forever.", "Nobody could find work."], "Crowded streets, waste and no clean water helped illnesses spread."),
+  q(2, "What is the difference between forced and unforced migration?", "Forced migration happens when people are made to move against their will, and unforced migration is a free choice.", ["Forced migration is always shorter.", "Unforced migration only happens by sea.", "There is no difference."], "Forced migration includes enslavement and expulsion. Unforced migration includes moving for work or family."),
+  q(2, "Which is an example of forced migration?", "Enslaved Africans carried across the Atlantic", ["A merchant who sets up shop in a new city", "A family that moves to farm new land by choice", "A student who travels to study"], "The transatlantic slave trade moved millions of people against their will."),
+  q(2, "Which is an example of unforced migration?", "Craftspeople moving to a growing trading city to find work", ["People expelled from their country", "People sold into slavery", "A population forced to leave by an army"], "These people chose to move, hoping for a better living."),
+  q(2, "How did the Black Death change where people lived and worked?", "With many deaths, villages shrank and survivors moved to find better pay.", ["Everyone moved to the countryside forever.", "It had no effect on population.", "Cities doubled in size overnight."], "Fewer workers meant higher wages, and some people left manors for towns."),
+  q(2, "How did the Columbian Exchange affect the populations of the Americas?", "Diseases brought from Europe killed very large numbers of Indigenous people.", ["Populations grew quickly everywhere.", "No one was affected by disease.", "Only animals were affected."], "Indigenous peoples had no earlier exposure to diseases such as smallpox, so epidemics were devastating."),
+  q(3, "Why can new crops change how many people a region can feed?", "Higher-yield crops such as potatoes can support larger populations.", ["Crops never change population.", "New crops always cause famine.", "Only meat affects population."], "After potatoes reached Europe from the Americas, many regions could feed more people."),
+  q(3, "How can growing towns affect the environment?", "People use up local wood, water and farmland, and produce waste.", ["Towns have no effect on land.", "Towns always plant more forests.", "Towns make rivers cleaner."], "More people means more demand for fuel, building materials and food from the surrounding land."),
+  q(3, "Why do historians say population change and living standards are linked?", "Food supply, health and work all shape how many people live in a place and how well.", ["They are never connected.", "Only rulers affect living standards.", "Population never changes."], "Living standards include food, shelter, health and safety, and they influence population size."),
+  q(3, "Which is the best example of an environmental factor that caused people to move?", "Drought and crop failure", ["A new written law", "A festival in a nearby town", "A new type of music"], "Environmental changes, such as droughts or floods, can force people to look for new land."),
+  q(1, "Which of these is a reason people migrate?", "To find work, land or safety", ["To avoid all travel", "To stop trading", "To lose their homes on purpose"], "Most people move because they hope for a better life, or because they must leave."),
+  q(1, "What is a living standard?", "How well people live, including food, shelter, health and safety", ["The number of castles in a country", "A kind of law", "A type of map"], "Living standards can rise or fall when food supply, health or work change."),
+  q(1, "Which place usually grows quickly when trade routes meet?", "a port or trading city", ["a remote mountain pass", "an empty desert", "a frozen lake"], "Cities such as Venice, Timbuktu and Samarkand grew where traders met."),
+  q(2, "Why might an epidemic make people leave a city?", "They hope to escape the illness in a safer place.", ["They want to catch the illness.", "They are ordered to build castles.", "Epidemics help trade."], "People have often fled crowded cities during outbreaks, sometimes carrying the disease with them."),
+  q(2, "How did the Columbian Exchange change what people ate in Europe?", "Crops such as potatoes, tomatoes and maize arrived from the Americas.", ["Europeans stopped eating bread.", "Rice was invented in Europe.", "No foods crossed the ocean."], "New foods from the Americas changed diets across the world."),
+  q(2, "What is one way a growing city can change the land around it?", "Forests are cut and farmland is used to supply the city.", ["The land stays untouched.", "Farmland turns into ocean.", "The city has no need for resources."], "Cities need food, wood and water from the land around them."),
+  q(3, "What is a good reason to be careful when we say \"people moved because of one cause\"?", "Most migrations have several causes that work together.", ["People never have reasons.", "Only weather ever matters.", "Historians do not study migration."], "Push and pull factors usually combine, and people respond differently."),
+  q(3, "How might clean water and a food surplus change a city's population?", "More people survive and the city can grow.", ["The city must shrink.", "Nobody is affected.", "The city loses its market."], "Better food and health let more children live to adulthood and let more newcomers settle."),
+];
+
+const MIGRATION_SORT: SortSet = {
+  prompt: "Is each a push factor (a reason to leave) or a pull factor (a reason to go somewhere)? Sort each one.",
+  hint: "Push factors make a place hard to stay in, such as famine, war or disease. Pull factors make somewhere else look better, such as jobs, land or safety.",
+  bins: [
+    { id: "push", label: "Push", emoji: "⬅️" },
+    { id: "pull", label: "Pull", emoji: "➡️" },
+  ],
+  items: [
+    { label: "crops fail year after year", emoji: "🌾", bin: "push" },
+    { label: "a plague spreads through the village", emoji: "🦠", bin: "push" },
+    { label: "an army invades the region", emoji: "⚔️", bin: "push" },
+    { label: "a busy market town needs workers", emoji: "🏘️", bin: "pull" },
+    { label: "rich, unfarmed land is available", emoji: "🌱", bin: "pull" },
+    { label: "a trade city offers safe work", emoji: "⚓", bin: "pull" },
+  ],
+};
+
 const unit = (items: Item[], sorts?: SortSet[], orders?: Parameters<typeof fromParts>[0]["orders"]) => (opts?: GenerateOptions): Question[] =>
   fromParts({ items, sorts, orders }, opts);
 
@@ -281,6 +326,16 @@ export const course: Course = {
       parentNote:
         "Why Europeans sailed across oceans, what the Mexica and Inca empires were like, the Columbian Exchange of foods, animals and diseases, and the serious consequences for Indigenous peoples and for enslaved Africans.",
       generate: unit(EXPLORATION, [EXPLORATION_SORT]),
+    },
+    {
+      id: "people-on-the-move",
+      title: "People on the Move",
+      emoji: "🧭",
+      blurb: "Migration, growing cities and living standards",
+      standards: { "ca-bc": "Changes in population and living standards: forced and unforced migration, diseases and health, urbanization, and environmental impact" },
+      parentNote:
+        "Why people move (push and pull factors), the difference between forced and unforced migration, how towns and cities grew, how disease and new crops changed populations, and the effect of growing communities on land and resources.",
+      generate: unit(MIGRATION, [MIGRATION_SORT]),
     },
   ],
 };
