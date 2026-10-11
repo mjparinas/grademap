@@ -11,10 +11,10 @@
 
 ## Mapping
 - Every BC unit is shared with `ca-nt` standards (`nwtCourse` in `src/content/nwt/kit.ts`); progress is the same for BC, Yukon and NWT families. NWT has no separate outcome codes for adapted subjects, so its standards repeat BC's text.
-- NWT-only units are `bankUnit` sets with ids starting `nt-`: Our Territory (Grade 3 social), Dene Kede (Grade 5 social), Inuuqatigiit (Grade 6 social).
+- NWT-only units are `bankUnit` sets with ids starting `nt-`: Our Territory (Grade 3), Peoples and Languages (Grade 4, covers Our Languages and the Gwich'in, Sahtú, Tłı̨chǫ, Dehcho, Akaitcho, Inuvialuit and Métis), Dene Kede (Grade 5), Inuuqatigiit (Grade 6) and Treaties, Land Claims and Self-Government (Grade 8), all in social studies.
 
 ## Known gaps
-- Dene and Inuvialuit units are light, written from public information, and **need review by Dene and Inuvialuit partners and NWT Education, Culture and Employment**. Other NWT curricula (Our Languages, Northern Studies, Hunter Education) and the Gwich'in, Sahtú and Métis perspectives are not built.
+- Dene and Inuvialuit units are light, written from public information, and **need review by Dene and Inuvialuit partners and NWT Education, Culture and Employment**. Northern Studies and Hunter Education are not built (they are Grade 10 and older courses); the Our Languages program is covered only by general questions, not language lessons.
 - French: BC's Immersion and Core French are shared as-is; NWT's French programs and the Francophone school program (Commission scolaire francophone TNO) are not separately built.
 - Grades 10 to 12 are out of scope.
 - ECE's pages were read through a text summary; recheck dates and wording at ece.gov.nt.ca before launch.

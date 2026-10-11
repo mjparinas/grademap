@@ -17,9 +17,9 @@ describe("Northwest Territories", () => {
     }
   });
 
-  it("adds Our Territory, Dene Kede and Inuuqatigiit to social studies only for the NWT", () => {
+  it("adds the NWT units to social studies only for the NWT", () => {
     const own = COURSES.flatMap((c) => c.units.filter((u) => u.id.startsWith("nt-")).map((u) => ({ g: c.grade, s: c.subject, u })));
-    expect(own.map((o) => `${o.g}/${o.s}/${o.u.id}`).sort()).toEqual(["3/social/nt-our-territory", "5/social/nt-dene-kede", "6/social/nt-inuuqatigiit"]);
+    expect(own.map((o) => `${o.g}/${o.s}/${o.u.id}`).sort()).toEqual(["3/social/nt-our-territory", "4/social/nt-peoples-languages", "5/social/nt-dene-kede", "6/social/nt-inuuqatigiit", "8/social/nt-treaties-agreements"]);
     for (const { u } of own) {
       expect(u.standards["ca-nt"]).toBeTruthy();
       expect(u.standards["ca-bc"]).toBeUndefined();
