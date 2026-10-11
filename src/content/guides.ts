@@ -409,7 +409,40 @@ const BC_GUIDES: FrameworkGuides = {
 };
 
 /** Guides are written per jurisdiction. Frameworks without an entry have no guide pages yet. */
-export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES, "ca-mb": MANITOBA_GUIDES };
+/**
+ * Yukon implements the BC curriculum, so its guides are BC's with the Yukon's wording: the same scale, Core
+ * Competencies, Foundation Skills Assessment and French programs, described for Yukon families.
+ */
+function yukonText<T>(value: T): T {
+  if (typeof value === "string") {
+    return value
+      .replaceAll("BC Core Competencies", "Core Competencies")
+      .replaceAll("BC curriculum", "BC curriculum, adapted for the Yukon")
+      .replaceAll("BC Core French", "Core French")
+      .replaceAll("BC report card", "Yukon report card")
+      .replaceAll("in BC", "in the Yukon")
+      .replaceAll("BC districts", "Yukon schools")
+      .replaceAll("many BC", "many Yukon")
+      .replaceAll("your district office", "your school or Yukon Education")
+      .replaceAll("districts", "schools")
+      .replaceAll("district", "school") as T;
+  }
+  if (Array.isArray(value)) return value.map(yukonText) as T;
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, yukonText(v)])) as T;
+  return value;
+}
+
+const YUKON_GUIDES: FrameworkGuides = {
+  ...yukonText(BC_GUIDES),
+  assessment: {
+    ...yukonText(BC_GUIDES.assessment),
+    source: "Yukon Education",
+    intro:
+      "The Foundation Skills Assessment is an annual check of reading, writing and numeracy that students in Grades 4 and 7 write in Yukon schools. It is set by the BC Ministry of Education and Child Care and is separate from the report card and from class marks.",
+  },
+};
+
+export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-yt": YUKON_GUIDES, "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES, "ca-mb": MANITOBA_GUIDES };
 
 export const GUIDE_FRAMEWORKS = FRAMEWORKS.filter((f) => GUIDES[f.id]);
 

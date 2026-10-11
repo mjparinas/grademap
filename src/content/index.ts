@@ -62,6 +62,18 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "8": () => import("./manitoba/g8"),
     "9": () => import("./manitoba/g9"),
   },
+  "ca-yt": {
+    k: () => import("./yukon/k"),
+    "1": () => import("./yukon/g1"),
+    "2": () => import("./yukon/g2"),
+    "3": () => import("./yukon/g3"),
+    "4": () => import("./yukon/g4"),
+    "5": () => import("./yukon/g5"),
+    "6": () => import("./yukon/g6"),
+    "7": () => import("./yukon/g7"),
+    "8": () => import("./yukon/g8"),
+    "9": () => import("./yukon/g9"),
+  },
   "ca-sk": {
     k: () => import("./saskatchewan/k"),
     "1": () => import("./saskatchewan/g1"),
