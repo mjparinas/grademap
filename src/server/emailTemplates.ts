@@ -27,7 +27,7 @@ function layout(p: Parts): Email {
     : "";
   const html = `<!doctype html><html><body style="margin:0;background:#f7f5f0;font-family:system-ui,Segoe UI,Arial,sans-serif;color:#1d2233">
 <div style="max-width:520px;margin:0 auto;padding:24px">
-<p style="font-size:22px;font-weight:700;margin:0 0 16px"><span style="color:#4f8ef7">Grade</span><span style="color:#e9559a">Map</span></p>
+<p style="font-size:22px;font-weight:700;margin:0 0 16px;color:#4f8ef7">${esc(APP_NAME)}</p>
 <div style="background:#fff;border-radius:16px;padding:24px;line-height:1.55">
 <h1 style="font-size:22px;margin:0 0 12px">${esc(p.heading)}</h1>
 ${p.body.map((t) => `<p style="margin:0 0 12px">${esc(t)}</p>`).join("")}
