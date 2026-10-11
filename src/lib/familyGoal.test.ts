@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { derive } from "./derive";
-import { activeNudge, NUDGE_PRESETS, weekProgress } from "./familyGoal";
+import { activeNudge, NUDGE_DAYS, NUDGE_PRESETS, weekProgress } from "./familyGoal";
 import { dayKey, type AppEvent } from "./model";
 import { weekStart } from "./quests";
 
@@ -34,6 +34,11 @@ describe("parent notes", () => {
     expect(activeNudge({ id: "n1", preset, sentAt: now - 4 * DAY }, now)).toBeUndefined();
     expect(activeNudge({ id: "n1", preset: "made-up", sentAt: now }, now)).toBeUndefined();
     expect(activeNudge(undefined, now)).toBeUndefined();
+  });
+  it("still shows a note exactly three days old", () => {
+    const preset = NUDGE_PRESETS[0].id;
+    expect(activeNudge({ id: "n1", preset, sentAt: now - NUDGE_DAYS * DAY }, now)).toEqual({ id: "n1", text: NUDGE_PRESETS[0].text });
+    expect(activeNudge({ id: "n1", preset, sentAt: now - NUDGE_DAYS * DAY - 1 }, now)).toBeUndefined();
   });
   it("are fixed phrases with unique ids, never free text", () => {
     expect(new Set(NUDGE_PRESETS.map((n) => n.id)).size).toBe(NUDGE_PRESETS.length);
