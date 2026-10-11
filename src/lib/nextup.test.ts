@@ -36,4 +36,10 @@ describe("nextUp", () => {
     expect(nextUp(derived([close, far]), ["b", "z"])?.key).toBe("b");
     expect(nextUp(derived([]), ["a"])).toBeNull();
   });
+  it("breaks a tie with the unit practised most recently, whatever the order", () => {
+    const older = stat("a", Array(7).fill(true), { lastT: 1 });
+    const newer = stat("b", Array(7).fill(true), { lastT: 2 });
+    expect(nextUp(derived([older, newer]), ["a", "b"])).toEqual({ key: "b", questions: 1, level: 2 });
+    expect(nextUp(derived([older, newer]), ["b", "a"])?.key).toBe("b");
+  });
 });

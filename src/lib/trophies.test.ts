@@ -4,7 +4,7 @@ import { FRAMEWORKS } from "@/content/frameworks";
 import type { GradeId, SubjectId } from "@/content/types";
 import { derive, type Derived, type UnitStat } from "./derive";
 import { SHOP } from "./shop";
-import { ARCADE_GAMES, newlyEarned, TROPHIES, visibleTrophies, type TrophyContext } from "./trophies";
+import { ARCADE_GAMES, getTrophy, newlyEarned, TIER_STYLE, TROPHIES, trophyTier, visibleTrophies, type TrophyContext } from "./trophies";
 
 const GRADES: GradeId[] = ["k", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const CONTEXTS: TrophyContext[] = FRAMEWORKS.flatMap((f) => GRADES.map((grade) => ({ grade, framework: f.id })));
@@ -94,6 +94,63 @@ describe("trophy progress", () => {
     const counted = TROPHIES.filter((t) => !t.grade && /-\d+$/.test(t.id));
     expect(counted.length).toBeGreaterThan(60);
     for (const t of counted) expect(t.progress(empty, ctx).target, t.id).toBe(Number(t.id.split("-").pop()));
+  });
+});
+
+describe("the trophy list", () => {
+  it("has 186 trophies with the secret ones hidden", () => {
+    expect(TROPHIES).toHaveLength(186);
+    expect(TROPHIES.filter((t) => t.hidden).map((t) => t.id).sort()).toEqual(
+      ["early-bird", "konami", "marathon", "dizzy-ollie", "polite-moose", "secret-word", "palindrome", "make-a-wish", ...GRADES.map((g) => `polymath-${g}`)].sort(),
+    );
+  });
+
+  it("has a practice ladder per subject: 100, 500 and 2,000 for the core four, 250 for each French", () => {
+    const ladder = (subject: string) => TROPHIES.filter((t) => t.id.startsWith(`subject-${subject}-`)).map((t) => [t.id, t.tier, t.category]);
+    for (const s of ["math", "language", "science", "social"]) {
+      expect(ladder(s)).toEqual([[`subject-${s}-100`, "bronze", "Practice"], [`subject-${s}-500`, "silver", "Practice"], [`subject-${s}-2000`, "gold", "Practice"]]);
+    }
+    for (const s of ["immersion", "core-french"]) expect(ladder(s)).toEqual([[`subject-${s}-250`, "silver", "French"]]);
+    expect(getTrophy("subject-math-2000")).toMatchObject({ name: "Math Legend", icon: "♾️", description: "Get 2,000 Math questions right." });
+  });
+
+  it("names grade trophies after the grade", () => {
+    expect(getTrophy("master-math-k")?.name).toBe("Math Master · Kindergarten");
+    expect(getTrophy("grade-champion-4")).toMatchObject({ name: "Grade 4 Champion", tier: "platinum", grade: "4" });
+    expect(getTrophy("polymath-9")?.description).toBe("Reach Proficient in 3 units of every subject in Grade 9.");
+  });
+
+  it("looks up trophies and their tiers by id", () => {
+    for (const t of TROPHIES) {
+      expect(getTrophy(t.id)).toBe(t);
+      expect(trophyTier(t.id)).toBe(t.tier);
+    }
+    expect(getTrophy("no-such-trophy")).toBeUndefined();
+    expect(trophyTier("no-such-trophy")).toBeUndefined();
+  });
+
+  it("labels every tier", () => {
+    expect(Object.fromEntries(Object.entries(TIER_STYLE).map(([tier, s]) => [tier, s.label]))).toEqual({ bronze: "Bronze", silver: "Silver", gold: "Gold", platinum: "Platinum" });
+  });
+});
+
+describe("trophies that count units or time", () => {
+  const ctx: TrophyContext = { grade: "4", framework: "ca-bc" };
+  const value = (id: string, d: Derived) => getTrophy(id)!.progress(d, ctx).value;
+
+  it("counts whole minutes of learning", () => {
+    const d = derive([]);
+    d.totals.learnSeconds = 3599;
+    expect(value("minutes-60", d)).toBe(59);
+    d.totals.learnSeconds = 3600;
+    expect(value("minutes-60", d)).toBe(60);
+    for (const id of ["minutes-600", "minutes-3000", "minutes-6000", "minutes-15000"]) expect(value(id, d), id).toBe(60);
+  });
+
+  it("only counts units that passed a Challenge, grew or were kept", () => {
+    const d = derive([]);
+    d.units = { a: { ...unitAt("a", 2), grew: false, kept: false }, b: unitAt("b", 3) };
+    for (const id of ["challenge-1", "challenge-10", "grew-1", "grew-5", "kept-1", "kept-5"]) expect(value(id, d), id).toBe(1);
   });
 });
 
