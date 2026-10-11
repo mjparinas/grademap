@@ -3,7 +3,8 @@ import { loadGrades } from "@/content";
 import { AVAILABLE_GRADES } from "@/content";
 import { withSeed } from "@/content/random";
 import type { GradeId } from "@/content/types";
-import { buildStage, gradesWithSubject, MAX_STAGES, nextGrade, STAGE_SIZE, summarize, verdict, type Stage } from "./placement";
+import type { AppEvent } from "./model";
+import { buildStage, compareToGrade, gradesWithSubject, latestPlacements, MAX_STAGES, nextGrade, placementSentence, STAGE_SIZE, summarize, toEvent, verdict, type PlacementResult, type Stage } from "./placement";
 
 beforeAll(() => loadGrades(AVAILABLE_GRADES.map((grade) => ({ grade, framework: "ca-bc" as const }))));
 
@@ -78,5 +79,58 @@ describe("placement", () => {
     const r = summarize("math", "3", [stage("2", 3, ["2/math/x"]), stage("3", 4), stage("4", 4)]);
     expect(r.placedGrade).toBe("4");
     expect(r.reviewUnits).toContain("2/math/x");
+  });
+
+  it("compares the placed grade with the child's grade", () => {
+    expect(compareToGrade("2", "4")).toBe("below");
+    expect(compareToGrade("4", "4")).toBe("at");
+    expect(compareToGrade("k", "1")).toBe("below");
+    expect(compareToGrade("6", "4")).toBe("above");
+  });
+
+  it("says where the child sits, in the words a parent reads", () => {
+    const result = (placedGrade: GradeId): PlacementResult => ({
+      subject: "math",
+      startGrade: "3",
+      stages: [],
+      placedGrade,
+      startUnits: [],
+      reviewUnits: [],
+      confidence: "ok",
+    });
+    expect(placementSentence(result("3"), "Maya", "3")).toBe("Maya is working at a Grade 3 level in this subject.");
+    expect(placementSentence(result("5"), "Maya", "3")).toBe("Maya handled Grade 5 work, which is ahead of Grade 3.");
+    expect(placementSentence(result("1"), "Maya", "3")).toBe("Maya found Grade 3 work tricky, and is most comfortable around Grade 1.");
+    expect(placementSentence(result("k"), "Maya", "1")).toBe("Maya found Grade 1 work tricky, and is most comfortable around Kindergarten.");
+  });
+
+  it("stores a placement as an event and keeps the latest one per subject", () => {
+    const result = (subject: "math" | "language", placedGrade: GradeId): PlacementResult => ({
+      subject,
+      startGrade: "3",
+      stages: [],
+      placedGrade,
+      startUnits: ["3/math/tens-and-ones"],
+      reviewUnits: [],
+      confidence: "ok",
+    });
+    const event = (id: string, t: number, subject: "math" | "language", placed: GradeId): AppEvent => ({
+      id,
+      profileId: "p",
+      t,
+      ...toEvent(result(subject, placed)),
+    });
+    expect(toEvent(result("math", "3"))).toMatchObject({ type: "placement", subject: "math", placedGrade: "3" });
+    const latest = latestPlacements([
+      event("old", 1, "math", "2"),
+      event("new", 5, "math", "4"),
+      event("late-but-earlier", 0, "math", "k"),
+      event("lang", 3, "language", "1"),
+      { id: "other", profileId: "p", t: 9, type: "secret", code: "konami" },
+    ]);
+    expect(latest.math?.placedGrade).toBe("4");
+    expect(latest.math?.t).toBe(5);
+    expect(latest.language?.placedGrade).toBe("1");
+    expect(latest.science).toBeUndefined();
   });
 });
