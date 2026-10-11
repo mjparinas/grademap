@@ -46,13 +46,69 @@ function fits(title: string, text: string): boolean {
 }
 
 function checkCells(rule: MuncherRule) {
+  const seen: Record<"good" | "bad", Set<string>> = { good: new Set(), bad: new Set() };
   for (const want of [true, false]) {
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 80; i++) {
       const cell = rule.cell(want);
       expect(cell.good, `${rule.title}: ${cell.text}`).toBe(want);
       expect(fits(rule.title, cell.text), `${rule.title}: ${cell.text}`).toBe(want);
-      if (!want) expect(rule.why(cell.text).length).toBeGreaterThan(0);
+      if (rule.title === "Munch decimals bigger than 0.5") {
+        const n = Number(cell.text);
+        expect(n).toBeGreaterThan(0);
+        expect(n).toBeLessThan(1);
+      }
+      if (rule.title.startsWith("Munch products")) {
+        const [a, b] = cell.text.split("×").map(Number);
+        expect(Number.isInteger(a) && Number.isInteger(b), cell.text).toBe(true);
+        expect(a).toBeGreaterThanOrEqual(1);
+        expect(b).toBeGreaterThanOrEqual(1);
+        expect(a).toBeLessThanOrEqual(12);
+        expect(b).toBeLessThanOrEqual(12);
+      }
+      seen[want ? "good" : "bad"].add(cell.text);
+      if (!want && (rule.title === "Munch even numbers" || rule.title === "Munch odd numbers")) {
+        const n = Number(cell.text);
+        expect(rule.why(cell.text)).toContain(`ends in ${Math.abs(n) % 10}`);
+      }
     }
+  }
+  const between = rule.title.match(/^Munch numbers between (\d+) and (\d+)$/);
+  if (between) {
+    const lo = Number(between[1]);
+    const hi = Number(between[2]);
+    const wantSeen = (set: Set<string>, n: number) => set.has(String(n));
+    for (let i = 0; i < 2000 && !(wantSeen(seen.bad, lo) && wantSeen(seen.bad, hi) && wantSeen(seen.good, lo + 1) && wantSeen(seen.good, hi - 1)); i++) {
+      for (const want of [true, false]) {
+        const cell = rule.cell(want);
+        expect(fits(rule.title, cell.text), `${rule.title}: ${cell.text}`).toBe(want);
+        seen[want ? "good" : "bad"].add(cell.text);
+      }
+    }
+    expect(seen.bad.has(String(lo)), rule.title).toBe(true);
+    expect(seen.bad.has(String(hi)), rule.title).toBe(true);
+    expect(seen.good.has(String(lo + 1)), rule.title).toBe(true);
+    expect(seen.good.has(String(hi - 1)), rule.title).toBe(true);
+  }
+  const shown = rule.cell(true);
+  expect(rule.why(shown.text).length, rule.title).toBeGreaterThan(0);
+  if (rule.title.startsWith("Munch sums")) {
+    let cell = rule.cell(false);
+    for (let i = 0; i < 30 && cell.text.endsWith("+0"); i++) cell = rule.cell(false);
+    const [a, b] = cell.text.split("+").map(Number);
+    expect(b, rule.title).not.toBe(0);
+    expect(rule.why(cell.text)).toContain(`= ${a + b},`);
+  }
+  if (rule.title.startsWith("Munch products")) {
+    const cell = rule.cell(false);
+    const [a, b] = cell.text.split("×").map(Number);
+    expect(rule.why(cell.text)).toContain(`= ${a * b},`);
+  }
+  if (rule.title === "Munch fractions equal to ½") {
+    const denominator = Number(shown.text.split("/")[1]);
+    expect(rule.why(shown.text)).toContain(`is ${denominator / 2}.`);
+  }
+  if (rule.title === "Munch numbers that round to 100") {
+    expect(rule.why(shown.text)).toContain(`rounds to ${Math.round(Number(shown.text) / 100) * 100}`);
   }
 }
 
@@ -65,6 +121,7 @@ describe("Number Munchers", () => {
       const titles = rules.map((r) => r.title).join(" ");
       expect(titles.includes("negative")).toBe(band(grade) >= 7);
       expect(titles.includes("decimal")).toBe(band(grade) >= 6);
+      expect(titles.includes("multiples of 8")).toBe(grade === "6");
       if (grade === "k") {
         for (const rule of rules) {
           const n = Number(rule.cell(true).text);
@@ -74,9 +131,61 @@ describe("Number Munchers", () => {
       }
     }
   });
+
+  it("builds a sum from parts no bigger than the total", () => {
+    const targets = new Set<number>();
+    for (let seed = 1; seed <= 24; seed++) {
+      for (const rule of withSeed(seed, () => muncherRules("1"))) {
+        const target = Number(rule.title.match(/make (\d+)$/)?.[1]);
+        if (!target) continue;
+        targets.add(target);
+        for (let i = 0; i < 15; i++) {
+          const [a, b] = rule.cell(true).text.split("+").map(Number);
+          expect(a, rule.title).toBeGreaterThanOrEqual(0);
+          expect(b, rule.title).toBeGreaterThanOrEqual(0);
+          expect(a, rule.title).toBeLessThanOrEqual(target);
+        }
+      }
+    }
+    expect(targets.has(7) || targets.has(8)).toBe(true);
+  });
+
+  it("uses whole factors up to 12, including 12 on either side", () => {
+    let left = false;
+    let right = false;
+    for (let seed = 1; seed <= 40 && !(left && right); seed++) {
+      for (const rule of withSeed(seed, () => muncherRules("3"))) {
+        if (!rule.title.startsWith("Munch products")) continue;
+        const target = Number(rule.title.match(/(\d+)$/)?.[1]);
+        for (let i = 0; i < 40; i++) {
+          const [a, b] = rule.cell(true).text.split("×").map(Number);
+          expect(a).toBeLessThanOrEqual(12);
+          expect(b).toBeLessThanOrEqual(12);
+          if (target === 12 && a === 12) left = true;
+          if (b === 12) right = true;
+        }
+      }
+    }
+    expect(left).toBe(true);
+    expect(right).toBe(true);
+  });
 });
 
 describe("Word Ninja", () => {
+  it("uses that grade's sight words, not the list from another grade", () => {
+    const words = (grade: GradeId) => {
+      const found = new Set<string>();
+      for (let seed = 1; seed <= 600; seed++) found.add(withSeed(seed, () => ninjaRound(grade)).title);
+      return found;
+    };
+    expect(words("k").has("yellow")).toBe(true);
+    expect(words("1").has("please")).toBe(true);
+    expect(words("1").has("after")).toBe(true);
+    expect(words("2").has("because")).toBe(true);
+    expect(words("3").has("about")).toBe(true);
+    expect(words("k").has("because")).toBe(false);
+  });
+
   it("never lists a word as both a target and a decoy, and the words fit the grade", () => {
     for (const grade of GRADES) {
       for (let seed = 1; seed <= 12; seed++) {
@@ -96,6 +205,18 @@ describe("Word Ninja", () => {
           if (round.title.endsWith("nouns")) expect(round.targets).toContain("dog");
           if (round.title.endsWith("verbs")) expect(round.targets).toContain("run");
           if (round.title.endsWith("adjectives")) expect(round.targets).toContain("happy");
+          if (round.title.endsWith("nouns")) {
+            expect(round.speak).toContain("naming words");
+            expect(round.decoys).toContain("run");
+          }
+          if (round.title.endsWith("verbs")) {
+            expect(round.speak).toContain("action words");
+            expect(round.decoys).toContain("happy");
+          }
+          if (round.title.endsWith("adjectives")) {
+            expect(round.speak).toContain("describing words");
+            expect(round.decoys).toContain("dog");
+          }
           expect(round.decoys.some((w) => round.targets.includes(w))).toBe(false);
         } else {
           expect(round.title).toMatch(/Slice words that mean “(big|happy|fast|smart)”/);
@@ -174,15 +295,22 @@ describe("Bubble Pop", () => {
     }
     expect([...seen].sort()).toEqual(["Pop correctly spelled words", "Pop words with 3 syllables", "Pop words with the prefix un-"]);
 
-    for (let seed = 1; seed <= 8; seed++) {
+    const heads = new Set<string>();
+    for (let seed = 1; seed <= 80; seed++) {
       const letter = withSeed(seed, () => bubbleRound("k"));
       expect(letter.good).toHaveLength(2);
+      expect(new Set(letter.good).size).toBe(2);
       expect(letter.good[0].toLowerCase()).toBe(letter.good[1].toLowerCase());
+      expect(letter.bad.length).toBeGreaterThan(2);
+      expect(letter.bad.some((ch) => ch !== ch.toLowerCase())).toBe(true);
       expect(letter.bad).not.toContain(letter.good[0]);
       expect(letter.bad).not.toContain(letter.good[1]);
 
       const rhyme = withSeed(seed, () => bubbleRound("2"));
       const head = rhyme.title.replace("Pop words that rhyme with ", "");
+      heads.add(head);
+      expect(rhyme.good.length).toBeGreaterThan(0);
+      expect(rhyme.bad.length).toBeGreaterThan(0);
       const ending = [...head].reduce((suffix) => {
         const next = head.slice(head.length - suffix.length - 1);
         return rhyme.good.every((w) => w.endsWith(next)) ? next : suffix;
@@ -191,6 +319,7 @@ describe("Bubble Pop", () => {
       expect(rhyme.good).not.toContain(head);
       for (const word of rhyme.bad) expect(word.endsWith(ending), word).toBe(false);
     }
+    expect([...heads].sort()).toEqual(["bell", "cake", "cat", "hop", "pig", "sun"]);
   });
 });
 
@@ -213,7 +342,9 @@ describe("Memory Match", () => {
     for (const grade of GRADES) {
       expect(withSeed(1, () => memoryPairs(grade, 3))).toHaveLength(3);
       expect(withSeed(1, () => memoryPairs(grade, 20))).toHaveLength(8);
-      for (let seed = 1; seed <= 10; seed++) {
+      let sawSum = false;
+      let sawOpposite = false;
+      for (let seed = 1; seed <= 16; seed++) {
         const pairs = withSeed(seed, () => memoryPairs(grade, 8));
         const left = pairs.map((p) => p.a);
         expect(new Set(left).size).toBe(left.length);
@@ -231,6 +362,14 @@ describe("Memory Match", () => {
         if (g >= 2 && g <= 3) expect(province || percent).toBe(false);
         if (g >= 4 && g <= 5) expect(equation || province).toBe(true);
         if (g >= 6) expect(percent || story).toBe(true);
+        if (g >= 2 && g <= 3) {
+          if (equation) sawSum = true;
+          if (pairs.some((pair) => pair.a === "hot")) sawOpposite = true;
+        }
+      }
+      if (band(grade) >= 2 && band(grade) <= 3) {
+        expect(sawSum, grade).toBe(true);
+        expect(sawOpposite, grade).toBe(true);
       }
     }
   });
