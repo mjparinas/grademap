@@ -151,6 +151,8 @@ describe("trophies that count units or time", () => {
     const d = derive([]);
     d.units = { a: { ...unitAt("a", 2), grew: false, kept: false }, b: unitAt("b", 3) };
     for (const id of ["challenge-1", "challenge-10", "grew-1", "grew-5", "kept-1", "kept-5"]) expect(value(id, d), id).toBe(1);
+    d.units = { a: d.units.a };
+    for (const id of ["challenge-1", "grew-1", "kept-1"]) expect(value(id, d), id).toBe(0);
   });
 });
 
