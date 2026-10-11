@@ -6,7 +6,7 @@ import { AVAILABLE_GRADES } from "@/content";
 import { DEFAULT_FRAMEWORK, FRAMEWORKS, getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, GRADE_SHORT } from "@/content/subjects";
 import type { FrameworkId, GradeId } from "@/content/types";
-import { APP_NAME } from "@/lib/brand";
+import { APP_NAME, WORDMARK_COLOURS } from "@/lib/brand";
 import { MAX_CHILDREN } from "@/lib/plan";
 import { sounds } from "@/lib/sound";
 import { useDerived, useProfiles, useStore } from "@/lib/store";
@@ -18,11 +18,10 @@ import { Page } from "../ui";
 export const AVATAR_COLOURS = ["#ff9636", "#4f8ef7", "#25b47e", "#e9559a", "#8b5cf6", "#06b6d4", "#f5b301", "#ef4444"];
 
 export function Logo({ size = "text-5xl sm:text-6xl" }: { size?: string }) {
-  const colours = ["#4f8ef7", "#e9559a", "#25b47e", "#ff9636", "#8b5cf6", "#06b6d4"];
   return (
     <h1 className={`${size} font-bold tracking-tight`} aria-label={APP_NAME}>
       {APP_NAME.split("").map((ch, i) => (
-        <span key={i} aria-hidden="true" className="inline-block animate-drop-in" style={{ color: colours[i % colours.length], animationDelay: `${i * 60}ms` }}>
+        <span key={i} aria-hidden="true" className="inline-block animate-drop-in" style={{ color: WORDMARK_COLOURS[i % WORDMARK_COLOURS.length], animationDelay: `${i * 60}ms` }}>
           {ch}
         </span>
       ))}

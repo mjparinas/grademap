@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { FRAMEWORKS } from "@/content/frameworks";
 import { GUIDE_FRAMEWORKS } from "@/content/guides";
-import { APP_NAME } from "@/lib/brand";
+import { APP_NAME, WORDMARK_COLOURS } from "@/lib/brand";
 import { TRIAL_DAYS } from "@/lib/plan";
 import { teacherPath, TEACHER_SIGNUP } from "./teachers";
 
@@ -10,8 +10,12 @@ export function SiteHeader() {
   return (
     <header className="print:hidden sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-        <Link href="/" className="text-2xl font-bold tracking-tight">
-          <span className="text-[#4f8ef7]">{APP_NAME}</span>
+        <Link href="/" className="text-2xl font-bold tracking-tight" aria-label={APP_NAME}>
+          {APP_NAME.split("").map((ch, i) => (
+            <span key={i} aria-hidden="true" style={{ color: WORDMARK_COLOURS[i % WORDMARK_COLOURS.length] }}>
+              {ch}
+            </span>
+          ))}
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1 text-sm font-semibold sm:gap-3 sm:text-base">
           <Link href="/curriculum/" className="rounded-lg px-2 py-1 hover:bg-black/5">
