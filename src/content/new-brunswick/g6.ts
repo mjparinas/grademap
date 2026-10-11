@@ -4,6 +4,7 @@ import { courses as manitoba } from "../manitoba/g6";
 import { courses as ontario } from "../ontario/g6";
 import { courses as novaScotia } from "../nova-scotia/g6";
 import { atlanticEconomy, atlanticRegion } from "./units/g6-social";
+import { senses, technicalSensors } from "./units/g6-science";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
 
@@ -66,7 +67,8 @@ export const courses: Course[] = [
       "classifying-life-6": ["Scientific Literacy: Sensemaking", "sorting living things into groups"],
       "biodiversity-6": ["Learning and Living Sustainably: Responsible and Sustainable Application", "the variety of life and how living things depend on one another"],
     }),
-    order: ["static-electricity-6", "circuits-6", "flight-6", "earth-moon-sun-6", "solar-system", "galaxies-and-space", "weight-and-space-tech-6", "classifying-life-6", "biodiversity-6"],
+    own: [senses, technicalSensors],
+    order: ["nb-senses-6", "nb-technical-sensors-6", "static-electricity-6", "circuits-6", "flight-6", "earth-moon-sun-6", "solar-system", "galaxies-and-space", "weight-and-space-tech-6", "classifying-life-6", "biodiversity-6"],
   }),
   course("6", "social", {
     share: {

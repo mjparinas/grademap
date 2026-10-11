@@ -4,6 +4,7 @@ import { courses as manitoba } from "../manitoba/g8";
 import { courses as ontario } from "../ontario/g8";
 import { courses as novaScotia } from "../nova-scotia/g8";
 import { blackHistory, confederation, rightsReform, wabanakiEmpowerment } from "./units/g8-social";
+import { motionForces, spaceExploration } from "./units/g8-science";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
 
@@ -59,7 +60,8 @@ export const courses: Course[] = [
       "ns-climate-action-8": ["Learning and Living Sustainably: Responsible and Sustainable Application", "the causes of climate change and actions people can take"],
       "density-buoyancy-8": ["Scientific Literacy: Sensemaking", "density and buoyancy"],
     }),
-    order: ["cells-and-life", "particles-and-matter", "viscosity-flow-8", "density-buoyancy-8", "pressure-pascal-8", "hydraulics-pneumatics-8", "ns-climate-action-8"],
+    own: [motionForces, spaceExploration],
+    order: ["nb-motion-forces-8", "nb-space-exploration-8", "cells-and-life", "particles-and-matter", "viscosity-flow-8", "density-buoyancy-8", "pressure-pascal-8", "hydraulics-pneumatics-8", "ns-climate-action-8"],
   }),
   course("8", "social", {
     own: [confederation, blackHistory, rightsReform, wabanakiEmpowerment],

@@ -3,6 +3,7 @@ import { courses as alberta } from "../alberta/g4";
 import { courses as manitoba } from "../manitoba/g4";
 import { courses as ontario } from "../ontario/g4";
 import { courses as novaScotia } from "../nova-scotia/g4";
+import { earthResources, rocksMinerals, soils, surfaceChanges } from "./units/g4-science";
 import { exploration, physicalRegions, wabanakiLands } from "./units/g4-social";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
@@ -58,7 +59,8 @@ export const courses: Course[] = [
       "light-4": ["Scientific Literacy: Sensemaking", "properties of light and how light is used"],
       "sound-4": ["Scientific Literacy: Sensemaking", "how sound is made, travels and changes"],
     }),
-    order: ["habitats-4", "food-webs-4", "light-4", "sound-4"],
+    own: [rocksMinerals, soils, surfaceChanges, earthResources],
+    order: ["nb-rocks-minerals-4", "nb-soils-4", "nb-surface-changes-4", "nb-earth-resources-4", "habitats-4", "food-webs-4", "light-4", "sound-4"],
   }),
   course("4", "social", {
     share: {

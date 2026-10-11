@@ -4,7 +4,8 @@ import { courses as manitoba } from "../manitoba/g7";
 import { courses as ontario } from "../ontario/g7";
 import { courses as novaScotiaSix } from "../nova-scotia/g6";
 import { courses as novaScotia } from "../nova-scotia/g7";
-import { wabanakiWorldview } from "./units/g7-social";
+import { globalWealth, humanRights, wabanakiWorldview } from "./units/g7-social";
+import { earthSurface } from "./units/g7-science";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
 
@@ -67,7 +68,8 @@ export const courses: Course[] = [
       "structures-forces-7": ["Scientific Literacy: Sensemaking", "forces acting on structures"],
       "safe-structures-7": ["Scientific Literacy: Sensemaking", "designing structures that are safe and strong"],
     }),
-    order: ["ecosystems-7", "food-chains-7", "human-impact-7", "ns-netukulimk-7", "particles-mixtures-7", "heat-particles-7", "structures-forces-7", "safe-structures-7", "restless-earth", "natural-selection", "ns-coastlines-7"],
+    own: [earthSurface],
+    order: ["nb-earth-surface-7", "ecosystems-7", "food-chains-7", "human-impact-7", "particles-mixtures-7", "heat-particles-7", "structures-forces-7", "safe-structures-7", "restless-earth", "natural-selection"],
   }),
   course("7", "social", {
     share: {
@@ -78,8 +80,8 @@ export const courses: Course[] = [
       "mb-7-societies-compared": ["Geography: Human Systems and Interactions", "the importance of cross-cultural understanding"],
       "ns-child-rights-6": ["Civics: Rights and Responsibilities", "human rights and the rights of children around the world"],
     }),
-    own: [wabanakiWorldview],
-    order: ["world-beliefs", "nb-wabanaki-worldview-7", "mb-7-societies-compared", "where-civilizations-grew", "ns-child-rights-6"],
+    own: [wabanakiWorldview, humanRights, globalWealth],
+    order: ["world-beliefs", "nb-wabanaki-worldview-7", "mb-7-societies-compared", "where-civilizations-grew", "ns-child-rights-6", "nb-human-rights-7", "nb-global-wealth-7"],
   }),
   ...frenchCourses("7"),
 ];

@@ -4,6 +4,7 @@ import { courses as manitoba } from "../manitoba/g9";
 import { courses as ontario } from "../ontario/g9";
 import { courses as novaScotia } from "../nova-scotia/g9";
 import { governance, identityMigration, placesAndPeople, rightsRoles, treatyRelationships } from "./units/g9-social";
+import { solarSystem, ecosystems9 } from "./units/g9-science";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
 
@@ -61,7 +62,8 @@ export const courses: Course[] = [
       "electrical-energy-9": ["Scientific Literacy: Sensemaking", "electrical energy and its use"],
       "space-exploration-ab": ["Scientific Literacy: Sensemaking", "technology for exploring space"],
     }),
-    order: ["reproduction", "cells-from-cells", "atoms-and-electrons", "atoms-9", "periodic-table-9", "compounds-9", "static-charges-9", "electric-current", "circuits-9", "electrical-energy-9", "space-exploration-ab"],
+    own: [solarSystem, ecosystems9],
+    order: ["nb-solar-system-9", "nb-ecosystems-9", "reproduction", "cells-from-cells", "atoms-and-electrons", "atoms-9", "periodic-table-9", "compounds-9", "static-charges-9", "electric-current", "circuits-9", "electrical-energy-9", "space-exploration-ab"],
   }),
   course("9", "social", {
     share: {

@@ -1,5 +1,6 @@
 import type { Course } from "../types";
 import { courses as ontario } from "../ontario/k";
+import { kNature, kProvince } from "./units/early";
 import { course, adopt, poolOf } from "./kit";
 
 // New Brunswick Kindergarten. Math and English language arts follow the Kindergarten skill descriptors, cited by strand and big
@@ -59,7 +60,8 @@ export const courses: Course[] = [
     adopted: adopt(poolOf("science", ontario), {
       "safe-scientists": ["Well-Being: Physical Health and Active Participation", "safe ways to explore and test"],
     }),
-    order: ["living-things-need", "animal-features", "weather-and-seasons", "materials", "push-and-pull", "safe-scientists"],
+    own: [kNature],
+    order: ["nb-nature-k", "living-things-need", "animal-features", "weather-and-seasons", "materials", "push-and-pull", "safe-scientists"],
   }),
   course("k", "social", {
     share: {
@@ -72,6 +74,7 @@ export const courses: Course[] = [
       "fair-and-kind": [INCLUSION, "noticing what is fair and kind, and honouring differences"],
       "we-belong": [INCLUSION, "belonging to groups and respecting other points of view"],
     }),
-    order: ["all-about-me", "families", "we-belong", "needs-and-wants", "fair-and-kind", "helpers-and-rules"],
+    own: [kProvince],
+    order: ["nb-my-province-k", "all-about-me", "families", "we-belong", "needs-and-wants", "fair-and-kind", "helpers-and-rules"],
   }),
 ];

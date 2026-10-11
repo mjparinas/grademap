@@ -2,6 +2,7 @@ import type { Course } from "../types";
 import { courses as alberta } from "../alberta/g3";
 import { courses as manitoba } from "../manitoba/g3";
 import { courses as ontario } from "../ontario/g3";
+import { habitatsNb, livingThings, weatherClimate } from "./units/g3-science";
 import { citizens, governmentNb, ourProvince, peoplesOfNb, resources, treaties, wabanakiNations } from "./units/g3-social";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
@@ -59,6 +60,8 @@ export const courses: Course[] = [
       "structures-3": ["Scientific Literacy: Sensemaking", "structures and their jobs"],
       "strong-stable": ["Scientific Literacy: Sensemaking", "what makes a structure strong and stable"],
     }),
+    own: [weatherClimate, habitatsNb, livingThings],
+    order: ["nb-weather-climate-3", "nb-habitats-3", "plant-parts", "plant-life", "nb-living-things-3", "forces-3", "structures-3", "strong-stable"],
   }),
   course("3", "social", {
     share: {

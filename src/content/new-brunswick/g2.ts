@@ -1,5 +1,6 @@
 import type { Course } from "../types";
 import { courses as ontario } from "../ontario/g2";
+import { g2Nature, g2Community } from "./units/early";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
 
@@ -59,7 +60,8 @@ export const courses: Course[] = [
       "animal-adaptations": [SUSTAINABLE, "recognizing patterns in how animals adapt"],
       "simple-machines": [PROBLEM, "exploring how simple machines make jobs easier"],
     }),
-    order: ["life-cycles", "animal-adaptations", "water-world", "solids-and-liquids", "push-and-pull", "simple-machines"],
+    own: [g2Nature],
+    order: ["nb-nature-2", "life-cycles", "animal-adaptations", "water-world", "solids-and-liquids", "push-and-pull", "simple-machines"],
   }),
   course("2", "social", {
     share: {
@@ -72,7 +74,8 @@ export const courses: Course[] = [
       "traditions-and-celebrations": [INCLUSION, "traditions and celebrations in different families and communities"],
       "then-and-now": [PROBLEM, "gathering evidence about how ways of life change over time"],
     }),
-    order: ["needs-and-wants", "caring-citizens", "groups-in-our-community", "traditions-and-celebrations", "communities-in-canada", "then-and-now"],
+    own: [g2Community],
+    order: ["nb-community-2", "needs-and-wants", "caring-citizens", "groups-in-our-community", "traditions-and-celebrations", "communities-in-canada", "then-and-now"],
   }),
   ...frenchCourses("2"),
 ];

@@ -5,6 +5,7 @@ import { courses as ontario } from "../ontario/g5";
 import { courses as saskatchewan } from "../saskatchewan/g5";
 import { courses as novaScotia } from "../nova-scotia/g5";
 import { acadiaLoyalists, wabanakiConfederacy, worldviewEconomics } from "./units/g5-social";
+import { nervousSystem } from "./units/g5-science";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
 
@@ -67,7 +68,8 @@ export const courses: Course[] = [
       "matter-changes-5": ["Scientific Literacy: Sensemaking", "physical and chemical changes"],
       "changes-of-state-5": ["Scientific Literacy: Sensemaking", "changes of state"],
     }),
-    order: ["mb-weather-5", "mb-friction-5", "simple-machines", "digestion-and-breathing", "heart-bones-muscles", "changes-of-state-5", "matter-changes-5"],
+    own: [nervousSystem],
+    order: ["nb-nervous-system-5", "mb-weather-5", "mb-friction-5", "simple-machines", "digestion-and-breathing", "heart-bones-muscles", "changes-of-state-5", "matter-changes-5"],
   }),
   course("5", "social", {
     share: {

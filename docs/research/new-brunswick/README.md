@@ -11,6 +11,7 @@
 - **Kindergarten to Grade 2 science and social studies** are one course, Explore Your World, so the units cite its strands.
 - **Kindergarten French Immersion** is not built, because New Brunswick's immersion program starts in Grade 1.
 - **Shared units:** most units are BC units (`share`) or units from Ontario, Manitoba, Alberta or Nova Scotia (`adopt`), and were kept only where the questions do not name another province. Some New Brunswick outcomes have no unit yet.
+- **Science:** New Brunswick science differs from the other Atlantic provinces (Grade 3 weather and habitats, Grade 4 rocks, minerals, soil and Earth's surface, Grade 5 body systems, Grade 6 sensory systems, Grade 7 Earth surface processes, Grade 8 motion and space, Grade 9 solar system and ecosystems), so each of those grades has `nb-` science units. Some adopted units from other provinces remain as extra practice and do not match a New Brunswick topic.
 - **New Brunswick units** (`nb-` ids): My Province, Wabanaki Nations, Governments, Natural Resources and others in Grade 3; Wabanaki lands, regions and explorers in Grade 4; the Wabanaki Confederacy, French and British in Atlantic Canada, and worldviews in Grade 5; the Atlantic region and economy in Grade 6; Wabanaki worldviews in Grade 7; Confederation, Black communities, rights and Wabanaki governance in Grade 8; governance, rights, identities and migration, treaties and settlement in Grade 9.
 
 ## Review needed

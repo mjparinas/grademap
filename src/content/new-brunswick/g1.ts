@@ -1,5 +1,6 @@
 import type { Course } from "../types";
 import { courses as ontario } from "../ontario/g1";
+import { g1Nature, g1Community } from "./units/early";
 import { frenchCourses } from "./french";
 import { adopt, course, poolOf } from "./kit";
 
@@ -62,7 +63,8 @@ export const courses: Course[] = [
     adopted: adopt(poolOf("science", ontario), {
       "what-living-things-need": [BELONGING, "what living things need and how they help one another"],
     }),
-    order: ["living-things", "what-living-things-need", "animal-survival", "sky-and-seasons", "materials", "light-and-sound"],
+    own: [g1Nature],
+    order: ["nb-nature-1", "living-things", "what-living-things-need", "animal-survival", "sky-and-seasons", "materials", "light-and-sound"],
   }),
   course("1", "social", {
     share: {
@@ -75,7 +77,8 @@ export const courses: Course[] = [
       "respect-and-inclusion": [INCLUSION, "including others and treating people and the environment with respect"],
       "community-services": [DEMOCRATIC, "services and jobs that help the community"],
     }),
-    order: ["different-and-alike", "respect-and-inclusion", "my-community", "community-services", "our-land", "maps"],
+    own: [g1Community],
+    order: ["nb-community-1", "different-and-alike", "respect-and-inclusion", "my-community", "community-services", "our-land", "maps"],
   }),
   ...frenchCourses("1"),
 ];

@@ -1,0 +1,160 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 4 science, New Brunswick: Earth's crust, rocks, minerals, soils, changes to Earth's surface and Earth's resources.
+
+const ROCKS: Q[] = [
+  ["What is the Earth’s crust?", "the thin, hard outer layer of the Earth", ["the centre of the Earth", "a layer of air", "a kind of ocean"], "We live on the crust."],
+  ["What is a mineral?", "a solid, natural substance that is not alive and has a set makeup", ["a living plant", "a kind of soil", "a drink"], "Quartz and salt are minerals."],
+  ["What is a rock?", "a solid made of one or more minerals", ["a liquid", "a gas", "a plant part"], "Granite is made of several minerals."],
+  ["What kind of rock forms when melted rock cools and hardens?", "igneous", ["sedimentary", "metamorphic", "fossil"], "Granite is an igneous rock."],
+  ["What kind of rock forms when layers of sand, mud and shells are pressed together over a long time?", "sedimentary", ["igneous", "metamorphic", "volcanic"], "Sandstone and limestone are sedimentary rocks."],
+  ["What kind of rock forms when heat and pressure change other rocks?", "metamorphic", ["igneous", "sedimentary", "lava"], "Marble forms from limestone."],
+  ["Which of these is an igneous rock?", "granite", ["sandstone", "limestone", "shale"], "Granite has visible crystals."],
+  ["Which of these is a sedimentary rock?", "sandstone", ["granite", "basalt", "marble"], "Sandstone is made of sand grains stuck together."],
+  ["Which of these is a metamorphic rock?", "marble", ["sandstone", "shale", "granite"], "Marble is changed limestone."],
+  ["Where are fossils usually found?", "in sedimentary rock", ["in igneous rock", "in the air", "in lava"], "Layers can bury plants and animals."],
+  ["What is a fossil?", "the remains or print of a living thing from long ago", ["a new plant", "a toy", "a mineral"], "Fossils help us learn about the past."],
+  ["What does hardness tell you about a mineral?", "how easily it can be scratched", ["how heavy it is", "what colour it is", "how old it is"], "A harder mineral scratches a softer one."],
+  ["Which is the hardest natural mineral?", "diamond", ["talc", "gypsum", "calcite"], "Diamond is 10 on the Mohs scale."],
+  ["Which is the softest mineral on the Mohs scale?", "talc", ["quartz", "diamond", "calcite"], "Talc is number 1 and can be scratched by a fingernail."],
+  ["What is lustre?", "how a mineral shines in the light", ["how heavy it is", "how hard it is", "how cold it is"], "Metals have a shiny lustre."],
+  ["What is a streak test?", "rubbing a mineral on a tile to see the colour of its powder", ["dropping a mineral in water", "heating a rock", "tasting a mineral"], "The streak can be a different colour from the mineral."],
+  ["The Hopewell Rocks in New Brunswick were carved by…", "the very high tides of the Bay of Fundy", ["volcanoes", "glaciers only", "people with tools"], "Water wore away softer rock over a long time."],
+  ["The Hopewell Rocks are made of…", "sedimentary rock", ["igneous rock", "metamorphic rock", "ice"], "They are conglomerate rock, made of stones in sand and clay."],
+  ["Which mineral is found in table salt?", "halite", ["quartz", "calcite", "mica"], "Halite is the mineral name for salt."],
+  ["Which useful metal is mined in northern New Brunswick?", "zinc", ["gold from a river", "uranium", "sodium"], "Zinc and lead were mined near Bathurst.", true],
+  ["Potash, which is used in fertilizer, is mined near which New Brunswick town?", "Sussex", ["Edmundston", "Miramichi", "Campbellton"], "Potash is a salt that helps plants grow.", true],
+  ["Stonehammer Geopark in Saint John is famous for…", "showing more than a billion years of Earth’s history in the rocks", ["its sandy deserts", "its volcanoes", "its glaciers"], "It is a UNESCO Global Geopark.", true],
+  ["Which tool helps look closely at tiny mineral crystals?", "a hand lens", ["a thermometer", "a stopwatch", "a ruler"], "A hand lens magnifies small details."],
+  ["How can you tell sandstone from granite?", "sandstone has grains stuck together, and granite has crystals", ["granite floats", "sandstone is always red", "they are exactly the same"], "Looking closely helps sort rocks.", true],
+  ["Why do geologists sort rocks by how they formed?", "it tells how the rock was made", ["it is a game", "to sell rocks", "to make noise"], "Formation helps explain what the Earth was like long ago."],
+];
+
+const SOIL: Q[] = [
+  ["What is soil made of?", "tiny bits of rock, plant and animal remains, water and air", ["only sand", "only water", "only plastic"], "Soil is a mixture."],
+  ["What is humus?", "dark, rich material made from decayed plants and animals", ["a kind of rock", "a type of sand", "a dip for veggies"], "Humus helps plants grow."],
+  ["What are the three sizes of soil particles?", "sand, silt and clay", ["rock, glass and ice", "salt, sugar and flour", "big, bigger and biggest"], "Sand is the largest, clay the smallest."],
+  ["Which soil particles are the smallest?", "clay", ["sand", "silt", "pebbles"], "Clay feels sticky when wet."],
+  ["Which soil particles are the largest?", "sand", ["clay", "silt", "humus"], "Sand feels gritty."],
+  ["Which soil drains water the fastest?", "sandy soil", ["clay soil", "frozen soil", "packed soil"], "Water passes through large gaps."],
+  ["Which soil holds water the longest?", "clay soil", ["sandy soil", "gravel", "dry sand"], "Clay particles are tiny and pack tightly."],
+  ["What is loam?", "a mix of sand, silt, clay and humus that is good for growing plants", ["a kind of rock", "a kind of mud puddle", "a type of seed"], "Gardeners like loam."],
+  ["What is the top layer of soil called?", "topsoil", ["bedrock", "subsoil", "crust"], "Topsoil has the most humus."],
+  ["What lies under the subsoil?", "bedrock", ["topsoil", "humus", "sand"], "Bedrock is solid rock."],
+  ["Which creature helps loosen soil and add nutrients?", "an earthworm", ["a robin", "a fox", "a crab"], "Worm tunnels let in air and water."],
+  ["What are decomposers?", "living things that break down dead plants and animals", ["plants that grow tall", "animals that hunt", "things that fly"], "Fungi and bacteria are decomposers."],
+  ["What can you do to test how fast water drains through soil?", "pour water on equal amounts of each soil and time it", ["look at the soil's colour only", "taste the soil", "guess"], "A fair test changes one thing at a time."],
+  ["In a fair test of soils, what must stay the same?", "the amount of soil and water", ["the type of soil", "the colour of cups", "the temperature of the Sun"], "Only the soil type should change."],
+  ["Why is soil important for people?", "it grows our food", ["it makes the wind", "it makes the Moon", "it causes tides"], "Farmers rely on healthy soil."],
+  ["Which crop grows well in the Saint John River valley’s soil?", "potatoes", ["bananas", "coconuts", "rice"], "Potatoes are a major crop in northwestern New Brunswick."],
+  ["Which New Brunswick region is known for its rich farmland and large potato farms?", "the upper Saint John River valley", ["Grand Manan", "Campobello Island", "Mount Carleton"], "The soil and climate there suit potatoes.", true],
+  ["How do trees and plants protect soil?", "their roots hold it in place", ["they dig it up", "they make it dry", "they blow it away"], "Roots reduce erosion."],
+  ["What is compost?", "decayed food and plant waste that can feed soil", ["a type of rock", "a kind of paint", "a metal"], "Composting turns scraps into rich soil."],
+  ["Which of these can go in a compost bin?", "apple cores", ["plastic bags", "glass bottles", "batteries"], "Only natural waste breaks down."],
+  ["Why is it important not to pollute soil?", "plants and animals need clean soil", ["soil doesn't matter", "pollution makes soil better", "soil cleans itself instantly"], "Pollution can harm living things.", true],
+  ["How long does it take nature to make a centimetre of soil?", "hundreds of years", ["a day", "a week", "a month"], "Soil forms very slowly, so we protect it.", true],
+  ["Which can make soil poor over time?", "growing the same crop without caring for the soil", ["adding compost", "planting a cover crop", "letting fields rest"], "Farmers rotate crops to keep soil healthy.", true],
+  ["What do plants take from soil?", "water and nutrients", ["sunlight", "oxygen only", "heat only"], "Roots take in water and nutrients."],
+  ["What colour is soil that is rich in humus?", "dark brown", ["bright blue", "white", "pink"], "Humus makes soil dark."],
+];
+
+const SURFACE: Q[] = [
+  ["What is weathering?", "the slow breaking of rock into smaller pieces", ["moving rock with a truck", "making new rock", "the weather forecast"], "Water, wind, ice and plants cause weathering."],
+  ["What is erosion?", "the movement of weathered rock and soil by water, wind or ice", ["rock cooling", "making fossils", "a kind of storm"], "Rivers carry soil downstream."],
+  ["What is deposition?", "when moved material is dropped in a new place", ["when rock melts", "when plants grow", "when wind stops"], "River deltas form by deposition."],
+  ["Which of these causes erosion?", "flowing water", ["a quiet pond", "a sunny day", "a rock sitting still"], "Water moves soil and rock."],
+  ["What happens when water freezes in a crack in a rock?", "it expands and can split the rock", ["it makes the rock bigger forever", "it melts the rock", "nothing happens"], "This is called frost wedging."],
+  ["How do plant roots weather rock?", "they grow into cracks and push them wider", ["they make rock stronger", "they eat rock", "they melt rock"], "Roots can break rock over time."],
+  ["Which has more power to wear away land: a fast river or a slow trickle?", "a fast river", ["a slow trickle", "they are equal", "neither"], "Faster water carries more material."],
+  ["How do the high tides of the Bay of Fundy change the shore?", "they wear away cliffs and carry mud", ["they build mountains", "they freeze the sea", "they stop erosion"], "The Fundy tides are among the highest in the world."],
+  ["What do glaciers do to the land?", "they scrape and carve it as they move", ["they make it warmer", "they grow forests", "they cause earthquakes"], "Glaciers shaped many valleys long ago."],
+  ["What is a glacier?", "a huge, slow-moving mass of ice", ["a fast river", "a wave", "a cloud"], "Ice covered New Brunswick during the last ice age."],
+  ["What is a volcano?", "an opening in the crust where hot melted rock can escape", ["a high cliff", "a kind of lake", "a river"], "Lava is melted rock that has reached the surface."],
+  ["What causes most earthquakes?", "pieces of the Earth’s crust moving and sliding", ["thunderstorms", "tides", "strong winds"], "The pieces are called tectonic plates."],
+  ["What is a tectonic plate?", "a huge slab of the Earth’s crust", ["a kind of dinner plate", "a map", "a river rock"], "Plates move very slowly."],
+  ["Which change to Earth’s surface happens suddenly?", "an earthquake", ["weathering", "soil forming", "river bends forming"], "Earthquakes can shake the ground in seconds."],
+  ["Which change to Earth’s surface happens very slowly?", "weathering", ["a landslide", "an earthquake", "a volcanic eruption"], "Weathering takes years and years."],
+  ["Which of these is a fast change to Earth’s surface?", "a landslide", ["a canyon forming", "a delta forming", "weathering of rock"], "Heavy rain can start a landslide."],
+  ["What can humans do that speeds up erosion?", "cut down forests and leave soil bare", ["plant more trees", "add mulch", "build windbreaks"], "Roots and plants protect soil."],
+  ["How can people reduce erosion on a hill?", "plant grass and trees", ["remove all plants", "dig deep holes", "pour water on it"], "Roots hold soil together."],
+  ["How can we measure how fast a shoreline wears away?", "mark its position and measure again later", ["guess", "look once", "ask a friend to imagine"], "Repeated measurements show change.", true],
+  ["A model of erosion with a tray of sand shows…", "how water moves sand downhill", ["the real size of a river", "how mountains are built", "why the Moon shines"], "Models help us see patterns.", true],
+  ["Why is the Saint John River valley wide and flat in some places?", "the river has laid down soil there over a long time", ["it is a desert", "a volcano is nearby", "glaciers are melting there now"], "Deposition builds floodplains.", true],
+  ["Which rock is most likely to be worn away fastest by waves?", "soft sandstone", ["hard granite", "hard quartzite", "a solid boulder of granite"], "Soft rock wears down more easily."],
+  ["What is a flood plain?", "flat land near a river that can flood", ["a high mountain", "a desert", "a glacier"], "Flood plains have rich soil."],
+  ["Which of these is a landform made mostly by water?", "a river valley", ["a volcano", "a glacier", "a mountain range"], "Rivers carve valleys over time."],
+  ["How do scientists keep people safe from earthquakes?", "they study the ground and design strong buildings", ["they cancel the weather", "they plant trees only", "they build bridges only"], "Careful design helps buildings stay up.", true],
+];
+
+const RESOURCES: Q[] = [
+  ["What is a natural resource?", "something from nature that people use", ["a toy", "a computer", "a house"], "Water, wood and metals are natural resources."],
+  ["Which is a renewable resource?", "wood from a managed forest", ["coal", "oil", "zinc"], "Trees can be replanted."],
+  ["Which is a non-renewable resource?", "coal", ["wind", "sunlight", "wood from a managed forest"], "Coal takes millions of years to form."],
+  ["What is mining?", "taking minerals and metals out of the ground", ["planting seeds", "fishing", "cutting trees"], "Mining gives us metals and salts."],
+  ["What is a quarry?", "an open pit where stone is cut or dug", ["a type of farm", "a cave", "a small lake"], "Quarries provide stone and gravel."],
+  ["Which rock is used to make cement?", "limestone", ["marble sculpture only", "quartz", "mica"], "Limestone is heated and crushed."],
+  ["Which mineral is used to make glass?", "sand (quartz)", ["gold", "salt", "coal"], "Sand is melted to make glass."],
+  ["Gypsum, mined in New Brunswick, is used to make…", "drywall", ["glass", "plastic", "gasoline"], "Drywall is used in the walls of homes.", true],
+  ["Peat moss, harvested in the Acadian Peninsula, is used for…", "gardening and growing plants", ["making cement", "making metal", "fueling cars"], "Peat is made from decayed plants in wetlands.", true],
+  ["Why do mining companies have to clean up and restore the land when they finish?", "to protect people and nature", ["to make the land smaller", "to make a bigger hole", "for fun"], "Reclaiming land helps habitats recover."],
+  ["What can happen if mine waste gets into rivers?", "it can harm fish and water quality", ["it makes water pure", "it feeds fish", "nothing happens"], "Careful rules protect water."],
+  ["What does recycling metal do?", "saves energy and reduces mining", ["wastes metal", "makes more waste", "uses more energy"], "Recycling aluminum saves about 95% of the energy needed to make new."],
+  ["Which of these can be recycled again and again?", "aluminum cans", ["wet paper towels", "greasy pizza boxes", "broken toys"], "Metals can be melted and reused."],
+  ["What does it mean to conserve a resource?", "use it carefully so it lasts", ["use as much as possible", "hide it", "sell it fast"], "Conservation helps future generations."],
+  ["Which action conserves water?", "turn off the tap while brushing teeth", ["leave the hose running", "fill a pool daily", "wash a car each day"], "Small habits save water."],
+  ["Which action conserves energy at home?", "turn off lights in empty rooms", ["leave windows open in winter", "run lights all night", "leave the TV on"], "Saving energy saves resources."],
+  ["What is a fossil fuel?", "a fuel made from ancient plants and animals, like coal", ["wood", "wind", "sunlight"], "Burning fossil fuels adds carbon dioxide to the air."],
+  ["Which is a renewable energy source?", "wind", ["coal", "oil", "natural gas"], "Wind turbines turn wind into electricity."],
+  ["Which is a way New Brunswick makes renewable electricity?", "hydroelectric dams on rivers", ["coal-fired power only", "pumping oil", "volcanoes"], "The Mactaquac Dam is on the Saint John River.", true],
+  ["Why is it good to use stone from a local quarry for local roads?", "it reduces long-distance transport", ["it makes roads weaker", "it is a rule", "it makes more traffic"], "Short trips use less fuel.", true],
+  ["How do people in New Brunswick use trees wisely?", "they replant after harvesting", ["they never use wood", "they cut all trees at once", "they burn the forest"], "Sustainable forestry matters."],
+  ["What does reduce mean in the 3Rs?", "use less", ["use more", "throw away", "buy extra"], "Reducing waste is the best of the 3Rs."],
+  ["What does reuse mean in the 3Rs?", "use again", ["throw away", "burn", "bury"], "Reusing a jar saves a new one from being made."],
+  ["What does recycle mean in the 3Rs?", "turn used things into new things", ["throw away", "use less", "use again"], "Paper and metal can be recycled."],
+  ["What is a landfill?", "a place where garbage is buried", ["a farm field", "a lake", "a park"], "We want to send less to landfills."],
+  ["Which choice helps the Earth’s resources last longer?", "repair broken items instead of buying new", ["buy extra to stock up", "throw things away fast", "leave lights on"], "Fixing things saves resources."],
+];
+
+export const rocksMinerals = bankUnit({
+  id: "nb-rocks-minerals-4",
+  title: "Rocks & Minerals",
+  emoji: "🪨",
+  blurb: "How rocks form, how to test minerals and what New Brunswick’s rocks tell us.",
+  parentNote:
+    "Practises the Earth's crust, rocks and minerals, with examples from New Brunswick such as the Hopewell Rocks and Stonehammer Geopark. It follows the Grade 4 science skill descriptors on investigating rocks and minerals in the New Brunswick curriculum.",
+  standards: ["Scientific Literacy: Investigation", "planning investigations and collecting data about the Earth's crust, rocks and minerals"],
+  items: ROCKS,
+});
+
+export const soils = bankUnit({
+  id: "nb-soils-4",
+  title: "Soil Science",
+  emoji: "🌾",
+  blurb: "Sand, silt, clay, humus and fair tests.",
+  parentNote:
+    "Practises what soil is made of, how different soils drain and hold water, and how to run a fair test. It follows the Grade 4 science skill descriptors on investigating soils in the New Brunswick curriculum.",
+  standards: ["Scientific Literacy: Investigation, Scientific Literacy: Sensemaking", "investigating soils and using data to explain how soils differ"],
+  items: SOIL,
+});
+
+export const surfaceChanges = bankUnit({
+  id: "nb-surface-changes-4",
+  title: "Changing Earth’s Surface",
+  emoji: "🌋",
+  blurb: "Weathering, erosion, glaciers, earthquakes and volcanoes.",
+  parentNote:
+    "Practises how weathering, erosion and deposition and sudden events change Earth's surface, with the Bay of Fundy's tides as a local example. It follows the Grade 4 science skill descriptors on changes in the Earth's surface in the New Brunswick curriculum.",
+  standards: ["Scientific Literacy: Sensemaking", "explanations about changes in the Earth's surface based on evidence from inquiry"],
+  items: SURFACE,
+});
+
+export const earthResources = bankUnit({
+  id: "nb-earth-resources-4",
+  title: "Earth’s Resources & Caring",
+  emoji: "⛏️",
+  blurb: "Mining, forests, energy and the 3Rs.",
+  parentNote:
+    "Practises the uses of Earth's resources, mining and energy in New Brunswick, and responsible, sustainable choices such as reduce, reuse and recycle. It follows the Grade 4 science skill descriptor on applying scientific knowledge to sustainable practices in the New Brunswick curriculum.",
+  standards: ["Learning & Living Sustainably: Responsible and Sustainable Application", "uses of Earth's resources and sustainable practices with respect to the natural world"],
+  items: RESOURCES,
+});
