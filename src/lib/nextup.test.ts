@@ -42,4 +42,11 @@ describe("nextUp", () => {
     expect(nextUp(derived([older, newer]), ["a", "b"])).toEqual({ key: "b", questions: 1, level: 2 });
     expect(nextUp(derived([older, newer]), ["b", "a"])?.key).toBe("b");
   });
+  it("prefers the closer unit over a more recent one, whatever the order", () => {
+    const close = stat("a", Array(7).fill(true), { lastT: 1 });
+    const far = stat("b", Array(6).fill(false), { lastT: 2 });
+    expect(questionsToNextLevel(far)!.questions).toBeGreaterThan(1);
+    expect(nextUp(derived([close, far]), ["a", "b"])?.key).toBe("a");
+    expect(nextUp(derived([close, far]), ["b", "a"])?.key).toBe("a");
+  });
 });

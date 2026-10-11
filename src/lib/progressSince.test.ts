@@ -50,6 +50,27 @@ describe("growthSince", () => {
     expect([g.startedThen, g.startedNow, g.proficientThen, g.proficientNow]).toEqual([1, 3, 0, 2]);
   });
 
+  it("counts starting a unit as a move, even into Emerging", () => {
+    const events = run(A, 4, 0, now - DAY);
+    expect(growthSince(events, now, 30).moved).toEqual([{ key: A, from: -1, to: 0 }]);
+  });
+
+  it("ranks by the size of the jump, not the level it started from", () => {
+    const [Small, Big] = ["4/math/small", "4/math/big"];
+    const events = [...run(Small, 4, 2, now - 60 * DAY), ...run(Small, 8, 8, now - 5 * DAY), ...run(Big, 3, 3, now - 4 * DAY)];
+    expect(growthSince(events, now, 30).moved).toEqual([{ key: Big, from: -1, to: 1 }, { key: Small, from: 1, to: 2 }]);
+  });
+
+  it("breaks a tie in jump size with the higher level, whatever the order", () => {
+    const [Lo, Hi] = ["4/math/lo", "4/math/hi"];
+    const events = [...run(Hi, 4, 0, now - 60 * DAY), ...run(Hi, 12, 12, now - 5 * DAY), ...run(Lo, 3, 3, now - 4 * DAY)];
+    const sorted = [{ key: Hi, from: 0, to: 2 }, { key: Lo, from: -1, to: 1 }];
+    const today = derive(events, now);
+    expect(growthSince(events, now, 30, today).moved).toEqual(sorted);
+    const reversed = { ...today, units: { [Lo]: today.units[Lo], [Hi]: today.units[Hi] } };
+    expect(growthSince(events, now, 30, reversed).moved).toEqual(sorted);
+  });
+
   it("counts units already Proficient or Emerging at each point", () => {
     const [P, E] = ["4/math/p", "4/math/e"];
     const events = [...run(P, 8, 8, now - 60 * DAY), ...run(E, 4, 0, now - 5 * DAY)];
