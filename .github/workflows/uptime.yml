@@ -2,7 +2,9 @@ name: Uptime
 
 # Pings the production health endpoint every 15 minutes and keeps one open issue while it is down.
 # Set the repository variable UPTIME_URL (Settings > Secrets and variables > Actions > Variables)
-# to the site's origin, e.g. https://grademap.example. While it is unset, this workflow does nothing.
+# to the site's origin, e.g. https://www.gradelings.com. Use the host that answers directly: curl here
+# doesn't follow redirects, so an origin that redirects (gradelings.com -> www) always reads as down.
+# While it is unset, this workflow does nothing.
 # GitHub may delay scheduled runs and pauses them after 60 days without repository activity.
 
 on:

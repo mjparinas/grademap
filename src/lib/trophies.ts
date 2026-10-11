@@ -132,14 +132,16 @@ const frenchCorrect = (d: Derived) => (d.subjects.immersion?.correct ?? 0) + (d.
 const frenchUnits = (d: Derived, grade: GradeId, framework: FrameworkId, min: number) =>
   unitsAtLevel(d, grade, framework, min, "immersion") + unitsAtLevel(d, grade, framework, min, "core-french");
 
-const FRENCH_TROPHIES: Trophy[] = [
+const hasFrench = (ctx: TrophyContext) => unitsInGrade(ctx.grade, ctx.framework, "immersion") + unitsInGrade(ctx.grade, ctx.framework, "core-french") > 0;
+
+const FRENCH_TROPHIES: Trophy[] = ([
   { id: "french-first", name: "Bonjour!", description: "Answer your first French question.", tier: "bronze", icon: "👋", category: "French", progress: count(1, frenchAnswers) },
   { id: "french-100", name: "Petit à petit", description: "Answer 100 French questions.", tier: "silver", icon: "🥐", category: "French", progress: count(100, frenchAnswers) },
   { id: "french-500", name: "Très bien!", description: "Get 500 French questions right.", tier: "gold", icon: "🥖", category: "French", progress: count(500, frenchCorrect) },
   { id: "french-proficient-1", name: "French Sprout", description: "Reach Proficient in any French unit.", tier: "bronze", icon: "🌿", category: "French", progress: count(1, (d, ctx) => frenchUnits(d, ctx.grade, ctx.framework, 2)) },
   { id: "french-proficient-5", name: "Parlez-vous?", description: "Reach Proficient in 5 French units.", tier: "silver", icon: "💬", category: "French", progress: count(5, (d, ctx) => frenchUnits(d, ctx.grade, ctx.framework, 2)) },
   { id: "french-extending-1", name: "Étoile du français", description: "Reach Extending in any French unit.", tier: "silver", icon: "⭐", category: "French", progress: count(1, (d, ctx) => frenchUnits(d, ctx.grade, ctx.framework, 3)) },
-];
+] satisfies Omit<Trophy, "applies">[]).map((t) => ({ ...t, applies: hasFrench }));
 
 const subjectCorrect = (subject: SubjectId) => (d: Derived) => d.subjects[subject]?.correct ?? 0;
 
@@ -161,6 +163,7 @@ const SUBJECT_TROPHIES: Trophy[] = SUBJECT_LADDERS.flatMap(({ subject, category,
     tier,
     icon,
     category,
+    applies: isCoreSubject(subject) ? undefined : (ctx) => unitsInGrade(ctx.grade, ctx.framework, subject) > 0,
     progress: count(n, subjectCorrect(subject)),
   })),
 );
