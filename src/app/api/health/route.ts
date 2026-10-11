@@ -14,7 +14,8 @@ export async function GET() {
   try {
     const rows = await query<{ ok: number }>("SELECT 1 AS ok");
     database = Number(rows[0]?.ok) === 1;
-  } catch {
+  } catch (e) {
+    console.error("[health] database check failed", (e as Error).message);
     database = false;
   }
   const ok = database;

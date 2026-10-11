@@ -1,0 +1,86 @@
+import type { Unit } from "../../types";
+import { bankUnit, type Q } from "../own";
+
+// Grade 8 math: nets of 3-D objects (8.SS.2) and top, front and side views of objects built from right rectangular
+// prisms (8.SS.5).
+
+const NETS: Q[] = [
+  ["A net is…", "a flat pattern that folds up into a 3-D object", ["a picture of a solid from above", "a formula for volume", "a line that cuts a solid in half"], "Think of unfolding a cardboard box and laying it flat."],
+  ["How many square faces are in the net of a cube?", "6", ["4", "5", "8"], "A cube has 6 faces."],
+  ["How many rectangles are in the net of a rectangular prism?", "6", ["4", "5", "8"], "Opposite faces match, but there are still 6 faces."],
+  ["Which faces make the net of a triangular prism?", "2 triangles and 3 rectangles", ["3 triangles and 2 rectangles", "2 triangles and 4 rectangles", "5 triangles"], "The two bases are triangles; each side of a triangle gets one rectangle."],
+  ["Which faces make the net of a square pyramid?", "1 square and 4 triangles", ["2 squares and 4 triangles", "1 square and 4 rectangles", "5 squares"], "The base is a square and the sides are triangles that meet at a point."],
+  ["Which faces make the net of a cylinder?", "2 circles and 1 rectangle", ["1 circle and 2 rectangles", "3 circles", "2 circles and 2 rectangles"], "The curved side unrolls into a rectangle."],
+  ["Which solid has a net made of 4 triangles?", "a triangular pyramid", ["a square pyramid", "a triangular prism", "a cube"], "A triangular pyramid has a triangle base and 3 triangle sides."],
+  ["Which solid has a net of 2 pentagons and 5 rectangles?", "a pentagonal prism", ["a pentagonal pyramid", "a hexagonal prism", "a cylinder"], "The bases are the two pentagons."],
+  ["Which solid has a net of 2 hexagons and 6 rectangles?", "a hexagonal prism", ["a hexagonal pyramid", "a pentagonal prism", "a cube"], "Six sides on the base means six rectangles."],
+  ["How many triangles are in the net of a pentagonal pyramid?", "5", ["4", "6", "10"], "One triangle for each side of the pentagon base."],
+  ["How many faces does the net of a square prism with a square base have?", "6", ["4", "5", "8"], "2 squares and 4 rectangles."],
+  ["Which solid has a net of one circle and one sector (a slice of a circle)?", "a cone", ["a cylinder", "a sphere", "a pyramid"], "The curved surface of a cone unrolls into a sector."],
+  ["What is the total area of a cube net if each edge is 5 cm?", "150 cm²", ["25 cm²", "100 cm²", "125 cm²"], "6 faces × 25 cm² each."],
+  ["A cube has edges of 4 cm. What size is each square in its net?", "4 cm by 4 cm", ["2 cm by 2 cm", "4 cm by 6 cm", "16 cm by 16 cm"], "Each face of a cube is a square the same size as its edge."],
+  ["A rectangular prism is 2 cm by 3 cm by 4 cm. What is the area of its net?", "52 cm²", ["24 cm²", "26 cm²", "48 cm²"], "2(2×3 + 2×4 + 3×4) = 2(6 + 8 + 12)."],
+  ["A box is 5 cm by 3 cm by 2 cm. What is the area of its net?", "62 cm²", ["30 cm²", "31 cm²", "60 cm²"], "2(15 + 10 + 6) = 62."],
+  ["Which pattern of 6 squares can NOT fold into a cube?", "all six squares in one straight row", ["a cross shape with 4 squares in a column", "a row of 4 squares with one square above and one below", "two rows of 3 squares joined at one corner"], "Squares in one long row would overlap instead of closing the box."],
+  ["Which pattern of squares folds into a cube?", "a row of 4 squares with one square above and one below", ["a row of 5 squares with one square on top at each end", "a row of 6 squares", "a block of 2 by 3 squares"], "The row of 4 wraps around, and the other two squares are the top and bottom."],
+  ["Why do paper models often have tabs on the net?", "to glue the edges together", ["to show the volume", "to make the net heavier", "to mark the vertices"], "Tabs are small flaps that hold the folded edges in place."],
+  ["When you draw a net, what must be true about edges that will be joined?", "they must be the same length", ["they must be different lengths", "they must be curved", "they must be parallel"], "Edges only meet neatly when they match."],
+  ["A cylinder has a circle base with diameter 10 cm. About how long is the rectangle in its net?", "31.4 cm", ["10 cm", "15.7 cm", "78.5 cm"], "The long side equals the circumference, π × 10 ≈ 31.4 cm.", true],
+  ["A cylinder has radius 2 cm and height 5 cm. What is the area of its net (π ≈ 3.14)?", "about 87.9 cm²", ["about 62.8 cm²", "about 25.1 cm²", "about 43.9 cm²"], "Two circles: 2 × 12.56 = 25.12. Rectangle: 12.56 × 5 = 62.8. Total about 87.9.", true],
+  ["A triangular prism has right triangle bases with sides 3 cm, 4 cm and 5 cm, and a length of 10 cm. What is the area of its net?", "132 cm²", ["72 cm²", "120 cm²", "150 cm²"], "Triangles: 2 × 6 = 12. Rectangles: (3 + 4 + 5) × 10 = 120. Total 132.", true],
+  ["A net has one hexagon and six triangles. Which solid is it?", "a hexagonal pyramid", ["a hexagonal prism", "a triangular prism", "a cone"], "A hexagon base and triangle sides that meet at a point.", true],
+  ["The base of a triangular prism is an equilateral triangle. What can you say about the three rectangles in its net?", "they are all the same size", ["they are all different", "two are squares", "they are circles"], "Each rectangle has one equal triangle side and the same length of the prism.", true],
+  ["A net has 2 squares and 4 rectangles. Which solid could it fold into?", "a rectangular prism with square ends", ["a cube", "a square pyramid", "a triangular prism"], "The squares are the ends and the rectangles are the sides.", true],
+  ["A net has 2 octagons and 8 rectangles. How many faces does it have in total?", "10", ["8", "9", "16"], "2 + 8 = 10 faces.", true],
+  ["Which statement about the area of a net and the surface area of the solid is true?", "they are equal", ["the net is always larger", "the net is always smaller", "they cannot be compared"], "Folding does not change the amount of surface.", true],
+];
+
+const VIEWS: Q[] = [
+  ["When you look at an object from directly above, you see its…", "top view", ["front view", "side view", "back view"], "Top means from above."],
+  ["How many views are usually drawn to describe a 3-D object?", "3: top, front and side", ["1", "2", "6 at a time"], "Top, front and side views give the main picture."],
+  ["A tower is 3 cubes tall and 1 cube wide. What is its top view?", "1 square", ["3 squares in a row", "3 squares in a column", "a triangle"], "From above you see only the top cube."],
+  ["A tower is 3 cubes tall and 1 cube wide. What is its front view?", "3 squares in a column", ["1 square", "3 squares in a row", "a circle"], "From the front you see all 3 cubes stacked."],
+  ["A row of 3 cubes sits flat on a table. What is its top view?", "3 squares in a row", ["1 square", "3 squares in a column", "6 squares"], "You see the top of each cube."],
+  ["A row of 3 cubes sits flat on a table, left to right. What is the side view from the right end?", "1 square", ["3 squares in a row", "3 squares in a column", "2 squares"], "From the end you see only the end cube."],
+  ["A rectangular prism is 4 cubes long, 2 wide and 3 tall. What is its top view?", "a rectangle 4 squares by 2 squares", ["a rectangle 4 squares by 3 squares", "a rectangle 2 squares by 3 squares", "a square 3 by 3"], "The top view shows length and width."],
+  ["A rectangular prism is 4 cubes long, 2 wide and 3 tall. What is its front view?", "a rectangle 4 squares by 3 squares", ["a rectangle 4 squares by 2 squares", "a rectangle 2 squares by 3 squares", "a rectangle 3 squares by 3"], "The front view shows length and height."],
+  ["A rectangular prism is 4 cubes long, 2 wide and 3 tall. What is its side view?", "a rectangle 2 squares by 3 squares", ["a rectangle 4 squares by 3 squares", "a rectangle 4 squares by 2 squares", "a rectangle 2 squares by 2 squares"], "The side view shows width and height."],
+  ["How many cubes are in a prism that is 2 long, 3 wide and 2 tall?", "12", ["7", "10", "14"], "2 × 3 × 2 = 12."],
+  ["A staircase has columns of 1, 2 and 3 cubes from left to right, one cube deep. How many cubes is that?", "6", ["3", "5", "9"], "1 + 2 + 3 = 6."],
+  ["A staircase has columns of 1, 2 and 3 cubes from left to right, one cube deep. What is its top view?", "3 squares in a row", ["6 squares", "3 squares in a column", "1 square"], "It is one cube deep and three cubes long."],
+  ["A staircase has columns of 1, 2 and 3 cubes from left to right, one cube deep. What does the front view show?", "a staircase of 6 squares", ["a rectangle of 9 squares", "3 squares in a row", "a column of 3 squares"], "You see each column's height: 1, 2 and 3."],
+  ["A staircase has columns of 1, 2 and 3 cubes from left to right, one cube deep. What is the right side view?", "a column of 3 squares", ["a row of 3 squares", "1 square", "a staircase of 6 squares"], "The tallest column hides the others when you look from the right."],
+  ["An L-shaped flat object has 3 cubes in a row along the front and 1 more cube directly behind the left cube. What does the top view show?", "4 squares in an L shape", ["3 squares in a row", "4 squares in a row", "4 squares in a 2 by 2 block"], "Look from above and draw each cube's top."],
+  ["An L-shaped flat object has 3 cubes in a row along the front and 1 more cube directly behind the left cube. What does the front view show?", "3 squares in a row", ["4 squares in an L shape", "2 squares in a row", "1 square"], "From the front the cube behind is hidden."],
+  ["An L-shaped flat object has 3 cubes in a row along the front and 1 more cube directly behind the left cube. What does the side view show?", "2 squares in a row", ["3 squares in a row", "1 square", "4 squares in an L shape"], "From the side you see the object's depth of 2 cubes."],
+  ["Why is a top view useful to builders?", "it shows the footprint of the object", ["it shows how heavy the object is", "it shows the colour of the object", "it shows the cost of the object"], "The top view shows the length and width on the ground."],
+  ["A cube has a top view, a front view and a side view. How do they compare?", "all three are the same square", ["all three are different", "two are triangles", "they are circles"], "Every face of a cube is a square."],
+  ["Two views of an object are both rectangles that are 3 squares by 2 squares and 3 squares by 1 square. Which solid fits best?", "a 3 by 1 by 2 prism", ["a pyramid", "a cylinder", "a cube"], "The lengths 3, 1 and 2 are the three dimensions.", true],
+  ["A top-view grid shows how many cubes are stacked in each place. Row A reads 2, 1. Row B reads 1, 3. How many cubes are there in total?", "7", ["4", "6", "8"], "2 + 1 + 1 + 3 = 7.", true],
+  ["In the grid with Row A reading 2, 1 and Row B reading 1, 3, how tall is the tallest stack?", "3 cubes", ["2 cubes", "4 cubes", "7 cubes"], "The largest number in the grid is 3.", true],
+  ["For the same grid (Row A: 2, 1; Row B: 1, 3), Row B is in front. In the front view, how tall is the left column?", "2 squares", ["1 square", "3 squares", "4 squares"], "The left column has stacks of 2 and 1, and the tallest is 2.", true],
+  ["For the same grid (Row A: 2, 1; Row B: 1, 3), how tall is the right column in the front view?", "3 squares", ["1 square", "2 squares", "4 squares"], "The right column has stacks of 1 and 3, so the tallest is 3.", true],
+  ["A solid is made from 8 cubes in a 2 by 2 by 2 block. How many squares does its top view show?", "4", ["2", "8", "16"], "The top view shows only a 2 by 2 layer.", true],
+  ["A model has a top view of 6 squares (2 by 3) and a front view of 3 squares by 4 squares. What is its height?", "4 cubes", ["2 cubes", "3 cubes", "6 cubes"], "The front view is 3 squares wide and 4 squares tall.", true],
+];
+
+export const units: Unit[] = [
+  bankUnit({
+    id: "mb-nets-8",
+    title: "Nets of 3-D Objects",
+    emoji: "📦",
+    blurb: "Unfold prisms, pyramids and cylinders",
+    parentNote: "Children match flat nets to solids, count the faces in a net, check which patterns fold up, and find the area of a net.",
+    standards: ["8.SS.2", "drawing and constructing nets for 3-D objects"],
+    items: NETS,
+  }),
+  bankUnit({
+    id: "mb-views-8",
+    title: "Top, Front and Side Views",
+    emoji: "🧱",
+    blurb: "Look at cube buildings from three sides",
+    parentNote: "Children picture what a building made of cubes looks like from the top, front and side, and use views to work out how many cubes it has.",
+    standards: ["8.SS.5", "drawing and interpreting top, front and side views of 3-D objects built from right rectangular prisms"],
+    items: VIEWS,
+  }),
+];

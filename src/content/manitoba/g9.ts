@@ -4,6 +4,11 @@ import { frenchCourses } from "./french";
 import { adopt, course, unitsOf } from "./kit";
 import { units as socialUnits } from "./units/g9-social";
 import { units as scienceUnits } from "./units/g9-science";
+import { units as moreMath } from "./units/g9-more-math";
+import { units as moreLanguage } from "./units/g9-more-language";
+import { units as moreScience } from "./units/g9-more-science";
+import { units as moreSocialA } from "./units/g9-more-social-a";
+import { units as moreSocialB } from "./units/g9-more-social-b";
 
 // Manitoba Grade 9. Math follows the Grade 9 mathematics outcomes (9.N, 9.PR, 9.SS, 9.SP), English language arts the ELA
 // curriculum (strands A to D), science the Grade 9 science outcomes (SCI.9) and social studies Canada in the Contemporary
@@ -20,6 +25,8 @@ export const courses: Course[] = [
       "similarity-and-scale": ["9.SS.3, 9.SS.4", "similar polygons, and scale diagrams of 2-D shapes"],
       "statistics-in-society": ["9.SP.1, 9.SP.2, 9.SP.3", "bias in data collection, samples and populations, and planning a data project"],
     },
+    own: moreMath,
+    order: ["exponent-laws", "rational-numbers", "linear-relations", "multi-step-equations", "polynomials", "similarity-and-scale", "mb-circle-properties", "mb-composite-surface-area", "mb-line-rotation-symmetry", "statistics-in-society", "mb-probability-in-society"],
   }),
   course("9", "language", {
     share: {
@@ -35,7 +42,8 @@ export const courses: Course[] = [
       "revise-edit-9": ["ELA.9.C2.2, ELA.9.C2.3, ELA.9.C3.1, ELA.9.C3.3", "revising and editing for clarity, spelling and punctuation"],
       "forms-features-9": ["ELA.9.B1.3, ELA.9.C1.3", "text cues, features and forms"],
     }),
-    order: ["close-reading", "literary-elements", "voices-and-perspectives", "argument-and-rhetoric", "forms-features-9", "word-parts-9", "grammar-and-style", "language-and-style", "revise-edit-9"],
+    own: moreLanguage,
+    order: ["mb-reading-with-purpose", "close-reading", "mb-summarizing", "literary-elements", "voices-and-perspectives", "argument-and-rhetoric", "mb-plan-and-research", "mb-choose-form-and-compose", "forms-features-9", "word-parts-9", "mb-vocabulary-and-spelling", "grammar-and-style", "language-and-style", "revise-edit-9", "mb-feedback-and-goals"],
   }),
   course("9", "science", {
     share: {
@@ -50,10 +58,10 @@ export const courses: Course[] = [
       "compounds-9": ["SCI.9.E.1", "pure substances, elements, compounds and mixtures"],
       "static-charges-9": ["SCI.9.E.6", "static electricity: attraction, repulsion and charging"],
     }),
-    own: scienceUnits,
+    own: [...scienceUnits, ...moreScience],
   }),
   course("9", "social", {
-    own: socialUnits,
+    own: [...socialUnits, ...moreSocialA, ...moreSocialB],
   }),
   ...frenchCourses("9"),
 ];

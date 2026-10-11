@@ -4,6 +4,9 @@ import { frenchCourses } from "./french";
 import { adopt, course, unitsOf } from "./kit";
 import { units as socialUnits } from "./units/g4-social";
 import { units as scienceUnits } from "./units/g4-science";
+import { units as moreLanguage } from "./units/g4-more-language";
+import { units as moreScience } from "./units/g4-more-science";
+import { units as moreSocial } from "./units/g4-more-social";
 
 // Manitoba Grade 4. Math follows the Grade 4 mathematics outcomes (4.N, 4.PR, 4.SS, 4.SP), English language arts the ELA
 // curriculum (strands A to D), science the Grade 4 outcomes (SCI.4) and social studies Canada's geography and Manitoba (4-K outcomes).
@@ -41,6 +44,12 @@ export const courses: Course[] = [
       "sound-alikes": ["ELA.4.C3.2", "spelling patterns and homophones"],
       "paragraph-power": ["ELA.4.C2.1", "organizing writing into paragraphs"],
     },
+    own: moreLanguage,
+    order: [
+      "word-builders", "reading-detectives", "text-features", "figurative-language", "point-of-view", "parts-of-speech",
+      "super-sentences", "punctuation-power", "sound-alikes", "paragraph-power",
+      "mb-talk-together", "mb-big-words", "mb-connect-texts", "mb-fair-texts", "mb-plan-writing", "mb-revise-writing", "mb-learning-goals",
+    ],
   }),
   course("4", "science", {
     adopted: adopt(unitsOf(ontario, "science"), {
@@ -48,12 +57,19 @@ export const courses: Course[] = [
       "sound-4": ["SCI.4.E.1, SCI.4.E.3", "sound as energy made by vibrations"],
       "food-webs-4": ["SCI.4.E.14", "the flow of energy and cycling of matter among living things"],
     }),
-    own: scienceUnits,
-    order: ["light-4", "sound-4", "mb-soil", "mb-rocks", "mb-energy-resources", "food-webs-4"],
+    own: [...scienceUnits, ...moreScience],
+    order: [
+      "light-4", "sound-4", "mb-soil", "mb-rocks", "mb-energy-resources", "food-webs-4",
+      "mb-adaptations", "mb-energy-senses", "mb-science-skills", "mb-engineering", "mb-ways-of-knowing",
+    ],
   }),
   course("4", "social", {
-    own: socialUnits,
-    order: ["mb-canada-map", "mb-canada-regions", "mb-canadian-citizens", "mb-manitoba-land", "mb-manitoba-people", "mb-manitoba-story"],
+    own: [...socialUnits, ...moreSocial],
+    order: [
+      "mb-canada-map", "mb-canada-regions", "mb-canadian-citizens", "mb-manitoba-land", "mb-manitoba-people", "mb-manitoba-story",
+      "mb-citizen-identity", "mb-power-conflict", "mb-government-property", "mb-special-places", "mb-heritage",
+      "mb-north-land", "mb-north-names", "mb-north-people", "mb-north-change", "mb-map-skills", "mb-research-skills",
+    ],
   }),
   ...frenchCourses("4"),
 ];

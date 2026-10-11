@@ -26,6 +26,10 @@ const FRENCH_GRADES: Record<FrameworkId, { immersion: GradeId[]; "core-french": 
   // Saskatchewan French is not built yet (see docs/research/saskatchewan/README.md).
   "ca-sk": { immersion: [], "core-french": [] },
   "ca-mb": { immersion: range("k", "9"), "core-french": range("4", "9") },
+  // Yukon implements the BC curriculum, including BC's French programs.
+  "ca-yt": { immersion: range("k", "9"), "core-french": range("5", "9") },
+  // The Northwest Territories adopts the BC curriculum (adapted), including its French programs.
+  "ca-nt": { immersion: range("k", "9"), "core-french": range("5", "9") },
   // Nova Scotia: Français arts langagiers (French Immersion) from Primary; Core French from Grade 4.
   "ca-ns": { immersion: range("k", "9"), "core-french": range("4", "9") },
 };

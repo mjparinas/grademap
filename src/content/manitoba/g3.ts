@@ -4,6 +4,9 @@ import { frenchCourses } from "./french";
 import { adopt, course, unitsOf } from "./kit";
 import { polygons } from "./units/g3-math";
 import { life, speed } from "./units/g3-science";
+import { listening, sounds, wonder, plan, better, media, goals } from "./units/g3-more-language";
+import { find, solve, careers, ways } from "./units/g3-more-science";
+import { identity, land, people, team, findOut, think } from "./units/g3-more-social";
 import { citizenship, groups } from "./units/g3-social-a";
 import { maps, life as communities, needs, ancient } from "./units/g3-social-b";
 
@@ -50,6 +53,7 @@ export const courses: Course[] = [
     adopted: adopt(unitsOf(ontario, "language"), {
       "text-patterns": ["ELA.3.B2.1, ELA.3.B2.2, ELA.3.C2.1", "how the form and structure of texts and text features organize ideas"],
     }),
+    own: [listening, sounds, wonder, plan, better, media, goals],
   }),
   course("3", "science", {
     share: {
@@ -61,12 +65,12 @@ export const courses: Course[] = [
       "strong-stable": ["SCI.3.E.1, SCI.3.E.3, SCI.3.D.5", "strong and stable structures, shapes in nature and building"],
       "skills-3": ["SCI.3.C.2, SCI.3.C.3, SCI.3.C.4", "measuring, doing investigations and using materials safely"],
     }),
-    own: [life, speed],
-    order: ["skills-3", "forces-3", "mb-speed-and-motion", "structures-3", "strong-stable", "mb-needs-life-cycles", "grouping-living-things"],
+    own: [life, speed, find, solve, careers, ways],
+    order: ["skills-3", "forces-3", "mb-speed-and-motion", "structures-3", "strong-stable", "mb-needs-life-cycles", "grouping-living-things", "mb-how-scientists-find-out", "mb-solutions-and-technology", "mb-science-everywhere", "mb-ways-of-knowing"],
   }),
   course("3", "social", {
-    own: [citizenship, groups, maps, communities, needs, ancient],
-    order: ["mb-citizenship", "mb-groups-and-leaders", "mb-world-maps", "mb-global-communities", "mb-needs-and-rights", "mb-ancient-egypt"],
+    own: [citizenship, groups, maps, communities, needs, ancient, identity, land, people, team, findOut, think],
+    order: ["mb-citizenship", "mb-groups-and-leaders", "mb-world-maps", "mb-global-communities", "mb-needs-and-rights", "mb-ancient-egypt", "mb-who-i-am", "mb-living-with-the-land", "mb-contributions-and-connections", "mb-working-together", "mb-ask-and-find", "mb-think-it-through"],
   }),
   ...frenchCourses("3"),
 ];

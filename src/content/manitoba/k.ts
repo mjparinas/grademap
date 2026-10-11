@@ -2,6 +2,10 @@ import type { Course } from "../types";
 import { courses as ontario } from "../ontario/k";
 import { frenchCourses } from "./french";
 import { adopt, course, unitsOf } from "./kit";
+import { mathUnits } from "./units/gk-more-math";
+import { languageUnits } from "./units/gk-more-language";
+import { scienceUnits } from "./units/gk-more-science";
+import { socialUnits } from "./units/gk-more-social";
 
 // Manitoba Kindergarten. Math follows the Kindergarten mathematics outcomes (K.N, K.PR, K.SS), English language arts the
 // ELA curriculum (strands A to D), science the Kindergarten science outcomes (SCI.K) and social studies the Kindergarten
@@ -17,7 +21,8 @@ export const courses: Course[] = [
       "shapes-and-sizes": ["K.SS.1, K.SS.2", "comparing objects by one attribute, and sorting 3-D objects"],
     },
     adopted: adopt(unitsOf(ontario, "math"), { "numbers-to-20": ["K.N.1, K.N.3", "saying the number sequence, and relating numerals to quantities"] }),
-    order: ["count-to-10", "numbers-to-20", "make-5-and-10", "more-less-same", "patterns", "shapes-and-sizes"],
+    own: mathUnits,
+    order: ["count-to-10", "numbers-to-20", "make-5-and-10", "more-less-same", "patterns", "shapes-and-sizes", "mb-k-quick-look", "mb-k-build-3d"],
   }),
   course("k", "language", {
     share: {
@@ -31,7 +36,8 @@ export const courses: Course[] = [
       "picture-clues": ["ELA.K.B2.2, ELA.K.A2.3", "using pictures and first letters to work out a word"],
     },
     adopted: adopt(unitsOf(ontario, "language"), { "blend-a-word": ["ELA.K.A2.3", "using letters and sounds to read and spell words"] }),
-    order: ["letter-partners", "first-sounds", "rhyme-time", "clap-the-beat", "blend-a-word", "sight-words", "picture-clues", "book-detectives", "story-order"],
+    own: languageUnits,
+    order: ["letter-partners", "first-sounds", "rhyme-time", "clap-the-beat", "blend-a-word", "sight-words", "picture-clues", "book-detectives", "story-order", "mb-k-listening-and-talking", "mb-k-word-parts-and-meanings", "mb-k-before-during-after-reading", "mb-k-make-a-text", "mb-k-i-can-learn"],
   }),
   course("k", "science", {
     share: {
@@ -43,7 +49,8 @@ export const courses: Course[] = [
       "safe-scientists": ["SCI.K.C.4", "using materials and equipment safely"],
       "be-a-scientist": ["SCI.K.C.3, SCI.K.D.1", "asking questions and trying to explain what is happening"],
     }),
-    order: ["be-a-scientist", "materials", "living-things-need", "animal-features", "safe-scientists"],
+    own: scienceUnits,
+    order: ["be-a-scientist", "materials", "living-things-need", "animal-features", "safe-scientists", "mb-k-measure-it", "mb-k-sun-and-moon", "mb-k-science-helpers", "mb-k-care-for-nature"],
   }),
   course("k", "social", {
     share: {
@@ -57,7 +64,8 @@ export const courses: Course[] = [
       "fair-and-kind": ["0-KC-002, 0-KP-024", "kind actions, and working through disagreements"],
       "places-near-me": ["0-KL-012, 0-KL-015", "the places and landmarks around us"],
     }),
-    order: ["all-about-me", "families", "we-belong", "fair-and-kind", "helpers-and-rules", "needs-and-wants", "places-near-me"],
+    own: socialUnits,
+    order: ["all-about-me", "families", "we-belong", "fair-and-kind", "helpers-and-rules", "needs-and-wants", "places-near-me", "mb-k-jobs-and-rules", "mb-k-canada-and-celebrations", "mb-k-yesterday-today-tomorrow", "mb-k-ways-to-communicate", "mb-k-maps-and-the-world", "mb-k-working-together", "mb-k-find-out"],
   }),
   ...frenchCourses("k"),
 ];

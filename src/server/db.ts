@@ -4,7 +4,8 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 
 // One SQLite-compatible database: a local file in development, or a hosted
-// libSQL/Turso database in production (set DATABASE_URL + DATABASE_AUTH_TOKEN).
+// libSQL/Turso database in production (set DATABASE_URL + DATABASE_AUTH_TOKEN, or the
+// TURSO_DATABASE_URL + TURSO_AUTH_TOKEN pair that the Vercel Marketplace integration creates).
 
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS families (
@@ -190,22 +191,52 @@ async function migrate(c: Client) {
 let client: Client | null = null;
 let ready: Promise<void> | null = null;
 
+const LOCAL_DATABASE_URL = "file:./data/grademap.db";
+
+/** Each URL is paired with its own token, so a token from one database is never sent to another. */
+export function databaseConfig(): { url: string; authToken?: string } {
+  const env = process.env;
+  if (env.DATABASE_URL) return { url: env.DATABASE_URL, authToken: env.DATABASE_AUTH_TOKEN || undefined };
+  if (env.TURSO_DATABASE_URL) return { url: env.TURSO_DATABASE_URL, authToken: env.TURSO_AUTH_TOKEN || undefined };
+  return { url: LOCAL_DATABASE_URL };
+}
+
 export function databaseUrl(): string {
-  return process.env.DATABASE_URL ?? "file:./data/grademap.db";
+  return databaseConfig().url;
 }
 
 export async function db(): Promise<Client> {
   if (!client) {
-    const url = databaseUrl();
-    if (url.startsWith("file:")) mkdirSync(dirname(url.slice(5)), { recursive: true });
-    client = createClient({ url, authToken: process.env.DATABASE_AUTH_TOKEN });
-    ready = (async () => {
-      for (const sql of SCHEMA) await client!.execute(sql);
-      await migrate(client!);
-    })();
+    const { url, authToken } = databaseConfig();
+    if (url === LOCAL_DATABASE_URL && process.env.NODE_ENV === "production") {
+      console.error("[db] DATABASE_URL and TURSO_DATABASE_URL are both unset; falling back to a local file, which fails on read-only hosts");
+    }
+    try {
+      if (url.startsWith("file:")) mkdirSync(dirname(url.slice(5)), { recursive: true });
+      const c = createClient({ url, authToken });
+      client = c;
+      ready = (async () => {
+        for (const sql of SCHEMA) await c.execute(sql);
+        await migrate(c);
+      })();
+    } catch (e) {
+      console.error("[db] could not open the database", (e as Error).message);
+      throw e;
+    }
   }
-  await ready;
-  return client;
+  const c = client;
+  try {
+    await ready;
+  } catch (e) {
+    // Forget the failed attempt so the next request tries again instead of failing forever.
+    if (client === c) {
+      client = null;
+      ready = null;
+      console.error("[db] setup failed; will retry on the next request", (e as Error).message);
+    }
+    throw e;
+  }
+  return c;
 }
 
 export async function query<T = Record<string, unknown>>(sql: string, args: InValue[] = []): Promise<T[]> {
