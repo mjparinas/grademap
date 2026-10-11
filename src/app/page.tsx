@@ -93,7 +93,7 @@ export default function Home() {
       {/* Hero */}
       <section className="grid items-center gap-8 py-6 md:grid-cols-[1.1fr_1fr] md:py-12">
         <div>
-          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">{FRAMEWORKS.map((f) => f.region).join(" and ")} curriculum · Kindergarten to Grade 9</p>
+          <p className="mb-3 inline-flex rounded-full bg-[#fff4cc] px-3 py-1 text-sm font-bold text-[#8a6400]">Canadian curriculum · Kindergarten to Grade 9</p>
           <h1 className="text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
             Practice that feels like play. <span className="text-[#4f8ef7]">Progress you can read.</span>
           </h1>
