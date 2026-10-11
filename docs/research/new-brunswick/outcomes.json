@@ -1,0 +1,3967 @@
+{
+ "1/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Understand different oral texts on topics related to students' experiences."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production",
+   "skills": [
+    "Speak on topics closely related to students' experiences using precise language."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Interaction",
+   "skills": [
+    "Participate in small conversations related to topics closely related to students' experiences using precise language."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Phonological Awareness",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Phonological Awareness",
+   "skills": [
+    "Recognize, hear, and manipulate the syllables and sounds of the French language."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Phonics",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Phonics",
+   "skills": [
+    "Establish connections between spoken sounds (phonemes) and written sounds (graphemes) to read words in a text."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use knowledge of the vocabulary acquired to facilitate your reading."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Read a variety of increasingly complex texts accurately and fluently."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Read while understanding a variety of increasingly complex texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production and the Writing Process",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production and the Writing Process",
+   "skills": [
+    "Write different types of simple texts about topics closely related to the students' experiences by following the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Enhance writing with short, simple texts by applying the writing traits."
+   ]
+  }
+ ],
+ "1/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Express feelings and opinions and give simple descriptions of experiences.",
+    "Present simple facts, ideas, and opinions to peers and teachers.",
+    "Explore the language of harmony and respect."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Begin to ask and respond to questions.",
+    "Give and follow simple, one- or two-step directions or instructions.",
+    "Explore appropriate communication conventions.",
+    "Respond personally to presentations, oral stories, and multimodal text.",
+    "Explore social conventions when interacting."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Receive the ideas and opinions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Concepts of Print",
+   "strand": "Reading",
+   "bigIdea": "Concepts of Print",
+   "skills": [
+    "Identify concepts of print."
+   ]
+  },
+  {
+   "idx": "Reading: Phonological Awareness",
+   "strand": "Reading",
+   "bigIdea": "Phonological Awareness",
+   "skills": [
+    "Demonstrate an awareness of sounds in spoken language."
+   ]
+  },
+  {
+   "idx": "Reading: Phonics",
+   "strand": "Reading",
+   "bigIdea": "Phonics",
+   "skills": [
+    "Apply letter-sound knowledge to decode words and connected text."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Read familiar words in developmentally appropriate text passages with accuracy and expression."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use a range of vocabulary when communicating."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from oral stories, read-alouds, and text."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select and engage with a variety of text forms for specific uses.",
+    "Begin to identify characteristics, forms, features, and types of text."
+   ]
+  },
+  {
+   "idx": "Representations: Print Mechanics",
+   "strand": "Representations",
+   "bigIdea": "Print Mechanics",
+   "skills": [
+    "Print or represent letters, words, and sentences using a writing utensil or assistive technology."
+   ]
+  },
+  {
+   "idx": "Representations: Spelling",
+   "strand": "Representations",
+   "bigIdea": "Spelling",
+   "skills": [
+    "Apply basic spelling conventions when creating written works."
+   ]
+  },
+  {
+   "idx": "Representations: Sentence Structure",
+   "strand": "Representations",
+   "bigIdea": "Sentence Structure",
+   "skills": [
+    "Compose complete thoughts and sentences."
+   ]
+  },
+  {
+   "idx": "Representations: Composition",
+   "strand": "Representations",
+   "bigIdea": "Composition",
+   "skills": [
+    "Organize ideas and create written or media texts."
+   ]
+  },
+  {
+   "idx": "Representations: Text Analysis",
+   "strand": "Representations",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Begin to seek information to support ideas and construct meaning."
+   ]
+  }
+ ],
+ "1/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Collect, display and analyze data to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Use patterns to describe the world and solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Use direct and indirect measurement to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+   ],
+   "provisional": true
+  }
+ ],
+ "1/science": [
+  {
+   "idx": "Literacies and Communications: Communicative Practices",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Communicative Practices",
+   "skills": [
+    "Examine how language learning is beneficial.",
+    "Explore multiple languages.",
+    "Play with multiple languages."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Multimodal Literacies",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Multimodal Literacies",
+   "skills": [
+    "Refer to environmental print in multiple languages.",
+    "Communicate in multiple languages using strategies for meaning making."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Literate Identities",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Literate Identities",
+   "skills": [
+    "Demonstrate being a reader, writer, and communicator in multiple languages.",
+    "Use digital technologies to learn and communicate."
+   ]
+  },
+  {
+   "idx": "Well-Being: Emotional Health and Positive Identities",
+   "strand": "Well-Being",
+   "bigIdea": "Emotional Health and Positive Identities",
+   "skills": [
+    "Explore activities that foster enjoyment and well-being.",
+    "Identify interests, passions, and strengths.",
+    "Recognize that feelings and emotions can impact well-being, relationships, and the way we engage with others."
+   ]
+  },
+  {
+   "idx": "Well-Being: Belonging and Interconnectedness",
+   "strand": "Well-Being",
+   "bigIdea": "Belonging and Interconnectedness",
+   "skills": [
+    "Define and express needs, wants, and choices.",
+    "Explore strategies that promote inclusion.",
+    "Examine how natural resources are connected to us and our environment."
+   ]
+  },
+  {
+   "idx": "Well-Being: Physical Health and Active Participation",
+   "strand": "Well-Being",
+   "bigIdea": "Physical Health and Active Participation",
+   "skills": [
+    "Analyze personal safety and healthy practices.",
+    "Apply behaviours and practices that promote safety."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Imagination and Creativity",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Imagination and Creativity",
+   "skills": [
+    "Practise using flexible and fluid thinking in new and familiar situations.",
+    "Examine new activities, interests, and possibilities."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Exploration and Problem Solving",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Exploration and Problem Solving",
+   "skills": [
+    "Negotiate, compromise, and work together.",
+    "Gather evidence to create and answer questions."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Play and Inquiry",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Play and Inquiry",
+   "skills": [
+    "Engage in activities that introduce elements of risk, novelty, and the unknown.",
+    "Interact with others to share interest, enjoyments, or new information."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Inclusiveness and Equity",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Inclusiveness and Equity",
+   "skills": [
+    "Honour differences and uniqueness.",
+    "Act to change inequitable practices."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Democratic Practices",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Democratic Practices",
+   "skills": [
+    "Act as responsible and responsive community members.",
+    "Participate in decision-making processes."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Sustainable Futures",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Sustainable Futures",
+   "skills": [
+    "Recognize patterns in nature.",
+    "Explore sustainable practices."
+   ]
+  }
+ ],
+ "1/social": [
+  {
+   "idx": "Literacies and Communications: Communicative Practices",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Communicative Practices",
+   "skills": [
+    "Examine how language learning is beneficial.",
+    "Explore multiple languages.",
+    "Play with multiple languages."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Multimodal Literacies",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Multimodal Literacies",
+   "skills": [
+    "Refer to environmental print in multiple languages.",
+    "Communicate in multiple languages using strategies for meaning making."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Literate Identities",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Literate Identities",
+   "skills": [
+    "Demonstrate being a reader, writer, and communicator in multiple languages.",
+    "Use digital technologies to learn and communicate."
+   ]
+  },
+  {
+   "idx": "Well-Being: Emotional Health and Positive Identities",
+   "strand": "Well-Being",
+   "bigIdea": "Emotional Health and Positive Identities",
+   "skills": [
+    "Explore activities that foster enjoyment and well-being.",
+    "Identify interests, passions, and strengths.",
+    "Recognize that feelings and emotions can impact well-being, relationships, and the way we engage with others."
+   ]
+  },
+  {
+   "idx": "Well-Being: Belonging and Interconnectedness",
+   "strand": "Well-Being",
+   "bigIdea": "Belonging and Interconnectedness",
+   "skills": [
+    "Define and express needs, wants, and choices.",
+    "Explore strategies that promote inclusion.",
+    "Examine how natural resources are connected to us and our environment."
+   ]
+  },
+  {
+   "idx": "Well-Being: Physical Health and Active Participation",
+   "strand": "Well-Being",
+   "bigIdea": "Physical Health and Active Participation",
+   "skills": [
+    "Analyze personal safety and healthy practices.",
+    "Apply behaviours and practices that promote safety."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Imagination and Creativity",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Imagination and Creativity",
+   "skills": [
+    "Practise using flexible and fluid thinking in new and familiar situations.",
+    "Examine new activities, interests, and possibilities."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Exploration and Problem Solving",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Exploration and Problem Solving",
+   "skills": [
+    "Negotiate, compromise, and work together.",
+    "Gather evidence to create and answer questions."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Play and Inquiry",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Play and Inquiry",
+   "skills": [
+    "Engage in activities that introduce elements of risk, novelty, and the unknown.",
+    "Interact with others to share interest, enjoyments, or new information."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Inclusiveness and Equity",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Inclusiveness and Equity",
+   "skills": [
+    "Honour differences and uniqueness.",
+    "Act to change inequitable practices."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Democratic Practices",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Democratic Practices",
+   "skills": [
+    "Act as responsible and responsive community members.",
+    "Participate in decision-making processes."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Sustainable Futures",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Sustainable Futures",
+   "skills": [
+    "Recognize patterns in nature.",
+    "Explore sustainable practices."
+   ]
+  }
+ ],
+ "2/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Understand different oral texts on familiar topics related to surroundings and personal experiences."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production",
+   "skills": [
+    "Speak on familiar topics related to surroundings and personal experiences using precise language."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Interaction",
+   "skills": [
+    "Participate in conversations on familiar topics related to surroundings and personal experiences using precise language."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Phonological Awareness",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Phonological Awareness",
+   "skills": [
+    "Recognize, hear and manipulate the syllables and sounds of the French language."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Phonics",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Phonics",
+   "skills": [
+    "Establish connections between oral sounds (phonemes) and written sounds (graphemes) to read words in a text."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use knowledge of vocabulary acquired to facilitate reading."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Read a variety of increasingly complex texts accurately and fluently."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Read while understanding a variety of increasingly complex texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production and the Writing Process",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production and the Writing Process",
+   "skills": [
+    "Write different types of simple texts about familiar topics by following the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Enrich one’s writing of different simple texts by applying the writing traits."
+   ]
+  }
+ ],
+ "2/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Express feelings and opinions, providing some explanation, and give simple descriptions of experiences.",
+    "Present facts, ideas, or opinions about a specific topic or theme to peers and teachers.",
+    "Explore the language of harmony and respect in digital and non-digital spaces."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Ask and respond to questions to clarify and gather further information.",
+    "Give and follow directions or instructions.",
+    "Explore appropriate communication conventions.",
+    "Respond personally to presentations, oral stories, and multimodal text.",
+    "Explore social conventions when interacting."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Receive and reflect on the ideas and opinions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Phonological Awareness",
+   "strand": "Reading",
+   "bigIdea": "Phonological Awareness",
+   "skills": [
+    "Demonstrate an awareness of sounds in spoken language."
+   ]
+  },
+  {
+   "idx": "Reading: Phonics",
+   "strand": "Reading",
+   "bigIdea": "Phonics",
+   "skills": [
+    "Apply letter-sound knowledge to decode connected text."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Read with accuracy and expression."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use a range of vocabulary when communicating."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from printed text when being read to and when reading independently."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select and engage with a variety of text forms for specific uses.",
+    "Identify some characteristics, forms, features, and types of text."
+   ]
+  },
+  {
+   "idx": "Representations: Print Mechanics",
+   "strand": "Representations",
+   "bigIdea": "Print Mechanics",
+   "skills": [
+    "Print or represent words and sentences using a writing utensil or assistive technology."
+   ]
+  },
+  {
+   "idx": "Representations: Spelling",
+   "strand": "Representations",
+   "bigIdea": "Spelling",
+   "skills": [
+    "Apply appropriate spelling conventions when creating written works."
+   ]
+  },
+  {
+   "idx": "Representations: Sentence Structure",
+   "strand": "Representations",
+   "bigIdea": "Sentence Structure",
+   "skills": [
+    "Compose complete thoughts and sentences."
+   ]
+  },
+  {
+   "idx": "Representations: Composition",
+   "strand": "Representations",
+   "bigIdea": "Composition",
+   "skills": [
+    "Organize ideas and create written or media texts."
+   ]
+  },
+  {
+   "idx": "Representations: Text Analysis",
+   "strand": "Representations",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Seek information to support ideas and construct meaning."
+   ]
+  }
+ ],
+ "2/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Collect, display and analyze data to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Use patterns to describe the world and solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Use direct and indirect measurement to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+   ],
+   "provisional": true
+  }
+ ],
+ "2/science": [
+  {
+   "idx": "Literacies and Communications: Communicative Practices",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Communicative Practices",
+   "skills": [
+    "Examine how language learning is beneficial.",
+    "Explore multiple languages.",
+    "Play with multiple languages."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Multimodal Literacies",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Multimodal Literacies",
+   "skills": [
+    "Refer to environmental print in multiple languages.",
+    "Communicate in multiple languages using strategies for meaning making."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Literate Identities",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Literate Identities",
+   "skills": [
+    "Demonstrate being a reader, writer, and communicator in multiple languages.",
+    "Use digital technologies to learn and communicate."
+   ]
+  },
+  {
+   "idx": "Well-Being: Emotional Health and Positive Identities",
+   "strand": "Well-Being",
+   "bigIdea": "Emotional Health and Positive Identities",
+   "skills": [
+    "Explore activities that foster enjoyment and well-being.",
+    "Identify interests, passions, and strengths.",
+    "Recognize that feelings and emotions can impact well-being, relationships, and the way we engage with others."
+   ]
+  },
+  {
+   "idx": "Well-Being: Belonging and Interconnectedness",
+   "strand": "Well-Being",
+   "bigIdea": "Belonging and Interconnectedness",
+   "skills": [
+    "Define and express needs, wants, and choices.",
+    "Explore strategies that promote inclusion.",
+    "Examine how natural resources are connected to us and our environment."
+   ]
+  },
+  {
+   "idx": "Well-Being: Physical Health and Active Participation",
+   "strand": "Well-Being",
+   "bigIdea": "Physical Health and Active Participation",
+   "skills": [
+    "Analyze personal safety and healthy practices.",
+    "Apply behaviours and practices that promote safety."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Imagination and Creativity",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Imagination and Creativity",
+   "skills": [
+    "Practise using flexible and fluid thinking in new and familiar situations.",
+    "Examine new activities, interests, and possibilities."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Exploration and Problem Solving",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Exploration and Problem Solving",
+   "skills": [
+    "Negotiate, compromise, and work together.",
+    "Gather evidence to create and answer questions."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Play and Inquiry",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Play and Inquiry",
+   "skills": [
+    "Engage in activities that introduce elements of risk, novelty, and the unknown.",
+    "Interact with others to share interest, enjoyments, or new information."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Inclusiveness and Equity",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Inclusiveness and Equity",
+   "skills": [
+    "Honour differences and uniqueness.",
+    "Act to change inequitable practices."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Democratic Practices",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Democratic Practices",
+   "skills": [
+    "Act as responsible and responsive community members.",
+    "Participate in decision-making processes."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Sustainable Futures",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Sustainable Futures",
+   "skills": [
+    "Recognize patterns in nature.",
+    "Explore sustainable practices."
+   ]
+  }
+ ],
+ "2/social": [
+  {
+   "idx": "Literacies and Communications: Communicative Practices",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Communicative Practices",
+   "skills": [
+    "Examine how language learning is beneficial.",
+    "Explore multiple languages.",
+    "Play with multiple languages."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Multimodal Literacies",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Multimodal Literacies",
+   "skills": [
+    "Refer to environmental print in multiple languages.",
+    "Communicate in multiple languages using strategies for meaning making."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Literate Identities",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Literate Identities",
+   "skills": [
+    "Demonstrate being a reader, writer, and communicator in multiple languages.",
+    "Use digital technologies to learn and communicate."
+   ]
+  },
+  {
+   "idx": "Well-Being: Emotional Health and Positive Identities",
+   "strand": "Well-Being",
+   "bigIdea": "Emotional Health and Positive Identities",
+   "skills": [
+    "Explore activities that foster enjoyment and well-being.",
+    "Identify interests, passions, and strengths.",
+    "Recognize that feelings and emotions can impact well-being, relationships, and the way we engage with others."
+   ]
+  },
+  {
+   "idx": "Well-Being: Belonging and Interconnectedness",
+   "strand": "Well-Being",
+   "bigIdea": "Belonging and Interconnectedness",
+   "skills": [
+    "Define and express needs, wants, and choices.",
+    "Explore strategies that promote inclusion.",
+    "Examine how natural resources are connected to us and our environment."
+   ]
+  },
+  {
+   "idx": "Well-Being: Physical Health and Active Participation",
+   "strand": "Well-Being",
+   "bigIdea": "Physical Health and Active Participation",
+   "skills": [
+    "Analyze personal safety and healthy practices.",
+    "Apply behaviours and practices that promote safety."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Imagination and Creativity",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Imagination and Creativity",
+   "skills": [
+    "Practise using flexible and fluid thinking in new and familiar situations.",
+    "Examine new activities, interests, and possibilities."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Exploration and Problem Solving",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Exploration and Problem Solving",
+   "skills": [
+    "Negotiate, compromise, and work together.",
+    "Gather evidence to create and answer questions."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Play and Inquiry",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Play and Inquiry",
+   "skills": [
+    "Engage in activities that introduce elements of risk, novelty, and the unknown.",
+    "Interact with others to share interest, enjoyments, or new information."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Inclusiveness and Equity",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Inclusiveness and Equity",
+   "skills": [
+    "Honour differences and uniqueness.",
+    "Act to change inequitable practices."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Democratic Practices",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Democratic Practices",
+   "skills": [
+    "Act as responsible and responsive community members.",
+    "Participate in decision-making processes."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Sustainable Futures",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Sustainable Futures",
+   "skills": [
+    "Recognize patterns in nature.",
+    "Explore sustainable practices."
+   ]
+  }
+ ],
+ "3/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Understand different oral texts on familiar topics, studied topics as well as personal experiences."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production and Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production and Interaction",
+   "skills": [
+    "Give short presentations and participate in conversations about known topics, concepts studied and personal experiences using speech and interaction strategies."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Phonological Awareness",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Phonological Awareness",
+   "skills": [
+    "Recognizing, hearing and manipulating the sounds of the French language."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Phonics",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Phonics",
+   "skills": [
+    "Establish the connections between spoken sounds (phonemes) and written sounds (graphemes) to read words in a text"
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use one’s knowledge of the vocabulary acquired to facilitate your reading."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Read a variety of increasingly complex texts accurately and fluently."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Read with comprehension a variety of increasingly complex texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production and the Writing Process",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production and the Writing Process",
+   "skills": [
+    "Write different types of texts about familiar topics, topics studied as well as personal experiences by following the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Enrich your writing with different types of texts by applying writing traits."
+   ]
+  }
+ ],
+ "3/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Describe and discuss thoughts, feelings, experiences, ideas, and opinions.",
+    "Select and present content to communicate facts, ideas, and opinions to peers and teachers.",
+    "Use language of harmony and respect."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Ask and respond to questions to clarify information, explore possibilities, or identify solutions to a problem.",
+    "Give and follow directions or instructions.",
+    "Begin to use appropriate communication conventions.",
+    "Respond personally to presentations, oral stories, and multimodal text",
+    "Begin to use social conventions when interacting."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Receive and critically reflect on the ideas and opinions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Word Study",
+   "strand": "Reading",
+   "bigIdea": "Word Study",
+   "skills": [
+    "Differentiate sounds in spoken language.",
+    "Apply letter-sound knowledge and decoding strategies when reading unfamiliar connected text."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Read with accuracy and expression."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use a range of vocabulary when communicating."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from printed text when reading independently.",
+    "Describe reading comprehension processes.",
+    "Connect and respond personally and critically to text."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select and engage with a variety of text forms for specific uses.",
+    "Identify characteristics, forms, features, and types of text."
+   ]
+  },
+  {
+   "idx": "Representations: Spelling",
+   "strand": "Representations",
+   "bigIdea": "Spelling",
+   "skills": [
+    "Apply appropriate spelling conventions when creating written works."
+   ]
+  },
+  {
+   "idx": "Representations: Sentence Structure",
+   "strand": "Representations",
+   "bigIdea": "Sentence Structure",
+   "skills": [
+    "Compose sentences and short paragraphs."
+   ]
+  },
+  {
+   "idx": "Representations: Composition",
+   "strand": "Representations",
+   "bigIdea": "Composition",
+   "skills": [
+    "Organize ideas and create written and media texts."
+   ]
+  },
+  {
+   "idx": "Representations: Text Analysis",
+   "strand": "Representations",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select information from multiple sources to support ideas and construct meaning."
+   ]
+  }
+ ],
+ "3/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Collect, display and analyze data to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Use patterns to describe the world and solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Use direct and indirect measurement to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+   ],
+   "provisional": true
+  }
+ ],
+ "3/science": [
+  {
+   "idx": "Scientific Literacy: Investigation",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Investigation",
+   "skills": [
+    "Plan investigations to solve problems relating to the local natural world: weather and climate, habitats, plants, and animals.",
+    "Collect data during scientific inquiry into the local natural world."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Sensemaking",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Sensemaking",
+   "skills": [
+    "Analyze data to construct explanations and conclusions based on evidence from scientific inquiry."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Communication",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Communication",
+   "skills": [
+    "Communicate procedure, result, and conclusion of scientific inquiry using a variety of media."
+   ]
+  },
+  {
+   "idx": "Learning & Living Sustainably: Responsible and Sustainable Application",
+   "strand": "Learning & Living Sustainably",
+   "bigIdea": "Responsible and Sustainable Application",
+   "skills": [
+    "Apply scientific knowledge and an understanding of sustainable practices responsibly with respect to the local natural world."
+   ]
+  }
+ ],
+ "3/social": [
+  {
+   "idx": "Geography: Methods and Tools",
+   "strand": "Geography",
+   "bigIdea": "Methods and Tools",
+   "skills": [
+    "Locate New Brunswick in the Atlantic region, Canada, North America, and the world.",
+    "Represent the actual size of places on maps and globes using scale.",
+    "Locate Wolastoqey, Mi’kmaq, and Peskotomuhkati nations in New Brunswick."
+   ]
+  },
+  {
+   "idx": "Geography: Places and Regions",
+   "strand": "Geography",
+   "bigIdea": "Places and Regions",
+   "skills": [
+    "Use evidence to investigate major physical features, climates, and vegetation of New Brunswick and the Atlantic region.",
+    "Explain the importance of a particular human-made or natural landmark in New Brunswick.",
+    "Define the concepts of urban and rural."
+   ]
+  },
+  {
+   "idx": "Geography: Human Systems and Interactions",
+   "strand": "Geography",
+   "bigIdea": "Human Systems and Interactions",
+   "skills": [
+    "Describe Wabanaki Peoples’ relationships with the natural environment."
+   ]
+  },
+  {
+   "idx": "History: Events and Peoples",
+   "strand": "History",
+   "bigIdea": "Events and Peoples",
+   "skills": [
+    "Research the diverse peoples in New Brunswick, including first and founding peoples."
+   ]
+  },
+  {
+   "idx": "History: Sources and Methods",
+   "strand": "History",
+   "bigIdea": "Sources and Methods",
+   "skills": [
+    "Illustrate how the diversity of New Brunswick has changed over time."
+   ]
+  },
+  {
+   "idx": "Civics: Power and Governance",
+   "strand": "Civics",
+   "bigIdea": "Power and Governance",
+   "skills": [
+    "Describe the purpose, function, and structure of governments."
+   ]
+  },
+  {
+   "idx": "Civics: Rights and Responsibilities",
+   "strand": "Civics",
+   "bigIdea": "Rights and Responsibilities",
+   "skills": [
+    "Describe the rights and responsibilities of citizens."
+   ]
+  },
+  {
+   "idx": "Civics: Civic Engagement",
+   "strand": "Civics",
+   "bigIdea": "Civic Engagement",
+   "skills": [
+    "Describe how citizens participate in public decision-making."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Treaty Education",
+   "strand": "Wabanaki",
+   "bigIdea": "Treaty Education",
+   "skills": [
+    "Describe the Peace and Friendship treaties and discuss their importance."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Reconciliation",
+   "strand": "Wabanaki",
+   "bigIdea": "Reconciliation",
+   "skills": [
+    "Discuss the Truth and Reconciliation Commission’s Calls to Action."
+   ]
+  },
+  {
+   "idx": "Economics: Sustainability",
+   "strand": "Economics",
+   "bigIdea": "Sustainability",
+   "skills": [
+    "Discuss New Brunswick’s natural resources."
+   ]
+  }
+ ],
+ "4/core-french": [
+  {
+   "idx": "Oral Communication: Speak, Listen, Communicate, Interact",
+   "strand": "Oral Communication",
+   "bigIdea": "Speak, Listen, Communicate, Interact",
+   "skills": [
+    "Ask for and provide information in school settings with some accuracy."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Read, Comprehend, Respond, Interpret",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Read, Comprehend, Respond, Interpret",
+   "skills": [
+    "Read, comprehend, and interpret very simple texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Create Simple Texts",
+   "strand": "Writing and Representing",
+   "bigIdea": "Create Simple Texts",
+   "skills": [
+    "Produce simple texts on familiar topics."
+   ]
+  }
+ ],
+ "4/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Understand different oral texts on a variety of familiar/known topics, topics studied and personal interests."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production and Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production and Interaction",
+   "skills": [
+    "Communicate about familiar/known topics, topics studied and personal interests using specific language."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Phonics",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Phonics",
+   "skills": [
+    "Use knowledge of written sounds (graphemes) to read words in text accurately."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use knowledge of the vocabulary acquired to facilitate your reading."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Read a variety of increasingly complex texts accurately and fluently."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Read while understanding a variety of increasingly complex texts.",
+    "Use strategies to support comprehension of a variety of texts at appropriate levels for different intentions."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production and the Writing Process",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production and the Writing Process",
+   "skills": [
+    "Write different types of texts about familiar/familiar topics, topics studied and personal interests following the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Enrich your writing with different types of texts by applying writing traits."
+   ]
+  }
+ ],
+ "4/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Express and discuss thoughts, feelings, experiences, ideas, and opinions, and consider those of their peers.",
+    "Select and present content to communicate facts, ideas, and opinions to peers and teachers.",
+    "Use language of harmony and respect."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Ask and respond to questions to clarify information, explore possibilities, and identify solutions to a problem.",
+    "Give and follow directions and instructions.",
+    "Begin to use appropriate communication conventions.",
+    "Respond personally to presentations, oral stories, and a variety of multimodal text.",
+    "Begin to use social conventions when interacting."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Receive and critically reflect on the ideas and opinions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Word Study",
+   "strand": "Reading",
+   "bigIdea": "Word Study",
+   "skills": [
+    "Apply letter-sound knowledge and decoding strategies when reading unfamiliar connected text."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Read with accuracy and expression."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use a range of vocabulary when communicating."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from printed text when reading independently.",
+    "Describe reading comprehension processes.",
+    "Connect and respond personally and critically to text."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select and engage with a variety of text forms for specific uses.",
+    "Identify characteristics, forms, features, and types of text."
+   ]
+  },
+  {
+   "idx": "Representations: Spelling",
+   "strand": "Representations",
+   "bigIdea": "Spelling",
+   "skills": [
+    "Apply appropriate spelling conventions when creating written works."
+   ]
+  },
+  {
+   "idx": "Representations: Sentence Structure",
+   "strand": "Representations",
+   "bigIdea": "Sentence Structure",
+   "skills": [
+    "Compose sentences and short paragraphs."
+   ]
+  },
+  {
+   "idx": "Representations: Composition",
+   "strand": "Representations",
+   "bigIdea": "Composition",
+   "skills": [
+    "Organize ideas and create written and media texts collaboratively and independently."
+   ]
+  },
+  {
+   "idx": "Representations: Text Analysis",
+   "strand": "Representations",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select information from multiple sources to support ideas and construct meaning."
+   ]
+  }
+ ],
+ "4/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Collect, display and analyze data to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Use patterns to describe the world and solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Use direct and indirect measurement to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+   ],
+   "provisional": true
+  }
+ ],
+ "4/science": [
+  {
+   "idx": "Scientific Literacy: Investigation",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Investigation",
+   "skills": [
+    "Plan investigations to solve problems relating to the natural world: the Earth’s crust, changes in the Earth’s surface, rocks, minerals, soils, and uses of Earth’s resources.",
+    "Collect data during scientific inquiry into the natural world."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Sensemaking",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Sensemaking",
+   "skills": [
+    "Analyze data to construct explanations and conclusions based on evidence from scientific inquiry."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Communication",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Communication",
+   "skills": [
+    "Communicate procedure, result, and conclusion of scientific inquiry using a variety of media."
+   ]
+  },
+  {
+   "idx": "Learning & Living Sustainably: Responsible and Sustainable Application",
+   "strand": "Learning & Living Sustainably",
+   "bigIdea": "Responsible and Sustainable Application",
+   "skills": [
+    "Apply scientific knowledge and an understanding of sustainable practices responsibly with respect to the natural world."
+   ]
+  }
+ ],
+ "4/social": [
+  {
+   "idx": "Geography: Places and Regions",
+   "strand": "Geography",
+   "bigIdea": "Places and Regions",
+   "skills": [
+    "Explain the importance of major physical features of the world.",
+    "Compare the defining characteristics of Canada’s seven physiographic regions.",
+    "Describe the seven districts of Mi’kma’ki and the traditional territory of Wolastoqiyik and Peskotomuhkatiyik."
+   ]
+  },
+  {
+   "idx": "Geography: Human Systems and Interactions",
+   "strand": "Geography",
+   "bigIdea": "Human Systems and Interactions",
+   "skills": [
+    "Describe the relationship between humans and the physical environment.",
+    "Describe Wabanaki Peoples’ relationships with the natural environment."
+   ]
+  },
+  {
+   "idx": "History: Events and Peoples",
+   "strand": "History",
+   "bigIdea": "Events and Peoples",
+   "skills": [
+    "Describe the stories of various explorers of land, ocean, space, and ideas."
+   ]
+  },
+  {
+   "idx": "History: Sources and Methods",
+   "strand": "History",
+   "bigIdea": "Sources and Methods",
+   "skills": [
+    "Use primary and secondary source evidence to examine explorations and discoveries.",
+    "Evaluate the impact of European explorations over time.",
+    "Use criteria to identify why a scientific innovation/discovery was significant."
+   ]
+  },
+  {
+   "idx": "Civics: Power and Governance",
+   "strand": "Civics",
+   "bigIdea": "Power and Governance",
+   "skills": [
+    "Describe the political landscape of Canada."
+   ]
+  },
+  {
+   "idx": "Civics: Civic Engagement",
+   "strand": "Civics",
+   "bigIdea": "Civic Engagement",
+   "skills": [
+    "Discuss contributions to the development of Canada made by citizens and residents."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Identity",
+   "strand": "Wabanaki",
+   "bigIdea": "Identity",
+   "skills": [
+    "Discuss Wabanaki cultures and traditions.",
+    "Discuss the impact of colonization and dispossession of explored land on Indigenous Peoples and Nations."
+   ]
+  },
+  {
+   "idx": "Economics: Systems",
+   "strand": "Economics",
+   "bigIdea": "Systems",
+   "skills": [
+    "Outline population patterns, communication and transportation networks, and employment across Canada."
+   ]
+  }
+ ],
+ "5/core-french": [
+  {
+   "idx": "Oral Communication: Speak, Listen, Communicate, Interact",
+   "strand": "Oral Communication",
+   "bigIdea": "Speak, Listen, Communicate, Interact",
+   "skills": [
+    "Explore, extend, and clarify thoughts, ideas, feelings, and experiences."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Read, Comprehend, Respond, Interpret",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Read, Comprehend, Respond, Interpret",
+   "skills": [
+    "Select, read, and view a range of fiction and non-fiction texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Create Simple Texts",
+   "strand": "Writing and Representing",
+   "bigIdea": "Create Simple Texts",
+   "skills": [
+    "Communicate reflections on thoughts, feelings, experiences, and learnings."
+   ]
+  }
+ ],
+ "5/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Understand different oral texts on a variety of familiar/known topics, topics studied and personal interests."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production and Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production and Interaction",
+   "skills": [
+    "Communicate about familiar/known topics, topics studied and personal interests using specific language"
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use vocabulary knowledge to support reading of various types of more complex texts."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Read a variety of texts fluently and accurately using various strategies."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Develop an in-depth understanding of various types of more complex texts while developing critical thinking."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production and the Writing Process",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production and the Writing Process",
+   "skills": [
+    "Write different types of texts about familiar/familiar topics, topics studied and personal interests following the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Enrich your writing with different types of texts by applying writing traits."
+   ]
+  }
+ ],
+ "5/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Express and discuss thoughts, feelings, experiences, ideas, and opinions, and consider those of their peers.",
+    "Select and present content to communicate facts, ideas, and opinions to peers and teachers.",
+    "Use language of harmony and respect."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Ask and respond to questions to clarify information, explore possibilities, and identify solutions to a problem.",
+    "Give and follow directions and instructions.",
+    "Begin to use appropriate communication conventions.",
+    "Respond personally to presentations, oral stories, and a variety of multimodal text",
+    "Begin to use social conventions when interacting."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Receive and critically reflect on the ideas and opinions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Word Study",
+   "strand": "Reading",
+   "bigIdea": "Word Study",
+   "skills": [
+    "Apply letter-sound knowledge and decoding strategies when reading unfamiliar connected text."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Read with accuracy and expression."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use a range of vocabulary when communicating."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from printed text when reading independently.",
+    "Describe reading comprehension processes.",
+    "Connect and respond personally and critically to a range of texts across genres, topics, and subjects."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select and engage with a variety of text forms for specific uses.",
+    "Identify characteristics, forms, features, and types of text."
+   ]
+  },
+  {
+   "idx": "Representations: Spelling",
+   "strand": "Representations",
+   "bigIdea": "Spelling",
+   "skills": [
+    "Apply appropriate spelling conventions when creating written works."
+   ]
+  },
+  {
+   "idx": "Representations: Sentence Structure",
+   "strand": "Representations",
+   "bigIdea": "Sentence Structure",
+   "skills": [
+    "Compose sentences and paragraphs."
+   ]
+  },
+  {
+   "idx": "Representations: Composition",
+   "strand": "Representations",
+   "bigIdea": "Composition",
+   "skills": [
+    "Organize ideas and create written and media texts collaboratively and independently."
+   ]
+  },
+  {
+   "idx": "Representations: Text Analysis",
+   "strand": "Representations",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select and organize information from multiple sources to support ideas and construct meaning."
+   ]
+  }
+ ],
+ "5/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Collect, display and analyze data to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Use patterns to describe the world and solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Use direct and indirect measurement to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+   ],
+   "provisional": true
+  }
+ ],
+ "5/science": [
+  {
+   "idx": "Scientific Literacy: Investigation",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Investigation",
+   "skills": [
+    "Plan investigations to solve problems relating to simple machines or human systems: digestive, respiratory, circulatory, nervous, and musculoskeletal.",
+    "Collect data during scientific inquiry into simple machines or the human systems."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Sensemaking",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Sensemaking",
+   "skills": [
+    "Analyze data to construct explanations and conclusions based on evidence from scientific inquiry."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Communication",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Communication",
+   "skills": [
+    "Communicate procedure, result, and conclusion of scientific inquiry using a variety of media."
+   ]
+  },
+  {
+   "idx": "Learning & Living Sustainably: Responsible and Sustainable Application",
+   "strand": "Learning & Living Sustainably",
+   "bigIdea": "Responsible and Sustainable Application",
+   "skills": [
+    "Apply scientific and technological knowledge and an understanding of sustainable practices responsibly with respect to simple machines and human systems."
+   ]
+  }
+ ],
+ "5/social": [
+  {
+   "idx": "Geography: Human Systems and Interactions",
+   "strand": "Geography",
+   "bigIdea": "Human Systems and Interactions",
+   "skills": [
+    "Identify evidence of British and French presence in Atlantic Canada."
+   ]
+  },
+  {
+   "idx": "History: Events and Peoples",
+   "strand": "History",
+   "bigIdea": "Events and Peoples",
+   "skills": [
+    "Describe interactions between the first and founding peoples of Atlantic Canada.",
+    "Describe the diverse societies of Wabanaki and other Indigenous Peoples in what later became Canada."
+   ]
+  },
+  {
+   "idx": "History: Sources and Methods",
+   "strand": "History",
+   "bigIdea": "Sources and Methods",
+   "skills": [
+    "Discuss how to answer questions about the past using historical thinking concepts.",
+    "Discuss how historians use primary and secondary sources to create an historical narrative."
+   ]
+  },
+  {
+   "idx": "Civics: Power and Governance",
+   "strand": "Civics",
+   "bigIdea": "Power and Governance",
+   "skills": [
+    "Describe the governance structure and role of the Wabanaki Confederacy."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Reconciliation",
+   "strand": "Wabanaki",
+   "bigIdea": "Reconciliation",
+   "skills": [
+    "Discuss contact and colonization from Wabanaki perspectives."
+   ]
+  },
+  {
+   "idx": "Economics: Decision-Making",
+   "strand": "Economics",
+   "bigIdea": "Decision-Making",
+   "skills": [
+    "Discuss worldview using the seven elements of worldview.",
+    "Explain how different worldviews lead to different approaches to economic decision-making."
+   ]
+  }
+ ],
+ "6/core-french": [
+  {
+   "idx": "Oral Communication: Speak, Listen, Communicate, Interact",
+   "strand": "Oral Communication",
+   "bigIdea": "Speak, Listen, Communicate, Interact",
+   "skills": [
+    "Ask for and provide information in social and school settings with some accuracy."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Read, Comprehend, Respond, Interpret",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Read, Comprehend, Respond, Interpret",
+   "skills": [
+    "Read, comprehend, and interpret a variety of texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Create Simple Texts",
+   "strand": "Writing and Representing",
+   "bigIdea": "Create Simple Texts",
+   "skills": [
+    "Produce simple, connected texts on familiar topics of personal interest."
+   ]
+  }
+ ],
+ "6/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Demonstrate understanding of different oral texts on a variety of topics using comprehension strategies."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production and Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production and Interaction",
+   "skills": [
+    "Share information, knowledge, ideas, and opinions on a variety of topics using various types of presentations and/or exchanges.",
+    "Use oral language with increased accuracy, fluency, coherence, and more sophisticated vocabulary when speaking about a variety of topics."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Multilingual Identities and Cultural Appreciation",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Multilingual Identities and Cultural Appreciation",
+   "skills": [
+    "Describe how languages and cultures shape learners’ own evolving identities and worldviews."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use expanding vocabulary knowledge to support reading and comprehension of increasingly complex and diverse texts."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Use various strategies to read more complex and diverse texts with increased fluency and accuracy."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Critically engage with a variety of more complex and diverse texts using comprehension strategies."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Multilingual Identities and Cultural Appreciation",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Multilingual Identities and Cultural Appreciation",
+   "skills": [
+    "Identify how languages and cultures shape learners’ own evolving identities and worldviews in written texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production",
+   "skills": [
+    "Write different types of texts about a variety of topics using the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Apply the writing traits to strengthen the quality of various writing pieces on different topics."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Multilingual Identity and Cultural Appreciation",
+   "strand": "Writing and Representing",
+   "bigIdea": "Multilingual Identity and Cultural Appreciation",
+   "skills": [
+    "Identify as a multilingual writer."
+   ]
+  }
+ ],
+ "6/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Describe and contribute thoughts, feelings, and experiences, and compare to those of their peers.",
+    "Express and support ideas and opinions with evidence.",
+    "Summarize and present content to communicate facts, ideas, and opinions.",
+    "Use language of harmony and respect, self-monitoring and adjusting as appropriate."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Ask and respond to questions to clarify information, explore possibilities, and identify solutions to a problem.",
+    "Give and respond to a variety of directions and instructions.",
+    "Understand communication conventions for a diverse set of audiences.",
+    "Respond personally and critically to a variety of text.",
+    "Adjust interactions to reflect the situation, audience, and purpose."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Critically reflect on the contributions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Word Study",
+   "strand": "Reading",
+   "bigIdea": "Word Study",
+   "skills": [
+    "Begin to explain how advanced word structure can be used as a word-solving strategy."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Read an increasing variety of texts with accuracy and expression, both silently and aloud."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Recognize how different strategies are used to determine the meanings of words."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from a variety of text considering the source, intended audience, and purpose.",
+    "Adjust and use a variety of strategies to make meaning.",
+    "Reflect and respond personally to a variety of texts across genres, interests, and complexities."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis and Criticality",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis and Criticality",
+   "skills": [
+    "Independently select, read, and examine critically a variety of texts representing diverse voices and perspectives.",
+    "Explore the characteristics, language, form, features, and genres of a range of texts."
+   ]
+  },
+  {
+   "idx": "Representing: Process",
+   "strand": "Representing",
+   "bigIdea": "Process",
+   "skills": [
+    "Develop strategies to enhance clarity in multi-modal works."
+   ]
+  },
+  {
+   "idx": "Representing: Craft",
+   "strand": "Representing",
+   "bigIdea": "Craft",
+   "skills": [
+    "Create a variety of texts with purpose and understand the influence of the writer/creator.",
+    "Select an appropriate form that reflects audience, purpose, and topic.",
+    "Include interesting and/or domain specific words and phrases to convey and enhance meaning.",
+    "Provide evidence of author’s style, personality, and experience.",
+    "Include well-crafted sentences to support meaning and readability.",
+    "Demonstrate correct spelling, punctuation, capitalization, and grammar usage."
+   ]
+  }
+ ],
+ "6/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Describe numbers, ways of representing numbers, relationships among numbers, and number systems.",
+    "Describe percentage, ratio, and rate."
+   ]
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Add, subtract, multiply, and divide decimals to solve problems (1-digit whole number multipliers and 1-digit natural number divisors).",
+    "Add, subtract, multiply, and divide benchmark fractions and mixed numbers to solve problems (limited to positive sums and differences).",
+    "Apply the order of operations (excluding exponents, limited to whole numbers)."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Collect and represent data.",
+    "Analyze tables of values and graphs of linear relations y=x+a y=x-a y=ax y=(xa), a≠0 .",
+    "Identify points and transformations in the first quadrant of the Cartesian Plane using whole number ordered pairs."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Determine the probability of outcomes to solve problems."
+   ]
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Develop equations using letter variables."
+   ]
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Investigate perimeter, area, volume, and their relationships.",
+    "Describe angles."
+   ]
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Describe 3D objects."
+   ]
+  }
+ ],
+ "6/science": [
+  {
+   "idx": "Scientific Literacy: Investigation",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Investigation",
+   "skills": [
+    "Plan investigations to answer questions about relationships between and among variables observed in natural and technical sensory systems.",
+    "Collect and represent data using a variety of tools and methods appropriate for investigations of natural and technical sensory systems."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Sensemaking",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Sensemaking",
+   "skills": [
+    "Analyze and interpret qualitative and quantitative data to construct explanations and conclusions."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Communication",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Communication",
+   "skills": [
+    "Communicate procedure, result, and conclusion using a variety of media and working collaboratively."
+   ]
+  },
+  {
+   "idx": "Learning and Living Sustainably: Responsible and Sustainable Application",
+   "strand": "Learning and Living Sustainably",
+   "bigIdea": "Responsible and Sustainable Application",
+   "skills": [
+    "Apply scientific and technological knowledge and an understanding of sustainable practices responsibly with respect to natural and technical sensory systems."
+   ]
+  }
+ ],
+ "6/social": [
+  {
+   "idx": "Geography: Methods and Tools",
+   "strand": "Geography",
+   "bigIdea": "Methods and Tools",
+   "skills": [
+    "Locate the Atlantic region in relation to other regions.",
+    "Investigate the physical features and weather patterns of the Atlantic region."
+   ]
+  },
+  {
+   "idx": "Geography: Human Systems and Interactions",
+   "strand": "Geography",
+   "bigIdea": "Human Systems and Interactions",
+   "skills": [
+    "Examine contemporary cultures in the Atlantic region and their connections to other global cultures.",
+    "Investigate the cultural, ethnic, and linguistic groups in the Atlantic region."
+   ]
+  },
+  {
+   "idx": "History: Events and Peoples",
+   "strand": "History",
+   "bigIdea": "Events and Peoples",
+   "skills": [
+    "Investigate the history of cross-cultural understanding in the Atlantic region."
+   ]
+  },
+  {
+   "idx": "Civics: Power and Governance",
+   "strand": "Civics",
+   "bigIdea": "Power and Governance",
+   "skills": [
+    "Explain how peoples in the Atlantic region shape political culture by exercising power and influencing political decisions."
+   ]
+  },
+  {
+   "idx": "Civics: Civic Engagement",
+   "strand": "Civics",
+   "bigIdea": "Civic Engagement",
+   "skills": [
+    "Explain how peoples in the Atlantic region are members of global communities."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Reconciliation",
+   "strand": "Wabanaki",
+   "bigIdea": "Reconciliation",
+   "skills": [
+    "Explore the impacts of reconciliation in the Atlantic region."
+   ]
+  },
+  {
+   "idx": "Economics: Systems",
+   "strand": "Economics",
+   "bigIdea": "Systems",
+   "skills": [
+    "Discuss the role of economics in the Atlantic region."
+   ]
+  },
+  {
+   "idx": "Economics: Sustainability",
+   "strand": "Economics",
+   "bigIdea": "Sustainability",
+   "skills": [
+    "Analyze local, regional, and global economic patterns and related issues that are challenging the Atlantic region."
+   ]
+  },
+  {
+   "idx": "Economics: Decision-making",
+   "strand": "Economics",
+   "bigIdea": "Decision-making",
+   "skills": [
+    "Research trade and other economic linkages among the Atlantic region and national and global communities."
+   ]
+  }
+ ],
+ "7/core-french": [
+  {
+   "idx": "Oral Communication: Speak, Listen, Communicate, Interact",
+   "strand": "Oral Communication",
+   "bigIdea": "Speak, Listen, Communicate, Interact",
+   "skills": [
+    "Ask for and provide information in social and school settings with accuracy."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Read, Comprehend, Respond, Interpret",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Read, Comprehend, Respond, Interpret",
+   "skills": [
+    "Read, comprehend, and interpret a variety of texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Create Simple Texts",
+   "strand": "Writing and Representing",
+   "bigIdea": "Create Simple Texts",
+   "skills": [
+    "Produce simple, connected texts on familiar topics of personal interest."
+   ]
+  }
+ ],
+ "7/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Demonstrate understanding of increasingly complex oral texts on a variety of topics using comprehension strategies."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production and Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production and Interaction",
+   "skills": [
+    "Share information, knowledge, ideas, and opinions on a variety of topics using various types of presentations and/or exchanges.",
+    "Demonstrate accuracy, fluency, coherence, and use of more sophisticated vocabulary consistently when speaking about a variety of topics."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Multilingual Identities and Cultural Appreciation",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Multilingual Identities and Cultural Appreciation",
+   "skills": [
+    "Describe how languages and cultures shape learners’ own evolving identities and worldviews."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use expanding vocabulary knowledge to support reading and comprehension of more complex and diverse texts."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Read a variety of complex texts with sustained accuracy and fluency."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Critically engage with a variety of more complex and diverse texts using comprehension strategies."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Multilingual Identities and Cultural Appreciation",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Multilingual Identities and Cultural Appreciation",
+   "skills": [
+    "Identify how languages and cultures shape learners’ own evolving identities and worldviews in written texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production",
+   "skills": [
+    "Write different types of texts about a variety of topics using the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Apply the writing traits to strengthen the quality of various writing pieces on different topics."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Multilingual Identity and Cultural Appreciation",
+   "strand": "Writing and Representing",
+   "bigIdea": "Multilingual Identity and Cultural Appreciation",
+   "skills": [
+    "Identify as a multilingual writer."
+   ]
+  }
+ ],
+ "7/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Describe and contribute thoughts, feelings, and experiences and compare to those of their peers.",
+    "Defend and support ideas and opinions with evidence.",
+    "Summarize and present content to communicate facts, ideas, and opinions.",
+    "Use language of harmony and respect self-monitoring and adjusting as appropriate."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Seek and respond to questions to clarify or explain ideas, concepts, problems and solutions.",
+    "Give and respond to a variety of directions and instructions.",
+    "Understand communication conventions for a diverse set of audiences.",
+    "Respond personally and critically to a variety of text.",
+    "Adjust interactions to reflect the situation, audience, and purpose."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Critically reflect on the contributions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Word Study",
+   "strand": "Reading",
+   "bigIdea": "Word Study",
+   "skills": [
+    "Apply knowledge of advanced word structures as word-solving strategy."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Read an increasing variety of text with accuracy and expression, both silently and aloud."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Recognize how different strategies are used to determine the meaning of words."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from a variety of text considering the source, intended audience, and purpose.",
+    "Adjust and use a wide variety of strategies to make meaning.",
+    "Reflect and respond personally to a variety of texts across genres, interests, and complexities."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis and Criticality",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis and Criticality",
+   "skills": [
+    "Independently select, read, and construct meaning from a range of texts representing all voices.",
+    "Analyze the characteristics, language, form, features, and genre of a range of texts."
+   ]
+  },
+  {
+   "idx": "Representing: Process",
+   "strand": "Representing",
+   "bigIdea": "Process",
+   "skills": [
+    "Develop strategies to enhance clarity in multi-modal works."
+   ]
+  },
+  {
+   "idx": "Representing: Craft",
+   "strand": "Representing",
+   "bigIdea": "Craft",
+   "skills": [
+    "Create a variety of texts with purpose and understand the influence of the writer/creator including authorship in digital contexts.",
+    "Select an appropriate form that reflects audience, purpose, and topic.",
+    "Include interesting and/or domain specific words and phrases to convey and enhance meaning.",
+    "Provide evidence of author’s style, personality, and experiences.",
+    "Include well-crafted sentences to support meaning and readability.",
+    "Demonstrate correct spelling, punctuation, capitalization, and grammar usage."
+   ]
+  }
+ ],
+ "7/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Describe numbers, ways of representing numbers, relationships among numbers, and number systems."
+   ]
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Add and subtract positive and negative integers to solve problems.",
+    "Add, subtract, multiply, and divide decimals to solve problems (1-digit divisors and 2-digit multipliers).",
+    "Add, subtract, multiply, and divide positive fractions and mixed numbers to solve problems."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Calculate measures of central tendency to solve problems.",
+    "Analyze linear relations y=x+a y=x-a y=ax y=(xa), a≠0 of the forms shown below and compare graphs to solve problems.",
+    "Identify points and transformations in the four quadrants of the Cartesian Plane using integral ordered pairs."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Determine the probability of outcomes to solve problems."
+   ]
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Solve linear equations x + a = b, where a and b are integers ax + b = c, where a, b and c are whole numbers ax = b, where a and b are whole numbers xa = b, where a and b are whole numbers, a ≠ 0 ."
+   ]
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Apply the formulae for perimeter of polygons, area of rectangles, area of triangles, area of parallelograms, and volume of right prisms to solve problems.",
+    "Perform geometric constructions."
+   ]
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Draw and verify nets."
+   ]
+  }
+ ],
+ "7/science": [
+  {
+   "idx": "Scientific Literacy: Investigation",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Investigation",
+   "skills": [
+    "Plan investigations to answer questions about relationships between and among variables observed in matter and Earth surface processes.",
+    "Collect and represent data using a variety of tools and methods appropriate for investigations of matter and Earth surface processes."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Sensemaking",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Sensemaking",
+   "skills": [
+    "Analyze and interpret qualitative and quantitative data to construct explanations and conclusions."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Communication",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Communication",
+   "skills": [
+    "Communicate procedure, result, and conclusion using a variety of media and working collaboratively."
+   ]
+  },
+  {
+   "idx": "Learning and Living Sustainably: Responsible and Sustainable Application",
+   "strand": "Learning and Living Sustainably",
+   "bigIdea": "Responsible and Sustainable Application",
+   "skills": [
+    "Apply scientific and technological knowledge and an understanding of sustainable practices responsibly with respect to matter and Earth surface processes."
+   ]
+  }
+ ],
+ "7/social": [
+  {
+   "idx": "Geography: Human Systems and Interactions",
+   "strand": "Geography",
+   "bigIdea": "Human Systems and Interactions",
+   "skills": [
+    "Assess how worldview and culture influence identity.",
+    "Investigate the importance of cross-cultural understanding."
+   ]
+  },
+  {
+   "idx": "History: Events and Peoples",
+   "strand": "History",
+   "bigIdea": "Events and Peoples",
+   "skills": [
+    "Research historically diverse regions of the world."
+   ]
+  },
+  {
+   "idx": "Civics: Rights and Responsibilities",
+   "strand": "Civics",
+   "bigIdea": "Rights and Responsibilities",
+   "skills": [
+    "Examine selected issues relating to human rights legislation around the world."
+   ]
+  },
+  {
+   "idx": "Civics: Civic Engagement",
+   "strand": "Civics",
+   "bigIdea": "Civic Engagement",
+   "skills": [
+    "Take age-appropriate actions to demonstrate an understanding of responsibilities as global citizens."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Identity",
+   "strand": "Wabanaki",
+   "bigIdea": "Identity",
+   "skills": [
+    "Discuss the worldviews, languages, cultures, and traditions of Wabanaki Peoples with respect."
+   ]
+  },
+  {
+   "idx": "Economics: Systems",
+   "strand": "Economics",
+   "bigIdea": "Systems",
+   "skills": [
+    "Analyze the effects of the distribution of wealth around the world."
+   ]
+  }
+ ],
+ "8/core-french": [
+  {
+   "idx": "Oral Communication: Speak, Listen, Communicate, Interact",
+   "strand": "Oral Communication",
+   "bigIdea": "Speak, Listen, Communicate, Interact",
+   "skills": [
+    "Ask for and provide information in social and school settings with accuracy."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Read, Comprehend, Respond, Interpret",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Read, Comprehend, Respond, Interpret",
+   "skills": [
+    "Read, comprehend, and interpret a variety of texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Create Simple Texts",
+   "strand": "Writing and Representing",
+   "bigIdea": "Create Simple Texts",
+   "skills": [
+    "Produce simple, connected texts on familiar topics of personal interest."
+   ]
+  }
+ ],
+ "8/immersion": [
+  {
+   "idx": "Speaking and Listening: Oral Comprehension",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Comprehension",
+   "skills": [
+    "Demonstrate understanding of increasingly complex oral texts on a variety of topics using comprehension strategies."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Oral Production and Interaction",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Oral Production and Interaction",
+   "skills": [
+    "Share information, knowledge, ideas, and opinions on a variety of topics using various types of presentations and/or exchanges.",
+    "Demonstrate accuracy, fluency, coherence, and use of more sophisticated vocabulary consistently when speaking about a variety of topics."
+   ]
+  },
+  {
+   "idx": "Speaking and Listening: Multilingual Identities and Cultural Appreciation",
+   "strand": "Speaking and Listening",
+   "bigIdea": "Multilingual Identities and Cultural Appreciation",
+   "skills": [
+    "Describe how languages and cultures shape learners’ own evolving identities and worldviews."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Vocabulary",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use expanding vocabulary knowledge to support reading and comprehension of more complex and diverse texts."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Fluency and Accuracy",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Fluency and Accuracy",
+   "skills": [
+    "Read a variety of complex texts with sustained accuracy and fluency."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Comprehension",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Comprehension",
+   "skills": [
+    "Critically engage with a variety of more complex and diverse texts using comprehension strategies."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Multilingual Identities and Cultural Appreciation",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Multilingual Identities and Cultural Appreciation",
+   "skills": [
+    "Analyze how languages and cultures shape learners’ own evolving identities and worldviews in written texts."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Written Production",
+   "strand": "Writing and Representing",
+   "bigIdea": "Written Production",
+   "skills": [
+    "Write different types of texts about a variety of topics using the writing process."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Writing Traits",
+   "strand": "Writing and Representing",
+   "bigIdea": "Writing Traits",
+   "skills": [
+    "Apply the writing traits to strengthen the quality of various writing pieces on different topics."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Multilingual Identity and Cultural Appreciation",
+   "strand": "Writing and Representing",
+   "bigIdea": "Multilingual Identity and Cultural Appreciation",
+   "skills": [
+    "Identify as a multilingual writer."
+   ]
+  }
+ ],
+ "8/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Describe and communicate thoughts, feelings, and experiences as well as personal strengths.",
+    "Defend and support ideas and opinions with evidence.",
+    "Evaluate and present content to communicate facts, ideas, and opinions.",
+    "Use language of harmony and respect, self-monitoring and adjusting as appropriate."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Seek and respond to questions to clarify or explain ideas, concepts, problems, and solutions.",
+    "Give and respond to a variety of directions and instructions.",
+    "Understand communication conventions for a diverse set of audiences.",
+    "Respond personally and critically to a variety of text.",
+    "Adjust interactions to reflect the situation, audience, and purpose."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Critically reflect on the contributions of others to extend understanding."
+   ]
+  },
+  {
+   "idx": "Reading: Word Study",
+   "strand": "Reading",
+   "bigIdea": "Word Study",
+   "skills": [
+    "Explain how a variety of word structures can be used to solve unfamiliar words."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Begin to read less familiar text with accuracy and expression, both silently and aloud."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Begin to use a range of strategies to determine new vocabulary in all texts."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from a variety of text considering the source, intended audience, and purpose.",
+    "Use appropriate comprehension strategies to clarify understanding of a range of text with increasing confidence.",
+    "Respond personally to a range of texts across genres, interests, and complexities, citing evidence."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis and Criticality",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis and Criticality",
+   "skills": [
+    "Independently select, read, and examine critically a variety of texts representing all voices.",
+    "Critically analyze the characteristics, language, form, features, and genre of a range of texts."
+   ]
+  },
+  {
+   "idx": "Representing: Process",
+   "strand": "Representing",
+   "bigIdea": "Process",
+   "skills": [
+    "Develop strategies to enhance clarity in multi-modal works."
+   ]
+  },
+  {
+   "idx": "Representing: Craft",
+   "strand": "Representing",
+   "bigIdea": "Craft",
+   "skills": [
+    "Create a variety of texts with purpose and understand the influence of the writer/creator, including authorship in digital contexts.",
+    "Select an appropriate form for the purpose, audience, and topic.",
+    "Include interesting and/or domain specific words and phrases to convey and enhance meaning.",
+    "Provide evidence of author’s style, personality, and experience.",
+    "Include well-crafted sentences to support meaning and readability.",
+    "Demonstrate correct spelling, punctuation, capitalization, and grammar usage."
+   ]
+  }
+ ],
+ "8/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Describe numbers, ways of representing numbers, relationships among numbers, and number systems."
+   ]
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Multiply and divide integers to solve problems (2-digit by 1-digit).",
+    "Apply the order of operations including whole numbers, positive fractions, and decimals."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Compare and critique graphs and the presentation of data.",
+    "Analyze linear relations y=ax+b y=ax-b y=xa+b, a≠0 y=xa-b, a≠0 of the forms shown below and compare graphs to solve problems."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Determine the probability of outcomes to solve problems."
+   ]
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Solve linear equations ax = b, where a and b are integers xa = b, where a and b are integers, a ≠ 0 ax + b = c, where a, b, and c are integers xa + b = c, where a, b, and c are integers, a ≠ 0 a (x + b) = c, where a, b, and c are integers ."
+   ]
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Apply the formulae for volume of right cylinders to solve problems.",
+    "Apply properties of circles Radius, diameter (d), circumference (C), central angles, (Cd), π to solve problems.",
+    "Apply the Pythagorean Theorem to solve problems."
+   ]
+  }
+ ],
+ "8/science": [
+  {
+   "idx": "Scientific Literacy: Investigation",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Investigation",
+   "skills": [
+    "Plan investigations to answer questions about relationships between and among variables observed in motion and stability, the Laws of Motion, and space exploration.",
+    "Collect and represent data using a variety of tools and methods appropriate for investigations of motion and stability, the Laws of Motion, and space exploration."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Sensemaking",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Sensemaking",
+   "skills": [
+    "Analyze and interpret qualitative and quantitative data to construct explanations and conclusions."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Communication",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Communication",
+   "skills": [
+    "Communicate procedure, result, and conclusion using a variety of media and working collaboratively."
+   ]
+  },
+  {
+   "idx": "Learning and Living Sustainably: Responsible and Sustainable Application",
+   "strand": "Learning and Living Sustainably",
+   "bigIdea": "Responsible and Sustainable Application",
+   "skills": [
+    "Apply scientific and technological knowledge and an understanding of sustainable practices responsibly with respect to motion and stability, the Laws of Motion, and space exploration."
+   ]
+  }
+ ],
+ "8/social": [
+  {
+   "idx": "Geography: Human Systems and Interactions",
+   "strand": "Geography",
+   "bigIdea": "Human Systems and Interactions",
+   "skills": [
+    "Describe, using primary and secondary sources, the living conditions for peoples living in British North America."
+   ]
+  },
+  {
+   "idx": "History: Sources and Methods",
+   "strand": "History",
+   "bigIdea": "Sources and Methods",
+   "skills": [
+    "Analyze the causes and consequences of Confederation."
+   ]
+  },
+  {
+   "idx": "History: Events and Peoples",
+   "strand": "History",
+   "bigIdea": "Events and Peoples",
+   "skills": [
+    "Research the lives of early Black inhabitants in the Atlantic region.",
+    "Explain how the expansion and development of Canada affected various peoples and regions.",
+    "Analyze the struggle for empowerment by groups immigrating to Canada."
+   ]
+  },
+  {
+   "idx": "Civics: Power and Governance",
+   "strand": "Civics",
+   "bigIdea": "Power and Governance",
+   "skills": [
+    "Develop a concept of empowerment.",
+    "Analyze how Wabanaki governance empowered Wabanaki peoples."
+   ]
+  },
+  {
+   "idx": "Civics: Rights and Responsibilities",
+   "strand": "Civics",
+   "bigIdea": "Rights and Responsibilities",
+   "skills": [
+    "Research the development of rights and social reform movements in Canada."
+   ]
+  },
+  {
+   "idx": "Civics: Civic Engagement",
+   "strand": "Civics",
+   "bigIdea": "Civic Engagement",
+   "skills": [
+    "Take age-appropriate action to demonstrate understanding of social, political, or cultural issues facing youth today."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Reconciliation",
+   "strand": "Wabanaki",
+   "bigIdea": "Reconciliation",
+   "skills": [
+    "Describe the impact of contact and colonization on Wabanaki empowerment."
+   ]
+  },
+  {
+   "idx": "Economics: Sustainability",
+   "strand": "Economics",
+   "bigIdea": "Sustainability",
+   "skills": [
+    "Assess practices and commodities that lead to economic empowerment."
+   ]
+  }
+ ],
+ "9/core-french": [
+  {
+   "idx": "Oral Communication: Speak, Listen, Communicate, Interact",
+   "strand": "Oral Communication",
+   "bigIdea": "Speak, Listen, Communicate, Interact",
+   "skills": [
+    "Communicate preferences, qualities, comparisons, critiques, hypotheses, and syntheses effectively."
+   ]
+  },
+  {
+   "idx": "Reading and Viewing: Read, Comprehend, Respond, Interpret",
+   "strand": "Reading and Viewing",
+   "bigIdea": "Read, Comprehend, Respond, Interpret",
+   "skills": [
+    "Read and view texts pertaining to interests, preferences, emotions, influences, injustices, and social responsibilities."
+   ]
+  },
+  {
+   "idx": "Writing and Representing: Create Simple Texts",
+   "strand": "Writing and Representing",
+   "bigIdea": "Create Simple Texts",
+   "skills": [
+    "Write about and represent preferences, activities, emotions, information, influences, and injustices."
+   ]
+  }
+ ],
+ "9/immersion": [
+  {
+   "idx": "Intercultural competencies: Intercultural awareness",
+   "strand": "Intercultural competencies",
+   "bigIdea": "Intercultural awareness",
+   "skills": [
+    "Develop an awareness of and reflect on the role of languages and cultures in shaping identity."
+   ]
+  },
+  {
+   "idx": "Intercultural competencies: Intercultural knowledge",
+   "strand": "Intercultural competencies",
+   "bigIdea": "Intercultural knowledge",
+   "skills": [
+    "Understand the ways of knowing, doing and being of French-speaking cultures and other cultures"
+   ]
+  },
+  {
+   "idx": "Intercultural competencies: Intercultural skills",
+   "strand": "Intercultural competencies",
+   "bigIdea": "Intercultural skills",
+   "skills": [
+    "Apply intercultural skills and positive attitudes towards cultures and languages."
+   ]
+  },
+  {
+   "idx": "Listening and speaking: Listening comprehension",
+   "strand": "Listening and speaking",
+   "bigIdea": "Listening comprehension",
+   "skills": [
+    "Understand a variety of complex oral texts on different topics using comprehension strategies",
+    "Listen to a variety of complex oral texts for different needs",
+    "Critically analyze a variety of oral texts"
+   ]
+  },
+  {
+   "idx": "Listening and speaking: Oral communication",
+   "strand": "Listening and speaking",
+   "bigIdea": "Oral communication",
+   "skills": [
+    "Produce oral texts on a variety of topics, considering different audiences and communication needs",
+    "Integrate oral expression traits into texts to speak with greater complexity"
+   ]
+  },
+  {
+   "idx": "Reading: Reading comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading comprehension",
+   "skills": [
+    "Understand a variety of complex texts on different topics using comprehension strategies",
+    "Read a variety of complex texts to meet different needs",
+    "Critically analyze a variety of texts"
+   ]
+  },
+  {
+   "idx": "Writing: Written communication",
+   "strand": "Writing",
+   "bigIdea": "Written communication",
+   "skills": [
+    "Write texts about a variety of topics, considering different audiences and communication needs.",
+    "Integrate writing traits into texts to write more complex texts."
+   ]
+  }
+ ],
+ "9/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Construct and communicate personal strengths and an awareness of self, others, and the world including awareness of digital and AI-influenced environments.",
+    "Persuade and support ideas and opinions with evidence.",
+    "Evaluate and present content to communicate facts, ideas, and opinions.",
+    "Use language of harmony and respect, self-monitoring and adjusting as appropriate."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Seek and provide clarification and explanation of ideas and concepts, problems, and solutions.",
+    "Give and respond to a variety of directions and instructions.",
+    "Understand communication conventions for a diverse set of audiences.",
+    "Respond personally and critically to a variety of text.",
+    "Adjust interactions to reflect situation, audience, and purpose."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Critically reflect on the contributions of others and extend my understanding."
+   ]
+  },
+  {
+   "idx": "Reading: Word Study",
+   "strand": "Reading",
+   "bigIdea": "Word Study",
+   "skills": [
+    "Efficiently use word structure knowledge to independently solve unfamiliar and technical words."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Reads unfamiliar texts with accuracy and expression, both silently and aloud."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use a range of strategies to determine new vocabulary in all texts."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from a variety of text considering the source, intended audience, and purpose.",
+    "Confidently apply appropriate comprehension strategies to clarify understanding of a range of text independently.",
+    "Examine and respond personally to a range of texts across genres, interests, and complexities, citing evidence."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis/Criticality",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis/Criticality",
+   "skills": [
+    "Independently select, read, and examine critically a variety of texts representing all voices.",
+    "Critically analyze and evaluate the characteristics, language, form, features, and genre of a range of texts."
+   ]
+  },
+  {
+   "idx": "Representing: Process",
+   "strand": "Representing",
+   "bigIdea": "Process",
+   "skills": [
+    "Implement effective writing strategies to enhance clarity and control in multi-modal works."
+   ]
+  },
+  {
+   "idx": "Representing: Craft",
+   "strand": "Representing",
+   "bigIdea": "Craft",
+   "skills": [
+    "Create a variety of texts with purpose and understand the influence of the writer/creator.",
+    "Select an appropriate form for the purpose, audience, and topic.",
+    "Include interesting and/or domain specific words and phrases to convey and enhance meaning.",
+    "Provide evidence of author’s style, personality and experience.",
+    "Include well-crafted sentences to support meaning and readability.",
+    "Demonstrate correct spelling, punctuation, capitalization, and usage."
+   ]
+  }
+ ],
+ "9/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Describe numbers, ways of representing numbers, relationships among numbers, and number systems.",
+    "Describe powers with integral bases and whole number exponents (excluding base 0)."
+   ]
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Apply the order of operations, including exponents.",
+    "Apply operations am ⁢ an = a m+n am an = a m-n , m>n am n = a m⁢n ab m = am ⁢ bm ab n = an bn , b≠0 to powers (integral bases excluding base 0, and whole-number exponents)."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Compare and critique the presentation of data.",
+    "Create and interpret graphs to solve problems."
+   ]
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Describe theoretical, experimental, and subjective probability in society."
+   ]
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Solve linear equations ax = b (xa) = b, a≠0 ax+b = c (xa)+b = c, a≠0 ax = b+cx a(x+b) = c ax+b = cx+d a(bx+c) = d(ex+f) (ax) = b, x≠0 where a, b, c, d, e, and f are rational numbers .",
+    "Solve linear inequalities (single variable with rational coefficients).",
+    "Describe polynomials (limited to polynomials of a degree less than or equal to 2).",
+    "Apply operations to polynomial expressions (limited to polynomials of a degree less than or equal to 2)."
+   ]
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Estimate and measure using personal referents and measurement tools.",
+    "Apply properties of circles to solve problems."
+   ]
+  },
+  {
+   "idx": "Shape and Space: 3D Objects and 2D Shapes",
+   "strand": "Shape and Space",
+   "bigIdea": "3D Objects and 2D Shapes",
+   "skills": [
+    "Describe polygons and 3D objects.",
+    "Describe line and rotational symmetry.",
+    "Solve scale diagram problems involving 2D shapes by using properties of similar triangles."
+   ]
+  }
+ ],
+ "9/science": [
+  {
+   "idx": "Scientific Literacy: Investigation",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Investigation",
+   "skills": [
+    "Plan investigations to answer questions about relationships between and among variables observed in the solar system, ecosystems, and molecules and organisms.",
+    "Collect and represent accurate data using tools and methods appropriate for investigations of the solar system, ecosystems, and molecules and organisms."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Sensemaking",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Sensemaking",
+   "skills": [
+    "Analyze and interpret qualitative and quantitative data to construct explanations and conclusions."
+   ]
+  },
+  {
+   "idx": "Scientific Literacy: Communication",
+   "strand": "Scientific Literacy",
+   "bigIdea": "Communication",
+   "skills": [
+    "Communicate procedure, result, and conclusion using a variety of media and working collaboratively."
+   ]
+  },
+  {
+   "idx": "Learning and Living Sustainably: Responsible and Sustainable Application",
+   "strand": "Learning and Living Sustainably",
+   "bigIdea": "Responsible and Sustainable Application",
+   "skills": [
+    "Apply scientific and technological knowledge and an understanding of sustainable practices responsibly with respect to the solar system, ecosystems, and molecules and organisms.",
+    "Identify community-based challenges connected to at least two of Sustainable Development Goals 3, 13, 14, and 15, and apply iterative processes to design solutions."
+   ]
+  }
+ ],
+ "9/social": [
+  {
+   "idx": "Geography: Places and Regions",
+   "strand": "Geography",
+   "bigIdea": "Places and Regions",
+   "skills": [
+    "Investigate basic features of Canada’s landscape and climate."
+   ]
+  },
+  {
+   "idx": "Geography: Human Systems and Interactions",
+   "strand": "Geography",
+   "bigIdea": "Human Systems and Interactions",
+   "skills": [
+    "Analyze the effect of human settlement on place over time."
+   ]
+  },
+  {
+   "idx": "History: Events and Peoples",
+   "strand": "History",
+   "bigIdea": "Events and Peoples",
+   "skills": [
+    "Analyze various perceptions of identities in Canada.",
+    "Analyze the impact of migration and immigration on identities in Canada."
+   ]
+  },
+  {
+   "idx": "Civics: Civic Engagement",
+   "strand": "Civics",
+   "bigIdea": "Civic Engagement",
+   "skills": [
+    "Take age-appropriate actions that demonstrate the rights and responsibilities of citizenship (local, national, and global)."
+   ]
+  },
+  {
+   "idx": "Civics: Power and Governance",
+   "strand": "Civics",
+   "bigIdea": "Power and Governance",
+   "skills": [
+    "Explain the structures and operations of governance in Canada."
+   ]
+  },
+  {
+   "idx": "Civics: Rights and Responsibilities",
+   "strand": "Civics",
+   "bigIdea": "Rights and Responsibilities",
+   "skills": [
+    "Investigate persistent issues involving the rights, responsibilities, roles, and status of individuals and groups in Canada."
+   ]
+  },
+  {
+   "idx": "Wabanaki: Treaty Education",
+   "strand": "Wabanaki",
+   "bigIdea": "Treaty Education",
+   "skills": [
+    "Examine key issues involving treaty relationships in Canada."
+   ]
+  },
+  {
+   "idx": "Economics: Sustainability",
+   "strand": "Economics",
+   "bigIdea": "Sustainability",
+   "skills": [
+    "Investigate living conditions for groups in Canada."
+   ]
+  }
+ ],
+ "k/language": [
+  {
+   "idx": "Interactions: Expression",
+   "strand": "Interactions",
+   "bigIdea": "Expression",
+   "skills": [
+    "Express feelings and opinions, and give simple descriptions of experiences.",
+    "Present simple facts and ideas to peers and teachers.",
+    "Explore the language of harmony and respect."
+   ]
+  },
+  {
+   "idx": "Interactions: Exchanges",
+   "strand": "Interactions",
+   "bigIdea": "Exchanges",
+   "skills": [
+    "Begin to ask and respond to questions.",
+    "Give and follow simple, one- or two-step directions or instructions.",
+    "Explore appropriate communication conventions.",
+    "Respond personally to presentations, oral stories, and multimodal text.",
+    "Explore social conventions when interacting."
+   ]
+  },
+  {
+   "idx": "Interactions: Reception",
+   "strand": "Interactions",
+   "bigIdea": "Reception",
+   "skills": [
+    "Receive the ideas and opinions of others."
+   ]
+  },
+  {
+   "idx": "Reading: Concepts of Print",
+   "strand": "Reading",
+   "bigIdea": "Concepts of Print",
+   "skills": [
+    "Identify concepts of print."
+   ]
+  },
+  {
+   "idx": "Reading: Phonological Awareness",
+   "strand": "Reading",
+   "bigIdea": "Phonological Awareness",
+   "skills": [
+    "Demonstrate an awareness of words and some sounds in spoken language."
+   ]
+  },
+  {
+   "idx": "Reading: Phonics",
+   "strand": "Reading",
+   "bigIdea": "Phonics",
+   "skills": [
+    "Apply letter-sound knowledge to decode words and simple connected text."
+   ]
+  },
+  {
+   "idx": "Reading: Fluency",
+   "strand": "Reading",
+   "bigIdea": "Fluency",
+   "skills": [
+    "Name letters and read some words with accuracy and expression."
+   ]
+  },
+  {
+   "idx": "Reading: Vocabulary",
+   "strand": "Reading",
+   "bigIdea": "Vocabulary",
+   "skills": [
+    "Use a range of vocabulary when communicating."
+   ]
+  },
+  {
+   "idx": "Reading: Reading Comprehension",
+   "strand": "Reading",
+   "bigIdea": "Reading Comprehension",
+   "skills": [
+    "Construct meaning from oral stories and when being read to."
+   ]
+  },
+  {
+   "idx": "Reading: Text Analysis",
+   "strand": "Reading",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Select and engage with a variety of text forms for specific uses.",
+    "Begin to identify characteristics, forms, features, and types of text."
+   ]
+  },
+  {
+   "idx": "Representations: Print Mechanics",
+   "strand": "Representations",
+   "bigIdea": "Print Mechanics",
+   "skills": [
+    "Print or represent letters and words using a writing utensil or assistive technology."
+   ]
+  },
+  {
+   "idx": "Representations: Spelling",
+   "strand": "Representations",
+   "bigIdea": "Spelling",
+   "skills": [
+    "Apply basic spelling conventions when creating written works."
+   ]
+  },
+  {
+   "idx": "Representations: Sentence Structure",
+   "strand": "Representations",
+   "bigIdea": "Sentence Structure",
+   "skills": [
+    "Compose simple sentences."
+   ]
+  },
+  {
+   "idx": "Representations: Composition",
+   "strand": "Representations",
+   "bigIdea": "Composition",
+   "skills": [
+    "Organize ideas and create written or media texts."
+   ]
+  },
+  {
+   "idx": "Representations: Text Analysis",
+   "strand": "Representations",
+   "bigIdea": "Text Analysis",
+   "skills": [
+    "Begin to seek information to support ideas and construct meaning."
+   ]
+  }
+ ],
+ "k/math": [
+  {
+   "idx": "Number: Number Sense",
+   "strand": "Number",
+   "bigIdea": "Number Sense",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Number: Operations",
+   "strand": "Number",
+   "bigIdea": "Operations",
+   "skills": [
+    "Develop number sense."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Data Analysis",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Data Analysis",
+   "skills": [
+    "Collect, display and analyze data to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Statistics and Probability: Chance and Uncertainty",
+   "strand": "Statistics and Probability",
+   "bigIdea": "Chance and Uncertainty",
+   "skills": [
+    "Use experimental or theoretical probabilities to represent and solve problems involving uncertainty."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Patterns and Relations: Algebra",
+   "strand": "Patterns and Relations",
+   "bigIdea": "Algebra",
+   "skills": [
+    "Use patterns to describe the world and solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: Measurement",
+   "strand": "Shape and Space",
+   "bigIdea": "Measurement",
+   "skills": [
+    "Use direct and indirect measurement to solve problems."
+   ],
+   "provisional": true
+  },
+  {
+   "idx": "Shape and Space: 2-D Shapes and 3-D Objects",
+   "strand": "Shape and Space",
+   "bigIdea": "2-D Shapes and 3-D Objects",
+   "skills": [
+    "Describe the characteristics of 3-D objects and 2-D shapes, and analyze the relationships among them."
+   ],
+   "provisional": true
+  }
+ ],
+ "k/science": [
+  {
+   "idx": "Literacies and Communications: Communicative Practices",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Communicative Practices",
+   "skills": [
+    "Examine how language learning is beneficial.",
+    "Explore multiple languages.",
+    "Play with multiple languages."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Multimodal Literacies",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Multimodal Literacies",
+   "skills": [
+    "Refer to environmental print in multiple languages.",
+    "Communicate in multiple languages using strategies for meaning making."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Literate Identities",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Literate Identities",
+   "skills": [
+    "Demonstrate being a reader, writer, and communicator in multiple languages.",
+    "Use digital technologies to learn and communicate."
+   ]
+  },
+  {
+   "idx": "Well-Being: Emotional Health and Positive Identities",
+   "strand": "Well-Being",
+   "bigIdea": "Emotional Health and Positive Identities",
+   "skills": [
+    "Explore activities that foster enjoyment and well-being.",
+    "Identify interests, passions, and strengths.",
+    "Recognize that feelings and emotions can impact well-being, relationships, and the way we engage with others."
+   ]
+  },
+  {
+   "idx": "Well-Being: Belonging and Interconnectedness",
+   "strand": "Well-Being",
+   "bigIdea": "Belonging and Interconnectedness",
+   "skills": [
+    "Define and express needs, wants, and choices.",
+    "Explore strategies that promote inclusion.",
+    "Examine how natural resources are connected to us and our environment."
+   ]
+  },
+  {
+   "idx": "Well-Being: Physical Health and Active Participation",
+   "strand": "Well-Being",
+   "bigIdea": "Physical Health and Active Participation",
+   "skills": [
+    "Analyze personal safety and healthy practices.",
+    "Apply behaviours and practices that promote safety."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Imagination and Creativity",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Imagination and Creativity",
+   "skills": [
+    "Practise using flexible and fluid thinking in new and familiar situations.",
+    "Examine new activities, interests, and possibilities."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Exploration and Problem Solving",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Exploration and Problem Solving",
+   "skills": [
+    "Negotiate, compromise, and work together.",
+    "Gather evidence to create and answer questions."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Play and Inquiry",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Play and Inquiry",
+   "skills": [
+    "Engage in activities that introduce elements of risk, novelty, and the unknown.",
+    "Interact with others to share interest, enjoyments, or new information."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Inclusiveness and Equity",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Inclusiveness and Equity",
+   "skills": [
+    "Honour differences and uniqueness.",
+    "Act to change inequitable practices."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Democratic Practices",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Democratic Practices",
+   "skills": [
+    "Act as responsible and responsive community members.",
+    "Participate in decision-making processes."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Sustainable Futures",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Sustainable Futures",
+   "skills": [
+    "Recognize patterns in nature.",
+    "Explore sustainable practices."
+   ]
+  }
+ ],
+ "k/social": [
+  {
+   "idx": "Literacies and Communications: Communicative Practices",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Communicative Practices",
+   "skills": [
+    "Examine how language learning is beneficial.",
+    "Explore multiple languages.",
+    "Play with multiple languages."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Multimodal Literacies",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Multimodal Literacies",
+   "skills": [
+    "Refer to environmental print in multiple languages.",
+    "Communicate in multiple languages using strategies for meaning making."
+   ]
+  },
+  {
+   "idx": "Literacies and Communications: Literate Identities",
+   "strand": "Literacies and Communications",
+   "bigIdea": "Literate Identities",
+   "skills": [
+    "Demonstrate being a reader, writer, and communicator in multiple languages.",
+    "Use digital technologies to learn and communicate."
+   ]
+  },
+  {
+   "idx": "Well-Being: Emotional Health and Positive Identities",
+   "strand": "Well-Being",
+   "bigIdea": "Emotional Health and Positive Identities",
+   "skills": [
+    "Explore activities that foster enjoyment and well-being.",
+    "Identify interests, passions, and strengths.",
+    "Recognize that feelings and emotions can impact well-being, relationships, and the way we engage with others."
+   ]
+  },
+  {
+   "idx": "Well-Being: Belonging and Interconnectedness",
+   "strand": "Well-Being",
+   "bigIdea": "Belonging and Interconnectedness",
+   "skills": [
+    "Define and express needs, wants, and choices.",
+    "Explore strategies that promote inclusion.",
+    "Examine how natural resources are connected to us and our environment."
+   ]
+  },
+  {
+   "idx": "Well-Being: Physical Health and Active Participation",
+   "strand": "Well-Being",
+   "bigIdea": "Physical Health and Active Participation",
+   "skills": [
+    "Analyze personal safety and healthy practices.",
+    "Apply behaviours and practices that promote safety."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Imagination and Creativity",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Imagination and Creativity",
+   "skills": [
+    "Practise using flexible and fluid thinking in new and familiar situations.",
+    "Examine new activities, interests, and possibilities."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Exploration and Problem Solving",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Exploration and Problem Solving",
+   "skills": [
+    "Negotiate, compromise, and work together.",
+    "Gather evidence to create and answer questions."
+   ]
+  },
+  {
+   "idx": "Play and Playfulness: Play and Inquiry",
+   "strand": "Play and Playfulness",
+   "bigIdea": "Play and Inquiry",
+   "skills": [
+    "Engage in activities that introduce elements of risk, novelty, and the unknown.",
+    "Interact with others to share interest, enjoyments, or new information."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Inclusiveness and Equity",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Inclusiveness and Equity",
+   "skills": [
+    "Honour differences and uniqueness.",
+    "Act to change inequitable practices."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Democratic Practices",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Democratic Practices",
+   "skills": [
+    "Act as responsible and responsive community members.",
+    "Participate in decision-making processes."
+   ]
+  },
+  {
+   "idx": "Diversity and Social Responsibility: Sustainable Futures",
+   "strand": "Diversity and Social Responsibility",
+   "bigIdea": "Sustainable Futures",
+   "skills": [
+    "Recognize patterns in nature.",
+    "Explore sustainable practices."
+   ]
+  }
+ ]
+}

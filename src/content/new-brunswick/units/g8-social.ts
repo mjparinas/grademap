@@ -1,0 +1,162 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 8 social studies, New Brunswick: Confederation and early Black communities in the Atlantic region.
+
+const CONFEDERATION: Q[] = [
+  ["In which year did Canada become a country through Confederation?", "1867", ["1776", "1812", "1905"], "July 1, 1867 is the date we call Canada Day."],
+  ["Which four provinces were the first to join in 1867?", "New Brunswick, Nova Scotia, Quebec and Ontario", ["New Brunswick, Manitoba, Alberta and Quebec", "Nova Scotia, British Columbia, Yukon and Ontario", "Prince Edward Island, Newfoundland, Ontario and Quebec"], "New Brunswick was one of the original four provinces."],
+  ["What does Confederation mean?", "joining separate colonies together as one country", ["a type of treaty with France", "a kind of sea voyage", "a school holiday"], "Colonies agreed to unite under one federal government."],
+  ["Which Confederation conference of 1864 took place on Prince Edward Island?", "the Charlottetown Conference", ["the Quebec Conference", "the London Conference", "the Winnipeg Conference"], "Leaders met first in Charlottetown, then in Quebec City."],
+  ["Which city hosted the Quebec Conference of 1864, which produced the 72 Resolutions?", "Quebec City", ["Fredericton", "Halifax", "Toronto"], "The 72 Resolutions became the basis for Confederation."],
+  ["Which New Brunswick leader supported Confederation and became a Father of Confederation?", "Samuel Leonard Tilley", ["Louis Riel", "Sir Isaac Brock", "Tecumseh"], "Tilley was from Saint John and later served in Ottawa.", true],
+  ["Why were some people in New Brunswick against Confederation?", "They worried about higher taxes and losing control of local decisions", ["They wanted to join France", "They did not like the Atlantic Ocean", "They wanted no government"], "In 1865, voters elected an anti-Confederation government."],
+  ["What happened in the New Brunswick election of 1865?", "Voters rejected Confederation", ["Everyone supported Confederation", "Voting was cancelled", "Women won the vote"], "Anti-Confederation candidates won."],
+  ["What happened in the New Brunswick election of 1866?", "Pro-Confederation candidates won", ["Anti-Confederation candidates won again", "The election was in Quebec", "Nobody voted"], "Pressure from Britain and a fear of the United States helped change minds.", true],
+  ["What was the Fenian raid scare?", "an invasion threat from groups of Irish-American men on the New Brunswick border", ["a flood on the Saint John River", "a fire in Fredericton", "a hockey game"], "The threat made some people want a stronger union for defence.", true],
+  ["What is a federal system of government?", "power is shared between a national government and provincial governments", ["one government controls everything", "only towns have governments", "no government exists"], "Canada has a federal system."],
+  ["Why did the colonies want to unite in the 1860s?", "for trade, defence and a railway", ["to avoid the sea", "to end all taxes", "to join the United States"], "Union offered a bigger market and protection."],
+  ["Which railway was promised to connect the Maritimes with Quebec and Ontario?", "the Intercolonial Railway", ["the Underground Railroad", "the Orient Express", "the Silk Road"], "It was a promise written into the Constitution Act, 1867."],
+  ["Which Constitution Act created the country of Canada?", "the British North America Act, 1867", ["the Charter of Rights, 1982", "the Treaty of Paris", "the Magna Carta"], "It is now called the Constitution Act, 1867."],
+  ["Who was left out of the discussions that created Confederation?", "Indigenous Peoples, women and many ordinary people", ["only kings", "only Britain", "no one"], "Few groups were asked what they wanted."],
+  ["Which Indigenous Peoples’ treaty relationships existed before Confederation in the Atlantic region?", "the Peace and Friendship treaties", ["the Numbered Treaties", "the Nisga’a Treaty", "the Oregon Treaty"], "These treaties were with the Crown in the 1700s.", true],
+  ["Who was the first Prime Minister of Canada?", "Sir John A. Macdonald", ["Wilfrid Laurier", "Louis Riel", "Samuel de Champlain"], "He led the country from 1867."],
+  ["What was life like for most people in British North America in the 1860s?", "Most people lived on farms or in small communities, and many worked in fishing, forestry or shipbuilding", ["Everyone lived in large cities", "People used smartphones", "No one worked"], "Shipbuilding was a major industry in Saint John."],
+  ["Saint John’s shipbuilding was famous in the 1800s for building…", "wooden sailing ships", ["airplanes", "submarines", "trains"], "Wooden ships were built from local forests."],
+  ["Which source would be a primary source about the 1860s?", "a newspaper from 1865", ["a movie made in 2020", "a modern textbook", "a poster made last year"], "A primary source was made at the time."],
+  ["Why do historians use more than one source?", "To compare different points of view", ["To make research longer", "Because one source is always wrong", "To avoid evidence"], "Different people see the same events differently."],
+  ["A cause of Confederation was…", "worry about American expansion", ["a new invention called the telephone", "the end of the sea", "an earthquake"], "Defence was a major concern."],
+  ["A consequence of Confederation was…", "a new country with a central government in Ottawa", ["the Atlantic Ocean froze", "no more provinces", "the end of trade"], "Canada grew from four provinces to ten, and three territories."],
+  ["Which province joined Confederation in 1873?", "Prince Edward Island", ["Nova Scotia", "Manitoba", "Quebec"], "PEI had hosted the Charlottetown Conference but joined later."],
+  ["Which colony joined Canada in 1949?", "Newfoundland", ["New Brunswick", "Manitoba", "British Columbia"], "It was the tenth province.", true],
+  ["How did Confederation affect Wabanaki Peoples?", "Decisions about their lands and lives were made without their voices", ["They gained full control of the land", "Nothing changed", "They were asked for their opinions"], "The Indian Act of 1876 later affected Indigenous Peoples across Canada.", true],
+];
+
+const BLACK_HISTORY: Q[] = [
+  ["Who were the Black Loyalists?", "Black people who sided with Britain during the American Revolution and later settled in British North America", ["people who sided with France", "pirates", "visitors from Spain"], "Many came to the Atlantic region after 1783."],
+  ["In which year did many Black Loyalists arrive in what is now New Brunswick and Nova Scotia?", "1783", ["1583", "1683", "1883"], "They were promised land and freedom."],
+  ["What did Black Loyalists hope to find in British North America?", "freedom, land and a fair chance to build a new life", ["gold only", "no work", "a new king"], "Many were promised land by the British."],
+  ["What often happened to the land promised to Black Loyalists?", "Many received less land, poorer land or none at all", ["They received the best farms", "They received castles", "They received nothing because they didn’t want land"], "They faced discrimination in the new colonies."],
+  ["Which city in New Brunswick had one of the largest groups of Black Loyalists?", "Saint John", ["Edmundston", "Bathurst", "Moncton"], "Black Loyalists settled in and around Saint John."],
+  ["What kinds of work did many Black Loyalists do?", "farming, building, fishing and many skilled trades", ["only office jobs", "nothing", "only sailing across the ocean"], "They built homes and businesses in their communities."],
+  ["In 1792, hundreds of Black Loyalists from Nova Scotia chose to move to…", "Sierra Leone in Africa", ["Mexico", "Australia", "Greenland"], "Many left because of poor treatment and promises that were not kept.", true],
+  ["After the War of 1812, Black refugees came to the Maritimes from…", "the United States", ["Japan", "Brazil", "France"], "They sought freedom."],
+  ["Black Canadians have lived in the Atlantic region for…", "more than 400 years", ["only 10 years", "only since 1980", "no time at all"], "Matthew Da Costa, who travelled with Samuel de Champlain in the early 1600s, is one of the earliest known Black people in Canada.", true],
+  ["Why is it important to learn about Black communities in history?", "They helped shape the region and their stories are part of our history", ["They did not take part", "They arrived only recently", "Their stories are not important"], "Black communities have built churches, schools and businesses."],
+  ["Who was Richard Preston?", "a Black Baptist minister and abolitionist from Nova Scotia", ["a Prime Minister", "an explorer from France", "a lighthouse keeper"], "He was a leader in the Black community of Nova Scotia.", true],
+  ["What does discrimination mean?", "treating people unfairly because of who they are", ["liking everyone the same", "being polite", "being a good neighbour"], "Black communities faced discrimination in housing, work and schools."],
+  ["What is segregation?", "keeping groups of people apart by unfair rules", ["a kind of bridge", "a type of school lunch", "a map"], "Some schools and places were segregated in Canada."],
+  ["Which word means ending slavery?", "abolition", ["emigration", "taxation", "legislation"], "People who worked to end slavery were called abolitionists."],
+  ["When was slavery abolished throughout the British Empire?", "1834", ["1534", "1634", "1934"], "The Slavery Abolition Act took effect in 1834.", true],
+  ["Empowerment means…", "gaining the strength and power to make your own choices", ["losing your voice", "being controlled", "staying quiet"], "Communities used churches, schools and groups to build empowerment."],
+  ["Which type of organization helped Black communities support each other?", "churches and community groups", ["only banks", "only armies", "only governments"], "African Baptist churches were important gathering places."],
+  ["Which primary source could tell you about a Black Loyalist’s life?", "a land petition written by a Black Loyalist", ["a modern movie poster", "a map of the moon", "a recipe book from 2020"], "Petitions and letters show what people asked for and said."],
+  ["Why is the Birchtown story important in Atlantic Canada’s history?", "It was a large Black Loyalist settlement in Nova Scotia", ["It was the capital of Canada", "It was in Alberta", "It was a famous ship"], "Birchtown is in Nova Scotia, near the border of the Maritimes.", true],
+  ["Why is a petition a powerful tool?", "It lets people formally ask leaders to listen", ["It makes laws by itself", "It ends elections", "It is a type of ship"], "Black Loyalists wrote petitions about land and rights."],
+  ["Which of these is an example of resilience?", "keeping a community strong despite unfair treatment", ["giving up", "leaving no record", "forgetting"], "Black communities built churches, schools and businesses."],
+  ["How can we learn about Black history in our region today?", "visiting museums and heritage sites and reading books by Black authors", ["ignoring it", "guessing", "avoiding the subject"], "Many communities share their stories."],
+  ["Why is it important to hear about history from many points of view?", "Different people experienced events differently", ["There is only one story", "Old stories are always wrong", "Some voices don’t count"], "Listening to many voices gives a fuller picture."],
+  ["Which statement shows a respectful way to talk about history?", "Use accurate facts and speak about people with dignity", ["Make jokes about the past", "Pretend nothing happened", "Blame only one person"], "Respect and accuracy go together."],
+  ["Many Black families in the Atlantic region have deep roots from…", "Black Loyalists and refugees who came more than 200 years ago", ["only recent arrivals", "no one", "tourists"], "African Nova Scotian and Black New Brunswick communities have long histories."],
+];
+
+const RIGHTS: Q[] = [
+  ["What does empowerment mean?", "gaining the strength, confidence and power to make your own choices", ["losing your voice", "being told what to do", "staying silent"], "Empowerment can be personal or can belong to a whole community."],
+  ["Which of these helps a group become empowered?", "organizing, speaking out and working together", ["staying quiet", "waiting for others to decide", "hiding"], "Many groups won rights by acting together."],
+  ["What is a social reform movement?", "a group effort to change laws or rules to make society fairer", ["a kind of dance", "a trade fair", "a parade of boats"], "Reform movements have worked for votes, safety and fair pay."],
+  ["Which right did women across Canada win in the early 1900s?", "the right to vote", ["the right to drive on ice", "the right to free fish", "the right to choose a prime minister"], "Most women gained the federal vote in 1918."],
+  ["In which year did most women in New Brunswick win the right to vote in provincial elections?", "1919", ["1819", "1869", "1969"], "New Brunswick women could vote provincially in 1919, but could not run for office until 1934.", true],
+  ["Which group was kept from voting in many federal elections until 1960?", "First Nations people living on reserves", ["Women over 50", "Farmers", "Teachers"], "Indigenous people living on reserves gained the federal vote without losing status in 1960.", true],
+  ["What was the Chinese head tax?", "a payment Chinese immigrants had to make to enter Canada", ["a tax on hats", "a tax on fishing boats", "a tax on railway tickets"], "It began in 1885 and was meant to keep people out.", true],
+  ["Viola Desmond is remembered for…", "refusing to leave the main floor of a theatre in 1946", ["flying around the world", "winning an Olympic medal", "building a railway"], "She challenged racial segregation and is on Canada’s ten-dollar bill."],
+  ["Which document, passed in 1982, protects the rights and freedoms of people in Canada?", "the Canadian Charter of Rights and Freedoms", ["the Treaty of Paris", "the Magna Carta", "the Indian Act"], "The Charter is part of Canada’s Constitution."],
+  ["New Brunswick is Canada’s only province that…", "is officially bilingual", ["has no winters", "has no rivers", "has no coast"], "English and French both have equal status in the province’s institutions."],
+  ["Which year did New Brunswick pass its Official Languages Act?", "1969", ["1769", "1869", "1999"], "It made New Brunswick Canada’s first officially bilingual province.", true],
+  ["Louis J. Robichaud was important to New Brunswick because he…", "became premier and made services and schools fairer across the province", ["built the Saint John harbour", "won an Olympic medal", "invented the telephone"], "His Equal Opportunity program began in the 1960s.", true],
+  ["Why is it fair for a province to give every child a good school, no matter where they live?", "Everyone deserves equal chances", ["Only cities deserve schools", "Only some children matter", "Schools don’t matter"], "Equal opportunity is a goal of reform."],
+  ["What is a petition?", "a request signed by many people asking leaders to act", ["a type of law", "a kind of tax", "a tool for fishing"], "Petitions help people be heard."],
+  ["Which action shows advocacy?", "writing to a mayor to ask for a safe crosswalk", ["ignoring a problem", "waiting for someone else", "complaining without a plan"], "Advocacy means speaking up for a cause."],
+  ["What is a strike?", "workers stopping work to ask for fairer pay or conditions", ["a bowling score", "a kind of storm", "a baseball call"], "Workers’ strikes helped win rules about safe workplaces."],
+  ["What did labour unions help workers win?", "safer workplaces and fairer pay", ["longer workdays only", "lower pay", "fewer holidays"], "Unions bring workers together."],
+  ["Which law helps protect children from dangerous work in Canada today?", "child labour laws", ["a hockey rule", "a speed limit", "a fishing quota"], "Reformers worked to end child labour."],
+  ["Which of these is a youth issue where young people can take action?", "protecting the environment in their community", ["choosing the weather", "changing the seasons", "making the tides"], "Young people can plant trees, hold clean-ups and share ideas."],
+  ["Which step helps with age-appropriate action on a school issue?", "ask questions, gather facts, and talk to the principal or student council", ["spread rumours", "ignore it", "yell at others"], "Good action is respectful and informed."],
+  ["Which of these is a cooperative?", "a business owned and run by its members", ["a pirate ship", "a private lab", "a single-owner shop"], "Co-operatives helped many communities build their economies."],
+  ["What does fair trade try to do?", "make sure workers and farmers receive fair pay", ["raise prices for no reason", "stop all trade", "keep goods in one place"], "Fair trade is one way to improve incomes.", true],
+  ["What is a commodity?", "a good that is bought and sold, such as lumber or fish", ["a kind of tool", "a type of tax", "a law"], "Lumber, fish and potatoes are commodities."],
+  ["Why might a community want to own and run its own businesses?", "to keep jobs and profits in the community", ["to avoid all customers", "to stop trade", "to close the shops"], "Local ownership can strengthen a community.", true],
+  ["Why do people sometimes join groups to speak up for a cause?", "A group can be louder and stronger than one person", ["Groups cannot do anything", "Groups are always wrong", "Only one person can speak"], "Collective action can create change."],
+  ["Which of these is an example of a rights movement that continues today?", "working to end racism and make the law fair for everyone", ["a fishing derby", "a hockey tournament", "a school play"], "Rights and equality matter for all."],
+];
+
+const WABANAKI_EMPOWERMENT: Q[] = [
+  ["What did the Wabanaki Peoples do to govern themselves for thousands of years?", "used councils, leaders and consensus", ["had one ruler in Europe", "had no leaders", "voted online"], "Each Nation had its own ways of making decisions."],
+  ["What is a chief and council?", "elected leaders who run a First Nation community today", ["a group of explorers", "a kind of boat", "a school club"], "Communities govern themselves in different ways today."],
+  ["Why were Elders important in Wabanaki governance?", "They guided decisions with knowledge and experience", ["They were chosen by chance", "They did not take part", "They were only visitors"], "Elders still have important roles in communities."],
+  ["How did contact with Europeans affect many Wabanaki communities?", "Diseases, lost land and new rules made life harder", ["Nothing changed", "Everyone moved to Europe", "Life became easier for everyone"], "Contact brought changes that harmed many communities."],
+  ["What is colonization?", "when one country takes control of another place and its people", ["a way of drawing maps", "a type of fishing", "a kind of music"], "It had lasting effects on Indigenous Peoples."],
+  ["The Peace and Friendship treaties were made…", "between Wabanaki Nations and the British Crown in the 1700s", ["between New Brunswick and Quebec", "in the 1900s", "between Spain and France"], "They did not give away the land.", true],
+  ["The Indian Act of 1876 is…", "a federal law that gave the government control over many parts of First Nations people’s lives", ["a law about boats", "a law about hockey", "a law about farming"], "It replaced many traditional ways of governing."],
+  ["What was a residential school?", "a school where Indigenous children were taken from their families and homes", ["a school for sports only", "a summer camp", "a college"], "Many children were harmed, and their languages and cultures were suppressed."],
+  ["When did the last federally run residential school close?", "1996", ["1896", "1936", "2016"], "The legacy of these schools continues today.", true],
+  ["Why were Indigenous languages suppressed at residential schools?", "Governments and churches wanted children to leave their cultures behind", ["The languages were hard to say", "Children asked to stop", "There were no teachers"], "This was a harmful policy.", true],
+  ["What is the Truth and Reconciliation Commission?", "a group that listened to residential school survivors and made 94 Calls to Action", ["a hockey league", "a type of court that only hears boats", "a government of France"], "Its final report came out in 2015."],
+  ["What does reconciliation mean?", "repairing relationships by telling the truth and working to make things right", ["forgetting the past", "pretending nothing happened", "ending all talks"], "It requires listening and action."],
+  ["Which is an example of Wabanaki communities taking action today?", "teaching languages and running their own schools and services", ["closing communities", "leaving the province", "ending all traditions"], "Communities take leadership in language and culture."],
+  ["What was the Marshall decision of 1999?", "a Supreme Court of Canada decision about treaty rights to fish and trade for a moderate livelihood", ["a law about hockey", "a new tax", "a trade deal with Europe"], "Donald Marshall Jr., a Mi’kmaw man, brought the case.", true],
+  ["Why are treaties still important today?", "They are agreements that still need to be respected", ["They are only stories", "They have expired", "They are only for museums"], "Treaties are part of Canada’s laws."],
+  ["What does self-government mean for a Nation?", "the right to make decisions about its own people and lands", ["a government by another country", "a mayor appointed by someone else", "a government with no rules"], "Many Nations work toward self-government."],
+  ["What is cultural revitalization?", "bringing traditions, languages and practices back into daily life", ["ending traditions", "hiding traditions", "selling traditions"], "Wabanaki communities run language and culture programs."],
+  ["Which is a way you can support reconciliation?", "learn the true history, listen to Indigenous voices and act with respect", ["ignore it", "make jokes about it", "avoid learning"], "Everyone has a part to play."],
+  ["Why is it important to say that Wabanaki Peoples are alive and part of today’s Canada?", "They are living Peoples whose cultures continue", ["They disappeared long ago", "They are only in stories", "They live only in museums"], "Using the present tense avoids wrongly saying cultures have ended."],
+  ["A Call to Action is…", "a recommendation for steps governments and others can take toward reconciliation", ["a kind of dance", "a weather warning", "a school bell"], "There are 94 Calls to Action."],
+  ["Which symbol is often worn on September 30, National Day for Truth and Reconciliation?", "an orange shirt", ["a red hat", "a blue scarf", "a green ribbon"], "Orange Shirt Day began from Phyllis Webstad’s story.", true],
+  ["What can a land acknowledgement do?", "show respect and remind us whose homelands we are on", ["replace the need to listen", "end the treaties", "change the weather"], "It works best with action and learning."],
+  ["Which Wabanaki Nations have homelands in New Brunswick?", "Wolastoqiyik, Mi’kmaq and Peskotomuhkatiyik", ["Haida, Nisga’a and Gitxsan", "Cree, Dene and Inuit", "Mohawk, Oneida and Cayuga"], "Each Nation has its own history and governance."],
+  ["Why is empowerment important for Wabanaki communities?", "It lets people shape their own futures", ["It lets others decide for them", "It ends their culture", "It has no value"], "Self-determination is a goal for many Nations."],
+  ["How can we show respect when learning about difficult history?", "listen carefully, use accurate words and care for others’ feelings", ["laugh about it", "avoid the facts", "blame children"], "Respect and honesty go together."],
+  ["Which of these shows a change that helps Indigenous empowerment?", "communities running their own schools and services", ["taking away language classes", "closing councils", "ending treaties"], "Communities lead many programs themselves."],
+];
+
+export const confederation = bankUnit({
+  id: "nb-confederation-8",
+  title: "New Brunswick & Confederation",
+  emoji: "🍁",
+  blurb: "Why a country was built, and who was left out.",
+  parentNote:
+    "Practises the causes and consequences of Confederation from a New Brunswick view, including the 1865 and 1866 elections. It follows the Grade 8 social studies skill descriptors on historical sources and methods in the New Brunswick curriculum.",
+  standards: ["History: Sources and Methods", "the causes and consequences of Confederation"],
+  items: CONFEDERATION,
+});
+
+export const blackHistory = bankUnit({
+  id: "nb-black-history-8",
+  title: "Early Black Communities",
+  emoji: "✊🏿",
+  blurb: "Black Loyalists and refugees in the Atlantic region.",
+  parentNote:
+    "Practises the lives of early Black inhabitants in the Atlantic region, including Black Loyalists and Black refugees, and ideas about empowerment. It follows the Grade 8 social studies skill descriptors on history and empowerment in the New Brunswick curriculum.",
+  standards: ["History: Events and Peoples, Civics: Power and Governance", "the lives of early Black inhabitants in the Atlantic region and ideas of empowerment"],
+  items: BLACK_HISTORY,
+});
+
+export const rightsReform = bankUnit({
+  id: "nb-rights-reform-8",
+  title: "Rights, Reform & Taking Action",
+  emoji: "📣",
+  blurb: "How people have won fairness, and how youth can help.",
+  parentNote:
+    "Practises the idea of empowerment, the development of rights and social reform movements in Canada, and how young people can take age-appropriate action. It follows the Grade 8 social studies skill descriptors on empowerment, rights and civic engagement in the New Brunswick curriculum.",
+  standards: ["Civics: Rights and Responsibilities, Civics: Civic Engagement, Economics: Sustainability", "empowerment, the development of rights and social reform movements in Canada, and taking action on youth issues"],
+  items: RIGHTS,
+});
+
+export const wabanakiEmpowerment = bankUnit({
+  id: "nb-wabanaki-empowerment-8",
+  title: "Wabanaki Governance & Empowerment",
+  emoji: "🪶",
+  blurb: "Self-government, treaties and reconciliation.",
+  parentNote:
+    "Practises how Wabanaki governance empowered Wabanaki Peoples and the effects of contact and colonization on that empowerment. The content is light, in the present tense, and needs review by Wabanaki partners. It follows the Grade 8 social studies skill descriptors on power and governance and on reconciliation in the New Brunswick curriculum.",
+  standards: ["Civics: Power and Governance, Wabanaki: Reconciliation", "how Wabanaki governance empowered Wabanaki Peoples, and the impact of contact and colonization on that empowerment"],
+  items: WABANAKI_EMPOWERMENT,
+});

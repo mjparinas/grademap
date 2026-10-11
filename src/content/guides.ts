@@ -3,6 +3,7 @@ import { FRAMEWORKS } from "./frameworks";
 import { ALBERTA_GUIDES } from "./alberta/guides";
 import { ONTARIO_GUIDES } from "./ontario/guides";
 import { MANITOBA_GUIDES } from "./manitoba/guides";
+import { NEW_BRUNSWICK_GUIDES } from "./new-brunswick/guides";
 import { NOVA_SCOTIA_GUIDES } from "./nova-scotia/guides";
 import { SASKATCHEWAN_GUIDES } from "./saskatchewan/guides";
 import type { AgeBand, FrameworkId, GradeId, SubjectId } from "./types";
@@ -459,7 +460,7 @@ const NWT_GUIDES: FrameworkGuides = {
   },
 };
 
-export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-ns": NOVA_SCOTIA_GUIDES, "ca-nt": NWT_GUIDES, "ca-yt": YUKON_GUIDES, "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES, "ca-mb": MANITOBA_GUIDES };
+export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-nb": NEW_BRUNSWICK_GUIDES, "ca-ns": NOVA_SCOTIA_GUIDES, "ca-nt": NWT_GUIDES, "ca-yt": YUKON_GUIDES, "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES, "ca-mb": MANITOBA_GUIDES };
 
 export const GUIDE_FRAMEWORKS = FRAMEWORKS.filter((f) => GUIDES[f.id]);
 

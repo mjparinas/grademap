@@ -110,6 +110,18 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "8": () => import("./nova-scotia/g8"),
     "9": () => import("./nova-scotia/g9"),
   },
+  "ca-nb": {
+    k: () => import("./new-brunswick/k"),
+    "1": () => import("./new-brunswick/g1"),
+    "2": () => import("./new-brunswick/g2"),
+    "3": () => import("./new-brunswick/g3"),
+    "4": () => import("./new-brunswick/g4"),
+    "5": () => import("./new-brunswick/g5"),
+    "6": () => import("./new-brunswick/g6"),
+    "7": () => import("./new-brunswick/g7"),
+    "8": () => import("./new-brunswick/g8"),
+    "9": () => import("./new-brunswick/g9"),
+  },
 };
 
 /**
