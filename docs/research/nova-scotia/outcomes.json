@@ -1,0 +1,2229 @@
+{
+ "k/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "say the number sequence by • 1s, from 1 to 20 • 1s, starting anywhere from 1 to 10 and from 10 to 1"
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "recognize, at a glance, and name the quantity represented by familiar arrangements of one to five objects or dots."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "relate a numeral, 1 to 10, to its respective quantity."
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "represent and describe numbers 2 to 10 in two parts, concretely and pictorially."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "compare quantities, 1 to 10, using one-to-one correspondence."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "demonstrate an understanding of counting to 10."
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of repeating patterns (two or three elements) by identifying, reproducing, extending, and creating patterns using manipulatives, sounds, and actions."
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "use direct comparison to compare two objects based on a single attribute, such as length, mass, volume, and capacity."
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "sort 3-D objects using a single attribute."
+  },
+  {
+   "idx": "G02",
+   "kind": "specific",
+   "content": "build and describe 3-D objects."
+  }
+ ],
+ "1/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "say the number sequence by: ▪ 1s, forward and backward between any two given numbers, 0 to 100 ▪ 2s to 20, forward starting at 0 ▪ 5s to 100, forward starting at 0, using a hundred chart or a number line ▪ 10s to 100, forward starting at 0, using a hundred chart or a number line"
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "recognize, at a glance, and name the quantity represented by familiar arrangements of one to ten objects or dots."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of counting to 20 by ▪ indicating that the last number said identifies “how many” ▪ showing that any set has only one count ▪ using the counting-on strategy"
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "represent and partition numbers to 20."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "compare sets containing up to 20 objects to solve problems using referents and one-to-one correspondence."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "estimate quantities to 20 by using referents."
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "demonstrate an understanding of conservation of number for up to 20 objects."
+  },
+  {
+   "idx": "N08",
+   "kind": "specific",
+   "content": "identify the number, up to 20, that is one more, two more, one less, and two less than a given number."
+  },
+  {
+   "idx": "N09",
+   "kind": "specific",
+   "content": "demonstrate an understanding of the addition of two one- digit numbers and the corresponding subtraction, concretely, pictorially, and symbolically, in join, separate, and part-part-whole situations."
+  },
+  {
+   "idx": "N10",
+   "kind": "specific",
+   "content": "use and describe strategies to determine sums and differences using manipulatives and visual aids. Strategies include: ▪ counting on or counting back ▪ one more or one less ▪ making ten ▪ doubles"
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of repeating patterns (two to four elements) by identifying, describing, reproducing, extending, and creating patterns using manipulatives, diagrams, sounds, and actions."
+  },
+  {
+   "idx": "PR03",
+   "kind": "specific",
+   "content": "describe equality as a balance and inequality as an imbalance, concretely and pictorially (0 to 20)."
+  },
+  {
+   "idx": "PR04",
+   "kind": "specific",
+   "content": "record equalities using the equal symbol."
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of measurement as a process of comparing by: ▪ identifying attributes that can be compared ▪ ordering objects ▪ making statements of comparison ▪ filling, covering, or matching"
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "sort 3-D objects and 2-D shapes using one attribute and explain the sorting rule."
+  },
+  {
+   "idx": "G02",
+   "kind": "specific",
+   "content": "replicate composite 2-D shapes and 3-D objects."
+  },
+  {
+   "idx": "G03",
+   "kind": "specific",
+   "content": "identify 2-D shapes in 3-D objects."
+  }
+ ],
+ "2/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "say the number sequence by"
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "demonstrate if a number (up to 100) is even or odd."
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "represent and partition numbers to 100."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "compare and order numbers up to 100."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "estimate quantities to 100 by using referents."
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "illustrate, concretely and pictorially, the meaning of place value for numerals to 100."
+  },
+  {
+   "idx": "N08",
+   "kind": "specific",
+   "content": "demonstrate and explain the effect of adding zero to or subtracting zero from any number."
+  },
+  {
+   "idx": "N09",
+   "kind": "specific",
+   "content": "demonstrate an understanding of addition (limited to 1- and 2-digit numerals) with answers to 100 and the corresponding subtraction by: ▪ using personal strategies for adding and subtracting with and without the support of manipulates ▪ creating and solving problems that involve addition and subtraction ▪ explaining and demonstrating that the order in which numbers are added does not affect the sum ▪ explaining and demonstrating that the order in which numbers are subtracted matters when finding a difference"
+  },
+  {
+   "idx": "N10",
+   "kind": "specific",
+   "content": "apply mental mathematics strategies to quickly recall basic addition facts to 18 and determine related subtraction facts."
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of repeating patterns (three to five elements) by describing, extending, comparing, and creating patterns using manipulatives, diagrams, sounds, and actions."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "demonstrate an understanding of increasing patterns by describing, extending, and creating numerical patterns (numbers to 100) and non-numerical patterns using manipulatives, diagrams, sounds, and actions."
+  },
+  {
+   "idx": "PR03",
+   "kind": "specific",
+   "content": "demonstrate and explain the meaning of equality and inequality by using manipulatives and diagrams (0 to 100)."
+  },
+  {
+   "idx": "PR04",
+   "kind": "specific",
+   "content": "record equalities and inequalities symbolically, using the equal symbol or not equal symbol."
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of the calendar and the relationships among days, weeks, months, and years."
+  },
+  {
+   "idx": "M02",
+   "kind": "specific",
+   "content": "relate the size of a unit of measure to the number of units (limited to non-standard units) used to measure length and mass."
+  },
+  {
+   "idx": "M03",
+   "kind": "specific",
+   "content": "compare and order objects by length, height, and mass using non- standard units and make statements of comparison."
+  },
+  {
+   "idx": "M04",
+   "kind": "specific",
+   "content": "measure length to the nearest non-standard unit by using multiple copies of a unit."
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "sort 2-D shapes and 3-D objects using two attributes and explain the sorting rule."
+  },
+  {
+   "idx": "G02",
+   "kind": "specific",
+   "content": "recognize, name, describe, compare, and build 3-D objects, including cubes and other prisms, spheres, cones, cylinders, and pyramids."
+  },
+  {
+   "idx": "G03",
+   "kind": "specific",
+   "content": "recognize, name, describe, compare and build 2-D shapes, including triangles, squares, rectangles, and circles."
+  },
+  {
+   "idx": "G04",
+   "kind": "specific",
+   "content": "identify 2-D shapes as part of 3-D objects in the environment."
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "gather and record data about self and others to answer questions."
+  },
+  {
+   "idx": "SP02",
+   "kind": "specific",
+   "content": "construct and interpret concrete graphs and pictographs to solve problems."
+  }
+ ],
+ "3/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "say the number sequence forward and backward by:"
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "represent and partition numbers to 1000."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "compare and order numbers up to 1000."
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "estimate quantities less than 1000 using referents."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "illustrate, concretely and pictorially, the meaning of place value for numerals to 1000."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "describe and apply mental mathematics strategies for adding two 2- digit numerals."
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "describe and apply mental mathematics strategies for subtracting two 2-digit numerals."
+  },
+  {
+   "idx": "N08",
+   "kind": "specific",
+   "content": "apply estimation strategies to predict sums and differences of 1-, 2-, and 3-digit numerals in a problem-solving context."
+  },
+  {
+   "idx": "N09",
+   "kind": "specific",
+   "content": "demonstrate an understanding of addition and subtraction of numbers (limited to 1-, 2-, and 3-digit numerals) with answers to 1000 by:"
+  },
+  {
+   "idx": "N10",
+   "kind": "specific",
+   "content": "apply mental mathematics strategies and number properties to develop quick recall of basic addition facts to 18 and related basic subtraction facts."
+  },
+  {
+   "idx": "N11",
+   "kind": "specific",
+   "content": "demonstrate an understanding of multiplication to 5 × 5 by"
+  },
+  {
+   "idx": "N12",
+   "kind": "specific",
+   "content": "demonstrate an understanding of division by"
+  },
+  {
+   "idx": "N13",
+   "kind": "specific",
+   "content": "demonstrate an understanding of fractions by:"
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of increasing patterns by describing, extending, comparing, and creating numerical (numbers to 1000) patterns and non- numerical patterns using manipulatives, diagrams, sounds, and actions."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "demonstrate an understanding of decreasing patterns by describing, extending, comparing, and creating numerical (numbers to 1000) patterns and non- numerical patterns using manipulatives, diagrams, sounds, and actions."
+  },
+  {
+   "idx": "PR03",
+   "kind": "specific",
+   "content": "solve one-step addition and subtraction equations involving symbols representing an unknown number."
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "relate the passage of time to common activities using standard units (minutes, hours, days, weeks, months, years)."
+  },
+  {
+   "idx": "M02",
+   "kind": "specific",
+   "content": "relate the number of seconds to a minute, the numbers of minutes to an hour, the numbers of hours to a day, and the number of days to a month in a problem-solving context."
+  },
+  {
+   "idx": "M03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of measuring length (cm, m) by"
+  },
+  {
+   "idx": "M04",
+   "kind": "specific",
+   "content": "demonstrate an understanding of measuring mass (g, kg) by"
+  },
+  {
+   "idx": "M05",
+   "kind": "specific",
+   "content": "demonstrate an understanding of perimeter of regular, irregular, and composite shapes by"
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "describe 3-D objects according to the shape of the faces."
+  },
+  {
+   "idx": "G02",
+   "kind": "specific",
+   "content": "name, describe, compare, create, and sort regular and irregular polygons, including triangles, quadrilaterals, pentagons, hexagons, and octagons according to the number of sides."
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "collect first-hand data and organize it using tally marks, line plots, charts, and lists to answer questions."
+  },
+  {
+   "idx": "SP02",
+   "kind": "specific",
+   "content": "construct, label, and interpret bar graphs to solve problems."
+  }
+ ],
+ "4/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "represent and partition whole numbers to 10 000."
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "compare and order numbers to 10 000."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of addition and subtraction of numbers with answers to 10 000 (limited to three- and four-digit numerals) by: ● using personal strategies for adding and subtracting ● estimating sums and differences ● solving problems involving addition and subtraction"
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "apply and explain the properties of 0 and 1 for multiplication and the property of 1 for division."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "describe and apply mental mathematics strategies, to recall basic multiplication facts to 9 × 9, and to determine related division facts."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "demonstrate an understanding of multiplication (one-, two-, or three- digit by one-digit numerals) to solve problems: ● using personal strategies for multiplication, with and without concrete materials ● using arrays to represent multiplication ● connecting concrete representations to symbolic representations ● estimating products ● applying the distributive property"
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "demonstrate an understanding of division (one-digit divisor and up to two-digit dividend) to solve problems by: ● using personal strategies for dividing, with and without concrete materials ● estimating quotients ● relating division to multiplication"
+  },
+  {
+   "idx": "N08",
+   "kind": "specific",
+   "content": "demonstrate an understanding of fractions less than or equal to 1 by using concrete, pictorial, and symbolic representations to: ● name and record fractions for the parts of one whole or a set ● compare and order fractions ● model and explain that for different wholes, two identical fractions may not represent the same quantity ● provide examples of where fractions are used"
+  },
+  {
+   "idx": "N09",
+   "kind": "specific",
+   "content": "describe and represent decimals (tenths and hundredths) concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "N10",
+   "kind": "specific",
+   "content": "relate decimals to fractions and fractions to decimals (to hundredths)."
+  },
+  {
+   "idx": "N11",
+   "kind": "specific",
+   "content": "demonstrate an understanding of addition and subtraction of decimals (limited to hundredths) by ● estimating sums and differences ● using mental mathematics strategies to solve problems ● using personal strategies to determine sums and differences"
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "identify and describe patterns found in tables and charts, including a multiplication chart."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "translate among different representations of a pattern (a table, a chart, or concrete materials)."
+  },
+  {
+   "idx": "PR03",
+   "kind": "specific",
+   "content": "represent, describe, and extend patterns and relationships, using charts and tables, to solve problems."
+  },
+  {
+   "idx": "PR04",
+   "kind": "specific",
+   "content": "identify and explain mathematical relationships, using charts and diagrams, to solve problems."
+  },
+  {
+   "idx": "PR05",
+   "kind": "specific",
+   "content": "express a given problem as an equation in which a symbol is used to represent an unknown number."
+  },
+  {
+   "idx": "PR06",
+   "kind": "specific",
+   "content": "solve one-step equations involving a symbol to represent an unknown number."
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "read and record time using digital and analog clocks, including 24- hour clocks."
+  },
+  {
+   "idx": "M03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of area of regular and irregular 2-D shapes by: ● recognizing that area is measured in square units ● selecting and justifying referents for the units square centimetre (cm2 ) or square metre (m2) ● estimating area using referents for cm2 or m2 ● determining and recording area (cm2 or m2) ● constructing different rectangles for a given area (cm2 or m2) in order to demonstrate that many different rectangles may have the same area"
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "describe and construct rectangular and triangular prisms."
+  },
+  {
+   "idx": "G03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of line symmetry by: ● identifying symmetrical 2-D shapes ● creating symmetrical 2-D shapes ● drawing one or more lines of symmetry in a 2-D shape"
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of many-to-one correspondence."
+  },
+  {
+   "idx": "SP02",
+   "kind": "specific",
+   "content": "construct and interpret pictographs and bar graphs involving many- to-one correspondence to draw conclusions."
+  }
+ ],
+ "5/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "represent and partition whole numbers to 1 000 000."
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "use estimation strategies, including front-end, front-end adjusted, rounding, and compatible numbers in problem-solving contexts."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "describe and apply mental mathematics strategies and number properties to recall, with fluency, answers for basic multiplication facts to 81 and related division facts."
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "apply mental mathematics strategies for multiplication, including ▪ multiplying by multiples of 10, 100, and 1000 ▪ halving and doubling ▪ using the distributive property"
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "demonstrate, with and without concrete materials, an understanding of multiplication (two-digit by two-digit) to solve problems."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "demonstrate, with and without concrete materials, an understanding of division (three-digit by one-digit), and interpret remainders to solve problems."
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "demonstrate an understanding of fractions by using concrete, pictorial, and symbolic representations to ▪ create sets of equivalent fractions ▪ compare and order fractions with like and unlike denominators"
+  },
+  {
+   "idx": "N08",
+   "kind": "specific",
+   "content": "describe and represent decimals (tenths, hundredths, and thousandths) concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "N09",
+   "kind": "specific",
+   "content": "relate decimals to fractions and fractions to decimals (to thousandths)."
+  },
+  {
+   "idx": "N10",
+   "kind": "specific",
+   "content": "compare and order decimals (to thousandths) by using benchmarks, place value, and equivalent decimals."
+  },
+  {
+   "idx": "N11",
+   "kind": "specific",
+   "content": "demonstrate an understanding of addition and subtraction of decimals (limited to thousandths)."
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "determine the pattern rule to make predictions about subsequent terms."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "solve problems involving single-variable, one-step equations with whole number coefficients and whole number solutions."
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "design and construct different rectangles, given a perimeter or an area or both (whole numbers), and make generalizations."
+  },
+  {
+   "idx": "M02",
+   "kind": "specific",
+   "content": "demonstrate an understanding of measuring length (mm) by ▪ selecting and justifying referents for the unit millimetre (mm) ▪ modelling and describing the relationship between millimetre (mm) and centimetre (cm) units, and between millimetre (mm) and metre (m) units"
+  },
+  {
+   "idx": "M03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of volume by ▪ selecting and justifying referents for cubic centimetre (cm3) or cubic metre (m3) units ▪ estimating volume using referents for cubic centimetre (cm3) or cubic metre (m3) ▪ measuring and recording volume (cm3 or m3) ▪ constructing rectangular prisms for a given volume"
+  },
+  {
+   "idx": "M04",
+   "kind": "specific",
+   "content": "demonstrate an understanding of capacity by ▪ describing the relationship between millilitre (mL) and litre (L) units ▪ selecting and justifying referents for millilitre (mL) and litre (L) units ▪ estimating capacity using referents for millilitre (mL) and litre (L) ▪ measuring and recording capacity (mL or L)"
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "describe and provide examples of edges and faces of 3-D objects, and sides of 2-D shapes that are parallel, intersecting, perpendicular, vertical, and horizontal."
+  },
+  {
+   "idx": "G03",
+   "kind": "specific",
+   "content": "perform a single transformation (translation, rotation, or reflection) of a 2-D shape (with and without technology) and draw and describe the image."
+  },
+  {
+   "idx": "G05",
+   "kind": "specific",
+   "content": "identify right angles."
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "differentiate between first-hand and second-hand data."
+  },
+  {
+   "idx": "SP02",
+   "kind": "specific",
+   "content": "construct and interpret double bar graphs to draw conclusions."
+  },
+  {
+   "idx": "SP03",
+   "kind": "specific",
+   "content": "describe the likelihood of a single outcome occurring, using words such as impossible, possible, and certain."
+  },
+  {
+   "idx": "SP04",
+   "kind": "specific",
+   "content": "compare the likelihood of two possible outcomes occurring, using words such as less likely, equally likely, or more likely."
+  }
+ ],
+ "6/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of place value for numbers greater than one million and less than one-thousandth."
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "solve problems involving whole numbers and decimal numbers."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of factors and multiples by ▪ determining multiples and factors of numbers less than 100 ▪ identifying prime and composite numbers ▪ solving problems using multiples and factors"
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "relate improper fractions to mixed numbers and mixed numbers to improper fractions."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "demonstrate an understanding of ratio, concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "demonstrate an understanding of percent (limited to whole numbers) concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "demonstrate an understanding of integers contextually, concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "N08",
+   "kind": "specific",
+   "content": "demonstrate an understanding of multiplication and division of decimals (one-digit whole number multipliers and one-digit natural number divisors)."
+  },
+  {
+   "idx": "N09",
+   "kind": "specific",
+   "content": "explain and apply the order of operations, excluding exponents, with and without technology (limited to whole numbers)."
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of the relationships within tables of values to solve problems."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "represent and describe patterns and relationships, using graphs and tables."
+  },
+  {
+   "idx": "PR03",
+   "kind": "specific",
+   "content": "represent generalizations arising from number relationships using equations with letter variables."
+  },
+  {
+   "idx": "PR04",
+   "kind": "specific",
+   "content": "demonstrate and explain the meaning of preservation of equality concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of angles by ▪ identifying examples of angles in the environment ▪ classifying angles according to their measure ▪ estimating the measure of angles using 45°, 90°, and 180° as reference angles ▪ determining angle measures in degrees ▪ drawing and labelling angles when the measure is specified"
+  },
+  {
+   "idx": "M02",
+   "kind": "specific",
+   "content": "demonstrate that the sum of interior angles is 180° in a triangle and 360° in a quadrilateral."
+  },
+  {
+   "idx": "M03",
+   "kind": "specific",
+   "content": "develop and apply a formula for determining the ▪ perimeter of polygons ▪ area of rectangles ▪ volume of right rectangular prisms"
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "construct and compare triangles, including scalene, isosceles, equilateral, right, obtuse, or acute in different orientations."
+  },
+  {
+   "idx": "G03",
+   "kind": "specific",
+   "content": "perform a combination of translation(s), rotation(s), and/or reflection(s) on a single 2-D shape, with and without technology, and draw and describe the image."
+  },
+  {
+   "idx": "G04",
+   "kind": "specific",
+   "content": "perform a combination of successive transformations of 2-D shapes to create a design and identify and describe the transformations."
+  },
+  {
+   "idx": "G05",
+   "kind": "specific",
+   "content": "identify and plot points in the first quadrant of a Cartesian plane using whole number ordered pairs."
+  },
+  {
+   "idx": "G06",
+   "kind": "specific",
+   "content": "perform and describe single transformations of a 2-D shape in the first quadrant of a Cartesian plane (limited to whole number vertices)."
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "create, label, and interpret line graphs to draw conclusions."
+  },
+  {
+   "idx": "SP02",
+   "kind": "specific",
+   "content": "select, justify, and use appropriate methods of collecting data, including questionnaires, experiments, databases, and electronic media."
+  },
+  {
+   "idx": "SP04",
+   "kind": "specific",
+   "content": "demonstrate an understanding of probability by ▪ identifying all possible outcomes of a probability experiment ▪ differentiating between experimental and theoretical probability ▪ determining the theoretical probability of outcomes in a probability experiment ▪ determining the experimental probability of outcomes in a probability experiment ▪ comparing experimental results with the theoretical probability for an experiment"
+  }
+ ],
+ "7/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "determine and explain why a number is divisible by 2, 3, 4, 5, 6, 8, 9, or 10, and why a number cannot be divided by 0."
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "demonstrate an understanding of the addition, subtraction, multiplication, and division of decimals to solve problems (for more than one-digit divisors or more than two-digit multipliers, the use of technology is expected)."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "solve problems involving percents from 1% to 100% (limited to whole numbers)."
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "demonstrate an understanding of the relationship between positive terminating decimals and positive fractions and between positive repeating decimals (with one or two repeating digits) and positive fractions."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "demonstrate an understanding of adding and subtracting positive fractions and mixed numbers, with like and unlike denominators, concretely, pictorially, and symbolically (limited to positive sums and differences)."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "demonstrate an understanding of addition and subtraction of integers, concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "compare, order, and position positive fractions, positive decimals (to thousandths), and whole numbers by using benchmarks, place value, and equivalent fractions and/or decimals."
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of oral and written patterns and their equivalent linear relations."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "create a table of values from a linear relation, graph the table of values, and analyze the graph to draw conclusions and solve problems."
+  },
+  {
+   "idx": "PR03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of preservation of equality by modelling preservation of equality, concretely, pictorially, and symbolically applying preservation of equality to solve equations."
+  },
+  {
+   "idx": "PR04",
+   "kind": "specific",
+   "content": "explain the difference between an expression and an equation."
+  },
+  {
+   "idx": "PR05",
+   "kind": "specific",
+   "content": "evaluate an expression given the value of the variable(s). Performance Indicator: PR05.01 Substitute a value for an unknown in a given expression and evaluate the expression."
+  },
+  {
+   "idx": "PR06",
+   "kind": "specific",
+   "content": "model and solve, concretely, pictorially, and symbolically, problems that can be represented by one-step linear equations of the form x + a = b, where a and b are integers."
+  },
+  {
+   "idx": "PR07",
+   "kind": "specific",
+   "content": "model and solve, concretely, pictorially, and symbolically, where a, b, and c are whole numbers, problems that can be represented by linear equations of the form ax + b = c; ax = b; x ÷ a = b, a ≠ 0"
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of circles by: describing the relationships among radius, diameter, and circumference ▪ relating circumference to pi ▪ determining the sum of the central angles ▪ constructing circles with a given radius or diameter ▪ solving problems involving the radii, diameters, and circumferences of circles."
+  },
+  {
+   "idx": "M02",
+   "kind": "specific",
+   "content": "develop and apply a formula for determining the area of triangles, parallelograms, and circles."
+  },
+  {
+   "idx": "G02",
+   "kind": "specific",
+   "content": "identify and plot points in the four quadrants of a Cartesian plane, using integral ordered pairs."
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of central tendency and range by determining the measures of central tendency (mean, median, mode) and range determining the most appropriate measures of central tendency to report findings."
+  },
+  {
+   "idx": "SP02",
+   "kind": "specific",
+   "content": "determine the effect on the mean, median, and mode when an outlier is included in a data set."
+  },
+  {
+   "idx": "SP03",
+   "kind": "specific",
+   "content": "construct, label, and interpret circle graphs to solve problems"
+  },
+  {
+   "idx": "SP04",
+   "kind": "specific",
+   "content": "express probabilities as ratios, fractions, and percents."
+  },
+  {
+   "idx": "SP06",
+   "kind": "specific",
+   "content": "conduct a probability experiment to compare the theoretical probability (determined using a tree diagram, table, or other graphic organizer) and experimental probability of two independent events."
+  }
+ ],
+ "8/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of perfect squares and square roots, concretely, pictorially, and symbolically (limited to whole numbers)."
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "determine the approximate square root of numbers that are not perfect squares (limited to whole numbers)."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of and solve problems involving percents greater than or equal to 0%."
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "demonstrate an understanding of ratio and rate."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "solve problems that involve rates, ratios, and proportional reasoning."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "demonstrate an understanding of multiplying and dividing positive fractions and mixed numbers, concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "N07",
+   "kind": "specific",
+   "content": "demonstrate an understanding of multiplication and division of integers, concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "graph and analyze two-variable linear relations."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "model and solve problems, concretely, pictorially, and symbolically, where a, b, and c are integers, using linear equations of the form ax = b; x/a = b, a ≠ 0; ax + b = c; x/a + b = c, a ≠ 0; a(x + b) = c"
+  },
+  {
+   "idx": "M01",
+   "kind": "specific",
+   "content": "develop and apply the Pythagorean theorem to solve problems."
+  },
+  {
+   "idx": "M02",
+   "kind": "specific",
+   "content": "draw and construct nets for 3-D objects."
+  },
+  {
+   "idx": "M03",
+   "kind": "specific",
+   "content": "determine the surface area of right rectangular prisms, right triangular prisms, and right cylinders to solve problems."
+  },
+  {
+   "idx": "M04",
+   "kind": "specific",
+   "content": "develop and apply formulas for determining the volume of right rectangular prisms, right triangular prisms, and right cylinders."
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "draw and interpret top, front, and side views of 3-D objects composed of right rectangular prisms."
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "critique ways in which data is presented."
+  }
+ ],
+ "9/math": [
+  {
+   "idx": "N01",
+   "kind": "specific",
+   "content": "demonstrate an understanding of powers with integral bases (excluding base 0) and whole number exponents by ▪ representing repeated multiplication using powers, ▪ using patterns to show that a power with an exponent of zero is equal to one, and ▪ solving problems involving powers."
+  },
+  {
+   "idx": "N02",
+   "kind": "specific",
+   "content": "demonstrate an understanding of operations on powers with integral bases (excluding base 0) and whole number exponents."
+  },
+  {
+   "idx": "N03",
+   "kind": "specific",
+   "content": "demonstrate an understanding of rational numbers by comparing and ordering rational numbers and solving problems that involve arithmetic operations on rational numbers."
+  },
+  {
+   "idx": "N04",
+   "kind": "specific",
+   "content": "explain and apply the order of operations, including exponents, with and without technology."
+  },
+  {
+   "idx": "N05",
+   "kind": "specific",
+   "content": "determine the exact square root of positive rational numbers."
+  },
+  {
+   "idx": "N06",
+   "kind": "specific",
+   "content": "determine an approximate square root of positive rational numbers."
+  },
+  {
+   "idx": "PR01",
+   "kind": "specific",
+   "content": "generalize a pattern arising from a problem-solving context using a linear equation and verify by substitution."
+  },
+  {
+   "idx": "PR02",
+   "kind": "specific",
+   "content": "graph a linear relation, analyze the graph, and interpolate or extrapolate to solve problems."
+  },
+  {
+   "idx": "PR03",
+   "kind": "specific",
+   "content": "model and solve problems, where a, b, c, d, e, and f are rational numbers, using linear equations of the form. ax = b ,a≠0 ax + b = c"
+  },
+  {
+   "idx": "PR04",
+   "kind": "specific",
+   "content": "explain and illustrate strategies to solve single variable linear inequalities with rational coefficients within a problem-solving context."
+  },
+  {
+   "idx": "PR05",
+   "kind": "specific",
+   "content": "demonstrate an understanding of polynomials (limited to polynomials of degree less than or equal to 2)."
+  },
+  {
+   "idx": "PR06",
+   "kind": "specific",
+   "content": "model, record, and explain the operations of addition and subtraction of polynomial expressions, concretely, pictorially, and symbolically (limited to polynomials of degree less than or equal to 2)."
+  },
+  {
+   "idx": "PR07",
+   "kind": "specific",
+   "content": "model, record, and explain the operations of multiplication and division of polynomial expressions (limited to polynomials of degree less than or equal to 2) by monomials, concretely, pictorially, and symbolically."
+  },
+  {
+   "idx": "G01",
+   "kind": "specific",
+   "content": "determine the surface area of composite 3-D objects to solve problems."
+  },
+  {
+   "idx": "SP01",
+   "kind": "specific",
+   "content": "describe the effect on the collection of data of bias, use of language, ethics, cost, time and timing, privacy, and cultural sensitivity."
+  },
+  {
+   "idx": "SP03",
+   "kind": "specific",
+   "content": "develop and implement a project plan for the collection, display, and analysis of data by: o formulating a question for investigation o choosing a data collection method that includes social considerations o selecting a population or a sample o collecting the data o displaying the collected data in an appropriate manner o drawing conclusions to answer the question"
+  }
+ ],
+ "k/language": [
+  {
+   "idx": "A1",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply listening, speaking, and non-verbal communication skills and strategies to understand and communicate meaning for various audiences, purposes, and contexts."
+  },
+  {
+   "idx": "A2",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply understanding of foundational language knowledge and skill when reading and writing."
+  },
+  {
+   "idx": "A3",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply knowledge of sentence structure, grammar, capitalization, and punctuation when reading and writing."
+  },
+  {
+   "idx": "B1",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply knowledge of text structures, features, and styles to comprehend texts in a variety of genres that represent diverse perspectives and experiences."
+  },
+  {
+   "idx": "B2",
+   "kind": "strand",
+   "content": "Comprehension: Learners will use reading, listening, and viewing strategies to comprehend a variety of texts that represent diverse perspectives and experiences."
+  },
+  {
+   "idx": "B3",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply critical thinking skills to deepen comprehension of texts and analyse how various perspectives and topics are communicated and addressed in a variety of texts."
+  },
+  {
+   "idx": "C1",
+   "kind": "strand",
+   "content": "Composition: Learners will apply pre-writing skills and strategies to develop various texts for a range of authentic audiences and purposes."
+  },
+  {
+   "idx": "C2",
+   "kind": "strand",
+   "content": "Composition: Learners will apply knowledge and understanding of text forms and genres to write a variety of texts."
+  },
+  {
+   "idx": "C3",
+   "kind": "strand",
+   "content": "Composition: Learners will use suitable and effective media, techniques, and tools to publish and present final texts in a range of genres."
+  }
+ ],
+ "1/language": [
+  {
+   "idx": "A1",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply listening, speaking, and non-verbal communication skills and strategies to understand and communicate meaning for various audiences, purposes, and contexts."
+  },
+  {
+   "idx": "A2",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply understanding of foundational language knowledge and skill when reading and writing."
+  },
+  {
+   "idx": "A3",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply knowledge of sentence structure, grammar, capitalization, and punctuation when reading and writing."
+  },
+  {
+   "idx": "B1",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply knowledge of text structures, features, and styles to comprehend texts in a variety of genres that represent diverse perspectives and experiences."
+  },
+  {
+   "idx": "B2",
+   "kind": "strand",
+   "content": "Comprehension: Learners will use reading, listening, and viewing strategies to comprehend a variety of texts that represent diverse perspectives and experiences."
+  },
+  {
+   "idx": "B3",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply critical thinking skills to deepen comprehension of texts and analyse how various perspectives and topics are communicated and addressed in a variety of texts."
+  },
+  {
+   "idx": "C1",
+   "kind": "strand",
+   "content": "Composition: Learners will apply pre-writing skills and strategies to develop various texts for a range of authentic audiences and purposes."
+  },
+  {
+   "idx": "C2",
+   "kind": "strand",
+   "content": "Composition: Learners will apply knowledge and understanding of text forms and genres to write a variety of texts."
+  },
+  {
+   "idx": "C3",
+   "kind": "strand",
+   "content": "Composition: Learners will use suitable and effective media, techniques, and tools to publish and present final texts in a range of genres."
+  }
+ ],
+ "2/language": [
+  {
+   "idx": "A1",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply listening, speaking, and non-verbal communication skills and strategies to understand and communicate meaning for various audiences, purposes, and contexts."
+  },
+  {
+   "idx": "A2",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply understanding of foundational language knowledge and skill when reading and writing."
+  },
+  {
+   "idx": "A3",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply knowledge of sentence structure, grammar, capitalization, and punctuation when reading and writing."
+  },
+  {
+   "idx": "B1",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply knowledge of text structures, features, and styles to comprehend texts in a variety of genres that represent diverse perspectives and experiences."
+  },
+  {
+   "idx": "B2",
+   "kind": "strand",
+   "content": "Comprehension: Learners will use reading, listening, and viewing strategies to comprehend a variety of texts that represent diverse perspectives and experiences."
+  },
+  {
+   "idx": "B3",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply critical thinking skills to deepen comprehension of texts and analyse how various perspectives and topics are communicated and addressed in a variety of texts."
+  },
+  {
+   "idx": "C1",
+   "kind": "strand",
+   "content": "Composition: Learners will apply pre-writing skills and strategies to develop various texts for a range of authentic audiences and purposes."
+  },
+  {
+   "idx": "C2",
+   "kind": "strand",
+   "content": "Composition: Learners will apply knowledge and understanding of text forms and genres to write a variety of texts."
+  },
+  {
+   "idx": "C3",
+   "kind": "strand",
+   "content": "Composition: Learners will use suitable and effective media, techniques, and tools to publish and present final texts in a range of genres."
+  }
+ ],
+ "3/language": [
+  {
+   "idx": "A1",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply listening, speaking, and non-verbal communication skills and strategies to understand and communicate meaning for various audiences, purposes, and cultural contexts."
+  },
+  {
+   "idx": "A2",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply understanding of foundational language knowledge and skill when reading and writing."
+  },
+  {
+   "idx": "A3",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply knowledge of sentence structure, grammar, capitalization, and punctuation when reading and writing."
+  },
+  {
+   "idx": "B1",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply knowledge of text forms and organizational structures to comprehend texts."
+  },
+  {
+   "idx": "B2",
+   "kind": "strand",
+   "content": "Comprehension: Learners will use reading, listening, and viewing strategies to comprehend a variety of texts that represent diverse perspectives, cultures and experiences."
+  },
+  {
+   "idx": "B3",
+   "kind": "strand",
+   "content": "Comprehension: Learners will analyse a variety of texts that represent individuals with diverse identities, perspectives, cultures and experiences."
+  },
+  {
+   "idx": "C1",
+   "kind": "strand",
+   "content": "Composition: Learners will apply pre-writing skills and strategies to develop various texts for a range of authentic audiences and purposes."
+  },
+  {
+   "idx": "C2",
+   "kind": "strand",
+   "content": "Composition: Learners will apply knowledge and understanding of text forms to write a variety of texts."
+  },
+  {
+   "idx": "C3",
+   "kind": "strand",
+   "content": "Composition: Learners will use suitable and effective media, techniques, and tools to publish and present final texts in a range of text forms."
+  },
+  {
+   "idx": "D1",
+   "kind": "strand",
+   "content": "Content areas: Learners will apply literacy skills to comprehend and communicate ideas in the content areas."
+  }
+ ],
+ "4/language": [
+  {
+   "idx": "A1",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply listening, speaking, and non-verbal communication skills and strategies to understand and communicate meaning for various audiences, purposes, and cultural contexts."
+  },
+  {
+   "idx": "A2",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply understanding of foundational language knowledge and skill when reading and writing."
+  },
+  {
+   "idx": "A3",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply knowledge of sentence structure, grammar, capitalization, and punctuation when reading and writing."
+  },
+  {
+   "idx": "B1",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply knowledge of text forms and organizational structures to comprehend texts."
+  },
+  {
+   "idx": "B2",
+   "kind": "strand",
+   "content": "Comprehension: Learners will use reading, listening, and viewing strategies to comprehend a variety of texts that represent diverse perspectives, cultures and experiences."
+  },
+  {
+   "idx": "B3",
+   "kind": "strand",
+   "content": "Comprehension: Learners will analyse a variety of texts that represent individuals with diverse identities, perspectives, cultures and experiences."
+  },
+  {
+   "idx": "C1",
+   "kind": "strand",
+   "content": "Composition: Learners will apply pre-writing skills and strategies to develop various texts for a range of authentic audiences and purposes."
+  },
+  {
+   "idx": "C2",
+   "kind": "strand",
+   "content": "Composition: Learners will apply knowledge and understanding of text forms to write a variety of texts."
+  },
+  {
+   "idx": "C3",
+   "kind": "strand",
+   "content": "Composition: Learners will use suitable and effective media, techniques, and tools to publish and present final texts in a range of text forms."
+  },
+  {
+   "idx": "D1",
+   "kind": "strand",
+   "content": "Content areas: Learners will apply literacy skills to comprehend and communicate ideas in the content areas."
+  }
+ ],
+ "5/language": [
+  {
+   "idx": "A1",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply listening, speaking, and non-verbal communication skills and strategies to understand and communicate meaning for various audiences, purposes, and cultural contexts."
+  },
+  {
+   "idx": "A2",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply understanding of foundational language knowledge and skill when reading and writing."
+  },
+  {
+   "idx": "A3",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply knowledge of sentence structure, grammar, capitalization, and punctuation when reading and writing."
+  },
+  {
+   "idx": "B1",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply knowledge of text forms and organizational structures to comprehend texts."
+  },
+  {
+   "idx": "B2",
+   "kind": "strand",
+   "content": "Comprehension: Learners will use reading, listening, and viewing strategies to comprehend a variety of texts that represent diverse perspectives, cultures and experiences."
+  },
+  {
+   "idx": "B3",
+   "kind": "strand",
+   "content": "Comprehension: Learners will analyse a variety of texts that represent individuals with diverse identities, perspectives, cultures and experiences."
+  },
+  {
+   "idx": "C1",
+   "kind": "strand",
+   "content": "Composition: Learners will apply pre-writing skills and strategies to develop various texts for a range of authentic audiences and purposes."
+  },
+  {
+   "idx": "C2",
+   "kind": "strand",
+   "content": "Composition: Learners will apply knowledge and understanding of text forms to write a variety of texts."
+  },
+  {
+   "idx": "C3",
+   "kind": "strand",
+   "content": "Composition: Learners will use suitable and effective media, techniques, and tools to publish and present final texts in a range of text forms."
+  },
+  {
+   "idx": "D1",
+   "kind": "strand",
+   "content": "Content areas: Learners will apply literacy skills to comprehend and communicate ideas in the content areas."
+  }
+ ],
+ "6/language": [
+  {
+   "idx": "A1",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply listening, speaking, and non-verbal communication skills and strategies to understand and communicate meaning for various audiences, purposes, and cultural contexts."
+  },
+  {
+   "idx": "A2",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply understanding of foundational language knowledge and skill when reading and writing."
+  },
+  {
+   "idx": "A3",
+   "kind": "strand",
+   "content": "Foundations of Language: Learners will apply knowledge of sentence structure, grammar, capitalization, and punctuation when reading and writing."
+  },
+  {
+   "idx": "B1",
+   "kind": "strand",
+   "content": "Comprehension: Learners will apply knowledge of text forms and organizational structures to comprehend texts."
+  },
+  {
+   "idx": "B2",
+   "kind": "strand",
+   "content": "Comprehension: Learners will use reading, listening, and viewing strategies to comprehend a variety of texts that represent diverse perspectives, cultures and experiences."
+  },
+  {
+   "idx": "B3",
+   "kind": "strand",
+   "content": "Comprehension: Learners will analyse a variety of texts that represent individuals with diverse identities, perspectives, cultures and experiences."
+  },
+  {
+   "idx": "C1",
+   "kind": "strand",
+   "content": "Composition: Learners will apply pre-writing skills and strategies to develop various texts for a range of authentic audiences and purposes."
+  },
+  {
+   "idx": "C2",
+   "kind": "strand",
+   "content": "Composition: Learners will apply knowledge and understanding of text forms to write a variety of texts."
+  },
+  {
+   "idx": "C3",
+   "kind": "strand",
+   "content": "Composition: Learners will use suitable and effective media, techniques, and tools to publish and present final texts in a range of text forms."
+  },
+  {
+   "idx": "D1",
+   "kind": "strand",
+   "content": "Content areas: Learners will apply literacy skills to comprehend and communicate ideas in the content areas."
+  }
+ ],
+ "7/language": [
+  {
+   "idx": "Cultural expressions",
+   "kind": "headline",
+   "content": "Learners will reflect on how the cultures of communities, inclusive of the Mi’kmaq, Acadians, African Nova Scotians, and the Gaels, are expressed through a range of communication forms."
+  },
+  {
+   "idx": "Responses",
+   "kind": "headline",
+   "content": "Learners will plan oral, written, and visual personal and critical responses, in relation to audience and purpose."
+  },
+  {
+   "idx": "Creating",
+   "kind": "headline",
+   "content": "Learners will create oral, written, and visual communication forms for a range of audiences and purposes."
+  },
+  {
+   "idx": "Speaking and writing strategies",
+   "kind": "headline",
+   "content": "Learners will implement speaking and writing strategies for effective communication in relation to audience and purpose."
+  },
+  {
+   "idx": "Comprehending",
+   "kind": "headline",
+   "content": "Learners will comprehend a range of communication forms using listening strategies, reading strategies, and viewing strategies."
+  },
+  {
+   "idx": "Accuracy and bias",
+   "kind": "headline",
+   "content": "Learners will analyse the accuracy, reliability, validity, and bias in a range of written, audio, visual, and digital communication forms."
+  }
+ ],
+ "8/language": [
+  {
+   "idx": "Cultural expressions",
+   "kind": "headline",
+   "content": "Learners will reflect on how the cultures of communities, inclusive of the Mi’kmaq, Acadians, African Nova Scotians, and the Gaels, are expressed through a range of communication forms."
+  },
+  {
+   "idx": "Responses",
+   "kind": "headline",
+   "content": "Learners will plan oral, written, and visual personal and critical responses, in relation to audience and purpose."
+  },
+  {
+   "idx": "Creating",
+   "kind": "headline",
+   "content": "Learners will create oral, written, and visual communication forms for a range of audiences and purposes."
+  },
+  {
+   "idx": "Speaking and writing strategies",
+   "kind": "headline",
+   "content": "Learners will implement speaking and writing strategies for effective communication in relation to audience and purpose."
+  },
+  {
+   "idx": "Comprehending",
+   "kind": "headline",
+   "content": "Learners will comprehend a range of communication forms using listening strategies, reading strategies, and viewing strategies."
+  },
+  {
+   "idx": "Accuracy and bias",
+   "kind": "headline",
+   "content": "Learners will analyse the accuracy, reliability, validity and bias in a range of written, audio, visual, and digital communication forms."
+  }
+ ],
+ "9/language": [
+  {
+   "idx": "1.2",
+   "kind": "specific",
+   "content": "ask relevant questions calling for elaboration, clarification, or qualification and respond thoughtfully to such questions"
+  },
+  {
+   "idx": "1.3",
+   "kind": "specific",
+   "content": "articulate, advocate, and support points of view, presenting viewpoints in a convincing manner"
+  },
+  {
+   "idx": "2.1",
+   "kind": "specific",
+   "content": "participate constructively in conversation, small-group and whole-group discussion, and debate, using a range of strategies that contribute to effective talk"
+  },
+  {
+   "idx": "2.2",
+   "kind": "specific",
+   "content": "adapt vocabulary, sentence structure, and rate of speech to the speaking occasion"
+  },
+  {
+   "idx": "2.4",
+   "kind": "specific",
+   "content": "evaluate their own and others’ uses of spoken language in a range of contexts, recognizing the effects of significant verbal and non-verbal language features"
+  },
+  {
+   "idx": "3.3",
+   "kind": "specific",
+   "content": "demonstrate an awareness that spoken language has different conventions in different situations and cultures and use language appropriate to the situation"
+  },
+  {
+   "idx": "4.2",
+   "kind": "specific",
+   "content": "read widely and experience a variety of young adult fiction and literature from different provinces and countries"
+  },
+  {
+   "idx": "4.4",
+   "kind": "specific",
+   "content": "use cueing systems and a variety of strategies to construct meaning in reading and viewing increasingly complex print and media texts"
+  },
+  {
+   "idx": "4.5",
+   "kind": "specific",
+   "content": "articulate their own processes and strategies for reading and viewing texts of increasing complexity"
+  },
+  {
+   "idx": "5.1",
+   "kind": "specific",
+   "content": "access and select specific information to meet personal and learning needs"
+  },
+  {
+   "idx": "6.1",
+   "kind": "specific",
+   "content": "respond to some of the material they read or view by questioning, connecting, evaluating, and extending"
+  },
+  {
+   "idx": "6.2",
+   "kind": "specific",
+   "content": "express and support points of view about texts and about issues, themes, and situations within texts, citing appropriate evidence"
+  },
+  {
+   "idx": "7.1",
+   "kind": "specific",
+   "content": "critically evaluate information presented in print and media texts"
+  },
+  {
+   "idx": "7.2",
+   "kind": "specific",
+   "content": "demonstrate that print and media texts are constructed for particular purposes and particular audiences"
+  },
+  {
+   "idx": "7.3",
+   "kind": "specific",
+   "content": "respond critically to texts of increasing complexity"
+  },
+  {
+   "idx": "8.1",
+   "kind": "specific",
+   "content": "use a range of strategies in writing and other ways of representing to"
+  },
+  {
+   "idx": "8.2",
+   "kind": "specific",
+   "content": "use note-making to reconstruct knowledge and select effective strategies appropriate to the task"
+  },
+  {
+   "idx": "8.3",
+   "kind": "specific",
+   "content": "make informed choices of language to create a range of interesting effects in imaginative writing and other ways of representing"
+  },
+  {
+   "idx": "9.2",
+   "kind": "specific",
+   "content": "demonstrate an awareness of the effect of context on writing and other forms of representing"
+  },
+  {
+   "idx": "9.3",
+   "kind": "specific",
+   "content": "analyze and assess responses to their writing and media productions"
+  }
+ ],
+ "k/science": [
+  {
+   "idx": "Physical Science: Sand and water",
+   "kind": "bundle",
+   "content": "Learners will investigate sand and water through the senses."
+  },
+  {
+   "idx": "Life Science: Living Things",
+   "kind": "bundle",
+   "content": "Learners will compare living things through the senses."
+  },
+  {
+   "idx": "Physical Science: Materials and the world around us",
+   "kind": "bundle",
+   "content": "Learners will investigate materials through the senses."
+  },
+  {
+   "idx": "Physical Science: Movement",
+   "kind": "bundle",
+   "content": "Learners will test movement of objects."
+  }
+ ],
+ "1/science": [
+  {
+   "idx": "Earth and Space Science: Daily and Seasonal Changes",
+   "kind": "bundle",
+   "content": "Learners will analyse daily and seasonal change in the environment."
+  },
+  {
+   "idx": "Life Science: Needs of living things",
+   "kind": "bundle",
+   "content": "Learners will analyse interconnectiveness of living things and the environment."
+  },
+  {
+   "idx": "Physical Science: Materials, objects, and devices",
+   "kind": "bundle",
+   "content": "Learners will construct a device in response to a problem."
+  }
+ ],
+ "2/science": [
+  {
+   "idx": "Earth and Space Science: Air and water in the environment",
+   "kind": "bundle",
+   "content": "Learners will analyse the interconnectiveness of air and water in the environment, inclusive of a Mi’kmaw perspective."
+  },
+  {
+   "idx": "Life Science: Animal Growth and Changes",
+   "kind": "bundle",
+   "content": "Learners will analyse the relationship between animal growth and the environment."
+  },
+  {
+   "idx": "Physical Science: Liquids and solids",
+   "kind": "bundle",
+   "content": "Learners will investigate liquids, solids, and mixtures."
+  },
+  {
+   "idx": "Physical Science: Motion",
+   "kind": "bundle",
+   "content": "Learners will test motion of objects."
+  }
+ ],
+ "3/science": [
+  {
+   "idx": "Earth and Space Science: Soil",
+   "kind": "bundle",
+   "content": "Learners will analyse soil in the environment."
+  },
+  {
+   "idx": "Life Science: Plants",
+   "kind": "bundle",
+   "content": "Learners will investigate plants in the environment."
+  },
+  {
+   "idx": "Physical Science: Invisible Forces",
+   "kind": "bundle",
+   "content": "Learners will investigate invisible forces."
+  },
+  {
+   "idx": "Physical Science: Structures",
+   "kind": "bundle",
+   "content": "Learners will construct a structure in response to a design challenge."
+  }
+ ],
+ "4/science": [
+  {
+   "idx": "Life Science: Habitat",
+   "kind": "bundle",
+   "content": "Learners will investigate a variety of local natural habitats."
+  },
+  {
+   "idx": "Life Science: Habitat",
+   "kind": "bundle",
+   "content": "Learners will analyse interconnectiveness of and within local habitats, inclusive of a Mi’kmaw perspective."
+  },
+  {
+   "idx": "Physical Science: Light",
+   "kind": "bundle",
+   "content": "Learners will investigate properties of light."
+  },
+  {
+   "idx": "Physical Science: Light",
+   "kind": "bundle",
+   "content": "Learners will investigate how light is used."
+  },
+  {
+   "idx": "Physical Science: Sound",
+   "kind": "bundle",
+   "content": "Learners will investigate sound in the environment."
+  },
+  {
+   "idx": "Physical Science: Sound",
+   "kind": "bundle",
+   "content": "Learners will test how properties of sound change."
+  },
+  {
+   "idx": "Earth and Space Science: Rocks and Minerals",
+   "kind": "bundle",
+   "content": "Learners will analyse rocks, minerals, and fossils in the local environment."
+  },
+  {
+   "idx": "Earth and Space Science: Rocks and Minerals",
+   "kind": "bundle",
+   "content": "Learners will investigate how the Earth’s surface changes over time."
+  }
+ ],
+ "5/science": [
+  {
+   "idx": "Earth and Space Science: Weather",
+   "kind": "bundle",
+   "content": "Learners will investigate weather."
+  },
+  {
+   "idx": "Earth and Space Science: Weather",
+   "kind": "bundle",
+   "content": "Learners will investigate how weather impacts daily life."
+  },
+  {
+   "idx": "Physical Science: Forces and Simple Machines",
+   "kind": "bundle",
+   "content": "Learners will construct effective simple and compound machines."
+  },
+  {
+   "idx": "Life Science: Healthy Body",
+   "kind": "bundle",
+   "content": "Learners will analyse how the body functions to meet its needs."
+  },
+  {
+   "idx": "Physical Science: Chemical and Physical Properties",
+   "kind": "bundle",
+   "content": "Learners will test how physical and chemical changes affect the properties of matter."
+  }
+ ],
+ "6/science": [
+  {
+   "idx": "Physical Science: Electricity",
+   "kind": "bundle",
+   "content": "Learners will test the flow of electrical energy through various materials."
+  },
+  {
+   "idx": "Physical Science: Electricity",
+   "kind": "bundle",
+   "content": "Learners will evaluate renewable and non-renewable sources of energy."
+  },
+  {
+   "idx": "Physical Science: Flight",
+   "kind": "bundle",
+   "content": "Learners will evaluate factors that influence flight."
+  },
+  {
+   "idx": "Earth and Space Science: Space",
+   "kind": "bundle",
+   "content": "Learners will investigate components of space."
+  },
+  {
+   "idx": "Earth and Space Science: Space",
+   "kind": "bundle",
+   "content": "Learners will investigate innovations used in space exploration."
+  },
+  {
+   "idx": "Life Science: Diversity of Life",
+   "kind": "bundle",
+   "content": "Learners will analyse diversity of life in nature and significant relationships within the natural world."
+  }
+ ],
+ "k/social": [
+  {
+   "idx": "Investigate groups to which they belong",
+   "kind": "bundle",
+   "content": "Learners will investigate groups to which they belong."
+  },
+  {
+   "idx": "Investigate how cooperation is an important part of being a group member",
+   "kind": "bundle",
+   "content": "Learners will investigate how cooperation is an important part of being a group member."
+  },
+  {
+   "idx": "Investigate how local people have varied traditions, rituals, and celebrations",
+   "kind": "bundle",
+   "content": "Learners will investigate how local people, including Acadians, African Nova Scotians, Gaels, Mi’kmaq, and various cultural groups, have varied traditions, rituals, and celebrations."
+  }
+ ],
+ "1/social": [
+  {
+   "idx": "Investigate the diversity of cultural groups",
+   "kind": "bundle",
+   "content": "Learners will investigate the diversity of cultural groups."
+  },
+  {
+   "idx": "Implement age-appropriate actions for responsible behaviour in caring for the environment",
+   "kind": "bundle",
+   "content": "Learners will implement age-appropriate actions for responsible behaviour in caring for the environment."
+  },
+  {
+   "idx": "Investigate the locations of Mi’kmaq communities in Nova Scotia",
+   "kind": "bundle",
+   "content": "Learners will investigate the locations of Mi’kmaq communities in Nova Scotia."
+  },
+  {
+   "idx": "Analyse the difference between needs and wants",
+   "kind": "bundle",
+   "content": "Learners will analyse the difference between needs and wants."
+  }
+ ],
+ "2/social": [
+  {
+   "idx": "Investigate change in the community",
+   "kind": "bundle",
+   "content": "Learners will investigate change in the community."
+  },
+  {
+   "idx": "Investigate how individuals and diverse cultural groups have contributed to change",
+   "kind": "bundle",
+   "content": "Learners will investigate how individuals and diverse cultural groups, including Acadians, African Nova Scotians, Gaels, and Mi’kmaq, have contributed to change."
+  },
+  {
+   "idx": "Investigate how decisions are made as consumers",
+   "kind": "bundle",
+   "content": "Learners will investigate how decisions are made as consumers."
+  },
+  {
+   "idx": "Analyse ways for supporting sustainable development in local communities",
+   "kind": "bundle",
+   "content": "Learners will analyse ways for supporting sustainable development in local communities."
+  }
+ ],
+ "3/social": [
+  {
+   "idx": "Investigate the location of Nova Scotia in Atlantic Canada",
+   "kind": "bundle",
+   "content": "Learners will investigate the location of Nova Scotia in Atlantic Canada."
+  },
+  {
+   "idx": "Investigate various groups through their expressions of culture",
+   "kind": "bundle",
+   "content": "Learners will investigate various groups including Acadians, African Nova Scotians, Gaels, and Mi’ kmaq, through their expressions of culture."
+  },
+  {
+   "idx": "Implement strategies that promote positive interactions in the community",
+   "kind": "bundle",
+   "content": "Learners will implement strategies that promote positive interactions in the community."
+  },
+  {
+   "idx": "Investigate the rights and responsibilities of citizens in a democracy",
+   "kind": "bundle",
+   "content": "Learners will investigate the rights and responsibilities of citizens in a democracy."
+  }
+ ],
+ "4/social": [
+  {
+   "idx": "Investigate the concept of exploration",
+   "kind": "bundle",
+   "content": "Learners will investigate the concept of exploration."
+  },
+  {
+   "idx": "Investigate the stories of various explorers",
+   "kind": "bundle",
+   "content": "Learners will investigate the stories of various explorers, inclusive of Acadians, African Nova Scotians, Gaels, Mi’kmaq, and additional cultures."
+  },
+  {
+   "idx": "Evaluate the impacts of exploration",
+   "kind": "bundle",
+   "content": "Learners will evaluate the impacts of exploration."
+  },
+  {
+   "idx": "Investigate the relationships between humans and the physical environment",
+   "kind": "bundle",
+   "content": "Learners will investigate the relationships between humans and the physical environment."
+  },
+  {
+   "idx": "Investigate the physical landscape of Canada",
+   "kind": "bundle",
+   "content": "Learners will investigate the physical landscape of Canada."
+  },
+  {
+   "idx": "Investigate the political landscape of Canada",
+   "kind": "bundle",
+   "content": "Learners will investigate the political landscape of Canada."
+  }
+ ],
+ "5/social": [
+  {
+   "idx": "Investigate how we learn about the past",
+   "kind": "bundle",
+   "content": "Learners will investigate how we learn about the past, with a focus on Acadians, African Nova Scotians, Gaels, Mi’kmaq, and additional cultures."
+  },
+  {
+   "idx": "Investigate how environment influenced the development of an ancient society",
+   "kind": "bundle",
+   "content": "Learners will investigate how environment influenced the development of an ancient society."
+  },
+  {
+   "idx": "Investigate the diverse societies of First Nations and Inuit, in what later became Canada",
+   "kind": "bundle",
+   "content": "Learners will investigate the diverse societies of First Nations and Inuit, in what later became Canada."
+  },
+  {
+   "idx": "Investigate decision-making practices in First Nations and Inuit societies in what later became Atlantic Canada",
+   "kind": "bundle",
+   "content": "Learners will investigate decision-making practices in First Nations and Inuit societies in what later became Atlantic Canada."
+  },
+  {
+   "idx": "Analyse interactions between British and French and First Nations and Inuit in what later became Atlantic Canada",
+   "kind": "bundle",
+   "content": "Learners will analyse interactions between British and French and First Nations and Inuit in what later became Atlantic Canada."
+  }
+ ],
+ "6/social": [
+  {
+   "idx": "Investigate the role of culture in communities",
+   "kind": "bundle",
+   "content": "Learners will investigate the role of culture in communities, inclusive of Acadians, African Nova Scotians, Gaels, Mi’kmaq, and additional groups."
+  },
+  {
+   "idx": "Analyse the impact of cross-cultural understanding",
+   "kind": "bundle",
+   "content": "Learners will analyse the impact of cross-cultural understanding, inclusive of Acadians, African Nova Scotians, Gaels, Mi’kmaq, and additional cultures."
+  },
+  {
+   "idx": "Compare sustainability practices between Canada and a selected country",
+   "kind": "bundle",
+   "content": "Learners will compare sustainability practices between Canada and a selected country."
+  },
+  {
+   "idx": "Analyse how traditions and beliefs relate to culture in a region",
+   "kind": "bundle",
+   "content": "Learners will analyse how traditions and beliefs relate to culture in a region."
+  },
+  {
+   "idx": "Investigate selected examples of child rights issues around the world",
+   "kind": "bundle",
+   "content": "Learners will investigate selected examples of child rights issues around the world inclusive of Aboriginal human rights issues in Canada."
+  },
+  {
+   "idx": "Implement age appropriate actions that demonstrate responsibility as global citizens",
+   "kind": "bundle",
+   "content": "Learners will implement age appropriate actions that demonstrate responsibility as global citizens."
+  }
+ ],
+ "7/science": [
+  {
+   "idx": "Environmental Action",
+   "kind": "bundle",
+   "content": "Learners will analyse particle theory in relation to substances in environments."
+  },
+  {
+   "idx": "Environmental Action",
+   "kind": "bundle",
+   "content": "Learners will analyse the interconnectiveness of living things and the environment, in relation to the concept of Netukulimk."
+  },
+  {
+   "idx": "Environmental Action",
+   "kind": "bundle",
+   "content": "Learners will investigate factors that affect species adaptation and evolution."
+  },
+  {
+   "idx": "Environmental Action",
+   "kind": "bundle",
+   "content": "Learners will implement an environmental stewardship plan."
+  },
+  {
+   "idx": "Engineering Structures",
+   "kind": "bundle",
+   "content": "Learners will test the strength and efficiency of shapes and materials used in construction."
+  },
+  {
+   "idx": "Engineering Structures",
+   "kind": "bundle",
+   "content": "Learners will test various forces affecting structures."
+  },
+  {
+   "idx": "Engineering Structures",
+   "kind": "bundle",
+   "content": "Learners will construct a structure in response to a design challenge."
+  },
+  {
+   "idx": "Geological Evolution",
+   "kind": "bundle",
+   "content": "Learners will analyse how geographic features are formed and changed."
+  },
+  {
+   "idx": "Geological Evolution",
+   "kind": "bundle",
+   "content": "Learners will analyse factors that affect coastline change."
+  }
+ ],
+ "8/science": [
+  {
+   "idx": "Healthy Cells, Healthy Systems",
+   "kind": "bundle",
+   "content": "Learners will analyse how the characteristics of cells relate to the needs of organisms."
+  },
+  {
+   "idx": "Healthy Cells, Healthy Systems",
+   "kind": "bundle",
+   "content": "Learners will evaluate ways to maintain and factors that disrupt cell and system health."
+  },
+  {
+   "idx": "Climate Change",
+   "kind": "bundle",
+   "content": "Learners will create a model that demonstrates the principles of kinetic molecular theory."
+  },
+  {
+   "idx": "Climate Change",
+   "kind": "bundle",
+   "content": "Learners will evaluate oceanographic and other evidence of climate change inclusive of a Mi’kmaw perspective."
+  },
+  {
+   "idx": "Climate Change",
+   "kind": "bundle",
+   "content": "Learners will evaluate the impact of human activity on climate change."
+  },
+  {
+   "idx": "Climate Change",
+   "kind": "bundle",
+   "content": "Learners will formulate a plan to mitigate or adapt to the effects of climate change."
+  },
+  {
+   "idx": "Hydraulic and Pneumatic Systems",
+   "kind": "bundle",
+   "content": "Learners will test the effects of changes in temperature and pressure on the properties of fluids."
+  },
+  {
+   "idx": "Hydraulic and Pneumatic Systems",
+   "kind": "bundle",
+   "content": "Learners will compare mechanical advantage provided by hydraulic and pneumatic systems."
+  },
+  {
+   "idx": "Hydraulic and Pneumatic Systems",
+   "kind": "bundle",
+   "content": "Learners will construct a device that utilizes hydraulics or pneumatics."
+  }
+ ],
+ "7/social": [
+  {
+   "idx": "Reflect on the impact of government policies and the denial of treaty rights on Mi’kmaw communities and individuals in Mi’kma’ki",
+   "kind": "bundle",
+   "content": "Learners will reflect on the impact of government policies and the denial of treaty rights on Mi’kmaw communities and individuals in Mi’kma’ki."
+  },
+  {
+   "idx": "Reflect on historical opportunities and challenges in the Maritimes",
+   "kind": "bundle",
+   "content": "Learners will reflect on historical opportunities and challenges in the Maritimes, inclusive of the Mi’kmaq, Acadians, African Nova Scotians, and Gaels."
+  },
+  {
+   "idx": "Evaluate the impacts of political changes in the Maritimes up to the early 20th century",
+   "kind": "bundle",
+   "content": "Learners will evaluate the impacts of political changes in the Maritimes up to the early 20th century."
+  },
+  {
+   "idx": "Create a response to changing societal conditions in the Maritimes",
+   "kind": "bundle",
+   "content": "Learners will create a response to changing societal conditions in the Maritimes."
+  },
+  {
+   "idx": "Evaluate the impacts of World War I on the Maritimes",
+   "kind": "bundle",
+   "content": "Learners will evaluate the impacts of World War I on the Maritimes."
+  },
+  {
+   "idx": "Create responses to opportunities and challenges in present-day Maritime communities",
+   "kind": "bundle",
+   "content": "Learners will create responses to opportunities and challenges in present-day Maritime communities."
+  }
+ ],
+ "8/social": [
+  {
+   "idx": "Reflect on 20th and 21st century Indigenous experiences in Canada",
+   "kind": "bundle",
+   "content": "Learners will reflect on 20th and 21st century Indigenous experiences in Canada."
+  },
+  {
+   "idx": "Evaluate the impact of equity and inequity in a changing Canadian society",
+   "kind": "bundle",
+   "content": "Learners will evaluate the impact of equity and inequity in a changing Canadian society."
+  },
+  {
+   "idx": "Formulate responses to change in Canadian society",
+   "kind": "bundle",
+   "content": "Learners will formulate responses to change in Canadian society."
+  },
+  {
+   "idx": "Evaluate how various conflicts have impacted Canadian society",
+   "kind": "bundle",
+   "content": "Learners will evaluate how various conflicts have impacted Canadian society."
+  },
+  {
+   "idx": "Evaluate the impact of World War II on a changing Canadian society",
+   "kind": "bundle",
+   "content": "Learners will evaluate the impact of World War II on a changing Canadian society."
+  },
+  {
+   "idx": "Plan an advocacy action in response to an issue",
+   "kind": "bundle",
+   "content": "Learners will plan an advocacy action in response to an issue."
+  }
+ ],
+ "9/science": [
+  {
+   "idx": "Reproduction",
+   "kind": "unit",
+   "content": "Students examine the fundamental processes of reproduction, heredity, and the transmission of traits from one generation to the next. Implications of reproductive technologies are also explored."
+  },
+  {
+   "idx": "Atoms and Elements",
+   "kind": "unit",
+   "content": "Students use the Periodic Table to explore atoms and molecules, chemical symbols, and common elements and compounds."
+  },
+  {
+   "idx": "Characteristics of Electricity",
+   "kind": "unit",
+   "content": "Students explore electrostatics and electric circuits, power consumption, efficiency of appliances, and informed decisions about electricity and energy."
+  },
+  {
+   "idx": "Space Exploration",
+   "kind": "unit",
+   "content": "Students explain the origin, evolution, and components of the solar system and the universe, and examine what is needed to live in, develop in and explore space."
+  }
+ ],
+ "9/social": [
+  {
+   "idx": "Engaged Citizenship",
+   "kind": "outcome",
+   "content": "Learners will construct a collaboratively-designed service learning project which addresses a need in the school or larger community."
+  },
+  {
+   "idx": "Who Am I as a Citizen?",
+   "kind": "outcome",
+   "content": "Learners will evaluate evolving concepts and attributes of citizenship as members of different kinds of communities."
+  },
+  {
+   "idx": "Who Am I as a Citizen?",
+   "kind": "outcome",
+   "content": "Learners will evaluate key changes in the citizenship rights of Mi’kmaw and other traditionally disempowered people."
+  },
+  {
+   "idx": "Financial Citizenship",
+   "kind": "outcome",
+   "content": "Learners will compare the impact of economic decisions from the perspectives of various groups of people."
+  },
+  {
+   "idx": "Financial Citizenship",
+   "kind": "outcome",
+   "content": "Learners will analyse how effective decision-making and informed participation in society affect, and are affected by, personal financial management."
+  },
+  {
+   "idx": "Digital Citizenship",
+   "kind": "outcome",
+   "content": "Learners will evaluate how perceptions of current issues are influenced by various media, and how this shapes actions, choices, and reactions."
+  },
+  {
+   "idx": "Digital Citizenship",
+   "kind": "outcome",
+   "content": "Learners will evaluate risks, rights, and responsibilities of digital citizens."
+  },
+  {
+   "idx": "Governance",
+   "kind": "outcome",
+   "content": "Learners will analyse how issues become valued within and across all areas of government and society."
+  },
+  {
+   "idx": "Governance",
+   "kind": "outcome",
+   "content": "Learners will investigate the structure, operation, and selection of government in Canada, including federal, provincial, territorial, indigenous, and municipal government models."
+  },
+  {
+   "idx": "Governance",
+   "kind": "outcome",
+   "content": "Learners will evaluate strategies to meaningfully engage as citizens within a democratic process."
+  },
+  {
+   "idx": "Global Citizenship",
+   "kind": "outcome",
+   "content": "Learners will evaluate the consequences of action and inaction as twenty-first century global citizens."
+  }
+ ],
+ "4/core-french": [
+  {
+   "idx": "Oral communication",
+   "kind": "headline",
+   "content": "Learners will communicate orally in French in a variety of authentic situations."
+  },
+  {
+   "idx": "Reading",
+   "kind": "headline",
+   "content": "Learners will determine the meaning of a range of French texts representing a variety of cultures and diverse abilities, in authentic situations."
+  },
+  {
+   "idx": "Writing",
+   "kind": "headline",
+   "content": "Learners will create texts in French (including in electronic format) in a variety of authentic situations."
+  }
+ ],
+ "5/core-french": [
+  {
+   "idx": "Oral communication",
+   "kind": "headline",
+   "content": "Learners will communicate orally in French in a variety of authentic situations."
+  },
+  {
+   "idx": "Reading",
+   "kind": "headline",
+   "content": "Learners will determine the meaning of a range of French texts representing a variety of cultures and diverse abilities, in authentic situations."
+  },
+  {
+   "idx": "Writing",
+   "kind": "headline",
+   "content": "Learners will create texts in French (including in electronic format) in a variety of authentic situations."
+  }
+ ],
+ "6/core-french": [
+  {
+   "idx": "Oral communication",
+   "kind": "headline",
+   "content": "Learners will communicate orally in French in a variety of authentic situations."
+  },
+  {
+   "idx": "Reading",
+   "kind": "headline",
+   "content": "Learners will determine the meaning of a range of French texts representing a variety of cultures and diverse abilities, in authentic situations."
+  },
+  {
+   "idx": "Writing",
+   "kind": "headline",
+   "content": "Learners will create texts in French (including in electronic format) in a variety of authentic situations."
+  }
+ ],
+ "7/core-french": [
+  {
+   "idx": "Oral communication",
+   "kind": "headline",
+   "content": "Learners will communicate orally in French in a variety of authentic situations."
+  },
+  {
+   "idx": "Reading",
+   "kind": "headline",
+   "content": "Learners will determine the meaning of a range of French texts representing a variety of cultures and diverse abilities, in authentic situations."
+  },
+  {
+   "idx": "Writing",
+   "kind": "headline",
+   "content": "Learners will create texts in French (including in electronic format) in a variety of authentic situations."
+  }
+ ],
+ "8/core-french": [
+  {
+   "idx": "Oral communication",
+   "kind": "headline",
+   "content": "Learners will communicate orally in French in a variety of authentic situations."
+  },
+  {
+   "idx": "Reading",
+   "kind": "headline",
+   "content": "Learners will determine the meaning of a range of French texts representing a variety of cultures and diverse abilities, in authentic situations."
+  },
+  {
+   "idx": "Writing",
+   "kind": "headline",
+   "content": "Learners will create texts in French (including in electronic format) in a variety of authentic situations."
+  }
+ ],
+ "9/core-french": [
+  {
+   "idx": "Oral communication",
+   "kind": "headline",
+   "content": "Learners will communicate orally in French in a variety of authentic situations."
+  },
+  {
+   "idx": "Reading",
+   "kind": "headline",
+   "content": "Learners will determine the meaning of a range of French texts representing a variety of cultures and diverse abilities, in authentic situations."
+  },
+  {
+   "idx": "Writing",
+   "kind": "headline",
+   "content": "Learners will create texts in French (including in electronic format) in a variety of authentic situations."
+  }
+ ]
+}

@@ -30,6 +30,8 @@ const FRENCH_GRADES: Record<FrameworkId, { immersion: GradeId[]; "core-french": 
   "ca-yt": { immersion: range("k", "9"), "core-french": range("5", "9") },
   // The Northwest Territories adopts the BC curriculum (adapted), including its French programs.
   "ca-nt": { immersion: range("k", "9"), "core-french": range("5", "9") },
+  // Nova Scotia: Français arts langagiers (French Immersion) from Primary; Core French from Grade 4.
+  "ca-ns": { immersion: range("k", "9"), "core-french": range("4", "9") },
 };
 
 const units = (framework: FrameworkId, grade: GradeId, subject: string) =>

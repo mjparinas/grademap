@@ -1,0 +1,130 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 8 social studies, Canada from 1920 to the present: conflicts, the Second World War and taking action.
+// Sensitive events are stated factually. Indigenous content is light and needs partner review.
+
+const CONFLICTS: Q[] = [
+  ["Conscription means…", "the government requiring people to serve in the military", ["people choosing to volunteer", "soldiers getting a pay raise"], "A draft is another name for conscription. Volunteers sign up by choice."],
+  ["Conscription caused serious disagreement in Canada during…", "both World War I and World War II", ["only the Korean War", "neither world war"], "Many Canadians were deeply divided about it in both wars, especially between English and French Canada."],
+  ["What new paid work did many women take on while men were overseas in World War II?", "Factory work, such as making ships and aircraft", ["No paid work was available", "Only jobs on farms"], "Women filled many jobs that had mostly been done by men."],
+  ["The Great Depression of the 1930s was a time of…", "widespread unemployment and hardship", ["booming trade and new jobs", "few people noticing any change"], "Many families lost work and money all over Canada and the world."],
+  ["Which two things hurt many Prairie farm families in the 1930s?", "Drought and very low grain prices", ["Rich harvests and high prices", "A shortage of land"], "Dry years and falling prices meant many farm families could not earn enough."],
+  ["The Cold War was a long period of tension between…", "the United States, the Soviet Union and their allies", ["Canada and the United States", "France and Germany"], "It was called cold because the two sides mostly did not fight each other directly."],
+  ["In 1949 Canada joined NATO, an alliance of countries for…", "shared defence", ["sharing sports teams", "building highways"], "NATO members agree to help defend each other."],
+  ["Canada sent troops to the Korean War from…", "1950 to 1953", ["1914 to 1918", "1965 to 1971"], "Canadian forces fought in Korea in the early 1950s."],
+  ["In the Korean War, Canada's troops served under the command of which group?", "the United Nations", ["the British Empire", "the Soviet Union"], "The UN asked its members to help defend South Korea."],
+  ["Peacekeeping means…", "sending troops, often with the United Nations, to help keep peace between groups in conflict", ["fighting a war to win land", "sending only food"], "Peacekeepers are there to prevent fighting, not to take sides."],
+  ["Which is a way Canada supports veterans?", "Health care, education and housing help", ["Ending all help after the war", "Making them join up again"], "Veterans' benefits help people who served return to civilian life."],
+  ["On what date is Remembrance Day held each year?", "11 November", ["6 December", "1 July"], "People remember those who served and those who died in wars."],
+  ["Wartime service led many people to ask for fair treatment at home. This shows how conflict can change…", "who has a voice in society", ["the weather in Canada", "the length of a school year"], "People who served or worked for the war effort often asked to be heard and treated equally."],
+  ["After the Great Depression, many Canadians came to believe governments should…", "help with things like jobs and health care", ["stop all public programs", "leave all help to families"], "Hard times showed that families could not always manage alone.", true],
+  ["Lester B. Pearson won the Nobel Peace Prize in 1957 for…", "helping solve the Suez Crisis and proposing a UN peacekeeping force", ["winning the Korean War", "designing the Canadian flag"], "He was a Canadian diplomat, and later became prime minister.", true],
+  ["In October 1970 the FLQ kidnapped two men and the federal government used the War Measures Act. This is called the…", "October Crisis", ["Oka Crisis", "Halifax Explosion"], "It happened in Quebec and led to a debate about rights and security.", true],
+  ["In 1990 a land dispute at Oka, Quebec, involved the Mohawk community of Kanesatake. It drew attention to…", "Indigenous land rights", ["voting ages", "trade with Asia"], "The dispute raised questions about land, treaties and respect for Indigenous peoples.", true],
+  ["Which is the best way to judge how a conflict affected Canadian society?", "Compare laws, jobs, communities and voices before and after", ["Count only the battles that were won", "Read just one soldier's letter"], "Strong conclusions use many kinds of evidence.", true],
+  ["Why do historians read sources from soldiers, workers and families about a conflict?", "Different people lived the same events in different ways", ["Only one version can ever be true", "To find the longest source"], "Several perspectives give a fuller picture.", true],
+  ["Why do some people see peacekeeping as an important part of Canada's identity?", "It shows Canada helping to keep peace through the United Nations", ["Canada never takes part in any conflict", "It means Canada has no army"], "Canadians have served in many UN missions since the 1950s.", true],
+  ["At Vimy Ridge in April 1917, Canadian soldiers…", "captured a key ridge in France during World War I", ["landed at Juno Beach", "defended Halifax Harbour"], "Vimy Ridge is remembered as an important moment for Canada in World War I."],
+  ["The War Measures Act gave the federal government…", "special powers to act quickly, which limited some rights", ["power to cancel Confederation", "nothing new"], "Using it was debated because it limited people's freedoms."],
+  ["The United Nations was created after World War II to…", "help countries work together for peace", ["replace national governments", "sell stamps"], "The UN began in 1945."],
+  ["A cenotaph is a…", "monument honouring people who died in war", ["type of ship", "government office"], "Communities place wreaths at cenotaphs on Remembrance Day."],
+  ["During the Cold War, the arms race meant countries competed to build…", "more powerful weapons", ["more libraries", "more parks"], "Both sides feared the other's weapons."],
+  ["A propaganda poster in wartime tries to…", "persuade people to support the war effort", ["give weather information", "list store hours"], "Propaganda aims to shape what people think."],
+  ["Why do some Canadians disagree about sending troops abroad?", "People weigh safety, cost and values differently", ["Only one view is allowed", "Troops are never sent"], "Reasonable people can weigh the same facts differently.", true],
+  ["Veterans' stories often differ. Why is that useful to historians?", "It shows many experiences of the same conflict", ["It proves the stories are false", "It makes records unnecessary"], "Many voices give a fuller picture.", true],
+];
+
+const WW2: Q[] = [
+  ["Canada declared war on Germany in…", "September 1939", ["August 1914", "December 1941"], "Canada declared war a week after Britain did."],
+  ["Why was Halifax important in World War II?", "Huge convoys of ships carrying troops and supplies left from there", ["Germany surrendered there", "It was Canada's only airport"], "Halifax Harbour was a main gathering place for convoys."],
+  ["What is a convoy?", "A group of ships sailing together for protection", ["A single fishing boat", "A train of cargo cars"], "Sailing together made it easier to guard ships against submarines."],
+  ["The Battle of the Atlantic was a long fight to protect…", "ships carrying supplies and troops from German submarines", ["fishing boats from storms", "the coast from tsunamis"], "Canada's navy and merchant ships were key to keeping Britain supplied."],
+  ["What was D-Day?", "The Allied landings in Normandy, France, on 6 June 1944", ["The day Germany surrendered", "The day Canada declared war"], "It was the start of the Allied push to free western Europe."],
+  ["On D-Day, Canadian troops landed at which Normandy beach?", "Juno Beach", ["Omaha Beach", "Sword Beach"], "Omaha Beach was American and Sword Beach was British."],
+  ["Rationing during the war meant…", "limits on how much of goods like sugar, butter and gasoline each family could buy", ["everyone got free food", "stores sold only imported goods"], "Rationing helped make sure there was enough for soldiers and for everyone else."],
+  ["When Canadians bought Victory Bonds, they were…", "lending money to the government to help pay for the war", ["donating clothes to soldiers", "paying a tax on food"], "The government paid the money back later with interest."],
+  ["How did many women help the war effort besides serving in uniform?", "Working in factories making ships, planes and weapons", ["Writing the nation's laws", "Running the army"], "Women took jobs they had rarely been offered before."],
+  ["What is a victory garden?", "A garden planted to grow food during the war", ["A garden built to honour soldiers", "A garden full of flowers only"], "Growing vegetables at home meant more store food could go to the war effort."],
+  ["Children helped on the home front by…", "collecting scrap metal and growing vegetables", ["running convoy ships", "working in naval offices"], "Even young people had jobs to help."],
+  ["In which year did the Second World War end?", "1945", ["1943", "1947"], "Germany surrendered in May 1945, and Japan in the late summer of 1945."],
+  ["During the war, the government forced Japanese Canadians from the BC coast and took their property. Today this is seen as…", "an injustice, and the government apologized in 1988", ["a fair safety step that needed no apology", "a rule that applied to all Canadians equally"], "Japanese Canadians were treated unfairly because of their background, even though most were citizens.", true],
+  ["Before and during the war, Canada's immigration rules for Jewish refugees fleeing Europe were…", "very strict, and few were admitted", ["generous, admitting most who asked", "closed only to people from Asia"], "Many people were turned away when they needed safety. Canada later recognized this was wrong.", true],
+  ["Many Indigenous and Black Canadians served in World War II. What is true about their service?", "They served even though they faced unfair treatment at home", ["They were not allowed to serve at all", "They only served in the navy"], "They helped the war effort and then still worked for equal rights afterwards.", true],
+  ["Which program helped many veterans after World War II go to university or buy homes?", "Veterans' benefits", ["Wartime rationing", "Victory Bonds"], "Governments helped returning soldiers settle into civilian life.", true],
+  ["After the war, most newcomers arriving in Canada at first came from…", "Europe", ["South America", "Africa"], "Many people from war-torn Europe came looking for safety and work.", true],
+  ["Canada's Family Allowance program gave regular payments to…", "families with children", ["farmers only", "soldiers overseas"], "It was one of the new programs that began to build Canada's social safety net.", true],
+  ["Canada's navy escorted convoys across which ocean?", "the Atlantic Ocean", ["the Indian Ocean", "the Arctic Ocean"], "Convoys carried troops and supplies to Britain."],
+  ["The Holocaust was…", "the persecution and murder of millions of Jewish people and others by Nazi Germany", ["a famous naval battle", "a Canadian farm program"], "It is remembered so that it is never repeated."],
+  ["V-E Day in May 1945 marks…", "the end of the war in Europe", ["the start of D-Day", "the end of the war in Japan"], "Fighting in Europe ended in May 1945."],
+  ["Why did governments encourage people to save scrap metal?", "It could be recycled into war equipment", ["Metal was against the law", "It made food"], "Children and adults collected metal for the war effort."],
+  ["A blackout practice meant covering windows or turning off lights at night so…", "enemy ships or planes could not see where cities were", ["bills were cheaper", "stars were brighter"], "Coastal cities worried about attack from the sea."],
+  ["The Allies were the countries fighting against…", "Germany, Italy and Japan", ["Britain and France", "Canada and the United States"], "Canada was an Allied country."],
+  ["Why did Canada's industry grow in World War II?", "Factories made ships, planes, vehicles and supplies", ["Factories closed", "Canada stopped trading"], "War production created many jobs."],
+  ["In 1944, conscription for overseas service…", "again divided English and French Canada", ["united everyone", "ended the war"], "The question was hard for Canadians in both wars.", true],
+  ["The Canadian Citizenship Act of 1947 created…", "Canadian citizenship as its own status", ["a new flag", "a Canadian army"], "Canadians were once called British subjects.", true],
+  ["How did the war change ideas about women's work?", "Many had shown they could do skilled jobs", ["Women were banned from work", "Nobody's ideas changed"], "Wartime work changed what many people expected.", true],
+];
+
+const ADVOCACY: Q[] = [
+  ["Advocacy means…", "speaking or acting to support a cause or change", ["keeping quiet about a problem", "winning an argument at any cost"], "Advocates try to help others understand an issue and take action."],
+  ["What is a good first step in planning advocacy?", "Choose an issue you care about", ["Take action right away without a plan", "Write a thank-you note"], "Caring about an issue helps you stay motivated."],
+  ["After choosing an issue, what should you do next?", "Research its causes and facts", ["Wait for someone else to fix it", "Ask a friend to do it all"], "You need good information before you can ask for a change."],
+  ["Which is the clearest advocacy goal?", "Add recycling bins to every classroom by June", ["Fix every environmental problem forever", "Get people to notice the school"], "A clear goal says what you want, where and by when."],
+  ["Your advocacy audience should be…", "the people who can make or influence the change", ["only people who already agree with you", "only your closest friend"], "Decision makers can act on your request."],
+  ["To ask a city council to build a crosswalk, who is the best audience?", "The elected councillors", ["A store owner two provinces away", "A pen pal"], "Councillors make decisions about their community's streets."],
+  ["Which is an advocacy action?", "Writing a letter to an elected official", ["Throwing out the school's recycling", "Ignoring the problem"], "Letters, petitions and presentations are ways to be heard."],
+  ["A petition is…", "a list of signatures showing support for a request", ["a secret vote", "a type of law"], "Many names show leaders that people care."],
+  ["Selling baked goods to raise money for a food bank is an example of…", "fundraising for a cause", ["voting", "conscription"], "Raising money is one way to take action."],
+  ["In 1946, Viola Desmond refused to leave the main floor of a theatre in which Nova Scotia town?", "New Glasgow", ["Halifax", "Sydney"], "She lived in Halifax, but the theatre was in New Glasgow."],
+  ["Viola Desmond appears on which Canadian bill?", "The $10 bill", ["The $5 bill", "The $20 bill"], "She is the first Canadian woman shown alone on a regularly circulating bank note."],
+  ["Why is Viola Desmond's action remembered?", "She peacefully stood up against racial segregation", ["She won an acting prize", "She managed the theatre"], "Her courage helped bring attention to unfair treatment in Nova Scotia."],
+  ["Which is a respectful, peaceful way to advocate?", "Share facts and listen to other views", ["Insult people who disagree", "Spread rumours online"], "Respect makes it easier for people to listen."],
+  ["A strong advocacy message is…", "clear, respectful and backed by facts", ["long and confusing", "loud but vague"], "People can act when they understand exactly what you want."],
+  ["Which source is the most trustworthy for facts about a local issue?", "A report from a recognized expert or agency, with data", ["A post by an unknown account", "A rumour a friend heard"], "Check who made the source and how they know.", true],
+  ["A plan has a goal, an audience and a message, but no way to tell if it worked. What is missing?", "A review of the results", ["A longer title", "More posters"], "Reflecting shows what worked, what did not and what to try next.", true],
+  ["Which advocacy plan is weakest?", "A poster with no facts, no audience and no request", ["A letter with facts and a clear request", "A council presentation with data"], "A plan needs to say what, who and why.", true],
+  ["A claim uses only one story and no data. What should you do?", "Look for more evidence from other reliable sources", ["Accept it because it is a good story", "Reject every story ever told"], "Stories matter, but evidence from several sources makes a case stronger.", true],
+  ["After an advocacy action, reflecting means…", "thinking about what worked, what did not and what to try next", ["forgetting about it", "deciding the issue is solved"], "Reflection helps you improve the next step.", true],
+  ["Why should advocates listen to people who disagree?", "It helps them understand the issue and improve their plan", ["To prove everyone else wrong", "To avoid doing any research"], "Different views can show things you missed.", true],
+  ["A letter to an MLA should begin by…", "saying who you are and what the issue is", ["asking for a gift", "apologizing for writing"], "A clear opening helps the reader understand."],
+  ["Why might a group work with others on an advocacy campaign?", "It adds more voices and skills", ["It hides the goal", "It means nobody has to do anything"], "Many voices can be more persuasive."],
+  ["Which is a call to action?", "Please sign our petition by Friday.", ["The park is big.", "We met last week."], "A call to action asks people to do something."],
+  ["Who is the best person to ask about a provincial health service?", "your MLA", ["a store clerk", "a ferry pilot"], "MLAs speak for their area in the provincial legislature."],
+  ["Families and descendants of Africville worked for years to be heard. In 2010, the City of Halifax…", "apologized", ["renamed the city", "moved the capital"], "Long advocacy led to an apology."],
+  ["Peaceful protest is…", "a lawful, orderly way to show what you think", ["a way to harm property", "a kind of tax"], "Peaceful protest respects people and rules."],
+  ["Your campaign gets a no from a council. What is a constructive next step?", "Ask why, adjust the plan and try again", ["Give up forever", "Attack the councillors online"], "Learning from a no can strengthen the next try.", true],
+  ["80 of 100 students support a new bike rack. How could you use this?", "As evidence of support in a letter to decision makers", ["Hide it", "Say that all 100 agree"], "Accurate numbers make a case stronger.", true],
+];
+
+export const conflicts = bankUnit({
+  id: "ns-conflicts-8",
+  title: "Conflicts that Shaped Canada",
+  emoji: "🕊️",
+  blurb: "See how wars and crises changed Canada.",
+  parentNote:
+    "Practises how conflicts such as the world wars, the Cold War, Korea, peacekeeping and crises at home changed Canadian laws, communities and who has a voice. Ties to the Nova Scotia Grade 8 social studies outcome on the impact of conflicts. Sensitive events are stated factually.",
+  standards: ["Evaluate how various conflicts have impacted Canadian society", "Explain how conflicts changed Canada from 1920 to today"],
+  items: CONFLICTS,
+});
+
+export const worldWarTwo = bankUnit({
+  id: "ns-world-war-2-8",
+  title: "World War II & Canada",
+  emoji: "🎖️",
+  blurb: "Learn how the war changed Canada, from Halifax to the home front.",
+  parentNote:
+    "Practises Canada's role in World War II, Halifax and the Battle of the Atlantic, the home front, Japanese Canadian internment, and how Canada changed after the war. Ties to the Nova Scotia Grade 8 social studies outcome on the impact of World War II. Hard topics are stated factually.",
+  standards: ["Evaluate the impact of World War II on a changing Canadian society", "Explain Canada's role in the war and how Canada changed"],
+  items: WW2,
+});
+
+export const advocacy = bankUnit({
+  id: "ns-advocacy-8",
+  title: "Taking Action",
+  emoji: "📣",
+  blurb: "Plan how to speak up for a cause in a respectful way.",
+  parentNote:
+    "Practises the steps of an advocacy plan, choosing an audience and message, judging evidence and sources, and real examples such as Viola Desmond. Ties to the Nova Scotia Grade 8 social studies outcome on planning an advocacy action.",
+  standards: ["Plan an advocacy action in response to an issue", "Plan, carry out and reflect on a respectful action for a cause"],
+  items: ADVOCACY,
+});
