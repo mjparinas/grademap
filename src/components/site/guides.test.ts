@@ -44,6 +44,14 @@ describe("guide pages", () => {
     }
   });
 
+  it("describes comparisons for every province, not only British Columbia, Ontario and Alberta", () => {
+    const text = JSON.stringify(COMPETITORS);
+    expect(text).not.toContain("BC, Ontario and Alberta");
+    expect(text).not.toContain("BC, Ontario or Alberta");
+    expect(text).toContain("Saskatchewan");
+    expect(text).toContain("New Brunswick");
+  });
+
   it("gives every competitor sources and a fair take for both sides", () => {
     for (const c of COMPETITORS) {
       expect(c.sources.length).toBeGreaterThan(0);

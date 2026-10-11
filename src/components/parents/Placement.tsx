@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { getUnitRef, parseUnitKey } from "@/content";
-import { DEFAULT_FRAMEWORK } from "@/content/frameworks";
+import { DEFAULT_FRAMEWORK, getFramework } from "@/content/frameworks";
 import { GRADE_LABEL, getSubjectMeta } from "@/content/subjects";
 import type { GradeId, SubjectId } from "@/content/types";
 import { compareToGrade, latestPlacements, PLACEMENT_SUBJECTS, placementSentence, STAGE_SIZE, type PlacementEvent } from "@/lib/placement";
@@ -118,7 +118,7 @@ export function PlacementPage({ childId }: { childId?: string }) {
         ))}
         <Panel>
           <p className="font-read text-sm text-ink-soft">
-            This is a short snapshot built from the same BC curriculum questions used in practice. It is not a report-card mark, and it does not change {child.name}&apos;s stars, XP or levels. Only a teacher decides proficiency. One tricky afternoon can lower a result, so feel free to retake it.
+            This is a short snapshot built from the same {getFramework(child.framework).curriculumName} questions used in practice. It is not a report-card mark, and it does not change {child.name}&apos;s stars, XP or levels. Only a teacher decides proficiency. One tricky afternoon can lower a result, so feel free to retake it.
           </p>
         </Panel>
       </div>

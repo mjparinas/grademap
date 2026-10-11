@@ -14,6 +14,7 @@ import type { Profile } from "@/lib/model";
 import { Critter, CritterSvg, CRITTERS, SpeechBubble } from "../Critter";
 import { signInStudent } from "@/lib/account";
 import { Page } from "../ui";
+import { ProvinceMenu } from "./ProvinceMenu";
 
 export const AVATAR_COLOURS = ["#ff9636", "#4f8ef7", "#25b47e", "#e9559a", "#8b5cf6", "#06b6d4", "#f5b301", "#ef4444"];
 
@@ -165,22 +166,7 @@ export function NewChild({ onDone, onCancel, first = false }: { onDone: (id: str
         <p className="mt-2 font-read text-sm text-ink-soft">
           {grade ? `${GRADE_LABEL[grade]} · ${framework.curriculumName}` : "K means Kindergarten."}
         </p>
-        {FRAMEWORKS.length > 1 && (
-          <label className="mt-3 flex flex-col items-center gap-1">
-            <span className="text-lg font-semibold">Where do you live?</span>
-            <select
-              value={frameworkId}
-              onChange={(e) => setFrameworkId(e.target.value as FrameworkId)}
-              className="min-h-12 rounded-2xl border-4 border-line bg-white px-4 text-xl font-bold"
-            >
-              {FRAMEWORKS.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {f.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
+        {FRAMEWORKS.length > 1 && <ProvinceMenu value={frameworkId} onChange={setFrameworkId} />}
       </div>
 
       <div>

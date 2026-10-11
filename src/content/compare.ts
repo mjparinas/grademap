@@ -1,3 +1,5 @@
+import { FRAMEWORKS } from "@/content/frameworks";
+import { listRegions } from "@/content/regions";
 import { APP_NAME } from "@/lib/brand";
 // Competitor comparison pages for the app. Facts about other products come from their public pages
 // and app store listings (see docs/research/competitors.md) and are dated, because
@@ -30,7 +32,7 @@ export const COMPETITORS: Competitor[] = [
     who: "Families who want a very large bank of skills to practise, and who are comfortable with a score that rises with correct streaks.",
     goodAt: [
       "A very large library of skills across many grades.",
-      "Standards pages that list its skills by province, including British Columbia.",
+      "Standards pages that list its skills by province.",
       "Detailed analytics for parents and teachers.",
     ],
     differences: [
@@ -42,12 +44,12 @@ export const COMPETITORS: Competitor[] = [
       {
         topic: "How progress is shown",
         them: "SmartScore rises as kids answer correctly in a row and falls on mistakes. Common Sense Media notes that some children find this stressful.",
-        us: "Wrong answers get a hint and another try. Only first-try answers count towards accuracy, and stars never go down. Progress is reported in your province's report-card levels (BC: Emerging, Developing, Proficient and Extending; Ontario: Levels 1 to 4; Alberta: four practice steps, since the province has no single scale).",
+        us: "Wrong answers get a hint and another try. Only first-try answers count towards accuracy, and stars never go down. Progress is reported in your province's own report-card levels.",
       },
       {
         topic: "Report card language",
         them: "Reports are organized around skills and scores.",
-        us: "Reports use the words on your province's report card (BC, Ontario or Alberta), with a plain-language “at home” note for each level.",
+        us: "Reports use the words on your province's report card, with a plain-language “at home” note for each level.",
       },
       {
         topic: "Games and offline use",
@@ -57,7 +59,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["You want the widest range of skills and grades in one place.", "Your child likes working towards a score."],
     chooseUs: [
-      "You want practice that follows the BC, Ontario or Alberta curriculum and speaks the language of your child's report card.",
+      "You want practice that follows your province's curriculum and speaks the language of your child's report card.",
       "You'd like a gentler feel, with hints, retries and no scores that go down.",
       "You have more than one child and want one price.",
     ],
@@ -68,12 +70,12 @@ export const COMPETITORS: Competitor[] = [
     ],
     faqs: [
       {
-        q: `Is ${APP_NAME} a good alternative to IXL for BC, Ontario and Alberta families?`,
-        a: `It can be, depending on what you want. IXL has a much larger skill library. ${APP_NAME} is smaller and built around the BC, Ontario and Alberta curricula, their report-card levels, a gentler hint-and-retry style and one family price.`,
+        q: `Is ${APP_NAME} a good alternative to IXL for Canadian families?`,
+        a: `It can be, depending on what you want. IXL has a much larger skill library. ${APP_NAME} is smaller and built around provincial curricula and report-card levels for ${listRegions(FRAMEWORKS)}, with a gentler hint-and-retry style and one family price.`,
       },
       {
         q: `Does ${APP_NAME} have a SmartScore?`,
-        a: `No. ${APP_NAME} shows each unit on your province's report-card scale (BC: Emerging, Developing, Proficient, Extending; Ontario: Levels 1 to 4; Alberta: four practice steps) based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.`,
+        a: `No. ${APP_NAME} shows each unit on your province's report-card scale, based on recent first-try accuracy. It says clearly that this reflects practice, not a report card mark.`,
       },
     ],
   },
@@ -95,13 +97,13 @@ export const COMPETITORS: Competitor[] = [
       },
       {
         topic: "Curriculum",
-        them: "Course order follows US standards. A 2015 mapping linked some Grade 4 to 6 content to Ontario and BC, but it hasn't been updated for the current BC curriculum, as far as we could find.",
-        us: "Every unit is matched to a BC Curriculum learning standard, an Ontario Curriculum expectation or an Alberta learning outcome, with the Big Ideas or strands listed for parents.",
+        them: "Course order follows US standards. A 2015 mapping linked some Grade 4 to 6 content to Ontario and British Columbia, and it hasn't been updated for current provincial curricula, as far as we could find.",
+        us: "Every unit is matched to a learning standard in your child's province, and that standard is listed for parents.",
       },
       {
         topic: "Parent guidance",
         them: "Learning is largely self-directed, with limited guidance for parents.",
-        us: "Reports for parents in your province's report-card levels, strengths and next steps, and a guide to the BC, Ontario and Alberta report cards.",
+        us: "Reports for parents in your province's report-card levels, with strengths, next steps and a guide to that province's report card.",
       },
       {
         topic: "Games",
@@ -111,7 +113,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["Budget is the main concern.", "Your child likes watching video lessons and working independently."],
     chooseUs: [
-      "You want practice that lines up with what your child's BC, Ontario or Alberta teacher is covering.",
+      "You want practice that lines up with what your child's teacher is covering.",
       "You want to see progress in the language of your child's report card.",
       "You want a kids' app with learning games and parent controls.",
     ],
@@ -121,8 +123,8 @@ export const COMPETITORS: Competitor[] = [
     ],
     faqs: [
       {
-        q: "Is Khan Academy aligned to the BC curriculum?",
-        a: "Khan Academy's courses follow US standards. We found a 2015 mapping to Ontario and BC for some Grade 4 to 6 content, but nothing current for BC. Check with your child's teacher if you want to be sure a topic is taught in their grade.",
+        q: "Is Khan Academy aligned to Canadian curricula?",
+        a: "Khan Academy's courses follow US standards. We found a 2015 mapping to Ontario and British Columbia for some Grade 4 to 6 content, and nothing current for the provinces we cover. Check with your child's teacher if you want to be sure a topic is taught in their grade.",
       },
       {
         q: `Can I use Khan Academy and ${APP_NAME} together?`,
@@ -153,8 +155,8 @@ export const COMPETITORS: Competitor[] = [
       },
       {
         topic: "Curriculum",
-        them: "Canadian content follows the Ontario curriculum, with no BC alignment found.",
-        us: "Matched to the BC, Ontario and Alberta curricula.",
+        them: "Canadian content follows the Ontario curriculum. We didn't find a match to the British Columbia curriculum.",
+        us: `Matched to the curriculum in ${listRegions(FRAMEWORKS)}.`,
       },
       {
         topic: "Subjects",
@@ -164,7 +166,7 @@ export const COMPETITORS: Competitor[] = [
     ],
     chooseThem: ["Your child will only practise inside a big, story-driven game.", "You want a free math option to try."],
     chooseUs: [
-      "You want BC-, Ontario- or Alberta-matched practice in four subjects.",
+      "You want practice matched to your province's curriculum, in math, language arts, science and social studies.",
       "You don't want your child to see ads or purchase offers.",
       "You want clear reports in your province's report-card language.",
     ],
