@@ -1,0 +1,203 @@
+import { bankUnit, type Q } from "../own";
+
+// Grade 9 social studies, New Brunswick: governance, rights, identities and migration, treaties, and places and people.
+// Wabanaki and treaty content is light, in the present tense, and needs review by Wabanaki partners before launch.
+
+const GOVERNANCE: Q[] = [
+  ["Canada’s system of government is a…", "parliamentary democracy and constitutional monarchy", ["dictatorship", "republic with a president", "tribal council only"], "Citizens elect representatives, and the King is Canada’s head of state."],
+  ["Who is Canada’s head of government?", "the Prime Minister", ["the Governor General", "the Chief Justice", "the Speaker"], "The Prime Minister usually leads the party with the most seats."],
+  ["Who represents the King in Canada?", "the Governor General", ["the Prime Minister", "the Premier", "the Speaker"], "In a province, the Lieutenant Governor does the same."],
+  ["Which house of Parliament has elected members?", "the House of Commons", ["the Senate", "the Supreme Court", "the Cabinet room"], "Senators are appointed."],
+  ["How are Members of Parliament (MPs) chosen?", "by voters in federal elections", ["by the Senate", "by the Governor General", "by drawing names"], "Each MP represents a riding."],
+  ["What is a riding?", "an area whose voters elect one representative", ["a horse path", "a kind of vehicle", "a legal case"], "Also called an electoral district."],
+  ["Where does New Brunswick’s Legislative Assembly meet?", "in Fredericton", ["in Ottawa", "in Moncton", "in Saint John"], "Members of the Legislative Assembly (MLAs) are elected by voters in the province."],
+  ["Who leads the government of New Brunswick?", "the Premier", ["the Prime Minister", "the Governor General", "the Mayor"], "The Premier is usually the leader of the party with the most seats."],
+  ["What do mayors and councillors do?", "make decisions for a city, town or village", ["write federal laws", "run the Senate", "lead the Supreme Court"], "They manage things like local roads, water and parks."],
+  ["Which level of government is mainly responsible for national defence?", "federal", ["provincial", "municipal", "school district"], "The federal government looks after defence, currency and the post office."],
+  ["Which level of government is mainly responsible for education and health care?", "provincial", ["federal", "municipal", "none"], "Provinces run schools and hospitals."],
+  ["Which level of government mainly takes care of local libraries, parks and garbage pickup?", "municipal", ["federal", "provincial", "Senate"], "Councils and mayors make these decisions."],
+  ["What is the job of the Opposition?", "to question and challenge the government’s decisions", ["to run the government", "to write the constitution", "to count the votes"], "The Opposition holds the government to account."],
+  ["What is a bill?", "a proposed law", ["a type of tax", "a bird", "a bus pass"], "A bill becomes law after several steps."],
+  ["What happens at a bill’s “first reading”?", "the bill is introduced", ["the bill is passed", "the bill is signed by the King", "the bill is cancelled"], "It is debated in later readings.", true],
+  ["Which final step makes a bill into law?", "Royal Assent", ["first reading", "committee study", "a vote in schools"], "The Governor General gives Royal Assent in the King’s name.", true],
+  ["What is a majority government?", "a government whose party has more than half the seats", ["a government with no opposition", "a government with only one MP", "a government with no leader"], "A majority government can pass most bills."],
+  ["What is a minority government?", "the governing party has the most seats but not more than half", ["the government has all seats", "the government has no seats", "the government is chosen by the Senate"], "It needs support from other parties.", true],
+  ["How old must a person be to vote in federal elections in Canada?", "18", ["14", "16", "21"], "Citizens aged 18 and older can vote."],
+  ["What is the Cabinet?", "the Prime Minister’s team of ministers who lead government departments", ["a group of judges", "a group of senators", "the House of Commons staff"], "Ministers are usually chosen from elected members."],
+  ["The highest court in Canada is…", "the Supreme Court of Canada", ["the Senate", "the Legislative Assembly", "the Cabinet"], "It has nine judges."],
+  ["What is the main job of courts?", "to decide cases and interpret the law", ["to make laws", "to count votes", "to collect garbage"], "Judges are independent."],
+  ["Why do citizens vote?", "to choose who will make decisions for them", ["because it is a holiday", "to avoid taxes", "to get a free lunch"], "Voting is a way to have a say."],
+  ["Which of these is a way citizens can take part in government between elections?", "contact their MLA or MP", ["do nothing", "wait for a letter", "leave town"], "Citizens can write, call, sign petitions and attend meetings."],
+  ["How are Senators chosen?", "appointed by the Governor General on the advice of the Prime Minister", ["elected by voters", "chosen by teachers", "drawn by lottery"], "The Senate reviews bills from the House of Commons.", true],
+  ["Wabanaki Nations have governed themselves for thousands of years. Today, many communities have…", "a chief and council as well as Elders who guide decisions", ["no leaders", "only a king", "only a mayor"], "Governance includes both traditional and modern ways."],
+  ["What does separation of powers mean?", "different branches, such as the legislature and the courts, have different jobs", ["only one person makes all decisions", "courts write laws", "voters judge cases"], "It helps keep power balanced.", true],
+];
+
+const RIGHTS_ROLES: Q[] = [
+  ["Which document protects the rights and freedoms of people in Canada?", "the Canadian Charter of Rights and Freedoms", ["the Magna Carta", "the Treaty of Paris", "the Indian Act"], "It was added to the Constitution in 1982."],
+  ["In which year was the Charter added to Canada’s Constitution?", "1982", ["1867", "1920", "2005"], "It is part of the Constitution Act, 1982."],
+  ["Which of these is a fundamental freedom in the Charter?", "freedom of expression", ["freedom from homework", "freedom from taxes", "freedom to ignore all laws"], "It also includes freedom of religion, peaceful assembly and association."],
+  ["Which Charter right lets citizens vote and run for office?", "democratic rights", ["mobility rights", "language rights", "legal rights"], "Voting is a democratic right of Canadian citizens."],
+  ["Which Charter right allows citizens to live and work anywhere in Canada?", "mobility rights", ["language rights", "equality rights", "legal rights"], "A New Brunswicker can move to any province."],
+  ["Which Charter rights protect people who are arrested?", "legal rights", ["mobility rights", "language rights", "democratic rights"], "These include the right to a lawyer."],
+  ["What do equality rights protect?", "that every person is treated equally under the law", ["that everyone has the same salary", "that everyone owns land", "that everyone lives in the same place"], "No one should be treated unfairly because of race, religion, sex, age or disability."],
+  ["Which two languages are official at the federal level in Canada?", "English and French", ["English and Mi’kmaw", "French and Spanish", "English and German"], "Federal services are provided in both languages."],
+  ["New Brunswick’s unique place in Canada is that it is…", "the only officially bilingual province", ["the only province with a coast", "the only province with a river", "the only province with a city"], "The Charter confirms equality of English and French in New Brunswick."],
+  ["Which of these is a responsibility of a citizen?", "obeying laws", ["avoiding school", "ignoring neighbours", "skipping every election"], "Rights come with responsibilities."],
+  ["Which of these is also a citizen’s responsibility?", "respecting the rights of others", ["ignoring other people’s rights", "taking what you want", "telling everyone to leave"], "Everyone’s rights matter."],
+  ["Serving on a jury when asked is…", "a responsibility of citizens", ["a right to refuse", "a game", "a business"], "Juries help decide court cases."],
+  ["What does the Human Rights Act help prevent?", "discrimination in jobs, housing and services", ["bad weather", "high tides", "long lines"], "Each province has a human rights law and commission."],
+  ["What is discrimination?", "treating people unfairly because of who they are", ["treating everyone fairly", "helping someone", "sharing a snack"], "It can be based on race, religion, sex or disability."],
+  ["Which group has historically had a different legal status in Canada because of treaties and the Indian Act?", "First Nations", ["tourists", "farmers", "sailors"], "Treaties and the Indian Act created unique relationships.", true],
+  ["What is a minority language community?", "a group speaking a language that is spoken by fewer people in a region", ["a group with fewer laws", "a group in a smaller city", "a group that speaks nothing"], "Francophone communities outside Quebec and anglophone communities in Quebec are examples.", true],
+  ["Why is minority-language education protected in the Charter?", "so children can learn in their own official language", ["so schools can be closed", "so teachers can be fewer", "so books are shorter"], "Francophone schools in New Brunswick are an example.", true],
+  ["Which statement shows both a right and a responsibility?", "I can speak my mind, and I must do it respectfully", ["I can say anything to hurt others", "I can ignore all rules", "I can break any promise"], "Responsible citizens respect rights."],
+  ["The right to vote is…", "not available to everyone under 18", ["only for wealthy people", "only for men", "only for one language group"], "Canadian citizens 18 and older may vote."],
+  ["Which of these is a persistent issue involving rights in Canada?", "making sure everyone is treated fairly regardless of who they are", ["choosing a favourite colour", "planning a field trip", "how to bake a cake"], "Discrimination, poverty and unequal services remain concerns."],
+  ["What is multiculturalism?", "the idea that people of many cultures are part of Canada and keep their cultures", ["the idea that only one culture exists", "the idea that all cultures must disappear", "a law that bans festivals"], "Canada adopted a multiculturalism policy in 1971.", true],
+  ["Which word means the position or standing of a person or group in society?", "status", ["recess", "terrain", "climate"], "Status can affect rights and opportunities."],
+  ["What is a “role” in a community?", "the part a person plays, such as parent, teacher or voter", ["a loaf of bread", "a kind of map", "a mountain"], "Citizens have many roles."],
+  ["What does being an informed citizen involve?", "learning about issues from reliable sources", ["only reading rumours", "ignoring the news", "copying friends"], "Check sources before sharing."],
+  ["What is volunteering?", "giving your time to help without being paid", ["working for money", "playing a game", "taking a holiday"], "Volunteers strengthen communities."],
+  ["What does it mean to advocate for someone?", "to speak up in support of their rights or needs", ["to tell them what to do", "to ignore them", "to argue for fun"], "Advocacy is a form of civic engagement."],
+];
+
+const IDENTITY: Q[] = [
+  ["Who are the First Peoples of Canada?", "First Nations, Inuit and Métis", ["only Europeans", "only the Dutch", "only the French"], "The Constitution recognizes these three groups."],
+  ["Canada’s founding peoples are often described as…", "Indigenous Peoples, the French and the British, with many others who came later", ["only Americans", "only the Dutch", "only one Nation"], "Many people say more voices must be included."],
+  ["What is an identity?", "who you are and how you describe yourself", ["a type of coin", "a place name", "a weather report"], "It comes from family, culture, beliefs and community."],
+  ["Which of these can shape a person’s identity in Canada?", "language, culture, religion and community", ["only the colour of a shirt", "only a postal code", "only a phone number"], "Many things shape identity."],
+  ["What does immigration mean?", "moving to a new country to live", ["visiting for a week", "moving within a province", "travelling by plane"], "Immigrants become part of Canada’s story."],
+  ["What does emigration mean?", "leaving your country to live somewhere else", ["arriving at a country", "visiting a city", "moving across a street"], "A person emigrates from one country and immigrates to another."],
+  ["What is a refugee?", "a person forced to flee their country to stay safe", ["a person visiting for fun", "a person looking for a job only", "a tourist"], "Refugees are protected by international law."],
+  ["What is migration?", "movement of people from one place to another", ["a kind of animal", "a weather event", "a type of farm"], "Migration can be within a country or between countries."],
+  ["What is a push factor in migration?", "a reason that makes people leave a place, such as war or famine", ["a reason that attracts people to a place", "a type of vehicle", "a school subject"], "Push factors make staying hard."],
+  ["What is a pull factor in migration?", "a reason that attracts people to a place, such as jobs or safety", ["a reason people want to leave", "a kind of train", "a type of food"], "Pull factors make a new place appealing."],
+  ["In 1847, thousands of Irish people fleeing famine arrived at a quarantine station on which island near Saint John?", "Partridge Island", ["Grand Manan", "Campobello", "Prince Edward Island"], "Many were sick and many died. Their story is remembered today.", true],
+  ["Chinese workers were important in building…", "the Canadian Pacific Railway", ["the Confederation Bridge", "the Hartland Covered Bridge", "the Rideau Canal"], "They faced unfair treatment, including the head tax."],
+  ["What happened to Japanese Canadians in 1942?", "many were forced from their homes on the Pacific coast and sent to internment camps", ["they were given awards", "they were asked to lead the army", "nothing happened"], "It is remembered as an injustice.", true],
+  ["In 1914, the ship Komagata Maru was turned away from Vancouver because…", "of discriminatory immigration rules against people from India", ["it was too big", "it was too slow", "it carried too much fish"], "The passengers were prevented from landing.", true],
+  ["Canada’s multiculturalism policy began in…", "1971", ["1871", "1771", "1921"], "It recognizes the value of all cultures in Canada.", true],
+  ["Which policy lets groups or families in Canada help bring refugees to safety?", "private sponsorship", ["a school lottery", "a citizen draft", "an airport tax"], "Private sponsorship began with refugees from Vietnam in 1979 and 1980.", true],
+  ["Why do many newcomers choose to settle in Atlantic Canada today?", "for jobs, communities and a good quality of life", ["to avoid the ocean", "because it is warm all year", "to see snow only"], "New Brunswick welcomes newcomers from around the world."],
+  ["What is a stereotype?", "an unfair, oversimplified idea about a whole group", ["a fact about one person", "a kind of music", "a map"], "Stereotypes can harm people."],
+  ["Why is it important to look at more than one perspective about identity?", "People experience being Canadian in different ways", ["Everyone has the same view", "Only one story is right", "Differences don’t matter"], "Hearing many voices gives a fuller picture."],
+  ["Acadian identity is shaped by…", "French language, history and culture in the Atlantic region", ["only British traditions", "only a single festival", "only food"], "Acadians have a strong, living culture."],
+  ["Black Canadians have lived in the Atlantic region since…", "the 1600s", ["the 2000s", "the 1990s", "the 1950s"], "Black Loyalists and refugees came in the 1700s and 1800s."],
+  ["Which statement about immigration to Canada is true?", "Immigration has shaped Canada throughout its history", ["Canada has never had immigrants", "Immigration ended in 1900", "Only one country’s people ever came"], "People from many countries have settled here."],
+  ["Why do countries have rules about immigration?", "to manage who may enter and to protect safety and fairness", ["to stop all travel", "to end trade", "to decorate borders"], "Rules have changed over time, and some were unfair."],
+  ["What is a citizen?", "a legal member of a country with rights and responsibilities", ["a visitor", "a tourist", "a stranger"], "People can become citizens through birth or the citizenship process."],
+  ["Which of these shows respect for people’s identities?", "using the name and pronouns they ask us to use", ["making fun of names", "ignoring their words", "calling them something else"], "Respect starts with listening."],
+  ["How can sharing food, music and stories help a community?", "It helps people understand and appreciate each other", ["It makes people leave", "It stops conversations", "It creates confusion"], "Sharing culture builds understanding."],
+];
+
+const TREATIES: Q[] = [
+  ["What is a treaty?", "a formal agreement between nations", ["a type of map", "a kind of weather", "a school rule"], "Treaties between the Crown and First Nations are still important today."],
+  ["The Peace and Friendship treaties were made between Wabanaki Nations and…", "the British Crown", ["the Roman Empire", "the Government of Quebec", "a hockey team"], "They were signed in the 1700s."],
+  ["Did the Peace and Friendship treaties give away Wabanaki land?", "No, they did not", ["Yes, all of it", "Yes, half of it", "Only the coast"], "They were about peace, trade and friendship."],
+  ["Which year did King George III issue the Royal Proclamation, recognizing Indigenous rights to land?", "1763", ["1563", "1863", "1963"], "It said that land could only be given up through the Crown.", true],
+  ["How many Numbered Treaties were signed between 1871 and 1921?", "eleven", ["two", "five", "thirty"], "They cover much of the Prairies, northern Ontario and parts of the North.", true],
+  ["Why are treaties still important today?", "They are agreements that still need to be honoured", ["They have no meaning", "They ended in the 1800s", "They are only stories"], "Treaties are protected in the Constitution."],
+  ["What is a land claim?", "a legal request to recognize rights to land", ["a map symbol", "a kind of fence", "a school project"], "Some claims are settled by treaties."],
+  ["What is Aboriginal title?", "the recognition that Indigenous Peoples hold rights to their lands", ["a title for a book", "a title for a movie", "a type of tax"], "Courts have recognized it in some cases.", true],
+  ["What does “the duty to consult” mean?", "governments must consult with Indigenous communities when decisions may affect their rights", ["governments must talk about sports", "citizens must pay a fee", "no one needs to consult"], "It is part of Canadian law.", true],
+  ["The Marshall decision (1999) was about…", "Mi’kmaw treaty rights to fish and trade for a moderate livelihood", ["a hockey game", "a new highway", "a school curriculum"], "Donald Marshall Jr. took the case to the Supreme Court of Canada.", true],
+  ["Which Nations in New Brunswick are part of the Wabanaki Confederacy?", "Wolastoqiyik, Mi’kmaq and Peskotomuhkatiyik", ["Cree, Dene and Inuit", "Haida, Squamish and Nisga’a", "Mohawk, Oneida and Cayuga"], "Their homelands include land and waters across the province."],
+  ["The Indian Act is…", "a federal law that affects many parts of First Nations people’s lives", ["a trade agreement", "a school lunch plan", "a fishing licence"], "It has been criticized for controlling and limiting First Nations."],
+  ["What was the “Sixties Scoop”?", "when many Indigenous children were taken from their families and placed with non-Indigenous families", ["a baking contest", "a snow storm", "a sports event"], "It caused great harm.", true],
+  ["What was the goal of residential schools?", "to separate Indigenous children from their cultures", ["to give children a holiday", "to teach sports only", "to build bridges"], "They caused deep harm that continues today."],
+  ["What did the Truth and Reconciliation Commission release in 2015?", "94 Calls to Action", ["a new currency", "a flag", "a hockey schedule"], "They call on governments and others to act on reconciliation."],
+  ["The UN Declaration on the Rights of Indigenous Peoples (UNDRIP) is…", "a statement of rights Indigenous Peoples hold around the world", ["a trade agreement", "a sports league", "a school curriculum"], "Canada has passed a law to align its laws with UNDRIP.", true],
+  ["What is a modern treaty?", "a recent agreement between a government and an Indigenous Nation about land and self-government", ["a treaty made on the internet", "a treaty about weather", "a very old agreement"], "The Nisga’a Treaty (2000) is an example.", true],
+  ["Nunavut was created in 1999 through…", "a land claim agreement with the Inuit", ["a hockey vote", "a trade deal", "a school project"], "It gave the Inuit a territory of their own.", true],
+  ["Why do some treaty issues remain unresolved?", "Governments and Nations sometimes disagree about what treaties mean", ["Treaties were never written", "Everyone agrees", "There are no treaties"], "Courts and negotiations help to resolve them.", true],
+  ["What does self-determination mean?", "the right of a people to decide about their own future", ["a rule about school", "a kind of weather", "a school contest"], "Many Nations work toward self-determination."],
+  ["A treaty relationship means…", "two sides have agreed to respect each other and share the land", ["one side gives orders", "no agreement exists", "one side leaves"], "Treaty relationships are meant to last."],
+  ["We are all treaty people. This means…", "everyone in Canada has a role in honouring treaties", ["only some people must follow treaties", "treaties are only for history class", "treaties are optional"], "Living on treaty land carries responsibilities."],
+  ["What can individuals do to support reconciliation?", "learn the truth, listen to Indigenous voices and act with respect", ["ignore the history", "make jokes", "avoid the topic"], "Small actions add up."],
+  ["Which of these shows respect when speaking about Indigenous Peoples?", "use the names that Nations use for themselves", ["use one name for everyone", "guess a name", "avoid names"], "For example Wolastoqiyik, Mi’kmaq and Peskotomuhkatiyik."],
+  ["Why is it important to say Wabanaki Peoples are living cultures?", "They continue to live, govern and share their cultures today", ["Their cultures ended long ago", "They live only in stories", "They are only visitors"], "Using the present tense shows respect."],
+];
+
+const PLACES: Q[] = [
+  ["Why did many early communities in New Brunswick form along rivers and coasts?", "Water gave travel, food and power", ["Rivers were boring", "Coasts were far from everything", "Rivers had no use"], "Wabanaki families and later settlers both lived near water."],
+  ["Which river valley has been home to many communities, including Fredericton?", "the Saint John River valley (Wolastoq)", ["the Fraser Valley", "the Red River Valley", "the Ottawa Valley"], "The Wolastoq has supported communities for thousands of years."],
+  ["What is settlement?", "the way people live in a place and where they build homes", ["a kind of tax", "a type of ship", "a school course"], "Patterns of settlement change over time."],
+  ["What does urbanization mean?", "more people moving into cities and towns", ["people moving to farms", "forests growing", "tides changing"], "Cities and towns grow as jobs concentrate."],
+  ["What does rural mean?", "an area in the countryside with fewer people", ["a busy downtown", "a harbour only", "a high-rise"], "Farms and forests are in rural areas."],
+  ["What does population density measure?", "how many people live in an area", ["how tall a building is", "how cold it is", "how deep a lake is"], "A city has a high density; a forest has a low density."],
+  ["Why do more people live in the south of Canada than in the far north?", "The climate is milder and there are more jobs and services", ["There is more ice in the south", "The north has more cities", "The south is farther from the Sun"], "Most Canadians live within a few hundred kilometres of the southern border."],
+  ["How does the Bay of Fundy affect communities near it?", "Its tides shape fishing, farming and tourism", ["It makes the land flat", "It stops all weather", "It has no effect"], "Marshlands were turned into farmland by Acadians using dykes."],
+  ["What is a dyke?", "a wall built to keep water out of low land", ["a kind of tree", "a tool for weaving", "a bird"], "Acadians built dykes to farm the marshes.", true],
+  ["How can climate change affect coastal communities?", "rising seas and stronger storms can cause flooding and erosion", ["more sunshine and no waves", "less water", "no change at all"], "Coastal places are planning for these changes.", true],
+  ["What is erosion?", "the wearing away of land by water, wind or ice", ["a type of building", "a type of fruit", "a kind of storm"], "Coastlines change as waves erode the shore."],
+  ["Why did some communities in New Brunswick grow around sawmills and shipyards?", "Local forests provided lumber for jobs and ships", ["There were no trees", "There was no river", "They had no workers"], "Forests were a major resource."],
+  ["What can happen to a rural community when a major industry closes?", "people lose jobs and some move away", ["it grows quickly", "the climate changes", "nothing changes"], "Communities often adapt by starting new industries."],
+  ["What does “living conditions” mean?", "the quality of housing, food, water, health care and safety people have", ["the colour of a house", "the number of rooms only", "the weather"], "Living conditions can vary between groups."],
+  ["What is poverty?", "not having enough money to meet basic needs", ["having lots of money", "living in a big house", "being famous"], "Governments and communities work to reduce poverty."],
+  ["What is food insecurity?", "not having reliable access to enough healthy food", ["having too many snacks", "being on a diet", "eating at a restaurant"], "It can affect families in cities, towns and remote communities."],
+  ["Why is clean drinking water important?", "People need it for health", ["It makes boats go faster", "It is a decoration", "It is only for plants"], "Some First Nations communities have faced long-term drinking water advisories."],
+  ["What can make living conditions fairer?", "services such as housing, clean water, schools and health care", ["fewer schools", "fewer houses", "no health care"], "Governments and communities can improve them."],
+  ["What is affordable housing?", "housing that families on lower incomes can pay for", ["housing in only big cities", "the most expensive homes", "temporary tents only"], "Many communities face a shortage."],
+  ["Why do some groups in Canada have lower incomes than others?", "unequal opportunities and past unfair treatment can play a role", ["because of luck only", "because of weather", "because of age only"], "Social and economic reasons are connected.", true],
+  ["What is a census?", "a count of the people in a country, done regularly", ["a type of election", "a kind of tax", "a holiday"], "Canada does a census every five years.", true],
+  ["How does Canada’s climate vary?", "from mild coasts to very cold Arctic winters", ["it is the same everywhere", "it is always hot", "it never snows"], "Climate shapes where people live and work."],
+  ["Which landform region includes most of New Brunswick?", "the Appalachian Region", ["the Interior Plains", "the Arctic Lands", "the Western Cordillera"], "It has older, rounded mountains and river valleys."],
+  ["What is a sustainable community?", "a place that meets people’s needs without harming the future", ["a place that uses up everything", "a place with no people", "a place with no jobs"], "It balances the economy, society and environment.", true],
+  ["Which is an example of a community working on sustainability?", "building bike paths and using renewable energy", ["burning more trash", "cutting all the trees", "closing every school"], "Many towns have sustainability plans.", true],
+];
+
+export const governance = bankUnit({
+  id: "nb-governance-9",
+  title: "How Canada Is Governed",
+  emoji: "🏛️",
+  blurb: "Parliament, the legislature, courts and councils.",
+  parentNote:
+    "Practises the structures and operations of governance in Canada, from municipal and provincial to federal government, and how laws are made. It follows the Grade 9 social studies skill descriptor on power and governance in the New Brunswick curriculum.",
+  standards: ["Civics: Power and Governance", "the structures and operations of governance in Canada"],
+  items: GOVERNANCE,
+});
+
+export const rightsRoles = bankUnit({
+  id: "nb-rights-roles-9",
+  title: "Rights, Roles & Responsibilities",
+  emoji: "⚖️",
+  blurb: "The Charter and taking part as a citizen.",
+  parentNote:
+    "Practises the Canadian Charter of Rights and Freedoms, the rights, responsibilities, roles and status of individuals and groups in Canada, and how citizens take part. It follows the Grade 9 social studies skill descriptors on rights, responsibilities and civic engagement in the New Brunswick curriculum.",
+  standards: ["Civics: Rights and Responsibilities, Civics: Civic Engagement", "persistent issues involving rights, responsibilities, roles and status, and actions that show citizenship"],
+  items: RIGHTS_ROLES,
+});
+
+export const identityMigration = bankUnit({
+  id: "nb-identity-migration-9",
+  title: "Identities & Migration in Canada",
+  emoji: "🌍",
+  blurb: "Who we are and how newcomers shaped Canada.",
+  parentNote:
+    "Practises various perceptions of identities in Canada and the impact of migration and immigration on those identities. It follows the Grade 9 social studies skill descriptors on history in the New Brunswick curriculum.",
+  standards: ["History: Events and Peoples", "various perceptions of identities in Canada and the impact of migration and immigration"],
+  items: IDENTITY,
+});
+
+export const treatyRelationships = bankUnit({
+  id: "nb-treaty-relationships-9",
+  title: "Treaty Relationships Today",
+  emoji: "📜",
+  blurb: "Agreements between Nations, and why they still matter.",
+  parentNote:
+    "Practises key issues involving treaty relationships in Canada, including the Peace and Friendship treaties, the Numbered Treaties, modern treaties and reconciliation. The content is light, in the present tense, and needs review by Wabanaki partners. It follows the Grade 9 social studies skill descriptor on treaty education in the New Brunswick curriculum.",
+  standards: ["Wabanaki: Treaty Education", "key issues involving treaty relationships in Canada"],
+  items: TREATIES,
+});
+
+export const placesAndPeople = bankUnit({
+  id: "nb-places-people-9",
+  title: "Settlement & Living Conditions",
+  emoji: "🏘️",
+  blurb: "Where people live, how it changes, and how well they live.",
+  parentNote:
+    "Practises the effect of human settlement on place over time and living conditions for groups in Canada. It follows the Grade 9 social studies skill descriptors on human systems and on economics and sustainability in the New Brunswick curriculum.",
+  standards: ["Geography: Human Systems and Interactions, Economics: Sustainability", "the effect of human settlement on place over time, and living conditions for groups in Canada"],
+  items: PLACES,
+});

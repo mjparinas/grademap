@@ -16,6 +16,8 @@ const SK_OUTCOMES = JSON.parse(readFileSync(join(__dirname, "../../docs/research
 
 // The official Manitoba outcomes (docs/research/manitoba). Unit standards cite them by code.
 // The official Nova Scotia outcomes (docs/research/nova-scotia). Unit standards cite them by code, or by bundle or outcome title.
+// The official New Brunswick curriculum (docs/research/new-brunswick). Unit standards cite its strand and big idea ("Number: Operations").
+const NB_OUTCOMES = JSON.parse(readFileSync(join(__dirname, "../../docs/research/new-brunswick/outcomes.json"), "utf8")) as Record<string, { idx: string }[]>;
 const NS_OUTCOMES = JSON.parse(readFileSync(join(__dirname, "../../docs/research/nova-scotia/outcomes.json"), "utf8")) as Record<string, { idx: string }[]>;
 const MB_OUTCOMES = JSON.parse(readFileSync(join(__dirname, "../../docs/research/manitoba/outcomes.json"), "utf8")) as Record<string, { idx: string }[]>;
 
@@ -257,7 +259,7 @@ describe("curriculum content", () => {
         const p = join(dir, f);
         return statSync(p).isDirectory() ? walk(p) : [p];
       });
-    const offenders = [...walk(join(__dirname, "grades")), ...walk(join(__dirname, "ontario")), ...walk(join(__dirname, "alberta")), ...walk(join(__dirname, "saskatchewan")), ...walk(join(__dirname, "manitoba")), ...walk(join(__dirname, "nova-scotia"))].filter((f) => readFileSync(f, "utf8").includes("Math.random"));
+    const offenders = [...walk(join(__dirname, "grades")), ...walk(join(__dirname, "ontario")), ...walk(join(__dirname, "alberta")), ...walk(join(__dirname, "saskatchewan")), ...walk(join(__dirname, "manitoba")), ...walk(join(__dirname, "nova-scotia")), ...walk(join(__dirname, "new-brunswick"))].filter((f) => readFileSync(f, "utf8").includes("Math.random"));
     expect(offenders).toEqual([]);
   });
 
@@ -354,6 +356,27 @@ describe("curriculum content", () => {
           for (const q of [1, 2, 3].flatMap((d) => u.generate({ difficulty: d as 1 | 2 | 3 }))) {
             const text = JSON.stringify(q);
             expect(/Ontario|Queen's Park|EQAO|Upper Canada|Lower Canada|Saskatchewan|Regina|Alberta|Manitoba|Winnipeg/.test(text), `${u.id}: ${q.prompt}`).toBe(false);
+          }
+        }
+      });
+
+      it("cites real New Brunswick strands and big ideas and no other province's wording", () => {
+        const official = new Set((NB_OUTCOMES[`${course.grade}/${course.subject}`] ?? []).map((r) => r.idx));
+        const checkCodes = official.size > 0 && course.subject !== "core-french" && course.subject !== "immersion";
+        for (const u of course.units) {
+          const standard = u.standards["ca-nb"];
+          if (!standard) continue;
+          const head = standard.split(" · ")[0];
+          expect(head.trim().length, `${u.id}: "${standard}" cites no strand`).toBeGreaterThan(0);
+          if (checkCodes) {
+            const labels = official.has(head) ? [head] : head.split(/,\s*/).map((c) => c.trim());
+            for (const label of labels) expect(official.has(label), `${u.id} cites "${label}", which is not in New Brunswick ${course.grade}/${course.subject}`).toBe(true);
+          }
+          // Units borrowed from another province must not carry its names into New Brunswick classrooms.
+          if (/^nb-/.test(u.id) || u.standards["ca-bc"]) continue;
+          for (const q of [1, 2, 3].flatMap((d) => u.generate({ difficulty: d as 1 | 2 | 3 }))) {
+            const text = JSON.stringify(q);
+            expect(/Ontario|Queen's Park|EQAO|Upper Canada|Lower Canada|Saskatchewan|Regina|Alberta|Manitoba|Winnipeg|Nova Scotia|Halifax|Yukon|Northwest Territories/.test(text), `${u.id}: ${q.prompt}`).toBe(false);
           }
         }
       });

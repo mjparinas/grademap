@@ -1,5 +1,6 @@
 import { ALBERTA } from "./alberta/framework";
 import { MANITOBA } from "./manitoba/framework";
+import { NEW_BRUNSWICK } from "./new-brunswick/framework";
 import { NOVA_SCOTIA } from "./nova-scotia/framework";
 import { ONTARIO } from "./ontario/framework";
 import { SASKATCHEWAN } from "./saskatchewan/framework";
@@ -272,6 +273,7 @@ export const FRAMEWORKS: Framework[] = [
   YUKON,
   NORTHWEST_TERRITORIES,
   NOVA_SCOTIA,
+  NEW_BRUNSWICK,
 ];
 
 export const DEFAULT_FRAMEWORK: FrameworkId = "ca-bc";
