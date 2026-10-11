@@ -73,6 +73,7 @@ With no configuration it uses a local SQLite file (`./data/grademap.db`) and **s
 | `NEXT_PUBLIC_SITE_URL` | Public address for canonical links and the sitemap (default `https://gradelings.com`). |
 | `DATABASE_URL` | libsql URL. Default `file:./data/grademap.db`; use a [Turso](https://turso.tech) URL in production. |
 | `DATABASE_AUTH_TOKEN` | Turso auth token. |
+| `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` | Used instead when `DATABASE_URL` is unset (the names the Vercel Marketplace Turso integration sets). |
 | `STRIPE_SECRET_KEY` | Stripe secret key. Billing is simulated until this and both price IDs are set. |
 | `STRIPE_PRICE_MONTHLY`, `STRIPE_PRICE_YEARLY` | Price IDs for the family plan (C$14.99/month, C$119.99/year). |
 | `STRIPE_WEBHOOK_SECRET` | Signing secret for `/api/billing/webhook`. |

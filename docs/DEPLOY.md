@@ -9,8 +9,9 @@ Gradelings is a standard Next.js 16 app (Node runtime, no custom server). This g
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Public origin, no trailing slash (e.g. `https://gradelings.com`). Used for canonical URLs, the sitemap, Open Graph and JSON-LD, and for the links inside emails (so a forged `Host` header can't redirect a reset link). Read at **build time**, so set it before the first production build. Defaults to `https://gradelings.com`. |
-| `DATABASE_URL` | Yes | Turso URL (`libsql://<db>-<org>.turso.io`). Without it the app falls back to a local SQLite file, which does not persist on serverless hosts. |
-| `DATABASE_AUTH_TOKEN` | Yes | Turso token for that database. |
+| `DATABASE_URL` | Yes* | Turso URL (`libsql://<db>-<org>.turso.io`). Without it (or `TURSO_DATABASE_URL`) the app falls back to a local SQLite file, which fails on Vercel's read-only filesystem: `/api/health/` answers 503 and the logs say `[db] ... falling back to a local file`. |
+| `DATABASE_AUTH_TOKEN` | Yes* | Turso token for that database. |
+| `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` | * | The names the Vercel Marketplace Turso integration sets. Used only when `DATABASE_URL` is unset, so set one pair or the other. Each URL is paired with its own token. |
 | `STRIPE_SECRET_KEY` | For billing | Live secret key (`sk_live_…`). |
 | `STRIPE_PRICE_MONTHLY` | For billing | Recurring Price id for C$14.99/month. |
 | `STRIPE_PRICE_YEARLY` | For billing | Recurring Price id for C$119.99/year. |
