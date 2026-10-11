@@ -1,0 +1,162 @@
+import { bankUnit, type Q } from "../own";
+
+// More Grade 3 science: how scientists find out (SCI.3.D.1 to D.4), solutions and technology (SCI.3.D.6, D.7, C.1),
+// careers, hobbies and belonging in science (SCI.3.B.1, C.5) and ways of knowing (SCI.3.A.1).
+
+const FIND: Q[] = [
+  ["Science tries to…", "explain things in nature", ["hide how things work", "make up rules for games"], "Scientists look for explanations."],
+  ["A scientific explanation is the one that…", "best fits the evidence we have", ["is the oldest", "is the loudest"], "Explanations are based on evidence."],
+  ["Evidence is…", "information from observations and measurements", ["a guess", "a rumour"], "Evidence comes from what we find out."],
+  ["Which is an observation?", "The ice cube is smaller after 10 minutes.", ["Ice is probably boring.", "I wish it were summer."], "An observation is what you notice with your senses."],
+  ["Which is a measurement?", "The plant grew 4 cm.", ["The plant looks happy.", "I like plants."], "Measurements use numbers and units."],
+  ["Which tool measures the length of a leaf?", "A ruler", ["A clock", "A scale for mass"], "Rulers measure length."],
+  ["Which tool measures time for a race?", "A stopwatch", ["A ruler", "A thermometer"], "Stopwatches measure seconds."],
+  ["Scientists collect data by…", "making careful observations and measurements", ["guessing", "skipping steps"], "Data is the information collected."],
+  ["Data can come from…", "your own tests or from other sources like books", ["only dreams", "nowhere"], "Scientists also use other people's data."],
+  ["A hypothesis is…", "a prediction about what might happen", ["a type of plant", "a sure answer"], "It is based on what you know."],
+  ["“I think the ball will roll farther on the smooth floor.” This is a…", "hypothesis", ["measurement", "conclusion"], "It predicts what will happen."],
+  ["A good hypothesis is based on…", "past experience, observations or research", ["a coin flip", "wishing"], "Hypotheses are not random guesses."],
+  ["After a test, the evidence can…", "support or not support a prediction", ["always prove it right", "be ignored"], "Evidence helps us decide."],
+  ["You predict a seed will sprout in the dark. It does not sprout. This evidence…", "does not support your prediction", ["proves you were right", "means science is broken"], "It is okay if evidence changes your mind."],
+  ["Which is a fair test?", "Change one thing and keep the others the same", ["Change everything at once", "Test only once"], "A fair test changes only one variable."],
+  ["Testing which paper towel soaks up the most water, you should use the same amount of…", "water", ["colour", "names"], "Keep the other things the same."],
+  ["A scientist records results in a…", "chart or table", ["secret code", "toy box"], "Charts keep data organized."],
+  ["If you repeat a test and get the same result, you can be more…", "confident in the data", ["tired", "sure it is wrong"], "Repeating tests helps."],
+  ["A theory or model in science is…", "an idea that explains many observations", ["a single guess", "a joke"], "Models help explain."],
+  ["When new evidence is found, a scientific explanation may…", "change", ["always stay the same", "disappear"], "Science grows as we learn more."],
+  ["Knowledge from science can be used to…", "build better products and solutions", ["stop people learning", "ignore the world"], "Engineers use science knowledge."],
+  ["A bridge designer uses science about…", "forces and materials", ["only colours", "nothing"], "Engineers apply science."],
+  ["Which question can you answer by collecting data?", "Which ramp makes a toy car go farther?", ["Which colour is the prettiest?", "Is Monday boring?"], "Testable questions can be measured."],
+  ["Which shows a prediction?", "“I predict the ice will melt faster in the sun.”", ["“The ice melted.”", "“I am cold.”"], "Predictions look ahead.", true],
+  ["You measure the same plant every day for a week. This helps you see…", "how it changes over time", ["only its colour", "nothing"], "Repeated measurements show change.", true],
+  ["A scientist looks only for data that helps test the…", "hypothesis", ["snack", "calendar"], "The data collected relates to the idea being tested.", true],
+];
+
+export const find = bankUnit({
+  id: "mb-how-scientists-find-out",
+  title: "How Scientists Find Out",
+  emoji: "🔬",
+  blurb: "Evidence, observations, measurements, predictions and fair tests.",
+  parentNote:
+    "Practises how science builds explanations: observing and measuring, collecting data, making a hypothesis and checking whether the evidence supports it, and how the knowledge is used in engineering and technology.",
+  standards: ["SCI.3.D.1, SCI.3.D.2, SCI.3.D.3, SCI.3.D.4", "scientific explanations, data, hypotheses and how evidence supports predictions"],
+  items: FIND,
+});
+
+const SOLVE: Q[] = [
+  ["A problem can often have…", "more than one solution", ["only one answer ever", "no solution"], "Many solutions are possible."],
+  ["When you solve a problem, you should think critically and…", "creatively", ["carelessly", "never"], "Both kinds of thinking help."],
+  ["To choose the best solution, you think about how well it…", "works and what it costs or affects", ["looks in a photo", "rhymes"], "Compare function, cost and effects."],
+  ["Technology is…", "tools and things people make to solve problems", ["only computers", "only toys"], "A shovel is technology too."],
+  ["Which is an example of technology?", "A bicycle", ["A cloud", "A mountain"], "People made the bicycle."],
+  ["A technology that helps people can still…", "cause some problems", ["never change anything", "be unreal"], "Technology can have good and bad effects."],
+  ["A plastic bag is useful for carrying things. A harm is that it can…", "end up as litter", ["be too colourful", "be too round"], "Plastic can hurt the environment."],
+  ["A car helps people travel far. A harm is that it can…", "make air pollution", ["grow into a tree", "sleep"], "Exhaust fumes harm the air."],
+  ["A benefit of a bike path is that it…", "gives people a safe, clean way to travel", ["makes more traffic", "closes the park"], "Bike paths are a solution."],
+  ["Which solution to litter on the playground is best for the environment?", "Place bins and reuse containers", ["Bury it in the grass", "Burn it"], "Good solutions protect the environment."],
+  ["A zero-waste lunch has…", "little or no garbage", ["lots of wrappers", "no food"], "Reusable containers cut waste."],
+  ["Which item helps with a zero-waste lunch?", "A reusable container", ["A single-use wrapper", "A plastic bag"], "Reuse instead of throw away."],
+  ["A solution may affect people, animals and…", "the environment", ["only your shoes", "nothing"], "Solutions have implications."],
+  ["Which group of people might be affected by a new road?", "People and animals nearby", ["Only one friend", "Nobody"], "Many are affected."],
+  ["Ethics in a solution means thinking about what is…", "fair and right", ["fast", "shiny"], "Ethical choices are fair."],
+  ["Making a playground structure more stable improves…", "safety", ["colour", "volume"], "Stable structures are safer."],
+  ["A wider base makes a tower more…", "stable", ["wobbly", "invisible"], "A wide base is steady."],
+  ["A class makes a habitat for insects near the school. This is…", "taking action for the environment", ["breaking rules", "wasting time"], "Habitats help organisms."],
+  ["You see a young tadpole pond drying up. A helpful action is to…", "tell a teacher so people can protect the pond", ["pour paint in it", "fill it with sand"], "Protect vulnerable stages."],
+  ["Documenting a butterfly's life cycle can help us…", "know when it needs protection", ["lose the butterfly", "stop it from growing"], "Observations show what the organism needs."],
+  ["A simple shelter for a plant can help it withstand…", "wind or cold", ["math tests", "music"], "Structures can protect organisms."],
+  ["Taking action on a local issue means doing something…", "in your school or community", ["only on another planet", "nowhere"], "Local actions matter."],
+  ["Which action helps the environment around the school?", "Planting native flowers for bees", ["Leaving the tap running", "Dropping litter"], "Native plants help local pollinators.", true],
+  ["A new machine saves time but uses a lot of energy. Considering both sides is…", "weighing benefits and drawbacks", ["ignoring the problem", "copying"], "Compare good and bad effects.", true],
+  ["Which question helps pick the best solution?", "Does it work, is it safe, and is it fair to everyone?", ["Is it purple?", "Is it the heaviest?"], "Use several criteria.", true],
+];
+
+export const solve = bankUnit({
+  id: "mb-solutions-and-technology",
+  title: "Solutions, Technology & Taking Action",
+  emoji: "💡",
+  blurb: "Many ways to solve a problem, and the good and harm that technology can do.",
+  parentNote:
+    "Practises that problems can have many solutions, weighing benefits and drawbacks of technology, and taking action on local issues such as litter, safer structures and habitats.",
+  standards: ["SCI.3.D.6, SCI.3.D.7, SCI.3.C.1", "many possible solutions, effects of technology and taking action on science and environment issues"],
+  items: SOLVE,
+});
+
+const CAREERS: Q[] = [
+  ["A physiotherapist helps people…", "move and heal their bodies", ["fix cars", "bake bread"], "Physiotherapists use science about bodies and movement."],
+  ["An electrician works with…", "wires and electricity", ["horses", "paint only"], "Electricians install and fix wiring."],
+  ["An entomologist studies…", "insects", ["rocks", "clouds"], "Entomologists study bugs."],
+  ["A geoscientist studies…", "Earth, rocks and landforms", ["only music", "insect wings"], "Geo means Earth."],
+  ["A farmer uses science to…", "grow plants and raise animals", ["build rockets", "write songs only"], "Farmers know about soil, weather and life cycles."],
+  ["A medical professional uses science to…", "care for people's health", ["paint houses", "drive buses"], "Doctors and nurses use science."],
+  ["A teacher can use science to…", "help others learn about the world", ["avoid learning", "hide facts"], "Teachers share what they know."],
+  ["Which hobby uses science ideas about plants?", "Gardening", ["Skipping rope only", "Napping"], "Gardeners learn what plants need."],
+  ["Building a model car is a hobby that uses ideas about…", "forces and structures", ["only songs", "only colours"], "Models use science."],
+  ["Wildlife photography needs knowing about…", "animal behaviour and habitats", ["only street names", "the stock market"], "Photographers study where animals live."],
+  ["Which sport uses science ideas about forces?", "Track and field", ["Reading silently", "Napping"], "Throwing and jumping involve forces."],
+  ["Archery uses ideas about…", "force and aiming", ["fractions only", "weather names"], "The bow pushes the arrow."],
+  ["Gymnasts use science to understand…", "balance and movement", ["road signs", "recipes"], "Balance is a science idea."],
+  ["Amateur astronomy is a hobby where people…", "look at the night sky", ["dig tunnels", "bake bread"], "Astronomy is the study of space."],
+  ["An electronics hobbyist enjoys…", "building circuits", ["growing wheat", "painting walls"], "Circuits use electricity."],
+  ["Who can contribute to science?", "Everyone", ["Only adults", "Only people with lab coats"], "Everyone can notice and wonder."],
+  ["A curious child asking “why?” is acting like a…", "scientist", ["bystander", "rock"], "Curiosity starts science."],
+  ["Being curious means you…", "like to wonder and ask questions", ["never ask", "dislike learning"], "Curiosity is a scientific attitude."],
+  ["Which is a scientific attitude?", "Being curious and open to new ideas", ["Never changing your mind", "Never trying"], "Scientists keep learning."],
+  ["You see a spider and wonder how it makes a web. You are…", "being curious like a scientist", ["bored", "giving up"], "Wondering is how science starts."],
+  ["Connecting a science idea to your own life, like why your hands feel cold, is…", "making a personal connection", ["wasting time", "forgetting"], "Science is all around you."],
+  ["Spending time outside noticing birds helps you build a…", "connection to nature", ["new desk", "tall tower"], "Time outdoors builds connections."],
+  ["Science skills include observing, measuring and…", "asking questions", ["hiding", "shouting"], "Skills help you learn."],
+  ["Which shows belonging in science?", "Every student's idea is welcomed in a group investigation", ["Only one student talks", "Ideas are ignored"], "Everyone can contribute.", true],
+  ["A person who studies frogs, a person who builds bridges, and a person who farms are all…", "using science in their work", ["not using science", "the same job"], "Science appears in many careers.", true],
+  ["Which pair is a career and a hobby that both use plant science?", "Farmer and gardening", ["Pilot and napping", "Cook and sleeping"], "Both involve plants.", true],
+];
+
+export const careers = bankUnit({
+  id: "mb-science-everywhere",
+  title: "Science All Around Me",
+  emoji: "🌟",
+  blurb: "Jobs and hobbies that use science, and why everyone belongs in science.",
+  parentNote:
+    "Practises connecting science ideas to careers, hobbies and activities, and the scientific attitudes of curiosity and belonging: everyone can contribute to science.",
+  standards: ["SCI.3.B.1, SCI.3.C.5", "belonging and curiosity in science, and links between science and careers, hobbies and activities"],
+  items: CAREERS,
+});
+
+const WAYS: Q[] = [
+  ["First Nations, Métis and Inuit peoples have observed the land and sky for…", "a very long time", ["only a few days", "no time at all"], "Many Indigenous communities have deep knowledge built over generations."],
+  ["Indigenous ways of knowing are…", "still alive and used today", ["only in the past", "not real"], "Knowledge is passed on and used today."],
+  ["Many Indigenous communities learn from the land by…", "being outdoors and observing", ["staying inside only", "not looking"], "Land-based learning happens outside."],
+  ["Land-based learning means learning…", "on and from the land", ["only from screens", "only from a desk"], "The land is a place of learning."],
+  ["Who might share traditional knowledge in many communities?", "Elders and knowledge keepers", ["Strangers who have not listened", "Nobody"], "Elders and knowledge keepers are respected teachers."],
+  ["When an Elder visits to share, a respectful learner…", "listens carefully", ["talks over them", "plays with a toy"], "We show respect by listening."],
+  ["Many Indigenous teachings see people as…", "connected to land, water, plants and animals", ["separate from all of them", "in charge of everything"], "Many ways of knowing are interconnected."],
+  ["“Wholistic” knowledge looks at…", "how many parts connect together", ["only one tiny part", "nothing"], "It sees the whole picture."],
+  ["“Reciprocal” means…", "giving back and caring in return", ["only taking", "ignoring"], "Taking care of what takes care of us."],
+  ["“Sustainable” means using something so there is enough…", "for the future too", ["only for today", "for nobody"], "Sustainable ways protect the future."],
+  ["Which action is sustainable?", "Taking only what you need and caring for the land", ["Taking everything", "Leaving waste"], "Sustainability means looking after the future."],
+  ["Seasons and animals can teach people about…", "when to plant, travel or harvest", ["math tests only", "nothing"], "Observing nature guides decisions."],
+  ["Observing the stars and moon has helped many cultures keep track of…", "time and seasons", ["only snacks", "nothing"], "Many peoples used the sky for calendars."],
+  ["Indigenous peoples have created technologies such as…", "tools, shelters and ways to travel", ["only video games", "none at all"], "Many technologies have long traditions."],
+  ["Which is a technology made for travelling on water?", "A canoe", ["A pillow", "A hat"], "Canoes were designed for travelling on water."],
+  ["Which is a technology made for travelling on snow?", "Snowshoes", ["Flippers", "Rollerblades"], "Snowshoes spread weight on the snow."],
+  ["A kayak, a canoe or snowshoes use ideas about…", "balance, forces and materials", ["only colour", "only time"], "Good designs use science ideas."],
+  ["Modern Indigenous scientists and knowledge keepers work in…", "many places today, including labs and communities", ["only history books", "nowhere"], "Indigenous people are scientists today."],
+  ["Western science and Indigenous knowledge can sometimes…", "be used together to understand the world", ["never meet", "cancel each other out"], "They can work side by side."],
+  ["Every Nation, Métis community and Inuit community has its own…", "traditions and knowledge", ["same traditions as all others", "no knowledge"], "We say “many” and “some” because communities differ."],
+  ["Which sentence is respectful?", "Many First Nations have their own ways of knowing.", ["All Indigenous people are the same.", "Their knowledge is not science."], "Communities are different from each other."],
+  ["A local plant is used in some communities as…", "food or medicine, taught by knowledgeable people", ["a game only", "a toy only"], "People learn from those who know them.", true],
+  ["You can learn respectfully from the land by…", "listening, watching and not taking more than you need", ["breaking branches", "being noisy"], "Care and respect are part of learning.", true],
+  ["Which describes a land-based learning day?", "Walking outside and noticing plants, animals and weather", ["Doing worksheets only", "Watching TV"], "It is learning on the land.", true],
+  ["Why is it important to learn about different ways of knowing?", "We can learn more by listening to many people", ["So we can ignore some", "So we can say only one is right"], "More perspectives help us understand better.", true],
+];
+
+export const ways = bankUnit({
+  id: "mb-ways-of-knowing",
+  title: "Ways of Knowing the World",
+  emoji: "🌎",
+  blurb: "How First Nations, Métis and Inuit peoples observe and care for the world.",
+  parentNote:
+    "A light introduction to the idea that many First Nations, Métis and Inuit communities have their own ways of observing the land and sky, creating technologies and caring for the environment. It stays general and respectful; the details belong to the communities, so use it as a starting point for local learning from Elders and knowledge keepers.",
+  standards: ["SCI.3.A.1", "First Nations, Métis and Inuit ways of knowing, being and doing: observing the world, land-based learning and technologies"],
+  items: WAYS,
+});

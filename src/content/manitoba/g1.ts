@@ -3,6 +3,10 @@ import { courses as ontario } from "../ontario/g1";
 import { frenchCourses } from "./french";
 import { adopt, course, unitsOf } from "./kit";
 import { unit as manitobaAndCanada } from "./units/g1-social";
+import * as moreMath from "./units/g1-more-math";
+import * as moreLanguage from "./units/g1-more-language";
+import * as moreScience from "./units/g1-more-science";
+import * as moreSocial from "./units/g1-more-social";
 
 // Manitoba Grade 1. Math follows the Grade 1 mathematics outcomes (1.N, 1.PR, 1.SS), English language arts the ELA curriculum
 // (strands A to D), science the Grade 1 science outcomes (SCI.1) and social studies Connecting and Belonging (1-K outcomes).
@@ -20,6 +24,7 @@ export const courses: Course[] = [
       measuring: ["1.SS.1", "measurement as comparing attributes of objects"],
       shapes: ["1.SS.2, 1.SS.3, 1.SS.4", "sorting and building 2-D shapes and 3-D objects"],
     },
+    own: [moreMath.quickCounting, moreMath.estimateAndGroups],
   }),
   course("1", "language", {
     share: {
@@ -37,6 +42,7 @@ export const courses: Course[] = [
       "sentence-types": ["ELA.1.C2.2, ELA.1.C3.4", "sentences that tell, ask and exclaim, and the punctuation they need"],
       "think-it-through": ["ELA.1.B2.5, ELA.1.B2.6", "using strategies to check and show understanding of a text"],
     }),
+    own: [moreLanguage.alphabetMatch, moreLanguage.readingSmart, moreLanguage.truthAndViewpoints, moreLanguage.writingPlan, moreLanguage.talkAndListen],
   }),
   course("1", "science", {
     share: {
@@ -49,7 +55,8 @@ export const courses: Course[] = [
       "energy-in-our-lives": ["SCI.1.E.4, SCI.1.E.5", "energy makes things happen, and the sources of energy"],
       "think-like-a-scientist": ["SCI.1.D.1, SCI.1.C.3", "asking questions and trying to explain what is happening"],
     }),
-    order: ["think-like-a-scientist", "materials", "energy-in-our-lives", "sky-and-seasons", "living-things", "animal-survival"],
+    own: [moreScience.scienceSkills, moreScience.longAgo],
+    order: ["think-like-a-scientist", "mb-g1-science-skills", "materials", "energy-in-our-lives", "sky-and-seasons", "living-things", "animal-survival", "mb-g1-life-long-ago"],
   }),
   course("1", "social", {
     share: {
@@ -62,8 +69,30 @@ export const courses: Course[] = [
       "respect-and-inclusion": ["1-KP-024, 1-KP-025, 1-KP-026", "rules, solving conflicts and dealing with bullying"],
       "community-services": ["1-KC-006, 1-KE-029", "how people depend on and help one another, and sharing work"],
     }),
-    own: [manitobaAndCanada],
-    order: ["mb-manitoba-and-canada", "my-community", "different-and-alike", "respect-and-inclusion", "community-services", "our-land", "maps"],
+    own: [
+      manitobaAndCanada,
+      moreSocial.familyAndStories,
+      moreSocial.needsAndWants,
+      moreSocial.gettingAlong,
+      moreSocial.placesWeCareFor,
+      moreSocial.worldNeighbours,
+      moreSocial.thinkingSkills,
+    ],
+    order: [
+      "mb-manitoba-and-canada",
+      "my-community",
+      "mb-g1-family-stories",
+      "different-and-alike",
+      "respect-and-inclusion",
+      "mb-g1-getting-along",
+      "community-services",
+      "mb-g1-needs-wants",
+      "our-land",
+      "mb-g1-places-we-care-for",
+      "maps",
+      "mb-g1-world-neighbours",
+      "mb-g1-thinking-skills",
+    ],
   }),
   ...frenchCourses("1"),
 ];
