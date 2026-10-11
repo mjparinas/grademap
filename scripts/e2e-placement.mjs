@@ -1,11 +1,14 @@
 // Placement test: a child takes the maths and language tests, then the parent area shows the result.
 //
 //   npm run dev   # or npm run build && npm start
-//   node scripts/e2e-placement.mjs http://localhost:3000
+//   node scripts/e2e-placement.mjs http://localhost:3000 [e2e-shots/placement]
+import fs from "node:fs";
 import { chromium } from "playwright";
 import { enterPin, newChild, step, vis } from "./helpers.mjs";
 
 const BASE = process.argv[2] || "http://localhost:3000";
+const OUT = process.argv[3];
+if (OUT) fs.mkdirSync(OUT, { recursive: true });
 const errors = [];
 
 async function takeTest(page, subject) {
@@ -51,7 +54,7 @@ async function takeTest(page, subject) {
   if (await vis(page.getByRole("heading", { name: "Create a parent PIN" }))) await enterPin(page, true);
   else if (await vis(page.getByRole("heading", { name: "Parents only" }))) await enterPin(page, false);
   await page.waitForTimeout(600);
-  await page.screenshot({ path: "e2e-placement.png", fullPage: true });
+  await page.screenshot({ path: OUT ? `${OUT}/placement.png` : "e2e-placement.png", fullPage: true });
   if (!(await vis(page.getByText(/Good places to start/).first()))) errors.push("parent page shows no result");
   if (await page.getByRole("link", { name: /Retake/ }).count() < 2) errors.push("parent page missing retake links");
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);

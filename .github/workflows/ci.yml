@@ -176,6 +176,7 @@ jobs:
           - { name: "parent area and arcade", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --part parents" }
           - { name: "sync and offline", serve: true, run: "node scripts/e2e.mjs http://localhost:3000 e2e-shots --part sync --offline" }
           - { name: "classroom", serve: true, run: "node scripts/e2e-classroom.mjs http://localhost:3000 e2e-shots/classroom" }
+          - { name: "placement", serve: true, run: "node scripts/e2e-placement.mjs http://localhost:3000 e2e-shots/placement" }
           # Starts and stops its own server, so only the service worker can answer.
           - { name: "offline", serve: false, run: "node scripts/e2e-offline.mjs" }
     steps:
