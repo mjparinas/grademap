@@ -4,6 +4,10 @@ import { frenchCourses } from "./french";
 import { adopt, course, unitsOf } from "./kit";
 import { calendar, evenOdd, skipCounting } from "./units/g2-math";
 import { airAndWeather, foodAndEnergy } from "./units/g2-science";
+import { moreLanguage } from "./units/g2-more-language";
+import { turnAndMeasure } from "./units/g2-more-math";
+import { moreScience } from "./units/g2-more-science";
+import { moreSocial } from "./units/g2-more-social";
 import { leaders, resources, symbols } from "./units/g2-social";
 
 // Manitoba Grade 2. Math follows the Grade 2 mathematics outcomes (2.N, 2.PR, 2.SS, 2.SP), English language arts the ELA
@@ -25,8 +29,8 @@ export const courses: Course[] = [
     adopted: adopt(unitsOf(ontario, "math"), {
       "balance-the-equation": ["2.PR.3, 2.PR.4", "equality and inequality, and recording them with symbols"],
     }),
-    own: [skipCounting, evenOdd, calendar],
-    order: ["mb-skip-counting", "mb-even-odd", "tens-and-ones", "bigger-or-smaller", "facts-to-20", "adding-to-100", "balance-the-equation", "patterns", "mb-calendar", "measuring", "shapes", "graphs"],
+    own: [skipCounting, evenOdd, calendar, turnAndMeasure],
+    order: ["mb-skip-counting", "mb-even-odd", "tens-and-ones", "bigger-or-smaller", "facts-to-20", "adding-to-100", "balance-the-equation", "patterns", "mb-calendar", "measuring", "mb-turn-and-measure", "shapes", "graphs"],
   }),
   course("2", "language", {
     share: {
@@ -42,6 +46,8 @@ export const courses: Course[] = [
       "reading-detectives": ["ELA.2.B2.3, ELA.2.B2.5, ELA.2.B2.6", "predicting, using strategies and recalling information"],
       "text-features": ["ELA.2.B2.1, ELA.2.B2.2", "forms of texts and text features"],
     }),
+    own: moreLanguage,
+    order: ["rhyme-time", "sound-detectives", "mb-capitals-and-neat-writing", "mb-sight-words-and-phrasing", "word-power", "super-sentences", "build-sentences", "word-pictures", "story-builders", "reading-detectives", "text-features", "mb-responding-to-stories", "mb-finding-information", "mb-planning-and-improving", "mb-media-and-trust", "mb-listening-and-asking"],
   }),
   course("2", "science", {
     share: {
@@ -53,8 +59,8 @@ export const courses: Course[] = [
       "think-like-a-scientist": ["SCI.2.D.1, SCI.2.C.3", "asking questions about the world and trying ways to answer them"],
       "air-and-water-for-life": ["SCI.2.E.6", "air and water are essential to life"],
     }),
-    own: [airAndWeather, foodAndEnergy],
-    order: ["think-like-a-scientist", "solids-and-liquids", "water-world", "mb-air-and-weather", "air-and-water-for-life", "mb-food-and-energy", "life-cycles"],
+    own: [airAndWeather, foodAndEnergy, ...moreScience],
+    order: ["think-like-a-scientist", "solids-and-liquids", "water-world", "mb-air-and-weather", "air-and-water-for-life", "mb-food-and-energy", "life-cycles", "mb-tools-and-technology", "mb-science-in-jobs", "mb-taking-action", "mb-learning-from-the-land"],
   }),
   course("2", "social", {
     share: {
@@ -66,8 +72,8 @@ export const courses: Course[] = [
       "then-and-now": ["2-KH-026, 2-S-204", "how life in communities has changed over time"],
       "globe-and-continents": ["2-KL-024, 2-KG-031", "finding Canada on a globe, and Canada as one of many countries"],
     }),
-    own: [leaders, symbols, resources],
-    order: ["mb-leaders-and-rights", "mb-canada-symbols", "communities-in-canada", "mb-natural-resources", "then-and-now", "globe-and-continents", "needs-and-wants", "caring-citizens"],
+    own: [leaders, symbols, resources, ...moreSocial],
+    order: ["mb-leaders-and-rights", "mb-canada-symbols", "communities-in-canada", "mb-natural-resources", "then-and-now", "globe-and-continents", "needs-and-wants", "caring-citizens", "mb-what-makes-a-community", "mb-who-we-are", "mb-community-stories", "mb-maps-and-directions", "mb-diverse-canada", "mb-working-together", "mb-finding-out"],
   }),
   ...frenchCourses("2"),
 ];

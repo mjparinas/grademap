@@ -4,6 +4,9 @@ import { frenchCourses } from "./french";
 import { adopt, course, unitsOf } from "./kit";
 import { integers, lineGraphs } from "./units/g6-math";
 import { buoyancy, heredity, storedEnergy } from "./units/g6-science";
+import { capitalsSpelling, learning, mediaBias, textFeatures, writingPlan } from "./units/g6-more-language";
+import { electricalSafety, measurement, scienceWorks, species } from "./units/g6-more-science";
+import { canadaMap, citizens, fairness, historySkills, identity, industry, since1945 } from "./units/g6-more-social";
 import { canadaToday, confederation, depression, government, homesteads, railway, treaties, worldWarOne } from "./units/g6-social";
 
 // Manitoba Grade 6. Math follows the Grade 6 mathematics outcomes (6.N, 6.PR, 6.SS, 6.SP), English language arts the ELA
@@ -46,6 +49,11 @@ export const courses: Course[] = [
       "commas-clauses": ["ELA.6.C3.4, ELA.6.C2.2", "commas and clauses in simple, compound and complex sentences"],
       "roots-analogies": ["ELA.6.A2.4, ELA.6.A2.5", "word parts, roots and relationships between words"],
     },
+    own: [textFeatures, writingPlan, capitalsSpelling, mediaBias, learning],
+    order: [
+      "mb-reading-and-learning-strategies", "close-reading", "mb-text-features-forms", "point-of-view", "figurative-language", "connotation-tone", "roots-analogies",
+      "mb-media-and-bias", "sources-bias", "mb-planning-and-organizing", "persuasive-writing", "agreement", "commas-clauses", "sentence-repair", "mb-capitals-and-spelling",
+    ],
   }),
   course("6", "science", {
     share: {
@@ -59,10 +67,10 @@ export const courses: Course[] = [
       "classifying-life-6": ["SCI.6.E.14", "the variety of organisms and how they are grouped"],
       "science-skills-6": ["SCI.6.C.3, SCI.6.D.5", "planning fair tests, safety and solving design problems"],
     }),
-    own: [buoyancy, storedEnergy, heredity],
+    own: [buoyancy, storedEnergy, heredity, scienceWorks, measurement, electricalSafety, species],
     order: [
-      "science-skills-6", "forces-at-work", "mb-buoyancy", "flight-6", "mb-stored-energy", "circuits-6",
-      "earth-moon-sun-6", "galaxies-and-space", "mb-heredity-and-fossils", "classifying-life-6",
+      "science-skills-6", "mb-how-science-works", "mb-scientific-measurement", "forces-at-work", "mb-buoyancy", "flight-6", "mb-stored-energy", "circuits-6", "mb-electrical-safety",
+      "earth-moon-sun-6", "galaxies-and-space", "mb-heredity-and-fossils", "classifying-life-6", "mb-species-and-hybrids",
     ],
   }),
   course("6", "social", {
@@ -74,10 +82,10 @@ export const courses: Course[] = [
       "inquiry-6": ["6-S-202, 6-S-304, 6-S-306", "primary and secondary sources, fact and opinion, and checking sources"],
       "canada-and-world-6": ["6-KG-045, 6-KG-047", "Canada's part in the United Nations and other world organizations"],
     }),
-    own: [confederation, treaties, homesteads, railway, worldWarOne, depression, canadaToday, government],
+    own: [confederation, treaties, homesteads, railway, worldWarOne, depression, canadaToday, government, canadaMap, since1945, industry, citizens, identity, fairness, historySkills],
     order: [
       "mb-confederation", "mb-treaties-and-resistance", "mb-newcomers-and-homesteads", "mb-railway-and-gold", "mb-first-world-war-and-1919",
-      "mb-depression-and-second-world-war", "mb-canada-today", "mb-government-and-democracy", "governments-and-rights", "canada-and-world-6", "map-skills", "inquiry-6",
+      "mb-depression-and-second-world-war", "mb-canada-today", "mb-government-and-democracy", "mb-rights-then-and-now", "governments-and-rights", "mb-canada-since-1945", "canada-and-world-6", "mb-industry-and-technology", "mb-identity-and-organizations", "mb-fairness-and-respect", "map-skills", "mb-canada-map-and-landforms", "inquiry-6", "mb-history-research-skills",
     ],
   }),
   ...frenchCourses("6"),

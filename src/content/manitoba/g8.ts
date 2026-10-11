@@ -6,6 +6,11 @@ import { frenchCourses } from "./french";
 import { adopt, course } from "./kit";
 import { units as social } from "./units/g8-social";
 import { units as science } from "./units/g8-science";
+import { units as moreMath } from "./units/g8-more-math";
+import { units as moreLanguage } from "./units/g8-more-language";
+import { units as moreScience } from "./units/g8-more-science";
+import { units as moreSocialA } from "./units/g8-more-social-a";
+import { units as moreSocialB } from "./units/g8-more-social-b";
 
 // Manitoba Grade 8. Math follows the Grade 8 mathematics outcomes (8.N, 8.PR, 8.SS, 8.SP), English language arts the ELA
 // curriculum (strands A to D), science the Grade 8 science outcomes (SCI.8) and social studies Origins of Western Society
@@ -27,7 +32,8 @@ export const courses: Course[] = [
       "integers-8": ["8.N.7", "multiplying and dividing integers"],
       "transformations-8": ["8.SS.6", "tessellations and the transformations that create them"],
     }),
-    order: ["squares-and-roots", "fraction-operations", "integers-8", "percents-and-money", "ratios-and-rates", "linear-equations", "pythagorean-theorem", "surface-area-volume", "transformations-8", "probability-and-data"],
+    own: moreMath,
+    order: ["squares-and-roots", "fraction-operations", "integers-8", "percents-and-money", "ratios-and-rates", "linear-equations", "pythagorean-theorem", "surface-area-volume", "mb-nets-8", "mb-views-8", "transformations-8", "probability-and-data"],
   }),
   course("8", "language", {
     share: {
@@ -43,7 +49,8 @@ export const courses: Course[] = [
       "forms-features-8": ["ELA.8.B2.1, ELA.8.B2.2", "text forms, features and cues that carry a message"],
       "writing-8": ["ELA.8.C2.5", "revising writing for clear word choice and sentence structure"],
     }),
-    order: ["strategies-8", "close-reading", "narrator-8", "literary-devices", "forms-features-8", "argument-and-media", "word-study", "grammar-and-style", "writing-8"],
+    own: moreLanguage,
+    order: ["mb-research-8", "strategies-8", "close-reading", "narrator-8", "literary-devices", "forms-features-8", "argument-and-media", "mb-fair-language-8", "word-study", "mb-word-power-8", "grammar-and-style", "mb-planning-forms-8", "writing-8", "mb-reflect-8"],
   }),
   course("8", "science", {
     share: {
@@ -55,8 +62,8 @@ export const courses: Course[] = [
       "density-buoyancy-8": ["SCI.8.E.1, SCI.8.E.2", "density as mass over volume, and how temperature changes it"],
       "viscosity-flow-8": ["SCI.8.E.3, SCI.8.D.2", "viscosity, and testing predictions with a fair experiment"],
     }),
-    own: science,
-    order: ["cells-and-life", "mb-circulatory-8", "particles-and-matter", "density-buoyancy-8", "viscosity-flow-8", "light-and-radiation", "mb-earth-energy-8", "mb-earth-structure-8"],
+    own: [...science, ...moreScience],
+    order: ["cells-and-life", "mb-circulatory-8", "particles-and-matter", "density-buoyancy-8", "viscosity-flow-8", "mb-water-8", "light-and-radiation", "mb-earth-energy-8", "mb-earth-structure-8", "mb-evidence-models-8", "mb-lab-skills-8", "mb-tech-choices-8", "mb-science-world-8"],
   }),
   course("8", "social", {
     share: {
@@ -66,8 +73,8 @@ export const courses: Course[] = [
       "renaissance-and-reformation": ["8-KI-020, 8-KH-036, 8-KH-037", "the Renaissance and the Protestant Reformation"],
       "exploration-and-exchange": ["8-KI-021, 8-KL-026, 8-KG-044", "European voyages, and their impact on the peoples they met"],
     },
-    own: social,
-    order: ["mb-history-skills-8", "mb-world-views-8", "mb-ancient-greece", "mb-ancient-rome", "medieval-europe", "islamic-world", "trade-and-empires", "renaissance-and-reformation", "exploration-and-exchange"],
+    own: [...social, ...moreSocialA, ...moreSocialB],
+    order: ["mb-history-skills-8", "mb-world-views-8", "mb-maps-8", "mb-evidence-8", "mb-perspectives-8", "mb-teamwork-8", "mb-how-societies-begin", "mb-mesopotamia", "mb-egypt-8", "mb-indus-valley-8", "mb-early-societies-8", "mb-world-religions-8", "mb-china-persia-maya", "mb-ancient-greece", "mb-ancient-rome", "mb-greek-roman-legacy", "mb-rome-trade-fall", "mb-vikings-8", "medieval-europe", "islamic-world", "mb-crusades-8", "mb-medieval-tech-8", "mb-world-timeline-8", "trade-and-empires", "renaissance-and-reformation", "exploration-and-exchange", "mb-early-modern-8", "mb-industry-8"],
   }),
   ...frenchCourses("8"),
 ];
