@@ -36,4 +36,17 @@ describe("nextUp", () => {
     expect(nextUp(derived([close, far]), ["b", "z"])?.key).toBe("b");
     expect(nextUp(derived([]), ["a"])).toBeNull();
   });
+  it("breaks a tie with the unit practised most recently, whatever the order", () => {
+    const older = stat("a", Array(7).fill(true), { lastT: 1 });
+    const newer = stat("b", Array(7).fill(true), { lastT: 2 });
+    expect(nextUp(derived([older, newer]), ["a", "b"])).toEqual({ key: "b", questions: 1, level: 2 });
+    expect(nextUp(derived([older, newer]), ["b", "a"])?.key).toBe("b");
+  });
+  it("prefers the closer unit over a more recent one, whatever the order", () => {
+    const close = stat("a", Array(7).fill(true), { lastT: 1 });
+    const far = stat("b", Array(6).fill(false), { lastT: 2 });
+    expect(questionsToNextLevel(far)!.questions).toBeGreaterThan(1);
+    expect(nextUp(derived([close, far]), ["a", "b"])?.key).toBe("a");
+    expect(nextUp(derived([close, far]), ["b", "a"])?.key).toBe("a");
+  });
 });

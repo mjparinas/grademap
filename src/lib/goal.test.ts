@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { derive } from "./derive";
-import { effectiveGoal, goalOptions } from "./goal";
+import { effectiveGoal, GOAL_LABEL, goalOptions } from "./goal";
 import { defaultChildSettings, dayKey, type AppEvent } from "./model";
 
 const day = dayKey(Date.now());
@@ -27,5 +27,11 @@ describe("daily goal choices", () => {
     const s = defaultChildSettings("p1", false);
     const old = { ...pick("stretch", 20), day: "2020-01-01" } as AppEvent;
     expect(effectiveGoal(s, derive([old]), day).level).toBe("regular");
+  });
+  it("falls back to 15 minutes without settings", () => {
+    expect(effectiveGoal(undefined, derive([]), day)).toEqual({ minutes: 15, level: "regular" });
+  });
+  it("labels each choice", () => {
+    expect(GOAL_LABEL).toEqual({ easy: { name: "Easy", icon: "🌱" }, regular: { name: "Regular", icon: "🌿" }, stretch: { name: "Stretch", icon: "🚀" } });
   });
 });

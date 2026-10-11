@@ -76,7 +76,7 @@ export function candidates(opts: PickOptions): UnitRef[] {
 
 export function pickNext(opts: PickOptions): Pick | undefined {
   const random = opts.random ?? Math.random;
-  let pool = candidates(opts);
+  const pool = candidates(opts);
   let weights = pool.map((r) => unitWeight(opts, r));
   // Review with nothing practised yet falls back to an adventure-style pick.
   if (weights.every((w) => w === 0)) {
@@ -90,7 +90,6 @@ export function pickNext(opts: PickOptions): Pick | undefined {
     roll -= weights[i];
     if (roll <= 0) break;
   }
-  pool = pool.slice();
   const ref = pool[i];
   return { ref, difficulty: difficultyFor(opts.derived.units[ref.key]?.mastery ?? 0, opts.mode) };
 }
