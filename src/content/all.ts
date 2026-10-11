@@ -36,6 +36,16 @@ import { courses as mb6 } from "./manitoba/g6";
 import { courses as mb7 } from "./manitoba/g7";
 import { courses as mb8 } from "./manitoba/g8";
 import { courses as mb9 } from "./manitoba/g9";
+import { courses as nsK } from "./nova-scotia/k";
+import { courses as ns1 } from "./nova-scotia/g1";
+import { courses as ns2 } from "./nova-scotia/g2";
+import { courses as ns3 } from "./nova-scotia/g3";
+import { courses as ns4 } from "./nova-scotia/g4";
+import { courses as ns5 } from "./nova-scotia/g5";
+import { courses as ns6 } from "./nova-scotia/g6";
+import { courses as ns7 } from "./nova-scotia/g7";
+import { courses as ns8 } from "./nova-scotia/g8";
+import { courses as ns9 } from "./nova-scotia/g9";
 import { courses as skK } from "./saskatchewan/k";
 import { courses as sk1 } from "./saskatchewan/g1";
 import { courses as sk2 } from "./saskatchewan/g2";
@@ -56,7 +66,7 @@ import type { Course, GradeId, SubjectId } from "./types";
 // into the first download. ESLint enforces this; the apps use ./index.
 
 /** Every course with at least one unit. */
-export const COURSES: Course[] = mergeCourses([k, g1, g2, g3, g4, g5, g6, g7, g8, g9, onK, on1, on2, on3, on4, on5, on6, on7, on8, on9, abK, ab1, ab2, ab3, ab4, ab5, ab6, ab7, ab8, ab9, skK, sk1, sk2, sk3, sk4, sk5, sk6, sk7, sk8, sk9, mbK, mb1, mb2, mb3, mb4, mb5, mb6, mb7, mb8, mb9]).filter(
+export const COURSES: Course[] = mergeCourses([k, g1, g2, g3, g4, g5, g6, g7, g8, g9, onK, on1, on2, on3, on4, on5, on6, on7, on8, on9, abK, ab1, ab2, ab3, ab4, ab5, ab6, ab7, ab8, ab9, skK, sk1, sk2, sk3, sk4, sk5, sk6, sk7, sk8, sk9, mbK, mb1, mb2, mb3, mb4, mb5, mb6, mb7, mb8, mb9, nsK, ns1, ns2, ns3, ns4, ns5, ns6, ns7, ns8, ns9]).filter(
   (c) => c.units.length > 0,
 );
 

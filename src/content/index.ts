@@ -74,6 +74,18 @@ const EXTRA_LOADERS: Partial<Record<FrameworkId, Partial<Record<GradeId, Loader>
     "8": () => import("./saskatchewan/g8"),
     "9": () => import("./saskatchewan/g9"),
   },
+  "ca-ns": {
+    k: () => import("./nova-scotia/k"),
+    "1": () => import("./nova-scotia/g1"),
+    "2": () => import("./nova-scotia/g2"),
+    "3": () => import("./nova-scotia/g3"),
+    "4": () => import("./nova-scotia/g4"),
+    "5": () => import("./nova-scotia/g5"),
+    "6": () => import("./nova-scotia/g6"),
+    "7": () => import("./nova-scotia/g7"),
+    "8": () => import("./nova-scotia/g8"),
+    "9": () => import("./nova-scotia/g9"),
+  },
 };
 
 /**
