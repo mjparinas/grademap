@@ -17,9 +17,8 @@ export default function OpenGraphImage() {
             <div key={c} style={{ width: 54, height: 54, borderRadius: 27, background: c }} />
           ))}
         </div>
-        <div style={{ display: "flex", fontSize: 108, fontWeight: 700, letterSpacing: -2 }}>
-          <span style={{ color: "#4f8ef7" }}>Grade</span>
-          <span style={{ color: "#e9559a" }}>Map</span>
+        <div style={{ display: "flex", fontSize: 108, fontWeight: 700, letterSpacing: -2, color: "#4f8ef7" }}>
+          {APP_NAME}
         </div>
         <div style={{ fontSize: 50, fontWeight: 700, marginTop: 12 }}>Practice that feels like play.</div>
         <div style={{ fontSize: 36, color: "#5b6680", marginTop: 18 }}>Math · Reading · Science · Social Studies · Kindergarten to Grade 9</div>

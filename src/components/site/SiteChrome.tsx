@@ -11,8 +11,7 @@ export function SiteHeader() {
     <header className="print:hidden sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
         <Link href="/" className="text-2xl font-bold tracking-tight">
-          <span className="text-[#4f8ef7]">Grade</span>
-          <span className="text-[#e9559a]">Map</span>
+          <span className="text-[#4f8ef7]">{APP_NAME}</span>
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1 text-sm font-semibold sm:gap-3 sm:text-base">
           <Link href="/curriculum/" className="rounded-lg px-2 py-1 hover:bg-black/5">
