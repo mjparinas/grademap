@@ -109,8 +109,7 @@ const BC_PROFICIENCY: ScoringScheme = {
   ],
 };
 
-export const FRAMEWORKS: Framework[] = [
-  {
+const BRITISH_COLUMBIA: Framework = {
     id: "ca-bc",
     slug: "bc",
     name: "British Columbia",
@@ -174,11 +173,103 @@ export const FRAMEWORKS: Framework[] = [
         },
       ],
     },
+};
+
+// Yukon implements the BC curriculum, adapted for the Yukon, and reports Kindergarten to Grade 9 on the same
+// four-point Provincial Proficiency Scale (Yukon Education in the CMEC Student Transfer Guide, 2023).
+// Its extra content is the Yukon First Nations governance and citizenship units in Social Studies 5.
+const YUKON: Framework = {
+  ...BRITISH_COLUMBIA,
+  id: "ca-yt",
+  slug: "yukon",
+  name: "Yukon",
+  shortName: "Yukon",
+  curriculumName: "Yukon Curriculum",
+  region: "Yukon",
+  sourceName: "Yukon Education",
+  sourceUrl: "https://yukon.ca/en/school-curriculum",
+  reportCard: {
+    title: "Understanding Yukon report cards",
+    intro:
+      "Yukon schools follow the BC curriculum, adapted for the Yukon, so report cards from Kindergarten to Grade 9 describe learning with the same four-point proficiency scale. Each level describes where a student is right now in their learning, not a pass or fail.",
+    facts: [
+      {
+        title: "Four levels, not letter grades",
+        body: "Kindergarten to Grade 9 use Emerging, Developing, Proficient and Extending. Letter grades with percentage marks start in Grade 10.",
+      },
+      {
+        title: "Written comments matter",
+        body: "Teachers add descriptive feedback: what your child can do, what they're working on, and how you can support them. Yukon schools follow the Communicating Student Learning guidelines.",
+      },
+      {
+        title: "Yukon First Nations ways of knowing, doing and being",
+        body: "Yukon Education works with Yukon First Nations to weave their languages, history, culture and ways of knowing, doing and being into every subject and grade, and Grade 5 social studies adds Yukon First Nations governance and citizenship.",
+      },
+      {
+        title: "Core Competencies",
+        body: "Students reflect on the Core Competencies (Communication, Thinking, and Personal and Social) and set goals, as in BC.",
+      },
+      {
+        title: "FSA is separate",
+        body: "Students in Grades 4 and 7 write the Foundation Skills Assessment, a separate check of reading, writing and numeracy. It isn't part of the report card.",
+      },
+    ],
+    faqs: BRITISH_COLUMBIA.reportCard.faqs,
   },
+};
+
+// The Northwest Territories is replacing the Alberta curriculum with the BC curriculum adapted for the NWT, phased in
+// since 2023 (Grades 1 to 9 on the adapted curriculum in 2026-27; Kindergarten to Grade 3 as a draft). Kindergarten
+// to Grade 9 report on the same four-point proficiency scale (NWT Education, Culture and Employment). Its extra
+// content is the NWT's own curricula that stay in schools: Dene Kede and Inuuqatigiit, plus local territory content.
+const NORTHWEST_TERRITORIES: Framework = {
+  ...BRITISH_COLUMBIA,
+  id: "ca-nt",
+  slug: "northwest-territories",
+  name: "Northwest Territories",
+  shortName: "NWT",
+  curriculumName: "NWT Curriculum",
+  region: "Northwest Territories",
+  sourceName: "NWT Education, Culture and Employment",
+  sourceUrl: "https://www.ece.gov.nt.ca/en/curriculumrenewal",
+  reportCard: {
+    title: "Understanding NWT report cards",
+    intro:
+      "NWT schools are moving from the Alberta curriculum to the BC curriculum, adapted for the NWT. Grades using the adapted curriculum describe learning with a four-point proficiency scale, and a standard NWT report card is still being developed, so your child's report may look different from one school or year to the next. Each level describes where a student is right now in their learning, not a pass or fail.",
+    facts: [
+      {
+        title: "Four levels, not letter grades",
+        body: "Grades using the adapted curriculum use Emerging, Developing, Proficient and Extending, with written comments. Grades 10 to 12 keep percentage grades.",
+      },
+      {
+        title: "A curriculum in transition",
+        body: "Grades 4 to 6 and 9 were first. Grades 7 and 8 follow, and Kindergarten to Grade 3 are on the draft curriculum in 2026-27. Ask your school which curriculum your child's grade is using this year.",
+      },
+      {
+        title: "Dene Kede and Inuuqatigiit stay",
+        body: "The NWT's own Dene Kede and Inuuqatigiit curricula weave Dene and Inuit languages, values and ways of knowing into learning, alongside the adapted BC curriculum.",
+      },
+      {
+        title: "Core Competencies",
+        body: "Students reflect on the Core Competencies (Communication, Thinking, and Personal and Social) and set goals, as in BC.",
+      },
+      {
+        title: "Assessments are changing",
+        body: "The last Alberta Achievement Tests in the NWT were written in 2023. The BC Foundation Skills Assessment is being brought in, Grade 4 first. They are separate checks of reading, writing and numeracy and are not part of the report card.",
+      },
+    ],
+    faqs: BRITISH_COLUMBIA.reportCard.faqs,
+  },
+};
+
+export const FRAMEWORKS: Framework[] = [
+  BRITISH_COLUMBIA,
   ONTARIO,
   ALBERTA,
   SASKATCHEWAN,
   MANITOBA,
+  YUKON,
+  NORTHWEST_TERRITORIES,
 ];
 
 export const DEFAULT_FRAMEWORK: FrameworkId = "ca-bc";
