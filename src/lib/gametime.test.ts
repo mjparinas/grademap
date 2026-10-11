@@ -44,6 +44,10 @@ describe("gameTime", () => {
     });
   });
 
+  it("starts a day with nothing learned or played", () => {
+    expect(gameTime(undefined, derived({}), today)).toMatchObject({ earnedSeconds: 0, usedSeconds: 0, availableSeconds: 0, nextInSeconds: 1_200, learnSecondsToday: 0 });
+  });
+
   it("returns zero when the daily allowance is used and safely handles invalid zero settings", () => {
     const d = derived({ "2026-10-09": day(0, 900) });
     expect(gameTime({ learnMinutesPerReward: 0, rewardGameMinutes: 0, maxGameMinutesPerDay: 0 } as never, d, today)).toMatchObject({
