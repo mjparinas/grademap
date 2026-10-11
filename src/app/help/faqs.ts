@@ -1,3 +1,5 @@
+import { FRAMEWORKS } from "@/content/frameworks";
+import { listRegions } from "@/content/regions";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
 
@@ -63,7 +65,7 @@ export const HELP: HelpSection[] = [
     faqs: [
       {
         q: "Which curriculum and grades does it follow?",
-        a: `Kindergarten to Grade 9 in math, English language arts, science and social studies, matched to the BC Curriculum (Yukon and the Northwest Territories follow it too, with local First Nations, Dene and Inuit content added). Ontario, Manitoba, Nova Scotia, New Brunswick and Alberta (the new K–6 curriculum and the Grades 7–9 programs of study) are also available for math, language, science, social studies and French (Core French and French Immersion), and Saskatchewan for math, language, science and social studies, Kindergarten to Grade 9, and parents can switch a child’s province in Children. Every unit shows the learning standard it practises. More provinces and states are planned.`,
+        a: `Kindergarten to Grade 9. Choose ${listRegions(FRAMEWORKS)} when you add a child, and you can switch province later in Children. Math, English language arts, science and social studies are in every province. French Immersion and Core French are included everywhere except Saskatchewan. Yukon and the Northwest Territories follow the BC curriculum, adapted with local First Nations, Dene and Inuit content. Every unit shows the learning standard it practises. More provinces and states are planned.`,
       },
       {
         q: "What is Adventure mode?",
