@@ -28,6 +28,8 @@ const FRENCH_GRADES: Record<FrameworkId, { immersion: GradeId[]; "core-french": 
   "ca-mb": { immersion: range("k", "9"), "core-french": range("4", "9") },
   // Yukon implements the BC curriculum, including BC's French programs.
   "ca-yt": { immersion: range("k", "9"), "core-french": range("5", "9") },
+  // The Northwest Territories adopts the BC curriculum (adapted), including its French programs.
+  "ca-nt": { immersion: range("k", "9"), "core-french": range("5", "9") },
 };
 
 const units = (framework: FrameworkId, grade: GradeId, subject: string) =>

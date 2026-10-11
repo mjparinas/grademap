@@ -413,24 +413,27 @@ const BC_GUIDES: FrameworkGuides = {
  * Yukon implements the BC curriculum, so its guides are BC's with the Yukon's wording: the same scale, Core
  * Competencies, Foundation Skills Assessment and French programs, described for Yukon families.
  */
-function yukonText<T>(value: T): T {
+function localText<T>(value: T, place: string, school: string, authority: string): T {
   if (typeof value === "string") {
     return value
       .replaceAll("BC Core Competencies", "Core Competencies")
-      .replaceAll("BC curriculum", "BC curriculum, adapted for the Yukon")
+      .replaceAll("BC curriculum", `BC curriculum, adapted for ${place === "the NWT" ? place : "the " + place}`)
       .replaceAll("BC Core French", "Core French")
-      .replaceAll("BC report card", "Yukon report card")
-      .replaceAll("in BC", "in the Yukon")
-      .replaceAll("BC districts", "Yukon schools")
-      .replaceAll("many BC", "many Yukon")
-      .replaceAll("your district office", "your school or Yukon Education")
+      .replaceAll("BC report card", `${place === "the NWT" ? "NWT" : place} report card`)
+      .replaceAll("in BC", `in ${place === "the NWT" ? place : "the " + place}`)
+      .replaceAll("BC districts", `${school} schools`)
+      .replaceAll("many BC", `many ${school}`)
+      .replaceAll("your district office", `your school or ${authority}`)
       .replaceAll("districts", "schools")
       .replaceAll("district", "school") as T;
   }
-  if (Array.isArray(value)) return value.map(yukonText) as T;
-  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, yukonText(v)])) as T;
+  if (Array.isArray(value)) return value.map((v) => localText(v, place, school, authority)) as T;
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, localText(v, place, school, authority)])) as T;
   return value;
 }
+
+const yukonText = <T,>(value: T): T => localText(value, "Yukon", "Yukon", "Yukon Education");
+const nwtText = <T,>(value: T): T => localText(value, "the NWT", "NWT", "NWT Education, Culture and Employment");
 
 const YUKON_GUIDES: FrameworkGuides = {
   ...yukonText(BC_GUIDES),
@@ -442,7 +445,20 @@ const YUKON_GUIDES: FrameworkGuides = {
   },
 };
 
-export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-yt": YUKON_GUIDES, "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES, "ca-mb": MANITOBA_GUIDES };
+/**
+ * The Northwest Territories is adopting the BC curriculum, adapted for the NWT, so its guides are BC's with NWT wording.
+ */
+const NWT_GUIDES: FrameworkGuides = {
+  ...nwtText(BC_GUIDES),
+  assessment: {
+    ...nwtText(BC_GUIDES.assessment),
+    source: "NWT Education, Culture and Employment",
+    intro:
+      "The Foundation Skills Assessment is a check of reading, writing and numeracy that is being brought into NWT schools as the territory adopts BC's assessments (Grade 4 from 2024-25, Grade 7 from 2026-27). It is separate from the report card and from class marks. Check with your school for this year's schedule.",
+  },
+};
+
+export const GUIDES: Partial<Record<FrameworkId, FrameworkGuides>> = { "ca-nt": NWT_GUIDES, "ca-yt": YUKON_GUIDES, "ca-bc": BC_GUIDES, "ca-on": ONTARIO_GUIDES, "ca-ab": ALBERTA_GUIDES, "ca-sk": SASKATCHEWAN_GUIDES, "ca-mb": MANITOBA_GUIDES };
 
 export const GUIDE_FRAMEWORKS = FRAMEWORKS.filter((f) => GUIDES[f.id]);
 
