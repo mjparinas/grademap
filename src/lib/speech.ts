@@ -167,23 +167,44 @@ function forSpeech(text: string, language: SpeechLanguage = "en"): string {
 // A touch slower than normal for young listeners.
 const RATE = 0.92;
 
+// Chrome on Android silently drops an utterance spoken straight after cancel(), so there speech
+// waits this long after a cancel. Still well inside the tap's user activation.
+const ANDROID_CANCEL_GAP = 150;
+let cancelledAt = 0;
+let speakTimer: ReturnType<typeof setTimeout> | undefined;
+// Chrome can garbage-collect an utterance mid-speech and never fire onend, which stalls a sequence.
+let current: SpeechSynthesisUtterance | undefined;
+
+function isAndroid(): boolean {
+  return typeof navigator !== "undefined" && /android/i.test(navigator.userAgent ?? "");
+}
+
 function utter(text: string, option: VoiceOption | undefined, onFail?: () => void, language: SpeechLanguage = "en", onDone?: () => void) {
   if (!hasSynth()) return onDone?.();
   const synth = window.speechSynthesis;
   const u = new SpeechSynthesisUtterance(forSpeech(text, language));
   const voice = option ? synth.getVoices().find((v) => v.voiceURI === option.uri) : undefined;
   if (voice) u.voice = voice;
-  u.lang = voice?.lang ?? (language === "fr" ? "fr-CA" : "en-CA");
+  // Older Android Chrome reports "en_US", which isn't a valid language tag.
+  u.lang = voice?.lang.replace("_", "-") ?? (language === "fr" ? "fr-CA" : "en-CA");
   // Natural pitch: raising it makes good voices sound processed.
   u.rate = RATE;
   u.pitch = 1;
-  u.onend = () => onDone?.();
+  u.onend = () => {
+    if (current === u) current = undefined;
+    onDone?.();
+  };
   u.onerror = (e) => {
+    if (current === u) current = undefined;
     if (e.error === "interrupted" || e.error === "canceled") return;
     if (onFail) onFail();
     else onDone?.();
   };
-  synth.speak(u);
+  current = u;
+  const wait = isAndroid() ? cancelledAt + ANDROID_CANCEL_GAP - Date.now() : 0;
+  if (wait <= 0) return synth.speak(u);
+  const id = run;
+  speakTimer = setTimeout(() => id === run && synth.speak(u), wait);
 }
 
 function queue(text: string, voiceUri: string | null | undefined, language: SpeechLanguage, onDone?: () => void) {
@@ -206,9 +227,13 @@ function queueDevice(text: string, voiceUri: string | null | undefined, language
   const list = language === "fr" ? rankedFr : ranked;
   const preferred = voiceUri !== undefined ? voiceUri : getVoicePreference(language);
   const choice = chooseVoice(list, preferred, offline);
-  // A cloud voice can fail on a flaky connection: try again with the best on-device voice.
+  // A cloud voice can fail on a flaky connection: try again with the best on-device voice. Any
+  // named voice can fail too (Android lists voices whose data isn't downloaded), so the last try
+  // names no voice and lets the system's default voice for the language read.
   const fallback = choice?.online ? chooseVoice(list, null, true) : undefined;
-  utter(text, choice, fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback, undefined, language, onDone) : undefined, language, onDone);
+  const plain = () => utter(text, undefined, undefined, language, onDone);
+  const next = fallback && fallback.uri !== choice?.uri ? () => utter(text, fallback, plain, language, onDone) : plain;
+  utter(text, choice, choice ? next : undefined, language, onDone);
 }
 
 export function speak(text: string, voiceUri?: string | null, language: SpeechLanguage = "en") {
@@ -232,8 +257,15 @@ let pauseTimer: ReturnType<typeof setTimeout> | undefined;
 function cancelAll() {
   run++;
   clearTimeout(pauseTimer);
+  clearTimeout(speakTimer);
   stopPiper();
-  if (hasSynth()) window.speechSynthesis.cancel();
+  if (!hasSynth()) return;
+  const synth = window.speechSynthesis;
+  // On Android a cancel with nothing playing still swallows the next utterance, so skip it there.
+  if (isAndroid() && !synth.speaking && !synth.pending) return;
+  synth.cancel();
+  cancelledAt = Date.now();
+  current = undefined;
 }
 
 /** Speaks pieces one after another, each in its own language, with optional pauses between them. */
