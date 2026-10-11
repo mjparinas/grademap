@@ -1,5 +1,7 @@
 // App name: change it here and it updates across the site and the install manifest.
 export const APP_NAME = "Gradelings";
+/** Per-letter colours for the name, shared by the play screen and the public header. */
+export const WORDMARK_COLOURS = ["#4f8ef7", "#e9559a", "#25b47e", "#ff9636", "#8b5cf6", "#06b6d4"] as const;
 export const MASCOT_NAME = "Ollie";
 
 // Used by the privacy policy and terms. Replace both before launch (see docs/DEPLOY.md).
