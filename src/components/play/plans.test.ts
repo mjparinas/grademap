@@ -1,7 +1,9 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { allUnitRefs, loadGrade } from "@/content";
+import { allUnitRefs, loadGrade, type UnitRef } from "@/content";
+import { hashSeed, shuffle, withSeed } from "@/content/random";
 import type { SubjectId } from "@/content/types";
 import { derive, type UnitStat } from "@/lib/derive";
+import { dayKey } from "@/lib/model";
 import { makePlan, suggestions, type Plan, type PlanInput } from "./plans";
 
 beforeAll(() => loadGrade("2"));
@@ -36,6 +38,20 @@ const prompts = (plan: Plan) =>
     return `${item?.unitKey}|${item?.difficulty}|${item?.question.prompt}`;
   });
 
+/** The day's units, in subject order: math, language, math, language, and so on. */
+function dailyUnitKeys(profileId: string, when: number, subjects: SubjectId[], allowed: (ref: UnitRef) => boolean) {
+  return withSeed(hashSeed(`${profileId}:daily:${dayKey(when)}`), () => {
+    const refs = allUnitRefs("2", "ca-bc").filter((r) => subjects.includes(r.course.subject) && allowed(r));
+    const bySubject = subjects.map((s) => shuffle(refs.filter((r) => r.course.subject === s))).filter((list) => list.length);
+    const chosen: string[] = [];
+    for (let i = 0; chosen.length < 10 && bySubject.length; i++) {
+      const list = bySubject[i % bySubject.length];
+      chosen.push(list[Math.floor(i / bySubject.length) % list.length].key);
+    }
+    return chosen;
+  });
+}
+
 describe("makePlan", () => {
   it("gives a Challenge ten hard questions, no retries, and a longer clock for little kids", () => {
     const older = makePlan(input({ mode: "challenge", scope: UNIT }));
@@ -59,6 +75,9 @@ describe("makePlan", () => {
     expect(next(0.5)?.difficulty).toBe(2);
     expect(next(0.84)?.difficulty).toBe(2);
     expect(next(0.85)?.difficulty).toBe(3);
+    const practice = makePlan(input({ mode: "practice", scope: UNIT }))!;
+    expect(practice.retries).toBe(true);
+    expect(practice.total).toBeLessThan(10);
     expect(makePlan(input({ mode: "practice", scope: "2/math/not-a-unit" }))).toBeNull();
   });
 
@@ -68,8 +87,16 @@ describe("makePlan", () => {
     expect(run?.total).toBeUndefined();
     const little = makePlan(input({ mode: "speed", scope: "math", band: "little" }));
     expect(little).toMatchObject({ title: "Numbers Speed Run", timeLimit: 90 });
-    const item = run!.next({ index: 0, recent: [], derived: derive([]) });
-    expect(item?.question.kind === "choice" || item?.question.kind === "input").toBe(true);
+    expect(makePlan(input({ mode: "speed", scope: "mix" }))?.title).toBe("Speed Run");
+    expect(makePlan(input({ mode: "review" }))?.retries).toBe(true);
+    expect(makePlan(input({ mode: "adventure" }))?.retries).toBe(true);
+    const quick = (kind: string | undefined) => kind === "choice" || kind === "input";
+    expect(quick(run!.next({ index: 0, recent: [], derived: derive([]) })?.question.kind)).toBe(true);
+    const placeValue = makePlan(input({ mode: "speed", scope: "math", allowed: (ref) => ref.key === UNIT }))!;
+    for (let i = 0; i < 20; i++) {
+      const kind = placeValue.next({ index: 0, recent: [], derived: derive([]) })?.question.kind;
+      expect(quick(kind)).toBe(true);
+    }
   });
 
   it("gives everyone the same Daily Challenge for a day, then a new one the next day", () => {
@@ -79,9 +106,14 @@ describe("makePlan", () => {
     expect(first).toMatchObject({ total: 10, retries: true, feedback: "bar" });
     expect(first.timeLimit).toBeUndefined();
     const today = prompts(first);
+    const keys = today.map((line) => line.split("|")[0]);
     expect(today).toHaveLength(10);
-    expect(today.every((line) => line.startsWith("2/") && line.includes("|2|"))).toBe(true);
+    expect(keys).toEqual(dailyUnitKeys("p", new Date(2026, 9, 10, 12).getTime(), ["math", "language"], () => true));
+    expect(keys.filter((key) => key.startsWith("2/math/")).length).toBeGreaterThan(0);
+    expect(keys.filter((key) => key.startsWith("2/language/")).length).toBeGreaterThan(0);
+    expect(today.every((line) => line.includes("|2|"))).toBe(true);
     expect(prompts(again)).toEqual(today);
+    expect(makePlan(input({ mode: "daily", subjects: ["math"], allowed: () => false }))?.total).toBe(0);
 
     now.mockReturnValue(new Date(2026, 9, 12, 12).getTime());
     expect(prompts(makePlan(input({ mode: "daily" }))!)).not.toEqual(today);
@@ -97,12 +129,13 @@ describe("suggestions", () => {
   it("leads with one weak unit, then units not started yet", () => {
     const refs = math();
     const derived = derive([]);
-    const weak = refs[2];
-    derived.units[weak.key] = { mastery: 0.4 } as UnitStat;
+    const weak = refs.slice(0, 3);
+    for (const unit of weak) derived.units[unit.key] = { mastery: 0.4 } as UnitStat;
     const picked = suggestions("2", "ca-bc", derived, ["math"], () => true);
-    expect(picked.map((r) => r.key)[0]).toBe(weak.key);
+    const weakKeys = new Set(weak.map((unit) => unit.key));
     expect(picked).toHaveLength(3);
-    expect(picked.slice(1).every((r) => !derived.units[r.key])).toBe(true);
+    expect(picked.filter((unit) => weakKeys.has(unit.key))).toHaveLength(1);
+    expect(picked.filter((unit) => !derived.units[unit.key])).toHaveLength(2);
     expect(picked.every((r) => r.course.subject === "math")).toBe(true);
   });
 

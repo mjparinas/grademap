@@ -131,6 +131,10 @@ describe("placement", () => {
     expect(latest.math?.placedGrade).toBe("4");
     expect(latest.math?.t).toBe(5);
     expect(latest.language?.placedGrade).toBe("1");
-    expect(latest.science).toBeUndefined();
+    expect(Object.keys(latest).sort()).toEqual(["language", "math"]);
+
+    const tied = latestPlacements([event("first", 5, "math", "2"), event("second", 5, "math", "9")]);
+    expect(tied.math?.id).toBe("first");
+    expect(tied.math?.placedGrade).toBe("2");
   });
 });

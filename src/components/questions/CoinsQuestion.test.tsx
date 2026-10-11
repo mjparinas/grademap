@@ -44,7 +44,7 @@ describe("CoinsQuestion", () => {
   });
 
   it("shows the fewest coins when the answer is revealed", () => {
-    setup({ ...q, target: 40 }, "revealed");
+    setup({ ...q, target: 40, coins: [5, 10, 25] }, "revealed");
     expect(screen.getByRole("button", { name: "Take out quarter" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Take out dime" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Take out nickel" })).toBeInTheDocument();
