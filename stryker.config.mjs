@@ -20,6 +20,10 @@ const config = {
     "src/lib/plan.ts",
     "src/lib/buddy.ts",
     "src/lib/familyGoal.ts",
+    "src/lib/quests.ts",
+    "src/lib/shop.ts",
+    "src/lib/milestones.ts",
+    "src/lib/reports.ts",
   ],
   // Copy and labels aren't rules; a surviving string mutant there is noise.
   mutator: { excludedMutations: ["StringLiteral"] },
