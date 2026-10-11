@@ -4,13 +4,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Critter } from "@/components/Critter";
 import { SitePage } from "@/components/site/SiteChrome";
-import { coursesFor, curriculumPath, gradesWithContent, subjectSeoTitle } from "@/components/site/curriculum";
+import { coursesFor, curriculumPath, gradesWithContent } from "@/components/site/curriculum";
+import { kidPracticeSteps, provinceCoverage, regionList, subjectList } from "@/components/site/provinces";
 import { GAMES } from "@/components/play/games/types";
-import { DEFAULT_FRAMEWORK, FRAMEWORKS, getFramework } from "@/content/frameworks";
-import { GRADE_LABEL, SUBJECTS, isCoreSubject } from "@/content/subjects";
+import { FRAMEWORKS, type Framework } from "@/content/frameworks";
+import { GRADE_LABEL } from "@/content/subjects";
 import { APP_NAME } from "@/lib/brand";
 import { FREE_UNITS_PER_COURSE, MAX_CHILDREN, PRICES, TRIAL_DAYS } from "@/lib/plan";
-import { TEACHER_FRAMEWORKS, TEACHER_SIGNUP, teacherPath } from "@/components/site/teachers";
+import { TEACHER_SIGNUP, teacherPath } from "@/components/site/teachers";
 import { JsonLd, ORG_JSON_LD, SITE_URL, absolute } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ const FEATURES = [
   { icon: "⏱️", title: "Learn first, then play", body: "Focused practice earns arcade time. You choose the ratio (20 minutes of learning unlocks 5 minutes of games by default) and a daily cap." },
   { icon: "🏆", title: "Trophies, levels & quests", body: "Bronze to platinum trophies with console-style pop-ups, XP and levels, daily quests, streaks and a shop of critter companions." },
   { icon: "🎯", title: "Modes for every mood", body: "Practice, Review for tricky spots, Speed Run against the clock, a Daily Challenge, and a timed Challenge to show mastery." },
-  { icon: "📈", title: "Reports you can read", body: "Progress is described with the same four levels as the report card, with weekly trends, strengths, next steps and printable summaries." },
+  { icon: "📈", title: "Reports you can read", body: "Progress follows your province's report-card levels, with weekly trends, strengths, next steps and printable summaries." },
   { icon: "📶", title: "Works offline", body: "Install it on a tablet or phone and it keeps working with no internet. Progress, scores and trophies sync when you're back online." },
   { icon: "🙈", title: "No ads, ever", body: "No ads, no tracking pixels and no selling data. Kids see a first name and an avatar, nothing more." },
   { icon: "👨‍👩‍👧", title: "One plan, whole family", body: `Up to ${MAX_CHILDREN} children on one family plan, each with their own grade, settings and progress.` },
@@ -37,7 +38,7 @@ const FAQS = [
   },
   {
     q: "Is it matched to our provincial curriculum?",
-    a: "Yes. Choose British Columbia, Ontario, Alberta, Saskatchewan, Manitoba, Yukon, the Northwest Territories, Nova Scotia or New Brunswick. Every unit is tagged with the learning standard it practises, and parent reports use your province's report-card levels (in BC, Yukon and the Northwest Territories: Emerging, Developing, Proficient, Extending; in Ontario: Levels 1 to 4; in Saskatchewan: Beginning, Approaching, Meeting, Exemplary; in Manitoba: Levels 1 to 4; in Nova Scotia: a four-step scale matched to each grade band; in New Brunswick: a four-point scale from working below to excelling). Alberta has no single provincial report-card scale, so reports use four plain practice steps you can match to your school's. Ontario and Alberta cover math, language, science, social studies and French (Core and Immersion) from Kindergarten to Grade 9. Saskatchewan covers math, language, science and social studies. More provinces and states are on the way.",
+    a: `Yes. Choose ${regionList(FRAMEWORKS)} when you add a child. Every unit is tagged with that province's learning standard, and parent reports use that province's report-card levels. More provinces and states are on the way.`,
   },
   {
     q: "Does it work without internet?",
@@ -57,11 +58,29 @@ const FAQS = [
   },
 ];
 
+function ProvinceLinks({ frameworks, withRange = false }: { frameworks: readonly Framework[]; /** Adds each province's grade span when they don't share one. */ withRange?: boolean }) {
+  return frameworks.map((f, i) => {
+    const from = GRADE_LABEL[f.grades[0]];
+    const to = GRADE_LABEL[f.grades[f.grades.length - 1]];
+    return (
+      <span key={f.id}>
+        {i > 0 && (i === frameworks.length - 1 ? " and " : ", ")}
+        <Link href={curriculumPath.framework(f)} className="font-semibold text-[#2f6fd6] underline">
+          {f.region}
+          {withRange ? ` (${from === to ? from : `${from} to ${to}`})` : ""}
+        </Link>
+      </span>
+    );
+  });
+}
+
+function unitsIn(framework: Framework): number {
+  return gradesWithContent(framework).reduce((n, g) => n + coursesFor(framework, g).reduce((m, c) => m + c.units.length, 0), 0);
+}
+
 export default function Home() {
-  const framework = getFramework(DEFAULT_FRAMEWORK);
-  const grades = gradesWithContent(framework);
-  const unitCount = grades.reduce((n, g) => n + coursesFor(framework, g).reduce((m, c) => m + c.units.length, 0), 0);
-  const scheme = framework.scoringFor("3");
+  const coverage = provinceCoverage(FRAMEWORKS);
+  const kidSteps = kidPracticeSteps(FRAMEWORKS);
 
   return (
     <SitePage>
@@ -104,22 +123,30 @@ export default function Home() {
             <Link href="/play/" className="btn btn-good min-h-14 px-6 text-xl">
               Start free for {TRIAL_DAYS} days
             </Link>
-            <Link href={curriculumPath.framework(framework)} className="btn min-h-14 px-6 text-xl">
+            <Link href={curriculumPath.index()} className="btn min-h-14 px-6 text-xl">
               See what&apos;s covered
             </Link>
           </div>
           <p className="mt-4 max-w-xl font-read text-ink-soft">
-            Choose your province when you add a child:{" "}
-            {FRAMEWORKS.map((f, i) => (
-              <span key={f.id}>
-                {i > 0 && " and "}
-                <Link href={curriculumPath.framework(f)} className="font-semibold text-[#2f6fd6] underline">
-                  {f.region}
-                </Link>{" "}
-                ({f.subjects.map((s) => subjectSeoTitle(s).toLowerCase()).join(", ")}, up to {GRADE_LABEL[f.grades[f.grades.length - 1]]})
-              </span>
-            ))}
-            . More provinces and states are coming.
+            Choose your province when you add a child: <ProvinceLinks frameworks={FRAMEWORKS} withRange={coverage.range === null} />.
+          </p>
+          <p className="mt-2 max-w-xl font-read text-ink-soft">
+            They cover {subjectList(coverage.sharedSubjects)}
+            {coverage.range ? ` from ${GRADE_LABEL[coverage.range.from]} to ${GRADE_LABEL[coverage.range.to]}` : ""}.
+            {coverage.gaps.map((gap) =>
+              gap.style === "except" ? (
+                <span key={gap.subjects.join(",")}>
+                  {" "}
+                  {subjectList(gap.subjects)} {gap.subjects.length === 1 ? "is" : "are"} included everywhere except <ProvinceLinks frameworks={gap.missing} />.
+                </span>
+              ) : (
+                <span key={gap.subjects.join(",")}>
+                  {" "}
+                  <ProvinceLinks frameworks={gap.included} /> also {gap.included.length === 1 ? "includes" : "include"} {subjectList(gap.subjects)}.
+                </span>
+              ),
+            )}{" "}
+            More provinces and states are coming.
           </p>
           <p className="mt-3 text-sm text-ink-soft">No card needed · No ads · Works offline</p>
           <p className="mt-3 font-read text-ink-soft">
@@ -184,19 +211,17 @@ export default function Home() {
       {/* Coverage */}
       <section aria-labelledby="coverage" className="py-8">
         <h2 id="coverage" className="mb-2 text-3xl font-bold sm:text-4xl">
-          Every grade, every subject
+          Every province, every grade
         </h2>
-        <p className="mb-6 font-read text-lg text-ink-soft">
-          {unitCount} units across {grades.length} grades, each matched to a {framework.curriculumName} learning standard.
+        <p className="mb-6 max-w-2xl font-read text-lg text-ink-soft">
+          {coverage.range ? `${GRADE_LABEL[coverage.range.from]} to ${GRADE_LABEL[coverage.range.to]}. ` : ""}
+          Each unit is matched to your province&apos;s learning standards.
         </p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {grades.map((g) => (
-            <Link key={g} href={curriculumPath.grade(framework, g)} className="card flex flex-col gap-1 p-4 hover:border-[#4f8ef7]">
-              <span className="text-xl font-bold">{GRADE_LABEL[g]}</span>
-              <span className="text-sm text-ink-soft">{coursesFor(framework, g).reduce((n, c) => n + c.units.length, 0)} units</span>
-              <span className="text-lg" aria-hidden="true">
-                {SUBJECTS.filter((s) => isCoreSubject(s.id)).map((s) => s.emoji).join(" ")}
-              </span>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {FRAMEWORKS.map((f) => (
+            <Link key={f.id} href={curriculumPath.framework(f)} className="card flex flex-col gap-1 p-4 hover:border-[#4f8ef7]">
+              <span className="text-xl font-bold">{f.region}</span>
+              <span className="text-sm text-ink-soft">{unitsIn(f)} units</span>
             </Link>
           ))}
         </div>
@@ -207,22 +232,22 @@ export default function Home() {
         <div className="grid items-center gap-6 md:grid-cols-2">
           <div>
             <h2 id="report" className="text-3xl font-bold sm:text-4xl">
-              Speaks report-card language
+              Speaks your report card&apos;s language
             </h2>
             <p className="mt-3 font-read text-lg text-ink-soft">
-              {framework.name} report cards don&apos;t use letter grades until high school. {APP_NAME} tracks each skill on the same four-level scale, so you can see what your child&apos;s report card means and exactly what to practise next.
+              Parent reports use your province&apos;s own report-card levels, in plain words, so you can see what the wording means and what to practise next. Kids see the same four steps in every province. This describes practice, not a report-card mark.
             </p>
-            <Link href={`/report-cards/${framework.slug}/`} className="btn mt-5 min-h-12 px-5 text-lg">
-              Read the report card guide
+            <Link href="/report-cards/" className="btn mt-5 min-h-12 px-5 text-lg">
+              Report cards by province
             </Link>
           </div>
           <ol className="grid grid-cols-2 gap-3">
-            {scheme.levels.map((l) => (
-              <li key={l.id} className="rounded-2xl bg-paper p-4">
+            {kidSteps.map((l) => (
+              <li key={l.kidLabel} className="rounded-2xl bg-paper p-4">
                 <p className="text-3xl" aria-hidden="true">
                   {l.icon}
                 </p>
-                <p className="text-lg font-bold">{l.label}</p>
+                <p className="text-lg font-bold">{l.kidLabel}</p>
                 <p className="font-read text-sm text-ink-soft">{l.atHome}</p>
               </li>
             ))}
@@ -238,7 +263,7 @@ export default function Home() {
               Teaching a class?
             </h2>
             <p className="mt-3 font-read text-lg text-ink-soft">
-              Create a class, assign {TEACHER_FRAMEWORKS.map((f) => f.curriculumName).join(" and ")} units and see how each student is practising. Families join with a code and choose what is shared. Classes are free for now.
+              Create a class, pick your province, and assign units from that curriculum. Families join with a code and choose what is shared. Classes are free for now.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link href={TEACHER_SIGNUP} className="btn btn-good min-h-12 px-5 text-lg">
